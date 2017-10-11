@@ -1,21 +1,27 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import RaisedButton from 'material-ui/RaisedButton';
 
+import DialogAddMovie from './components/DialogAddMovie/index'
+import { showDialogAddMovie } from './actions'
 
-const buttonStyle = {
-  margin: 'auto'
-};
 
 class Movies extends Component {
   
-  launchNewModal() {
-    console.log("OK");
+  constructor({ addAMovie }) {
+    super();
+    this.addAMovie = addAMovie;
+  }
+  
+  openModal() {
+  
   }
   
   render() {
     return (
       <div>
-        <RaisedButton label="Add" primary={true} style={buttonStyle} onClick={this.launchNewModal}/>
+        <RaisedButton label="Add" primary={true} onClick={this.addAMovie}/>
+        <DialogAddMovie/>
       </div>
     )
   
@@ -23,4 +29,20 @@ class Movies extends Component {
   
 }
 
-export default Movies;
+const mapStateToProps = state => {
+  return {
+  }
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    addAMovie: () => {
+      dispatch(showDialogAddMovie());
+    }
+  }
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Movies);
