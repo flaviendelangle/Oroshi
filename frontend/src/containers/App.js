@@ -1,24 +1,65 @@
-import React from 'react'
+import React, { Component } from 'react'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { createStore } from 'redux'
-import { Provider } from 'react-redux'
+import { Provider, connect } from 'react-redux'
+import { withRouter } from 'react-router'
 
-import Header from './Header'
+import Header from '../components/Header/index'
 import Main from './Main'
 import reducer from './reducer'
+import { updateLocation } from './actions'
 import './App.css';
 
 let store = createStore(reducer);
 
-const App = () => (
-  <MuiThemeProvider>
-    <Provider store={store}>
+class App extends Component {
+
+    render() {
+      return (
+        <MuiThemeProvider>
+          <Provider store={store}>
+            <Root/>
+          </Provider>
+        </MuiThemeProvider>
+      )
+    }
+}
+
+class Root extends Component {
+  
+  constructor(props) {
+    super(props);
+    this.props.history.listen((location, action) => {
+      this.props.updateLocation(location, action);
+    });
+  }
+  
+  render() {
+    return (
       <div>
         <Header />
         <Main />
       </div>
-    </Provider>
-  </MuiThemeProvider>
-);
+    )
+  }
+}
+
+const mapStateToProps = state => {
+  return {
+  }
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    updateLocation: (newLocation, action) => {
+      dispatch(updateLocation(newLocation, action));
+    },
+  }
+};
+
+Root = withRouter(connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Root));
 
 export default App

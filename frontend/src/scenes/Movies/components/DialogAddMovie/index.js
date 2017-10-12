@@ -1,59 +1,63 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+import { Field, reduxForm } from 'redux-form'
 import { connect } from 'react-redux'
-import Dialog from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
+import Dialog from 'material-ui/Dialog'
+import FlatButton from 'material-ui/FlatButton'
+import { TextField } from 'redux-form-material-ui'
 
+import { showDialogAddMovie } from './actions'
 
 class DialogAddMovie extends Component {
-  
-  state = {
-    isOpen: false
-  };
   
   constructor(props) {
     super();
     this.props = props;
-    
-
+    this.close = props.close;
+    this.save = props.handleSubmit;
   }
-  
-  handleOpen = () => {
-    //this.setState({isOpen: true});
-  };
-  
-  handleClose = () => {
-    //this.setState({isOpen: false});
-  };
   
   render() {
     const actions = [
       <FlatButton
         label="Cancel"
         primary={true}
-        onClick={this.handleClose}
+        onClick={this.close}
       />,
       <FlatButton
-        label="Submit"
+        label="Save"
+        type="submit"
         primary={true}
-        disabled={true}
-        onClick={this.handleClose}
+        onClick={this.save}
       />,
     ];
     
     return (
-      <div>
         <Dialog
-          title="Dialog With Actions"
+          title="New movie"
           actions={actions}
           modal={true}
           open={this.props.isOpen}
         >
-          Only actions can close this dialog.
+          <form>
+            <div>
+              <Field name="title" hintText="Title" component={TextField} />
+            </div>
+            <div>
+              <Field name="director" hintText="Director" component={TextField} />
+            </div>
+            <div>
+              <Field name="year" hintText="Year of release" component={TextField} />
+            </div>
+            <button type="submit" style={{ display: 'none' }} />
+          </form>
         </Dialog>
-      </div>
     );
   }
 }
+
+DialogAddMovie = reduxForm({
+  form: 'DialogAddMovie'
+})(DialogAddMovie);
 
 const mapStateToProps = state => {
   return {
@@ -63,7 +67,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-
+    close: () => {
+      dispatch(showDialogAddMovie(false));
+    }
   }
 };
 

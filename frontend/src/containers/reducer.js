@@ -1,9 +1,19 @@
 import { combineReducers } from 'redux'
+import { reducer as form } from 'redux-form'
 
-import moviesReducer from '../scenes/Movies/reducer'
+import header from '../components/Header/reducer'
+
+import movies from '../scenes/Movies/reducer'
 
 const reducer = combineReducers({
-  movies: moviesReducer
+  // External modules
+  form,
+  
+  // Generics
+  header,
+  
+  // Scenes
+  movies
 });
 
 export default reducer;

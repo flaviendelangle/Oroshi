@@ -1,20 +1,20 @@
 import { combineReducers } from 'redux'
 
-import dialogAddMovie from './components/DialogAddMovie/reducer'
+import mainDrawer from './components/MainDrawer/reducer'
 
 const main = (state = {}, action) => {
-
-    switch(action.type) {
-      default:
-        return state;
-    }
-
-
+  
+  switch(action.type) {
+    default:
+      return state;
+  }
+  
+  
 };
 
 const reducer = combineReducers({
   main,
-  dialogAddMovie
+  mainDrawer
 });
 
 
