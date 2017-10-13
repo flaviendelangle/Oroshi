@@ -3,11 +3,6 @@ import DataTables from 'material-ui-datatables'
 
 class ContentTable extends Component {
   
-  constructor() {
-    super();
-  }
-  
-  
   handleCellClick = (key, order) => {
   };
   

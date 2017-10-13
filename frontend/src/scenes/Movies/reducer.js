@@ -2,6 +2,7 @@ import { combineReducers } from 'redux'
 
 import dialogAddMovie from './components/DialogAddMovie/reducer'
 import moviesTable from './components/MoviesTable/reducer'
+import menu from './components/Menu/reducer'
 
 const main = (state = {}, action) => {
 
@@ -15,6 +16,7 @@ const main = (state = {}, action) => {
 
 const reducer = combineReducers({
   main,
+  menu,
   dialogAddMovie,
   moviesTable
 });

@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import RaisedButton from 'material-ui/RaisedButton';
 
 import DialogAddMovie from './components/DialogAddMovie/index'
 import MoviesTable from './components/MoviesTable/index'
+import Menu from './components/Menu/index'
+
 import { synchronizeMovies } from './actions'
 import { showDialogAddMovie } from './components/DialogAddMovie/actions'
 import { MoviesAPI } from './api'
@@ -12,7 +13,6 @@ class Movies extends Component {
   
   constructor({ openModal, closeModal, synchronize }) {
     super();
-    this.openModal = openModal;
     this.closeModal = closeModal;
     this.synchronize = synchronize;
     this.synchronize();
@@ -26,8 +26,8 @@ class Movies extends Component {
     return (
       <div>
         <MoviesTable/>
-        <RaisedButton label="Add" primary={true} onClick={this.openModal}/>
         <DialogAddMovie onSubmit={this.saveNewMovie}/>
+        <Menu/>
       </div>
     )
   
@@ -42,9 +42,6 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    openModal: () => {
-      dispatch(showDialogAddMovie(true));
-    },
     closeModal: (data) => {
       dispatch(showDialogAddMovie(false));
     },

@@ -16,10 +16,6 @@ const TABLE_COLUMNS = [
 ];
 
 class MoviesTable extends ContentTable {
-
-  constructor() {
-    super();
-  }
   
   render() {
     this.params = {
