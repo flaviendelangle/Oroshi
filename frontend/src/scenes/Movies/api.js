@@ -7,7 +7,7 @@ export class MoviesAPI extends API {
   };
   
   static list = () => {
-    return API.GET(MoviesAPI.config.url);
+    return API.list(MoviesAPI);
   };
   
   static create = (body) => {

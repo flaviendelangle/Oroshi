@@ -15,20 +15,17 @@ const TABLE_COLUMNS = [
   }
 ];
 
-const TABLE_DATA = [];
-
-
 class MoviesTable extends ContentTable {
 
   constructor() {
     super();
-    this.params = {
-      columns: TABLE_COLUMNS,
-      data: TABLE_DATA
-    };
   }
   
   render() {
+    this.params = {
+      columns: TABLE_COLUMNS,
+      data: this.props.movies
+    };
     return super.render(this.params);
   }
   
@@ -36,6 +33,7 @@ class MoviesTable extends ContentTable {
 
 const mapStateToProps = state => {
   return {
+    movies: state.movies.moviesTable.movies
   }
 };
 

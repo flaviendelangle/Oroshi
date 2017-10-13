@@ -4,14 +4,18 @@ import RaisedButton from 'material-ui/RaisedButton';
 
 import DialogAddMovie from './components/DialogAddMovie/index'
 import MoviesTable from './components/MoviesTable/index'
+import { synchronizeMovies } from './actions'
 import { showDialogAddMovie } from './components/DialogAddMovie/actions'
+import { MoviesAPI } from './api'
 
 class Movies extends Component {
   
-  constructor({ openModal, closeModal }) {
+  constructor({ openModal, closeModal, synchronize }) {
     super();
     this.openModal = openModal;
     this.closeModal = closeModal;
+    this.synchronize = synchronize;
+    this.synchronize();
   }
   
   saveNewMovie = (data) => {
@@ -43,6 +47,11 @@ const mapDispatchToProps = dispatch => {
     },
     closeModal: (data) => {
       dispatch(showDialogAddMovie(false));
+    },
+    synchronize: () => {
+      MoviesAPI.list().then((response) => {
+        dispatch(synchronizeMovies(response));
+      });
     }
   }
 };

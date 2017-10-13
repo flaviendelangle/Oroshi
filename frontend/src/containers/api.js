@@ -37,22 +37,29 @@ class API {
     return form;
   };
   
+  static url = (child) => {
+    return API.config.url + child.config.root;
+  };
+  
   
   /*
    REST API
    */
   static detail_route = (child, route_name, value) => {
     value = encodeURIComponent(value).replace(/\./g, '%2E');
-    const url = API.config.url + child.config.root + value + '/' + route_name + '/';
+    const url = API.url(child) + value + '/' + route_name + '/';
     return API.GET(url);
   };
   
   static create = (child, body) => {
-    const url = API.config.url + child.config.root;
     const data = {
       body: API.objectToFormData(body)
     };
-    return API.POST(url, data);
+    return API.POST(API.url(child), data);
+  };
+  
+  static list = (child) => {
+    return API.GET(API.url(child));
   };
   
   

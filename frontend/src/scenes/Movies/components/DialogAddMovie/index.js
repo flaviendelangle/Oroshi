@@ -11,7 +11,6 @@ class DialogAddMovie extends Component {
   
   constructor(props) {
     super();
-    this.props = props;
     this.close = props.close;
     this.save = props.handleSubmit;
   }
