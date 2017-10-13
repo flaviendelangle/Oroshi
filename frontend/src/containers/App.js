@@ -3,6 +3,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { createStore } from 'redux'
 import { Provider, connect } from 'react-redux'
 import { withRouter } from 'react-router'
+import injectTapEventPlugin from "react-tap-event-plugin"
 
 import Header from '../components/Header/index'
 import Main from './Main'
@@ -11,6 +12,8 @@ import { updateLocation } from './actions'
 import './App.css';
 
 let store = createStore(reducer);
+injectTapEventPlugin();
+
 
 class App extends Component {
 

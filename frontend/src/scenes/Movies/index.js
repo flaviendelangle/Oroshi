@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import RaisedButton from 'material-ui/RaisedButton';
 
 import DialogAddMovie from './components/DialogAddMovie/index'
+import MoviesTable from './components/MoviesTable/index'
 import { showDialogAddMovie } from './components/DialogAddMovie/actions'
 
 class Movies extends Component {
@@ -11,7 +12,6 @@ class Movies extends Component {
     super();
     this.openModal = openModal;
     this.closeModal = closeModal;
-    
   }
   
   saveNewMovie = (data) => {
@@ -21,6 +21,7 @@ class Movies extends Component {
   render() {
     return (
       <div>
+        <MoviesTable/>
         <RaisedButton label="Add" primary={true} onClick={this.openModal}/>
         <DialogAddMovie onSubmit={this.saveNewMovie}/>
       </div>
