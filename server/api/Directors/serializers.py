@@ -6,7 +6,7 @@ class DirectorsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Directors
-        fields = ('pk', 'name')
+        fields = ('pk', 'name', 'tmdbId')
         extra_kwargs = {
             'pk': {'read_only': True}
         }

@@ -68,16 +68,15 @@ class API {
    */
   
   retrieveOrCreate(data, route_name) {
-    
     const send = (element) => {
-      return this.detail_route(element, route_name).then((content) => {
+      return this.detail_route(element[route_name], route_name).then((content) => {
         if(content.pk > 0) {
           return Promise.resolve({
             ...content,
             created: false
           });
         } else {
-          return this.create(data).then(function(response) {
+          return this.create(element).then(function(response) {
             return {
               ...response,
               created: true
@@ -87,12 +86,12 @@ class API {
       });
     };
     
-    if(!Array.isArray(data[route_name])) {
-      data[route_name] = [data[route_name]];
+    if(!Array.isArray(data)) {
+      data = [data];
     }
     let promises = [];
-    for(let i=0; i<data[route_name].length; i++) {
-      promises.push(send(data[route_name][i]));
+    for(let i=0; i<data.length; i++) {
+      promises.push(send(data[i]));
     }
     return Promise.all(promises);
   };

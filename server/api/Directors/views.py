@@ -14,8 +14,8 @@ class DirectorsViewSet(viewsets.ModelViewSet):
         return Directors.objects.all()
 
     @detail_route(methods=['get'])
-    def name(self, request, pk=None):
-        result = self.get_queryset().filter(name=pk)
+    def tmdbId(self, request, pk=None):
+        result = self.get_queryset().filter(tmdbId=pk)
         if result.exists() :
             data = self.get_serializer_class()(result[0]).data
         else :

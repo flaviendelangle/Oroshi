@@ -27,9 +27,8 @@ class Directors extends API {
     root: '/directors/'
   };
 
-  retrieveOrCreate = (name) => {
-    const body = { name };
-    return super.retrieveOrCreate(body, 'name');
+  retrieveOrCreate = (body) => {
+    return super.retrieveOrCreate(body, 'tmdbId');
   };
   
 }

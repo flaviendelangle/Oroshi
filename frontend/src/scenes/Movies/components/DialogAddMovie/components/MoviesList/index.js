@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import IconButton from 'material-ui/IconButton';
-import ContentSave from 'material-ui/svg-icons/content/save';
 import DataTables from 'material-ui-datatables'
+
+import SaveButton from './components/SaveButton/index'
 
 const TABLE_COLUMNS = [
   {
@@ -13,11 +13,7 @@ const TABLE_COLUMNS = [
     label: 'Release date'
   }, {
     render: (name, all) => {
-      return (
-        <IconButton>
-          <ContentSave/>
-        </IconButton>
-      )
+      return (<SaveButton data={all} />)
     }
   }
 ];
