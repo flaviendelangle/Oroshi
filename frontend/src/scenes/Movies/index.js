@@ -11,11 +11,12 @@ import { MoviesAPI } from './api'
 
 class Movies extends Component {
   
-  constructor({ openModal, closeModal, synchronize }) {
+  constructor({ closeModal, synchronize }) {
     super();
     this.closeModal = closeModal;
     this.synchronize = synchronize;
     this.synchronize();
+    
   }
   
   saveNewMovie = (data) => {
@@ -26,7 +27,7 @@ class Movies extends Component {
     return (
       <div>
         <MoviesTable/>
-        <DialogAddMovie onSubmit={this.saveNewMovie}/>
+        <DialogAddMovie/>
         <Menu/>
       </div>
     )

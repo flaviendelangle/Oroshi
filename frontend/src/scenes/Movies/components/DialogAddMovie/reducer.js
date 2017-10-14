@@ -1,11 +1,16 @@
+import { combineReducers } from 'redux'
+
+import moviesList from './components/MoviesList/reducer'
+import form from './components/Form/reducer'
+
 const defaultState = {
-  isAddingAMovie: false
+  isAddingAMovie: true
 };
 
-const dialogAddMovieReducer = (state = defaultState, action) => {
+const main = (state = defaultState, action) => {
   
   switch(action.type) {
-    case 'SHOW_DIALOG_ADD_MOVIE' :
+    case 'SHOW_DIALOG_ADD_MOVIE':
       return {
         ...state,
         isAddingAMovie: action.show
@@ -16,4 +21,11 @@ const dialogAddMovieReducer = (state = defaultState, action) => {
   
 };
 
-export default dialogAddMovieReducer;
+const reducer = combineReducers({
+  main,
+  moviesList,
+  form
+});
+
+
+export default reducer;

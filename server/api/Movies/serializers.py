@@ -7,4 +7,7 @@ class MoviesSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Movies
-        fields = ('title', 'release', 'directors')
+        fields = ('pk', 'title', 'release', 'directors')
+        extra_kwargs = {
+            'pk': {'read_only': True}
+        }

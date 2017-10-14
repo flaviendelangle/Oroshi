@@ -4,3 +4,10 @@ export const showDialogAddMovie = show => {
     show
   };
 };
+
+export const updateAutoComplete = data => {
+  return {
+    type: 'UPDATE_AUTO_COMPLETE_DIALOG_ADD_MOVIE',
+    data
+  }
+};

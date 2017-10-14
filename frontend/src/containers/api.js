@@ -1,35 +1,35 @@
 class API {
 
-  static config = {
+  mainConfig = {
     url: 'http://127.0.0.1:8080/api'
   };
   
   /*
     Basic HTTP Requests
    */
-  static fetch = (url, data) => {
+  fetch = (url, data) => {
     return window.fetch(url, data).then(function(response) {
       return response.json();
     });
   };
   
-  static GET = (url, data) => {
+  GET = (url, data) => {
     if(!data) {
       data = {};
     }
     data.method = 'GET';
-    return API.fetch(url, data);
+    return this.fetch(url, data);
   };
   
-  static POST = (url, data) => {
+  POST = (url, data) => {
     data.method = 'POST';
-    return API.fetch(url, data);
+    return this.fetch(url, data);
   };
   
   /*
     Utils
    */
-  static objectToFormData = (data) => {
+  objectToFormData = (data) => {
     let form = new FormData();
     for(let key in data) {
       form.append(key, data[key]);
@@ -37,29 +37,29 @@ class API {
     return form;
   };
   
-  static url = (child) => {
-    return API.config.url + child.config.root;
+  url = () => {
+    return this.mainConfig.url + this.config.root;
   };
   
   
   /*
    REST API
    */
-  static detail_route = (child, route_name, value) => {
-    value = encodeURIComponent(value).replace(/\./g, '%2E');
-    const url = API.url(child) + value + '/' + route_name + '/';
-    return API.GET(url);
+  detail_route(value, route_name) {
+    value = encodeURIComponent(value);
+    const url = this.url() + value + '/' + route_name + '/';
+    return this.GET(url);
   };
   
-  static create = (child, body) => {
+  create(body) {
     const data = {
-      body: API.objectToFormData(body)
+      body: this.objectToFormData(body)
     };
-    return API.POST(API.url(child), data);
+    return this.POST(this.url(), data);
   };
   
-  static list = (child) => {
-    return API.GET(API.url(child));
+  list() {
+    return this.GET(this.url());
   };
   
   
@@ -67,17 +67,17 @@ class API {
    Custom requests
    */
   
-  static retrieveOrCreate = (child, route_name, data) => {
+  retrieveOrCreate(data, route_name) {
     
     const send = (element) => {
-      return API.detail_route(child, route_name, element).then(function(content) {
+      return this.detail_route(element, route_name).then((content) => {
         if(content.pk > 0) {
           return Promise.resolve({
             ...content,
             created: false
           });
         } else {
-          return child.create(data).then(function(response) {
+          return this.create(data).then(function(response) {
             return {
               ...response,
               created: true

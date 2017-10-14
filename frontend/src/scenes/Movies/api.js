@@ -1,21 +1,17 @@
 import API from '../../containers/api'
 
-export class MoviesAPI extends API {
+class Movies extends API {
   
-  static config = {
+  config = {
     root: '/movies/'
   };
   
-  static list = () => {
-    return API.list(MoviesAPI);
-  };
-  
-  static create = (body) => {
+  create = (body) => {
     return DirectorsAPI.retrieveOrCreate(body.directors).then((response) => {
       const directors = response.map((director) => {
         return director.pk;
       });
-      return API.create(MoviesAPI, {
+      return super.create({
         ...body,
         directors
       });
@@ -25,26 +21,18 @@ export class MoviesAPI extends API {
 }
 
 
-export class DirectorsAPI extends  API {
+class Directors extends API {
 
-  static config = {
+  config = {
     root: '/directors/'
   };
-  
-  static create = (body) => {
-    return API.create(DirectorsAPI, body);
-  };
 
-  static retrieveOrCreate = (name) => {
-    const body = {
-      name
-    };
-    return API.retrieveOrCreate(DirectorsAPI, 'name', body);
+  retrieveOrCreate = (name) => {
+    const body = { name };
+    return super.retrieveOrCreate(body, 'name');
   };
-  
-  
-  
-  
   
 }
 
+export const MoviesAPI = new Movies();
+export const DirectorsAPI = new Directors();

@@ -1,17 +1,23 @@
 import React, { Component } from 'react'
-import { Field, reduxForm } from 'redux-form'
 import { connect } from 'react-redux'
 import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
-import { TextField } from 'redux-form-material-ui'
 
-import { showDialogAddMovie } from './actions'
+import theMovieDb from './../../themoviedb';
+
+import Form  from './components/Form/index'
+import MoviesList from './components/MoviesList/index'
+import { showDialogAddMovie, updateAutoComplete } from './actions'
+
+const style = {
+};
 
 class DialogAddMovie extends Component {
   
   constructor(props) {
-    super();
+    super(props);
     this.close = props.close;
+    this.search = props.search;
     this.save = props.handleSubmit;
   }
   
@@ -36,31 +42,22 @@ class DialogAddMovie extends Component {
           actions={actions}
           modal={true}
           open={this.props.isOpen}
+          autoScrollBodyContent={true}
+          style={style}
         >
-          <form>
-            <div>
-              <Field name="title" hintText="Title" component={TextField} />
-            </div>
-            <div>
-              <Field name="director" hintText="Director" component={TextField} />
-            </div>
-            <div>
-              <Field name="year" hintText="Year of release" component={TextField} />
-            </div>
-            <button type="submit" style={{ display: 'none' }} />
-          </form>
+          <Form onSubmit={this.search}/>
+          <MoviesList/>
         </Dialog>
     );
   }
 }
 
-DialogAddMovie = reduxForm({
-  form: 'DialogAddMovie'
-})(DialogAddMovie);
+// Decorate with connect to read form values
 
 const mapStateToProps = state => {
   return {
-    isOpen: state.movies.dialogAddMovie.isAddingAMovie
+    isOpen: state.movies.dialogAddMovie.main.isAddingAMovie,
+    moviesList: state.movies.dialogAddMovie.moviesList.data
   }
 };
 
@@ -68,6 +65,13 @@ const mapDispatchToProps = dispatch => {
   return {
     close: () => {
       dispatch(showDialogAddMovie(false));
+    },
+    search: (data) => {
+      if(data && data.title) {
+        theMovieDb.search.getMovie({"query":data.title}, (response) => {
+          dispatch(updateAutoComplete(JSON.parse(response)));
+        }, () => {});
+      }
     }
   }
 };
