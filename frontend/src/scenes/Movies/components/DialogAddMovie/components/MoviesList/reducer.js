@@ -1,10 +1,14 @@
+import { combineReducers } from 'redux'
+
+import saveButton from './components/SaveButton/reducer'
+
 const defaultState = {
   data: {
     results: []
   }
 };
 
-const moviesListReducer = (state = defaultState, action) => {
+const main = (state = defaultState, action) => {
   
   switch(action.type) {
     case 'UPDATE_AUTO_COMPLETE_DIALOG_ADD_MOVIE':
@@ -18,4 +22,10 @@ const moviesListReducer = (state = defaultState, action) => {
   
 };
 
-export default moviesListReducer;
+const reducer = combineReducers({
+  main,
+  saveButton
+});
+
+
+export default reducer;

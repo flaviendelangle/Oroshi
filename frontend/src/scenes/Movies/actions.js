@@ -1,6 +1,8 @@
-export const synchronizeMovies = movies => {
+import { MoviesAPI } from './api'
+
+export const synchronizeMovies = () => {
   return {
     type: 'UPDATE_MOVIES',
-    movies
-  };
+    payload: MoviesAPI.list()
+  }
 };

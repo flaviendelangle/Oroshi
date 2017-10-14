@@ -36,7 +36,6 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     openMainDrawer: (show) => {
-      console.log('DONE');
       dispatch(showMainDrawer(show));
     },
   }

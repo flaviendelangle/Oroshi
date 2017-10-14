@@ -18,30 +18,24 @@ class DialogAddMovie extends Component {
     super(props);
     this.close = props.close;
     this.search = props.search;
-    this.save = props.handleSubmit;
   }
   
   render() {
     const actions = [
       <FlatButton
-        label="Cancel"
+        label="Close"
         primary={true}
         onClick={this.close}
-      />,
-      <FlatButton
-        label="Save"
-        type="submit"
-        primary={true}
-        onClick={this.save}
-      />,
+      />
     ];
     
     return (
         <Dialog
           title="New movie"
           actions={actions}
-          modal={true}
+          modal={false}
           open={this.props.isOpen}
+          onRequestClose={this.close}
           autoScrollBodyContent={true}
           style={style}
         >

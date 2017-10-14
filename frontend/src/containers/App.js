@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import { createStore } from 'redux'
+import { createStore, applyMiddleware } from 'redux'
 import { Provider, connect } from 'react-redux'
 import { withRouter } from 'react-router'
 import injectTapEventPlugin from "react-tap-event-plugin"
+import promiseMiddleware from 'redux-promise-middleware';
 
 import Header from '../components/Header/index'
 import Main from './Main'
@@ -11,7 +12,11 @@ import reducer from './reducer'
 import { updateLocation } from './actions'
 import './App.css';
 
-let store = createStore(reducer);
+const composeStoreWithMiddleware = applyMiddleware(
+  promiseMiddleware()
+)(createStore);
+let store = composeStoreWithMiddleware(reducer);
+
 injectTapEventPlugin();
 
 

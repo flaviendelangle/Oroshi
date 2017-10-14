@@ -56,11 +56,9 @@ class MoviesList extends Component {
   
 }
 
-// Decorate with connect to read form values
-
 const mapStateToProps = state => {
   return {
-    data: state.movies.dialogAddMovie.moviesList.data
+    data: state.movies.dialogAddMovie.moviesList.main.data
   }
 };
 

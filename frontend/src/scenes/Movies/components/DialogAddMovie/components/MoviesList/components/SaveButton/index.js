@@ -6,23 +6,20 @@ import ContentSave from 'material-ui/svg-icons/content/save';
 import theMovieDb from './../../../../../../themoviedb';
 import { MoviesAPI } from "../../../../../../api";
 
-import { addMovieToServer } from './actions'
+import { addMovieToServer, showButton } from './actions'
+
 
 class SaveButton extends Component {
-  
-  state = {
-    show: false
-  };
   
   constructor(props) {
     super(props);
     MoviesAPI.detail_route(this.props.data.id, 'tmdbId').then((response) => {
-      this.setState({ show: (response.pk === 0) });
+      this.props.updateVisibility((response.pk === 0), this.props.data.id);
     });
   }
   
   render() {
-    if(!this.state.show) {
+    if(!this.props.show) {
       return (null);
     }
     return (
@@ -36,13 +33,20 @@ class SaveButton extends Component {
 
 // Decorate with connect to read form values
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
+  const id = ownProps.data.id;
+  const compsState = state.movies.dialogAddMovie.moviesList.saveButton;
+  const show = compsState[id] === undefined ? false : compsState[id].show;
   return {
+    show: show
   }
 };
 
 const mapDispatchToProps = dispatch => {
   return {
+    updateVisibility: (show, id) => {
+      dispatch(showButton(show, id));
+    },
     save: data => {
       theMovieDb.movies.getById({ id:data.id }, (response) => {
         const information = JSON.parse(response);

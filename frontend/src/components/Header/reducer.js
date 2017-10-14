@@ -5,6 +5,10 @@ import mainDrawer from './components/MainDrawer/reducer'
 const main = (state = {}, action) => {
   
   switch(action.type) {
+    case 'UPDATE_LOCATION' :
+      return {
+        ...state,
+      };
     default:
       return state;
   }

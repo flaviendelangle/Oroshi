@@ -7,7 +7,6 @@ import Menu from './components/Menu/index'
 
 import { synchronizeMovies } from './actions'
 import { showDialogAddMovie } from './components/DialogAddMovie/actions'
-import { MoviesAPI } from './api'
 
 class Movies extends Component {
   
@@ -18,10 +17,6 @@ class Movies extends Component {
     this.synchronize();
     
   }
-  
-  saveNewMovie = (data) => {
-    this.closeModal();
-  };
   
   render() {
     return (
@@ -43,13 +38,11 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    closeModal: (data) => {
+    closeModal: () => {
       dispatch(showDialogAddMovie(false));
     },
     synchronize: () => {
-      MoviesAPI.list().then((response) => {
-        dispatch(synchronizeMovies(response));
-      });
+      dispatch(synchronizeMovies());
     }
   }
 };

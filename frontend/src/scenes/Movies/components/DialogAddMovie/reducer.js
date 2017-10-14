@@ -4,7 +4,7 @@ import moviesList from './components/MoviesList/reducer'
 import form from './components/Form/reducer'
 
 const defaultState = {
-  isAddingAMovie: true
+  isAddingAMovie: false
 };
 
 const main = (state = defaultState, action) => {

@@ -5,7 +5,10 @@ import ContentTable from '../../../../components/ContentTable/index'
 const TABLE_COLUMNS = [
   {
     key: 'pk',
-    label: 'N°'
+    label: 'N°',
+    style: {
+      width: '50px'
+    }
   }, {
     key: 'title',
     label: 'Title',
@@ -20,14 +23,15 @@ class MoviesTable extends ContentTable {
   render() {
     this.params = {
       columns: TABLE_COLUMNS,
-      data: this.props.movies
+      data: this.props.movies,
+      tableStyle: {}
     };
     return super.render(this.params);
   }
   
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     movies: state.movies.moviesTable.movies
   }
