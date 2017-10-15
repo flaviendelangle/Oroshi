@@ -3,10 +3,10 @@
 }
 
 main {
-    height: calc(100% - 64px);
+    height: calc(100%); /* - 64px); */
     width: 100%;
     position: fixed;
-    top: 64px;
+    bottom: 0;
 }
 
 main > div {

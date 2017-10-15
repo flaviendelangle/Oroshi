@@ -3,14 +3,6 @@ import { connect } from 'react-redux'
 
 import CollectionBox from './components/CollectionBox'
 
-const containerStyle = {
-  width: '80%',
-  left: '10%',
-  position: 'absolute',
-  top: '50%',
-  transform: 'translateY(-50%)',
-};
-
 const listStyle = {
   textAlign: 'center'
 };
@@ -26,7 +18,7 @@ class CollectionList extends Component {
       pk: 2
     },{
       title: 'A voir',
-      pk: 2
+      pk: 3
     },
     
   ];
@@ -34,17 +26,15 @@ class CollectionList extends Component {
   mapCollections() {
     return this.collections.map((collection) => {
       return (
-        <CollectionBox key={collection.pk} data={collection}/>
+        <CollectionBox key={collection.pk} data={collection} editing={this.props.editing}/>
       )
     });
   }
   
   render() {
     return (
-      <div style={containerStyle}>
-        <div style={listStyle}>
-          {this.mapCollections()}
-        </div>
+      <div style={listStyle}>
+        {this.mapCollections()}
       </div>
     )
     

@@ -30,3 +30,22 @@
     font-weight: bold;
     text-align: center;
 }
+
+.collection-editing-mask {
+    height: 200px;
+    width: 100%;
+    position: absolute;
+    background: rgba(0,0,0,0.6);
+}
+
+.collection-editing-mask.invisible {
+    opacity:0;
+}
+
+.editing-icon {
+    position: absolute;
+    height: 40px !important;
+    width: 40px !important;
+    top: 80px;
+    left: 80px;
+}

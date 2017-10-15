@@ -45,7 +45,6 @@ class Root extends Component {
   render() {
     return (
       <div>
-        <Header />
         <Main />
       </div>
     )
