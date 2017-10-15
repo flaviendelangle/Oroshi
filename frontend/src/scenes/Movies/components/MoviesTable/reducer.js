@@ -1,3 +1,5 @@
+import { sort } from '../../services/utils'
+
 const defaultState = {
   movies: []
 };
@@ -7,12 +9,12 @@ const moviesListReducer = (state = defaultState, action) => {
     case 'UPDATE_MOVIES_FULFILLED':
       return {
         ...state,
-        movies: action.payload
+        movies: sort(action.payload)
       };
     case 'ADD_MOVIE_TO_SERVER_FULFILLED':
       return {
         ...state,
-        movies: state.movies.concat([action.payload])
+        movies: sort(state.movies.concat([action.payload]))
       };
     default:
       return state;

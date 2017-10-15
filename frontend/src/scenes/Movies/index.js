@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import DialogAddMovie from './components/DialogAddMovie/index'
-import MoviesTable from './components/MoviesTable/index'
-import Menu from './components/Menu/index'
+import DialogAddMovie from './components/DialogAddMovie'
+import MoviesTable from './components/MoviesTable'
+import Menu from './components/Menu'
 
 import { synchronizeMovies } from './actions'
 import { showDialogAddMovie } from './components/DialogAddMovie/actions'

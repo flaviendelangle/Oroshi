@@ -5,6 +5,7 @@
   "dependencies": {
     "material-ui": "^0.19.4",
     "material-ui-datatables": "^0.18.2",
+    "material-ui-search-bar": "^0.4.0",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-redux": "^5.0.6",

@@ -1,4 +1,4 @@
-import { MoviesAPI } from './api'
+import { MoviesAPI } from './services/api'
 
 export const synchronizeMovies = () => {
   return {

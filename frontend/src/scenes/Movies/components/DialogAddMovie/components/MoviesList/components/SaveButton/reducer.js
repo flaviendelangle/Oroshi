@@ -4,7 +4,6 @@ const saveButtonReducer = (state = defaultState, action) => {
   let id, movieState, newState;
   switch(action.type) {
     case 'UPDATE_SAVE_BUTTON_VISIBILITY':
-      console.log(action);
       id = action.id;
       movieState = state[id];
       if(!movieState) {

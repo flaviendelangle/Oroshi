@@ -3,8 +3,8 @@ import { connect } from 'react-redux'
 import IconButton from 'material-ui/IconButton';
 import ContentSave from 'material-ui/svg-icons/content/save';
 
-import theMovieDb from './../../../../../../themoviedb';
-import { MoviesAPI } from "../../../../../../api";
+import theMovieDb from '../../../../../../services/themoviedb';
+import { MoviesAPI } from "../../../../../../services/api";
 
 import { addMovieToServer, showButton } from './actions'
 

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import DataTables from 'material-ui-datatables'
 
-import SaveButton from './components/SaveButton/index'
+import SaveButton from './components/SaveButton'
 
 const TABLE_COLUMNS = [
   {

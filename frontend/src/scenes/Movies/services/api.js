@@ -1,4 +1,4 @@
-import API from '../../containers/api'
+import API from '../../../containers/api'
 
 class Movies extends API {
   

@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 
-import ContentTable from '../../../../components/ContentTable/index'
+import ContentTable from '../../../../components/ContentTable'
 
 const TABLE_COLUMNS = [
   {
@@ -22,11 +22,12 @@ class MoviesTable extends ContentTable {
   
   render() {
     this.params = {
+      ...this.params,
       columns: TABLE_COLUMNS,
       data: this.props.movies,
       tableStyle: {}
     };
-    return super.render(this.params);
+    return super.render();
   }
   
 }

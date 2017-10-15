@@ -3,10 +3,10 @@ import { connect } from 'react-redux'
 import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
 
-import theMovieDb from './../../themoviedb';
+import theMovieDb from '../../services/themoviedb';
 
-import Form  from './components/Form/index'
-import MoviesList from './components/MoviesList/index'
+import Form  from './components/Form'
+import MoviesList from './components/MoviesList'
 import { showDialogAddMovie, updateAutoComplete } from './actions'
 
 const style = {
@@ -46,12 +46,10 @@ class DialogAddMovie extends Component {
   }
 }
 
-// Decorate with connect to read form values
-
 const mapStateToProps = state => {
   return {
     isOpen: state.movies.dialogAddMovie.main.isAddingAMovie,
-    moviesList: state.movies.dialogAddMovie.moviesList.data
+    moviesList: state.movies.dialogAddMovie.moviesList.main.data
   }
 };
 

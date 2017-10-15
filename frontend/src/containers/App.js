@@ -6,7 +6,7 @@ import { withRouter } from 'react-router'
 import injectTapEventPlugin from "react-tap-event-plugin"
 import promiseMiddleware from 'redux-promise-middleware';
 
-import Header from '../components/Header/index'
+import Header from '../components/Header'
 import Main from './Main'
 import reducer from './reducer'
 import { updateLocation } from './actions'
