@@ -26,6 +26,11 @@ class API {
     return this.fetch(url, data);
   };
   
+  PATCH = (url, data) => {
+    data.method = 'PATCH';
+    return this.fetch(url, data);
+  };
+  
   /*
     Utils
    */
@@ -37,8 +42,9 @@ class API {
     return form;
   };
   
-  url = () => {
-    return this.mainConfig.url + this.config.root;
+  url = (pk = null) => {
+    const sub_url = pk ? (pk + '/') : '';
+    return this.mainConfig.url + this.config.root + sub_url;
   };
   
   
@@ -61,6 +67,13 @@ class API {
   list() {
     return this.GET(this.url());
   };
+  
+  partial_update(pk, body) {
+    const data = {
+      body: this.objectToFormData(body)
+    };
+    return this.PATCH(this.url(pk), data);
+  }
   
   
   /*

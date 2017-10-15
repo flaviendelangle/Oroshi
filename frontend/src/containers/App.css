@@ -4,4 +4,12 @@
 
 main {
     height: calc(100% - 64px);
+    width: 100%;
+    position: fixed;
+    top: 64px;
+}
+
+main > div {
+    position: absolute;
+    width: 100%;
 }

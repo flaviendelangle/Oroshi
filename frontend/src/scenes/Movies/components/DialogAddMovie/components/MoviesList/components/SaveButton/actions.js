@@ -1,4 +1,4 @@
-import { MoviesAPI } from '../../../../../../services/api'
+import { createMovie } from '../../../../../../actions'
 
 export const showButton = (show, id) => {
   return {
@@ -24,8 +24,5 @@ export const addMovieToServer = data => {
     title: data.information.title,
     tmdbId: data.information.id
   };
-  return {
-    type: 'ADD_MOVIE_TO_SERVER',
-    payload: MoviesAPI.create(movie)
-  };
+  return createMovie(movie);
 };

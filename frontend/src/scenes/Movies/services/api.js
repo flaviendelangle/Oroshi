@@ -20,7 +20,6 @@ class Movies extends API {
   
 }
 
-
 class Directors extends API {
 
   config = {
@@ -32,6 +31,7 @@ class Directors extends API {
   };
   
 }
+
 
 export const MoviesAPI = new Movies();
 export const DirectorsAPI = new Directors();

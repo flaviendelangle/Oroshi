@@ -3,14 +3,21 @@ import { connect } from 'react-redux'
 import DataTables from 'material-ui-datatables'
 
 import SaveButton from './components/SaveButton'
+import { date } from '../../../../services/utils'
 
 const TABLE_COLUMNS = [
   {
-    key: 'title',
     label: 'Title',
+    key: 'title',
+    style: {
+      width: '50%',
+      overflow: 'hidden'
+    }
   }, {
-    key: 'release_date',
-    label: 'Release date'
+    label: 'Release',
+    render: (name, all) => {
+      return date(all.release_date, date.TMDB_FORMAT, date.YEAR_FORMAT);
+    }
   }, {
     render: (name, all) => {
       return (<SaveButton data={all} />)

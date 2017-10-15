@@ -1,9 +1,33 @@
-import React from 'react'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
-const Home = () => (
-  <div>
-    <h1>Page d'accueil</h1>
-  </div>
-);
+import CollectionList from './components/CollectionList'
 
-export default Home
+
+class Home extends Component {
+  
+  render() {
+    return (
+      <div>
+        <CollectionList/>
+      </div>
+    )
+    
+  }
+  
+}
+
+const mapStateToProps = state => {
+  return {
+  }
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+  }
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Home);

@@ -16,6 +16,17 @@ const moviesListReducer = (state = defaultState, action) => {
         ...state,
         movies: sort(state.movies.concat([action.payload]))
       };
+    case 'UPDATE_MOVIE_FULFILLED':
+      let movies = [].concat(state.movies).map((element) => {
+        if(element.pk === action.payload.pk) {
+          return action.payload;
+        }
+        return element;
+      });
+      return {
+        ...state,
+        movies: movies
+      };
     default:
       return state;
   }

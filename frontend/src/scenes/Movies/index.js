@@ -5,7 +5,7 @@ import DialogAddMovie from './components/DialogAddMovie'
 import MoviesTable from './components/MoviesTable'
 import Menu from './components/Menu'
 
-import { synchronizeMovies } from './actions'
+import { listMovies } from './actions'
 import { showDialogAddMovie } from './components/DialogAddMovie/actions'
 
 class Movies extends Component {
@@ -42,7 +42,7 @@ const mapDispatchToProps = dispatch => {
       dispatch(showDialogAddMovie(false));
     },
     synchronize: () => {
-      dispatch(synchronizeMovies());
+      dispatch(listMovies());
     }
   }
 };
