@@ -2,10 +2,9 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import CollectionBox from './components/CollectionBox'
+import NewCollectionButton from './components/NewCollectionButton'
 
-const listStyle = {
-  textAlign: 'center'
-};
+import './style.css';
 
 class CollectionList extends Component {
   
@@ -19,9 +18,33 @@ class CollectionList extends Component {
     },{
       title: 'A voir',
       pk: 3
-    },
-    
+    } /* ,{
+      title: 'A voir',
+      pk: 4
+    },{
+      title: 'A voir',
+      pk: 5
+    },{
+      title: 'A voir',
+      pk: 6
+    },{
+      title: 'A voir',
+      pk: 7
+    },{
+      title: 'A voir',
+      pk: 8
+    },{
+      title: 'A voir',
+      pk: 9
+    },{
+      title: 'A voir',
+      pk: 10
+    } */
   ];
+  
+  constructor(props) {
+    super(props);
+  }
   
   mapCollections() {
     return this.collections.map((collection) => {
@@ -33,8 +56,11 @@ class CollectionList extends Component {
   
   render() {
     return (
-      <div style={listStyle}>
-        {this.mapCollections()}
+      <div className="collection-list-container">
+        <div>
+          {this.mapCollections()}
+          <NewCollectionButton editing={this.props.editing}/>
+        </div>
       </div>
     )
     

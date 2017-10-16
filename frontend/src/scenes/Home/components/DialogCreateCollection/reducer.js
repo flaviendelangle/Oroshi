@@ -1,21 +1,25 @@
 import { combineReducers } from 'redux'
 
-import collectionList from './components/CollectionList/reducer'
-import dialogCreateCollection from './components/DialogCreateCollection/reducer'
-
-const defaultState = {};
+const defaultState = {
+  isAddingACollection: false
+};
 
 const main = (state = defaultState, action) => {
+  
   switch(action.type) {
+    case 'SHOW_DIALOG_CREATE_COLLECTION':
+      return {
+        ...state,
+        isAddingACollection: action.show
+      };
     default:
       return state;
   }
+  
 };
 
 const reducer = combineReducers({
   main,
-  collectionList,
-  dialogCreateCollection
 });
 
 

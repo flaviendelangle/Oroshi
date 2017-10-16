@@ -9,9 +9,6 @@ import Form  from './components/Form'
 import MoviesList from './components/MoviesList'
 import { showDialogAddMovie, updateAutoComplete } from './actions'
 
-const style = {
-};
-
 class DialogAddMovie extends Component {
   
   constructor(props) {
@@ -37,7 +34,6 @@ class DialogAddMovie extends Component {
           open={this.props.isOpen}
           onRequestClose={this.close}
           autoScrollBodyContent={true}
-          style={style}
         >
           <Form onSubmit={this.search}/>
           <MoviesList/>

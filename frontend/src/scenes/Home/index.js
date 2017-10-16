@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 
 import CollectionList from './components/CollectionList'
 import ManageButton from './components/ManageButton'
+import DialogCreateCollection from './components/DialogCreateCollection'
 
 const containerStyle = {
   width: '80%',
@@ -23,9 +24,10 @@ class Home extends Component {
     return (
       <div>
         <div style={containerStyle}>
-          <CollectionList editing={this.state.editing} />
           <ManageButton editing={this.state.editing} onClick={() => this.setState({editing: !this.state.editing}) } />
+          <CollectionList editing={this.state.editing} />
         </div>
+        <DialogCreateCollection/>
       </div>
     )
     
@@ -35,6 +37,7 @@ class Home extends Component {
 
 const mapStateToProps = state => {
   return {
+    isCreatingCollection: state.home.main.isCreatingCollection
   }
 };
 

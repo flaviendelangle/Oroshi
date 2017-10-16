@@ -3,6 +3,7 @@ import { reducer as form } from 'redux-form'
 
 import header from '../components/Header/reducer'
 
+import home from '../scenes/Home/reducer'
 import movies from '../scenes/Movies/reducer'
 
 const reducer = combineReducers({
@@ -13,6 +14,7 @@ const reducer = combineReducers({
   header,
   
   // Scenes
+  home,
   movies
 });
 
