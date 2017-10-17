@@ -68,6 +68,10 @@ class API {
     return this.GET(this.url());
   };
   
+  retrieve(pk) {
+    return this.GET(this.url(pk));
+  }
+  
   partial_update(pk, body) {
     const data = {
       body: this.objectToFormData(body)

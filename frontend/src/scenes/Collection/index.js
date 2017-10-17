@@ -7,6 +7,10 @@ class Collection extends Component {
     editing: true
   };
   
+  constructor() {
+    super();
+  }
+  
   render() {
     //console.log(this.props.params);
     return (

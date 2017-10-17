@@ -32,6 +32,5 @@ class Directors extends API {
   
 }
 
-
 export const MoviesAPI = new Movies();
 export const DirectorsAPI = new Directors();
