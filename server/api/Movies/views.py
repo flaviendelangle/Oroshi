@@ -1,6 +1,7 @@
 from rest_framework import viewsets, status
 from rest_framework.decorators import detail_route
 from rest_framework.response import Response
+from rest_framework_extensions.mixins import NestedViewSetMixin
 
 from api.Movies.models import Movies
 from api.Movies.serializers import MoviesSerializer
@@ -21,3 +22,8 @@ class MoviesViewSet(viewsets.ModelViewSet):
         else :
             data = { 'pk': 0 }
         return Response(data)
+
+class MoviesCollectionsViewSet(NestedViewSetMixin, MoviesViewSet):
+
+    def get_serializer_class(self):
+        return MoviesSerializer
