@@ -1,9 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { submit } from 'redux-form'
 import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
 
-import { showDialogCreateCollection } from './actions'
+import Form  from './components/Form'
+import { showDialogCreateCollection, createCollection } from './actions'
+
 
 class DialogCreateCollection extends Component {
   
@@ -13,12 +16,24 @@ class DialogCreateCollection extends Component {
     this.submit = props.submit;
   }
   
+  create = (data) => {
+    if(data.title) {
+      this.close();
+      this.props.create(data);
+    }
+  };
+  
   render() {
     const actions = [
       <FlatButton
-        label="Close"
+        label="Save"
         primary={true}
-        onClick={this.close}
+        onClick={this.submit}
+      />,
+      <FlatButton
+      label="Close"
+      primary={true}
+      onClick={this.close}
       />
     ];
     
@@ -31,7 +46,7 @@ class DialogCreateCollection extends Component {
         onRequestClose={this.close}
         autoScrollBodyContent={true}
       >
-        TOTO
+        <Form onSubmit={this.create}/>
       </Dialog>
     );
   }
@@ -45,9 +60,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    close: () => {
-      dispatch(showDialogCreateCollection(false));
-    },
+    close: () => dispatch(showDialogCreateCollection(false)),
+    create: (data) => dispatch(createCollection(data)),
+    submit: () => dispatch(submit('DialogCreateCollectionForm'))
   }
 };
 

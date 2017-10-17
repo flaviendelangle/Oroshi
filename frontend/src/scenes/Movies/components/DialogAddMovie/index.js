@@ -2,14 +2,23 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
+import SearchBar from 'material-ui-search-bar'
 
 import theMovieDb from '../../services/themoviedb';
 
-import Form  from './components/Form'
 import MoviesList from './components/MoviesList'
 import { showDialogAddMovie, updateAutoComplete } from './actions'
 
+const searchStyle = {
+  margin: '0 auto 20px auto',
+  maxWidth: 500
+};
+
 class DialogAddMovie extends Component {
+  
+  state = {
+    query: ''
+  };
   
   constructor(props) {
     super(props);
@@ -35,7 +44,11 @@ class DialogAddMovie extends Component {
           onRequestClose={this.close}
           autoScrollBodyContent={true}
         >
-          <Form onSubmit={this.search}/>
+          <SearchBar
+            onChange={(query) => this.setState({query})}
+            onRequestSearch={() => {this.search(this.state.query);}}
+            style={searchStyle}
+          />
           <MoviesList/>
         </Dialog>
     );
@@ -54,9 +67,9 @@ const mapDispatchToProps = dispatch => {
     close: () => {
       dispatch(showDialogAddMovie(false));
     },
-    search: (data) => {
-      if(data && data.title) {
-        theMovieDb.search.getMovie({"query":data.title}, (response) => {
+    search: (query) => {
+      if(query) {
+        theMovieDb.search.getMovie({"query":query}, (response) => {
           dispatch(updateAutoComplete(JSON.parse(response)));
         }, () => {});
       }

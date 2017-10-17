@@ -53,7 +53,7 @@ class ContentTable extends Component {
   handleSortOrderChange = (key, order) => {
   };
   
-  filter() {
+  filter = () => {
     this.params.toShow = filter(this.params.data, this.state.query);
   };
   
@@ -73,7 +73,7 @@ class ContentTable extends Component {
         <div style={parentStyle}>
           <SearchBar
             onChange={this.search}
-            onRequestSearch={this.search}
+            onRequestSearch={this.filter}
             style={searchStyle}
           />
           <ScrollArea

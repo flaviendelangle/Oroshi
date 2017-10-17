@@ -1,7 +1,6 @@
 import { combineReducers } from 'redux'
 
 import moviesList from './components/MoviesList/reducer'
-import form from './components/Form/reducer'
 
 const defaultState = {
   isAddingAMovie: false
@@ -24,7 +23,6 @@ const main = (state = defaultState, action) => {
 const reducer = combineReducers({
   main,
   moviesList,
-  form
 });
 
 
