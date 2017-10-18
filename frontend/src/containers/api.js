@@ -4,6 +4,13 @@ class API {
     url: 'http://127.0.0.1:8080/api'
   };
   
+  constructor(root) {
+    if(!root) {
+      root = '';
+    }
+    this.root = root;
+  }
+  
   /*
     Basic HTTP Requests
    */
@@ -44,8 +51,25 @@ class API {
   
   url = (pk = null) => {
     const sub_url = pk ? (pk + '/') : '';
-    return this.mainConfig.url + this.config.root + sub_url;
+    return this.mainConfig.url + this.root + this.config.root + sub_url;
   };
+  
+  element = (pk) => {
+  
+    let prototype = {};
+  
+    for(let key in this.nested_routes) {
+      Object.defineProperty(prototype, key, {
+        get: () => {
+          return new this.nested_routes[key](this.config.root + '/' + pk);
+        }
+      });
+    }
+  
+    return Object.create(prototype);
+  };
+  
+  
   
   
   /*
@@ -114,5 +138,6 @@ class API {
   };
 
 }
+
 
 export default API;

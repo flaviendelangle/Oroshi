@@ -2,6 +2,7 @@ from rest_framework import serializers
 
 from api.Directors.models import Directors
 
+
 class DirectorsSerializer(serializers.ModelSerializer):
 
     class Meta:
