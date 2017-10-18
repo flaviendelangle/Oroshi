@@ -23,7 +23,7 @@ class MoviesViewSet(viewsets.ModelViewSet):
             data = { 'pk': 0 }
         return Response(data)
 
-class MoviesCollectionsViewSet(NestedViewSetMixin, MoviesViewSet):
+class CollectionMoviesViewSet(NestedViewSetMixin, MoviesViewSet):
 
     def get_serializer_class(self):
         return MoviesSerializer
