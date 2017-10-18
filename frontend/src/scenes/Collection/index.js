@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { CollectionsAPI} from "./services/api";
 
 class Collection extends Component {
   
@@ -8,15 +7,7 @@ class Collection extends Component {
     editing: true
   };
   
-  constructor() {
-    super();
-    CollectionsAPI.element(23).movies.list().then((response) => {
-      console.log(response);
-    });
-  }
-  
   render() {
-    //console.log(this.props.params);
     return (
       <div>
         HEY !

@@ -1,12 +1,16 @@
-import API from '../../../containers/api'
+import API from './index'
+import { DirectorsAPI } from './directors';
 
 class Movies extends API {
   
   config = {
-    root: '/movies/'
+    root: '/movies'
   };
   
   create = (body) => {
+    if(this.root) { // We are in a nested route so we just want to send the pk of the movie to add it
+      return super.create(body);
+    }
     return DirectorsAPI.retrieveOrCreate(body.directors).then((response) => {
       const directors = response.map((director) => {
         return director.pk;
@@ -20,19 +24,7 @@ class Movies extends API {
   
 }
 
-class Directors extends API {
 
-  config = {
-    root: '/directors/'
-  };
-
-  retrieveOrCreate = (body) => {
-    return super.retrieveOrCreate(body, 'tmdbId');
-  };
-  
-}
 
 export const MoviesAPI = new Movies();
-export const DirectorsAPI = new Directors();
 export const MoviesClass = Movies;
-export const DirectorsClass = Directors;

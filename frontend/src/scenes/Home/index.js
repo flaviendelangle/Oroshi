@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import CollectionList from './components/CollectionList'
 import ManageButton from './components/ManageButton'
 import DialogCreateCollection from './components/DialogCreateCollection'
+import { CollectionsAPI } from '../../services/api/collections'
 
 const containerStyle = {
   width: '80%',
@@ -16,8 +17,15 @@ const containerStyle = {
 class Home extends Component {
   
   state = {
-    editing: true
+    editing: false,
+    collections: []
   };
+  
+  componentDidMount() {
+    CollectionsAPI.list().then((response) => {
+      this.setState({ collections: response });
+    });
+  }
   
   
   render() {
@@ -25,7 +33,7 @@ class Home extends Component {
       <div>
         <div style={containerStyle}>
           <ManageButton editing={this.state.editing} onClick={() => this.setState({editing: !this.state.editing}) } />
-          <CollectionList editing={this.state.editing} />
+          <CollectionList editing={this.state.editing} data={this.state.collections} />
         </div>
         <DialogCreateCollection/>
       </div>

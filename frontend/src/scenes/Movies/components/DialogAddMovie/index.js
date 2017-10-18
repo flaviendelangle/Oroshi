@@ -4,10 +4,8 @@ import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
 import SearchBar from 'material-ui-search-bar'
 
-import theMovieDb from '../../services/themoviedb';
-
 import MoviesList from './components/MoviesList'
-import { showDialogAddMovie, updateAutoComplete } from './actions'
+import { showDialogAddMovie, searchMovies } from './actions'
 
 const searchStyle = {
   margin: '0 auto 20px auto',
@@ -20,18 +18,12 @@ class DialogAddMovie extends Component {
     query: ''
   };
   
-  constructor(props) {
-    super(props);
-    this.close = props.close;
-    this.search = props.search;
-  }
-  
   render() {
     const actions = [
       <FlatButton
         label="Close"
         primary={true}
-        onClick={this.close}
+        onClick={this.props.close}
       />
     ];
     
@@ -41,12 +33,12 @@ class DialogAddMovie extends Component {
           actions={actions}
           modal={false}
           open={this.props.isOpen}
-          onRequestClose={this.close}
+          onRequestClose={this.props.close}
           autoScrollBodyContent={true}
         >
           <SearchBar
             onChange={(query) => this.setState({query})}
-            onRequestSearch={() => {this.search(this.state.query);}}
+            onRequestSearch={() => {this.props.search(this.props.collection, this.state.query);}}
             style={searchStyle}
           />
           <MoviesList/>
@@ -67,11 +59,9 @@ const mapDispatchToProps = dispatch => {
     close: () => {
       dispatch(showDialogAddMovie(false));
     },
-    search: (query) => {
+    search: (collection, query) => {
       if(query) {
-        theMovieDb.search.getMovie({"query":query}, (response) => {
-          dispatch(updateAutoComplete(JSON.parse(response)));
-        }, () => {});
+        dispatch(searchMovies(collection, query));
       }
     }
   }

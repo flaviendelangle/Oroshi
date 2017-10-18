@@ -3,7 +3,7 @@ import { combineReducers } from 'redux'
 import moviesList from './components/MoviesList/reducer'
 
 const defaultState = {
-  isAddingAMovie: false
+  isAddingAMovie: true
 };
 
 const main = (state = defaultState, action) => {

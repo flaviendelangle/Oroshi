@@ -50,8 +50,8 @@ class API {
   };
   
   url = (pk = null) => {
-    const sub_url = pk ? (pk + '/') : '';
-    return this.mainConfig.url + this.root + this.config.root + sub_url;
+    const sub_url = pk ? ('/' + pk) : '';
+    return this.mainConfig.url + this.root + this.config.root + sub_url + '/';
   };
   
   element = (pk) => {
@@ -81,6 +81,11 @@ class API {
     return this.GET(url);
   };
   
+  list_route(route_name) {
+    const url = this.url() + route_name + '/';
+    return this.GET(url);
+  }
+  
   create(body) {
     const data = {
       body: this.objectToFormData(body)
@@ -107,6 +112,16 @@ class API {
   /*
    Custom requests
    */
+  
+  serialize(data, route_name) {
+    const url = this.url() + 'serialize/' + route_name + '/' + data + '/';
+    return this.GET(url);
+  }
+
+  exist(data, route_name) {
+  const url = this.url() + 'exist/' + route_name + '/' + data + '/';
+  return this.GET(url);
+}
   
   retrieveOrCreate(data, route_name) {
     const send = (element) => {

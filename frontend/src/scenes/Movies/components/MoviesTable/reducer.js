@@ -11,7 +11,8 @@ const moviesListReducer = (state = defaultState, action) => {
         ...state,
         movies: sort(action.payload)
       };
-    case 'ADD_MOVIE_TO_SERVER_FULFILLED':
+    case 'ADD_MOVIE_TO_COLLECTION_FULFILLED':
+      console.log(action);
       return {
         ...state,
         movies: sort(state.movies.concat([action.payload]))

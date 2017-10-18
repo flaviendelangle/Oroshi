@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 
 const defaultState = {
-  isAddingACollection: true
+  isAddingACollection: false
 };
 
 const main = (state = defaultState, action) => {

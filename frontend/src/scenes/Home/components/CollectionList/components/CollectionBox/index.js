@@ -15,7 +15,7 @@ class CollectionBox extends Component {
     if(this.props.editing) {
       return '/collections/' + this.props.data.pk;
     }
-    return '/movies/' + this.props.data.pk + '/';
+    return '/collections/' + this.props.data.pk + '/movies/';
   }
   
   render() {

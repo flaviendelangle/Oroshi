@@ -16,7 +16,6 @@ const sort = (movies) => {
 
 let date = (date, oldFormat, newFormat) => {
   const newDate = moment(date, oldFormat);
-  console.log(newDate);
   return newDate.format(newFormat);
 };
 

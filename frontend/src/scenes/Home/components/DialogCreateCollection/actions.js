@@ -1,4 +1,4 @@
-import { CollectionsAPI } from '../../../Collection/services/api'
+import { CollectionsAPI } from '../../../../services/api/collections'
 
 export const showDialogCreateCollection = show => {
   return {

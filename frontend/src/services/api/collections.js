@@ -1,5 +1,5 @@
-import API, { nested_class } from '../../../containers/api'
-import { MoviesClass } from '../../Movies/services/api'
+import API, { nested_class } from './index'
+import { MoviesClass } from './movies'
 
 class Collections extends API {
   

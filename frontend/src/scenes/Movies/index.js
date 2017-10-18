@@ -6,23 +6,18 @@ import MoviesTable from './components/MoviesTable'
 import Menu from './components/Menu'
 
 import { listMovies } from './actions'
-import { showDialogAddMovie } from './components/DialogAddMovie/actions'
 
 class Movies extends Component {
   
-  constructor({ closeModal, synchronize }) {
-    super();
-    this.closeModal = closeModal;
-    this.synchronize = synchronize;
-    this.synchronize();
-    
+  componentDidMount() {
+    this.props.synchronize(this.props.match.params.collection_id);
   }
   
   render() {
     return (
       <div>
         <MoviesTable/>
-        <DialogAddMovie/>
+        <DialogAddMovie collection={this.props.match.params.collection_id}/>
         <Menu/>
       </div>
     )
@@ -38,11 +33,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    closeModal: () => {
-      dispatch(showDialogAddMovie(false));
-    },
-    synchronize: () => {
-      dispatch(listMovies());
+    synchronize: (collection) => {
+      dispatch(listMovies(collection));
     }
   }
 };

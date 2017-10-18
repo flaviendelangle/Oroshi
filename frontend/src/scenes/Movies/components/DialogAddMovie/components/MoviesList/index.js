@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import DataTables from 'material-ui-datatables'
 
 import SaveButton from './components/SaveButton'
+import { MoviesAPI } from '../../../../../../services/api/movies'
 import { date } from '../../../../services/utils'
 
 const TABLE_COLUMNS = [
@@ -20,25 +21,15 @@ const TABLE_COLUMNS = [
     }
   }, {
     render: (name, all) => {
-      return (<SaveButton data={all} />)
+      return (all.already_in_collection ? null : <SaveButton data={all} />)
     }
   }
 ];
 
 class MoviesList extends Component {
   
-  handleCellClick = (key, order) => {
-  };
-  
-  handleCellDoubleClick = (key, order) => {
-  };
-  
-  handleFilterValueChange = (value) => {
-  };
-  
-  handleSortOrderChange = (key, order) => {
-  };
-  
+  exData = [];
+
   render() {
     if(this.props.data.results.length === 0) {
       return (null);
@@ -66,12 +57,11 @@ class MoviesList extends Component {
 const mapStateToProps = state => {
   return {
     data: state.movies.dialogAddMovie.moviesList.main.data
-  }
+  };
 };
 
 const mapDispatchToProps = dispatch => {
-  return {
-  }
+  return {};
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MoviesList);
