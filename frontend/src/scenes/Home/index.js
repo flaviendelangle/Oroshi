@@ -22,7 +22,7 @@ class Home extends Component {
   };
   
   componentDidMount() {
-    CollectionsAPI.list().then((response) => {
+    CollectionsAPI.list().then(response => {
       this.setState({ collections: response });
     });
   }

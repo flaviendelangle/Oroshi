@@ -44,7 +44,7 @@ class API {
   
   _handleSuccess = (url, data, response) => {
     if(response.status === HTTP_STATUS.TOO_MANY_REQUESTS) {
-      let promise = new Promise((resolve) => {
+      let promise = new Promise(resolve => {
         window.setTimeout(() => {
           resolve();
         }, API.state.reset*1000 - new Date().getTime() + 1000);

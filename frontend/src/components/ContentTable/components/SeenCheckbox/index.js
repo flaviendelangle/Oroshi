@@ -17,7 +17,7 @@ class SeenCheckbox extends Component {
   
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     movies: state.movies.moviesTable.movies
   }

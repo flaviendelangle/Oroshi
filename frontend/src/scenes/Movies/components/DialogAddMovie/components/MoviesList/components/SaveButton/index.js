@@ -19,7 +19,7 @@ class SaveButton extends Component {
 
 // Decorate with connect to read form values
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {};
 };
 

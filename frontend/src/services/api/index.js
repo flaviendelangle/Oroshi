@@ -122,7 +122,7 @@ class API {
 }
   
   retrieveOrCreate(data, route_name) {
-    const send = (element) => {
+    const send = element => {
       return this.detail_route(element[route_name], route_name).then(content => {
         if(content.pk > 0) {
           return Promise.resolve({
