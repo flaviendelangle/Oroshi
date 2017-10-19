@@ -92,17 +92,17 @@ class API {
     return API.GLOBALCONFIG.uri.base + this.CONFIG.root + sub_url + query_url;
   };
   
-  detail_route = (value, route_name, options, method='GET') => {
+  detail_route(value, route_name, options, method='GET') {
     value = encodeURIComponent(value);
     const url = this.url(value, options, route_name);
     return this.methods[method].bind(this)(url);
   };
   
-  retrieve = (pk, options={}) => {
+  retrieve (pk, options = {}) {
     return this._GET(this.url(pk, options))
   };
   
-  list = () => {
+  list() {
     return this._GET(this.url());
   };
   

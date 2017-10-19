@@ -2,36 +2,28 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8c20868a-1876-4817-941c-14545736966a" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/frontend/src/scenes/Collection/actions.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/frontend/src/scenes/Collection/services/utils.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/db.sqlite3" afterPath="$PROJECT_DIR$/server/db.sqlite3" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/src/components/ContentTable/components/SeenCheckbox/actions.js" afterPath="$PROJECT_DIR$/frontend/src/components/ContentTable/components/SeenCheckbox/actions.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/src/components/ContentTable/components/SeenCheckbox/index.js" afterPath="$PROJECT_DIR$/frontend/src/components/ContentTable/components/SeenCheckbox/index.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/src/components/ContentTable/index.js" afterPath="$PROJECT_DIR$/frontend/src/components/ContentTable/index.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/src/components/ContentTable/services/search.js" afterPath="$PROJECT_DIR$/frontend/src/components/ContentTable/services/search.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/src/components/Header/components/MainDrawer/index.js" afterPath="$PROJECT_DIR$/frontend/src/components/Header/components/MainDrawer/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/src/components/Header/index.js" afterPath="$PROJECT_DIR$/frontend/src/components/Header/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/src/components/Header/reducer.js" afterPath="$PROJECT_DIR$/frontend/src/components/Header/reducer.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/src/components/Identicon/index.js" afterPath="$PROJECT_DIR$/frontend/src/components/Identicon/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/src/containers/App.js" afterPath="$PROJECT_DIR$/frontend/src/containers/App.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/src/scenes/Home/components/CollectionList/components/CollectionBox/index.js" afterPath="$PROJECT_DIR$/frontend/src/scenes/Home/components/CollectionList/components/CollectionBox/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/src/scenes/Home/components/CollectionList/components/NewCollectionButton/index.js" afterPath="$PROJECT_DIR$/frontend/src/scenes/Home/components/CollectionList/components/NewCollectionButton/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/src/scenes/Home/components/CollectionList/index.js" afterPath="$PROJECT_DIR$/frontend/src/scenes/Home/components/CollectionList/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/src/scenes/Home/components/DialogCreateCollection/components/Form/components/IdenticonField/index.js" afterPath="$PROJECT_DIR$/frontend/src/scenes/Home/components/DialogCreateCollection/components/Form/components/IdenticonField/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/src/scenes/Home/components/DialogCreateCollection/components/Form/index.js" afterPath="$PROJECT_DIR$/frontend/src/scenes/Home/components/DialogCreateCollection/components/Form/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/src/scenes/Home/components/DialogCreateCollection/index.js" afterPath="$PROJECT_DIR$/frontend/src/scenes/Home/components/DialogCreateCollection/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/src/scenes/Home/components/ManageButton/index.js" afterPath="$PROJECT_DIR$/frontend/src/scenes/Home/components/ManageButton/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/src/scenes/Home/index.js" afterPath="$PROJECT_DIR$/frontend/src/scenes/Home/index.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/src/scenes/Movies/actions.js" afterPath="$PROJECT_DIR$/frontend/src/scenes/Movies/actions.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/src/scenes/Movies/components/DialogAddMovie/actions.js" afterPath="$PROJECT_DIR$/frontend/src/scenes/Movies/components/DialogAddMovie/actions.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/src/scenes/Movies/components/DialogAddMovie/components/MoviesList/index.js" afterPath="$PROJECT_DIR$/frontend/src/scenes/Movies/components/DialogAddMovie/components/MoviesList/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/src/scenes/Movies/components/DialogAddMovie/components/MoviesList/reducer.js" afterPath="$PROJECT_DIR$/frontend/src/scenes/Movies/components/DialogAddMovie/components/MoviesList/reducer.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/src/scenes/Movies/components/DialogAddMovie/index.js" afterPath="$PROJECT_DIR$/frontend/src/scenes/Movies/components/DialogAddMovie/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/src/scenes/Movies/components/Menu/index.js" afterPath="$PROJECT_DIR$/frontend/src/scenes/Movies/components/Menu/index.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/src/scenes/Movies/components/DialogAddMovie/reducer.js" afterPath="$PROJECT_DIR$/frontend/src/scenes/Movies/components/DialogAddMovie/reducer.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/src/scenes/Movies/components/MoviesTable/index.js" afterPath="$PROJECT_DIR$/frontend/src/scenes/Movies/components/MoviesTable/index.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/src/scenes/Movies/components/MoviesTable/reducer.js" afterPath="$PROJECT_DIR$/frontend/src/scenes/Movies/components/MoviesTable/reducer.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/src/scenes/Movies/index.js" afterPath="$PROJECT_DIR$/frontend/src/scenes/Movies/index.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/src/scenes/Movies/services/utils.js" afterPath="$PROJECT_DIR$/frontend/src/scenes/Movies/services/utils.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/src/services/TheMovieDatabaseJS/index.js" afterPath="$PROJECT_DIR$/frontend/src/services/TheMovieDatabaseJS/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/src/services/api/directors.js" afterPath="$PROJECT_DIR$/frontend/src/services/api/directors.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/src/services/api/index.js" afterPath="$PROJECT_DIR$/frontend/src/services/api/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/src/services/api/movies.js" afterPath="$PROJECT_DIR$/frontend/src/services/api/movies.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/api/Collections/models.py" afterPath="$PROJECT_DIR$/server/api/Collections/models.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/api/Collections/serializers.py" afterPath="$PROJECT_DIR$/server/api/Collections/serializers.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/api/Collections/views.py" afterPath="$PROJECT_DIR$/server/api/Collections/views.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/api/Movies/models.py" afterPath="$PROJECT_DIR$/server/api/Movies/models.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/api/Movies/serializers.py" afterPath="$PROJECT_DIR$/server/api/Movies/serializers.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/api/Movies/views.py" afterPath="$PROJECT_DIR$/server/api/Movies/views.py" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -45,11 +37,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="collections.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/frontend/src/services/api/collections.js">
+      <file leaf-file-name="reducer.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/frontend/src/scenes/Movies/components/MoviesTable/reducer.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="255">
+              <caret line="15" column="43" lean-forward="false" selection-start-line="15" selection-start-column="43" selection-end-line="15" selection-end-column="43" />
               <folding>
                 <element signature="e#0#43#0" expanded="true" />
               </folding>
@@ -57,12 +49,37 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="directors.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/frontend/src/services/api/directors.js">
+      <file leaf-file-name="utils.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/frontend/src/scenes/Collection/services/utils.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="8" column="25" lean-forward="false" selection-start-line="8" selection-start-column="25" selection-end-line="8" selection-end-column="25" />
+            <state relative-caret-position="119">
+              <caret line="7" column="30" lean-forward="true" selection-start-line="7" selection-start-column="30" selection-end-line="7" selection-end-column="30" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/frontend/src/components/ContentTable/components/SeenCheckbox/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="459">
+              <caret line="27" column="28" lean-forward="false" selection-start-line="27" selection-start-column="28" selection-end-line="27" selection-end-column="28" />
+              <folding>
+                <element signature="e#0#40#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="actions.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/frontend/src/scenes/Movies/actions.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="386">
+              <caret line="47" column="69" lean-forward="false" selection-start-line="47" selection-start-column="55" selection-end-line="47" selection-end-column="69" />
+              <folding>
+                <element signature="e#0#63#0" expanded="true" />
+                <marker date="1508445431131" expanded="true" signature="1482:1746" ph="{&quot;type&quot;: 'ADD_MOVIE_TO_COLLECTION'...}" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -70,18 +87,28 @@
       <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/frontend/src/services/api/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="449">
-              <caret line="144" column="5" lean-forward="true" selection-start-line="144" selection-start-column="5" selection-end-line="144" selection-end-column="5" />
+            <state relative-caret-position="301">
+              <caret line="47" column="5" lean-forward="true" selection-start-line="47" selection-start-column="5" selection-end-line="47" selection-end-column="5" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="movies.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/frontend/src/services/api/movies.js">
+      <file leaf-file-name="actions.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/frontend/src/components/ContentTable/components/SeenCheckbox/actions.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="14" column="60" lean-forward="false" selection-start-line="14" selection-start-column="60" selection-end-line="14" selection-end-column="60" />
+            <state relative-caret-position="136">
+              <caret line="8" column="34" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="34" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/frontend/src/scenes/Movies/components/MoviesTable/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="595">
+              <caret line="37" column="36" lean-forward="false" selection-start-line="37" selection-start-column="36" selection-end-line="37" selection-end-column="36" />
               <folding />
             </state>
           </provider>
@@ -99,18 +126,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>css</find>
-      <find>Icon</find>
-      <find>pointer</find>
-      <find>alternati</find>
-      <find>generateQuery</find>
-      <find>query_url</find>
-      <find>retrieve</find>
-      <find>search/</find>
-      <find>sub</find>
-      <find>Dispatcher</find>
-      <find>dispatcher</find>
-      <find>DirectorsA</find>
       <find>DirectorsAPI</find>
       <find>listMovies</find>
       <find>close</find>
@@ -119,7 +134,6 @@
       <find>list_route</find>
       <find>saveMovie</find>
       <find>ADD_MOVIE_</find>
-      <find>addMovieToCollection</find>
       <find>_TO_SER</find>
       <find>manageXRateLimit</find>
       <find>fetch</find>
@@ -129,6 +143,19 @@
       <find>newC</find>
       <find>submit</find>
       <find>search</find>
+      <find>retrievr</find>
+      <find>addMovieToCollection</find>
+      <find>createMovie</find>
+      <find>complete</find>
+      <find>filter</find>
+      <find>UPDATE_M</find>
+      <find>UPDATE_COLLECTION_MOVIE</find>
+      <find>UPDATE_MOVIE_</find>
+      <find>sort</find>
+      <find>.collection =</find>
+      <find>updateCollectionMovie</find>
+      <find>partial_update</find>
+      <find>objectToFormData</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -137,10 +164,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/frontend/src/scenes/Home/components/CollectionList/components/CollectionBox/style.css" />
-        <option value="$PROJECT_DIR$/frontend/src/scenes/Home/reducer.js" />
-        <option value="$PROJECT_DIR$/frontend/src/scenes/Home/components/CollectionList/components/NewCollectionButton/actions.js" />
-        <option value="$PROJECT_DIR$/frontend/src/scenes/Movies/services/TheMovieDataBase.js" />
         <option value="$PROJECT_DIR$/frontend/src/scenes/Movies/services/TheMovieDatabaseJS/search.js" />
         <option value="$PROJECT_DIR$/frontend/src/scenes/Movies/services/TheMovieDatabaseJS/index.js" />
         <option value="$PROJECT_DIR$/frontend/src/scenes/Movies/services/TheMovieDatabaseJS/movies.js" />
@@ -150,18 +173,12 @@
         <option value="$PROJECT_DIR$/frontend/src/scenes/Home/components/DialogCreateCollection/reducer.js" />
         <option value="$PROJECT_DIR$/frontend/src/containers/api.js" />
         <option value="$PROJECT_DIR$/frontend/src/containers/Main.js" />
-        <option value="$PROJECT_DIR$/frontend/src/scenes/Movies/components/DialogAddMovie/reducer.js" />
         <option value="$PROJECT_DIR$/frontend/src/scenes/Movies/components/DialogAddMovie/components/MoviesList/actions.js" />
-        <option value="$PROJECT_DIR$/frontend/src/scenes/Movies/services/utils.js" />
         <option value="$PROJECT_DIR$/frontend/src/scenes/Collection/index.js" />
         <option value="$PROJECT_DIR$/frontend/src/scenes/Movies/components/DialogAddMovie/components/MoviesList/components/SaveButton/actions.js" />
         <option value="$PROJECT_DIR$/frontend/src/scenes/Movies/components/DialogAddMovie/components/MoviesList/components/SaveButton/index.js" />
         <option value="$PROJECT_DIR$/frontend/src/scenes/Movies/components/DialogAddMovie/components/MoviesList/components/SaveButton/reducer.js" />
-        <option value="$PROJECT_DIR$/frontend/src/services/TheMovieDatabaseJS/index.js" />
-        <option value="$PROJECT_DIR$/frontend/src/components/ContentTable/components/SeenCheckbox/index.js" />
         <option value="$PROJECT_DIR$/frontend/src/components/Header/components/MainDrawer/index.js" />
-        <option value="$PROJECT_DIR$/frontend/src/components/ContentTable/services/search.js" />
-        <option value="$PROJECT_DIR$/frontend/src/components/ContentTable/index.js" />
         <option value="$PROJECT_DIR$/frontend/src/components/Header/index.js" />
         <option value="$PROJECT_DIR$/frontend/src/components/Header/reducer.js" />
         <option value="$PROJECT_DIR$/frontend/src/components/Identicon/index.js" />
@@ -178,16 +195,26 @@
         <option value="$PROJECT_DIR$/frontend/src/scenes/Home/index.js" />
         <option value="$PROJECT_DIR$/frontend/src/scenes/Movies/components/DialogAddMovie/components/MoviesList/index.js" />
         <option value="$PROJECT_DIR$/frontend/src/scenes/Movies/components/DialogAddMovie/components/MoviesList/reducer.js" />
-        <option value="$PROJECT_DIR$/frontend/src/scenes/Movies/components/DialogAddMovie/actions.js" />
         <option value="$PROJECT_DIR$/frontend/src/scenes/Movies/components/DialogAddMovie/index.js" />
         <option value="$PROJECT_DIR$/frontend/src/scenes/Movies/components/Menu/index.js" />
-        <option value="$PROJECT_DIR$/frontend/src/scenes/Movies/components/MoviesTable/index.js" />
-        <option value="$PROJECT_DIR$/frontend/src/scenes/Movies/components/MoviesTable/reducer.js" />
-        <option value="$PROJECT_DIR$/frontend/src/scenes/Movies/actions.js" />
-        <option value="$PROJECT_DIR$/frontend/src/scenes/Movies/index.js" />
         <option value="$PROJECT_DIR$/frontend/src/services/api/directors.js" />
-        <option value="$PROJECT_DIR$/frontend/src/services/api/index.js" />
         <option value="$PROJECT_DIR$/frontend/src/services/api/movies.js" />
+        <option value="$PROJECT_DIR$/frontend/src/services/TheMovieDatabaseJS/search.js" />
+        <option value="$PROJECT_DIR$/frontend/src/services/TheMovieDatabaseJS/index.js" />
+        <option value="$PROJECT_DIR$/frontend/src/scenes/Movies/components/DialogAddMovie/actions.js" />
+        <option value="$PROJECT_DIR$/frontend/src/components/ContentTable/index.js" />
+        <option value="$PROJECT_DIR$/frontend/src/scenes/Movies/components/DialogAddMovie/reducer.js" />
+        <option value="$PROJECT_DIR$/frontend/src/scenes/Movies/index.js" />
+        <option value="$PROJECT_DIR$/frontend/src/scenes/Movies/services/utils.js" />
+        <option value="$PROJECT_DIR$/frontend/src/scenes/Collection/actions.js" />
+        <option value="$PROJECT_DIR$/frontend/src/scenes/Movies/components/MoviesTable/index.js" />
+        <option value="$PROJECT_DIR$/frontend/src/components/ContentTable/services/search.js" />
+        <option value="$PROJECT_DIR$/frontend/src/components/ContentTable/components/SeenCheckbox/index.js" />
+        <option value="$PROJECT_DIR$/frontend/src/components/ContentTable/components/SeenCheckbox/actions.js" />
+        <option value="$PROJECT_DIR$/frontend/src/scenes/Movies/actions.js" />
+        <option value="$PROJECT_DIR$/frontend/src/services/api/index.js" />
+        <option value="$PROJECT_DIR$/frontend/src/scenes/Collection/services/utils.js" />
+        <option value="$PROJECT_DIR$/frontend/src/scenes/Movies/components/MoviesTable/reducer.js" />
       </list>
     </option>
   </component>
@@ -201,9 +228,9 @@
     <handled-path value="$PROJECT_DIR$/frontend/node_modules" />
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-94" />
+    <option name="x" value="-93" />
     <option name="width" value="1914" />
-    <option name="height" value="1050" />
+    <option name="height" value="1049" />
   </component>
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -223,6 +250,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -246,38 +275,6 @@
               <item name="collection-manager" type="462c0819:PsiDirectoryNode" />
               <item name="frontend" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="images" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="collection-manager" type="b2602c69:ProjectViewProjectNode" />
-              <item name="collection-manager" type="462c0819:PsiDirectoryNode" />
-              <item name="frontend" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="scenes" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="collection-manager" type="b2602c69:ProjectViewProjectNode" />
-              <item name="collection-manager" type="462c0819:PsiDirectoryNode" />
-              <item name="frontend" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="scenes" type="462c0819:PsiDirectoryNode" />
-              <item name="Collection" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="collection-manager" type="b2602c69:ProjectViewProjectNode" />
-              <item name="collection-manager" type="462c0819:PsiDirectoryNode" />
-              <item name="frontend" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="scenes" type="462c0819:PsiDirectoryNode" />
-              <item name="Home" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="collection-manager" type="b2602c69:ProjectViewProjectNode" />
-              <item name="collection-manager" type="462c0819:PsiDirectoryNode" />
-              <item name="frontend" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="scenes" type="462c0819:PsiDirectoryNode" />
-              <item name="Home" type="462c0819:PsiDirectoryNode" />
               <item name="components" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -285,65 +282,16 @@
               <item name="collection-manager" type="462c0819:PsiDirectoryNode" />
               <item name="frontend" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="scenes" type="462c0819:PsiDirectoryNode" />
-              <item name="Home" type="462c0819:PsiDirectoryNode" />
               <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="CollectionList" type="462c0819:PsiDirectoryNode" />
+              <item name="ContentTable" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="collection-manager" type="b2602c69:ProjectViewProjectNode" />
               <item name="collection-manager" type="462c0819:PsiDirectoryNode" />
               <item name="frontend" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="scenes" type="462c0819:PsiDirectoryNode" />
-              <item name="Home" type="462c0819:PsiDirectoryNode" />
               <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="CollectionList" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="collection-manager" type="b2602c69:ProjectViewProjectNode" />
-              <item name="collection-manager" type="462c0819:PsiDirectoryNode" />
-              <item name="frontend" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="scenes" type="462c0819:PsiDirectoryNode" />
-              <item name="Home" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="CollectionList" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="CollectionBox" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="collection-manager" type="b2602c69:ProjectViewProjectNode" />
-              <item name="collection-manager" type="462c0819:PsiDirectoryNode" />
-              <item name="frontend" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="scenes" type="462c0819:PsiDirectoryNode" />
-              <item name="Home" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="CollectionList" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="NewCollectionButton" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="collection-manager" type="b2602c69:ProjectViewProjectNode" />
-              <item name="collection-manager" type="462c0819:PsiDirectoryNode" />
-              <item name="frontend" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="scenes" type="462c0819:PsiDirectoryNode" />
-              <item name="Home" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="DialogCreateCollection" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="collection-manager" type="b2602c69:ProjectViewProjectNode" />
-              <item name="collection-manager" type="462c0819:PsiDirectoryNode" />
-              <item name="frontend" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="scenes" type="462c0819:PsiDirectoryNode" />
-              <item name="Home" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="DialogCreateCollection" type="462c0819:PsiDirectoryNode" />
+              <item name="ContentTable" type="462c0819:PsiDirectoryNode" />
               <item name="components" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -351,12 +299,19 @@
               <item name="collection-manager" type="462c0819:PsiDirectoryNode" />
               <item name="frontend" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="scenes" type="462c0819:PsiDirectoryNode" />
-              <item name="Home" type="462c0819:PsiDirectoryNode" />
               <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="DialogCreateCollection" type="462c0819:PsiDirectoryNode" />
+              <item name="ContentTable" type="462c0819:PsiDirectoryNode" />
               <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="Form" type="462c0819:PsiDirectoryNode" />
+              <item name="SeenCheckbox" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="collection-manager" type="b2602c69:ProjectViewProjectNode" />
+              <item name="collection-manager" type="462c0819:PsiDirectoryNode" />
+              <item name="frontend" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="ContentTable" type="462c0819:PsiDirectoryNode" />
+              <item name="services" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="collection-manager" type="b2602c69:ProjectViewProjectNode" />
@@ -364,36 +319,6 @@
               <item name="frontend" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="scenes" type="462c0819:PsiDirectoryNode" />
-              <item name="Home" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="DialogCreateCollection" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="Form" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="collection-manager" type="b2602c69:ProjectViewProjectNode" />
-              <item name="collection-manager" type="462c0819:PsiDirectoryNode" />
-              <item name="frontend" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="scenes" type="462c0819:PsiDirectoryNode" />
-              <item name="Home" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="DialogCreateCollection" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="Form" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="IdenticonField" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="collection-manager" type="b2602c69:ProjectViewProjectNode" />
-              <item name="collection-manager" type="462c0819:PsiDirectoryNode" />
-              <item name="frontend" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="scenes" type="462c0819:PsiDirectoryNode" />
-              <item name="Home" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="ManageButton" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="collection-manager" type="b2602c69:ProjectViewProjectNode" />
@@ -411,76 +336,6 @@
               <item name="scenes" type="462c0819:PsiDirectoryNode" />
               <item name="Movies" type="462c0819:PsiDirectoryNode" />
               <item name="components" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="collection-manager" type="b2602c69:ProjectViewProjectNode" />
-              <item name="collection-manager" type="462c0819:PsiDirectoryNode" />
-              <item name="frontend" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="scenes" type="462c0819:PsiDirectoryNode" />
-              <item name="Movies" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="DialogAddMovie" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="collection-manager" type="b2602c69:ProjectViewProjectNode" />
-              <item name="collection-manager" type="462c0819:PsiDirectoryNode" />
-              <item name="frontend" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="scenes" type="462c0819:PsiDirectoryNode" />
-              <item name="Movies" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="DialogAddMovie" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="collection-manager" type="b2602c69:ProjectViewProjectNode" />
-              <item name="collection-manager" type="462c0819:PsiDirectoryNode" />
-              <item name="frontend" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="scenes" type="462c0819:PsiDirectoryNode" />
-              <item name="Movies" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="DialogAddMovie" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="MoviesList" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="collection-manager" type="b2602c69:ProjectViewProjectNode" />
-              <item name="collection-manager" type="462c0819:PsiDirectoryNode" />
-              <item name="frontend" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="scenes" type="462c0819:PsiDirectoryNode" />
-              <item name="Movies" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="DialogAddMovie" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="MoviesList" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="collection-manager" type="b2602c69:ProjectViewProjectNode" />
-              <item name="collection-manager" type="462c0819:PsiDirectoryNode" />
-              <item name="frontend" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="scenes" type="462c0819:PsiDirectoryNode" />
-              <item name="Movies" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="DialogAddMovie" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="MoviesList" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="SaveButton" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="collection-manager" type="b2602c69:ProjectViewProjectNode" />
-              <item name="collection-manager" type="462c0819:PsiDirectoryNode" />
-              <item name="frontend" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="scenes" type="462c0819:PsiDirectoryNode" />
-              <item name="Movies" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="Menu" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="collection-manager" type="b2602c69:ProjectViewProjectNode" />
@@ -501,27 +356,10 @@
               <item name="Movies" type="462c0819:PsiDirectoryNode" />
               <item name="services" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="collection-manager" type="b2602c69:ProjectViewProjectNode" />
-              <item name="collection-manager" type="462c0819:PsiDirectoryNode" />
-              <item name="frontend" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="services" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="collection-manager" type="b2602c69:ProjectViewProjectNode" />
-              <item name="collection-manager" type="462c0819:PsiDirectoryNode" />
-              <item name="frontend" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="services" type="462c0819:PsiDirectoryNode" />
-              <item name="api" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -588,13 +426,13 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="146752000" />
+    <option name="totallyTimeSpent" value="151806000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-6" y="-6" width="1381" height="885" extended-state="6" />
+    <frame x="-93" y="0" width="1922" height="1053" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2394052" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23932526" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32983193" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -605,11 +443,20 @@
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32446808" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2394052" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -620,96 +467,15 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="12" />
+      <option name="time" value="13" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/frontend/src/services/TheMovieDatabaseJS/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="242">
-          <caret line="51" column="21" lean-forward="false" selection-start-line="51" selection-start-column="21" selection-end-line="51" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/components/ContentTable/components/SeenCheckbox/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="494">
-          <caret line="33" column="56" lean-forward="true" selection-start-line="33" selection-start-column="56" selection-end-line="33" selection-end-column="56" />
-          <folding>
-            <element signature="e#0#40#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/components/ContentTable/components/SeenCheckbox/actions.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/components/ContentTable/services/search.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="2" lean-forward="true" selection-start-line="9" selection-start-column="2" selection-end-line="9" selection-end-column="2" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/components/ContentTable/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="217">
-          <caret line="53" column="4" lean-forward="false" selection-start-line="53" selection-start-column="4" selection-end-line="53" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/components/Header/components/MainDrawer/actions.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/components/Header/components/MainDrawer/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="524">
-          <caret line="48" column="4" lean-forward="false" selection-start-line="48" selection-start-column="4" selection-end-line="48" selection-end-column="4" />
-          <folding>
-            <element signature="e#0#40#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/components/Header/components/MainDrawer/reducer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/components/Header/reducer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="34" lean-forward="false" selection-start-line="6" selection-start-column="34" selection-end-line="6" selection-end-column="34" />
-          <folding>
-            <element signature="e#0#39#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/frontend/src/components/Header/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="375">
           <caret line="25" column="12" lean-forward="false" selection-start-line="25" selection-start-column="12" selection-end-line="25" selection-end-column="12" />
-          <folding>
-            <element signature="e#0#40#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -725,9 +491,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
           <caret line="5" column="18" lean-forward="false" selection-start-line="5" selection-start-column="18" selection-end-line="5" selection-end-column="18" />
-          <folding>
-            <element signature="e#0#26#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -767,14 +530,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/scenes/Collection/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="22" column="2" lean-forward="false" selection-start-line="22" selection-start-column="2" selection-end-line="22" selection-end-column="2" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/frontend/src/scenes/Home/components/CollectionList/components/CollectionBox/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
@@ -795,9 +550,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="300">
           <caret line="20" column="4" lean-forward="false" selection-start-line="20" selection-start-column="4" selection-end-line="20" selection-end-column="4" />
-          <folding>
-            <element signature="e#0#40#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -831,9 +583,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
           <caret line="16" column="24" lean-forward="false" selection-start-line="16" selection-start-column="24" selection-end-line="16" selection-end-column="24" />
-          <folding>
-            <element signature="e#0#40#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -849,9 +598,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-45">
           <caret line="12" column="15" lean-forward="false" selection-start-line="12" selection-start-column="15" selection-end-line="12" selection-end-column="15" />
-          <folding>
-            <element signature="e#0#40#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -867,9 +613,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="360">
           <caret line="24" column="27" lean-forward="true" selection-start-line="24" selection-start-column="27" selection-end-line="24" selection-end-column="27" />
-          <folding>
-            <element signature="e#0#40#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -901,15 +644,17 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/frontend/src/scenes/Movies/components/DialogAddMovie/components/MoviesList/components/SaveButton/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
+        <state relative-caret-position="374">
           <caret line="27" column="43" lean-forward="false" selection-start-line="27" selection-start-column="43" selection-end-line="27" selection-end-column="43" />
-          <folding />
+          <folding>
+            <element signature="e#0#40#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/frontend/src/scenes/Movies/components/DialogAddMovie/components/MoviesList/components/SaveButton/reducer.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
+        <state relative-caret-position="51">
           <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
           <folding />
         </state>
@@ -919,31 +664,21 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/frontend/src/scenes/Movies/components/DialogAddMovie/components/MoviesList/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="45" column="30" lean-forward="false" selection-start-line="45" selection-start-column="30" selection-end-line="45" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/scenes/Movies/components/DialogAddMovie/components/MoviesList/reducer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="32" column="9" lean-forward="true" selection-start-line="32" selection-start-column="9" selection-end-line="32" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/scenes/Movies/components/DialogAddMovie/actions.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="17" column="46" lean-forward="false" selection-start-line="17" selection-start-column="46" selection-end-line="17" selection-end-column="46" />
-          <folding />
+        <state relative-caret-position="221">
+          <caret line="19" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#40#0" expanded="false" />
+            <marker date="1508431547744" expanded="true" signature="316:603" ph="[...]" />
+            <marker date="1508431547744" expanded="true" signature="595:603" ph="{...}" />
+            <marker date="1508431547744" expanded="true" signature="1059:1134" ph="&lt;DataTables/&gt;" />
+            <marker date="1508431547744" expanded="true" signature="1059:1144" ph="{...}" />
+            <marker date="1508431547744" expanded="true" signature="1184:1262" ph="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -957,19 +692,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/scenes/Movies/components/DialogAddMovie/reducer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="5" column="22" lean-forward="false" selection-start-line="5" selection-start-column="22" selection-end-line="5" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/frontend/src/scenes/Movies/components/Menu/actions.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -977,9 +703,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="419">
           <caret line="34" column="2" lean-forward="true" selection-start-line="34" selection-start-column="2" selection-end-line="34" selection-end-column="2" />
-          <folding>
-            <element signature="e#0#40#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -987,35 +710,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/scenes/Movies/components/MoviesTable/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="465">
-          <caret line="39" column="2" lean-forward="true" selection-start-line="39" selection-start-column="2" selection-end-line="39" selection-end-column="2" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/scenes/Movies/actions.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="56" column="25" lean-forward="true" selection-start-line="56" selection-start-column="25" selection-end-line="56" selection-end-column="25" />
-          <folding>
-            <element signature="e#0#63#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/scenes/Movies/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="35" column="15" lean-forward="false" selection-start-line="35" selection-start-column="15" selection-end-line="35" selection-end-column="15" />
-          <folding>
-            <element signature="e#0#40#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1027,20 +721,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/scenes/Movies/components/MoviesTable/reducer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="465">
-          <caret line="31" column="12" lean-forward="true" selection-start-line="31" selection-start-column="12" selection-end-line="31" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/frontend/src/services/api/collections.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#0#43#0" expanded="true" />
+            <element signature="e#0#43#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1053,19 +739,168 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/services/api/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="449">
-          <caret line="144" column="5" lean-forward="true" selection-start-line="144" selection-start-column="5" selection-end-line="144" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/frontend/src/services/api/movies.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="195">
           <caret line="14" column="60" lean-forward="false" selection-start-line="14" selection-start-column="60" selection-end-line="14" selection-end-column="60" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/scenes/Movies/components/DialogAddMovie/components/MoviesList/reducer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="8" lean-forward="false" selection-start-line="18" selection-start-column="8" selection-end-line="18" selection-end-column="8" />
+          <folding>
+            <element signature="e#0#39#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/services/TheMovieDatabaseJS/search.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="578">
+          <caret line="34" column="0" lean-forward="false" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/scenes/Movies/components/DialogAddMovie/actions.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="17" column="25" lean-forward="false" selection-start-line="17" selection-start-column="25" selection-end-line="17" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/services/TheMovieDatabaseJS/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="522">
+          <caret line="95" column="38" lean-forward="true" selection-start-line="95" selection-start-column="38" selection-end-line="95" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/components/ContentTable/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="27" column="21" lean-forward="true" selection-start-line="27" selection-start-column="21" selection-end-line="27" selection-end-column="21" />
+          <folding>
+            <element signature="e#0#40#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/scenes/Movies/components/DialogAddMovie/reducer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="3" column="0" lean-forward="true" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/scenes/Collection/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="22" column="2" lean-forward="false" selection-start-line="22" selection-start-column="2" selection-end-line="22" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/scenes/Movies/services/utils.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="26" column="19" lean-forward="false" selection-start-line="26" selection-start-column="19" selection-end-line="26" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/components/ContentTable/services/search.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/scenes/Collection/actions.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#63#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/scenes/Movies/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="23" lean-forward="false" selection-start-line="7" selection-start-column="23" selection-end-line="7" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/scenes/Movies/components/MoviesTable/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="595">
+          <caret line="37" column="36" lean-forward="false" selection-start-line="37" selection-start-column="36" selection-end-line="37" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/components/ContentTable/components/SeenCheckbox/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="27" column="28" lean-forward="false" selection-start-line="27" selection-start-column="28" selection-end-line="27" selection-end-column="28" />
+          <folding>
+            <element signature="e#0#40#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/components/ContentTable/components/SeenCheckbox/actions.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="34" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/scenes/Movies/actions.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="386">
+          <caret line="47" column="69" lean-forward="false" selection-start-line="47" selection-start-column="55" selection-end-line="47" selection-end-column="69" />
+          <folding>
+            <element signature="e#0#63#0" expanded="true" />
+            <marker date="1508445431131" expanded="true" signature="1482:1746" ph="{&quot;type&quot;: 'ADD_MOVIE_TO_COLLECTION'...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/services/api/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="301">
+          <caret line="47" column="5" lean-forward="true" selection-start-line="47" selection-start-column="5" selection-end-line="47" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/scenes/Collection/services/utils.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="30" lean-forward="true" selection-start-line="7" selection-start-column="30" selection-end-line="7" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/scenes/Movies/components/MoviesTable/reducer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" column="43" lean-forward="false" selection-start-line="15" selection-start-column="43" selection-end-line="15" selection-end-column="43" />
+          <folding>
+            <element signature="e#0#43#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

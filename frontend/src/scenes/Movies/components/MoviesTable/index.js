@@ -23,7 +23,7 @@ class MoviesTable extends ContentTable {
   render() {
     this.params = {
       ...this.params,
-      type: 'movies',
+      type: 'collection_movies',
       columns: TABLE_COLUMNS,
       data: this.props.movies,
       tableStyle: {}

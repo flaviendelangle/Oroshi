@@ -3,7 +3,7 @@ import ScrollArea from 'react-scrollbar'
 import DataTables from 'material-ui-datatables'
 import SearchBar from 'material-ui-search-bar'
 
-import { filter } from './services/search'
+import { filter as filterUtils } from './services/search'
 import SeenCheckbox from './components/SeenCheckbox'
 
 const parentStyle = {
@@ -30,7 +30,14 @@ class ContentTable extends Component {
       label: 'Seen ?',
       render: (name, all) => {
         return (
-          <SeenCheckbox data={all} type={this.params.type}/>
+          <SeenCheckbox
+            data={all}
+            type={this.params.type}
+            onCheck={() => {
+              console.log(all);
+              this.props.updateMovieFieldSeen();
+            }}
+          />
         )
       }
     }
@@ -41,7 +48,7 @@ class ContentTable extends Component {
   };
   
   filter = () => {
-    this.params.toShow = filter(this.params.data, this.state.query);
+    this.params.toShow = filterUtils(this.params.data, this.state.query);
   };
   
   search = query => {
@@ -54,7 +61,6 @@ class ContentTable extends Component {
   };
   
   render() {
-    this.complete();
     this.filter();
     return (
         <div style={parentStyle}>

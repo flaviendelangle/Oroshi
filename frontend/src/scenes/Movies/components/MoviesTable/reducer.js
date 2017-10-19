@@ -1,33 +1,31 @@
 import { sort } from '../../services/utils'
+import { addSeenToMovies, addCollectionToMovies } from '../../../Collection/services/utils'
 
 const defaultState = {
-  movies: []
+  movies: [],
+  collection: 0
 };
 
 const moviesListReducer = (state = defaultState, action) => {
   switch(action.type) {
     
-    case 'UPDATE_MOVIES_FULFILLED':
+    case 'LOAD_COLLECTION_FULFILLED':
       return {
         ...state,
-        movies: sort(action.payload)
+        collection: action.payload.pk,
+        movies: sort(action.payload.movies)
       };
       
     case 'ADD_MOVIE_TO_COLLECTION_FULFILLED':
       return {
         ...state,
-        movies: sort(state.movies.concat([action.payload]))
+        movies: sort(addCollectionToMovies(state.movies.concat([action.payload]), state.collection))
       };
       
-    case 'UPDATE_MOVIE_FULFILLED':
-      let movies = [].concat(state.movies).map(element => {
-        if(element.pk === action.payload.pk)
-          return action.payload;
-        return element;
-      });
+    case 'UPDATE_COLLECTION_MOVIE_FULFILLED':
       return {
         ...state,
-        movies: movies
+        movies: addSeenToMovies(state.movies, action.payload)
       };
     default:
       return state;

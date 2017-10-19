@@ -2,11 +2,10 @@ import { CollectionsAPI } from '../../services/api/collections'
 import { MoviesAPI } from '../../services/api/movies'
 import MoviesTMDB from '../../services/TheMovieDatabaseJS/movies'
 
-export const listMovies = collection_id => {
-  return {
-    type: 'UPDATE_MOVIES',
-    payload: CollectionsAPI.element(collection_id).movies.list()
-  }
+import { loadCollection as loadCollectionOriginal } from '../Collection/actions'
+
+export const loadCollection = collection_id => {
+  return loadCollectionOriginal(collection_id);
 };
 
 export const createMovie = data => {
@@ -17,8 +16,9 @@ export const createMovie = data => {
     });
   }
   let details;
-  MoviesTMDB.details(data.id)
-    .then(details => {
+  return MoviesTMDB.details(data.id)
+    .then(results => {
+      details = results;
       return MoviesTMDB.credits(data.id);
     })
     .then(credits => {
@@ -28,8 +28,8 @@ export const createMovie = data => {
       
       const movie = {
         directors,
-        title: data.details.title,
-        tmdbId: data.details.id
+        title: details.title,
+        tmdbId: details.id
       };
       
       return MoviesAPI.create(movie);
@@ -42,10 +42,10 @@ export const createMovie = data => {
     })
 };
 
-export const updateMovie = (id, data) => {
+export const updateCollectionMovie = (collection, id, data) => {
   return {
-    type: 'UPDATE_MOVIE',
-    payload: MoviesAPI.partial_update(id, data)
+    type: 'UPDATE_COLLECTION_MOVIE',
+    payload: CollectionsAPI.element(collection).movies.partial_update(id, data)
   }
 };
 
@@ -59,6 +59,12 @@ export const addMovieToCollection = data => {
           pk: response.data.pk
         };
         return CollectionsAPI.element(response.collection).movies.create(data);
+      })
+      .then(response => {
+        return {
+          ...response,
+          seen: false
+        }
       })
   }
 

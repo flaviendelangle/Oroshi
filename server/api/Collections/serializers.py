@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from api.Collections.models import Collections
+from api.Collections.models import Collections, SeenMovies
 from api.Movies.serializers import MoviesSerializer
 
 
@@ -15,3 +15,16 @@ class CollectionsSerializer(serializers.ModelSerializer):
             'pk': {'read_only': True},
             'movies': {'read_only': True}
         }
+
+class CollectionsWriteSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Collections
+        fields = ('title','hash')
+
+
+class SeenMoviesSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = SeenMovies
+        fields = ('movie', 'collection')

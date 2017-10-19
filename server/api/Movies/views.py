@@ -6,12 +6,15 @@ from rest_framework.response import Response
 from rest_framework_extensions.mixins import NestedViewSetMixin
 
 from api.Movies.models import Movies
-from api.Movies.serializers import MoviesSerializer
-from api.Collections.models import Collections
+from api.Movies.serializers import MoviesSerializer, MoviesWriteSerializer
+from api.Collections.models import Collections, SeenMovies
+from api.Collections.serializers import SeenMoviesSerializer
 
 class MoviesViewSet(viewsets.ModelViewSet):
 
     def get_serializer_class(self):
+        if self.request.method == 'POST' :
+            return MoviesWriteSerializer
         return MoviesSerializer
 
     def get_queryset(self):
@@ -45,10 +48,31 @@ class MoviesViewSet(viewsets.ModelViewSet):
 
 class CollectionMoviesViewSet(NestedViewSetMixin, MoviesViewSet):
 
+    def list(self, *args, **kwargs):
+        collection = kwargs['parent_lookup_collection_movies']
+        movies = super().list(*args, **kwargs).data
+        for movie in movies :
+            movie['collection'] = int(collection)
+        return Response(movies)
+
     def create(self, request, parent_lookup_collection_movies):
         collection = get_object_or_404(Collections.objects.all(), pk=parent_lookup_collection_movies)
         movie = get_object_or_404(Movies.objects.all(), pk=request.data['pk'])
         collection.movies.add(movie)
         data = self.get_serializer_class()(movie).data
+        data['collection'] = collection.pk
         return Response(data)
+
+    def partial_update(self, request, pk, parent_lookup_collection_movies):
+        collection = get_object_or_404(Collections.objects.all(), pk=parent_lookup_collection_movies)
+        movie = get_object_or_404(Movies.objects.all(), pk=pk)
+        if 'seen' in request.data :
+            if request.data['seen'] == 'true' :
+                SeenMovies.objects.create(collection=collection, movie=movie)
+            else :
+                obj = SeenMovies.objects.filter(collection=collection, movie=movie)
+                obj.delete()
+        data = SeenMoviesSerializer(SeenMovies.objects.filter(collection=collection), many=True).data
+        return Response(data)
+
 

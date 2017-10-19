@@ -5,7 +5,7 @@ import DialogAddMovie from './components/DialogAddMovie'
 import MoviesTable from './components/MoviesTable'
 import Menu from './components/Menu'
 
-import { listMovies } from './actions'
+import { loadCollection } from './actions'
 
 class Movies extends Component {
   
@@ -33,7 +33,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    synchronize: (collection) => dispatch(listMovies(collection))
+    synchronize: (collection) => dispatch(loadCollection(collection))
   }
 };
 

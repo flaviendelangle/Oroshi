@@ -10,7 +10,16 @@ class MoviesSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Movies
-        fields = ('pk', 'title', 'release', 'directors', 'tmdbId', 'seen')
+        fields = ('pk', 'title', 'release', 'directors', 'tmdbId')
         extra_kwargs = {
-            'pk': {'read_only': True}
+            'pk': {'read_only': True},
+        }
+
+class MoviesWriteSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Movies
+        fields = ('pk', 'title', 'release', 'directors', 'tmdbId')
+        extra_kwargs = {
+          'pk': {'read_only': True},
         }

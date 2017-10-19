@@ -14,7 +14,8 @@ export const searchMovies = (collection, query) => {
   return {
     type: 'SEARCH_MOVIE_TMDB',
     payload: searchAPI.movies(query)
-      .then(movies => {
+      .then(results => {
+        movies = results;
         IDs = movies.results.map(el => el.id);
         return MoviesAPI.serialize(IDs, 'tmdbId');
       })

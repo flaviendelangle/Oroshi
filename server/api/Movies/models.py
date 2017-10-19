@@ -7,4 +7,3 @@ class Movies(models.Model):
     tmdbId = models.IntegerField(default=0)
     release = models.IntegerField(default=0)
     directors = models.ManyToManyField(Directors, verbose_name="list_of_directors")
-    seen = models.BooleanField(default=0)
