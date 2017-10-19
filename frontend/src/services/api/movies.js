@@ -7,14 +7,12 @@ class Movies extends API {
     root: '/movies'
   };
   
-  create = (body) => {
+  create = body => {
     if(this.root) { // We are in a nested route so we just want to send the pk of the movie to add it
       return super.create(body);
     }
-    return DirectorsAPI.retrieveOrCreate(body.directors).then((response) => {
-      const directors = response.map((director) => {
-        return director.pk;
-      });
+    return DirectorsAPI.retrieveOrCreate(body.directors).then(response => {
+      const directors = response.map(director => director.pk);
       return super.create({
         ...body,
         directors

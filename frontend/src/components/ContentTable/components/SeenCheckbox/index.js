@@ -31,10 +31,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    update: (data, type) => {
-      dispatch(update(data, type));
-    }
-  }
+    update: (data, type) => dispatch(update(data, type))
+  };
 };
 
 export default connect(

@@ -27,13 +27,18 @@ class Home extends Component {
     });
   }
   
-  
   render() {
     return (
       <div>
         <div style={containerStyle}>
-          <ManageButton editing={this.state.editing} onClick={() => this.setState({editing: !this.state.editing}) } />
-          <CollectionList editing={this.state.editing} data={this.state.collections} />
+          <ManageButton
+            editing={this.state.editing}
+            onClick={() => this.setState({editing: !this.state.editing}) }
+          />
+          <CollectionList
+            editing={this.state.editing}
+            data={this.state.collections}
+          />
         </div>
         <DialogCreateCollection/>
       </div>

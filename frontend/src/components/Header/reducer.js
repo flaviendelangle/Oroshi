@@ -2,7 +2,9 @@ import { combineReducers } from 'redux'
 
 import mainDrawer from './components/MainDrawer/reducer'
 
-const main = (state = {}, action) => {
+const defaultState = {};
+
+const main = (state = defaultState, action) => {
   
   switch(action.type) {
     case 'UPDATE_LOCATION' :

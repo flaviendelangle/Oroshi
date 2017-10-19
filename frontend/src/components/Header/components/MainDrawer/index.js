@@ -45,10 +45,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    open: (show) => {
-      dispatch(showMainDrawer(show));
-    },
-  }
+    open: show => dispatch(showMainDrawer(show))
+  };
 };
 
 export default connect(

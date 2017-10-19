@@ -6,19 +6,13 @@ import MainDrawer from './components/MainDrawer'
 import { showMainDrawer } from "./components/MainDrawer/actions";
 
 class Header extends Component {
-
-  constructor(props) {
-    super(props);
-    this.props = props;
-    this.openMainDrawer = props.openMainDrawer;
-  }
   
   render() {
     return (
       <div>
         <AppBar
           title="Title"
-          onLeftIconButtonTouchTap={() => this.openMainDrawer(true)}
+          onLeftIconButtonTouchTap={() => this.props.openMainDrawer(true)}
         />
         <MainDrawer/>
       </div>
@@ -29,16 +23,13 @@ class Header extends Component {
 }
 
 const mapStateToProps = state => {
-  return {
-  }
+  return {};
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    openMainDrawer: (show) => {
-      dispatch(showMainDrawer(show));
-    },
-  }
+    openMainDrawer: show => dispatch(showMainDrawer(show))
+  };
 };
 
 export default connect(

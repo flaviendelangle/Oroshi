@@ -11,17 +11,19 @@ const defaultState = {
 const main = (state = defaultState, action) => {
   
   switch(action.type) {
+    
     case 'SEARCH_MOVIE_TMDB_FULFILLED':
       return {
         ...state,
         data: action.payload
       };
+      
     case 'ADD_MOVIE_TO_COLLECTION_FULFILLED':
-      const newResults = state.data.results.map((element) => {
-        if(element.id === action.payload.tmdbId) {
-          element.already_in_collection = true;
+      const newResults = state.data.results.map(el => {
+        if(el.id === action.payload.tmdbId) {
+          el.already_in_collection = true;
         }
-        return element;
+        return el;
       });
       return {
         ...state,

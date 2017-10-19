@@ -14,23 +14,18 @@ export const searchMovies = (collection, query) => {
   return {
     type: 'SEARCH_MOVIE_TMDB',
     payload: searchAPI.movies(query)
-      .then((response) => {
-        movies = response;
-        IDs = movies.results.map((element) => {
-          return element.id;
-        });
+      .then(movies => {
+        IDs = movies.results.map(el => el.id);
         return MoviesAPI.serialize(IDs, 'tmdbId');
       })
-      .then((exist) => {
+      .then(exist => {
         for(let i = 0; i < movies.results.length; i++) {
-          const match = exist.filter((el) => {
-            return movies.results[i].id === el.tmdbId;
-          });
+          const match = exist.filter(el => movies.results[i].id === el.tmdbId);
           movies.results[i].local = (match.length > 0) ? match[0] : undefined;
         }
         return CollectionsAPI.element(collection).movies.exist(IDs, 'tmdbId');
       })
-      .then((exist) => {
+      .then(exist => {
         for(let i = 0; i < movies.results.length; i++) {
           movies.results[i].already_in_collection = exist[movies.results[i].id];
           movies.results[i].current_collection = collection;
@@ -39,3 +34,4 @@ export const searchMovies = (collection, query) => {
       })
   }
 };
+

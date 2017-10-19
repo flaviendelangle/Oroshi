@@ -33,9 +33,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    synchronize: (collection) => {
-      dispatch(listMovies(collection));
-    }
+    synchronize: (collection) => dispatch(listMovies(collection))
   }
 };
 

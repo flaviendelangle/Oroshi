@@ -9,10 +9,8 @@ const containerStyle = {
 
 class ManageButton extends Component {
   
-  getLabel() {
-    return this.props.editing ? 'Finished' : 'Manage';
-  }
-  
+  getLabel = () => this.props.editing ? 'Finished' : 'Manage';
+
   render() {
     return (
       <div style={containerStyle}>
@@ -24,17 +22,4 @@ class ManageButton extends Component {
   
 }
 
-const mapStateToProps = state => {
-  return {
-  }
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-  }
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ManageButton);
+export default ManageButton;

@@ -16,6 +16,7 @@ import './App.css';
 const composeStoreWithMiddleware = applyMiddleware(
   promiseMiddleware()
 )(createStore);
+
 let store = composeStoreWithMiddleware(reducer);
 
 injectTapEventPlugin();
@@ -58,15 +59,12 @@ class Root extends Component {
 }
 
 const mapStateToProps = state => {
-  return {
-  }
+  return {};
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    updateLocation: (newLocation, action) => {
-      dispatch(updateLocation(newLocation, action));
-    },
+    updateLocation: (newLocation, action) => dispatch(updateLocation(newLocation, action))
   }
 };
 

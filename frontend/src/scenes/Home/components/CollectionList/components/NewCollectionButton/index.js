@@ -10,21 +10,15 @@ import '../CollectionBox/style.css';
 
 class NewCollectionButton extends Component {
   
-  constructor(props) {
-    super(props);
-    this.newCollection = this.props.newCollection;
-  }
-  
   handleClick = () => {
-    if(this.props.editing) {
-      this.newCollection();
-    }
+    if(this.props.editing)
+      this.props.newCollection();
   };
   
   render(forced=false) {
-    if(!forced) {
+    if(!forced)
       window.setTimeout(() => this.render(true), 300);
-    }
+    
     return (
       <Link to='/'>
         <div className={'collection-box ' + (this.props.editing ? '' : 'invisible')} onClick={this.handleClick}>
@@ -32,7 +26,8 @@ class NewCollectionButton extends Component {
             <div className="collection-editing-mask" >
               <ContentAdd color="white" className="editing-icon big" />
             </div>
-            <div className="fake-img-new-collection"></div>
+            <div className="fake-img-new-collection">
+            </div>
           </div>
         </div>
       </Link>

@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
 
 import Identicon from '../../../../../../../../components/Identicon'
 
@@ -17,17 +16,4 @@ class IdenticonField extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-  }
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(IdenticonField);
+export default IdenticonField;

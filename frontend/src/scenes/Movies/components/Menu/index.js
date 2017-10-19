@@ -14,14 +14,12 @@ const style = {
 
 class Menu extends Component {
   
-  constructor({ addMovie }) {
-    super();
-    this.addMovie = addMovie;
-  }
-  
   render() {
     return (
-      <FloatingActionButton style={style} onClick={this.addMovie}>
+      <FloatingActionButton
+        style={style}
+        onClick={this.props.addMovie}
+      >
         <ContentAdd/>
       </FloatingActionButton>
       
@@ -38,9 +36,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    addMovie: () => {
-      dispatch(showDialogAddMovie(true));
-    },
+    addMovie: () => dispatch(showDialogAddMovie(true)),
   };
 };
 

@@ -8,13 +8,17 @@ import './style.css';
 
 class CollectionList extends Component {
   
-  mapCollections() {
-    return this.props.data.map((collection) => {
+  mapCollections = () => {
+    return this.props.data.map(collection => {
       return (
-        <CollectionBox key={collection.pk} data={collection} editing={this.props.editing}/>
+        <CollectionBox
+          key={collection.pk}
+          data={collection}
+          editing={this.props.editing}
+        />
       )
     });
-  }
+  };
   
   render() {
     return (

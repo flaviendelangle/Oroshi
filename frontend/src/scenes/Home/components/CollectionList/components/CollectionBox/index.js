@@ -11,12 +11,7 @@ import './style.css';
 
 class CollectionBox extends Component {
   
-  url() {
-    if(this.props.editing) {
-      return '/collections/' + this.props.data.pk;
-    }
-    return '/collections/' + this.props.data.pk + '/movies/';
-  }
+  url = () => '/collections/' + this.props.data.pk + (this.props.editing ? '' : '/movies');
   
   render() {
     return (

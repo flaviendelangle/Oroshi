@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Field, reduxForm } from 'redux-form'
-import { connect } from 'react-redux'
 import IconButton from 'material-ui/IconButton';
 import NavigationRefresh from 'material-ui/svg-icons/navigation/refresh';
 import { TextField } from 'redux-form-material-ui'
@@ -27,11 +26,6 @@ class Form extends Component {
     title: ''
   };
   
-  constructor(props) {
-    super(props);
-    this.submit = props.handleSubmit;
-  }
-  
   reloadIdenticon = () => {
     this.setState({ iconByTitle: false });
     this.setState({ string: Math.random().toString(36).substr(2, 5) });
@@ -40,7 +34,7 @@ class Form extends Component {
   render() {
     const string = this.state.iconByTitle ? this.state.title : this.state.string;
     return (
-      <form onSubmit={this.submit}>
+      <form onSubmit={this.props.handleSubmit}>
         <div style={formStyle}>
           <div>
             <Field
@@ -74,18 +68,7 @@ class Form extends Component {
   }
 }
 
-Form = reduxForm({
+
+export default reduxForm({
   form: 'DialogCreateCollectionForm'
 })(Form);
-
-const mapStateToProps = state => {
-  return {
-  }
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-  }
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Form);

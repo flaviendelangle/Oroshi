@@ -21,7 +21,9 @@ const TABLE_COLUMNS = [
     }
   }, {
     render: (name, all) => {
-      return (all.already_in_collection ? null : <SaveButton data={all} />)
+      if(all.already_in_collection)
+        return null;
+      return <SaveButton data={all} />
     }
   }
 ];
@@ -42,10 +44,6 @@ class MoviesList extends Component {
         columns={TABLE_COLUMNS}
         data={this.props.data.results}
         showCheckboxes={false}
-        onCellClick={this.handleCellClick}
-        onCellDoubleClick={this.handleCellDoubleClick}
-        onFilterValueChange={this.handleFilterValueChange}
-        onSortOrderChange={this.handleSortOrderChange}
         page={1}
         count={this.props.data.results.length}
       />

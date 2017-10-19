@@ -19,6 +19,7 @@ class DialogAddMovie extends Component {
   };
   
   render() {
+    
     const actions = [
       <FlatButton
         label="Close"
@@ -38,7 +39,9 @@ class DialogAddMovie extends Component {
         >
           <SearchBar
             onChange={(query) => this.setState({query})}
-            onRequestSearch={() => {this.props.search(this.props.collection, this.state.query);}}
+            onRequestSearch={() => {
+              this.props.search(this.props.collection, this.state.query);
+            }}
             style={searchStyle}
           />
           <MoviesList/>
@@ -56,9 +59,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    close: () => {
-      dispatch(showDialogAddMovie(false));
-    },
+    close: () => dispatch(showDialogAddMovie(false)),
     search: (collection, query) => {
       if(query) {
         dispatch(searchMovies(collection, query));

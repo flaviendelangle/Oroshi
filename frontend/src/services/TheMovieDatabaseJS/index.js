@@ -21,11 +21,11 @@ class API {
     remaining: 0
   };
   
-  static set_config = (config) => {
+  static set_config = config => {
     API.USERCONFIG = config;
   };
   
-  static manageXRateLimit(headers) {
+  static manageXRateLimit = headers => {
     API.state.reset = headers.get('X-RateLimit-Reset');
     API.state.remaining = headers.get('X-RateLimit-Remaining');
   };
@@ -36,53 +36,42 @@ class API {
     DELETE : this._DELETE
   };
   
-  fetch = (url, data) => {
+  _fetch = (url, data) => {
     return window.fetch(url, data).then(
-      this.handleSuccess.bind(this, url, data)
+      this._handleSuccess.bind(this, url, data)
     );
   };
   
-  handleSuccess = (url, data, response) => {
+  _handleSuccess = (url, data, response) => {
     if(response.status === HTTP_STATUS.TOO_MANY_REQUESTS) {
       let promise = new Promise((resolve) => {
         window.setTimeout(() => {
           resolve();
         }, API.state.reset*1000 - new Date().getTime() + 1000);
       });
-      return promise.then(() => {
-        return this.fetch(url, data);
-      })
+      return promise.then(() => this._fetch(url, data))
     } else {
       API.manageXRateLimit(response.headers);
       return response.json();
     }
   };
   
-  _GET(url, data) {
-    if(!data) {
-      data = {};
-    }
+  _GET(url, data = {}) {
     data.method = 'GET';
-    return this.fetch(url, data);
+    return this._fetch(url, data);
   };
   
-  _POST(url, data) {
-    if(!data) {
-      data = {};
-    }
+  _POST(url, data = {}) {
     data.method = 'GET';
-    return this.fetch(url, data);
+    return this._fetch(url, data);
   };
   
-  _DELETE(url, data) {
-    if(!data) {
-      data = {};
-    }
+  _DELETE(url, data = {}) {
     data.method = 'GET';
-    return this.fetch(url, data);
+    return this._fetch(url, data);
   };
   
-  query = (options) => {
+  query = options => {
     options.api_key = API.USERCONFIG.api_key;
     options.language = API.USERCONFIG.language;
     options.include_adult = API.USERCONFIG.include_adult;
@@ -97,23 +86,23 @@ class API {
     return query;
   };
   
-  url = (pk = null, options={}, route_name=null) => {
+  url = (pk = null, options = {}, route_name = null) => {
     const query_url = this.query(options);
     const sub_url = (pk ? ('/' + pk) : '') + (route_name ? ('/' + route_name) : '');
     return API.GLOBALCONFIG.uri.base + this.CONFIG.root + sub_url + query_url;
   };
   
-  detail_route(value, route_name, options, method='GET') {
+  detail_route = (value, route_name, options, method='GET') => {
     value = encodeURIComponent(value);
     const url = this.url(value, options, route_name);
     return this.methods[method].bind(this)(url);
   };
   
-  retrieve(pk, options={}) {
+  retrieve = (pk, options={}) => {
     return this._GET(this.url(pk, options))
-  }
+  };
   
-  list() {
+  list = () => {
     return this._GET(this.url());
   };
   

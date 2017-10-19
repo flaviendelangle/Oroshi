@@ -10,15 +10,9 @@ import { showDialogCreateCollection, createCollection } from './actions'
 
 class DialogCreateCollection extends Component {
   
-  constructor(props) {
-    super(props);
-    this.close = props.close;
-    this.submit = props.submit;
-  }
-  
-  create = (data) => {
+  create = data => {
     if(data.title) {
-      this.close();
+      this.props.close();
       this.props.create(data);
     }
   };
@@ -28,12 +22,12 @@ class DialogCreateCollection extends Component {
       <FlatButton
         label="Save"
         primary={true}
-        onClick={this.submit}
+        onClick={this.props.submit}
       />,
       <FlatButton
       label="Close"
       primary={true}
-      onClick={this.close}
+      onClick={this.props.close}
       />
     ];
     
@@ -43,7 +37,7 @@ class DialogCreateCollection extends Component {
         actions={actions}
         modal={false}
         open={this.props.isOpen}
-        onRequestClose={this.close}
+        onRequestClose={this.props.close}
         autoScrollBodyContent={true}
       >
         <Form onSubmit={this.create}/>

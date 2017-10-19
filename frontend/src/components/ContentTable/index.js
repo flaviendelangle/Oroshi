@@ -36,35 +36,22 @@ class ContentTable extends Component {
     }
   };
   
-  
   state = {
     query: ''
-  };
-  
-  handleCellClick = (key, order) => {
-  };
-  
-  handleCellDoubleClick = (key, order) => {
-  };
-  
-  handleFilterValueChange = (value) => {
-  };
-  
-  handleSortOrderChange = (key, order) => {
   };
   
   filter = () => {
     this.params.toShow = filter(this.params.data, this.state.query);
   };
   
-  search = (query) => {
+  search = query => {
     this.setState({ query });
     this.filter();
   };
   
-  complete(columns) {
+  complete = columns => {
     return [].concat(columns).concat([this.GENERIC_COLUMNS.seen]);
-  }
+  };
   
   render() {
     this.complete();
@@ -88,10 +75,6 @@ class ContentTable extends Component {
               columns={this.complete(this.params.columns)}
               data={this.params.toShow}
               showCheckboxes={false}
-              onCellClick={this.handleCellClick}
-              onCellDoubleClick={this.handleCellDoubleClick}
-              onFilterValueChange={this.handleFilterValueChange}
-              onSortOrderChange={this.handleSortOrderChange}
               page={1}
               count={this.params.data.length}
             />

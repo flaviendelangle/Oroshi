@@ -15,7 +15,7 @@ class API {
     Basic HTTP Requests
    */
   fetch = (url, data) => {
-    return window.fetch(url, data).then(function(response) {
+    return window.fetch(url, data).then(response => {
       return response.json();
     });
   };
@@ -41,7 +41,7 @@ class API {
   /*
     Utils
    */
-  objectToFormData = (data) => {
+  objectToFormData = data => {
     let form = new FormData();
     for(let key in data) {
       form.append(key, data[key]);
@@ -54,15 +54,13 @@ class API {
     return this.mainConfig.url + this.root + this.config.root + sub_url + '/';
   };
   
-  element = (pk) => {
+  element = pk => {
   
     let prototype = {};
   
     for(let key in this.nested_routes) {
       Object.defineProperty(prototype, key, {
-        get: () => {
-          return new this.nested_routes[key](this.config.root + '/' + pk);
-        }
+        get: () => new this.nested_routes[key](this.config.root + '/' + pk)
       });
     }
   
@@ -125,14 +123,14 @@ class API {
   
   retrieveOrCreate(data, route_name) {
     const send = (element) => {
-      return this.detail_route(element[route_name], route_name).then((content) => {
+      return this.detail_route(element[route_name], route_name).then(content => {
         if(content.pk > 0) {
           return Promise.resolve({
             ...content,
             created: false
           });
         } else {
-          return this.create(element).then(function(response) {
+          return this.create(element).then(response => {
             return {
               ...response,
               created: true

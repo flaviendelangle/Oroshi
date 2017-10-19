@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
 import IdenticonGenerator from 'identicon.js'
 import md5 from 'md5-hash'
 
@@ -18,11 +17,13 @@ class Identicon extends Component {
     this.prepare();
   }
   
-  prepare() {
+  prepare = () => {
     const hash = md5(this.props.string);
     this.setState({ hash });
-    this.setState({ identicon: new IdenticonGenerator(hash, this.props.size).toString() });
-  }
+    this.setState({
+      identicon: new IdenticonGenerator(hash, this.props.size).toString()
+    });
+  };
   
   render() {
     return (
@@ -36,17 +37,4 @@ class Identicon extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-  }
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-  }
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Identicon);
+export default Identicon;

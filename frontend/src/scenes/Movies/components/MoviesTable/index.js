@@ -33,7 +33,7 @@ class MoviesTable extends ContentTable {
   
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     movies: state.movies.moviesTable.movies
   }
