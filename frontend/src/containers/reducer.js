@@ -4,6 +4,7 @@ import { reducer as form } from 'redux-form'
 import header from '../components/Header/reducer'
 
 import home from '../scenes/Home/reducer'
+import movie from '../scenes/Movie/reducer'
 import movies from '../scenes/Movies/reducer'
 
 const reducer = combineReducers({
@@ -15,6 +16,7 @@ const reducer = combineReducers({
   
   // Scenes
   home,
+  movie,
   movies
 });
 

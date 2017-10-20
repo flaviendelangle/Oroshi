@@ -15,21 +15,19 @@ export const createMovie = data => {
       collection: data.current_collection
     });
   }
-  let details;
-  return MoviesTMDB.details(data.id)
+  const options = {
+    append_to_response: 'credits'
+  };
+  return MoviesTMDB.details(data.id, options)
     .then(results => {
-      details = results;
-      return MoviesTMDB.credits(data.id);
-    })
-    .then(credits => {
-      const directors = credits.crew
+      const directors = results.credits.crew
         .filter(el => el.job === 'Director')
         .map(el => ({ tmdbId: el.id, name: el.name }));
       
       const movie = {
         directors,
-        title: details.title,
-        tmdbId: details.id
+        title: results.title,
+        tmdbId: results.id
       };
       
       return MoviesAPI.create(movie);
@@ -56,7 +54,8 @@ export const addMovieToCollection = data => {
     payload: createMovie(data)
       .then(response => {
         data = {
-          pk: response.data.pk
+          pk: response.data.pk,
+          user: response.data.user
         };
         return CollectionsAPI.element(response.collection).movies.create(data);
       })

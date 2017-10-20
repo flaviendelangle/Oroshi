@@ -23,7 +23,7 @@ injectTapEventPlugin();
 
 api.set_config({
   api_key: 'de7ff1a87f9afdb1ccd29ad9a0738e31',
-  language: 'en-US',
+  language: 'en',
   include_adult: 'false'
 });
 
