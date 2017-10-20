@@ -28,15 +28,14 @@ class ContentTable extends Component {
   GENERIC_COLUMNS = {
     seen: {
       label: 'Seen ?',
+      style: {
+        width: '50px' // 98px
+      },
       render: (name, all) => {
         return (
           <SeenCheckbox
             data={all}
             type={this.params.type}
-            onCheck={() => {
-              console.log(all);
-              this.props.updateMovieFieldSeen();
-            }}
           />
         )
       }

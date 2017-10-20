@@ -24,12 +24,15 @@ export const createMovie = data => {
         .filter(el => el.job === 'Director')
         .map(el => ({ tmdbId: el.id, name: el.name }));
       
+      const genres = results.genres
+        .map(({id, name}) => ({tmdbId: id, name}));
       const movie = {
         directors,
+        genres,
         title: results.title,
-        tmdbId: results.id
+        tmdbId: results.id,
+        note: results.vote_average
       };
-      
       return MoviesAPI.create(movie);
     })
     .then(response => {
@@ -54,8 +57,7 @@ export const addMovieToCollection = data => {
     payload: createMovie(data)
       .then(response => {
         data = {
-          pk: response.data.pk,
-          user: response.data.user
+          pk: response.data.pk
         };
         return CollectionsAPI.element(response.collection).movies.create(data);
       })

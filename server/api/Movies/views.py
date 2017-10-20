@@ -20,6 +20,11 @@ class MoviesViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         return Movies.objects.all()
 
+    def create(self, *args, **kwargs):
+        data = super().create(*args, **kwargs).data
+        data = MoviesSerializer(self.get_queryset().get(pk=data['pk'])).data
+        return Response(data);
+
     @detail_route(methods=['get'])
     def tmdbId(self, request, pk=None):
         result = self.get_queryset().filter(tmdbId=pk)
@@ -59,7 +64,7 @@ class CollectionMoviesViewSet(NestedViewSetMixin, MoviesViewSet):
         collection = get_object_or_404(Collections.objects.all(), pk=parent_lookup_collection_movies)
         movie = get_object_or_404(Movies.objects.all(), pk=request.data['pk'])
         collection.movies.add(movie)
-        data = self.get_serializer_class()(movie).data
+        data = MoviesSerializer(movie).data
         data['collection'] = collection.pk
         return Response(data)
 
