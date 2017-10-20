@@ -44,7 +44,13 @@ class API {
   objectToFormData = data => {
     let form = new FormData();
     for(let key in data) {
-      form.append(key, data[key]);
+      if(Array.isArray(data[key])) {
+        for(let i=0; i<data[key].length; i++) {
+          form.append(key, data[key][i]);
+        }
+      } else {
+        form.append(key, data[key]);
+      }
     }
     return form;
   };

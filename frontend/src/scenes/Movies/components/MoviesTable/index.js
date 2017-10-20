@@ -1,6 +1,8 @@
+import React from 'react'
 import { connect } from 'react-redux'
 
 import ContentTable from '../../../../components/ContentTable'
+import { Link } from 'react-router-dom'
 
 const TABLE_COLUMNS = [
   {
@@ -12,6 +14,10 @@ const TABLE_COLUMNS = [
   }, {
     key: 'title',
     label: 'Title',
+    render: (title, all) => {
+      return <Link to={'/movies/' + all.tmdbId + '/'}>{title}</Link>
+      
+    }
   }, {
     key: 'release',
     label: 'Year of release'

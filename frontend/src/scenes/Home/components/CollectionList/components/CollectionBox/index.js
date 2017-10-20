@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import md5 from 'md5-hash'
 
 import ContentCreate from 'material-ui/svg-icons/content/create';
 import Identicon from '../../../../../../components/Identicon'

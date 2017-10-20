@@ -3,8 +3,7 @@ import { connect } from 'react-redux'
 import DataTables from 'material-ui-datatables'
 
 import SaveButton from './components/SaveButton'
-import { MoviesAPI } from '../../../../../../services/api/movies'
-import { date } from '../../../../services/utils'
+import { date } from '../../../../../../services/utils'
 
 const TABLE_COLUMNS = [
   {

@@ -1,5 +1,7 @@
 const defaultState = {
-  title: ''
+  title: '',
+  date: undefined,
+  note: 0
 };
 
 const posterReducer = (state = defaultState, action) => {
@@ -8,7 +10,9 @@ const posterReducer = (state = defaultState, action) => {
     case 'LOAD_MOVIE_FULFILLED':
       return {
         ...state,
-        title: action.payload.title
+        release: action.payload.release_date,
+        title: action.payload.title,
+        note: action.payload.vote_average
       };
     
     default:

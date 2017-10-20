@@ -9,13 +9,13 @@ import { loadMovie } from './actions'
 const containerStyle = {
   width: 800,
   height: 400,
-  left: 'calc(50% - 400px)',
-  position: 'absolute',
-  top: 100
+  position: 'relative',
+  margin: '100px auto 0 auto'
 };
 
 const rightContainerStyle = {
   display: 'inline-block',
+  verticalAlign: 'top',
   marginLeft: 30
 };
 

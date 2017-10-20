@@ -1,11 +1,70 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import StarRatingComponent from 'react-star-rating-component';
+
+import { date } from '../../../../services/utils';
+
+const containerStyle = {
+  marginBottom: 20,
+  fontSize: '2em'
+};
+
+const ratingStyle = {
+  fontSize: 25
+};
+
+const titleStyle = {
+  display: 'inline-block',
+  maxWidth: 460,
+  whiteSpace: 'nowrap',
+  verticalAlign: 'top',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis'
+};
+
+const yearStyle = {
+  display: 'inline-block'
+};
 
 class Title extends Component {
   
+  renderTitle = () => {
+    if(this.props.title) {
+      const release = date(this.props.release, date.TMDB_FORMAT, date.YEAR_FORMAT);
+      return (
+        <div>
+          <div style={titleStyle}>{this.props.title}</div>
+          <div style={yearStyle}>{' - ' + release }</div>
+        </div>
+      );
+    } else {
+      return (
+        <div style={{height: 37}}>
+        
+        </div>
+      );
+    }
+  };
+  
+  renderRating = () => {
+    return (
+      <div style={ratingStyle}>
+        <StarRatingComponent
+          name="rate1"
+          starCount={10}
+          value={this.props.note}
+          editing={false}
+        />
+      </div>
+    );
+  };
+  
   render() {
     return (
-      <div>NOOOOO</div>
+      <div style={containerStyle}>
+        {this.renderTitle()}
+        {this.renderRating()}
+    </div>
     );
     
   }
@@ -14,6 +73,9 @@ class Title extends Component {
 
 const mapStateToProps = state => {
   return {
+    release: state.movie.title.release,
+    title: state.movie.title.title,
+    note: state.movie.title.note
   }
 };
 

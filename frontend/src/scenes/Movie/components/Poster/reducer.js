@@ -1,5 +1,5 @@
 const defaultState = {
-  posters: []
+  posters: null
 };
 
 const posterReducer = (state = defaultState, action) => {
