@@ -6,6 +6,7 @@ import CircularProgress from 'material-ui/CircularProgress';
 import ContentTable from '../../../../components/ContentTable'
 import List from '../../../../components/ContentTable/components/List'
 import Help from './components/Help'
+import { sortMovies } from './actions'
 
 const progressStyle = {
   width: 40,
@@ -19,12 +20,14 @@ const TABLE_COLUMNS = [
   {
     key: 'pk',
     label: 'N°',
+    sortable: true,
     style: {
       width: '50px' // 98px
     }
   }, {
     key: 'title',
     label: 'Title',
+    sortable: true,
     style: {
       width: '30%', // 30% + 48px
       overflow: 'hidden'
@@ -36,6 +39,7 @@ const TABLE_COLUMNS = [
   }, {
     key: 'release',
     label: 'Release',
+    sortable: true,
     style: {
       width: '80px' // 128px
     }
@@ -52,6 +56,7 @@ const TABLE_COLUMNS = [
   }, {
     key: 'note',
     label: 'Note',
+    sortable: true,
     style: {
       width: '50px',
     },
@@ -92,12 +97,14 @@ const mapStateToProps = state => {
     movies: state.collectionMovies.moviesTable.movies,
     collection: state.collectionMovies.moviesTable.collection,
     found: state.collectionMovies.moviesTable.found,
-    loaded: state.collectionMovies.moviesTable.loaded
+    loaded: state.collectionMovies.moviesTable.loaded,
+    update: state.collectionMovies.moviesTable.update
   }
 };
 
 const mapDispatchToProps = dispatch => {
   return {
+    sort: (field, direction) => dispatch(sortMovies(field, direction))
   }
 };
 

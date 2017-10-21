@@ -1,12 +1,23 @@
-let sortKey = 'title';
+let parameters = {
+  field: 'title',
+  direction: 'asc'
+};
+
 
 export const sort = movies => {
-  return movies.sort((a, b) => {
+  movies = movies.sort((a, b) => {
     let comparison = 0;
-    if(a[sortKey] > b[sortKey])
-      comparison = 1;
-    else if(a[sortKey] < b[sortKey])
-      comparison = -1;
+    const key = parameters.field;
+    const mul = parameters.direction === 'asc' ? -1 : 1;
+    if(a[key] > b[key])
+      comparison = mul;
+    else if(a[key] < b[key])
+      comparison = -1 * mul;
     return comparison;
   });
+  return movies;
+};
+
+export const setSortParameters = params => {
+  parameters = params;
 };

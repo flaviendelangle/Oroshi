@@ -1,7 +1,8 @@
-import { sort } from '../../services/utils'
+import { sort, setSortParameters } from '../../services/utils'
 import { addSeenToMovies, addCollectionToMovies } from '../../../CollectionSettings/services/utils'
 
 import { collections, collectionsMovies } from '../../../../services/actions/titles/api'
+import { movies } from '../../../../services/actions/titles/data'
 
 const defaultState = {
   movies: [],
@@ -40,6 +41,15 @@ const moviesTableReducer = (state = defaultState, action) => {
         ...state,
         movies: addSeenToMovies(state.movies, action.payload)
       };
+      
+    case movies.sort:
+      setSortParameters(action.parameters);
+      return {
+        ...state,
+        movies: sort(state.movies),
+        update: Math.random()
+      };
+      
     default:
       return state;
   }

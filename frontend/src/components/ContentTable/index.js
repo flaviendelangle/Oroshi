@@ -27,10 +27,12 @@ class ContentTable extends Component {
   
   GENERIC_COLUMNS = {
     seen: {
+      key: 'seen',
       label: 'Seen ?',
       style: {
         width: '50px' // 98px
       },
+      sortable: true,
       render: (name, all) => {
         return (
           <SeenCheckbox
@@ -53,6 +55,11 @@ class ContentTable extends Component {
   search = query => {
     this.setState({ query });
     this.filter();
+  };
+  
+  sort = (field, director) => {
+    //const column = this.params.columns.filter(el => el.key === field)[0];
+    this.props.sort(field, director);
   };
   
   complete = columns => {
@@ -82,6 +89,7 @@ class ContentTable extends Component {
               showCheckboxes={false}
               page={1}
               count={this.params.data.length}
+              onSortOrderChange={this.sort}
             />
           </ScrollArea>
         </div>
