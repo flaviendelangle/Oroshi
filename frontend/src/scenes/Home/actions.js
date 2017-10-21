@@ -10,6 +10,6 @@ export const createCollection = data => {
 export const loadCollections = () => {
   return {
     type: 'LOAD_COLLECTIONS',
-    payload: CollectionsAPI.list()
+    payload: CollectionsAPI.settings()
   }
 };

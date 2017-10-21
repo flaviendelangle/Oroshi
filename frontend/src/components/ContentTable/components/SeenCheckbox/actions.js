@@ -1,4 +1,4 @@
-import { updateCollectionMovie } from '../../../../scenes/CollectionMovies/actions'
+import { updateMovieInCollection } from '../../../../scenes/CollectionMovies/actions'
 
 export const update = (data, type) => {
   const clearedData = {
@@ -6,7 +6,7 @@ export const update = (data, type) => {
   };
   switch(type){
     case 'collection_movies':
-      return updateCollectionMovie(data.collection, data.pk, clearedData);
+      return updateMovieInCollection(data.collection, data.pk, clearedData);
     default:
       return null;
   }

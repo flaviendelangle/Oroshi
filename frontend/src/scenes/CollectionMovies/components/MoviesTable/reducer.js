@@ -1,6 +1,8 @@
 import { sort } from '../../services/utils'
 import { addSeenToMovies, addCollectionToMovies } from '../../../CollectionSettings/services/utils'
 
+import { collections, collectionsMovies } from '../../../../services/actions/titles/api'
+
 const defaultState = {
   movies: [],
   collection: 0,
@@ -11,7 +13,7 @@ const defaultState = {
 const moviesListReducer = (state = defaultState, action) => {
   switch(action.type) {
     
-    case 'LOAD_COLLECTION_FULFILLED':
+    case collections.load + '_FULFILLED':
       if(!action.payload) {
         return {
           ...state,
@@ -27,13 +29,13 @@ const moviesListReducer = (state = defaultState, action) => {
         loaded: true
       };
       
-    case 'ADD_MOVIE_TO_COLLECTION_FULFILLED':
+    case collectionsMovies.add + '_FULFILLED':
       return {
         ...state,
         movies: sort(addCollectionToMovies(state.collectionMovies.concat([action.payload]), state.collection))
       };
       
-    case 'UPDATE_COLLECTION_MOVIE_FULFILLED':
+    case collectionsMovies.update + '_FULFILLED':
       return {
         ...state,
         movies: addSeenToMovies(state.movies, action.payload)

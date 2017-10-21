@@ -16,6 +16,12 @@ class CollectionsSerializer(serializers.ModelSerializer):
             'movies': {'read_only': True}
         }
 
+class CollectionSettingsSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Collections
+        fields = ('pk', 'title', 'hash')
+
 class CollectionsWriteSerializer(serializers.ModelSerializer):
 
     class Meta:
