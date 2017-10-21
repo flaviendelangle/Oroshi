@@ -1,15 +1,20 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Paper from 'material-ui/Paper';
+import {List, ListItem} from 'material-ui/List'
 import { Card, CardTitle, CardText } from 'material-ui/Card';
+import Divider from 'material-ui/Divider';
+import Toggle from 'material-ui/Toggle';
+import FileDownload from 'material-ui/svg-icons/file/file-download';
 
 import Header from './components/Header'
+import Exports from './components/Exports'
 import { loadCollection } from './actions'
 
 const paperStyle = {
   width: 500,
-  height: 500,
-  top: 50,
+  top: 300,
+  position: 'absolute',
   left: 'calc(50% - 250px)'
 };
 
@@ -25,12 +30,13 @@ class CollectionSettings extends Component {
         <Header/>
         <Paper zDepth={3} style={paperStyle}>
           <Card>
-            <CardTitle title="Collection Settings" subtitle="Card subtitle" />
-            <CardText>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
-              Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
-              Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
+            <CardTitle title="Collection Settings" />
+            <CardText style={{padding:0}}>
+              <List>
+                <ListItem primaryText="All mail" rightToggle={<Toggle />} />
+              </List>
+              <Divider inset={true} />
+              <Exports/>
             </CardText>
           </Card>
         </Paper>

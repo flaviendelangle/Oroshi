@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux'
 
+import exports from './components/Exports/reducer'
 import header from './components/Header/reducer'
 
 const defaultState = {};
@@ -14,7 +15,8 @@ const main = (state = defaultState, action) => {
 
 const reducer = combineReducers({
   main,
-  header,
+  exports,
+  header
 });
 
 

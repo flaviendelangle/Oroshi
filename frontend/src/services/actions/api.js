@@ -26,7 +26,7 @@ export const _loadCollection = pk => {
 
 export const _loadCollectionSettings = pk => {
   return {
-    type: titles.collections.load_settings,
+    type: titles.collections.loadSettings,
     payload: CollectionsAPI.settings(pk)
   }
 };

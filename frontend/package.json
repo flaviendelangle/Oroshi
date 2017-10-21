@@ -3,9 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "downloadjs": "^1.4.7",
     "es-md5": "^2.7.2",
     "identicon.js": "^2.3.1",
     "install": "^0.10.1",
+    "json2csv": "^3.11.4",
     "material-ui": "^0.19.4",
     "material-ui-datatables": "^0.18.2",
     "material-ui-search-bar": "^0.4.0",

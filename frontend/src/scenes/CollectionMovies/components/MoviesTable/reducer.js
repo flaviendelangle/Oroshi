@@ -10,7 +10,7 @@ const defaultState = {
   loaded: false
 };
 
-const moviesListReducer = (state = defaultState, action) => {
+const moviesTableReducer = (state = defaultState, action) => {
   switch(action.type) {
     
     case collections.load + '_FULFILLED':
@@ -32,7 +32,7 @@ const moviesListReducer = (state = defaultState, action) => {
     case collectionsMovies.add + '_FULFILLED':
       return {
         ...state,
-        movies: sort(addCollectionToMovies(state.collectionMovies.concat([action.payload]), state.collection))
+        movies: sort(addCollectionToMovies(state.movies.concat([action.payload]), state.collection))
       };
       
     case collectionsMovies.update + '_FULFILLED':
@@ -46,4 +46,4 @@ const moviesListReducer = (state = defaultState, action) => {
   
 };
 
-export default moviesListReducer;
+export default moviesTableReducer;
