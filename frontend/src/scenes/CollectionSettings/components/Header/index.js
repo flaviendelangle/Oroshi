@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import ActionSettings from 'material-ui/svg-icons/action/settings'
+import AVMovie from 'material-ui/svg-icons/av/movie'
 
 import HeaderOriginal from '../../../../components/Header'
 
@@ -12,9 +12,9 @@ class Header extends Component {
     return (
       <div>
         <HeaderOriginal title={this.props.title}>
-          <Link to={'/collections/' + this.props.collection + '/settings/' }>
-            <ActionSettings/>
-            <div>Collection Settings</div>
+          <Link to={'/collections/' + this.props.collection + '/movies/' }>
+            <AVMovie/>
+            <div>Return to my collection</div>
           </Link>
         </HeaderOriginal>
       </div>
@@ -25,8 +25,8 @@ class Header extends Component {
 
 const mapStateToProps = state => {
   return {
-    collection: state.collectionMovies.header.collection,
-    title: state.collectionMovies.header.title
+    collection: state.collectionSettings.header.collection,
+    title: state.collectionSettings.header.title
   }
 };
 

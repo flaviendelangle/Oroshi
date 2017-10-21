@@ -3,7 +3,7 @@ import ScrollArea from 'react-scrollbar'
 import DataTables from 'material-ui-datatables'
 import SearchBar from 'material-ui-search-bar'
 
-import { filter as filterUtils } from './services/search'
+import Search from './services/search'
 import SeenCheckbox from './components/SeenCheckbox'
 
 const parentStyle = {
@@ -47,7 +47,7 @@ class ContentTable extends Component {
   };
   
   filter = () => {
-    this.params.toShow = filterUtils(this.params.data, this.state.query);
+    this.params.toShow = new Search(this.params.data, this.state.query).results;
   };
   
   search = query => {
