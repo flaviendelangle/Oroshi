@@ -5,7 +5,6 @@ import {List, ListItem} from 'material-ui/List'
 import { Card, CardTitle, CardText } from 'material-ui/Card';
 import Divider from 'material-ui/Divider';
 import Toggle from 'material-ui/Toggle';
-import FileDownload from 'material-ui/svg-icons/file/file-download';
 
 import Header from './components/Header'
 import Exports from './components/Exports'

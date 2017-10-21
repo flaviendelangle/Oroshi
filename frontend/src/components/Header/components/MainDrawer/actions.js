@@ -1,6 +1,8 @@
+import { drawers } from '../../../../services/actions/titles/interface'
+
 export const showMainDrawer = show => {
   return {
-    type: 'SHOW_MAIN_DRAWER',
+    type: drawers.main,
     show
   };
 };

@@ -1,5 +1,7 @@
 import { combineReducers } from 'redux'
 
+import { dialogs } from '../../../../services/actions/titles/interface'
+
 const defaultState = {
   isAddingACollection: false
 };
@@ -7,7 +9,7 @@ const defaultState = {
 const main = (state = defaultState, action) => {
   
   switch(action.type) {
-    case 'SHOW_DIALOG_CREATE_COLLECTION':
+    case dialogs.createCollection:
       return {
         ...state,
         isAddingACollection: action.show

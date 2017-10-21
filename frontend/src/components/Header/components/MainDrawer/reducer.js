@@ -1,4 +1,5 @@
 import { notify } from '../../../../services/actions/titles/router'
+import { drawers } from '../../../../services/actions/titles/interface'
 
 const defaultState = {
   isOpen: false
@@ -14,17 +15,12 @@ const mainDrawerReducer = (state = defaultState, action) => {
         isOpen: false
       };
     
-    case 'SHOW_MAIN_DRAWER' :
+    case drawers.main :
       return {
         ...state,
         isOpen: action.show
       };
-      
-    case 'UPDATE_LOCATION' :
-      return {
-        ...state,
-        isOpen: false
-      };
+    
     default:
       return state;
   }

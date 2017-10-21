@@ -1,15 +1,17 @@
 import { CollectionsAPI } from '../../services/api/collections'
 
+import { collections } from '../../services/actions/titles/api'
+
 export const createCollection = data => {
   return {
-    type: 'CREATE_NEW_COLLECTION',
+    type: collections.create,
     payload: CollectionsAPI.create(data)
   };
 };
 
 export const loadCollections = () => {
   return {
-    type: 'LOAD_COLLECTIONS',
+    type: collections.loadAllSettings,
     payload: CollectionsAPI.settings()
   }
 };

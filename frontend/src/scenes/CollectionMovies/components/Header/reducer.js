@@ -1,3 +1,5 @@
+import { collections } from '../../../../services/actions/titles/api'
+
 const defaultState = {
   collection: undefined,
   title: ''
@@ -6,7 +8,7 @@ const defaultState = {
 const headerReducer = (state = defaultState, action) => {
   switch(action.type) {
   
-    case 'LOAD_COLLECTION_FULFILLED':
+    case collections.load + '_FULFILLED':
       if(!action.payload) {
         return state;
       }

@@ -1,3 +1,5 @@
+import { movie } from '../../../../services/actions/titles/api'
+
 const defaultState = {
   title: '',
   date: undefined,
@@ -7,7 +9,7 @@ const defaultState = {
 const posterReducer = (state = defaultState, action) => {
   switch(action.type) {
     
-    case 'LOAD_MOVIE_FULFILLED':
+    case movie.load + '_FULFILLED':
       return {
         ...state,
         release: action.payload.release_date,

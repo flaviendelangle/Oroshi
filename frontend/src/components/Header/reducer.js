@@ -7,10 +7,6 @@ const defaultState = {};
 const main = (state = defaultState, action) => {
   
   switch(action.type) {
-    case 'UPDATE_LOCATION' :
-      return {
-        ...state,
-      };
     default:
       return state;
   }

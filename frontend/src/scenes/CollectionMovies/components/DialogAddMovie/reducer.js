@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux'
 
 import moviesList from './components/MoviesList/reducer'
+import { dialogs } from '../../../../services/actions/titles/interface'
 
 const defaultState = {
   isAddingAMovie: false
@@ -9,7 +10,7 @@ const defaultState = {
 const main = (state = defaultState, action) => {
   
   switch(action.type) {
-    case 'SHOW_DIALOG_ADD_MOVIE':
+    case dialogs.addMovie:
       return {
         ...state,
         isAddingAMovie: action.show

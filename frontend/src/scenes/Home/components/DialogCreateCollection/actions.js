@@ -1,8 +1,10 @@
 import { createCollection as createCollectionOriginal } from '../../actions'
 
+import { dialogs } from '../../../../services/actions/titles/interface'
+
 export const showDialogCreateCollection = show => {
   return {
-    type: 'SHOW_DIALOG_CREATE_COLLECTION',
+    type: dialogs.createCollection,
     show
   };
 };
