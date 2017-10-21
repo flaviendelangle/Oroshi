@@ -1,4 +1,4 @@
-import { CollectionsAPI } from '../../../../services/api/collections'
+import { createCollection as createCollectionOriginal } from '../../actions'
 
 export const showDialogCreateCollection = show => {
   return {
@@ -8,8 +8,5 @@ export const showDialogCreateCollection = show => {
 };
 
 export const createCollection = data => {
-  return {
-    type: 'CREATE_NEW_COLLECTION',
-    payload: CollectionsAPI.create(data)
-  }
+  return createCollectionOriginal(data);
 };

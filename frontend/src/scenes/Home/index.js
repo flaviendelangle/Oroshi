@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import CircularProgress from 'material-ui/CircularProgress';
 
 import CollectionList from './components/CollectionList'
 import ManageButton from './components/ManageButton'
 import DialogCreateCollection from './components/DialogCreateCollection'
-import { CollectionsAPI } from '../../services/api/collections'
+import { loadCollections } from './actions'
 
 const containerStyle = {
   width: '80%',
@@ -14,20 +15,32 @@ const containerStyle = {
   transform: 'translateY(-50%)',
 };
 
+const progressStyle = {
+  width: 40,
+  height: 40,
+  position: 'absolute',
+  left: 'calc(50% - 20px)',
+  top: 'calc(50% - 20px)',
+};
+
 class Home extends Component {
   
   state = {
     editing: false,
-    collections: []
   };
   
   componentDidMount() {
-    CollectionsAPI.list().then(response => {
-      this.setState({ collections: response });
-    });
+    this.props.loadCollections();
   }
   
   render() {
+    if(!this.props.loaded) {
+      return (
+        <div style={progressStyle}>
+          <CircularProgress />
+        </div>
+      );
+    }
     return (
       <div>
         <div style={containerStyle}>
@@ -37,7 +50,7 @@ class Home extends Component {
           />
           <CollectionList
             editing={this.state.editing}
-            data={this.state.collections}
+            data={this.props.collections}
           />
         </div>
         <DialogCreateCollection/>
@@ -50,12 +63,14 @@ class Home extends Component {
 
 const mapStateToProps = state => {
   return {
-    isCreatingCollection: state.home.main.isCreatingCollection
+    collections: state.home.main.collections,
+    loaded: state.home.main.loaded
   }
 };
 
 const mapDispatchToProps = dispatch => {
   return {
+    loadCollections: () => dispatch(loadCollections())
   }
 };
 

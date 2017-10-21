@@ -15,9 +15,12 @@ class API {
     Basic HTTP Requests
    */
   fetch = (url, data) => {
-    return window.fetch(url, data).then(response => {
-      return response.json();
-    });
+    return window.fetch(url, data)
+      .then(response => {
+        if(response.status === 404)
+          throw Error(response.statusText);
+        return response.json();
+      });
   };
   
   GET = (url, data) => {
@@ -157,6 +160,5 @@ class API {
   };
 
 }
-
 
 export default API;

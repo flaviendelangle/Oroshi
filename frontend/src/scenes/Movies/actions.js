@@ -1,11 +1,22 @@
 import { CollectionsAPI } from '../../services/api/collections'
 import { MoviesAPI } from '../../services/api/movies'
 import MoviesTMDB from '../../services/TheMovieDatabaseJS/movies'
+import { prepareMovies } from '../Collection/services/utils'
 
-import { loadCollection as loadCollectionOriginal } from '../Collection/actions'
-
-export const loadCollection = collection_id => {
-  return loadCollectionOriginal(collection_id);
+export const loadCollection = pk => {
+  return {
+    type: 'LOAD_COLLECTION',
+    payload: CollectionsAPI.retrieve(pk)
+      .then(response => {
+        return prepareMovies(response);
+      })
+      .catch(error => {
+        error = error.toString();
+        if(error === 'Error: Not Found') {
+          return undefined;
+        }
+      })
+  }
 };
 
 export const createMovie = data => {

@@ -3,17 +3,28 @@ import { addSeenToMovies, addCollectionToMovies } from '../../../Collection/serv
 
 const defaultState = {
   movies: [],
-  collection: 0
+  collection: 0,
+  found: false,
+  loaded: false
 };
 
 const moviesListReducer = (state = defaultState, action) => {
   switch(action.type) {
     
     case 'LOAD_COLLECTION_FULFILLED':
+      if(!action.payload) {
+        return {
+          ...state,
+          found: false,
+          loaded: true
+        }
+      }
       return {
         ...state,
         collection: action.payload.pk,
-        movies: sort(action.payload.movies)
+        movies: sort(action.payload.movies),
+        found: true,
+        loaded: true
       };
       
     case 'ADD_MOVIE_TO_COLLECTION_FULFILLED':

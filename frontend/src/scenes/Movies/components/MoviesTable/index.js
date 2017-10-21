@@ -1,9 +1,19 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
+import CircularProgress from 'material-ui/CircularProgress';
 
 import ContentTable from '../../../../components/ContentTable'
 import List from '../../../../components/ContentTable/components/List'
+import Help from './components/Help'
+
+const progressStyle = {
+  width: 40,
+  height: 40,
+  position: 'absolute',
+  left: 'calc(50% - 20px)',
+  top: 'calc(50% - 20px)',
+};
 
 const TABLE_COLUMNS = [
   {
@@ -54,6 +64,17 @@ const TABLE_COLUMNS = [
 class MoviesTable extends ContentTable {
   
   render() {
+    if(!this.props.loaded) {
+      return (
+        <div style={progressStyle}>
+          <CircularProgress />
+        </div>
+      );
+    } else if(!this.props.found) {
+      return (<div>Not found</div>)
+    } else if(this.props.movies.length === 0) {
+      return (<Help/>)
+    }
     this.params = {
       ...this.params,
       type: 'collection_movies',
@@ -68,7 +89,10 @@ class MoviesTable extends ContentTable {
 
 const mapStateToProps = state => {
   return {
-    movies: state.movies.moviesTable.movies
+    movies: state.movies.moviesTable.movies,
+    collection: state.movies.moviesTable.collection,
+    found: state.movies.moviesTable.found,
+    loaded: state.movies.moviesTable.loaded
   }
 };
 
