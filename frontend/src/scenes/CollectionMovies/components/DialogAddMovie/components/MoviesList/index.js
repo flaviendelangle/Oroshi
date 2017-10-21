@@ -53,7 +53,7 @@ class MoviesList extends Component {
 
 const mapStateToProps = state => {
   return {
-    data: state.movies.dialogAddMovie.moviesList.main.data
+    data: state.collectionMovies.dialogAddMovie.moviesList.main.data
   };
 };
 

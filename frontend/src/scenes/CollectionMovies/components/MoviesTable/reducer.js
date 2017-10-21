@@ -1,5 +1,5 @@
 import { sort } from '../../services/utils'
-import { addSeenToMovies, addCollectionToMovies } from '../../../Collection/services/utils'
+import { addSeenToMovies, addCollectionToMovies } from '../../../CollectionSettings/services/utils'
 
 const defaultState = {
   movies: [],
@@ -30,7 +30,7 @@ const moviesListReducer = (state = defaultState, action) => {
     case 'ADD_MOVIE_TO_COLLECTION_FULFILLED':
       return {
         ...state,
-        movies: sort(addCollectionToMovies(state.movies.concat([action.payload]), state.collection))
+        movies: sort(addCollectionToMovies(state.collectionMovies.concat([action.payload]), state.collection))
       };
       
     case 'UPDATE_COLLECTION_MOVIE_FULFILLED':

@@ -10,7 +10,7 @@ import './style.css';
 
 class CollectionBox extends Component {
   
-  url = () => '/collections/' + this.props.data.pk + (this.props.editing ? '' : '/movies');
+  url = () => '/collections/' + this.props.data.pk + (this.props.editing ? '' : '/movies/');
   
   render() {
     return (

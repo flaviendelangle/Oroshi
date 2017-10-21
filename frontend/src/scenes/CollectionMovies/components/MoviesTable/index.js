@@ -89,10 +89,10 @@ class MoviesTable extends ContentTable {
 
 const mapStateToProps = state => {
   return {
-    movies: state.movies.moviesTable.movies,
-    collection: state.movies.moviesTable.collection,
-    found: state.movies.moviesTable.found,
-    loaded: state.movies.moviesTable.loaded
+    movies: state.collectionMovies.moviesTable.movies,
+    collection: state.collectionMovies.moviesTable.collection,
+    found: state.collectionMovies.moviesTable.found,
+    loaded: state.collectionMovies.moviesTable.loaded
   }
 };
 

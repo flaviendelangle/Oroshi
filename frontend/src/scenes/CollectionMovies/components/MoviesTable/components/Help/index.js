@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
 import Paper from 'material-ui/Paper'
-import FloatingActionButton from 'material-ui/FloatingActionButton'
-import ContentAdd from 'material-ui/svg-icons/content/add'
 
 const containerStyle = {
   width: 500,

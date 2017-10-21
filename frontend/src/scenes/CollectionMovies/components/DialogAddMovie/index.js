@@ -52,8 +52,8 @@ class DialogAddMovie extends Component {
 
 const mapStateToProps = state => {
   return {
-    isOpen: state.movies.dialogAddMovie.main.isAddingAMovie,
-    moviesList: state.movies.dialogAddMovie.moviesList.main.data
+    isOpen: state.collectionMovies.dialogAddMovie.main.isAddingAMovie,
+    moviesList: state.collectionMovies.dialogAddMovie.moviesList.main.data
   }
 };
 

@@ -1,7 +1,7 @@
 import { CollectionsAPI } from '../../services/api/collections'
 import { MoviesAPI } from '../../services/api/movies'
 import MoviesTMDB from '../../services/TheMovieDatabaseJS/movies'
-import { prepareMovies } from '../Collection/services/utils'
+import { prepareMovies } from '../CollectionSettings/services/utils'
 
 export const loadCollection = pk => {
   return {

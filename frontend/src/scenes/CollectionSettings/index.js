@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-class Collection extends Component {
+class CollectionSettings extends Component {
   
   state = {
     editing: true
@@ -31,4 +31,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Collection);
+)(CollectionSettings);

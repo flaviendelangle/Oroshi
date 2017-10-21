@@ -5,7 +5,8 @@ import header from '../components/Header/reducer'
 
 import home from '../scenes/Home/reducer'
 import movie from '../scenes/Movie/reducer'
-import movies from '../scenes/Movies/reducer'
+import collectionMovies from '../scenes/CollectionMovies/reducer'
+import collectionSettings from '../scenes/CollectionSettings/reducer'
 
 const reducer = combineReducers({
   // External modules
@@ -15,9 +16,10 @@ const reducer = combineReducers({
   header,
   
   // Scenes
+  collectionMovies,
+  collectionSettings,
   home,
-  movie,
-  movies
+  movie
 });
 
 

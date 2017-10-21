@@ -11,10 +11,12 @@ class Header extends Component {
     return (
       <div>
         <AppBar
-          title="Title"
+          title={this.props.title}
           onLeftIconButtonTouchTap={() => this.props.openMainDrawer(true)}
         />
-        <MainDrawer/>
+        <MainDrawer>
+          {this.props.children}
+        </MainDrawer>
       </div>
     )
     

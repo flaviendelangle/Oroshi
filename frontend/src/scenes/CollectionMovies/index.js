@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
+import Header from './components/Header'
 import DialogAddMovie from './components/DialogAddMovie'
 import MoviesTable from './components/MoviesTable'
 import Menu from './components/Menu'
 
 import { loadCollection } from './actions'
 
-class Movies extends Component {
+class CollectionMovies extends Component {
   
   componentDidMount() {
     this.props.synchronize(this.props.match.params.collection_id);
@@ -16,6 +17,7 @@ class Movies extends Component {
   render() {
     return (
       <div>
+        <Header/>
         <MoviesTable/>
         <DialogAddMovie collection={this.props.match.params.collection_id}/>
         <Menu/>
@@ -27,8 +29,7 @@ class Movies extends Component {
 }
 
 const mapStateToProps = state => {
-  return {
-  }
+  return {}
 };
 
 const mapDispatchToProps = dispatch => {
@@ -40,4 +41,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Movies);
+)(CollectionMovies);

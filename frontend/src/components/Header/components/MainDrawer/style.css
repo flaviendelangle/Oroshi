@@ -1,0 +1,18 @@
+.drawer > div {
+    width: 100%;
+    line-height: 46px;
+    height: 46px;
+    display: block
+}
+
+.drawer a > svg {
+    position: absolute;
+    height: 24px;
+    top: 11px;
+    left: 11px;
+}
+
+.drawer  a > div {
+    position: absolute;
+    left: 50px;
+}
