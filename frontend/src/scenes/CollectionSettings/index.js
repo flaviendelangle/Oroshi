@@ -33,7 +33,7 @@ class CollectionSettings extends Component {
             <CardTitle title="Collection Settings" />
             <CardText style={{padding:0}}>
               <List>
-                <ListItem primaryText="All mail" rightToggle={<Toggle />} />
+                <ListItem primaryText="Include adult content" rightToggle={<Toggle />} />
               </List>
               <Divider inset={true} />
               <Exports/>

@@ -24,7 +24,7 @@ class Search {
       } else if(results[2] === 'false') {
         results[2] = false;
       } else if(!isNaN(results[2])) {
-        results[2] = parseInt(results[2]);
+        results[2] = parseInt(results[2], 10);
       }
       
       this.filters.push(results);
@@ -71,7 +71,7 @@ class Search {
     if(Object.prototype.toString.call(value) === "[object String]") {
       return this.clean(value).includes(this.query);
     } else if(!isNaN(value)) {
-      return value === parseInt(this.query);
+      return value === parseInt(this.query, 10);
     }
     
   }

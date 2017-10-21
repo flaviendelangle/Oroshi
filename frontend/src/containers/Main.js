@@ -1,13 +1,22 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { withRouter } from 'react-router'
 import { Switch, Route } from 'react-router-dom'
 
 import Home from '../scenes/Home'
 import Movies from '../scenes/CollectionMovies'
 import Movie from '../scenes/Movie'
 import Collection from '../scenes/CollectionSettings'
+import { notifyRouteChange } from '../services/actions/router'
 
 
 class Main extends Component {
+  
+  componentWillReceiveProps(newProps) {
+    if(this.props.location.pathname !== newProps.location.pathname) {
+      this.props.notifyRouteChange(newProps.location);
+    }
+  }
   
   render() {
     return (
@@ -23,4 +32,18 @@ class Main extends Component {
   }
 }
 
-export default Main
+
+const mapStateToProps = state => {
+  return {};
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    notifyRouteChange: location => dispatch(notifyRouteChange(location))
+  };
+};
+
+export default withRouter(connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Main));
