@@ -1,8 +1,14 @@
-.movie {
+.movie-container {
+    height: 278px;
+    width: 185px;
     display: inline-block;
     vertical-align: top;
     margin: 20px 10px;
     position: relative;
+}
+
+.movie {
+
 }
 
 .movie img {

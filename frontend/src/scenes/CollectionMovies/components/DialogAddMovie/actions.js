@@ -24,7 +24,7 @@ export const searchMovies = (collection, query) => {
       })
       .then(exist => {
         for(let i = 0; i < movies.results.length; i++) {
-          const match = exist.filter(el => filterById(el, movies.results[i]));
+          const match = exist.filter(filterById.bind(this, movies.results[i]));
           movies.results[i].local = (match.length > 0) ? match[0] : undefined;
         }
         return CollectionsAPI.element(collection).movies.exist(IDs, 'tmdbId');
@@ -39,6 +39,6 @@ export const searchMovies = (collection, query) => {
   }
 };
 
-const filterById = (el, movie) => {
+const filterById = (movie, el) => {
   return movie === el.tmdbId;
 };

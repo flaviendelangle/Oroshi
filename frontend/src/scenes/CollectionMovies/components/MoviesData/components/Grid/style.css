@@ -11,6 +11,10 @@
     margin: auto;
 }
 
+.scrollarea {
+    height: 100%;
+}
+
 @media screen and (max-width: 420px) {
     .movie-grid {
         width: calc(210px + 1px);

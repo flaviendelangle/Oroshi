@@ -12,25 +12,27 @@ class Movie extends Component {
   
   render() {
     return (
-      <Paper zDepth={3} className="movie">
-        <Poster path={this.props.data.poster} title={this.props.data.title} />
-        <div className="overlay">
-          <Link to={'/movies/' + this.props.data.tmdbId + '/'}>
-            <div className="overlay-main">
-              <div className="title">{this.props.data.title}</div>
-              <div className="note">
-                <StarRatingComponent
-                  name={"Rate " + this.props.data.title}
-                  starCount={10}
-                  value={this.props.data.note}
-                  editing={false}
-                />
+      <div className="movie-container">
+        <Paper zDepth={3} className="movie">
+          <Poster path={this.props.data.poster} title={this.props.data.title} />
+          <div className="overlay">
+            <Link to={'/movies/' + this.props.data.tmdbId + '/'}>
+              <div className="overlay-main">
+                <div className="title">{this.props.data.title}</div>
+                <div className="note">
+                  <StarRatingComponent
+                    name={"Rate " + this.props.data.title}
+                    starCount={10}
+                    value={this.props.data.note}
+                    editing={false}
+                  />
+                </div>
               </div>
-            </div>
-          </Link>
-          <Actions data={this.props.data} type='collection_movies'/>
-        </div>
-      </Paper>
+            </Link>
+            <Actions data={this.props.data} type='collection_movies'/>
+          </div>
+        </Paper>
+      </div>
     );
   }
   

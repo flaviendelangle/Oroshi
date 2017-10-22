@@ -59,21 +59,26 @@ class Search {
     for(let i=0; i<this.filters.length; i++) {
       const filter = this.filters[i];
       results = results.filter(element => {
-        return element[filter[1]] === filter[2];
+        const movieValue = element[filter[1]];
+        const filterValue = filter[2];
+        return this.matchFilter(movieValue, filterValue);
       });
     }
     
     this.results = results;
   };
   
-  matchField = (value) => {
+  matchField = value => {
     if(Object.prototype.toString.call(value) === "[object String]") {
       return this.clean(value).includes(this.query);
     } else if(!isNaN(value)) {
       return value === parseInt(this.query, 10);
     }
-    
-  }
+  };
+  
+  matchFilter = (movieValue, filterValue) => {
+    return movieValue === filterValue;
+  };
   
 }
 

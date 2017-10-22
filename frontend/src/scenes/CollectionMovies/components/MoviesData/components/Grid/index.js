@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import ReactList from 'react-list';
 import ScrollArea from 'react-scrollbar'
 
 import Movie from './components/Movie'
@@ -8,12 +9,10 @@ import './style.css'
 
 class Grid extends Component {
   
-  renderMovies = () => {
-    return this.props.movies.map(movie => {
-      return (
-        <Movie data={movie} key={movie.pk}/>
-      );
-    })
+  renderItem = (index, key) => {
+    return (
+      <Movie data={this.props.movies[index]} key={key}/>
+    );
   };
   
   render() {
@@ -24,7 +23,11 @@ class Grid extends Component {
           horizontal={false}
         >
           <div className="movie-grid">
-            {this.renderMovies()}
+            <ReactList
+              itemRenderer={this.renderItem}
+              length={this.props.movies.length}
+              type='uniform'
+            />
           </div>
         </ScrollArea>
       </div>
