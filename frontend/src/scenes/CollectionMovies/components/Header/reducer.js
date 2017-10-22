@@ -1,13 +1,17 @@
 import { collections } from '../../../../services/actions/titles/api'
 
+import { combineReducers } from 'redux'
+
+import search from './components/Search/reducer'
+
 const defaultState = {
   collection: undefined,
   title: ''
 };
 
-const headerReducer = (state = defaultState, action) => {
+const main = (state = defaultState, action) => {
   switch(action.type) {
-  
+    
     case collections.load + '_FULFILLED':
       if(!action.payload) {
         return state;
@@ -17,11 +21,17 @@ const headerReducer = (state = defaultState, action) => {
         collection: action.payload.pk,
         title: action.payload.title
       };
-
+    
     default:
       return state;
   }
   
 };
 
-export default headerReducer;
+const reducer = combineReducers({
+  main,
+  search
+});
+
+
+export default reducer;

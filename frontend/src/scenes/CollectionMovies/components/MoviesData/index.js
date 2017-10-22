@@ -5,7 +5,6 @@ import CircularProgress from 'material-ui/CircularProgress';
 import List from './components/List'
 import Help from './components/Help'
 import Grid from './components/Grid'
-import SearchBar from './components/Search'
 import Search from './services/search'
 
 const progressStyle = {
@@ -26,7 +25,7 @@ const pageStyle = {
 
 const containerStyle = {
   position: 'relative',
-  height: 'calc(100% - 88px)'
+  height: '100%'
 };
 
 class MoviesData extends Component {
@@ -70,7 +69,6 @@ class MoviesData extends Component {
     else {
       return (
         <div style={pageStyle}>
-          <SearchBar/>
           <div style={containerStyle}>
             {this.renderContent()}
           </div>

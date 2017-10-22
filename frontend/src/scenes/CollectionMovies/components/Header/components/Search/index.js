@@ -5,9 +5,15 @@ import SearchBar from 'material-ui-search-bar'
 import { update } from './actions'
 
 const searchStyle = {
-  margin: '20px auto 20px auto',
+  margin: '8px auto',
   maxWidth: 800,
   width: '90%'
+};
+
+const containerStyle = {
+  position: 'absolute',
+  left: 40,
+  right: 0
 };
 
 class Search extends Component {
@@ -22,18 +28,22 @@ class Search extends Component {
   };
   
   render() {
+    const hintText = this.props.title ? ('Search in ' + this.props.title) : 'Search ...'
     return (
-      <SearchBar
-        onChange={this.search}
-        onRequestSearch={() => this.props.filter(this.state.query)}
-        style={searchStyle}
-      />
+      <div style={containerStyle}>
+        <SearchBar
+          hintText={hintText}
+          onChange={this.search}
+          onRequestSearch={() => this.props.filter(this.state.query)}
+          style={searchStyle}
+        />
+      </div>
     );
   }
 }
 
 const mapStateToProps = state => {
-  return {}
+  return {};
 };
 
 const mapDispatchToProps = dispatch => {

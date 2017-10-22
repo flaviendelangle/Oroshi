@@ -5,11 +5,12 @@ import moviesData from './components/MoviesData/reducer'
 import menu from './components/Menu/reducer'
 import header from './components/Header/reducer'
 
-const defaultState = {};
+const defaultState = {
+  title: ''
+};
 
 const main = (state = defaultState, action) => {
     switch(action.type) {
-      
       default:
         return state;
     }

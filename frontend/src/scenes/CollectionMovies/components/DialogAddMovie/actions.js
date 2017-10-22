@@ -20,6 +20,9 @@ export const searchMovies = (collection, query) => {
       .then(results => {
         movies = results;
         IDs = movies.results.map(el => el.id);
+        if(IDs.length === 0) {
+          throw new Error('No result for this search');
+        }
         return MoviesAPI.serialize(IDs, 'tmdbId');
       })
       .then(exist => {
@@ -29,6 +32,9 @@ export const searchMovies = (collection, query) => {
         }
         return CollectionsAPI.element(collection).movies.exist(IDs, 'tmdbId');
       })
+      .catch(error => {
+        return [];
+      })
       .then(exist => {
         for(let i = 0; i < movies.results.length; i++) {
           movies.results[i].already_in_collection = exist[movies.results[i].id];
@@ -36,8 +42,13 @@ export const searchMovies = (collection, query) => {
         }
         return movies;
       })
+      .catch(error => {
+        return [];
+      })
   }
 };
+
+
 
 const filterById = (movie, el) => {
   return movie === el.tmdbId;

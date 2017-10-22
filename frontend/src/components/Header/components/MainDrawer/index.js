@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import Drawer from 'material-ui/Drawer'
 import MenuItem from 'material-ui/MenuItem';
 import ActionSettings from 'material-ui/svg-icons/action/settings'
+import ActionHome from 'material-ui/svg-icons/action/home'
 
 import { showMainDrawer } from './actions'
 
@@ -13,6 +14,11 @@ class MainDrawer extends Component {
   
   GENERIC_LINES = [
     (
+      <Link to='/'>
+        <ActionHome/>
+        <div>Home</div>
+      </Link>
+    ),(
       <Link to='/settings/'>
         <ActionSettings/>
         <div>Settings</div>

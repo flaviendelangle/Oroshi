@@ -12,10 +12,12 @@ class Header extends Component {
     return (
       <div>
         <HeaderOriginal title={this.props.title}>
-          <Link to={'/collections/' + this.props.collection + '/movies/' }>
-            <AVMovie/>
-            <div>Return to my collection</div>
-          </Link>
+          <div className="menu">
+            <Link to={'/collections/' + this.props.collection + '/movies/' }>
+              <AVMovie/>
+              <div>Return to my collection</div>
+            </Link>
+          </div>
         </HeaderOriginal>
       </div>
     );

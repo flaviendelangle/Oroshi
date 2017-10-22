@@ -8,11 +8,12 @@ const tableStyle = {
   width: '80%',
   margin: 'auto',
   boxShadow: '0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)',
-  maxHeight: '100%',
+  maxHeight: 'calc(100% - 20px)',
 };
 
 const containerStyle = {
-  height: 'calc(100% - 20px)'
+  height: 'calc(100% - 20px)',
+  paddingTop: 20
 };
 
 class ContentTable extends Component {
