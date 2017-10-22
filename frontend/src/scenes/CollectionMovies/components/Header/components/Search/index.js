@@ -36,6 +36,7 @@ class Search extends Component {
           onChange={this.search}
           onRequestSearch={() => this.props.filter(this.state.query)}
           style={searchStyle}
+          value={this.props.query}
         />
       </div>
     );
@@ -43,7 +44,9 @@ class Search extends Component {
 }
 
 const mapStateToProps = state => {
-  return {};
+  return {
+    query: state.collectionMovies.header.search.query
+  };
 };
 
 const mapDispatchToProps = dispatch => {

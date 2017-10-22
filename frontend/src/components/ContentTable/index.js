@@ -9,6 +9,7 @@ const tableStyle = {
   margin: 'auto',
   boxShadow: '0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)',
   maxHeight: 'calc(100% - 20px)',
+  height: 'auto'
 };
 
 const containerStyle = {

@@ -1,5 +1,6 @@
-import { sort, setSortParameters } from '../../services/utils'
+import { sort, setSortParameters, setLayoutParameters } from '../../services/utils'
 import { addSeenToMovies, addCollectionToMovies } from '../../../CollectionSettings/services/utils'
+import { getValue } from '../../../../services/localstorage'
 
 import { collections, collectionsMovies } from '../../../../services/actions/titles/api'
 import { movies } from '../../../../services/actions/titles/data'
@@ -10,7 +11,7 @@ const defaultState = {
   collection: 0,
   found: false,
   loaded: false,
-  layout: 'grid'
+  layout: getValue('layout') || 'grid'
 };
 
 const moviesDataReducer = (state = defaultState, action) => {
@@ -60,6 +61,7 @@ const moviesDataReducer = (state = defaultState, action) => {
       };
       
     case movies.update_layout:
+      setLayoutParameters(action.layout);
       return {
         ...state,
         layout: action.layout
