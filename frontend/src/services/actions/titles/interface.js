@@ -6,3 +6,7 @@ export const dialogs = {
 export const drawers = {
   main: 'SHOW_MAIN_DRAWER'
 };
+
+export const collectionCreation = {
+  updateIdenticon: 'UPDATE_IDENTION_COLLECTION_CREATION'
+};

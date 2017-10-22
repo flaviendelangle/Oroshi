@@ -6,7 +6,8 @@ import { update } from './actions'
 
 const searchStyle = {
   margin: '20px auto 20px auto',
-  maxWidth: 800
+  maxWidth: 800,
+  width: '90%'
 };
 
 class Search extends Component {

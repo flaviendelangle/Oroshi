@@ -26,3 +26,7 @@
 .movie:hover .overlay {
     opacity: 1;
 }
+
+.movie .overlay-main {
+    height: calc(100% - 2em);
+}
