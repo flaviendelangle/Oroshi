@@ -6,13 +6,15 @@ import { movies } from '../../../../services/actions/titles/data'
 
 const defaultState = {
   movies: [],
+  query: '',
   collection: 0,
   found: false,
   loaded: false,
   layout: 'grid'
 };
 
-const moviesTableReducer = (state = defaultState, action) => {
+const moviesDataReducer = (state = defaultState, action) => {
+
   switch(action.type) {
     
     case collections.load + '_FULFILLED':
@@ -51,6 +53,12 @@ const moviesTableReducer = (state = defaultState, action) => {
         update: Math.random()
       };
       
+    case movies.update_search_query:
+      return {
+        ...state,
+        query: action.query
+      };
+      
     case movies.update_layout:
       return {
         ...state,
@@ -63,4 +71,4 @@ const moviesTableReducer = (state = defaultState, action) => {
   
 };
 
-export default moviesTableReducer;
+export default moviesDataReducer;

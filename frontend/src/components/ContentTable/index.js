@@ -1,27 +1,19 @@
 import React, { Component } from 'react'
 import ScrollArea from 'react-scrollbar'
 import DataTables from 'material-ui-datatables'
-import SearchBar from 'material-ui-search-bar'
 
-import Search from './services/search'
 import SeenCheckbox from './components/SeenCheckbox'
-
-const parentStyle = {
-  paddingTop: 30
-};
-
-const searchStyle = {
-  margin: '0 auto 20px auto',
-  maxWidth: 800
-};
 
 const tableStyle = {
   width: '80%',
   margin: 'auto',
   boxShadow: '0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)',
-  maxHeight: 'calc(100vh - 182px)',
+  maxHeight: '100%',
 };
 
+const containerStyle = {
+  height: 'calc(100% - 20px)'
+};
 
 class ContentTable extends Component {
   
@@ -44,21 +36,7 @@ class ContentTable extends Component {
     }
   };
   
-  state = {
-    query: ''
-  };
-  
-  filter = () => {
-    this.params.toShow = new Search(this.params.data, this.state.query).results;
-  };
-  
-  search = query => {
-    this.setState({ query });
-    this.filter();
-  };
-  
   sort = (field, director) => {
-    //const column = this.params.columns.filter(el => el.key === field)[0];
     this.props.sort(field, director);
   };
   
@@ -67,14 +45,8 @@ class ContentTable extends Component {
   };
   
   render() {
-    this.filter();
     return (
-        <div style={parentStyle}>
-          <SearchBar
-            onChange={this.search}
-            onRequestSearch={this.filter}
-            style={searchStyle}
-          />
+        <div style={containerStyle}>
           <ScrollArea
             speed={0.8}
             horizontal={false}
@@ -85,10 +57,10 @@ class ContentTable extends Component {
               selectable={false}
               showRowHover={true}
               columns={this.complete(this.params.columns)}
-              data={this.params.toShow}
+              data={this.props.data}
               showCheckboxes={false}
               page={1}
-              count={this.params.data.length}
+              count={this.props.data.length}
               onSortOrderChange={this.sort}
             />
           </ScrollArea>

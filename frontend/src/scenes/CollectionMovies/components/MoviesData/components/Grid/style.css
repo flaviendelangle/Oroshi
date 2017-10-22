@@ -1,5 +1,5 @@
 .movie-grid-container {
-    height: calc(100% - 64px);
+    height: calc(100% - 20px);
 }
 
 .movie-grid-container > div {

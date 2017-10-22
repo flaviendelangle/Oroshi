@@ -17,7 +17,6 @@ class Grid extends Component {
   };
   
   render() {
-    console.log(this.props.movies);
     return (
       <div className="movie-grid-container">
         <ScrollArea

@@ -6,7 +6,7 @@ import ActionViewList from 'material-ui/svg-icons/action/view-list'
 import ActionViewModule from 'material-ui/svg-icons/action/view-module'
 
 import { showDialogAddMovie } from './../../components/DialogAddMovie/actions'
-import { switchLayout } from './../../components/MoviesTable/actions'
+import { switchLayout } from '../MoviesData/actions'
 
 
 const addStyle = {

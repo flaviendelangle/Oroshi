@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 
 import dialogAddMovie from './components/DialogAddMovie/reducer'
-import moviesTable from './components/MoviesTable/reducer'
+import moviesData from './components/MoviesData/reducer'
 import menu from './components/Menu/reducer'
 import header from './components/Header/reducer'
 
@@ -20,7 +20,7 @@ const reducer = combineReducers({
   menu,
   dialogAddMovie,
   header,
-  moviesTable
+  moviesData
 });
 
 

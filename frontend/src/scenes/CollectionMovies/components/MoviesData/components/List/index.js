@@ -1,21 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import CircularProgress from 'material-ui/CircularProgress';
 
-import ContentTable from '../../../../components/ContentTable'
-import List from '../../../../components/ContentTable/components/List'
-import Help from './components/Help'
-import Grid from './components/Grid'
+import ContentTable from '../../../../../../components/ContentTable'
+import ListCell from '../../../../../../components/ContentTable/components/List'
 import { sortMovies } from './actions'
-
-const progressStyle = {
-  width: 40,
-  height: 40,
-  position: 'absolute',
-  left: 'calc(50% - 20px)',
-  top: 'calc(50% - 20px)',
-};
 
 const TABLE_COLUMNS = [
   {
@@ -52,7 +41,7 @@ const TABLE_COLUMNS = [
       overflow: 'hidden'
     },
     render: (directors, all) => {
-      return <List data={directors} keys={{data:"name", key:"tmdbId"}}/>
+      return <ListCell data={directors} keys={{data:"name", key:"tmdbId"}}/>
     }
   }, {
     key: 'note',
@@ -67,27 +56,13 @@ const TABLE_COLUMNS = [
   }
 ];
 
-class MoviesTable extends ContentTable {
+class List extends ContentTable {
   
   render() {
-    if(!this.props.loaded) {
-      return (
-        <div style={progressStyle}>
-          <CircularProgress />
-        </div>
-      );
-    } else if(!this.props.found) {
-      return (<div>Not found</div>)
-    } else if(this.props.movies.length === 0) {
-      return (<Help/>)
-    } else if(this.props.layout === 'grid') {
-      return (<Grid movies={this.props.movies}/>)
-    }
     this.params = {
       ...this.params,
       type: 'collection_movies',
       columns: TABLE_COLUMNS,
-      data: this.props.movies,
       tableStyle: {}
     };
     return super.render();
@@ -96,14 +71,7 @@ class MoviesTable extends ContentTable {
 }
 
 const mapStateToProps = state => {
-  return {
-    movies: state.collectionMovies.moviesTable.movies,
-    collection: state.collectionMovies.moviesTable.collection,
-    found: state.collectionMovies.moviesTable.found,
-    loaded: state.collectionMovies.moviesTable.loaded,
-    update: state.collectionMovies.moviesTable.update,
-    layout: state.collectionMovies.moviesTable.layout
-  }
+  return {}
 };
 
 const mapDispatchToProps = dispatch => {
@@ -115,4 +83,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(MoviesTable);
+)(List);
