@@ -3,6 +3,7 @@ import { MoviesAPI } from '../../services/api/movies'
 import MoviesTMDB from '../../services/TheMovieDatabaseJS/movies'
 
 import * as titles from './titles/api'
+import { date } from '../utils'
 
 /*
   COLLECTIONS
@@ -77,7 +78,7 @@ const createMovie = data => {
     });
   }
   const options = {
-    append_to_response: 'credits'
+    append_to_response: ['credits', 'images']
   };
   return MoviesTMDB.details(data.id, options)
     .then(results => {
@@ -87,13 +88,19 @@ const createMovie = data => {
       
       const genres = results.genres
         .map(({id, name}) => ({tmdbId: id, name}));
+      
+      const poster = results.images.posters.length === 0 ? '' : results.images.posters[0].file_path;
+      
       const movie = {
         directors,
         genres,
         title: results.title,
         tmdbId: results.id,
-        note: results.vote_average
+        note: results.vote_average,
+        poster: poster,
+        release: date(results.release_date, date.TMDB_FORMAT, date.YEAR_FORMAT)
       };
+      
       return MoviesAPI.create(movie);
     })
     .then(response => {

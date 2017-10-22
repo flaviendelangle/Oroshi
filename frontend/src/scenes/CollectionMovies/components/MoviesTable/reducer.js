@@ -8,7 +8,8 @@ const defaultState = {
   movies: [],
   collection: 0,
   found: false,
-  loaded: false
+  loaded: false,
+  layout: 'grid'
 };
 
 const moviesTableReducer = (state = defaultState, action) => {
@@ -48,6 +49,12 @@ const moviesTableReducer = (state = defaultState, action) => {
         ...state,
         movies: sort(state.movies),
         update: Math.random()
+      };
+      
+    case movies.update_layout:
+      return {
+        ...state,
+        layout: action.layout
       };
       
     default:

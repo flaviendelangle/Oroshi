@@ -47,10 +47,11 @@ class Title extends Component {
   };
   
   renderRating = () => {
+    console.log(this.props.note);
     return (
       <div style={ratingStyle}>
         <StarRatingComponent
-          name="rate1"
+          name="Move Rate"
           starCount={10}
           value={this.props.note}
           editing={false}

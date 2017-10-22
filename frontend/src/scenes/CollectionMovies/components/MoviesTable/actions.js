@@ -6,3 +6,10 @@ export const sortMovies = (field, direction) => {
     parameters: {field, direction}
   };
 };
+
+export const switchLayout = layout => {
+  return {
+    type: movies.update_layout,
+    layout
+  }
+};

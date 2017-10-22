@@ -4,6 +4,7 @@ import CircularProgress from 'material-ui/CircularProgress';
 
 import CollectionList from './components/CollectionList'
 import ManageButton from './components/ManageButton'
+import FirstCollectionButton from './components/FirstCollectionButton'
 import DialogCreateCollection from './components/DialogCreateCollection'
 import { loadCollections } from './actions'
 
@@ -38,6 +39,15 @@ class Home extends Component {
       return (
         <div style={progressStyle}>
           <CircularProgress />
+        </div>
+      );
+    } else if(this.props.collections.length === 0) {
+      return (
+        <div>
+          <div style={containerStyle}>
+            <FirstCollectionButton/>
+          </div>
+          <DialogCreateCollection/>
         </div>
       );
     }

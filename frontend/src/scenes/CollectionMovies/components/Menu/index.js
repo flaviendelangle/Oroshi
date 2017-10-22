@@ -2,27 +2,48 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import FloatingActionButton from 'material-ui/FloatingActionButton'
 import ContentAdd from 'material-ui/svg-icons/content/add'
+import ActionViewList from 'material-ui/svg-icons/action/view-list'
+import ActionViewModule from 'material-ui/svg-icons/action/view-module'
 
 import { showDialogAddMovie } from './../../components/DialogAddMovie/actions'
+import { switchLayout } from './../../components/MoviesTable/actions'
 
 
-const style = {
+const addStyle = {
   position: 'fixed',
-  bottom: '20px',
-  right: '20px'
+  bottom: 20,
+  right: 20
+};
+
+const layoutStyle = {
+  position: 'fixed',
+  top: 84,
+  right: 20
 };
 
 class Menu extends Component {
   
   render() {
     return (
-      <FloatingActionButton
-        style={style}
-        onClick={this.props.addMovie}
-      >
-        <ContentAdd/>
-      </FloatingActionButton>
-      
+      <span>
+        <FloatingActionButton
+          style={addStyle}
+          onClick={this.props.addMovie}
+        >
+          <ContentAdd/>
+        </FloatingActionButton>
+        
+        <div style={layoutStyle}>
+          <ActionViewList
+            style={{marginRight: 10, cursor: 'pointer'}}
+            onClick={() => this.props.switchLayout('list')}
+          />
+          <ActionViewModule
+            style={{cursor: 'pointer'}}
+            onClick={() => this.props.switchLayout('grid')}
+          />
+        </div>
+      </span>
     )
     
   };
@@ -37,6 +58,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     addMovie: () => dispatch(showDialogAddMovie(true)),
+    switchLayout: (layout) => dispatch(switchLayout(layout))
   };
 };
 

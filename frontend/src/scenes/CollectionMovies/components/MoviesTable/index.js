@@ -6,6 +6,7 @@ import CircularProgress from 'material-ui/CircularProgress';
 import ContentTable from '../../../../components/ContentTable'
 import List from '../../../../components/ContentTable/components/List'
 import Help from './components/Help'
+import Grid from './components/Grid'
 import { sortMovies } from './actions'
 
 const progressStyle = {
@@ -79,6 +80,8 @@ class MoviesTable extends ContentTable {
       return (<div>Not found</div>)
     } else if(this.props.movies.length === 0) {
       return (<Help/>)
+    } else if(this.props.layout === 'grid') {
+      return (<Grid movies={this.props.movies}/>)
     }
     this.params = {
       ...this.params,
@@ -98,7 +101,8 @@ const mapStateToProps = state => {
     collection: state.collectionMovies.moviesTable.collection,
     found: state.collectionMovies.moviesTable.found,
     loaded: state.collectionMovies.moviesTable.loaded,
-    update: state.collectionMovies.moviesTable.update
+    update: state.collectionMovies.moviesTable.update,
+    layout: state.collectionMovies.moviesTable.layout
   }
 };
 

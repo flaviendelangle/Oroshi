@@ -1,0 +1,28 @@
+.movie {
+    display: inline-block;
+    vertical-align: top;
+    margin: 20px 10px;
+    position: relative;
+}
+
+.movie img {
+    margin-bottom: -4px;
+}
+
+.movie .overlay {
+    opacity: 0;
+    position: absolute;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    color: white;
+    padding: 4px;
+    line-height: 1.5em;
+    background: rgba(0,0,0,0.7);
+    transition: opacity 0.3s ease-in-out;
+}
+
+.movie:hover .overlay {
+    opacity: 1;
+}
