@@ -62,6 +62,13 @@ export const _updateMovieInCollection = (collection, id, data) => {
   }
 };
 
+export const _removeMovieFromCollection = (collection, id) => {
+  return {
+    type: titles.collectionsMovies.remove,
+    payload: CollectionsAPI.element(collection).movies.destroy(id)
+  }
+};
+
 
 
 

@@ -51,5 +51,5 @@ export const searchMovies = (collection, query) => {
 
 
 const filterById = (movie, el) => {
-  return movie === el.tmdbId;
+  return movie.id === el.tmdbId;
 };

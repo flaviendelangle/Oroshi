@@ -8,7 +8,8 @@ export const collections = {
 
 export const collectionsMovies = {
   add: 'ADD_MOVIE_TO_COLLECTION',
-  update: 'UPDATE_COLLECTION_MOVIE'
+  update: 'UPDATE_COLLECTION_MOVIE',
+  remove: 'REMOVE_COLLECTION_FROM_MOVIE'
 };
 
 export const movie = {

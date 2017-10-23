@@ -23,3 +23,10 @@
 .actions > div > div:last-child {
     margin-left: 5px;
 }
+
+.actions > .delete-movie {
+    position: absolute;
+    right: 10px;
+    top: calc(1em - 12px);
+    cursor: pointer;
+}

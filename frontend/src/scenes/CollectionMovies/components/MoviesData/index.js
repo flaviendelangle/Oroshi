@@ -39,6 +39,7 @@ class MoviesData extends Component {
       return (
         <Grid
           movies={this.props.moviesToShow}
+          collection={this.props.collection}
         />
       )
     }

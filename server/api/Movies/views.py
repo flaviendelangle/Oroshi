@@ -68,6 +68,14 @@ class CollectionMoviesViewSet(NestedViewSetMixin, MoviesViewSet):
         data['collection'] = collection.pk
         return Response(data)
 
+    def destroy(self, request, pk, parent_lookup_collection_movies):
+        collection = get_object_or_404(Collections.objects.all(), pk=parent_lookup_collection_movies)
+        movie = get_object_or_404(Movies.objects.all(), pk=pk)
+        collection.movies.remove(movie)
+        data = MoviesSerializer(movie).data
+        data['collection'] = collection.pk
+        return Response(data)
+
     def partial_update(self, request, pk, parent_lookup_collection_movies):
         collection = get_object_or_404(Collections.objects.all(), pk=parent_lookup_collection_movies)
         movie = get_object_or_404(Movies.objects.all(), pk=pk)

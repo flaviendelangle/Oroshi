@@ -40,6 +40,22 @@ const moviesDataReducer = (state = defaultState, action) => {
         movies: sort(addCollectionToMovies(state.movies.concat([action.payload]), state.collection))
       };
       
+    case collectionsMovies.remove + '_FULFILLED':
+      const match = state.movies.filter(el => {
+        return el.pk === action.payload.pk
+      });
+      if(match.length === 0) {
+        return state;
+      }
+      const index = state.movies.indexOf(match[0]);
+      return {
+        ...state,
+        movies: [
+          ...state.movies.slice(0, index),
+          ...state.movies.slice(index + 1)
+        ]
+      };
+      
     case collectionsMovies.update + '_FULFILLED':
       return {
         ...state,

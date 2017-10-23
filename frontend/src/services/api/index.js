@@ -23,21 +23,23 @@ class API {
       });
   };
   
-  GET = (url, data) => {
-    if(!data) {
-      data = {};
-    }
+  GET = (url, data = {}) => {
     data.method = 'GET';
     return this.fetch(url, data);
   };
   
-  POST = (url, data) => {
+  POST = (url, data = {}) => {
     data.method = 'POST';
     return this.fetch(url, data);
   };
   
-  PATCH = (url, data) => {
+  PATCH = (url, data = {}) => {
     data.method = 'PATCH';
+    return this.fetch(url, data);
+  };
+  
+  DELETE = (url, data = {}) => {
+    data.method = 'DELETE';
     return this.fetch(url, data);
   };
   
@@ -106,6 +108,10 @@ class API {
   
   retrieve(pk) {
     return this.GET(this.url(pk));
+  }
+  
+  destroy(pk) {
+    return this.DELETE(this.url(pk));
   }
   
   partial_update(pk, body) {

@@ -11,7 +11,11 @@ class Grid extends Component {
   
   renderItem = (index, key) => {
     return (
-      <Movie data={this.props.movies[index]} key={key}/>
+      <Movie
+        data={this.props.movies[index]}
+        collection={this.props.collection}
+        key={key}
+      />
     );
   };
   
