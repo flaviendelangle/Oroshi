@@ -3,7 +3,7 @@ import { movie } from '../../services/actions/titles/api'
 
 export const loadMovie = (tmdbId) => {
   const options = {
-    append_to_response: ['credits', 'images']
+    append_to_response: ['credits', 'images', 'recommendations']
   };
   return {
     type: movie.load,

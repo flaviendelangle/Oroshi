@@ -6,7 +6,8 @@ import { date } from '../../../../services/utils';
 
 const containerStyle = {
   marginBottom: 20,
-  fontSize: '2em'
+  fontSize: '2em',
+  
 };
 
 const ratingStyle = {
@@ -15,7 +16,7 @@ const ratingStyle = {
 
 const titleStyle = {
   display: 'inline-block',
-  maxWidth: 460,
+  maxWidth: 'calc(100% - 150px)',
   whiteSpace: 'nowrap',
   verticalAlign: 'top',
   overflow: 'hidden',
@@ -40,14 +41,12 @@ class Title extends Component {
     } else {
       return (
         <div style={{height: 37}}>
-        
         </div>
       );
     }
   };
   
   renderRating = () => {
-    console.log(this.props.note);
     return (
       <div style={ratingStyle}>
         <StarRatingComponent

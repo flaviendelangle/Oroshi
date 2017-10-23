@@ -3,6 +3,7 @@ import { combineReducers } from 'redux'
 import poster from './components/Poster/reducer'
 import title from './components/Title/reducer'
 import details from './components/Details/reducer'
+import recommendations from './components/Recommendations/reducer'
 
 const main = (state = {}, action) => {
   switch(action.type) {
@@ -15,6 +16,7 @@ const reducer = combineReducers({
   main,
   details,
   poster,
+  recommendations,
   title
 });
 

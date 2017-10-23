@@ -19,7 +19,7 @@ class Movie extends Component {
   };
   
   renderOverlay = () => {
-    if(this.state.mouseOver || true) {
+    if(this.state.mouseOver) {
       return (
         <div className="overlay">
           <Link to={'/movies/' + this.props.data.tmdbId + '/'}>

@@ -6,10 +6,18 @@ import Paper from 'material-ui/Paper';
 import Line from './components/Line'
 
 const paperStyle = {
-  height: 172,
-  width: 'calc(100% - 215px)',
-  position: 'absolute',
+  minHeight: 186,
   padding: 10
+};
+
+const textStyle = {
+  textAlign: 'justify',
+  fontStyle: 'italic',
+  fontWeight: 'normal',
+  margin: '10px 0 0 0',
+  lineHeight: '1.3em',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis'
 };
 
 class Details extends Component {
@@ -22,6 +30,7 @@ class Details extends Component {
       <div>
         {this.renderDirectors()}
         {this.renderCast()}
+        {this.renderSummary()}
       </div>
     )
   };
@@ -68,6 +77,16 @@ class Details extends Component {
       <Line>
         <span>With </span>
         <span>{actors}</span>
+      </Line>
+    );
+  };
+  
+  renderSummary = () => {
+    return (
+      <Line>
+        <span style={textStyle}>
+          {this.props.data.overview}
+        </span>
       </Line>
     );
   };
