@@ -4,32 +4,75 @@ import { submit } from 'redux-form'
 import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
 
-import Form  from './components/Form'
+import CollectionStepper from './components/CollectionStepper'
+import Content from './components/Content'
 import { showDialogCreateCollection, createCollection } from './actions'
 
 
 class DialogCreateCollection extends Component {
   
-  create = data => {
-    if(data.title) {
-      this.props.close();
-      this.props.create(data);
+  state = {
+    stepIndex: 0
+  };
+  
+  actions = {
+    save: (
+        <FlatButton
+          label="Save"
+          primary={true}
+          onClick={() => this.create()}
+        />
+      ),
+    next: (
+        <FlatButton
+          label="Next"
+          primary={true}
+          onClick={() => this.nextStep()}
+        />
+      ),
+    back: (
+        <FlatButton
+        label="Back"
+        primary={true}
+        onClick={() => this.lastStep()}
+        />
+      )
+  };
+  
+  create = () => {
+    const data = this.child.submit();
+    this.setState({ stepIndex: 0 });
+    this.props.create(data);
+    this.props.close();
+  };
+
+  nextStep = () => {
+    if(this.state.stepIndex === 1) {
+      this.props.submitConfiguration();
+    } else {
+      this.setState({ stepIndex: ++this.state.stepIndex });
     }
   };
   
+  lastStep = () => {
+    this.setState({ stepIndex: --this.state.stepIndex });
+  };
+  
+  renderActions = () => {
+    const actions = [];
+    if(this.state.stepIndex > 0) {
+      actions.push(this.actions.back);
+    }
+    if(this.state.stepIndex < 2) {
+      actions.push(this.actions.next);
+    } else {
+      actions.push(this.actions.save);
+    }
+    return actions;
+  };
+  
   render() {
-    const actions = [
-      <FlatButton
-        label="Save"
-        primary={true}
-        onClick={this.props.submit}
-      />,
-      <FlatButton
-      label="Close"
-      primary={true}
-      onClick={this.props.close}
-      />
-    ];
+    const actions = this.renderActions();
     
     return (
       <Dialog
@@ -40,7 +83,12 @@ class DialogCreateCollection extends Component {
         onRequestClose={this.props.close}
         autoScrollBodyContent={true}
       >
-        <Form onSubmit={this.create}/>
+        <CollectionStepper stepIndex={this.state.stepIndex} />
+        <Content
+          stepIndex={this.state.stepIndex}
+          onStepIndexUpdate={(stepIndex) => this.setState({ stepIndex })}
+          onRef={ref => this.child = ref}
+        />
       </Dialog>
     );
   }
@@ -56,7 +104,7 @@ const mapDispatchToProps = dispatch => {
   return {
     close: () => dispatch(showDialogCreateCollection(false)),
     create: (data) => dispatch(createCollection(data)),
-    submit: () => dispatch(submit('DialogCreateCollectionForm'))
+    submitConfiguration: () => dispatch(submit('DialogCreateCollectionConfigurationForm'))
   }
 };
 

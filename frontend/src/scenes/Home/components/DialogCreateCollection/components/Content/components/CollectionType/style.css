@@ -1,0 +1,31 @@
+.radio-button {
+    margin-top: 15px;
+}
+
+.collection-type {
+    width: 570px;
+    margin: auto;
+}
+
+.collection-type > div {
+    vertical-align: top;
+    display: inline-block;
+}
+
+.collection-type > div:first-child {
+    width: 290px;
+}
+
+.collection-type > div:last-child {
+    width: 200px;
+    transition: opacity 0.3s ease-in-out
+}
+
+.collection-type > div {
+    margin: 0 20px;
+}
+
+.collection-type:not(.external) > div:last-child {
+    opacity: 0;
+}
+
