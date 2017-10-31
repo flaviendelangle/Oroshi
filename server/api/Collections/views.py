@@ -27,6 +27,16 @@ class CollectionsViewSet(viewsets.ModelViewSet):
         data['seen'] = SeenMoviesSerializer(seen_movies, many=True).data
         return Response(data)
 
+    def create(self, request, *args, **kwargs):
+        collection_to_duplicate = request.data['duplicate']
+        data = super().create(request, *args, **kwargs).data
+        if len(collection_to_duplicate) == 1 :
+            old_collection = get_object_or_404(self.get_queryset(), pk=collection_to_duplicate[0])
+            new_collection  = get_object_or_404(self.get_queryset(), pk=data['pk'])
+            for movie in old_collection.movies.all():
+                new_collection.movies.add(movie)
+        return Response(data)
+
     @list_route(methods=['get'], url_path='settings')
     def settings_list(self, request):
         data = self.get_queryset()
