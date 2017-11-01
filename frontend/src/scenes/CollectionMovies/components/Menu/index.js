@@ -4,6 +4,7 @@ import FloatingActionButton from 'material-ui/FloatingActionButton'
 import ContentAdd from 'material-ui/svg-icons/content/add'
 import ActionViewList from 'material-ui/svg-icons/action/view-list'
 import ActionViewModule from 'material-ui/svg-icons/action/view-module'
+import ActionViewStream from 'material-ui/svg-icons/action/view-stream'
 
 import { showDialogAddMovie } from './../../components/DialogAddMovie/actions'
 import { switchLayout } from '../MoviesData/actions'
@@ -39,8 +40,12 @@ class Menu extends Component {
             onClick={() => this.props.switchLayout('list')}
           />
           <ActionViewModule
-            style={{cursor: 'pointer'}}
+            style={{marginRight: 10, cursor: 'pointer'}}
             onClick={() => this.props.switchLayout('grid')}
+          />
+          <ActionViewStream
+            style={{cursor: 'pointer'}}
+            onClick={() => this.props.switchLayout('stream')}
           />
         </div>
       </span>

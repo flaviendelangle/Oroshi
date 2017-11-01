@@ -1,7 +1,7 @@
 
 class Search {
   
-  regexp = new RegExp('([a-zA-Z0-9]+):([a-zA-Z0-9]+)')
+  regexp = new RegExp('([a-zA-Z0-9]+):([a-zA-Z0-9]+)');
   query;
   results = [];
   filters = [];

@@ -6,13 +6,19 @@ import { collections, collectionsMovies } from '../../../../services/actions/tit
 import { movies } from '../../../../services/actions/titles/data'
 import api from '../../../../services/TheMovieDatabaseJS/'
 
+const defaultOrder = {
+  field: 'title',
+  direction: 'asc'
+};
+
 const defaultState = {
   movies: [],
   query: '',
   collection: 0,
   found: false,
   loaded: false,
-  layout: getValue('layout') || 'grid'
+  layout: getValue('layout') || 'grid',
+  order: getValue('order') || defaultOrder
 };
 
 const moviesDataReducer = (state = defaultState, action) => {
@@ -27,14 +33,13 @@ const moviesDataReducer = (state = defaultState, action) => {
           loaded: true
         }
       }
-      console.log(action.payload.adult_content);
       api.set_config({
         include_adult: action.payload.adult_content
       });
       return {
         ...state,
         collection: action.payload.pk,
-        movies: sort(action.payload.movies),
+        movies: sort(action.payload.movies, state.order),
         found: true,
         loaded: true
       };
@@ -71,7 +76,8 @@ const moviesDataReducer = (state = defaultState, action) => {
       setSortParameters(action.parameters);
       return {
         ...state,
-        movies: sort(state.movies),
+        order: action.parameters,
+        movies: sort(state.movies, action.parameters),
         update: Math.random()
       };
       

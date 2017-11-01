@@ -5,7 +5,9 @@ import CircularProgress from 'material-ui/CircularProgress';
 import List from './components/List'
 import Help from './components/Help'
 import Grid from './components/Grid'
+import Stream from './components/Stream'
 import Search from './services/search'
+import StreamGenerator from './services/streamgenerator'
 
 const progressStyle = {
   width: 40,
@@ -40,14 +42,22 @@ class MoviesData extends Component {
         <Grid
           movies={this.props.moviesToShow}
           collection={this.props.collection}
+          order={this.props.order}
         />
       )
     }
-    else {
+    else if(this.props.layout === 'list') {
       return (
         <List
           data={this.props.moviesToShow}
           collection={this.props.collection}
+        />
+      )
+    }
+    else if(this.props.layout === 'stream') {
+      return (
+        <Stream
+          data={this.props.stream}
         />
       )
     }
@@ -86,14 +96,22 @@ const mapStateToProps = state => {
     state.collectionMovies.moviesData.query
     ).results;
   
+  const stream = new StreamGenerator(
+    state.collectionMovies.moviesData.movies,
+    state.collectionMovies.moviesData.query,
+    { field: 'directors', direction: 'asc' }
+  ).results;
+  
   return {
     update: state.collectionMovies.moviesData.update,
     movies: state.collectionMovies.moviesData.movies,
     moviesToShow,
+    stream,
     collection: state.collectionMovies.moviesData.collection,
     found: state.collectionMovies.moviesData.found,
     loaded: state.collectionMovies.moviesData.loaded,
-    layout: state.collectionMovies.moviesData.layout
+    layout: state.collectionMovies.moviesData.layout,
+    order: state.collectionMovies.moviesData.order
   }
 };
 

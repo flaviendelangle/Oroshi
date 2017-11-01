@@ -1,20 +1,10 @@
-import { getValue, setValue } from '../../../services/localstorage'
+import { setValue } from '../../../services/localstorage'
 
-
-const localSortParameters = getValue('order');
-const defaultSortParameters = {
-  field: 'title',
-  direction: 'asc'
-};
-
-let sortParameters = localSortParameters || defaultSortParameters;
-
-
-export const sort = movies => {
+export const sort = (movies, params) => {
   movies = movies.sort((a, b) => {
     let comparison = 0;
-    const key = sortParameters.field;
-    const mul = sortParameters.direction === 'asc' ? 1 : -1;
+    const key = params.field;
+    const mul = params.direction === 'asc' ? 1 : -1;
     if(a[key] > b[key])
       comparison = mul;
     else if(a[key] < b[key])
@@ -25,7 +15,6 @@ export const sort = movies => {
 };
 
 export const setSortParameters = params => {
-  sortParameters = params;
   setValue('order', params);
 };
 
