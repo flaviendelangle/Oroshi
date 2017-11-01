@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Field, reduxForm } from 'redux-form'
-import { TextField } from 'redux-form-material-ui'
+import { TextField, Toggle } from 'redux-form-material-ui'
 
 import './style.css'
 
 const formStyle = {
   display: 'inline-block',
-  width: '50%',
-  marginLeft: '15%',
+  width: '40%',
+  margin: '20px 5%',
   lineHeight: '4em',
   verticalAlign: 'top'
 };
@@ -34,6 +34,14 @@ class CollectionConfiguration extends Component {
               type="password"
             />
           </div>
+        </div>
+        <div style={formStyle}>
+          <Field
+            style={{height: '4em', paddingTop: '1em'}}
+            name="adult_content"
+            label="Include adult content"
+            component={Toggle}
+          />
         </div>
       </form>
     );

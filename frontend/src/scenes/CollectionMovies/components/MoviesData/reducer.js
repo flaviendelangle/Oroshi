@@ -4,6 +4,7 @@ import { getValue } from '../../../../services/localstorage'
 
 import { collections, collectionsMovies } from '../../../../services/actions/titles/api'
 import { movies } from '../../../../services/actions/titles/data'
+import api from '../../../../services/TheMovieDatabaseJS/'
 
 const defaultState = {
   movies: [],
@@ -26,6 +27,10 @@ const moviesDataReducer = (state = defaultState, action) => {
           loaded: true
         }
       }
+      console.log(action.payload.adult_content);
+      api.set_config({
+        include_adult: action.payload.adult_content
+      });
       return {
         ...state,
         collection: action.payload.pk,

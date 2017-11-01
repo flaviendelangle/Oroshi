@@ -20,8 +20,8 @@ class Content extends Component {
     this.props.onRef(undefined)
   }
   
-  setCollectionType = (type, external) => {
-    this.setState({ collectionType: {type, external} });
+  setCollectionType = (state) => {
+    this.setState({ collectionType: state });
   };
   
   setCollectionCustomization = identiconString => {
@@ -36,10 +36,18 @@ class Content extends Component {
   };
   
   submit = () => {
+    let results = {};
+    if(this.state.collectionType.type === 'duplicate') {
+      results.duplicate = this.state.collectionType.duplicate;
+    } else {
+      results.duplicate = 0;
+    }
     return {
+      ...results,
       title: this.state.collectionConfiguration.title,
       password: this.state.collectionConfiguration.password,
-      hash: this.state.collectionCustomization.identiconString
+      hash: this.state.collectionCustomization.identiconString,
+      adult_content: this.state.collectionConfiguration.adult_content || false
     }
   };
   
@@ -48,6 +56,8 @@ class Content extends Component {
       return (
         <CollectionType
           onChange={this.setCollectionType}
+          collections={this.props.collections}
+          initialValues={this.state.collectionType}
         />
       );
     }

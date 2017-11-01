@@ -73,7 +73,6 @@ class DialogCreateCollection extends Component {
   
   render() {
     const actions = this.renderActions();
-    
     return (
       <Dialog
         title="Your new collection"
@@ -86,6 +85,7 @@ class DialogCreateCollection extends Component {
         <CollectionStepper stepIndex={this.state.stepIndex} />
         <Content
           stepIndex={this.state.stepIndex}
+          collections={this.props.collections}
           onStepIndexUpdate={(stepIndex) => this.setState({ stepIndex })}
           onRef={ref => this.child = ref}
         />
@@ -96,7 +96,8 @@ class DialogCreateCollection extends Component {
 
 const mapStateToProps = state => {
   return {
-    isOpen: state.home.dialogCreateCollection.main.isAddingACollection
+    isOpen: state.home.dialogCreateCollection.main.isAddingACollection,
+    collections: state.home.main.collections
   }
 };
 

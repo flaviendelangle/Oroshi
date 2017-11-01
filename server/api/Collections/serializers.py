@@ -10,23 +10,25 @@ class CollectionsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Collections
-        fields = ('pk','title','hash','movies')
+        fields = ('pk','title','hash','movies', 'adult_content')
         extra_kwargs = {
             'pk': {'read_only': True},
             'movies': {'read_only': True}
         }
 
+
 class CollectionSettingsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Collections
-        fields = ('pk', 'title', 'hash')
+        fields = ('pk', 'title', 'hash', 'adult_content')
+
 
 class CollectionsWriteSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Collections
-        fields = ('pk', 'title', 'hash')
+        fields = ('pk', 'title', 'hash', 'adult_content')
         extra_kwargs = {
             'pk': {'read_only': True},
         }

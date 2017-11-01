@@ -22,7 +22,11 @@ class API {
   };
   
   static set_config = config => {
-    API.USERCONFIG = config;
+    for(const key in config) {
+      if(config.hasOwnProperty(key)) {
+        API.USERCONFIG[key] = config[key];
+      }
+    }
   };
   
   static manageXRateLimit = headers => {

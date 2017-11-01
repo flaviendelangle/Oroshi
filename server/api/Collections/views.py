@@ -30,7 +30,7 @@ class CollectionsViewSet(viewsets.ModelViewSet):
     def create(self, request, *args, **kwargs):
         collection_to_duplicate = request.data['duplicate']
         data = super().create(request, *args, **kwargs).data
-        if len(collection_to_duplicate) == 1 :
+        if len(collection_to_duplicate) == 1 and int(collection_to_duplicate[0]) > 0 :
             old_collection = get_object_or_404(self.get_queryset(), pk=collection_to_duplicate[0])
             new_collection  = get_object_or_404(self.get_queryset(), pk=data['pk'])
             for movie in old_collection.movies.all():

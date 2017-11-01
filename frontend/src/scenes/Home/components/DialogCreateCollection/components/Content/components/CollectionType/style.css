@@ -16,16 +16,19 @@
     width: 290px;
 }
 
-.collection-type > div:last-child {
+.collection-type > div:not(:first-child) {
     width: 200px;
-    transition: opacity 0.3s ease-in-out
 }
 
 .collection-type > div {
     margin: 0 20px;
 }
 
-.collection-type:not(.external) > div:last-child {
-    opacity: 0;
+.collection-type:not(.external) .external-content {
+    display: none;
+}
+
+.collection-type:not(.duplicate) .duplicate-content {
+    display: none;
 }
 

@@ -8,7 +8,8 @@ class CollectionType extends Component {
   
   state = {
     type: 'blank',
-    external: 'best_rated'
+    external: 'best_rated',
+    duplicate: 0
   };
   
   handleTypeChange = (proxy, type) => {
@@ -17,16 +18,40 @@ class CollectionType extends Component {
   };
   
   handleExternalChange = (proxy, external) => {
-    this.setState({ external })
+    this.setState({ external });
     this.handleOnChange()
   };
   
+  handleDuplicateChange = (proxy, duplicate) => {
+    this.setState({ duplicate });
+    this.handleOnChange();
+  };
+  
   handleOnChange = () => {
-    this.props.onChange(this.state.type, this.state.external);
+    setTimeout(() => {
+      this.props.onChange(this.state);
+    });
+  };
+  
+  renderDuplicateRadioButtons = () => {
+    return this.props.collections.map(collection => {
+      return (
+        <RadioButton
+          value={collection.pk}
+          label={collection.title}
+          className="radio-button"
+          key={collection.pk}
+        />
+      )
+    });
   };
   
   componentDidMount() {
-    this.handleOnChange();
+    if(this.props.initialValues.hasOwnProperty('type')) {
+      this.setState(this.props.initialValues);
+    } else {
+      this.handleOnChange();
+    }
   }
   
   render() {
@@ -37,6 +62,7 @@ class CollectionType extends Component {
             name="collection_type"
             defaultSelected="blank"
             onChange={this.handleTypeChange}
+            valueSelected={this.state.type}
           >
             <RadioButton
               value="blank"
@@ -56,27 +82,39 @@ class CollectionType extends Component {
           </RadioButtonGroup>
         </div>
         <div>
-          <RadioButtonGroup
-            name="external_content"
-            defaultSelected="best_rated"
-            onChange={this.handleExternalChange}
-          >
-            <RadioButton
-              value="best_rated"
-              label="Best rated movies"
-              className="radio-button"
-            />
-            <RadioButton
-              value="in_theatre"
-              label="Currently in theatre"
-              className="radio-button"
-            />
-            <RadioButton
-              value="popular"
-              label="Popular"
-              className="radio-button"
-            />
-          </RadioButtonGroup>
+          <div className="duplicate-content">
+            <RadioButtonGroup
+              name="external_content"
+              defaultSelected="best_rated"
+              onChange={this.handleDuplicateChange}
+              valueSelected={this.state.duplicate}
+            >
+              {this.renderDuplicateRadioButtons()}
+            </RadioButtonGroup>
+          </div>
+          <div className="external-content">
+            <RadioButtonGroup
+              name="external_content"
+              defaultSelected="best_rated"
+              onChange={this.handleExternalChange}
+            >
+              <RadioButton
+                value="best_rated"
+                label="Best rated movies"
+                className="radio-button"
+              />
+              <RadioButton
+                value="in_theatre"
+                label="Currently in theatre"
+                className="radio-button"
+              />
+              <RadioButton
+                value="popular"
+                label="Popular"
+                className="radio-button"
+              />
+            </RadioButtonGroup>
+          </div>
         </div>
       </div>
     );
