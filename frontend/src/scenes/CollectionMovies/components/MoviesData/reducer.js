@@ -5,6 +5,7 @@ import { getValue } from '../../../../services/localstorage'
 import { collections, collectionsMovies } from '../../../../services/actions/titles/api'
 import { movies } from '../../../../services/actions/titles/data'
 import api from '../../../../services/TheMovieDatabaseJS/'
+import StreamGenerator from './services/streamgenerator'
 
 const defaultOrder = {
   default: {
@@ -12,7 +13,7 @@ const defaultOrder = {
     direction: 'asc'
   },
   stream: {
-    field: 'amount',
+    field: 'directors',
     direction: 'desc'
   }
 };
@@ -25,13 +26,12 @@ const defaultState = {
   loaded: false,
   layout: getValue('layout') || 'grid',
   order: getValue('order') || defaultOrder,
-  stream: {
-    key: 'genres'
-  }
+  stream: new StreamGenerator()
 };
 
 const moviesDataReducer = (state = defaultState, action) => {
-
+  let newMovies, newOrder;
+  
   switch(action.type) {
     
     case collections.load + '_FULFILLED':
@@ -45,25 +45,27 @@ const moviesDataReducer = (state = defaultState, action) => {
       api.set_config({
         include_adult: action.payload.adult_content
       });
+      newMovies = sort(action.payload.movies, state.order.default);
       return {
         ...state,
         collection: action.payload.pk,
-        movies: sort(action.payload.movies, state.order.default),
+        movies: newMovies,
+        stream: new StreamGenerator(newMovies, state.query, state.order.stream),
         found: true,
         loaded: true
       };
       
     case collectionsMovies.add + '_FULFILLED':
-      console.log(state.order);
-      console.log(state.order.default);
+      newMovies = sort(
+        addCollectionToMovies(
+          state.movies.concat([action.payload]),
+          state.collection
+        ), state.order.default
+      );
       return {
         ...state,
-        movies: sort(
-          addCollectionToMovies(
-            state.movies.concat([action.payload]),
-            state.collection
-          ), state.order.default
-        )
+        movies: newMovies,
+        stream: new StreamGenerator(newMovies, state.query, state.order.stream)
       };
       
     case collectionsMovies.remove + '_FULFILLED':
@@ -74,42 +76,48 @@ const moviesDataReducer = (state = defaultState, action) => {
         return state;
       }
       const index = state.movies.indexOf(match[0]);
+      newMovies = [
+        ...state.movies.slice(0, index),
+        ...state.movies.slice(index + 1)
+      ];
       return {
         ...state,
-        movies: [
-          ...state.movies.slice(0, index),
-          ...state.movies.slice(index + 1)
-        ]
+        movies: newMovies,
+        stream: new StreamGenerator(newMovies, state.query, state.order.stream)
       };
       
     case collectionsMovies.update + '_FULFILLED':
+      newMovies = addSeenToMovies(state.movies, action.payload);
       return {
         ...state,
-        movies: addSeenToMovies(state.movies, action.payload)
+        movies: newMovies,
+        stream: new StreamGenerator(newMovies, state.query, state.order.stream)
       };
       
     case movies.sort:
-      setSortParameters(action.parameters);
-      let data;
+      setSortParameters(action.parameters, defaultOrder);
       if(action.parameters.layout === 'default') {
-        data = sort(state.movies, action.parameters);
+        newMovies = sort(state.movies, action.parameters);
       } else {
-        data = state.movies;
+        newMovies = state.movies;
       }
+      newOrder = {
+        ...state.order,
+        [action.parameters.layout]: action.parameters
+      };
       return {
         ...state,
-        order: {
-          ...state.order,
-          [action.parameters.layout]: action.parameters
-        },
-        movies: data,
+        order: newOrder,
+        movies: newMovies,
+        stream: new StreamGenerator(newMovies, state.query, newOrder.stream),
         update: Math.random()
       };
       
     case movies.update_search_query:
       return {
         ...state,
-        query: action.query
+        query: action.query,
+        stream: new StreamGenerator(state.movies, action.query, state.order.stream),
       };
       
     case movies.update_layout:

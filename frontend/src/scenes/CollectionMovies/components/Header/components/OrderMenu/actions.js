@@ -1,5 +1,5 @@
 import { sortMovies } from '../../../MoviesData/actions'
 
-export const updateOrder = (field, direction, layout) => {
-  return sortMovies(field, direction, layout);
+export const updateOrder = (...args) => {
+  return sortMovies(...args);
 };

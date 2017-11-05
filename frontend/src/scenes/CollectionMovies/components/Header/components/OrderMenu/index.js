@@ -33,20 +33,12 @@ class Search extends Component {
         targetOrigin={{horizontal: 'right', vertical: 'top'}}
       >
         <MenuItem
-          primaryText="Order by amount of movies desc"
-          onClick={() => this.props.updateOrder('amount', 'desc', 'stream')}
+          primaryText="Group by directors"
+          onClick={() => this.props.updateOrder('directors', 'desc', 'stream')}
         />
         <MenuItem
-          primaryText="Order by amount of movies asc"
-          onClick={() => this.props.updateOrder('amount', 'asc', 'stream')}
-        />
-        <MenuItem
-          primaryText="Order by section desc"
-          onClick={() => this.props.updateOrder('section', 'desc', 'stream')}
-        />
-        <MenuItem
-          primaryText="Order by section asc"
-          onClick={() => this.props.updateOrder('section', 'asc', 'stream')}
+          primaryText="Group by genres"
+          onClick={() => this.props.updateOrder('genres', 'desc', 'stream')}
         />
       </IconMenu>
     );

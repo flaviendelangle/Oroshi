@@ -1,16 +1,13 @@
 
 class StreamGenerator {
   
-  constructor(data, query, key, order) {
-    this.data = data;
-    this.query = query;
-    this.key = key;
-    this.order = order;
-    this.build();
-  }
+  labelField = 'name';
   
-  static getLastValue() {
-    return StreamGenerator.lastValue;
+  constructor(data=[], query='', key={field: 'directors', direction: 'desc'}) {
+    this.data = data;
+    this.query = query.toUpperCase().trim();
+    this.key = key;
+    this.build();
   }
   
   build = () => {
@@ -25,9 +22,10 @@ class StreamGenerator {
     this.results = {};
     this.keys = {};
     this.data.forEach(el => {
-      el[this.key].forEach(value => {
+      el[this.key.field].forEach(value => {
         const pk = value.pk;
-        if(!this.keys[pk]) {
+        const label = value[this.labelField].toUpperCase();
+        if(!this.keys[pk] && label.includes(this.query)) {
           this.keys[pk] = value;
         }
       });
@@ -39,7 +37,7 @@ class StreamGenerator {
       const pk = parseInt(pk_temp);
       const key = this.keys[pk];
       const movies = this.data.filter(movie => {
-        return movie[this.key].filter(el => {
+        return movie[this.key.field].filter(el => {
           return el.pk === pk
         }).length > 0;
       });
@@ -53,16 +51,9 @@ class StreamGenerator {
   sortResults = () => {
     this.results = this.results.sort((a, b) => {
       let comparison = 0;
-      const key = (this.key === 'directors' ? 'name' : 'title');
-      const mul = this.order.direction === 'asc' ? 1 : -1;
-      let valueA, valueB;
-      if(this.order.field === 'amount') {
-        valueA = a.movies.length;
-        valueB = b.movies.length;
-      } else {
-        valueA = a.key[key];
-        valueB = b.key[key];
-      }
+      const mul = this.key.direction === 'asc' ? 1 : -1;
+      const valueA = a.movies.length;
+      const valueB = b.movies.length;
       if(valueA > valueB)
         comparison = mul;
       else if(valueA < valueB)
@@ -71,9 +62,7 @@ class StreamGenerator {
     });
   };
   
-  
 }
 
-StreamGenerator.lastValue = null;
 
 export default StreamGenerator;

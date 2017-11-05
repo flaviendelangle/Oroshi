@@ -7,7 +7,6 @@ import Help from './components/Help'
 import Grid from './components/Grid'
 import Stream from './components/Stream'
 import Search from './services/search'
-import StreamGenerator from './services/streamgenerator'
 
 const progressStyle = {
   width: 40,
@@ -95,26 +94,19 @@ const mapStateToProps = state => {
   const root = state.collectionMovies.moviesData;
   let stream, moviesToShow;
   if(root.layout === 'stream') {
-    stream = new StreamGenerator(
-      root.movies,
-      root.query,
-      root.stream.key,
-      root.order.stream
-    );
     moviesToShow = Search.getLastValue();
   } else {
     moviesToShow = new Search(
       root.movies,
       root.query
     ).results;
-    stream = StreamGenerator.getLastValue();
   }
   
   return {
     update: root.update,
     movies: root.movies,
     moviesToShow,
-    stream,
+    stream: root.stream,
     collection: root.collection,
     found: root.found,
     loaded: root.loaded,

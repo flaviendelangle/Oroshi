@@ -14,8 +14,8 @@ export const sort = (movies, params) => {
   return movies;
 };
 
-export const setSortParameters = params => {
-  let oldParams = getValue('order') || {};
+export const setSortParameters = (params, defaultOrder) => {
+  let oldParams = getValue('order') || defaultOrder;
   oldParams[params.layout] = params;
   setValue('order', oldParams);
 };

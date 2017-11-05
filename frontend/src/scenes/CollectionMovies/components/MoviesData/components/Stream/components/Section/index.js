@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import NavigationMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz'
+import IconButton from 'material-ui/IconButton'
+import NavigationLess from 'material-ui/svg-icons/navigation/expand-less'
+import NavigationMore from 'material-ui/svg-icons/navigation/expand-more'
 
 import Movie from '../../../Grid/components/Movie/'
 
@@ -8,18 +10,25 @@ import './style.css'
 
 class Section extends Component {
   
+  state = {
+    full: false
+  };
+  
   getTitle = () => {
     return this.props.data.key.title || this.props.data.key.name;
   };
   
   getLink = () => {
-    return '/collections/' + this.props.collection + '/' +
-           this.props.field + '/' + this.props.data.key.pk;
+    return '/' + this.props.field + '/' + this.props.data.key.pk;
+  };
+  
+  showAll = () => {
+    this.setState({full: !this.state.full});
   };
   
   renderContent = () => {
     let movies = this.props.data.movies;
-    if(movies.length > 7) {
+    if(!this.state.full && movies.length > 7) {
       movies = movies.slice(0,7);
     }
     
@@ -36,19 +45,20 @@ class Section extends Component {
   
   render() {
     return (
-      <div className="stream-section">
+      <div
+        className={'stream-section ' + (this.state.full ? 'full': '')}
+        data-amount={this.props.data.movies.length}
+      >
         <div className="title">
           <Link to={this.getLink()}>
             {this.getTitle()}
           </Link>
+          <IconButton onClick={this.showAll}>
+            {this.state.full ? <NavigationLess/> : <NavigationMore/>}
+          </IconButton>
         </div>
         <div className="content">
           {this.renderContent()}
-        </div>
-        <div className="see_more">
-          <Link to={this.getLink()}>
-            <NavigationMoreHoriz/>
-          </Link>
         </div>
       </div>
     );

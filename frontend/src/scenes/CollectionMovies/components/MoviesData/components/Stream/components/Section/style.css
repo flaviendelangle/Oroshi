@@ -5,14 +5,61 @@
 .stream-section .title {
     font-size: 2em;
     line-height: 2em;
+    padding-right: 20px;
 }
 
-.stream-section .content {
+.stream-section .title > button {
+    float: right;
+}
+
+.stream-section:not(.full) .content {
     white-space: nowrap;
     overflow: hidden;
 }
 
-.stream-section .see_more {
-    padding-right: 20px;
-    float: right;
+.stream-section[data-amount="1"] .title > button,
+.stream-section[data-amount="2"] .title > button,
+.stream-section[data-amount="3"] .title > button,
+.stream-section[data-amount="4"] .title > button,
+.stream-section[data-amount="5"] .title > button,
+.stream-section[data-amount="6"] .title > button,
+.stream-section[data-amount="7"] .title > button
+{
+    visibility: hidden !important;
+}
+
+@media screen and (max-width: 420px) {
+    .stream-section[data-amount="2"] .title > button {
+        visibility: visible !important;
+    }
+}
+
+@media screen and (min-width: 421px) and (max-width: 630px) {
+    .stream-section[data-amount="3"] .title > button {
+        visibility: visible !important;
+    }
+}
+
+@media screen and (min-width: 631px) and (max-width: 1025px) {
+    .stream-section[data-amount="4"] .title > button {
+        visibility: visible !important;
+    }
+}
+
+@media screen and (min-width: 1026px) and (max-width: 1282px) {
+    .stream-section[data-amount="5"] .title > button {
+        visibility: visible !important;
+    }
+}
+
+@media screen and (min-width: 1283px) and (max-width: 1538px) {
+    .stream-section[data-amount="6"] .title > button {
+        visibility: visible !important;
+    }
+}
+
+@media screen and (min-width: 1539px) and (max-width: 1794px) {
+    .stream-section[data-amount="7"] .title > button {
+        visibility: visible !important;
+    }
 }
