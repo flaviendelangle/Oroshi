@@ -7,10 +7,6 @@
     position: relative;
 }
 
-.movie {
-
-}
-
 .movie img {
     margin-bottom: -4px;
 }
@@ -35,4 +31,10 @@
 
 .movie .overlay-main {
     height: calc(100% - 2em);
+}
+
+.movie .title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }

@@ -8,9 +8,10 @@
 
 .stream-section {
     margin: 20px 0;
+    position: relative;
 }
 
-.stream-section .title {
+.stream-section > .title {
     font-size: 2em;
     line-height: 2em;
     white-space: nowrap;
@@ -18,34 +19,35 @@
     text-overflow: ellipsis;
 }
 
-.stream-section .title > button {
-    float: right;
+.stream-section > .title > button {
+    position: absolute !important;
+    right: 0;
 }
 
-.stream-section:not(.full) .content {
+.stream-section:not(.full) > .content {
     white-space: nowrap;
     overflow: hidden;
 }
 
-.stream-section[data-amount="1"] .title > button,
-.stream-section[data-amount="2"] .title > button,
-.stream-section[data-amount="3"] .title > button,
-.stream-section[data-amount="4"] .title > button,
-.stream-section[data-amount="5"] .title > button,
-.stream-section[data-amount="6"] .title > button,
-.stream-section[data-amount="7"] .title > button
+.stream-section[data-amount="1"] > .title > button,
+.stream-section[data-amount="2"] > .title > button,
+.stream-section[data-amount="3"] > .title > button,
+.stream-section[data-amount="4"] > .title > button,
+.stream-section[data-amount="5"] > .title > button,
+.stream-section[data-amount="6"] > .title > button,
+.stream-section[data-amount="7"] > .title > button
 {
     visibility: hidden !important;
 }
 
 @media screen and (max-width: 420px) {
-    .stream-section[data-amount="2"] .title > button {
+    .stream-section[data-amount="2"] > .title > button {
         visibility: visible !important;
     }
 }
 
 @media screen and (max-width: 630px) {
-    .stream-section[data-amount="3"] .title > button {
+    .stream-section[data-amount="3"] > .title > button {
         visibility: visible !important;
     }
 
@@ -55,25 +57,25 @@
 }
 
 @media screen and (max-width: 1025px) {
-    .stream-section[data-amount="4"] .title > button {
+    .stream-section[data-amount="4"] > .title > button {
         visibility: visible !important;
     }
 }
 
 @media screen and (max-width: 1282px) {
-    .stream-section[data-amount="5"] .title > button {
+    .stream-section[data-amount="5"] > .title > button {
         visibility: visible !important;
     }
 }
 
 @media screen and (max-width: 1538px) {
-    .stream-section[data-amount="6"] .title > button {
+    .stream-section[data-amount="6"] > .title > button {
         visibility: visible !important;
     }
 }
 
 @media screen and (max-width: 1794px) {
-    .stream-section[data-amount="7"] .title > button {
+    .stream-section[data-amount="7"] > .title > button {
         visibility: visible !important;
     }
 }

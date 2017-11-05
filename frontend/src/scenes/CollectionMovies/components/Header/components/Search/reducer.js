@@ -12,7 +12,13 @@ const searchReducer = (state = defaultState, action) => {
         ...state,
         query: action.query
       };
-    
+  
+    case movies.update_layout:
+      return {
+        ...state,
+        query: ''
+      };
+      
     default:
       return state;
   }

@@ -7,13 +7,13 @@ import { update } from './actions'
 const searchStyle = {
   margin: '8px auto',
   maxWidth: 800,
-  width: '90%'
+  width: '100%'
 };
 
 const containerStyle = {
   position: 'absolute',
-  left: 40,
-  right: 0
+  left: 50,
+  right: 40
 };
 
 class Search extends Component {

@@ -132,7 +132,10 @@ const moviesDataReducer = (state = defaultState, action) => {
       setLayoutParameters(action.layout);
       return {
         ...state,
-        layout: action.layout
+        query: '',
+        layout: action.layout,
+        stream: new StreamGenerator(state.movies, '', state.order.stream),
+        toShow: new Search(state.movies, '')
       };
       
     default:
