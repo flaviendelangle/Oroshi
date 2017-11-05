@@ -64,6 +64,7 @@ class ContentTable extends Component {
               page={1}
               count={this.props.data.length}
               onSortOrderChange={this.sort}
+              rowSize={20}
             />
           </ScrollArea>
         </div>

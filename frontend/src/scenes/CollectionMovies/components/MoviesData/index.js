@@ -6,7 +6,6 @@ import List from './components/List'
 import Help from './components/Help'
 import Grid from './components/Grid'
 import Stream from './components/Stream'
-import Search from './services/search'
 
 const progressStyle = {
   width: 40,
@@ -39,7 +38,7 @@ class MoviesData extends Component {
     if(this.props.layout === 'grid') {
       return (
         <Grid
-          movies={this.props.moviesToShow}
+          movies={this.props.moviesToShow.results}
           collection={this.props.collection}
           order={this.props.order.default}
         />
@@ -48,7 +47,7 @@ class MoviesData extends Component {
     else if(this.props.layout === 'list') {
       return (
         <List
-          data={this.props.moviesToShow}
+          data={this.props.moviesToShow.results}
           collection={this.props.collection}
         />
       )
@@ -92,20 +91,11 @@ class MoviesData extends Component {
 
 const mapStateToProps = state => {
   const root = state.collectionMovies.moviesData;
-  let stream, moviesToShow;
-  if(root.layout === 'stream') {
-    moviesToShow = Search.getLastValue();
-  } else {
-    moviesToShow = new Search(
-      root.movies,
-      root.query
-    ).results;
-  }
-  
+
   return {
     update: root.update,
     movies: root.movies,
-    moviesToShow,
+    moviesToShow: root.toShow,
     stream: root.stream,
     collection: root.collection,
     found: root.found,

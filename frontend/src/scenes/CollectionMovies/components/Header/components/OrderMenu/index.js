@@ -34,11 +34,15 @@ class Search extends Component {
       >
         <MenuItem
           primaryText="Group by directors"
-          onClick={() => this.props.updateOrder('directors', 'desc', 'stream')}
+          onClick={() => this.props.updateOrder('stream', 'directors')}
         />
         <MenuItem
           primaryText="Group by genres"
-          onClick={() => this.props.updateOrder('genres', 'desc', 'stream')}
+          onClick={() => this.props.updateOrder('stream', 'genres')}
+        />
+        <MenuItem
+          primaryText="Group by year of release"
+          onClick={() => this.props.updateOrder('stream', 'release')}
         />
       </IconMenu>
     );
@@ -52,20 +56,16 @@ class Search extends Component {
         targetOrigin={{horizontal: 'right', vertical: 'top'}}
       >
         <MenuItem
-          primaryText="Order by title desc"
-          onClick={() => this.props.updateOrder('title', 'desc', 'default')}
+          primaryText="Order by title"
+          onClick={() => this.props.updateOrder('default', 'title', 'asc')}
         />
         <MenuItem
-          primaryText="Order by title asc"
-          onClick={() => this.props.updateOrder('title', 'asc', 'default')}
+          primaryText="Order by note"
+          onClick={() => this.props.updateOrder('default', 'note', 'desc')}
         />
         <MenuItem
-          primaryText="Order by note desc"
-          onClick={() => this.props.updateOrder('note', 'desc', 'default')}
-        />
-        <MenuItem
-          primaryText="Order by note asc"
-          onClick={() => this.props.updateOrder('note', 'asc', 'default')}
+          primaryText="Order by year of release"
+          onClick={() => this.props.updateOrder('default', 'release', 'desc')}
         />
       </IconMenu>
     )

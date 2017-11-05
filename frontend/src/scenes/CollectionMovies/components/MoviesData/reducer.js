@@ -6,6 +6,7 @@ import { collections, collectionsMovies } from '../../../../services/actions/tit
 import { movies } from '../../../../services/actions/titles/data'
 import api from '../../../../services/TheMovieDatabaseJS/'
 import StreamGenerator from './services/streamgenerator'
+import Search from './services/search'
 
 const defaultOrder = {
   default: {
@@ -26,7 +27,8 @@ const defaultState = {
   loaded: false,
   layout: getValue('layout') || 'grid',
   order: getValue('order') || defaultOrder,
-  stream: new StreamGenerator()
+  stream: new StreamGenerator(),
+  toShow: new Search()
 };
 
 const moviesDataReducer = (state = defaultState, action) => {
@@ -51,6 +53,7 @@ const moviesDataReducer = (state = defaultState, action) => {
         collection: action.payload.pk,
         movies: newMovies,
         stream: new StreamGenerator(newMovies, state.query, state.order.stream),
+        toShow: new Search(newMovies, state.query),
         found: true,
         loaded: true
       };
@@ -65,7 +68,8 @@ const moviesDataReducer = (state = defaultState, action) => {
       return {
         ...state,
         movies: newMovies,
-        stream: new StreamGenerator(newMovies, state.query, state.order.stream)
+        stream: new StreamGenerator(newMovies, state.query, state.order.stream),
+        toShow: new Search(newMovies, state.query)
       };
       
     case collectionsMovies.remove + '_FULFILLED':
@@ -83,7 +87,8 @@ const moviesDataReducer = (state = defaultState, action) => {
       return {
         ...state,
         movies: newMovies,
-        stream: new StreamGenerator(newMovies, state.query, state.order.stream)
+        stream: new StreamGenerator(newMovies, state.query, state.order.stream),
+        toShow: new Search(newMovies, state.query)
       };
       
     case collectionsMovies.update + '_FULFILLED':
@@ -91,7 +96,8 @@ const moviesDataReducer = (state = defaultState, action) => {
       return {
         ...state,
         movies: newMovies,
-        stream: new StreamGenerator(newMovies, state.query, state.order.stream)
+        stream: new StreamGenerator(newMovies, state.query, state.order.stream),
+        toShow: new Search(newMovies, state.query)
       };
       
     case movies.sort:
@@ -110,6 +116,7 @@ const moviesDataReducer = (state = defaultState, action) => {
         order: newOrder,
         movies: newMovies,
         stream: new StreamGenerator(newMovies, state.query, newOrder.stream),
+        toShow: new Search(newMovies, state.query),
         update: Math.random()
       };
       
@@ -118,6 +125,7 @@ const moviesDataReducer = (state = defaultState, action) => {
         ...state,
         query: action.query,
         stream: new StreamGenerator(state.movies, action.query, state.order.stream),
+        toShow: new Search(state.movies, action.query)
       };
       
     case movies.update_layout:

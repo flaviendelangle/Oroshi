@@ -8,9 +8,9 @@ export const switchLayout = layout => {
 };
 
 
-export const sortMovies = (field, direction, layout) => {
+export const sortMovies = (layout, field, direction) => {
   return {
     type: movies.sort,
-    parameters: {field, direction, layout}
+    parameters: {layout, field, direction}
   };
 };

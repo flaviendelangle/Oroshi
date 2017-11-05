@@ -26,7 +26,7 @@ class Grid extends Component {
           speed={0.8}
           horizontal={false}
         >
-          <div className="movie-grid" style={{paddingBottom:400}}>
+          <div className="movie-grid" style={{paddingBottom:400 }}>
             <ReactList
               itemRenderer={this.renderItem}
               length={this.props.movies.length}

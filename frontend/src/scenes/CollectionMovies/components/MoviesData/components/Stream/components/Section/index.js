@@ -19,7 +19,7 @@ class Section extends Component {
   };
   
   getLink = () => {
-    return '/' + this.props.field + '/' + this.props.data.key.pk;
+    return '/' + this.props.field.field + '/' + this.props.data.key.pk;
   };
   
   showAll = () => {

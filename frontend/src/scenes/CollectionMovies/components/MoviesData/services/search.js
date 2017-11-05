@@ -6,16 +6,11 @@ class Search {
   results = [];
   filters = [];
   
-  constructor(data, query) {
+  constructor(data=[], query='') {
     this.data = data;
     this.query = query;
     this.analyseQuery();
     this.filter();
-    Search.lastValue = this.results;
-  }
-  
-  static getLastValue() {
-    return Search.lastValue;
   }
   
   analyseQuery = () => {
