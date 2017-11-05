@@ -14,8 +14,6 @@ class StreamGenerator {
     this.buildKeys();
     this.organize();
     this.sortResults();
-    StreamGenerator.lastValue = this;
-    
   };
   
   buildKeys = () => {
@@ -60,6 +58,7 @@ class StreamGenerator {
         comparison = -1 * mul;
       return comparison;
     });
+    
   };
   
 }

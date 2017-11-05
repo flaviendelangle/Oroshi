@@ -34,31 +34,31 @@
     }
 }
 
-@media screen and (min-width: 421px) and (max-width: 630px) {
+@media screen and (max-width: 630px) {
     .stream-section[data-amount="3"] .title > button {
         visibility: visible !important;
     }
 }
 
-@media screen and (min-width: 631px) and (max-width: 1025px) {
+@media screen and (max-width: 1025px) {
     .stream-section[data-amount="4"] .title > button {
         visibility: visible !important;
     }
 }
 
-@media screen and (min-width: 1026px) and (max-width: 1282px) {
+@media screen and (max-width: 1282px) {
     .stream-section[data-amount="5"] .title > button {
         visibility: visible !important;
     }
 }
 
-@media screen and (min-width: 1283px) and (max-width: 1538px) {
+@media screen and (max-width: 1538px) {
     .stream-section[data-amount="6"] .title > button {
         visibility: visible !important;
     }
 }
 
-@media screen and (min-width: 1539px) and (max-width: 1794px) {
+@media screen and (max-width: 1794px) {
     .stream-section[data-amount="7"] .title > button {
         visibility: visible !important;
     }
