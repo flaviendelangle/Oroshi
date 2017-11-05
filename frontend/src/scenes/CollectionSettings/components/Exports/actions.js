@@ -24,7 +24,7 @@ export const exportAsCSV = pk => {
         }
       });
       const csv = json2csv({ data: movies, fields: collectionFields });
-      downloadjs(csv, response.title, 'text/csv');
+      downloadjs(csv, response.title + '.csv', 'text/csv');
       return null;
     })
   }

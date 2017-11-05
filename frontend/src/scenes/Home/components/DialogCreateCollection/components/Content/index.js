@@ -29,6 +29,7 @@ class Content extends Component {
   };
   
   validateConfiguration = (collectionConfiguration) => {
+    console.log(collectionConfiguration);
     if(collectionConfiguration.title) {
       this.props.onStepIndexUpdate(this.props.stepIndex + 1);
       this.setState({ collectionConfiguration })
@@ -36,18 +37,20 @@ class Content extends Component {
   };
   
   submit = () => {
-    let results = {};
-    if(this.state.collectionType.type === 'duplicate') {
-      results.duplicate = this.state.collectionType.duplicate;
-    } else {
-      results.duplicate = 0;
-    }
-    return {
-      ...results,
+    let data = {
       title: this.state.collectionConfiguration.title,
       password: this.state.collectionConfiguration.password,
       hash: this.state.collectionCustomization.identiconString,
       adult_content: this.state.collectionConfiguration.adult_content || false
+    };
+    if(this.state.collectionType.type === 'duplicate') {
+      data.duplicate = this.state.collectionType.duplicate;
+    } else {
+      data.duplicate = 0;
+    }
+    return {
+      data,
+      idList: []
     }
   };
   

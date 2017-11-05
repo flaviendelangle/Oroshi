@@ -3,7 +3,7 @@ import { combineReducers } from 'redux'
 import { dialogs } from '../../../../services/actions/titles/interface'
 
 const defaultState = {
-  isAddingACollection: false,
+  isAddingACollection: true,
   collections: []
 };
 

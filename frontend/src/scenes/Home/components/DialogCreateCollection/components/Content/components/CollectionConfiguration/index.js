@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Field, reduxForm } from 'redux-form'
 import { TextField, Toggle } from 'redux-form-material-ui'
+import FileInput from '../../../../../../../../components/FileInput'
 
 import './style.css'
 
@@ -15,6 +16,21 @@ const formStyle = {
 
 class CollectionConfiguration extends Component {
 
+  renderFileInput = () => {
+    const params = this.props.collectionType;
+    if(params.type === 'external' && params.external === 'csv_file') {
+      return (
+        <Field
+          name="csv_content"
+          label="CSV to upload"
+          component={FileInput}
+        />
+      );
+    } else {
+      return null;
+    }
+  };
+  
   render() {
     return (
       <form onSubmit={this.props.handleSubmit}>
@@ -42,6 +58,7 @@ class CollectionConfiguration extends Component {
             label="Include adult content"
             component={Toggle}
           />
+          {this.renderFileInput()}
         </div>
       </form>
     );

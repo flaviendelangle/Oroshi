@@ -40,10 +40,10 @@ class DialogCreateCollection extends Component {
   };
   
   create = () => {
-    const data = this.child.submit();
+    const {data, idList} = this.child.submit();
+    /*this.props.create(data);
     this.setState({ stepIndex: 0 });
-    this.props.create(data);
-    this.props.close();
+    this.props.close();*/
   };
 
   nextStep = () => {

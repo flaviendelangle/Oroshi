@@ -8,7 +8,7 @@ class CollectionType extends Component {
   
   state = {
     type: 'blank',
-    external: 'best_rated',
+    external: 'csv_file',
     duplicate: 0
   };
   
@@ -85,7 +85,6 @@ class CollectionType extends Component {
           <div className="duplicate-content">
             <RadioButtonGroup
               name="external_content"
-              defaultSelected="best_rated"
               onChange={this.handleDuplicateChange}
               valueSelected={this.state.duplicate}
             >
@@ -95,17 +94,17 @@ class CollectionType extends Component {
           <div className="external-content">
             <RadioButtonGroup
               name="external_content"
-              defaultSelected="best_rated"
               onChange={this.handleExternalChange}
+              valueSelected={this.state.external}
             >
               <RadioButton
-                value="best_rated"
-                label="Best rated movies"
+                value="csv_file"
+                label="Local CSV file"
                 className="radio-button"
               />
               <RadioButton
-                value="in_theatre"
-                label="Currently in theatre"
+                value="best_rated"
+                label="Best rated movies"
                 className="radio-button"
               />
               <RadioButton
