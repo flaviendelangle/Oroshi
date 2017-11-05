@@ -45,8 +45,7 @@ const updateMoviesToImport = (data, moviesToImport) => {
         const match = exist.filter(filterById.bind(this, movies[i]));
         movies[i].local = (match.length > 0) ? match[0] : undefined;
         movies[i].current_collection = collection.pk;
-        movies[i].created = false;
-        movies[i].tmdbId = parseInt(movies[i].tmdbId);
+        movies[i].id = parseInt(movies[i].tmdbId);
         movies[i].release = parseInt(movies[i].release);
       }
       return {

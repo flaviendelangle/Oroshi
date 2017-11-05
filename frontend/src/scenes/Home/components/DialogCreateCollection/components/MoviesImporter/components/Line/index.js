@@ -10,7 +10,7 @@ class Line extends Component {
   }
   
   renderIcon = () => {
-    if(this.props.data.created) {
+    if(this.props.done) {
       return <ActionDone/>;
     }
     return (null);
@@ -26,9 +26,10 @@ class Line extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
+  const root = state.home.dialogCreateCollection.moviesImporter;
   return {
-    done: false
+    done: !!root.created[ownProps.data.tmdbId]
   }
 };
 

@@ -1,7 +1,8 @@
 import { collections, collectionsMovies } from '../../../../../../services/actions/titles/api'
 
 const defaultState = {
-  moviesToImport: null
+  moviesToImport: null,
+  created: {}
 };
 
 const moviesImporterReducer = (state = defaultState, action) => {
@@ -18,8 +19,13 @@ const moviesImporterReducer = (state = defaultState, action) => {
       };
     
     case collectionsMovies.add:
-      console.log(action.data.title);
-      return state;
+      return {
+        ...state,
+        created: {
+          ...state.created,
+          [action.data.tmdbId]: action.data
+        }
+      };
       
     default:
       return state;
