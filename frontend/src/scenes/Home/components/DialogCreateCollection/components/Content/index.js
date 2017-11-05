@@ -5,7 +5,7 @@ import { readAsText } from 'promise-file-reader'
 import CollectionType from './components/CollectionType'
 import CollectionConfiguration from './components/CollectionConfiguration'
 import CollectionCustomization from './components/CollectionCustomization'
-import { extractIdsFromDump } from '../../../../../../services/utils'
+import { parseDump } from '../../../../../../services/utils'
 
 class Content extends Component {
   
@@ -44,11 +44,11 @@ class Content extends Component {
   };
   
   submit = () => {
-    let idList;
+    let moviesToImport;
     const params = this.state.collectionType;
     if(params.type === 'external' && params.external === 'csv_file') {
-      idList = readAsText(this.state.collectionConfiguration.csv).then(result => {
-        return extractIdsFromDump(result);
+      moviesToImport = readAsText(this.state.collectionConfiguration.csv).then(result => {
+        return parseDump(result);
       });
     }
     
@@ -65,7 +65,7 @@ class Content extends Component {
     }
     return {
       data,
-      idList
+      moviesToImport
     }
   };
   

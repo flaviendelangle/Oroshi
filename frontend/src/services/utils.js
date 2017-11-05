@@ -14,14 +14,20 @@ let parseDump = csv => {
   
   const lines=csv.split("\n");
   let result = [];
-  const headers = lines[0].replace(/"/g, '').split(",");
+  const headers = lines[0]
+    .replace(/"/g, '')
+    .split(",")
+    .map(el => {
+      return el.charAt(0).toLowerCase() + el.slice(1);
+    });
   
   for(let i=1;i<lines.length;i++){
     let obj = {};
     const currentLine = lines[i].split(",");
     
     for(let j=0;j<headers.length;j++){
-      obj[headers[j]] = currentLine[j];
+      let value = currentLine[j].replace(/"/g, '');
+      obj[headers[j]] = value;
     }
     
     result.push(obj);

@@ -9,13 +9,7 @@ export const showDialogCreateCollection = show => {
   };
 };
 
-export const createCollection = data => {
-  return _createCollection(data);
+export const createCollection = (...args) => {
+  return _createCollection(...args);
 };
 
-export const updateMoviesToImport = ids => {
-  return {
-    type: dialogs.importMoviesInCollectionCreation,
-    data: ids
-  }
-};

@@ -21,7 +21,7 @@ const main = (state = defaultState, action) => {
     case collections.create + '_FULFILLED':
       return {
         ...state,
-        collections: state.collections.concat([action.payload])
+        collections: state.collections.concat([action.payload.collection])
       };
     default:
       return state;

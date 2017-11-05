@@ -7,7 +7,7 @@ import FlatButton from 'material-ui/FlatButton'
 import CollectionStepper from './components/CollectionStepper'
 import Content from './components/Content'
 import MoviesImporter from './components/MoviesImporter'
-import { showDialogCreateCollection, createCollection, updateMoviesToImport } from './actions'
+import { showDialogCreateCollection, createCollection } from './actions'
 
 const fromName = 'DialogCreateCollectionConfigurationForm';
 
@@ -43,18 +43,18 @@ class DialogCreateCollection extends Component {
   };
   
   create = () => {
-    const {data, idList} = this.child.submit();
-    if(idList) {
-      idList.then(ids => {
+    let {data, moviesToImport} = this.child.submit();
+    if(moviesToImport) {
+      moviesToImport = moviesToImport.then(data => {
         this.setState({importingMovies: true});
-        this.props.updateMoviesToImport(ids);
+        return data;
       });
     }
     else {
-      this.props.create(data);
       this.setState({ stepIndex: 0 });
       this.props.close();
     }
+    this.props.create(data, moviesToImport);
   };
 
   nextStep = () => {
@@ -125,15 +125,15 @@ const mapStateToProps = state => {
   return {
     isOpen: state.home.dialogCreateCollection.main.isAddingACollection,
     collections: state.home.main.collections,
+    update: state.home.dialogCreateCollection.main.update
   }
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     close: () => dispatch(showDialogCreateCollection(false)),
-    create: data => dispatch(createCollection(data)),
+    create: (...args) => dispatch(createCollection(...args)),
     submitConfiguration: () => dispatch(submit(fromName)),
-    updateMoviesToImport: ids => dispatch(updateMoviesToImport(ids))
   }
 };
 

@@ -18,7 +18,7 @@ const main = (state = defaultState, action) => {
         ...state,
         isAddingACollection: action.show
       };
-    
+  
     default:
       return state;
   }
