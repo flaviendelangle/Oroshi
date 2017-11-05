@@ -1,10 +1,12 @@
 import { combineReducers } from 'redux'
 
+import moviesImporter from './components/MoviesImporter/reducer'
+
 import { dialogs } from '../../../../services/actions/titles/interface'
 
 const defaultState = {
   isAddingACollection: true,
-  collections: []
+  collections: [],
 };
 
 const main = (state = defaultState, action) => {
@@ -24,7 +26,8 @@ const main = (state = defaultState, action) => {
 };
 
 const reducer = combineReducers({
-  main
+  main,
+  moviesImporter
 });
 
 

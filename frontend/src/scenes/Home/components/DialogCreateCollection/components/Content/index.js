@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { readAsText } from 'promise-file-reader'
 
 import CollectionType from './components/CollectionType'
 import CollectionConfiguration from './components/CollectionConfiguration'
 import CollectionCustomization from './components/CollectionCustomization'
+import { extractIdsFromDump } from '../../../../../../services/utils'
 
 class Content extends Component {
   
@@ -29,7 +31,12 @@ class Content extends Component {
   };
   
   validateConfiguration = (collectionConfiguration) => {
-    console.log(collectionConfiguration);
+    const params = this.state.collectionType;
+    if(params.type === 'external' && params.external === 'csv_file') {
+      if(!collectionConfiguration.csv) {
+        return false;
+      }
+    }
     if(collectionConfiguration.title) {
       this.props.onStepIndexUpdate(this.props.stepIndex + 1);
       this.setState({ collectionConfiguration })
@@ -37,6 +44,14 @@ class Content extends Component {
   };
   
   submit = () => {
+    let idList;
+    const params = this.state.collectionType;
+    if(params.type === 'external' && params.external === 'csv_file') {
+      idList = readAsText(this.state.collectionConfiguration.csv).then(result => {
+        return extractIdsFromDump(result);
+      });
+    }
+    
     let data = {
       title: this.state.collectionConfiguration.title,
       password: this.state.collectionConfiguration.password,
@@ -50,7 +65,7 @@ class Content extends Component {
     }
     return {
       data,
-      idList: []
+      idList
     }
   };
   

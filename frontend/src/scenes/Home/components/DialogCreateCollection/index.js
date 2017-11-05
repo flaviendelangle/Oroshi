@@ -6,13 +6,16 @@ import FlatButton from 'material-ui/FlatButton'
 
 import CollectionStepper from './components/CollectionStepper'
 import Content from './components/Content'
-import { showDialogCreateCollection, createCollection } from './actions'
+import MoviesImporter from './components/MoviesImporter'
+import { showDialogCreateCollection, createCollection, updateMoviesToImport } from './actions'
 
+const fromName = 'DialogCreateCollectionConfigurationForm';
 
 class DialogCreateCollection extends Component {
   
   state = {
-    stepIndex: 0
+    stepIndex: 0,
+    importingMovies: false
   };
   
   actions = {
@@ -41,9 +44,17 @@ class DialogCreateCollection extends Component {
   
   create = () => {
     const {data, idList} = this.child.submit();
-    /*this.props.create(data);
-    this.setState({ stepIndex: 0 });
-    this.props.close();*/
+    if(idList) {
+      idList.then(ids => {
+        this.setState({importingMovies: true});
+        this.props.updateMoviesToImport(ids);
+      });
+    }
+    else {
+      this.props.create(data);
+      this.setState({ stepIndex: 0 });
+      this.props.close();
+    }
   };
 
   nextStep = () => {
@@ -71,6 +82,27 @@ class DialogCreateCollection extends Component {
     return actions;
   };
   
+  renderContent = () => {
+    if(!this.state.importingMovies) {
+      return (
+        <div>
+          <CollectionStepper stepIndex={this.state.stepIndex} />
+          <Content
+            stepIndex={this.state.stepIndex}
+            collections={this.props.collections}
+            onStepIndexUpdate={(stepIndex) => this.setState({ stepIndex })}
+            onRef={ref => this.child = ref}
+          />
+        </div>
+    
+      );
+    } else {
+      return (
+        <MoviesImporter/>
+      );
+    }
+  };
+  
   render() {
     const actions = this.renderActions();
     return (
@@ -82,14 +114,9 @@ class DialogCreateCollection extends Component {
         onRequestClose={this.props.close}
         autoScrollBodyContent={true}
       >
-        <CollectionStepper stepIndex={this.state.stepIndex} />
-        <Content
-          stepIndex={this.state.stepIndex}
-          collections={this.props.collections}
-          onStepIndexUpdate={(stepIndex) => this.setState({ stepIndex })}
-          onRef={ref => this.child = ref}
-        />
+        {this.renderContent()}
       </Dialog>
+
     );
   }
 }
@@ -97,15 +124,16 @@ class DialogCreateCollection extends Component {
 const mapStateToProps = state => {
   return {
     isOpen: state.home.dialogCreateCollection.main.isAddingACollection,
-    collections: state.home.main.collections
+    collections: state.home.main.collections,
   }
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     close: () => dispatch(showDialogCreateCollection(false)),
-    create: (data) => dispatch(createCollection(data)),
-    submitConfiguration: () => dispatch(submit('DialogCreateCollectionConfigurationForm'))
+    create: data => dispatch(createCollection(data)),
+    submitConfiguration: () => dispatch(submit(fromName)),
+    updateMoviesToImport: ids => dispatch(updateMoviesToImport(ids))
   }
 };
 
