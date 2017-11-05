@@ -1,0 +1,18 @@
+.stream-section {
+    margin: 20px 0;
+}
+
+.stream-section .title {
+    font-size: 2em;
+    line-height: 2em;
+}
+
+.stream-section .content {
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.stream-section .see_more {
+    padding-right: 20px;
+    float: right;
+}

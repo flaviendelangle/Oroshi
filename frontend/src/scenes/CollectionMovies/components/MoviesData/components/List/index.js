@@ -76,7 +76,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    sort: (field, direction) => dispatch(sortMovies(field, direction))
+    sort: (...args) => dispatch(sortMovies(...args))
   }
 };
 

@@ -1,4 +1,4 @@
-import { setValue } from '../../../services/localstorage'
+import { setValue, getValue } from '../../../services/localstorage'
 
 export const sort = (movies, params) => {
   movies = movies.sort((a, b) => {
@@ -15,7 +15,9 @@ export const sort = (movies, params) => {
 };
 
 export const setSortParameters = params => {
-  setValue('order', params);
+  let oldParams = getValue('order') || {};
+  oldParams[params.layout] = params;
+  setValue('order', oldParams);
 };
 
 export const setLayoutParameters = params => {

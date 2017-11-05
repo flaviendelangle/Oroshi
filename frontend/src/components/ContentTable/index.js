@@ -38,8 +38,8 @@ class ContentTable extends Component {
     }
   };
   
-  sort = (field, director) => {
-    this.props.sort(field, director);
+  sort = (field, direction) => {
+    this.props.sort(field, direction, 'default');
   };
   
   complete = columns => {

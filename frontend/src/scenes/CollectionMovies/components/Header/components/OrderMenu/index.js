@@ -17,44 +17,86 @@ const containerStyle = {
 
 class Search extends Component {
   
+  renderMenu = () => {
+    if(this.props.layout === 'stream') {
+      return this.renderStreamMenu();
+    } else {
+      return this.renderDefaultMenu();
+    }
+  };
+  
+  renderStreamMenu = () => {
+    return (
+      <IconMenu
+        iconButtonElement={<IconButton><ContentSort /></IconButton>}
+        anchorOrigin={{horizontal: 'right', vertical: 'top'}}
+        targetOrigin={{horizontal: 'right', vertical: 'top'}}
+      >
+        <MenuItem
+          primaryText="Order by amount of movies desc"
+          onClick={() => this.props.updateOrder('amount', 'desc', 'stream')}
+        />
+        <MenuItem
+          primaryText="Order by amount of movies asc"
+          onClick={() => this.props.updateOrder('amount', 'asc', 'stream')}
+        />
+        <MenuItem
+          primaryText="Order by section desc"
+          onClick={() => this.props.updateOrder('section', 'desc', 'stream')}
+        />
+        <MenuItem
+          primaryText="Order by section asc"
+          onClick={() => this.props.updateOrder('section', 'asc', 'stream')}
+        />
+      </IconMenu>
+    );
+  };
+  
+  renderDefaultMenu = () => {
+    return (
+      <IconMenu
+        iconButtonElement={<IconButton><ContentSort /></IconButton>}
+        anchorOrigin={{horizontal: 'right', vertical: 'top'}}
+        targetOrigin={{horizontal: 'right', vertical: 'top'}}
+      >
+        <MenuItem
+          primaryText="Order by title desc"
+          onClick={() => this.props.updateOrder('title', 'desc', 'default')}
+        />
+        <MenuItem
+          primaryText="Order by title asc"
+          onClick={() => this.props.updateOrder('title', 'asc', 'default')}
+        />
+        <MenuItem
+          primaryText="Order by note desc"
+          onClick={() => this.props.updateOrder('note', 'desc', 'default')}
+        />
+        <MenuItem
+          primaryText="Order by note asc"
+          onClick={() => this.props.updateOrder('note', 'asc', 'default')}
+        />
+      </IconMenu>
+    )
+  };
+  
   render() {
     return (
       <div style={containerStyle}>
-        <IconMenu
-          iconButtonElement={<IconButton><ContentSort /></IconButton>}
-          anchorOrigin={{horizontal: 'right', vertical: 'top'}}
-          targetOrigin={{horizontal: 'right', vertical: 'top'}}
-        >
-          <MenuItem
-            primaryText="Order by title desc"
-            onClick={() => this.props.updateOrder('title', 'desc')}
-          />
-          <MenuItem
-            primaryText="Order by title asc"
-            onClick={() => this.props.updateOrder('title', 'asc')}
-          />
-          <MenuItem
-            primaryText="Order by note desc"
-            onClick={() => this.props.updateOrder('note', 'desc')}
-          />
-          <MenuItem
-            primaryText="Order by note asc"
-            onClick={() => this.props.updateOrder('note', 'asc')}
-          />
-
-        </IconMenu>
+        {this.renderMenu()}
       </div>
     );
   }
 }
 
 const mapStateToProps = state => {
-  return {};
+  return {
+    layout: state.collectionMovies.moviesData.layout
+  };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    updateOrder: (field, direction) => dispatch(updateOrder(field, direction))
+    updateOrder: (...args) => dispatch(updateOrder(...args))
   }
 };
 

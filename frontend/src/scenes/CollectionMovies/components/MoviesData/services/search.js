@@ -11,6 +11,11 @@ class Search {
     this.query = query;
     this.analyseQuery();
     this.filter();
+    Search.lastValue = this.results;
+  }
+  
+  static getLastValue() {
+    return Search.lastValue;
   }
   
   analyseQuery = () => {
@@ -81,5 +86,7 @@ class Search {
   };
   
 }
+
+Search.lastValue = null;
 
 export default Search;

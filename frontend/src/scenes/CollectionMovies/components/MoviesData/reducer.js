@@ -7,8 +7,14 @@ import { movies } from '../../../../services/actions/titles/data'
 import api from '../../../../services/TheMovieDatabaseJS/'
 
 const defaultOrder = {
-  field: 'title',
-  direction: 'asc'
+  default: {
+    field: 'title',
+    direction: 'asc'
+  },
+  stream: {
+    field: 'amount',
+    direction: 'desc'
+  }
 };
 
 const defaultState = {
@@ -18,7 +24,10 @@ const defaultState = {
   found: false,
   loaded: false,
   layout: getValue('layout') || 'grid',
-  order: getValue('order') || defaultOrder
+  order: getValue('order') || defaultOrder,
+  stream: {
+    key: 'genres'
+  }
 };
 
 const moviesDataReducer = (state = defaultState, action) => {
@@ -39,15 +48,22 @@ const moviesDataReducer = (state = defaultState, action) => {
       return {
         ...state,
         collection: action.payload.pk,
-        movies: sort(action.payload.movies, state.order),
+        movies: sort(action.payload.movies, state.order.default),
         found: true,
         loaded: true
       };
       
     case collectionsMovies.add + '_FULFILLED':
+      console.log(state.order);
+      console.log(state.order.default);
       return {
         ...state,
-        movies: sort(addCollectionToMovies(state.movies.concat([action.payload]), state.collection))
+        movies: sort(
+          addCollectionToMovies(
+            state.movies.concat([action.payload]),
+            state.collection
+          ), state.order.default
+        )
       };
       
     case collectionsMovies.remove + '_FULFILLED':
@@ -74,10 +90,19 @@ const moviesDataReducer = (state = defaultState, action) => {
       
     case movies.sort:
       setSortParameters(action.parameters);
+      let data;
+      if(action.parameters.layout === 'default') {
+        data = sort(state.movies, action.parameters);
+      } else {
+        data = state.movies;
+      }
       return {
         ...state,
-        order: action.parameters,
-        movies: sort(state.movies, action.parameters),
+        order: {
+          ...state.order,
+          [action.parameters.layout]: action.parameters
+        },
+        movies: data,
         update: Math.random()
       };
       

@@ -1,12 +1,21 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import ReactList from 'react-list';
 import ScrollArea from 'react-scrollbar'
+
+import Section from './components/Section'
 
 class Stream extends Component {
   
-  renderItem = (index, key) => {
-    return (null);
+  renderSections = () => {
+    return this.props.data.results.map(section => {
+      return (
+        <Section
+          key={section.key.pk}
+          data={section}
+          collection={this.props.collection}
+          field={this.props.data.key}
+        />)
+    })
   };
   
   render() {
@@ -16,6 +25,9 @@ class Stream extends Component {
           speed={0.8}
           horizontal={false}
         >
+          <div className="movie-grid">
+            {this.renderSections()}
+          </div>
         </ScrollArea>
       </div>
     );

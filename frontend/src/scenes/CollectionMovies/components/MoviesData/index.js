@@ -42,7 +42,7 @@ class MoviesData extends Component {
         <Grid
           movies={this.props.moviesToShow}
           collection={this.props.collection}
-          order={this.props.order}
+          order={this.props.order.default}
         />
       )
     }
@@ -58,6 +58,7 @@ class MoviesData extends Component {
       return (
         <Stream
           data={this.props.stream}
+          collection={this.props.collection}
         />
       )
     }
@@ -91,27 +92,34 @@ class MoviesData extends Component {
 }
 
 const mapStateToProps = state => {
-  const moviesToShow = new Search(
-    state.collectionMovies.moviesData.movies,
-    state.collectionMovies.moviesData.query
+  const root = state.collectionMovies.moviesData;
+  let stream, moviesToShow;
+  if(root.layout === 'stream') {
+    stream = new StreamGenerator(
+      root.movies,
+      root.query,
+      root.stream.key,
+      root.order.stream
+    );
+    moviesToShow = Search.getLastValue();
+  } else {
+    moviesToShow = new Search(
+      root.movies,
+      root.query
     ).results;
-  
-  const stream = new StreamGenerator(
-    state.collectionMovies.moviesData.movies,
-    state.collectionMovies.moviesData.query,
-    { field: 'directors', direction: 'asc' }
-  ).results;
+    stream = StreamGenerator.getLastValue();
+  }
   
   return {
-    update: state.collectionMovies.moviesData.update,
-    movies: state.collectionMovies.moviesData.movies,
+    update: root.update,
+    movies: root.movies,
     moviesToShow,
     stream,
-    collection: state.collectionMovies.moviesData.collection,
-    found: state.collectionMovies.moviesData.found,
-    loaded: state.collectionMovies.moviesData.loaded,
-    layout: state.collectionMovies.moviesData.layout,
-    order: state.collectionMovies.moviesData.order
+    collection: root.collection,
+    found: root.found,
+    loaded: root.loaded,
+    layout: root.layout,
+    order: root.order
   }
 };
 

@@ -6,3 +6,11 @@ export const switchLayout = layout => {
     layout
   }
 };
+
+
+export const sortMovies = (field, direction, layout) => {
+  return {
+    type: movies.sort,
+    parameters: {field, direction, layout}
+  };
+};
