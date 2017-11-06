@@ -4,7 +4,7 @@ import moviesList from './components/MoviesList/reducer'
 import { dialogs } from '../../../../services/actions/titles/interface'
 
 const defaultState = {
-  isAddingAMovie: false
+  isAddingAMovie: true
 };
 
 const main = (state = defaultState, action) => {

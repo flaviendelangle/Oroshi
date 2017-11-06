@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import DataTables from 'material-ui-datatables'
 
 import SaveButton from './components/SaveButton'
+import Movie from './components/Movie'
 import { date } from '../../../../../../services/utils'
 
 const TABLE_COLUMNS = [
@@ -29,14 +30,28 @@ const TABLE_COLUMNS = [
 
 class MoviesList extends Component {
   
-  exData = [];
+  renderList = () => {
+    return this.props.data.results.map(el => {
+      console.log(el);
+      return (
+        <Movie
+          data={el}
+          //collection={this.props.collection}
+          key={el.id}
+        />
+      )
+    })
+  };
 
   render() {
     if(this.props.data.results.length === 0) {
       return (null);
     }
     return (
-      <DataTables
+      <div style={{textAlign: 'center'}}>
+        {this.renderList()}
+      </div>
+      /*<DataTables
         height={'auto'}
         selectable={false}
         showRowHover={true}
@@ -45,7 +60,7 @@ class MoviesList extends Component {
         showCheckboxes={false}
         page={1}
         count={this.props.data.results.length}
-      />
+      />*/
     )
   }
   

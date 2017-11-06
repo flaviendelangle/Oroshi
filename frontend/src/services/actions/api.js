@@ -89,7 +89,7 @@ const createMovie = data => {
     });
   }
   const options = {
-    append_to_response: ['credits', 'images']
+    append_to_response: ['credits', 'images', 'lists']
   };
   return MoviesTMDB.details(data.id, options)
     .then(results => {
