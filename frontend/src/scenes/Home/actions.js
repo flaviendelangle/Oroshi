@@ -37,7 +37,7 @@ const updateMoviesToImport = (data, moviesToImport) => {
     })
     .then(response => {
       collection = response;
-      const IDs = movies.map(el => parseInt(el.tmdbId, 10));
+      const IDs = movies.map(el => el.tmdbId);
       return MoviesAPI.serialize(IDs, 'tmdbId')
     })
     .then(exist => {

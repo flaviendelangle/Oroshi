@@ -37,19 +37,23 @@ export const _loadCollectionSettings = pk => {
  */
 export const _addMovieToCollection = data => {
   
+  if(!data.hasOwnProperty('seen')) {
+    data.seen = false;
+  }
   return {
     type: titles.collectionsMovies.add,
     payload: createMovie(data)
       .then(response => {
         data = {
-          pk: response.data.pk
+          pk: response.data.pk,
+          seen: data.seen
         };
         return CollectionsAPI.element(response.collection).movies.create(data);
       })
       .then(response => {
         return {
           ...response,
-          seen: false
+          seen: data.seen
         }
       })
   }

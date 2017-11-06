@@ -1,4 +1,5 @@
 import moment from 'moment'
+import Papa from 'papaparse'
 
 let date = (date, oldFormat, newFormat) => {
   const newDate = moment(date, oldFormat);
@@ -11,37 +12,21 @@ date.YEAR_FORMAT = 'YYYY';
 
 
 let parseDump = csv => {
-  
-  const lines=csv.split("\n");
-  let result = [];
-  const headers = lines[0]
-    .replace(/"/g, '')
-    .split(",")
-    .map(el => {
-      return el.charAt(0).toLowerCase() + el.slice(1);
+  return Papa.parse(csv, { header: true, dynamicTyping: true }).data
+    .map(line => {
+      let newLine = {};
+      for(const field in line) {
+        if(line.hasOwnProperty(field)) {
+          const newField = unCapitalize(field);
+          newLine[newField] = line[field];
+        }
+      }
+      return newLine;
     });
-  
-  for(let i=1;i<lines.length;i++){
-    let obj = {};
-    const currentLine = lines[i].split(",");
-    
-    for(let j=0;j<headers.length;j++){
-      let value = currentLine[j].replace(/"/g, '');
-      obj[headers[j]] = value;
-    }
-    
-    result.push(obj);
-  }
-  return result;
 };
 
-let extractIdsFromDump = csv => {
-  return parseDump(csv).map(el => {
-    return parseInt(el.TmdbId, 10);
-  })
+let unCapitalize = (field) => {
+  return field.charAt(0).toLowerCase() + field.slice(1);
 };
 
-
-
-
-export { date, parseDump, extractIdsFromDump };
+export { date, parseDump };

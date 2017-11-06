@@ -51,7 +51,6 @@ class Content extends Component {
         return parseDump(result);
       });
     }
-    
     let data = {
       title: this.state.collectionConfiguration.title,
       password: this.state.collectionConfiguration.password,

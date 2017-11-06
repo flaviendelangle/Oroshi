@@ -64,6 +64,7 @@ class CollectionMoviesViewSet(NestedViewSetMixin, MoviesViewSet):
         collection = get_object_or_404(Collections.objects.all(), pk=parent_lookup_collection_movies)
         movie = get_object_or_404(Movies.objects.all(), pk=request.data['pk'])
         collection.movies.add(movie)
+        self.seen_update(collection, movie, request.data['seen'])
         data = MoviesSerializer(movie).data
         data['collection'] = collection.pk
         return Response(data)
@@ -80,12 +81,14 @@ class CollectionMoviesViewSet(NestedViewSetMixin, MoviesViewSet):
         collection = get_object_or_404(Collections.objects.all(), pk=parent_lookup_collection_movies)
         movie = get_object_or_404(Movies.objects.all(), pk=pk)
         if 'seen' in request.data :
-            if request.data['seen'] == 'true' :
-                SeenMovies.objects.create(collection=collection, movie=movie)
-            else :
-                obj = SeenMovies.objects.filter(collection=collection, movie=movie)
-                obj.delete()
+            self.seen_update(collection, movie, request.data['seen'])
         data = SeenMoviesSerializer(SeenMovies.objects.filter(collection=collection), many=True).data
         return Response(data)
 
+    def seen_update(self, collection, movie, seen):
+        if seen == 'true' :
+            SeenMovies.objects.create(collection=collection, movie=movie)
+        else :
+            obj = SeenMovies.objects.filter(collection=collection, movie=movie)
+            obj.delete()
 

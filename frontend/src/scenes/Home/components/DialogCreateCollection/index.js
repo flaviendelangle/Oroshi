@@ -44,7 +44,7 @@ class DialogCreateCollection extends Component {
       <FlatButton
         label="Close"
         primary={true}
-        onClick={() => this.props.close()}
+        onClick={() => this.close()}
       />
     )
   };
@@ -61,8 +61,7 @@ class DialogCreateCollection extends Component {
       });
     }
     else {
-      this.setState({ stepIndex: 0 });
-      this.props.close();
+      this.close();
     }
     this.props.create(data, moviesToImport);
   };
@@ -84,7 +83,7 @@ class DialogCreateCollection extends Component {
     if(this.state.stepIndex > 0) {
       actions.push(this.actions.back);
     }
-    if(this.state.importerMode && !this.props.isImportingMovies) {
+    if(!this.props.isImportingMovies) {
       actions.push(this.actions.close);
     }
     if(!this.state.importerMode) {
@@ -118,6 +117,14 @@ class DialogCreateCollection extends Component {
     }
   };
   
+  close = () => {
+    this.setState({
+      importerMode: false,
+      stepIndex: 0
+    });
+    this.props.close();
+  };
+  
   render() {
     const actions = this.renderActions();
     return (
@@ -126,7 +133,7 @@ class DialogCreateCollection extends Component {
         actions={actions}
         modal={true}
         open={this.props.isOpen}
-        onRequestClose={this.props.close}
+        onRequestClose={this.close}
         autoScrollBodyContent={true}
       >
         {this.renderContent()}
