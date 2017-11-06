@@ -15,7 +15,7 @@ class DialogCreateCollection extends Component {
   
   state = {
     stepIndex: 0,
-    importingMovies: false
+    importerMode: false
   };
   
   actions = {
@@ -39,14 +39,24 @@ class DialogCreateCollection extends Component {
         primary={true}
         onClick={() => this.lastStep()}
         />
-      )
+      ),
+    close: (
+      <FlatButton
+        label="Close"
+        primary={true}
+        onClick={() => this.props.close()}
+      />
+    )
   };
   
   create = () => {
     let {data, moviesToImport} = this.child.submit();
     if(moviesToImport) {
       moviesToImport = moviesToImport.then(data => {
-        this.setState({importingMovies: true});
+        this.setState({
+          importerMode: true,
+          stepIndex: 0
+        });
         return data;
       });
     }
@@ -74,16 +84,21 @@ class DialogCreateCollection extends Component {
     if(this.state.stepIndex > 0) {
       actions.push(this.actions.back);
     }
-    if(this.state.stepIndex < 2) {
-      actions.push(this.actions.next);
-    } else {
-      actions.push(this.actions.save);
+    if(this.state.importerMode && !this.props.isImportingMovies) {
+      actions.push(this.actions.close);
+    }
+    if(!this.state.importerMode) {
+      if(this.state.stepIndex < 2) {
+        actions.push(this.actions.next);
+      } else {
+        actions.push(this.actions.save);
+      }
     }
     return actions;
   };
   
   renderContent = () => {
-    if(!this.state.importingMovies) {
+    if(!this.state.importerMode) {
       return (
         <div>
           <CollectionStepper stepIndex={this.state.stepIndex} />
@@ -109,7 +124,7 @@ class DialogCreateCollection extends Component {
       <Dialog
         title="Your new collection"
         actions={actions}
-        modal={false}
+        modal={true}
         open={this.props.isOpen}
         onRequestClose={this.props.close}
         autoScrollBodyContent={true}
@@ -125,7 +140,8 @@ const mapStateToProps = state => {
   return {
     isOpen: state.home.dialogCreateCollection.main.isAddingACollection,
     collections: state.home.main.collections,
-    update: state.home.dialogCreateCollection.main.update
+    update: state.home.dialogCreateCollection.main.update,
+    isImportingMovies: state.home.dialogCreateCollection.main.isImportingMovies
   }
 };
 

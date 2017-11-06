@@ -9,7 +9,9 @@ export const collections = {
 export const collectionsMovies = {
   add: 'ADD_MOVIE_TO_COLLECTION',
   update: 'UPDATE_COLLECTION_MOVIE',
-  remove: 'REMOVE_COLLECTION_FROM_MOVIE'
+  remove: 'REMOVE_COLLECTION_FROM_MOVIE',
+  importFinished: 'IMPORT_MOVIES_FINISHED',
+  importStarted: 'IMPORT_MOVIES_STARTED'
 };
 
 export const movie = {

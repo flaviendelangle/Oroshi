@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import CircularProgress from 'material-ui/CircularProgress';
+import ScrollArea from 'react-scrollbar'
 
 import CollectionList from './components/CollectionList'
 import ManageButton from './components/ManageButton'
@@ -8,12 +9,17 @@ import FirstCollectionButton from './components/FirstCollectionButton'
 import DialogCreateCollection from './components/DialogCreateCollection'
 import { loadCollections } from './actions'
 
-const containerStyle = {
-  width: '80%',
-  left: '10%',
+const scrollStyle = {
   position: 'absolute',
   top: '50%',
+  right: 0,
+  left: 0,
   transform: 'translateY(-50%)',
+};
+
+const containerStyle = {
+  margin: '50px auto',
+  width: '80%'
 };
 
 const progressStyle = {
@@ -53,16 +59,22 @@ class Home extends Component {
     }
     return (
       <div>
+        <ScrollArea
+          speed={0.8}
+          horizontal={false}
+          style={scrollStyle}
+        >
         <div style={containerStyle}>
-          <ManageButton
-            editing={this.state.editing}
-            onClick={() => this.setState({editing: !this.state.editing}) }
-          />
-          <CollectionList
-            editing={this.state.editing}
-            data={this.props.collections}
-          />
+            <ManageButton
+              editing={this.state.editing}
+              onClick={() => this.setState({editing: !this.state.editing}) }
+            />
+            <CollectionList
+              editing={this.state.editing}
+              data={this.props.collections}
+            />
         </div>
+        </ScrollArea>
         <DialogCreateCollection/>
       </div>
     )

@@ -4,6 +4,7 @@ import ScrollArea from 'react-scrollbar'
 import { List } from 'material-ui/List'
 
 import Line from './components/Line'
+import Progress from './components/Progress'
 import { importMovies } from './actions'
 
 class MoviesImporter extends Component {
@@ -32,21 +33,26 @@ class MoviesImporter extends Component {
   
   render() {
     return (
-      <List>
-        <ScrollArea
-          speed={0.8}
-          horizontal={false}
-        >
-          {this.renderLines()}
-        </ScrollArea>
-      </List>
+      <div>
+        <Progress progress={this.props.progress} />
+        <List>
+          <ScrollArea
+            speed={0.8}
+            horizontal={false}
+          >
+            {this.renderLines()}
+          </ScrollArea>
+        </List>
+      </div>
     );
   }
 }
 
 const mapStateToProps = state => {
+  const root = state.home.dialogCreateCollection.moviesImporter;
   return {
-    moviesToImport: state.home.dialogCreateCollection.moviesImporter.moviesToImport
+    moviesToImport: root.moviesToImport,
+    progress: root.progress
   }
 };
 
