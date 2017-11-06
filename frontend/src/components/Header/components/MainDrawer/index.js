@@ -45,7 +45,7 @@ class MainDrawer extends Component {
         <Drawer
           open={this.props.isOpen}
           docked={false}
-          onRequestChange={(open) => this.open(open) }
+          onRequestChange={open => this.open(open) }
         >
           <div className="drawer">
             {this.renderLines()}

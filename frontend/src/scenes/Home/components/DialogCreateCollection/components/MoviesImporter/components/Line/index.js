@@ -4,11 +4,7 @@ import {ListItem} from 'material-ui/List';
 import ActionDone from 'material-ui/svg-icons/action/done'
 
 class Line extends Component {
-  
-  constructor(props) {
-    super(props);
-  }
-  
+
   renderIcon = () => {
     if(this.props.done) {
       return <ActionDone/>;

@@ -105,7 +105,7 @@ class DialogCreateCollection extends Component {
           <Content
             stepIndex={this.state.stepIndex}
             collections={this.props.collections}
-            onStepIndexUpdate={(stepIndex) => this.setState({ stepIndex })}
+            onStepIndexUpdate={stepIndex => this.setState({ stepIndex })}
             onRef={ref => this.child = ref}
           />
         </div>

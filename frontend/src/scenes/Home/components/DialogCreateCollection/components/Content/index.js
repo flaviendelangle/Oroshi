@@ -22,7 +22,7 @@ class Content extends Component {
     this.props.onRef(undefined)
   }
   
-  setCollectionType = (state) => {
+  setCollectionType = state => {
     this.setState({ collectionType: state });
   };
   
@@ -30,7 +30,7 @@ class Content extends Component {
     this.setState({ collectionCustomization: { identiconString }});
   };
   
-  validateConfiguration = (collectionConfiguration) => {
+  validateConfiguration = collectionConfiguration => {
     const params = this.state.collectionType;
     if(params.type === 'external' && params.external === 'csv_file') {
       if(!collectionConfiguration.csv) {

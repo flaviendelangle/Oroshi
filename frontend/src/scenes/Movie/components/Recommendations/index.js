@@ -77,7 +77,7 @@ const settings = {
 
 class Recommendations extends Component {
   
-  url = (poster) => {
+  url = poster => {
     return path + '/w185' + poster;
   };
   

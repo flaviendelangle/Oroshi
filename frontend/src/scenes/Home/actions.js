@@ -1,7 +1,7 @@
 import { CollectionsAPI } from '../../services/api/collections'
 import { MoviesAPI } from '../../services/api/movies'
 
-import { collections, movie } from '../../services/actions/titles/api'
+import { collections } from '../../services/actions/titles/api'
 
 export const createCollection = (data, moviesToImport)  => {
   let promise;
@@ -37,7 +37,7 @@ const updateMoviesToImport = (data, moviesToImport) => {
     })
     .then(response => {
       collection = response;
-      const IDs = movies.map(el => parseInt(el.tmdbId));
+      const IDs = movies.map(el => parseInt(el.tmdbId, 10));
       return MoviesAPI.serialize(IDs, 'tmdbId')
     })
     .then(exist => {
@@ -45,8 +45,8 @@ const updateMoviesToImport = (data, moviesToImport) => {
         const match = exist.filter(filterById.bind(this, movies[i]));
         movies[i].local = (match.length > 0) ? match[0] : undefined;
         movies[i].current_collection = collection.pk;
-        movies[i].id = parseInt(movies[i].tmdbId);
-        movies[i].release = parseInt(movies[i].release);
+        movies[i].id = parseInt(movies[i].tmdbId, 10);
+        movies[i].release = parseInt(movies[i].release, 10);
       }
       return {
         importMovies: true,
@@ -57,5 +57,5 @@ const updateMoviesToImport = (data, moviesToImport) => {
 };
 
 const filterById = (movie, el) => {
-  return parseInt(movie.tmdbId) === el.tmdbId;
+  return parseInt(movie.tmdbId, 10) === el.tmdbId;
 };

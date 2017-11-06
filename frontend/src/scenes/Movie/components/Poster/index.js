@@ -8,7 +8,7 @@ import './style.css'
 
 class Poster extends Component {
 
-  url = (poster) => {
+  url = poster => {
     return path + '/w185' + poster.file_path;
   };
   

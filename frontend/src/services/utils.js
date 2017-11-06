@@ -37,7 +37,7 @@ let parseDump = csv => {
 
 let extractIdsFromDump = csv => {
   return parseDump(csv).map(el => {
-    return parseInt(el.TmdbId);
+    return parseInt(el.TmdbId, 10);
   })
 };
 

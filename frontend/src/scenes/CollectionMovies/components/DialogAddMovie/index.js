@@ -38,7 +38,7 @@ class DialogAddMovie extends Component {
           autoScrollBodyContent={true}
         >
           <SearchBar
-            onChange={(query) => this.setState({query})}
+            onChange={query => this.setState({query})}
             onRequestSearch={() => {
               this.props.search(this.props.collection, this.state.query);
             }}

@@ -48,7 +48,7 @@ class StreamGenerator {
   
   organize = () => {
     this.results = Object.keys(this.keys).map(pk_temp => {
-      const pk = parseInt(pk_temp);
+      const pk = parseInt(pk_temp, 10);
       const key = this.keys[pk];
       const movies = this.data.filter(movie => {
         return movie[this.key.field].filter(el => {

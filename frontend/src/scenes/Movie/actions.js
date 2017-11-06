@@ -1,7 +1,7 @@
 import MoviesAPI from '../../services/TheMovieDatabaseJS/movies'
 import { movie } from '../../services/actions/titles/api'
 
-export const loadMovie = (tmdbId) => {
+export const loadMovie = tmdbId => {
   const options = {
     append_to_response: ['credits', 'images', 'recommendations']
   };

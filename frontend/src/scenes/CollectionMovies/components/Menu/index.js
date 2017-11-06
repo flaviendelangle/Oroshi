@@ -63,7 +63,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     addMovie: () => dispatch(showDialogAddMovie(true)),
-    switchLayout: (layout) => dispatch(switchLayout(layout))
+    switchLayout: layout => dispatch(switchLayout(layout))
   };
 };
 

@@ -34,7 +34,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    synchronize: (collection) => dispatch(loadCollection(collection))
+    synchronize: collection => dispatch(loadCollection(collection))
   }
 };
 

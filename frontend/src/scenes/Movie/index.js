@@ -64,7 +64,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    synchronize: (collection) => dispatch(loadMovie(collection))
+    synchronize: collection => dispatch(loadMovie(collection))
   }
 };
 
