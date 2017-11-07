@@ -32,11 +32,9 @@ class MoviesList extends Component {
   
   renderList = () => {
     return this.props.data.results.map(el => {
-      console.log(el);
       return (
         <Movie
           data={el}
-          //collection={this.props.collection}
           key={el.id}
         />
       )

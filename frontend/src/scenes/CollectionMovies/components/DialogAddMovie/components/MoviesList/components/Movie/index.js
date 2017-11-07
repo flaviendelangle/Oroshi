@@ -5,21 +5,30 @@ import ContentAdd from 'material-ui/svg-icons/content/add'
 
 import Poster from './components/Poster'
 import { saveMovie } from './actions'
+import { date } from '../../../../../../../../services/utils';
 
 import './style.css'
 
 class Movie extends Component {
   
   state = {
-    mouseOver: false
+    mouseOver: false,
+    isAdding: false
   };
   
   handleMouseHover = mouseOver => {
     this.setState({mouseOver})
   };
   
+  save = () => {
+    if(!this.state.isAdding) {
+      this.props.save(this.props.data);
+      this.setState({ isAdding: true });
+    }
+  };
+  
   renderOverlay = () => {
-    if(this.state.mouseOver || true) {
+    if(this.state.mouseOver) {
       if(this.props.data.already_in_collection) {
         return (
           <div className="overlay">
@@ -32,7 +41,7 @@ class Movie extends Component {
           <ContentAdd
             color="white"
             className="add-icon"
-            onClick={() => this.props.save(this.props.data)}
+            onClick={this.save}
           />
         </div>
       )
@@ -41,10 +50,12 @@ class Movie extends Component {
   };
   
   render() {
+    const release = date(this.props.data.release_date, date.TMDB_FORMAT, date.YEAR_FORMAT);
     let className = 'not-in-collection';
     if(this.props.data.already_in_collection) {
       className = 'already-in-collection';
     }
+    console.log(this.props.data);
     return (
       <div className={'movie-parent ' + className}>
         <div className="movie-container">
@@ -58,7 +69,9 @@ class Movie extends Component {
             {this.renderOverlay()}
           </Paper>
         </div>
-        <div className="title">{this.props.data.title}</div>
+        <div className="title">
+          {release + ' - ' + this.props.data.title}
+        </div>
       </div>
     );
   }
