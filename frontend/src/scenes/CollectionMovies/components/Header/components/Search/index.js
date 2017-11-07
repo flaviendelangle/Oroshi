@@ -4,17 +4,7 @@ import SearchBar from 'material-ui-search-bar'
 
 import { update } from './actions'
 
-const searchStyle = {
-  margin: '8px auto',
-  maxWidth: 800,
-  width: '100%'
-};
-
-const containerStyle = {
-  position: 'absolute',
-  left: 50,
-  right: 40
-};
+import './style.css'
 
 class Search extends Component {
   
@@ -27,25 +17,37 @@ class Search extends Component {
     this.props.filter(query);
   };
   
+  getMovieCount = () => {
+    return this.props.count + ' movie' + (this.props.count > 1 ? 's' : '');
+  };
+  
   render() {
     const hintText = this.props.title ? ('Search in ' + this.props.title) : 'Search ...'
     return (
-      <div style={containerStyle}>
+      <div className="search-bar-container">
         <SearchBar
           hintText={hintText}
           onChange={this.search}
           onRequestSearch={() => this.props.filter(this.state.query)}
-          style={searchStyle}
           value={this.props.query}
         />
+        <div className="movie-count">{this.getMovieCount()}</div>
       </div>
     );
   }
 }
 
 const mapStateToProps = state => {
+  const layout = state.collectionMovies.moviesData.layout;
+  let count;
+  if(layout === 'stream') {
+    count = state.collectionMovies.moviesData.stream.getMovieCount();
+  } else {
+    count = state.collectionMovies.moviesData.toShow.getMovieCount();
+  }
   return {
-    query: state.collectionMovies.header.search.query
+    query: state.collectionMovies.header.search.query,
+    count
   };
 };
 

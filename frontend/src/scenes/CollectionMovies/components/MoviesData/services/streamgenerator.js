@@ -18,6 +18,10 @@ class StreamGenerator {
     this.sortResults();
   };
   
+  getMovieCount = () => {
+    return this.results.reduce((a, b) => a + b.movies.length, 0);
+  };
+  
   prepareData = () => {
     if(this.key.field === 'release') {
       this.data = this.data.map(el => {

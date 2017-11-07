@@ -13,6 +13,10 @@ class Search {
     this.filter();
   }
   
+  getMovieCount = () => {
+    return this.results.length;
+  };
+  
   analyseQuery = () => {
     let i=0;
     while(this.query.match(this.regexp) && i++ < 10) {
