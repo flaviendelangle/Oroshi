@@ -1,4 +1,4 @@
-import { CollectionsAPI } from '../../services/api/collections'
+import { MovieCollectionsAPI } from '../api/movieCollections'
 import { MoviesAPI } from '../../services/api/movies'
 import MoviesTMDB from '../../services/TheMovieDatabaseJS/movies'
 
@@ -12,7 +12,7 @@ import { date } from '../utils'
 export const _loadCollection = pk => {
   return {
     type: titles.collections.load,
-    payload: CollectionsAPI.retrieve(pk)
+    payload: MovieCollectionsAPI.retrieve(pk)
       .then(response => {
         return response;
       })
@@ -28,7 +28,7 @@ export const _loadCollection = pk => {
 export const _loadCollectionSettings = pk => {
   return {
     type: titles.collections.loadSettings,
-    payload: CollectionsAPI.settings(pk)
+    payload: MovieCollectionsAPI.settings(pk)
   }
 };
 
@@ -48,7 +48,7 @@ export const _addMovieToCollection = data => {
           pk: response.data.pk,
           seen: data.seen
         };
-        return CollectionsAPI.element(response.collection).movies.create(data);
+        return MovieCollectionsAPI.element(response.collection).movies.create(data);
       })
       .then(response => {
         return {
@@ -62,14 +62,14 @@ export const _addMovieToCollection = data => {
 export const _updateMovieInCollection = (collection, id, data) => {
   return {
     type: titles.collectionsMovies.update,
-    payload: CollectionsAPI.element(collection).movies.partial_update(id, data)
+    payload: MovieCollectionsAPI.element(collection).movies.partial_update(id, data)
   }
 };
 
 export const _removeMovieFromCollection = (collection, id) => {
   return {
     type: titles.collectionsMovies.remove,
-    payload: CollectionsAPI.element(collection).movies.destroy(id)
+    payload: MovieCollectionsAPI.element(collection).movies.destroy(id)
   }
 };
 

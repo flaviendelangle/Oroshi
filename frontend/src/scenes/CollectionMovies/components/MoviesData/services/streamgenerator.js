@@ -19,7 +19,7 @@ class StreamGenerator {
   };
   
   getMovieCount = () => {
-    return this.results.reduce((a, b) => a + b.movies.length, 0);
+    return this.data.length;
   };
   
   prepareData = () => {

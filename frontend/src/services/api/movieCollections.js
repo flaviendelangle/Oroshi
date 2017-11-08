@@ -1,10 +1,10 @@
 import API  from './index'
 import { MoviesClass } from './movies'
 
-class Collections extends API {
+class MovieCollections extends API {
   
   config = {
-    root: '/collections'
+    root: '/movie_collections'
   };
   
   nested_routes = {
@@ -21,5 +21,5 @@ class Collections extends API {
 }
 
 
-export const CollectionsAPI = new Collections();
-export const CollectionsClass = Collections;
+export const MovieCollectionsAPI = new MovieCollections();
+export const MovieCollectionsClass = MovieCollections;

@@ -7,8 +7,8 @@ from rest_framework_extensions.mixins import NestedViewSetMixin
 
 from api.Movies.models import Movies
 from api.Movies.serializers import MoviesSerializer, MoviesWriteSerializer
-from api.Collections.models import Collections, SeenMovies
-from api.Collections.serializers import SeenMoviesSerializer
+from api.MovieCollections.models import MovieCollections, SeenMovies
+from api.MovieCollections.serializers import SeenMoviesSerializer
 
 class MoviesViewSet(viewsets.ModelViewSet):
 
@@ -61,7 +61,7 @@ class CollectionMoviesViewSet(NestedViewSetMixin, MoviesViewSet):
         return Response(movies)
 
     def create(self, request, parent_lookup_collection_movies):
-        collection = get_object_or_404(Collections.objects.all(), pk=parent_lookup_collection_movies)
+        collection = get_object_or_404(MovieCollections.objects.all(), pk=parent_lookup_collection_movies)
         movie = get_object_or_404(Movies.objects.all(), pk=request.data['pk'])
         collection.movies.add(movie)
         self.seen_update(collection, movie, request.data['seen'])
@@ -70,7 +70,7 @@ class CollectionMoviesViewSet(NestedViewSetMixin, MoviesViewSet):
         return Response(data)
 
     def destroy(self, request, pk, parent_lookup_collection_movies):
-        collection = get_object_or_404(Collections.objects.all(), pk=parent_lookup_collection_movies)
+        collection = get_object_or_404(MovieCollections.objects.all(), pk=parent_lookup_collection_movies)
         movie = get_object_or_404(Movies.objects.all(), pk=pk)
         collection.movies.remove(movie)
         data = MoviesSerializer(movie).data
@@ -78,7 +78,7 @@ class CollectionMoviesViewSet(NestedViewSetMixin, MoviesViewSet):
         return Response(data)
 
     def partial_update(self, request, pk, parent_lookup_collection_movies):
-        collection = get_object_or_404(Collections.objects.all(), pk=parent_lookup_collection_movies)
+        collection = get_object_or_404(MovieCollections.objects.all(), pk=parent_lookup_collection_movies)
         movie = get_object_or_404(Movies.objects.all(), pk=pk)
         if 'seen' in request.data :
             self.seen_update(collection, movie, request.data['seen'])

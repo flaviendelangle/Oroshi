@@ -4,24 +4,25 @@ from rest_framework import viewsets, status
 from rest_framework.decorators import detail_route, list_route
 from rest_framework.response import Response
 
-from api.Collections.models import Collections, SeenMovies
-from api.Collections.serializers import CollectionsSerializer,\
-                                        CollectionSettingsSerializer, \
-                                        CollectionsWriteSerializer, \
+from api.MovieCollections.models import MovieCollections, SeenMovies
+from api.MovieCollections.serializers import MovieCollectionsSerializer,\
+                                        MovieCollectionSettingsSerializer, \
+                                        MovieCollectionsWriteSerializer, \
                                         SeenMoviesSerializer
 
-class CollectionsViewSet(viewsets.ModelViewSet):
+
+class MovieCollectionsViewSet(viewsets.ModelViewSet):
 
     def get_serializer_class(self):
         if self.request.method == 'POST' :
-            return CollectionsWriteSerializer
-        return CollectionsSerializer
+            return MovieCollectionsWriteSerializer
+        return MovieCollectionsSerializer
 
     def get_queryset(self):
-        return Collections.objects.all()
+        return MovieCollections.objects.all()
 
     def retrieve(self, *args, **kwargs):
-        collection = get_object_or_404(Collections.objects.all(), pk=kwargs['pk'])
+        collection = get_object_or_404(self.get_queryset(), pk=kwargs['pk'])
         data = super().retrieve(*args, **kwargs).data
         seen_movies = SeenMovies.objects.filter(collection=collection)
         data['seen'] = SeenMoviesSerializer(seen_movies, many=True).data
@@ -40,13 +41,13 @@ class CollectionsViewSet(viewsets.ModelViewSet):
     @list_route(methods=['get'], url_path='settings')
     def settings_list(self, request):
         data = self.get_queryset()
-        data = CollectionSettingsSerializer(data, many=True).data
+        data = MovieCollectionSettingsSerializer(data, many=True).data
         return Response(data)
 
 
     @detail_route(methods=['get'], url_path='settings')
     def settings_detail(self, request, pk=None):
         data = get_object_or_404(self.get_queryset(), pk=pk)
-        data = CollectionSettingsSerializer(data).data
+        data = MovieCollectionSettingsSerializer(data).data
         return Response(data)
 

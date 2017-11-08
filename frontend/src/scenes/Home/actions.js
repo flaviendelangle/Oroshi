@@ -1,4 +1,4 @@
-import { CollectionsAPI } from '../../services/api/collections'
+import { MovieCollectionsAPI } from '../../services/api/movieCollections'
 import { MoviesAPI } from '../../services/api/movies'
 
 import { collections } from '../../services/actions/titles/api'
@@ -8,7 +8,7 @@ export const createCollection = (data, moviesToImport)  => {
   if(moviesToImport) {
     promise = updateMoviesToImport(data, moviesToImport)
   } else {
-    promise = CollectionsAPI.create(data).then(collection => {
+    promise = MovieCollectionsAPI.create(data).then(collection => {
       return {
         importMovies: false,
         collection
@@ -24,7 +24,7 @@ export const createCollection = (data, moviesToImport)  => {
 export const loadCollections = () => {
   return {
     type: collections.loadAllSettings,
-    payload: CollectionsAPI.settings()
+    payload: MovieCollectionsAPI.settings()
   }
 };
 
@@ -33,7 +33,7 @@ const updateMoviesToImport = (data, moviesToImport) => {
   return moviesToImport
     .then(response => {
       movies = response;
-      return CollectionsAPI.create(data)
+      return MovieCollectionsAPI.create(data)
     })
     .then(response => {
       collection = response;

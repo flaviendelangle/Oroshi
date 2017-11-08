@@ -1,15 +1,15 @@
 from rest_framework import serializers
 
-from api.Collections.models import Collections, SeenMovies
+from api.MovieCollections.models import MovieCollections, SeenMovies
 from api.Movies.serializers import MoviesSerializer
 
 
-class CollectionsSerializer(serializers.ModelSerializer):
+class MovieCollectionsSerializer(serializers.ModelSerializer):
 
     movies = MoviesSerializer(many=True)
 
     class Meta:
-        model = Collections
+        model = MovieCollections
         fields = ('pk','title','hash','movies', 'adult_content')
         extra_kwargs = {
             'pk': {'read_only': True},
@@ -17,17 +17,17 @@ class CollectionsSerializer(serializers.ModelSerializer):
         }
 
 
-class CollectionSettingsSerializer(serializers.ModelSerializer):
+class MovieCollectionSettingsSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = Collections
+        model = MovieCollections
         fields = ('pk', 'title', 'hash', 'adult_content')
 
 
-class CollectionsWriteSerializer(serializers.ModelSerializer):
+class MovieCollectionsWriteSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = Collections
+        model = MovieCollections
         fields = ('pk', 'title', 'hash', 'adult_content')
         extra_kwargs = {
             'pk': {'read_only': True},

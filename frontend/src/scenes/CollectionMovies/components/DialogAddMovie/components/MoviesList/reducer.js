@@ -2,6 +2,7 @@ import { combineReducers } from 'redux'
 
 import saveButton from './components/SaveButton/reducer'
 import { collectionsMovies } from '../../../../../../services/actions/titles/api'
+import { dialogs } from '../../../../../../services/actions/titles/interface'
 import { search } from '../../../../../../services/actions/titles/tmdb'
 
 const defaultState = {
@@ -19,6 +20,17 @@ const main = (state = defaultState, action) => {
         ...state,
         data: action.payload
       };
+  
+    case dialogs.addMovie:
+      if(dialogs.show) {
+        return state;
+      }
+      return {
+        ...state,
+        data: {
+          results: []
+        }
+      };
       
     case collectionsMovies.add + '_FULFILLED':
       const newResults = state.data.results.map(el => {
@@ -34,6 +46,7 @@ const main = (state = defaultState, action) => {
           results: newResults
         }
       };
+      
     default:
       return state;
   }

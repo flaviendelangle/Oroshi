@@ -55,7 +55,6 @@ class Movie extends Component {
     if(this.props.data.already_in_collection) {
       className = 'already-in-collection';
     }
-    console.log(this.props.data);
     return (
       <div className={'movie-parent ' + className}>
         <div className="movie-container">
