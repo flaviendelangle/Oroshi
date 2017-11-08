@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import Paper from 'material-ui/Paper';
 import CircularProgress from 'material-ui/CircularProgress';
 
-import { path } from '../../../../services/TheMovieDatabaseJS/images'
+import { path } from 'services/TheMovieDatabaseJS/images'
 import './style.css'
 
 class Poster extends Component {

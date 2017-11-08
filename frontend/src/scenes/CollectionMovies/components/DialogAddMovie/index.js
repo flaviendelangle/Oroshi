@@ -4,7 +4,7 @@ import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
 import SearchBar from 'material-ui-search-bar'
 
-import MoviesList from './components/MoviesList'
+import Results from './components/Results'
 import { showDialogAddMovie, searchMovies } from './actions'
 
 const searchStyle = {
@@ -44,7 +44,7 @@ class DialogAddMovie extends Component {
             }}
             style={searchStyle}
           />
-          <MoviesList/>
+          <Results/>
         </Dialog>
     );
   }

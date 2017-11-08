@@ -5,7 +5,7 @@ import Slider from 'react-slick'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 
-import { path } from '../../../../services/TheMovieDatabaseJS/images'
+import { path } from 'services/TheMovieDatabaseJS/images'
 
 import './style.css'
 

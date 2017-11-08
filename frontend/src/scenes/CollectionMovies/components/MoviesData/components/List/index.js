@@ -2,8 +2,8 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 
-import ContentTable from '../../../../../../components/ContentTable'
-import ListCell from '../../../../../../components/ContentTable/components/List'
+import ContentTable from 'components/ContentTable'
+import ListCell from 'components/ContentTable/components/List'
 import { sortMovies } from './actions'
 
 const TABLE_COLUMNS = [

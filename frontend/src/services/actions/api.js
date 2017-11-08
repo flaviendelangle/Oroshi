@@ -1,6 +1,6 @@
 import { MovieCollectionsAPI } from '../api/movieCollections'
-import { MoviesAPI } from '../../services/api/movies'
-import MoviesTMDB from '../../services/TheMovieDatabaseJS/movies'
+import { MoviesAPI } from 'services/api/movies'
+import MoviesTMDB from 'services/TheMovieDatabaseJS/movies'
 
 import * as titles from './titles/api'
 import { date } from '../utils'

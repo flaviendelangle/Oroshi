@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 
-import moviesList from './components/MoviesList/reducer'
-import { dialogs } from '../../../../services/actions/titles/interface'
+import moviesList from './components/Results/reducer'
+import { dialogs } from 'services/actions/titles/interface'
 
 const defaultState = {
   isAddingAMovie: false

@@ -5,7 +5,7 @@ import ContentAdd from 'material-ui/svg-icons/content/add'
 
 import Poster from './components/Poster'
 import { saveMovie } from './actions'
-import { date } from '../../../../../../../../services/utils';
+import { date } from 'services/utils';
 
 import './style.css'
 

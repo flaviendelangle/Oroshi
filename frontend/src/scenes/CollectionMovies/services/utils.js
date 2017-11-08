@@ -1,4 +1,4 @@
-import { setValue, getValue } from '../../../services/localstorage'
+import { setValue, getValue } from 'services/localstorage'
 
 export const sort = (movies, params) => {
   movies = movies.sort((a, b) => {

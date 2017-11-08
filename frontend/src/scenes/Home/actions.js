@@ -1,7 +1,7 @@
-import { MovieCollectionsAPI } from '../../services/api/movieCollections'
-import { MoviesAPI } from '../../services/api/movies'
+import { MovieCollectionsAPI } from 'services/api/movieCollections'
+import { MoviesAPI } from 'services/api/movies'
 
-import { collections } from '../../services/actions/titles/api'
+import { collections } from 'services/actions/titles/api'
 
 export const createCollection = (data, moviesToImport)  => {
   let promise;

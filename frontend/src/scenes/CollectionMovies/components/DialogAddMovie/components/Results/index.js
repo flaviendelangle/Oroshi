@@ -1,34 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import DataTables from 'material-ui-datatables'
 
-import SaveButton from './components/SaveButton'
 import Movie from './components/Movie'
-import { date } from '../../../../../../services/utils'
 
-const TABLE_COLUMNS = [
-  {
-    label: 'Title',
-    key: 'title',
-    style: {
-      width: '50%',
-      overflow: 'hidden'
-    }
-  }, {
-    label: 'Release',
-    render: (name, all) => {
-      return date(all.release_date, date.TMDB_FORMAT, date.YEAR_FORMAT);
-    }
-  }, {
-    render: (name, all) => {
-      if(all.already_in_collection)
-        return null;
-      return <SaveButton data={all} />
-    }
-  }
-];
 
-class MoviesList extends Component {
+class Results extends Component {
   
   renderList = () => {
     return this.props.data.results.map(el => {
@@ -74,4 +50,4 @@ const mapDispatchToProps = dispatch => {
   return {};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(MoviesList);
+export default connect(mapStateToProps, mapDispatchToProps)(Results);

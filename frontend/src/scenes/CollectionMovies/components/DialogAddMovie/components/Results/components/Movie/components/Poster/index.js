@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import { path } from '../../../../../../../../../../services/TheMovieDatabaseJS/images'
+import { path } from 'services/TheMovieDatabaseJS/images'
 
 const defaultPosterStyle = {
   height: 278,

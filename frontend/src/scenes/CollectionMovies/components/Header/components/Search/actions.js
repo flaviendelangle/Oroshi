@@ -1,4 +1,4 @@
-import { movies } from '../../../../../../services/actions/titles/data'
+import { movies } from 'services/actions/titles/data'
 
 export const update = query => {
   return {

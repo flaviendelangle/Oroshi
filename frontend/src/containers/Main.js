@@ -3,11 +3,11 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 import { Switch, Route } from 'react-router-dom'
 
-import Home from '../scenes/Home'
-import Movies from '../scenes/CollectionMovies'
-import Movie from '../scenes/Movie'
-import Collection from '../scenes/CollectionSettings'
-import { notifyRouteChange } from '../services/actions/router'
+import Home from 'scenes/Home'
+import Movies from 'scenes/CollectionMovies'
+import Movie from 'scenes/Movie'
+import Collection from 'scenes/CollectionSettings'
+import { notifyRouteChange } from 'services/actions/router'
 
 
 class Main extends Component {

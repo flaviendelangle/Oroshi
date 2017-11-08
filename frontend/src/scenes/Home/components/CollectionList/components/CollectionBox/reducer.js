@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
 
-import { dialogs } from '../../../../../../services/actions/titles/interface'
+import { dialogs } from 'services/actions/titles/interface'
 
 const defaultState = {
 };

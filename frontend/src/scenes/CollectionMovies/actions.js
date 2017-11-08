@@ -4,7 +4,7 @@ import {
   _loadCollection,
   _addMovieToCollection,
   _updateMovieInCollection
-} from '../../services/actions/api'
+} from 'services/actions/api'
 
 export const loadCollection = pk => {
   const results = _loadCollection(pk);

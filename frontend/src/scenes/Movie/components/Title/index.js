@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import StarRatingComponent from 'react-star-rating-component';
 
-import { date } from '../../../../services/utils';
+import { date } from 'services/utils';
 
 const containerStyle = {
   marginBottom: 20,

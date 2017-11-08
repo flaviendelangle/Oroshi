@@ -6,7 +6,7 @@ import ActionSettings from 'material-ui/svg-icons/action/settings'
 
 import Search from './components/Search'
 import OrderMenu from './components/OrderMenu'
-import HeaderOriginal from '../../../../components/Header'
+import HeaderOriginal from 'components/Header'
 
 
 class Header extends Component {

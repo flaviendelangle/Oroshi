@@ -1,4 +1,4 @@
-import { drawers } from '../../../../services/actions/titles/interface'
+import { drawers } from 'services/actions/titles/interface'
 
 export const showMainDrawer = show => {
   return {

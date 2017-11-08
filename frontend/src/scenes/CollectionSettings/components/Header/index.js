@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import AVMovie from 'material-ui/svg-icons/av/movie'
 
-import HeaderOriginal from '../../../../components/Header'
+import HeaderOriginal from 'components/Header'
 
 
 class Header extends Component {

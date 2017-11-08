@@ -1,4 +1,4 @@
-import { updateMovieInCollection } from '../../../../scenes/CollectionMovies/actions'
+import { updateMovieInCollection } from 'scenes/CollectionMovies/actions'
 
 export const update = (data, type) => {
   const clearedData = {

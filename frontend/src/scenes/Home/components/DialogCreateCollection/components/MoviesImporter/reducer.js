@@ -1,4 +1,4 @@
-import { collections, collectionsMovies } from '../../../../../../services/actions/titles/api'
+import { collections, collectionsMovies } from 'services/actions/titles/api'
 
 const defaultState = {
   moviesToImport: null,

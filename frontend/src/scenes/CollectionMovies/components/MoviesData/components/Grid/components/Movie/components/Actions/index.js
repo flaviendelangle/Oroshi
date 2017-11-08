@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import ActionDelete from 'material-ui/svg-icons/action/delete'
 
-import SeenCheckbox from '../../../../../../../../../../components/ContentTable/components/SeenCheckbox'
+import SeenCheckbox from 'components/ContentTable/components/SeenCheckbox'
 import { removeMovie } from './actions'
 
 import './style.css'

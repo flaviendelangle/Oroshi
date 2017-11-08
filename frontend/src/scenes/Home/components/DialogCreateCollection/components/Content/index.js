@@ -5,7 +5,7 @@ import { readAsText } from 'promise-file-reader'
 import CollectionType from './components/CollectionType'
 import CollectionConfiguration from './components/CollectionConfiguration'
 import CollectionCustomization from './components/CollectionCustomization'
-import { parseDump } from '../../../../../../services/utils'
+import { parseDump } from 'services/utils'
 
 class Content extends Component {
   

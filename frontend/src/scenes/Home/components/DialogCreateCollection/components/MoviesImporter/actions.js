@@ -1,6 +1,6 @@
-import { dialogs } from '../../../../../../services/actions/titles/interface'
-import { collectionsMovies } from '../../../../../../services/actions/titles/api'
-import { _addMovieToCollection } from '../../../../../../services/actions/api'
+import { dialogs } from 'services/actions/titles/interface'
+import { collectionsMovies } from 'services/actions/titles/api'
+import { _addMovieToCollection } from 'services/actions/api'
 
 
 export const importMovies = (dispatch, movies) => {

@@ -1,10 +1,10 @@
 import { sort, setSortParameters, setLayoutParameters } from '../../services/utils'
 import { addSeenToMovies, addCollectionToMovies } from '../../../CollectionSettings/services/utils'
-import { getValue } from '../../../../services/localstorage'
+import { getValue } from 'services/localstorage'
 
-import { collections, collectionsMovies } from '../../../../services/actions/titles/api'
-import { movies } from '../../../../services/actions/titles/data'
-import api from '../../../../services/TheMovieDatabaseJS/'
+import { collections, collectionsMovies } from 'services/actions/titles/api'
+import { movies } from 'services/actions/titles/data'
+import api from 'services/TheMovieDatabaseJS/'
 import StreamGenerator from './services/streamgenerator'
 import Search from './services/search'
 

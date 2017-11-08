@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import Identicon from '../../../../../../../../../../components/Identicon'
+import Identicon from 'components/Identicon'
 
 class IdenticonField extends Component {
   

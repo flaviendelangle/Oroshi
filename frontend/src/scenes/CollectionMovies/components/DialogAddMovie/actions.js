@@ -1,9 +1,9 @@
-import searchAPI from '../../../../services/TheMovieDatabaseJS/search'
-import { MoviesAPI } from '../../../../services/api/movies'
-import { MovieCollectionsAPI } from '../../../../services/api/movieCollections'
+import searchAPI from 'services/TheMovieDatabaseJS/search'
+import { MoviesAPI } from 'services/api/movies'
+import { MovieCollectionsAPI } from 'services/api/movieCollections'
 
-import { search } from '../../../../services/actions/titles/tmdb'
-import { dialogs } from '../../../../services/actions/titles/interface'
+import { search } from 'services/actions/titles/tmdb'
+import { dialogs } from 'services/actions/titles/interface'
 
 export const showDialogAddMovie = show => {
   return {

@@ -1,4 +1,4 @@
-import { collections } from '../../../../services/actions/titles/api'
+import { collections } from 'services/actions/titles/api'
 
 const defaultState = {
   collection: undefined

@@ -2,8 +2,8 @@ import { combineReducers } from 'redux'
 
 import moviesImporter from './components/MoviesImporter/reducer'
 
-import { dialogs } from '../../../../services/actions/titles/interface'
-import { collectionsMovies } from '../../../../services/actions/titles/api'
+import { dialogs } from 'services/actions/titles/interface'
+import { collectionsMovies } from 'services/actions/titles/api'
 
 const defaultState = {
   isAddingACollection: false,

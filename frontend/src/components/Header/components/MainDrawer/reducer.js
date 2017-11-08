@@ -1,5 +1,5 @@
-import { notify } from '../../../../services/actions/titles/router'
-import { drawers } from '../../../../services/actions/titles/interface'
+import { notify } from 'services/actions/titles/router'
+import { drawers } from 'services/actions/titles/interface'
 
 const defaultState = {
   isOpen: false

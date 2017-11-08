@@ -3,7 +3,7 @@ import { combineReducers } from 'redux'
 import collectionList from './components/CollectionList/reducer'
 import dialogCreateCollection from './components/DialogCreateCollection/reducer'
 
-import { collections } from '../../services/actions/titles/api'
+import { collections } from 'services/actions/titles/api'
 
 const defaultState = {
   collections: [],

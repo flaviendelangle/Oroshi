@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux'
 
 import saveButton from './components/SaveButton/reducer'
-import { collectionsMovies } from '../../../../../../services/actions/titles/api'
-import { dialogs } from '../../../../../../services/actions/titles/interface'
-import { search } from '../../../../../../services/actions/titles/tmdb'
+import { collectionsMovies } from 'services/actions/titles/api'
+import { dialogs } from 'services/actions/titles/interface'
+import { search } from 'services/actions/titles/tmdb'
 
 const defaultState = {
   data: {

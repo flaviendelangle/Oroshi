@@ -6,7 +6,7 @@ import injectTapEventPlugin from "react-tap-event-plugin"
 import promiseMiddleware from 'redux-promise-middleware';
 import WebFont from 'webfontloader';
 
-import api from '../services/TheMovieDatabaseJS'
+import api from 'services/TheMovieDatabaseJS'
 import Main from './Main'
 import reducer from './reducer'
 import './App.css';
