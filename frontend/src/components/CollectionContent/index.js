@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import { connect } from 'react-redux'
 import CircularProgress from 'material-ui/CircularProgress';
 
 import List from './components/List'
@@ -52,6 +51,7 @@ class CollectionContent extends Component {
           data={this.props.toShow.results}
           collection={this.props.collection}
           type={this.props.type}
+          columns={this.props.listColumns}
         />
       )
     }

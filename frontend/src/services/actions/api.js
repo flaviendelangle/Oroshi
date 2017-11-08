@@ -9,9 +9,9 @@ import { date } from '../utils'
   COLLECTIONS
  */
 
-export const _loadCollection = pk => {
+export const _loadMovieCollection = pk => {
   return {
-    type: titles.collections.load,
+    type: titles.movieCollections.load,
     payload: MovieCollectionsAPI.retrieve(pk)
       .then(response => {
         return response;
@@ -27,7 +27,7 @@ export const _loadCollection = pk => {
 
 export const _loadCollectionSettings = pk => {
   return {
-    type: titles.collections.loadSettings,
+    type: titles.movieCollections.loadSettings,
     payload: MovieCollectionsAPI.settings(pk)
   }
 };

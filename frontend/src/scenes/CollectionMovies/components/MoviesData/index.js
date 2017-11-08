@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 
 import CollectionContent from 'components/CollectionContent'
 import Movie from 'components/Movie'
+import { TABLE_COLUMNS } from './services/list'
 
 
 class MoviesData extends Component {
@@ -17,6 +18,7 @@ class MoviesData extends Component {
         {...this.props}
         type="movies"
         elementComponent={Movie}
+        listColumns={TABLE_COLUMNS}
       />
     )
   }

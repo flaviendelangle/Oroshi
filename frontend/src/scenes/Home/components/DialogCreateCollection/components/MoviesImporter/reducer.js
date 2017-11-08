@@ -1,4 +1,4 @@
-import { collections, collectionsMovies } from 'services/actions/titles/api'
+import { movieCollections, collectionsMovies } from 'services/actions/titles/api'
 
 const defaultState = {
   moviesToImport: null,
@@ -13,7 +13,7 @@ const moviesImporterReducer = (state = defaultState, action) => {
   
   switch(action.type) {
     
-    case collections.create + '_FULFILLED':
+    case movieCollections.create + '_FULFILLED':
       if(!action.payload.importMovies) {
         return state;
       }

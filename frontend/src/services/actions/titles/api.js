@@ -1,9 +1,8 @@
-export const collections = {
-  load: 'LOAD_COLLECTION',
+export const movieCollections = {
+  load: 'LOAD_MOVIE_COLLECTION',
   loadSettings: 'LOAD_COLLECTION_SETTINGS',
   loadAllSettings: 'LOAD_COLLECTIONS_SETTINGS',
   create: 'CREATE_NEW_COLLECTION'
-  
 };
 
 export const collectionsMovies = {

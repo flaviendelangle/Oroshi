@@ -1,4 +1,4 @@
-import { collections } from 'services/actions/titles/api'
+import { movieCollections } from 'services/actions/titles/api'
 
 const defaultState = {
   collection: undefined
@@ -7,7 +7,7 @@ const defaultState = {
 const exportsReducer = (state = defaultState, action) => {
   switch(action.type) {
     
-    case collections.loadSettings + '_FULFILLED':
+    case movieCollections.loadSettings + '_FULFILLED':
       if(!action.payload) {
         return state;
       }

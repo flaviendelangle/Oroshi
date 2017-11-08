@@ -1,13 +1,13 @@
 import { prepareMovies } from '../CollectionSettings/services/utils'
 
 import {
-  _loadCollection,
+  _loadMovieCollection,
   _addMovieToCollection,
   _updateMovieInCollection
 } from 'services/actions/api'
 
 export const loadCollection = pk => {
-  const results = _loadCollection(pk);
+  const results = _loadMovieCollection(pk);
   results.payload = results.payload.then(response => {
     return prepareMovies(response);
   });

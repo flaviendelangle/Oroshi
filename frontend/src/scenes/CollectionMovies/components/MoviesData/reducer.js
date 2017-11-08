@@ -2,7 +2,7 @@ import { sort, setSortParameters, setLayoutParameters } from '../../services/uti
 import { addSeenToMovies, addCollectionToMovies } from '../../../CollectionSettings/services/utils'
 import { getValue } from 'services/localstorage'
 
-import { collections, collectionsMovies } from 'services/actions/titles/api'
+import { movieCollections, collectionsMovies } from 'services/actions/titles/api'
 import { movies, search } from 'services/actions/titles/data'
 import { layout } from 'services/actions/titles/interface'
 import api from 'services/TheMovieDatabaseJS/'
@@ -37,7 +37,7 @@ const moviesDataReducer = (state = defaultState, action) => {
   
   switch(action.type) {
     
-    case collections.load + '_FULFILLED':
+    case movieCollections.load + '_FULFILLED':
       if(!action.payload) {
         return {
           ...state,
@@ -62,7 +62,7 @@ const moviesDataReducer = (state = defaultState, action) => {
     case collectionsMovies.add + '_FULFILLED':
       newMovies = sort(
         addCollectionToMovies(
-          state.movies.concat([action.payload]),
+          state.content.concat([action.payload]),
           state.collection
         ), state.order.default
       );
@@ -74,16 +74,16 @@ const moviesDataReducer = (state = defaultState, action) => {
       };
       
     case collectionsMovies.remove + '_FULFILLED':
-      const match = state.movies.filter(el => {
+      const match = state.content.filter(el => {
         return el.pk === action.payload.pk
       });
       if(match.length === 0) {
         return state;
       }
-      const index = state.movies.indexOf(match[0]);
+      const index = state.content.indexOf(match[0]);
       newMovies = [
-        ...state.movies.slice(0, index),
-        ...state.movies.slice(index + 1)
+        ...state.content.slice(0, index),
+        ...state.content.slice(index + 1)
       ];
       return {
         ...state,
@@ -93,7 +93,7 @@ const moviesDataReducer = (state = defaultState, action) => {
       };
       
     case collectionsMovies.update + '_FULFILLED':
-      newMovies = addSeenToMovies(state.movies, action.payload);
+      newMovies = addSeenToMovies(state.content, action.payload);
       return {
         ...state,
         content: newMovies,
