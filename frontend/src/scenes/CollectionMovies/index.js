@@ -17,7 +17,7 @@ class CollectionMovies extends Component {
   render() {
     return (
       <div>
-        <Header/>
+        <Header type="movies"/>
         <MoviesData/>
         <DialogAddMovie collection={this.props.match.params.collection_id}/>
         <Menu/>

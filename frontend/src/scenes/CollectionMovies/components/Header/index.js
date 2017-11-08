@@ -26,7 +26,7 @@ class Header extends Component {
             <Search title={this.props.title}/>
           </div>
           <div className="actions">
-            <OrderMenu/>
+            <OrderMenu type={this.props.type}/>
           </div>
         </HeaderOriginal>
       </div>

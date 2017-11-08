@@ -18,7 +18,7 @@ class StreamGenerator {
     this.sortResults();
   };
   
-  getMovieCount = () => {
+  getElementCount = () => {
     return this.data.length;
   };
   
@@ -54,14 +54,14 @@ class StreamGenerator {
     this.results = Object.keys(this.keys).map(pk_temp => {
       const pk = parseInt(pk_temp, 10);
       const key = this.keys[pk];
-      const movies = this.data.filter(movie => {
+      const content = this.data.filter(movie => {
         return movie[this.key.field].filter(el => {
           return el.pk === pk
         }).length > 0;
       });
       return {
         key,
-        movies
+        content
       };
     });
   };
@@ -75,8 +75,8 @@ class StreamGenerator {
         valueA = a.key.pk;
         valueB = b.key.pk;
       } else {
-        valueA = a.movies.length;
-        valueB = b.movies.length;
+        valueA = a.content.length;
+        valueB = b.content.length;
       }
 
       if(valueA > valueB)

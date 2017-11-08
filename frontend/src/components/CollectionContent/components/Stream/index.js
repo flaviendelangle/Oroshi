@@ -43,6 +43,7 @@ class Stream extends Component {
           data={section}
           collection={this.props.collection}
           field={this.props.data.key}
+          elementComponent={this.props.elementComponent}
         />)
     })
   };
@@ -66,12 +67,12 @@ class Stream extends Component {
   
   render() {
     return (
-      <div className="movie-grid-container">
+      <div className="content-grid-container">
         <ScrollArea
           speed={0.8}
           horizontal={false}
         >
-          <div className="movie-grid">
+          <div className="content-grid">
             {this.renderSections()}
             {this.renderShowAll()}
           </div>

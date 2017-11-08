@@ -5,7 +5,7 @@ export const update = (data, type) => {
       seen: !data.seen
   };
   switch(type){
-    case 'collection_movies':
+    case 'movies':
       return updateMovieInCollection(data.collection, data.pk, clearedData);
     default:
       return null;

@@ -5,7 +5,7 @@ import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
 import ContentSort from 'material-ui/svg-icons/content/sort'
 
-import { updateOrder } from './actions'
+import { sort } from 'components/CollectionContent/actions'
 
 const containerStyle = {
   position: 'absolute',
@@ -25,6 +25,10 @@ class Search extends Component {
     }
   };
   
+  sort = (...args) => {
+    this.props.sort.bind(this, this.props.type)(...args);
+  };
+  
   renderStreamMenu = () => {
     return (
       <IconMenu
@@ -34,15 +38,15 @@ class Search extends Component {
       >
         <MenuItem
           primaryText="Group by directors"
-          onClick={() => this.props.updateOrder('stream', 'directors')}
+          onClick={() => this.sort('stream', 'directors')}
         />
         <MenuItem
           primaryText="Group by genres"
-          onClick={() => this.props.updateOrder('stream', 'genres')}
+          onClick={() => this.sort('stream', 'genres')}
         />
         <MenuItem
           primaryText="Group by year of release"
-          onClick={() => this.props.updateOrder('stream', 'release')}
+          onClick={() => this.sort('stream', 'release')}
         />
       </IconMenu>
     );
@@ -57,15 +61,15 @@ class Search extends Component {
       >
         <MenuItem
           primaryText="Order by title"
-          onClick={() => this.props.updateOrder('default', 'title', 'asc')}
+          onClick={() => this.sort('default', 'title', 'asc')}
         />
         <MenuItem
           primaryText="Order by note"
-          onClick={() => this.props.updateOrder('default', 'note', 'desc')}
+          onClick={() => this.sort('default', 'note', 'desc')}
         />
         <MenuItem
           primaryText="Order by year of release"
-          onClick={() => this.props.updateOrder('default', 'release', 'desc')}
+          onClick={() => this.sort('default', 'release', 'desc')}
         />
       </IconMenu>
     )
@@ -88,7 +92,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    updateOrder: (...args) => dispatch(updateOrder(...args))
+    sort: (...args) => dispatch(sort(...args))
   }
 };
 

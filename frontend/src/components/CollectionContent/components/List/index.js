@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 import ContentTable from 'components/ContentTable'
 import ListCell from 'components/ContentTable/components/List'
-import { sortMovies } from './actions'
+import { sort } from './actions'
 
 const TABLE_COLUMNS = [
   {
@@ -61,9 +61,9 @@ class List extends ContentTable {
   render() {
     this.params = {
       ...this.params,
-      type: 'collection_movies',
+      type: this.props.type,
       columns: TABLE_COLUMNS,
-      tableStyle: {}
+      tableStyle: {},
     };
     return super.render();
   }
@@ -76,7 +76,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    sort: (...args) => dispatch(sortMovies(...args))
+    sort: (...args) => dispatch(sort(...args))
   }
 };
 

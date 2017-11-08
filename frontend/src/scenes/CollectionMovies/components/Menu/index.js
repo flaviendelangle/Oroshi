@@ -7,7 +7,7 @@ import ActionViewModule from 'material-ui/svg-icons/action/view-module'
 import ActionViewStream from 'material-ui/svg-icons/action/view-stream'
 
 import { showDialogAddMovie } from './../../components/DialogAddMovie/actions'
-import { switchLayout } from '../MoviesData/actions'
+import { switchLayout } from '../../../../components/CollectionContent/actions'
 
 
 const addStyle = {

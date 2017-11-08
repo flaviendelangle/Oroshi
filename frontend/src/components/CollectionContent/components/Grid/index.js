@@ -1,18 +1,16 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
 import ReactList from 'react-list';
 import ScrollArea from 'react-scrollbar'
-
-import Movie from './components/Movie'
 
 import './style.css'
 
 class Grid extends Component {
   
   renderItem = (index, key) => {
+    const Element = this.props.elementComponent;
     return (
-      <Movie
-        data={this.props.movies[index]}
+      <Element
+        data={this.props.data[index]}
         collection={this.props.collection}
         key={key}
       />
@@ -21,15 +19,15 @@ class Grid extends Component {
   
   render() {
     return (
-      <div className="movie-grid-container">
+      <div className="content-grid-container">
         <ScrollArea
           speed={0.8}
           horizontal={false}
         >
-          <div className="movie-grid" style={{paddingBottom:400 }}>
+          <div className="content-grid" style={{paddingBottom:400 }}>
             <ReactList
               itemRenderer={this.renderItem}
-              length={this.props.movies.length}
+              length={this.props.data.length}
               type='uniform'
             />
           </div>
@@ -40,15 +38,4 @@ class Grid extends Component {
   
 }
 
-const mapStateToProps = state => {
-  return {}
-};
-
-const mapDispatchToProps = dispatch => {
-  return {}
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Grid);
+export default Grid;

@@ -13,7 +13,7 @@ class Search {
     this.filter();
   }
   
-  getMovieCount = () => {
+  getElementCount = () => {
     return this.results.length;
   };
   

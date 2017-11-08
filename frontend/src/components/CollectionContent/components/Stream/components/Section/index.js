@@ -4,8 +4,6 @@ import IconButton from 'material-ui/IconButton'
 import NavigationLess from 'material-ui/svg-icons/navigation/expand-less'
 import NavigationMore from 'material-ui/svg-icons/navigation/expand-more'
 
-import Movie from '../../../Grid/components/Movie/'
-
 import './style.css'
 
 class Section extends Component {
@@ -27,17 +25,18 @@ class Section extends Component {
   };
   
   renderContent = () => {
-    let movies = this.props.data.movies;
-    if(!this.state.full && movies.length > 7) {
-      movies = movies.slice(0,7);
+    let content = this.props.data.content;
+    if(!this.state.full && content.length > 7) {
+      content = content.slice(0,7);
     }
     
-    return movies.map(movie => {
+    const Element = this.props.elementComponent;
+    return content.map(element => {
       return (
-        <Movie
-          data={movie}
+        <Element
+          data={element}
           collection={this.props.collection}
-          key={movie.pk}
+          key={element.pk}
         />
       )
     });
@@ -47,7 +46,7 @@ class Section extends Component {
     return (
       <div
         className={'stream-section ' + (this.state.full ? 'full': '')}
-        data-amount={this.props.data.movies.length}
+        data-amount={this.props.data.content.length}
       >
         <div className="title">
           <Link to={this.getLink()}>

@@ -3,7 +3,8 @@ import { addSeenToMovies, addCollectionToMovies } from '../../../CollectionSetti
 import { getValue } from 'services/localstorage'
 
 import { collections, collectionsMovies } from 'services/actions/titles/api'
-import { movies } from 'services/actions/titles/data'
+import { movies, search } from 'services/actions/titles/data'
+import { layout } from 'services/actions/titles/interface'
 import api from 'services/TheMovieDatabaseJS/'
 import StreamGenerator from './services/streamgenerator'
 import Search from './services/search'
@@ -20,7 +21,7 @@ const defaultOrder = {
 };
 
 const defaultState = {
-  movies: [],
+  content: [],
   query: '',
   collection: 0,
   found: false,
@@ -51,7 +52,7 @@ const moviesDataReducer = (state = defaultState, action) => {
       return {
         ...state,
         collection: action.payload.pk,
-        movies: newMovies,
+        content: newMovies,
         stream: new StreamGenerator(newMovies, state.query, state.order.stream),
         toShow: new Search(newMovies, state.query),
         found: true,
@@ -67,7 +68,7 @@ const moviesDataReducer = (state = defaultState, action) => {
       );
       return {
         ...state,
-        movies: newMovies,
+        content: newMovies,
         stream: new StreamGenerator(newMovies, state.query, state.order.stream),
         toShow: new Search(newMovies, state.query)
       };
@@ -86,7 +87,7 @@ const moviesDataReducer = (state = defaultState, action) => {
       ];
       return {
         ...state,
-        movies: newMovies,
+        content: newMovies,
         stream: new StreamGenerator(newMovies, state.query, state.order.stream),
         toShow: new Search(newMovies, state.query)
       };
@@ -95,7 +96,7 @@ const moviesDataReducer = (state = defaultState, action) => {
       newMovies = addSeenToMovies(state.movies, action.payload);
       return {
         ...state,
-        movies: newMovies,
+        content: newMovies,
         stream: new StreamGenerator(newMovies, state.query, state.order.stream),
         toShow: new Search(newMovies, state.query)
       };
@@ -103,9 +104,9 @@ const moviesDataReducer = (state = defaultState, action) => {
     case movies.sort:
       setSortParameters(action.parameters, defaultOrder);
       if(action.parameters.layout === 'default') {
-        newMovies = sort(state.movies, action.parameters);
+        newMovies = sort(state.content, action.parameters);
       } else {
-        newMovies = state.movies;
+        newMovies = state.content;
       }
       newOrder = {
         ...state.order,
@@ -114,28 +115,28 @@ const moviesDataReducer = (state = defaultState, action) => {
       return {
         ...state,
         order: newOrder,
-        movies: newMovies,
+        content: newMovies,
         stream: new StreamGenerator(newMovies, state.query, newOrder.stream),
         toShow: new Search(newMovies, state.query),
         update: Math.random()
       };
       
-    case movies.update_search_query:
+    case search.update_query:
       return {
         ...state,
         query: action.query,
-        stream: new StreamGenerator(state.movies, action.query, state.order.stream),
-        toShow: new Search(state.movies, action.query)
+        stream: new StreamGenerator(state.content, action.query, state.order.stream),
+        toShow: new Search(state.content, action.query)
       };
       
-    case movies.update_layout:
+    case layout.update:
       setLayoutParameters(action.layout);
       return {
         ...state,
         query: '',
         layout: action.layout,
-        stream: new StreamGenerator(state.movies, '', state.order.stream),
-        toShow: new Search(state.movies, '')
+        stream: new StreamGenerator(state.content, '', state.order.stream),
+        toShow: new Search(state.content, '')
       };
       
     default:

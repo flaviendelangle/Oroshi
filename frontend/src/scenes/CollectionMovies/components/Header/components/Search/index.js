@@ -17,7 +17,7 @@ class Search extends Component {
     this.props.filter(query);
   };
   
-  getMovieCount = () => {
+  getElementCount = () => {
     return this.props.count + ' movie' + (this.props.count > 1 ? 's' : '');
   };
   
@@ -31,7 +31,7 @@ class Search extends Component {
           onRequestSearch={() => this.props.filter(this.state.query)}
           value={this.props.query}
         />
-        <div className="movie-count">{this.getMovieCount()}</div>
+        <div className="movie-count">{this.getElementCount()}</div>
       </div>
     );
   }
@@ -41,9 +41,9 @@ const mapStateToProps = state => {
   const layout = state.collectionMovies.moviesData.layout;
   let count;
   if(layout === 'stream') {
-    count = state.collectionMovies.moviesData.stream.getMovieCount();
+    count = state.collectionMovies.moviesData.stream.getElementCount();
   } else {
-    count = state.collectionMovies.moviesData.toShow.getMovieCount();
+    count = state.collectionMovies.moviesData.toShow.getElementCount();
   }
   return {
     query: state.collectionMovies.header.search.query,

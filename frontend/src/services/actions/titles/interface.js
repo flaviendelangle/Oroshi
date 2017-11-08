@@ -11,3 +11,7 @@ export const drawers = {
 export const collectionCreation = {
   updateIdenticon: 'UPDATE_IDENTION_COLLECTION_CREATION'
 };
+
+export const layout = {
+  update: 'UPDATE_CONTENT_LAYOUT'
+};

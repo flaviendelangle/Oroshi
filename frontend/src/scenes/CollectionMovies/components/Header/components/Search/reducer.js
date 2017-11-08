@@ -1,4 +1,5 @@
-import { movies } from 'services/actions/titles/data'
+import { layout } from 'services/actions/titles/interface'
+import { search } from 'services/actions/titles/data'
 
 const defaultState = {
   query: ''
@@ -7,13 +8,13 @@ const defaultState = {
 const searchReducer = (state = defaultState, action) => {
   switch(action.type) {
   
-    case movies.update_search_query:
+    case search.update_query:
       return {
         ...state,
         query: action.query
       };
   
-    case movies.update_layout:
+    case layout.update:
       return {
         ...state,
         query: ''
