@@ -1,33 +1,39 @@
-import { MovieCollectionsAPI } from '../api/movieCollections'
+import { MovieCollectionsAPI } from 'services/api/movieCollections'
 import { MoviesAPI } from 'services/api/movies'
 import MoviesTMDB from 'services/TheMovieDatabaseJS/movies'
 
-import * as titles from './titles/api'
-import { date } from '../utils'
+import * as titles from 'services/titles/api'
+import { date } from 'services/utils'
 
 /*
   COLLECTIONS
  */
 
-export const _loadMovieCollection = pk => {
-  return {
-    type: titles.movieCollections.load,
-    payload: MovieCollectionsAPI.retrieve(pk)
-      .then(response => {
-        return response;
-      })
-      .catch(error => {
-        error = error.toString();
-        if(error === 'Error: Not Found') {
-          return undefined;
-        }
-      })
+export const _loadCollection = (scene, pk) => {
+  return collectionLoaders[scene](pk);
+};
+
+const collectionLoaders = {
+  movies: pk => {
+    return {
+      type: titles.collectionContent.load,
+      payload: MovieCollectionsAPI.retrieve(pk)
+        .then(response => {
+          return response;
+        })
+        .catch(error => {
+          error = error.toString();
+          if(error === 'Error: Not Found') {
+            return undefined;
+          }
+        })
+    }
   }
 };
 
 export const _loadCollectionSettings = pk => {
   return {
-    type: titles.movieCollections.loadSettings,
+    type: titles.collectionContent.loadSettings,
     payload: MovieCollectionsAPI.settings(pk)
   }
 };

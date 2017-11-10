@@ -1,7 +1,7 @@
 import * as publicAPI from 'services/actions/publicAPI'
 
-import { request } from 'services/actions/titles/publicAPI'
-import { dialogs } from 'services/actions/titles/interface'
+import { request } from 'services/titles/publicAPI'
+import { dialogs } from 'services/titles/interface'
 
 export const showDialog = show => {
   return {

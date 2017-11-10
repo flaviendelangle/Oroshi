@@ -1,6 +1,6 @@
-import { collections } from 'services/actions/titles/api'
-import { dialogs } from 'services/actions/titles/interface'
-import { request } from 'services/actions/titles/publicAPI'
+import { collections } from 'services/titles/api'
+import { dialogs } from 'services/titles/interface'
+import { request } from 'services/titles/publicAPI'
 
 const defaultState = {
   data: {

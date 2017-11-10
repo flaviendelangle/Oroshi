@@ -1,6 +1,6 @@
 import { createCollection as _createCollection } from '../../actions'
 
-import { dialogs } from 'services/actions/titles/interface'
+import { dialogs } from 'services/titles/interface'
 
 export const showDialogCreateCollection = show => {
   return {

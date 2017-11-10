@@ -1,5 +1,5 @@
-export const movies = {
-  sort: 'SORT_MOVIES',
+export const sort = {
+  update: 'SORT_ELEMENTS',
 };
 
 export const search = {

@@ -1,5 +1,5 @@
-export const movieCollections = {
-  load: 'LOAD_MOVIE_COLLECTION',
+export const collectionContent = {
+  load: 'LOAD_COLLECTION_CONTENT',
   loadSettings: 'LOAD_COLLECTION_SETTINGS',
   loadAllSettings: 'LOAD_COLLECTIONS_SETTINGS',
   create: 'CREATE_NEW_COLLECTION'

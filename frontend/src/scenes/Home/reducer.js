@@ -3,7 +3,7 @@ import { combineReducers } from 'redux'
 import collectionList from './components/CollectionList/reducer'
 import dialogCreateCollection from './components/DialogCreateCollection/reducer'
 
-import { movieCollections } from 'services/actions/titles/api'
+import { collectionContent } from 'services/titles/api'
 
 const defaultState = {
   collections: [],
@@ -12,13 +12,13 @@ const defaultState = {
 
 const main = (state = defaultState, action) => {
   switch(action.type) {
-    case movieCollections.loadAllSettings + '_FULFILLED':
+    case collectionContent.loadAllSettings + '_FULFILLED':
       return {
         ...state,
         collections: action.payload,
         loaded: true
       };
-    case movieCollections.create + '_FULFILLED':
+    case collectionContent.create + '_FULFILLED':
       return {
         ...state,
         collections: state.collections.concat([action.payload.collection])

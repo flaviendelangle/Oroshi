@@ -1,8 +1,6 @@
 import moment from 'moment'
 import Papa from 'papaparse'
 
-import { movies } from './actions/titles/data'
-
 let date = (date, oldFormat, newFormat) => {
   const newDate = moment(date, oldFormat);
   return newDate.format(newFormat);
@@ -31,17 +29,7 @@ let unCapitalize = (field) => {
   return field.charAt(0).toLowerCase() + field.slice(1);
 };
 
-let getTitles = (type) => {
-  switch(type) {
-    case 'movies':
-      return movies;
-    default:
-      return null;
-  }
-};
 
 
 
-
-
-export { date, parseDump, getTitles };
+export { date, parseDump };

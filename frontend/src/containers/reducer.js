@@ -5,9 +5,9 @@ import header from 'components/Header/reducer'
 
 import home from 'scenes/Home/reducer'
 import movie from 'scenes/Movie/reducer'
-import collectionMovies from 'scenes/CollectionMovies/reducer'
+import collection from 'components/CollectionScene/reducer'
 import collectionSettings from 'scenes/CollectionSettings/reducer'
-import { notify } from 'services/actions/titles/router'
+import { notify } from 'services/titles/router'
 
 
 //collections[ownProps.type]
@@ -20,7 +20,7 @@ const appReducer = combineReducers({
   
   // Scenes
   collectionSettings,
-  collectionMovies,
+  collectionMovies: collection('movies'),
   home,
   movie
 });

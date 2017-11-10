@@ -34,7 +34,7 @@ class Results extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const root = getCollectionState(state, ownProps.type).dialogAddElement.results;
+  const root = getCollectionState(state, ownProps.scene).dialogAddElement.results;
   return {
     data: root.data
   };
@@ -42,7 +42,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    save: data => dispatch(save(ownProps.type, data))
+    save: data => dispatch(save(ownProps.scene, data))
   };
 };
 

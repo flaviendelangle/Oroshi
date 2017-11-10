@@ -46,7 +46,7 @@ class DialogAddElement extends Component {
             style={searchStyle}
           />
           <Results
-            type={this.props.type}
+            scene={this.props.scene}
             elementComponent={this.props.elementComponent}
           />
         </Dialog>
@@ -55,7 +55,7 @@ class DialogAddElement extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const root = getCollectionState(state, ownProps.type).dialogAddElement;
+  const root = getCollectionState(state, ownProps.scene).dialogAddElement;
   return {
     isOpen: root.main.show,
     resultsList: root.results.data
@@ -67,7 +67,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     close: () => dispatch(showDialog(false)),
     search: (collection, query) => {
       if(query) {
-        dispatch(search(ownProps.type, collection, query));
+        dispatch(search(ownProps.scene, collection, query));
       }
     }
   }

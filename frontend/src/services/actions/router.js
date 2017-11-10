@@ -1,4 +1,4 @@
-import { notify } from './titles/router'
+import { notify } from 'services/titles/router'
 
 export const notifyRouteChange = location => {
   return {

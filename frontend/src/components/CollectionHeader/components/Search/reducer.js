@@ -1,5 +1,5 @@
-import { layout } from 'services/actions/titles/interface'
-import { search } from 'services/actions/titles/data'
+import { layout } from 'services/titles/interface'
+import { search } from 'services/titles/data'
 
 const defaultState = {
   query: ''

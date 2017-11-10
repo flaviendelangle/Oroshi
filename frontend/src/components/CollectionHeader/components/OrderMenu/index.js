@@ -27,7 +27,7 @@ class Search extends Component {
   };
   
   sort = (...args) => {
-    this.props.sort.bind(this, this.props.type)(...args);
+    this.props.sort.bind(this, this.props.scene)(...args);
   };
   
   renderStreamMenu = () => {
@@ -87,13 +87,13 @@ class Search extends Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    layout: getCollectionState(state, ownProps.type).main.layout
+    layout: getCollectionState(state, ownProps.scene).main.layout
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    sort: (...args) => dispatch(sort(...args))
+    sort: (...args) => dispatch(sort(ownProps.scene, ...args))
   }
 };
 

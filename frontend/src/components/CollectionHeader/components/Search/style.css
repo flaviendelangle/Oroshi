@@ -11,7 +11,7 @@
     width: 100%;
 }
 
-.search-bar-container .movie-count {
+.search-bar-container .element-count {
     position: fixed;
     top: 22px;
     right: 40px;
@@ -23,7 +23,7 @@
         right: 60px;
     }
 
-    .search-bar-container .movie-count {
+    .search-bar-container .element-count {
         display: none;
     }
 }

@@ -9,7 +9,7 @@ class List extends ContentTable {
   render() {
     this.params = {
       ...this.params,
-      type: this.props.type,
+      scene: this.props.scene,
       columns: this.props.columns,
       tableStyle: {},
     };

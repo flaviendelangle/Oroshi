@@ -1,17 +1,17 @@
 import json2csv from 'json2csv'
 import downloadjs from 'downloadjs'
 
-import { _loadMovieCollection } from 'services/actions/api'
-import { collections } from 'services/actions/titles/exports'
-import { prepareMovies } from '../../services/utils'
+import { _loadCollection } from 'services/actions/api'
+import { collections } from 'services/titles/exports'
+import { prepareElements } from '../../services/utils'
 
 const collectionFields = ['TmdbId', 'Title', 'Release', 'Directors', 'Genres', 'Seen', 'Note'];
 
 export const exportAsCSV = pk => {
   return {
     type: collections.csv,
-    payload: _loadMovieCollection(pk).payload.then(response => {
-      response = prepareMovies(response);
+    payload: _loadCollection('movies', pk).payload.then(response => {
+      response = prepareElements('movies', response);
       const movies = response.movies.map(el => {
         return {
           TmdbId: el.tmdbId,

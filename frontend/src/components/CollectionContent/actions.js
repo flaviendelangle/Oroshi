@@ -1,18 +1,19 @@
-import { getTitles } from 'services/utils'
-import { layout } from 'services/actions/titles/interface'
+import { layout } from 'services/titles/interface'
+import { sort as _sort } from 'services/titles/data'
 
-export const switchLayout = newLayout => {
+export const switchLayout = (scene, newLayout) => {
   return {
     type: layout.update,
-    layout: newLayout
+    layout: newLayout,
+    scene
   }
 };
 
 
-export const sort = (type, layout, field, direction) => {
-  const titles = getTitles(type);
+export const sort = (scene, type, layout, field, direction) => {
   return {
-    type: titles.sort,
-    parameters: {layout, field, direction}
+    type: _sort.update,
+    parameters: {layout, field, direction},
+    scene
   };
 };

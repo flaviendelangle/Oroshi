@@ -1,13 +1,13 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
-import DocumentTitle from 'react-document-title'
-import ActionSettings from 'material-ui/svg-icons/action/settings'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import DocumentTitle from 'react-document-title';
+import ActionSettings from 'material-ui/svg-icons/action/settings';
 
 import { getCollectionState } from 'containers/reducer';
-import Search from './components/Search'
-import OrderMenu from './components/OrderMenu'
-import HeaderOriginal from 'components/Header'
+import Search from './components/Search/index';
+import OrderMenu from './components/OrderMenu/index';
+import HeaderOriginal from 'components/Header/index';
 
 
 class Header extends Component {
@@ -24,10 +24,13 @@ class Header extends Component {
             </Link>
           </div>
           <div className="search">
-            <Search title={this.props.title}/>
+            <Search
+              title={this.props.title}
+              scene={this.props.scene}
+            />
           </div>
           <div className="actions">
-            <OrderMenu type={this.props.type}/>
+            <OrderMenu scene={this.props.scene}/>
           </div>
         </HeaderOriginal>
       </div>
@@ -37,7 +40,7 @@ class Header extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const root = getCollectionState(state, ownProps.type).header.main;
+  const root = getCollectionState(state, ownProps.scene).header.main;
   return {
     collection: root.collection,
     title: root.title

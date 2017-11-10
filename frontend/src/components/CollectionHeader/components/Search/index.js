@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import { connect } from 'react-redux'
 import SearchBar from 'material-ui-search-bar'
 
+import { getCollectionState } from 'containers/reducer';
 import { update } from './actions'
 
 import './style.css'
@@ -18,7 +19,7 @@ class Search extends Component {
   };
   
   getElementCount = () => {
-    return this.props.count + ' movie' + (this.props.count > 1 ? 's' : '');
+    return this.props.count + ' element' + (this.props.count > 1 ? 's' : '');
   };
   
   render() {
@@ -31,29 +32,30 @@ class Search extends Component {
           onRequestSearch={() => this.props.filter(this.state.query)}
           value={this.props.query}
         />
-        <div className="movie-count">{this.getElementCount()}</div>
+        <div className="element-count">{this.getElementCount()}</div>
       </div>
     );
   }
 }
 
-const mapStateToProps = state => {
-  const layout = state.collectionMovies.main.layout;
+const mapStateToProps = (state, ownProps) => {
+  const root = getCollectionState(state, ownProps.scene);
+  const layout = root.main.layout;
   let count;
   if(layout === 'stream') {
-    count = state.collectionMovies.main.stream.getElementCount();
+    count = root.main.stream.getElementCount();
   } else {
-    count = state.collectionMovies.main.toShow.getElementCount();
+    count = root.main.toShow.getElementCount();
   }
   return {
-    query: state.collectionMovies.header.search.query,
+    query: root.header.search.query,
     count
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    filter: query => dispatch(update(query))
+    filter: query => dispatch(update(ownProps.scene, query))
   }
 };
 

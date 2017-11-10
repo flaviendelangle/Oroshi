@@ -1,5 +1,5 @@
-import { dialogs } from 'services/actions/titles/interface'
-import { collections } from 'services/actions/titles/api'
+import { dialogs } from 'services/titles/interface'
+import { collections } from 'services/titles/api'
 import { _addMovieToCollection } from 'services/actions/api'
 
 

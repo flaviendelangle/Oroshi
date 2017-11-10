@@ -6,8 +6,8 @@ import ActionViewList from 'material-ui/svg-icons/action/view-list'
 import ActionViewModule from 'material-ui/svg-icons/action/view-module'
 import ActionViewStream from 'material-ui/svg-icons/action/view-stream'
 
-import { showDialog } from '../../../../components/DialogAddElement/actions'
-import { switchLayout } from '../../../../components/CollectionContent/actions'
+import { showDialog } from '../DialogAddElement/actions'
+import { switchLayout } from '../CollectionContent/actions'
 
 
 const addStyle = {
@@ -29,7 +29,7 @@ class Menu extends Component {
       <span>
         <FloatingActionButton
           style={addStyle}
-          onClick={this.props.addMovie}
+          onClick={this.props.addElement}
         >
           <ContentAdd/>
         </FloatingActionButton>
@@ -60,10 +60,10 @@ const mapStateToProps = state => {
   }
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    addMovie: () => dispatch(showDialog(true)),
-    switchLayout: layout => dispatch(switchLayout(layout))
+    addElement: () => dispatch(showDialog(true)),
+    switchLayout: layout => dispatch(switchLayout(ownProps.scene, layout))
   };
 };
 

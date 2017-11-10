@@ -1,4 +1,4 @@
-import { movie } from 'services/actions/titles/api'
+import { movie } from 'services/titles/api'
 
 const defaultState = {
   title: '',

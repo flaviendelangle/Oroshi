@@ -1,6 +1,6 @@
 import { setValue, getValue } from 'services/localstorage'
 
-export const sort = (movies, params) => {
+export const sortElements = (movies, params) => {
   movies = movies.sort((a, b) => {
     let comparison = 0;
     const key = params.field;

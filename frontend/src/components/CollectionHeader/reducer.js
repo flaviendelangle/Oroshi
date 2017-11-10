@@ -1,4 +1,4 @@
-import { movieCollections } from 'services/actions/titles/api'
+import { collectionContent } from 'services/titles/api'
 
 import { combineReducers } from 'redux'
 
@@ -12,7 +12,7 @@ const defaultState = {
 const main = (state = defaultState, action) => {
   switch(action.type) {
     
-    case movieCollections.load + '_FULFILLED':
+    case collectionContent.load + '_FULFILLED':
       if(!action.payload) {
         return state;
       }

@@ -1,10 +1,12 @@
 import React, {Component} from 'react'
+import { connect } from 'react-redux'
 import CircularProgress from 'material-ui/CircularProgress';
 
 import List from './components/List'
 import Help from './components/Help'
 import Grid from './components/Grid'
 import Stream from './components/Stream'
+import { getCollectionState } from 'containers/reducer';
 
 const progressStyle = {
   width: 40,
@@ -40,7 +42,7 @@ class CollectionContent extends Component {
           data={this.props.toShow.results}
           collection={this.props.collection}
           order={this.props.order.default}
-          type={this.props.type}
+          scene={this.props.scene}
           elementComponent={this.props.elementComponent}
         />
       )
@@ -50,7 +52,7 @@ class CollectionContent extends Component {
         <List
           data={this.props.toShow.results}
           collection={this.props.collection}
-          type={this.props.type}
+          scene={this.props.scene}
           columns={this.props.listColumns}
         />
       )
@@ -60,7 +62,7 @@ class CollectionContent extends Component {
         <Stream
           data={this.props.stream}
           collection={this.props.collection}
-          type={this.props.type}
+          scene={this.props.scene}
           elementComponent={this.props.elementComponent}
         />
       )
@@ -94,4 +96,27 @@ class CollectionContent extends Component {
   
 }
 
-export default CollectionContent;
+const mapStateToProps = (state, ownProps) => {
+  const root = getCollectionState(state, ownProps.scene).main;
+  
+  return {
+    update: root.update,
+    content: root.content,
+    toShow: root.toShow,
+    stream: root.stream,
+    collection: root.collection,
+    found: root.found,
+    loaded: root.loaded,
+    layout: root.layout,
+    order: root.order
+  }
+};
+
+const mapDispatchToProps = dispatch => {
+  return {}
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(CollectionContent);

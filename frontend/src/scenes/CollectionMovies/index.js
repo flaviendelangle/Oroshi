@@ -1,49 +1,26 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import React, { Component } from 'react';
 
-import Header from './components/Header'
-import DialogAddElement from 'components/DialogAddElement'
-import MoviesData from './components/MoviesData'
-import Menu from './components/Menu'
-import Movie from 'components/Movie'
-
-import { loadCollection } from './actions'
+import CollectionScene from 'components/CollectionScene';
+import Movie from 'components/Movie';
+import { TABLE_COLUMNS } from './services/list';
 
 class CollectionMovies extends Component {
   
-  componentDidMount() {
-    this.props.synchronize(this.props.match.params.collection_id);
-  }
+  config = {
+    listColumns: TABLE_COLUMNS,
+    elementComponent: Movie,
+  };
   
   render() {
     return (
-      <div>
-        <Header type="movies"/>
-        <MoviesData/>
-        <DialogAddElement
-          collection={this.props.match.params.collection_id}
-          elementComponent={Movie}
-          type="movies"
-        />
-        <Menu/>
-      </div>
-    )
-  
-  }
+      <CollectionScene
+        {...this.props}
+        config={this.config}
+        scene="movies"
+      />
+    );
+  };
   
 }
 
-const mapStateToProps = state => {
-  return {}
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    synchronize: collection => dispatch(loadCollection(collection))
-  }
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(CollectionMovies);
+export default CollectionMovies;
