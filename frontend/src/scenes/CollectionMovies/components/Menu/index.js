@@ -6,7 +6,7 @@ import ActionViewList from 'material-ui/svg-icons/action/view-list'
 import ActionViewModule from 'material-ui/svg-icons/action/view-module'
 import ActionViewStream from 'material-ui/svg-icons/action/view-stream'
 
-import { showDialogAddMovie } from './../../components/DialogAddMovie/actions'
+import { showDialog } from '../../../../components/DialogAddElement/actions'
 import { switchLayout } from '../../../../components/CollectionContent/actions'
 
 
@@ -62,7 +62,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    addMovie: () => dispatch(showDialogAddMovie(true)),
+    addMovie: () => dispatch(showDialog(true)),
     switchLayout: layout => dispatch(switchLayout(layout))
   };
 };

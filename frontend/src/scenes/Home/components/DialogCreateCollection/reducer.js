@@ -3,7 +3,7 @@ import { combineReducers } from 'redux'
 import moviesImporter from './components/MoviesImporter/reducer'
 
 import { dialogs } from 'services/actions/titles/interface'
-import { collectionsMovies } from 'services/actions/titles/api'
+import { collections } from 'services/actions/titles/api'
 
 const defaultState = {
   isAddingACollection: false,
@@ -21,13 +21,13 @@ const main = (state = defaultState, action) => {
         isAddingACollection: action.show
       };
       
-    case collectionsMovies.importStarted:
+    case collections.importStarted:
       return {
         ...state,
         isImportingMovies: true
       };
       
-    case collectionsMovies.importFinished:
+    case collections.importFinished:
       return {
         ...state,
         isImportingMovies: false

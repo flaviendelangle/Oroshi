@@ -5,12 +5,12 @@ export const movieCollections = {
   create: 'CREATE_NEW_COLLECTION'
 };
 
-export const collectionsMovies = {
-  add: 'ADD_MOVIE_TO_COLLECTION',
-  update: 'UPDATE_COLLECTION_MOVIE',
-  remove: 'REMOVE_COLLECTION_FROM_MOVIE',
-  importFinished: 'IMPORT_MOVIES_FINISHED',
-  importStarted: 'IMPORT_MOVIES_STARTED'
+export const collections = {
+  add: 'ADD_ELEMENT_TO_COLLECTION',
+  update: 'UPDATE_COLLECTION_ELEMENT',
+  remove: 'REMOVE_ELEMENT_FROM_COLLECTION',
+  importFinished: 'IMPORT_ELEMENTS_FINISHED',
+  importStarted: 'IMPORT_ELEMENTS_STARTED'
 };
 
 export const movie = {

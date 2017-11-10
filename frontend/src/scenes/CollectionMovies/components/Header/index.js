@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import DocumentTitle from 'react-document-title'
 import ActionSettings from 'material-ui/svg-icons/action/settings'
 
+import { getCollectionState } from 'containers/reducer';
 import Search from './components/Search'
 import OrderMenu from './components/OrderMenu'
 import HeaderOriginal from 'components/Header'
@@ -35,10 +36,11 @@ class Header extends Component {
   
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
+  const root = getCollectionState(state, ownProps.type).header.main;
   return {
-    collection: state.collectionMovies.header.main.collection,
-    title: state.collectionMovies.header.main.title
+    collection: root.collection,
+    title: root.title
   }
 };
 

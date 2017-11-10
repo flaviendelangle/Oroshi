@@ -1,10 +1,30 @@
+.movie-parent {
+    display: inline-block;
+    margin: 20px 10px;
+    position: relative;
+    width: 185px;
+}
+
+.movie-parent:not(.already-in-collection):not(.not-in-collection) {
+    height: 278px;
+}
+
+.movie-parent.already-in-collection, .movie-parent.not-in-collection {
+    height: 320px;
+}
+
+.movie-parent .title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: left;
+}
+
 .movie-container {
     height: 278px;
     width: 185px;
     display: inline-block;
     vertical-align: top;
-    margin: 20px 10px;
-    position: relative;
 }
 
 .movie img {
@@ -14,10 +34,10 @@
 .movie .overlay {
     opacity: 0;
     position: absolute;
-    bottom: 0;
     top: 0;
     left: 0;
     right: 0;
+    height: 270px;
     color: white;
     padding: 4px;
     line-height: 1.5em;
@@ -37,4 +57,21 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.not-in-collection .movie .overlay {
+    cursor: pointer;
+}
+
+.not-in-collection .add-icon {
+    height: 100% !important;
+    width: 100% !important;
+}
+
+.already-in-collection .movie .overlay {
+    font-size: 2em;
+    font-weight: bold;
+    line-height: 2em;
+    height: 184px;
+    padding-top: 90px;
 }

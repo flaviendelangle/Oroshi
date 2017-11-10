@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { Link } from 'react-router-dom'
-import ListCell from 'components/ContentTable/components/List'
+import ListCell from 'components/ContentTable/components/List/index'
 
 export const TABLE_COLUMNS = [
   {

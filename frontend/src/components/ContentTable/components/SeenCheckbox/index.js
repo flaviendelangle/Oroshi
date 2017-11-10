@@ -19,7 +19,7 @@ class SeenCheckbox extends Component {
 
 const mapStateToProps = state => {
   return {
-    movies: state.collectionMovies.moviesData.movies
+    movies: state.collectionMovies.main.movies
   }
 };
 

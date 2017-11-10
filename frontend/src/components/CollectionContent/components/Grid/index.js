@@ -13,6 +13,7 @@ class Grid extends Component {
         data={this.props.data[index]}
         collection={this.props.collection}
         key={key}
+        creationMode={false}
       />
     );
   };

@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 import CollectionContent from 'components/CollectionContent'
 import Movie from 'components/Movie'
-import { TABLE_COLUMNS } from './services/list'
+import { TABLE_COLUMNS } from '../../services/list'
 
 
 class MoviesData extends Component {
@@ -26,7 +26,7 @@ class MoviesData extends Component {
 }
 
 const mapStateToProps = state => {
-  const root = state.collectionMovies.moviesData;
+  const root = state.collectionMovies.main;
 
   return {
     update: root.update,

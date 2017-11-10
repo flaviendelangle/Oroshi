@@ -1,19 +1,19 @@
 import { combineReducers } from 'redux'
 
-import moviesList from './components/Results/reducer'
+import results from './components/Results/reducer'
 import { dialogs } from 'services/actions/titles/interface'
 
 const defaultState = {
-  isAddingAMovie: false
+  show: true
 };
 
 const main = (state = defaultState, action) => {
   
   switch(action.type) {
-    case dialogs.addMovie:
+    case dialogs.addElement:
       return {
         ...state,
-        isAddingAMovie: action.show
+        show: action.show
       };
     default:
       return state;
@@ -23,7 +23,7 @@ const main = (state = defaultState, action) => {
 
 const reducer = combineReducers({
   main,
-  moviesList,
+  results,
 });
 
 

@@ -4,15 +4,16 @@ import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
 import SearchBar from 'material-ui-search-bar'
 
-import Results from './components/Results'
-import { showDialogAddMovie, searchMovies } from './actions'
+import { getCollectionState } from 'containers/reducer';
+import Results from './components/Results/index'
+import { showDialog, search } from './actions'
 
 const searchStyle = {
   margin: '0 auto 20px auto',
   maxWidth: 500
 };
 
-class DialogAddMovie extends Component {
+class DialogAddElement extends Component {
   
   state = {
     query: ''
@@ -30,7 +31,7 @@ class DialogAddMovie extends Component {
     
     return (
         <Dialog
-          title="New movie"
+          title="Complete your collection"
           actions={actions}
           modal={false}
           open={this.props.isOpen}
@@ -44,28 +45,32 @@ class DialogAddMovie extends Component {
             }}
             style={searchStyle}
           />
-          <Results/>
+          <Results
+            type={this.props.type}
+            elementComponent={this.props.elementComponent}
+          />
         </Dialog>
     );
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
+  const root = getCollectionState(state, ownProps.type).dialogAddElement;
   return {
-    isOpen: state.collectionMovies.dialogAddMovie.main.isAddingAMovie,
-    moviesList: state.collectionMovies.dialogAddMovie.moviesList.main.data
+    isOpen: root.main.show,
+    resultsList: root.results.data
   }
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    close: () => dispatch(showDialogAddMovie(false)),
+    close: () => dispatch(showDialog(false)),
     search: (collection, query) => {
       if(query) {
-        dispatch(searchMovies(collection, query));
+        dispatch(search(ownProps.type, collection, query));
       }
     }
   }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(DialogAddMovie);
+export default connect(mapStateToProps, mapDispatchToProps)(DialogAddElement);

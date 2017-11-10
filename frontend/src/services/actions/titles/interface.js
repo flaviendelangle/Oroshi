@@ -1,5 +1,5 @@
 export const dialogs = {
-  addMovie: 'SHOW_DIALOG_ADD_MOVIE',
+  addElement: 'SHOW_DIALOG_ADD_ELEMENT',
   createCollection: 'SHOW_DIALOG_CREATE_COLLECTION',
   importMoviesInCollectionCreation: 'IMPORT_MOVIES_IN_COLLECTION_CREATION'
 };

@@ -10,6 +10,7 @@ import collectionSettings from 'scenes/CollectionSettings/reducer'
 import { notify } from 'services/actions/titles/router'
 
 
+//collections[ownProps.type]
 const appReducer = combineReducers({
   // External modules
   form,
@@ -18,8 +19,8 @@ const appReducer = combineReducers({
   header,
   
   // Scenes
-  collectionMovies,
   collectionSettings,
+  collectionMovies,
   home,
   movie
 });
@@ -41,6 +42,10 @@ const rootReducer = (state, action) => {
     
   }
   
+};
+
+export const getCollectionState = (state, type) => {
+  return state['collection' + type[0].toUpperCase() + type.slice(1)];
 };
 
 

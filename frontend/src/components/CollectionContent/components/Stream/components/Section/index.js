@@ -37,6 +37,7 @@ class Section extends Component {
           data={element}
           collection={this.props.collection}
           key={element.pk}
+          creationMode={false}
         />
       )
     });

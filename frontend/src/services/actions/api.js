@@ -41,7 +41,7 @@ export const _addMovieToCollection = data => {
     data.seen = false;
   }
   return {
-    type: titles.collectionsMovies.add,
+    type: titles.collections.add,
     payload: createMovie(data)
       .then(response => {
         data = {
@@ -61,14 +61,14 @@ export const _addMovieToCollection = data => {
 
 export const _updateMovieInCollection = (collection, id, data) => {
   return {
-    type: titles.collectionsMovies.update,
+    type: titles.collections.update,
     payload: MovieCollectionsAPI.element(collection).movies.partial_update(id, data)
   }
 };
 
 export const _removeMovieFromCollection = (collection, id) => {
   return {
-    type: titles.collectionsMovies.remove,
+    type: titles.collections.remove,
     payload: MovieCollectionsAPI.element(collection).movies.destroy(id)
   }
 };

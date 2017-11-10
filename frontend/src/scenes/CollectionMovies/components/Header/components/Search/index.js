@@ -38,12 +38,12 @@ class Search extends Component {
 }
 
 const mapStateToProps = state => {
-  const layout = state.collectionMovies.moviesData.layout;
+  const layout = state.collectionMovies.main.layout;
   let count;
   if(layout === 'stream') {
-    count = state.collectionMovies.moviesData.stream.getElementCount();
+    count = state.collectionMovies.main.stream.getElementCount();
   } else {
-    count = state.collectionMovies.moviesData.toShow.getElementCount();
+    count = state.collectionMovies.main.toShow.getElementCount();
   }
   return {
     query: state.collectionMovies.header.search.query,

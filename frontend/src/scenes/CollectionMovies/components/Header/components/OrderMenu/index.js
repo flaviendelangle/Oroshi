@@ -1,10 +1,11 @@
-import React, {Component} from 'react'
-import { connect } from 'react-redux'
+import React, {Component} from 'react';
+import { connect } from 'react-redux';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
-import ContentSort from 'material-ui/svg-icons/content/sort'
+import ContentSort from 'material-ui/svg-icons/content/sort';
 
+import { getCollectionState } from 'containers/reducer';
 import { sort } from 'components/CollectionContent/actions'
 
 const containerStyle = {
@@ -84,9 +85,9 @@ class Search extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
   return {
-    layout: state.collectionMovies.moviesData.layout
+    layout: getCollectionState(state, ownProps.type).main.layout
   };
 };
 

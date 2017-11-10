@@ -2,9 +2,10 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import Header from './components/Header'
-import DialogAddMovie from './components/DialogAddMovie'
+import DialogAddElement from 'components/DialogAddElement'
 import MoviesData from './components/MoviesData'
 import Menu from './components/Menu'
+import Movie from 'components/Movie'
 
 import { loadCollection } from './actions'
 
@@ -19,7 +20,11 @@ class CollectionMovies extends Component {
       <div>
         <Header type="movies"/>
         <MoviesData/>
-        <DialogAddMovie collection={this.props.match.params.collection_id}/>
+        <DialogAddElement
+          collection={this.props.match.params.collection_id}
+          elementComponent={Movie}
+          type="movies"
+        />
         <Menu/>
       </div>
     )

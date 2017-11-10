@@ -1,9 +1,6 @@
-import { combineReducers } from 'redux'
-
-import saveButton from './components/SaveButton/reducer'
-import { collectionsMovies } from 'services/actions/titles/api'
+import { collections } from 'services/actions/titles/api'
 import { dialogs } from 'services/actions/titles/interface'
-import { search } from 'services/actions/titles/tmdb'
+import { request } from 'services/actions/titles/publicAPI'
 
 const defaultState = {
   data: {
@@ -11,17 +8,17 @@ const defaultState = {
   }
 };
 
-const main = (state = defaultState, action) => {
+const reducer = (state = defaultState, action) => {
   
   switch(action.type) {
     
-    case search.movies + '_FULFILLED':
+    case request.search + '_FULFILLED':
       return {
         ...state,
         data: action.payload
       };
   
-    case dialogs.addMovie:
+    case dialogs.addElement:
       if(dialogs.show) {
         return state;
       }
@@ -32,7 +29,7 @@ const main = (state = defaultState, action) => {
         }
       };
       
-    case collectionsMovies.add + '_FULFILLED':
+    case collections.add + '_FULFILLED':
       const newResults = state.data.results.map(el => {
         if(el.id === action.payload.tmdbId) {
           el.already_in_collection = true;
@@ -52,11 +49,5 @@ const main = (state = defaultState, action) => {
   }
   
 };
-
-const reducer = combineReducers({
-  main,
-  saveButton
-});
-
 
 export default reducer;

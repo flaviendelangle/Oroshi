@@ -1,4 +1,4 @@
-import { movieCollections, collectionsMovies } from 'services/actions/titles/api'
+import { movieCollections, collections } from 'services/actions/titles/api'
 
 const defaultState = {
   moviesToImport: null,
@@ -24,7 +24,7 @@ const moviesImporterReducer = (state = defaultState, action) => {
         moviesNumber: data.length
       };
     
-    case collectionsMovies.add:
+    case collections.add:
       const keysNumber = state.keysNumber + 1;
       let progress = 0;
       if(state.moviesNumber > 0) {

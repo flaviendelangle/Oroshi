@@ -1,12 +1,12 @@
 import { dialogs } from 'services/actions/titles/interface'
-import { collectionsMovies } from 'services/actions/titles/api'
+import { collections } from 'services/actions/titles/api'
 import { _addMovieToCollection } from 'services/actions/api'
 
 
 export const importMovies = (dispatch, movies) => {
   console.log(movies[0].current_collection);
   dispatch({
-    type: collectionsMovies.importStarted
+    type: collections.importStarted
   });
   return {
     type: dialogs.importMoviesInCollectionCreation,
@@ -17,14 +17,14 @@ export const importMovies = (dispatch, movies) => {
 const importMovie = (dispatch, movies, index) => {
   if(movies.length <= index) {
     dispatch({
-      type: collectionsMovies.importFinished
+      type: collections.importFinished
     });
     return true;
   }
   const movie = movies[index];
   return _addMovieToCollection(movie).payload.then(el => {
     dispatch({
-      type: collectionsMovies.add,
+      type: collections.add,
       data: el
     });
     importMovie(dispatch, movies, ++index);
