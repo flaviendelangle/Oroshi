@@ -20,7 +20,6 @@ export const CollectionsClass = Collections;
 
 
 export const getCollectionAPI = (scene) => {
-  console.log(scene);
   switch(scene) {
     case 'movies':
       return MovieCollectionsAPI;

@@ -12,7 +12,7 @@ export const exportAsCSV = pk => {
     type: collections.csv,
     payload: _loadCollection('movies', pk).payload.then(response => {
       response = prepareElements('movies', response);
-      const movies = response.movies.map(el => {
+      const content = response.content.map(el => {
         return {
           TmdbId: el.tmdbId,
           Title: el.title,
@@ -23,7 +23,7 @@ export const exportAsCSV = pk => {
           Note: el.note
         }
       });
-      const csv = json2csv({ data: movies, fields: collectionFields });
+      const csv = json2csv({ data: content, fields: collectionFields });
       downloadjs(csv, response.title + '.csv', 'text/csv');
       return null;
     })

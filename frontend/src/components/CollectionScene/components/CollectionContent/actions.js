@@ -5,7 +5,9 @@ export const switchLayout = (scene, newLayout) => {
   return {
     type: layout.update,
     layout: newLayout,
-    scene
+    meta: {
+      scene
+    }
   }
 };
 
@@ -14,6 +16,8 @@ export const sort = (scene, type, layout, field, direction) => {
   return {
     type: _sort.update,
     parameters: {layout, field, direction},
-    scene
+    meta: {
+      scene
+    }
   };
 };

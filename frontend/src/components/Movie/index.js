@@ -74,7 +74,7 @@ class Movie extends Component {
           <Actions
             data={this.props.data}
             collection={this.props.collection}
-            type='collection_movies'
+            scene='movies'
           />
         </div>
       )

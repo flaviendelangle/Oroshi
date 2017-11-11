@@ -31,7 +31,7 @@ class ContentTable extends Component {
         return (
           <SeenCheckbox
             data={all}
-            type={this.params.type}
+            scene={this.props.scene}
           />
         )
       }
@@ -47,6 +47,7 @@ class ContentTable extends Component {
   };
   
   render() {
+    console.log(this.params);
     return (
         <div style={containerStyle}>
           <ScrollArea

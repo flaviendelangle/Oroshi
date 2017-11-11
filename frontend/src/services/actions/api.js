@@ -22,7 +22,10 @@ export const _loadCollection = (scene, pk) => {
         if(error === 'Error: Not Found') {
           return undefined;
         }
-      })
+      }),
+    meta: {
+      scene
+    }
   }
 };
 
@@ -60,10 +63,14 @@ export const _addMovieToCollection = data => {
   }
 };
 
-export const _updateMovieInCollection = (collection, id, data) => {
+
+export const _updateElementInCollection = (scene, collection, id, data) => {
   return {
     type: titles.collections.update,
-    payload: MovieCollectionsAPI.element(collection).movies.partial_update(id, data)
+    payload: getCollectionAPI(scene).element(collection)[scene].partial_update(id, data),
+    meta: {
+      scene
+    }
   }
 };
 

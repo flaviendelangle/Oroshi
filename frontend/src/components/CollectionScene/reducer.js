@@ -16,9 +16,8 @@ import { addSeenToElements, addCollectionToElements } from 'scenes/CollectionSet
 
 const reducerBuilder = _scene => {
   
-  const scene = _scene;
-  const ListGenerator = getListGenerator(scene);
-  const StreamGenerator = getStreamGenerator(scene);
+  const ListGenerator = getListGenerator(_scene);
+  const StreamGenerator = getStreamGenerator(_scene);
   
   const defaultOrder = {
     default: {
@@ -44,10 +43,8 @@ const reducerBuilder = _scene => {
   };
   
   
-  const main = (state = defaultState, action) => {
-    
-    if(action.scene && action.scene !== scene) {
-      console.log('STATE REJECTED', action);
+  const main = (scene, state = defaultState, action) => {
+    if(action.meta && action.meta.scene && action.meta.scene !== scene) {
       return state;
     }
     
@@ -80,7 +77,7 @@ const reducerBuilder = _scene => {
       case collections.add + '_FULFILLED':
         newContent = sortElements(
           addCollectionToElements(
-            action.scene,
+            action.meta.scene,
             state.content.concat([action.payload]),
             state.collection
           ), state.order.default
@@ -112,7 +109,7 @@ const reducerBuilder = _scene => {
         };
       
       case collections.update + '_FULFILLED':
-        newContent = addSeenToElements(action.scene, state.content, action.payload);
+        newContent = addSeenToElements(action.meta.scene, state.content, action.payload);
         return {
           ...state,
           content: newContent,
@@ -164,15 +161,12 @@ const reducerBuilder = _scene => {
     
   };
   
-  const reducer = combineReducers({
-    main,
+  return combineReducers({
+    main: main.bind(this, _scene),
     menu,
     dialogAddElement,
     header,
   });
-  
-  
-  return reducer;
   
 };
 

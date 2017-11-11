@@ -1,13 +1,8 @@
-import { updateMovieInCollection } from 'scenes/CollectionMovies/actions'
+import { _updateElementInCollection } from 'services/actions/api'
 
-export const update = (data, type) => {
+export const update = (scene, data) => {
   const clearedData = {
       seen: !data.seen
   };
-  switch(type){
-    case 'movies':
-      return updateMovieInCollection(data.collection, data.pk, clearedData);
-    default:
-      return null;
-  }
+  return _updateElementInCollection(scene, data.collection, data.pk, clearedData);
 };

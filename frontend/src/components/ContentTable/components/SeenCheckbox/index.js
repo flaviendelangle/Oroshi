@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Checkbox from 'material-ui/Checkbox'
 
+import { getCollectionState } from 'containers/reducer';
 import { update } from './actions'
 
 class SeenCheckbox extends Component {
@@ -10,22 +11,25 @@ class SeenCheckbox extends Component {
     return (
       <Checkbox
         checked={this.props.data.seen}
-        onCheck={() => this.props.update(this.props.data, this.props.type)}
+        onCheck={() => this.props.update(this.props.data)}
       />
     )
   }
   
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
+  const root = getCollectionState(state, ownProps.scene).main;
   return {
-    movies: state.collectionMovies.main.movies
+    movies: root.content
   }
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    update: (data, type) => dispatch(update(data, type))
+    update: data => {
+      dispatch(update(ownProps.scene, data))
+    }
   };
 };
 

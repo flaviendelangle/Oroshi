@@ -40,7 +40,7 @@ class CollectionSource extends Component {
           value={collection.pk}
           label={collection.title}
           className="radio-button"
-          key={collection.pk}
+          key={collection.type + '_' + collection.pk}
         />
       )
     });
