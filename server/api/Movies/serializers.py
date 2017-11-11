@@ -17,6 +17,7 @@ class MoviesSerializer(serializers.ModelSerializer):
             'pk': {'read_only': True},
         }
 
+
 class MoviesWriteSerializer(serializers.ModelSerializer):
 
     class Meta:

@@ -12,7 +12,7 @@ class CollectionList extends Component {
     return this.props.data.map(collection => {
       return (
         <CollectionBox
-          key={collection.pk}
+          key={collection.type + '_' + collection.pk}
           data={collection}
           editing={this.props.editing}
         />

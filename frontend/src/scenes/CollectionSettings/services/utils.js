@@ -1,27 +1,23 @@
 const seenAdder = {
   
-  movies: (movies, seen) => {
-    return movies.map(movie => {
+  movies: (elements, seen) => {
+    return elements.map(element => {
       const matches = seen.filter(seen => {
-        return seen.movie === movie.pk;
+        return seen.movie === element.pk;
       });
       return {
-        ...movie,
+        ...element,
         seen: matches.length > 0
       };
     });
-  }
+  },
   
-};
-
-const collectionAdder = {
-  
-  movies: (movies, pk) => {
-    return movies.map(movie => {
+  tv_shows: (elements, seen) => {
+    return elements.map(element => {
       return {
-        ...movie,
-        collection: pk
-      }
+        ...element,
+        seen: false
+      };
     });
   }
   
@@ -30,21 +26,32 @@ const collectionAdder = {
 const preparators = {
   
   movies: data => {
-    data.movies = seenAdder.movies(data.movies, data.seen);
-    data.movies = collectionAdder.movies(data.movies, data.pk);
-    return data
+    data.content = seenAdder.movies(data.content, data.seen);
+    data.content = addCollectionToElements('movies', data.content, data.pk);
+    return data;
+  },
+  
+  tv_shows: data => {
+    data.content = seenAdder.tv_shows(data.content, data.seen);
+    data.content = addCollectionToElements('tv_shows', data.content);
+    return data;
   }
 };
 
 
 
 
-export const addSeenToElements =  (scene, movies, seen) => {
-  return seenAdder[scene](movies, seen);
+export const addSeenToElements =  (scene, elements, seen) => {
+  return seenAdder[scene](elements, seen);
 };
 
-export const addCollectionToElements = (scene, movies, pk) => {
-  return collectionAdder[scene](movies, pk);
+export const addCollectionToElements = (scene, elements, pk) => {
+  return elements.map(element => {
+    return {
+      ...element,
+      collection: pk
+    }
+  });
 };
 
 export const prepareElements = (scene, data) => {

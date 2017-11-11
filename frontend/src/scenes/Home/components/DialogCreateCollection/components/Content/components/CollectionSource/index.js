@@ -4,16 +4,16 @@ import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 
 import './style.css'
 
-class CollectionType extends Component {
+class CollectionSource extends Component {
   
   state = {
-    type: 'blank',
+    source: 'blank',
     external: 'csv_file',
     duplicate: 0
   };
   
-  handleTypeChange = (proxy, type) => {
-    this.setState({ type });
+  handleSourceChange = (proxy, source) => {
+    this.setState({ source });
     this.handleOnChange();
   };
   
@@ -47,7 +47,7 @@ class CollectionType extends Component {
   };
   
   componentDidMount() {
-    if(this.props.initialValues.hasOwnProperty('type')) {
+    if(this.props.initialValues.hasOwnProperty('source')) {
       this.setState(this.props.initialValues);
     } else {
       this.handleOnChange();
@@ -56,13 +56,13 @@ class CollectionType extends Component {
   
   render() {
     return (
-      <div className={'collection-type ' + this.state.type}>
+      <div className={'collection-source ' + this.state.source}>
         <div>
           <RadioButtonGroup
-            name="collection_type"
+            name="collection_source"
             defaultSelected="blank"
-            onChange={this.handleTypeChange}
-            valueSelected={this.state.type}
+            onChange={this.handleSourceChange}
+            valueSelected={this.state.source}
           >
             <RadioButton
               value="blank"
@@ -133,4 +133,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(CollectionType);
+)(CollectionSource);

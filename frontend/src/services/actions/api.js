@@ -1,5 +1,6 @@
 import { MovieCollectionsAPI } from 'services/api/movieCollections'
 import { MoviesAPI } from 'services/api/movies'
+import { getCollectionAPI } from 'services/api/collections'
 import MoviesTMDB from 'services/TheMovieDatabaseJS/movies'
 
 import * as titles from 'services/titles/api'
@@ -10,24 +11,18 @@ import { date } from 'services/utils'
  */
 
 export const _loadCollection = (scene, pk) => {
-  return collectionLoaders[scene](pk);
-};
-
-const collectionLoaders = {
-  movies: pk => {
-    return {
-      type: titles.collectionContent.load,
-      payload: MovieCollectionsAPI.retrieve(pk)
-        .then(response => {
-          return response;
-        })
-        .catch(error => {
-          error = error.toString();
-          if(error === 'Error: Not Found') {
-            return undefined;
-          }
-        })
-    }
+  return {
+    type: titles.collectionContent.load,
+    payload: getCollectionAPI(scene).retrieve(pk)
+      .then(response => {
+        return response;
+      })
+      .catch(error => {
+        error = error.toString();
+        if(error === 'Error: Not Found') {
+          return undefined;
+        }
+      })
   }
 };
 

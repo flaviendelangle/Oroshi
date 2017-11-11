@@ -3,6 +3,7 @@ from rest_framework.decorators import list_route
 from rest_framework.response import Response
 
 from api.MovieCollections.views import MovieCollectionsViewSet
+from api.TVShowCollections.views import TVShowCollectionsViewSet
 
 
 class CollectionsViewSet(viewsets.ViewSet):
@@ -12,7 +13,10 @@ class CollectionsViewSet(viewsets.ViewSet):
         movies = MovieCollectionsViewSet.get_settings_list()
         movies = CollectionsViewSet.addType(movies, 'movies')
 
-        data = movies
+        tv_shows = TVShowCollectionsViewSet.get_settings_list()
+        tv_shows = CollectionsViewSet.addType(tv_shows, 'tv_shows')
+
+        data = movies + tv_shows
 
         return Response(data)
 

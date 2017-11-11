@@ -2,33 +2,33 @@
     margin-top: 15px;
 }
 
-.collection-type {
+.collection-source {
     width: 570px;
     margin: auto;
 }
 
-.collection-type > div {
+.collection-source > div {
     vertical-align: top;
     display: inline-block;
 }
 
-.collection-type > div:first-child {
+.collection-source > div:first-child {
     width: 290px;
 }
 
-.collection-type > div:not(:first-child) {
+.collection-source > div:not(:first-child) {
     width: 200px;
 }
 
-.collection-type > div {
+.collection-source > div {
     margin: 0 20px;
 }
 
-.collection-type:not(.external) .external-content {
+.collection-source:not(.external) .external-content {
     display: none;
 }
 
-.collection-type:not(.duplicate) .duplicate-content {
+.collection-source:not(.duplicate) .duplicate-content {
     display: none;
 }
 

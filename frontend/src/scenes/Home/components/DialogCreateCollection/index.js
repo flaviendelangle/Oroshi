@@ -50,9 +50,9 @@ class DialogCreateCollection extends Component {
   };
   
   create = () => {
-    let {data, moviesToImport} = this.child.submit();
-    if(moviesToImport) {
-      moviesToImport = moviesToImport.then(data => {
+    let { type, data, elementsToImport } = this.child.submit();
+    if(elementsToImport) {
+      elementsToImport = elementsToImport.then(data => {
         this.setState({
           importerMode: true,
           stepIndex: 0
@@ -63,11 +63,11 @@ class DialogCreateCollection extends Component {
     else {
       this.close();
     }
-    this.props.create(data, moviesToImport);
+    this.props.create(type, data, elementsToImport);
   };
 
   nextStep = () => {
-    if(this.state.stepIndex === 1) {
+    if(this.state.stepIndex === 2) {
       this.props.submitConfiguration();
     } else {
       this.setState({ stepIndex: ++this.state.stepIndex });
@@ -87,7 +87,7 @@ class DialogCreateCollection extends Component {
       actions.push(this.actions.close);
     }
     if(!this.state.importerMode) {
-      if(this.state.stepIndex < 2) {
+      if(this.state.stepIndex < 3) {
         actions.push(this.actions.next);
       } else {
         actions.push(this.actions.save);
@@ -145,7 +145,7 @@ class DialogCreateCollection extends Component {
 
 const mapStateToProps = state => {
   return {
-    isOpen: state.home.dialogCreateCollection.main.isAddingACollection,
+    isOpen: state.home.dialogCreateCollection.main.show,
     collections: state.home.main.collections,
     update: state.home.dialogCreateCollection.main.update,
     isImportingMovies: state.home.dialogCreateCollection.main.isImportingMovies

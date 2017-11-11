@@ -66,7 +66,7 @@ const reducerBuilder = _scene => {
         api.set_config({
           include_adult: action.payload.adult_content
         });
-        newContent = sortElements(action.payload.movies, state.order.default);
+        newContent = sortElements(action.payload.content, state.order.default);
         return {
           ...state,
           collection: action.payload.pk,

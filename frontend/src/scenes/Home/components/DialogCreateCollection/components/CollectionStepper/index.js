@@ -12,6 +12,9 @@ class CollectionStepper extends Component {
           <StepLabel>Choose type</StepLabel>
         </Step>
         <Step>
+          <StepLabel>Choose source</StepLabel>
+        </Step>
+        <Step>
           <StepLabel>Configure</StepLabel>
         </Step>
         <Step>

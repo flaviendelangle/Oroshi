@@ -20,7 +20,8 @@ const appReducer = combineReducers({
   
   // Scenes
   collectionSettings,
-  collectionMovies: collection('movies'),
+  collection_movies: collection('movies'),
+  collection_tv_shows: collection('tv_shows'),
   home,
   movie
 });
@@ -44,8 +45,8 @@ const rootReducer = (state, action) => {
   
 };
 
-export const getCollectionState = (state, type) => {
-  return state['collection' + type[0].toUpperCase() + type.slice(1)];
+export const getCollectionState = (state, scene) => {
+  return state['collection_' + scene];
 };
 
 

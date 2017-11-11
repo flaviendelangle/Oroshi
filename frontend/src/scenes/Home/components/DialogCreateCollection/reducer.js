@@ -6,7 +6,7 @@ import { dialogs } from 'services/titles/interface'
 import { collections } from 'services/titles/api'
 
 const defaultState = {
-  isAddingACollection: false,
+  show: false,
   collections: [],
   isImportingMovies: false
 };
@@ -18,7 +18,7 @@ const main = (state = defaultState, action) => {
     case dialogs.createCollection:
       return {
         ...state,
-        isAddingACollection: action.show
+        show: action.show
       };
       
     case collections.importStarted:

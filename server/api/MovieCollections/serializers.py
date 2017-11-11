@@ -6,11 +6,11 @@ from api.Movies.serializers import MoviesSerializer
 
 class MovieCollectionsSerializer(serializers.ModelSerializer):
 
-    movies = MoviesSerializer(many=True)
+    content = MoviesSerializer(many=True)
 
     class Meta:
         model = MovieCollections
-        fields = ('pk','title','hash','movies', 'adult_content')
+        fields = ('pk', 'title', 'hash', 'content', 'adult_content')
         extra_kwargs = {
             'pk': {'read_only': True},
             'movies': {'read_only': True}
