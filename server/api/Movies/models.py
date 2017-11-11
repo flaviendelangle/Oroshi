@@ -3,6 +3,7 @@ from django.db import models
 from api.Directors.models import Directors
 from api.Genres.models import Genres
 
+
 class Movies(models.Model):
     title = models.CharField(max_length=1000, default="")
     tmdbId = models.IntegerField(default=0)

@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import Header from 'components/CollectionHeader'
-import DialogAddElement from 'components/DialogAddElement'
-import CollectionContent from 'components/CollectionContent'
-import Menu from 'components/CollectionMenu'
+import Header from './components/Header'
+import DialogAddElement from './components/DialogAddElement'
+import CollectionContent from './components/CollectionContent'
+import Menu from './components/Menu'
 
 import { loadCollection } from './actions'
 

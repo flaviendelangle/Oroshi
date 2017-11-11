@@ -1,5 +1,5 @@
 
-class Search {
+class ListGenerator {
   
   regexp = new RegExp('([a-zA-Z0-9]+):([a-zA-Z0-9]+)');
   query;
@@ -86,6 +86,6 @@ class Search {
   
 }
 
-Search.lastValue = null;
+export default ListGenerator;
 
-export default Search;
+

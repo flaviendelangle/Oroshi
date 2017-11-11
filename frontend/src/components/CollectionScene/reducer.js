@@ -1,47 +1,48 @@
 import { combineReducers } from 'redux'
 
-import dialogAddElement from '../DialogAddElement/reducer'
-import menu from '../CollectionMenu/reducer'
-import header from '../CollectionHeader/reducer'
+import dialogAddElement from './components/DialogAddElement/reducer'
+import menu from './components/Menu/reducer'
+import header from './components/Header/reducer'
 
 import { collectionContent, collections } from 'services/titles/api'
 import { sort, search } from 'services/titles/data'
 import { layout } from 'services/titles/interface'
 import { getValue } from 'services/localstorage'
 import api from 'services/TheMovieDatabaseJS/index'
+import { getListGenerator, getStreamGenerator } from 'services/content/'
 
 import { sortElements, setSortParameters, setLayoutParameters } from 'scenes/CollectionMovies/services/utils'
-import StreamGenerator from 'scenes/CollectionMovies/services/streamgenerator'
-import Search from 'scenes/CollectionMovies/services/search'
 import { addSeenToElements, addCollectionToElements } from 'scenes/CollectionSettings/services/utils'
-
-const defaultOrder = {
-  default: {
-    field: 'title',
-    direction: 'asc'
-  },
-  stream: {
-    field: 'directors',
-    direction: 'desc'
-  }
-};
-
-const defaultState = {
-  content: [],
-  query: '',
-  collection: 0,
-  found: false,
-  loaded: false,
-  layout: getValue('layout') || 'grid',
-  order: getValue('order') || defaultOrder,
-  stream: new StreamGenerator(),
-  toShow: new Search()
-};
-
 
 const reducerBuilder = _scene => {
   
   const scene = _scene;
+  const ListGenerator = getListGenerator(scene);
+  const StreamGenerator = getStreamGenerator(scene);
+  
+  const defaultOrder = {
+    default: {
+      field: 'title',
+      direction: 'asc'
+    },
+    stream: {
+      field: 'directors',
+      direction: 'desc'
+    }
+  };
+  
+  const defaultState = {
+    content: [],
+    query: '',
+    collection: 0,
+    found: false,
+    loaded: false,
+    layout: getValue('layout') || 'grid',
+    order: getValue('order') || defaultOrder,
+    stream: new StreamGenerator(),
+    toShow: new ListGenerator()
+  };
+  
   
   const main = (state = defaultState, action) => {
     
@@ -71,7 +72,7 @@ const reducerBuilder = _scene => {
           collection: action.payload.pk,
           content: newContent,
           stream: new StreamGenerator(newContent, state.query, state.order.stream),
-          toShow: new Search(newContent, state.query),
+          toShow: new ListGenerator(newContent, state.query),
           found: true,
           loaded: true
         };
@@ -88,7 +89,7 @@ const reducerBuilder = _scene => {
           ...state,
           content: newContent,
           stream: new StreamGenerator(newContent, state.query, state.order.stream),
-          toShow: new Search(newContent, state.query)
+          toShow: new ListGenerator(newContent, state.query)
         };
       
       case collections.remove + '_FULFILLED':
@@ -107,7 +108,7 @@ const reducerBuilder = _scene => {
           ...state,
           content: newContent,
           stream: new StreamGenerator(newContent, state.query, state.order.stream),
-          toShow: new Search(newContent, state.query)
+          toShow: new ListGenerator(newContent, state.query)
         };
       
       case collections.update + '_FULFILLED':
@@ -116,7 +117,7 @@ const reducerBuilder = _scene => {
           ...state,
           content: newContent,
           stream: new StreamGenerator(newContent, state.query, state.order.stream),
-          toShow: new Search(newContent, state.query)
+          toShow: new ListGenerator(newContent, state.query)
         };
       
       case sort.update:
@@ -135,7 +136,7 @@ const reducerBuilder = _scene => {
           order: newOrder,
           content: newContent,
           stream: new StreamGenerator(newContent, state.query, newOrder.stream),
-          toShow: new Search(newContent, state.query),
+          toShow: new ListGenerator(newContent, state.query),
           update: Math.random()
         };
       
@@ -144,7 +145,7 @@ const reducerBuilder = _scene => {
           ...state,
           query: action.query,
           stream: new StreamGenerator(state.content, action.query, state.order.stream),
-          toShow: new Search(state.content, action.query)
+          toShow: new ListGenerator(state.content, action.query)
         };
       
       case layout.update: // OK
@@ -154,7 +155,7 @@ const reducerBuilder = _scene => {
           query: '',
           layout: action.layout,
           stream: new StreamGenerator(state.content, '', state.order.stream),
-          toShow: new Search(state.content, '')
+          toShow: new ListGenerator(state.content, '')
         };
       
       default:

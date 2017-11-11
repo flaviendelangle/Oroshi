@@ -2,10 +2,10 @@ import React, {Component} from 'react'
 import { connect } from 'react-redux'
 import CircularProgress from 'material-ui/CircularProgress';
 
-import List from './components/List'
-import Help from './components/Help'
-import Grid from './components/Grid'
-import Stream from './components/Stream'
+import List from './components/List/index'
+import Help from './components/Help/index'
+import Grid from './components/Grid/index'
+import Stream from './components/Stream/index'
 import { getCollectionState } from 'containers/reducer';
 
 const progressStyle = {

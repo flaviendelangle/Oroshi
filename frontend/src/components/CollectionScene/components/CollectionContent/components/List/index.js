@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import ContentTable from 'components/ContentTable'
+import ContentTable from 'components/ContentTable/index'
 import { sort } from './actions'
 
 class List extends ContentTable {

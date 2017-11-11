@@ -4,7 +4,7 @@ import ScrollArea from 'react-scrollbar'
 import IconButton from 'material-ui/IconButton'
 import NavigationMore from 'material-ui/svg-icons/navigation/more-horiz'
 
-import Section from './components/Section'
+import Section from './components/Section/index'
 
 const CONFIG = {
   pageLength: 10

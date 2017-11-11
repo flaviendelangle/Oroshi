@@ -1,10 +1,10 @@
 
 class StreamGenerator {
   
-  labelField = 'name';
-  direction = 'desc';
-  
-  constructor(data=[], query='', key={field: 'directors'}) {
+  constructor(labelField, direction, data=[], query='', key={field: 'directors'}) {
+    this.labelField = labelField;
+    this.direction = direction;
+    
     this.data = data;
     this.query = query.toUpperCase().trim();
     this.key = key;
@@ -12,7 +12,9 @@ class StreamGenerator {
   }
   
   build = () => {
-    this.prepareData();
+    if(this.prepareData) {
+      this.prepareData();
+    }
     this.buildKeys();
     this.organize();
     this.sortResults();
@@ -20,20 +22,6 @@ class StreamGenerator {
   
   getElementCount = () => {
     return this.data.length;
-  };
-  
-  prepareData = () => {
-    if(this.key.field === 'release') {
-      this.data = this.data.map(el => {
-        return {
-          ...el,
-          release: [{
-            name: String(el.release),
-            pk: el.release
-          }]
-        };
-      });
-    }
   };
   
   buildKeys = () => {
@@ -78,7 +66,7 @@ class StreamGenerator {
         valueA = a.content.length;
         valueB = b.content.length;
       }
-
+      
       if(valueA > valueB)
         comparison = mul;
       else if(valueA < valueB)

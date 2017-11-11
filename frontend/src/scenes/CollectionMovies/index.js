@@ -8,7 +8,7 @@ class CollectionMovies extends Component {
   
   config = {
     listColumns: TABLE_COLUMNS,
-    elementComponent: Movie,
+    elementComponent: Movie
   };
   
   render() {
