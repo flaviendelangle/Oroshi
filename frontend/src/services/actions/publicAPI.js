@@ -1,8 +1,51 @@
 import searchAPI from 'services/TheMovieDatabaseJS/search';
-import { MoviesAPI } from 'services/api/movies';
-import { MovieCollectionsAPI } from 'services/api/movieCollections';
-
+import { getCollectionAPI, getElementAPI } from 'services/api/collections';
 import { _addMovieToCollection } from './api';
+
+
+const tmdb = {
+  
+  search: (scene, collection, query) => {
+    const searchKey = (scene === 'movies') ? 'movies' : 'tvShow';
+  
+    const filterById = (movie, el) => {
+      return movie.id === el.tmdbId;
+    };
+  
+    let elements, IDs;
+    return searchAPI[searchKey](query)
+      .then(results => {
+        elements = results;
+        IDs = elements.results.map(el => el.id);
+        if(IDs.length === 0) {
+          throw new Error('No result for this search');
+        }
+        return getElementAPI(scene).serialize(IDs, 'tmdbId');
+      })
+      .then(exist => {
+        for(let i = 0; i < elements.results.length; i++) {
+          const match = exist.filter(filterById.bind(this, elements.results[i]));
+          elements.results[i].local = (match.length > 0) ? match[0] : undefined;
+        }
+        return getCollectionAPI(scene).element(collection)[scene].exist(IDs, 'tmdbId');
+      })
+      .catch(error => {
+        return [];
+      })
+      .then(exist => {
+        for(let i = 0; i < elements.results.length; i++) {
+          elements.results[i].already_in_collection = exist[elements.results[i].id];
+          elements.results[i].current_collection = collection;
+        }
+        return elements;
+      })
+      .catch(error => {
+        return [];
+      })
+  }
+  
+};
+
 
 export const movies = {
   
@@ -10,41 +53,15 @@ export const movies = {
     return _addMovieToCollection(data);
   },
   
-  search: (collection, query) => {
+  search: (collection, query) => tmdb.search('movies', collection, query)
+};
+
+export const tv_shows = {
   
-    const filterById = (movie, el) => {
-      return movie.id === el.tmdbId;
-    };
-    
-    let movies, IDs;
-    return searchAPI.movies(query)
-      .then(results => {
-          movies = results;
-          IDs = movies.results.map(el => el.id);
-          if(IDs.length === 0) {
-            throw new Error('No result for this search');
-          }
-          return MoviesAPI.serialize(IDs, 'tmdbId');
-        })
-          .then(exist => {
-            for(let i = 0; i < movies.results.length; i++) {
-              const match = exist.filter(filterById.bind(this, movies.results[i]));
-              movies.results[i].local = (match.length > 0) ? match[0] : undefined;
-            }
-            return MovieCollectionsAPI.element(collection).movies.exist(IDs, 'tmdbId');
-          })
-          .catch(error => {
-            return [];
-          })
-          .then(exist => {
-            for(let i = 0; i < movies.results.length; i++) {
-              movies.results[i].already_in_collection = exist[movies.results[i].id];
-              movies.results[i].current_collection = collection;
-            }
-            return movies;
-          })
-          .catch(error => {
-            return [];
-          })
-      }
+  addElementToCollection: (data) => {
+    return _addMovieToCollection(data);
+  },
+  
+  search: (collection, query) => tmdb.search('tv_shows', collection, query)
+  
 };

@@ -1,14 +1,14 @@
 import { combineReducers } from 'redux'
 
-import moviesImporter from './components/MoviesImporter/reducer'
+import contentImporter from './components/ContentImporter/reducer'
 
 import { dialogs } from 'services/titles/interface'
 import { collections } from 'services/titles/api'
 
 const defaultState = {
-  show: false,
+  show: true,
   collections: [],
-  isImportingMovies: false
+  isImportingContent: false
 };
 
 const main = (state = defaultState, action) => {
@@ -24,13 +24,13 @@ const main = (state = defaultState, action) => {
     case collections.importStarted:
       return {
         ...state,
-        isImportingMovies: true
+        isImportingContent: true
       };
       
     case collections.importFinished:
       return {
         ...state,
-        isImportingMovies: false
+        isImportingContent: false
       };
   
     default:
@@ -41,7 +41,7 @@ const main = (state = defaultState, action) => {
 
 const reducer = combineReducers({
   main,
-  moviesImporter
+  contentImporter
 });
 
 

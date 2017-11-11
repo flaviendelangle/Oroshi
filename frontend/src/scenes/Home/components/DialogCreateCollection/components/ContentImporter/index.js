@@ -5,29 +5,29 @@ import { List } from 'material-ui/List'
 
 import Line from './components/Line'
 import Progress from './components/Progress'
-import { importMovies } from './actions'
+import { importContent } from './actions'
 
-class MoviesImporter extends Component {
+class ContentImporter extends Component {
   
-  movies = [];
+  elements = [];
   
   constructor(props) {
     super(props);
-    if(props.moviesToImport) {
-      this.movies = props.moviesToImport;
+    if(props.contentToImport) {
+      this.elements = props.contentToImport;
     }
   }
   
   componentWillReceiveProps(newProps) {
-    if(!this.props.moviesToImport && newProps.moviesToImport) {
-      this.props.importMovies(newProps.moviesToImport);
-      this.movies = newProps.moviesToImport;
+    if(!this.props.contentToImport && newProps.contentToImport) {
+      this.props.importContent(newProps.contentToImport);
+      this.elements = newProps.contentToImport;
     }
   }
   
   renderLines = () => {
-    return this.movies.map(movie => {
-      return (<Line data={movie} key={movie.tmdbId} />);
+    return this.elements.map(el => {
+      return (<Line data={el} key={el.tmdbId} />);
     })
   };
   
@@ -49,20 +49,20 @@ class MoviesImporter extends Component {
 }
 
 const mapStateToProps = state => {
-  const root = state.home.dialogCreateCollection.moviesImporter;
+  const root = state.home.dialogCreateCollection.contentImporter;
   return {
-    moviesToImport: root.moviesToImport,
+    contentToImport: root.contentToImport,
     progress: root.progress
   }
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    importMovies: movies => dispatch(importMovies(dispatch, movies))
+    importContent: movies => dispatch(importContent(ownProps.scene, dispatch, movies))
   };
 };
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(MoviesImporter);
+)(ContentImporter);

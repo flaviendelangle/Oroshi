@@ -1,0 +1,32 @@
+.actions {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    line-height: 2em;
+    height: 2em;
+    padding: 0 10px;
+    background: rgba(255,255,255,0.5);
+    color: black;
+}
+
+.actions > div {
+    height: 100%;
+    display: inline-block;
+}
+
+.actions > div > div {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.actions > div > div:last-child {
+    margin-left: 5px;
+}
+
+.actions > .delete-movie {
+    position: absolute;
+    right: 10px;
+    top: calc(1em - 12px);
+    cursor: pointer;
+}

@@ -8,7 +8,7 @@ class TVShowCollections extends API {
   };
   
   nested_routes = {
-    movies: TVShowsClass
+    tv_shows: TVShowsClass
   };
   
   settings = pk => {

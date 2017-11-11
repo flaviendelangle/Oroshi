@@ -6,7 +6,7 @@ import FlatButton from 'material-ui/FlatButton'
 
 import CollectionStepper from './components/CollectionStepper'
 import Content from './components/Content'
-import MoviesImporter from './components/MoviesImporter'
+import ContentImporter from './components/ContentImporter'
 import { showDialogCreateCollection, createCollection } from './actions'
 
 const fromName = 'DialogCreateCollectionConfigurationForm';
@@ -54,7 +54,7 @@ class DialogCreateCollection extends Component {
     if(elementsToImport) {
       elementsToImport = elementsToImport.then(data => {
         this.setState({
-          importerMode: true,
+          importerMode: type,
           stepIndex: 0
         });
         return data;
@@ -83,7 +83,7 @@ class DialogCreateCollection extends Component {
     if(this.state.stepIndex > 0) {
       actions.push(this.actions.back);
     }
-    if(!this.props.isImportingMovies) {
+    if(!this.props.isImportingContent) {
       actions.push(this.actions.close);
     }
     if(!this.state.importerMode) {
@@ -112,7 +112,7 @@ class DialogCreateCollection extends Component {
       );
     } else {
       return (
-        <MoviesImporter/>
+        <ContentImporter scene={this.state.importerMode} />
       );
     }
   };
@@ -148,7 +148,7 @@ const mapStateToProps = state => {
     isOpen: state.home.dialogCreateCollection.main.show,
     collections: state.home.main.collections,
     update: state.home.dialogCreateCollection.main.update,
-    isImportingMovies: state.home.dialogCreateCollection.main.isImportingMovies
+    isImportingContent: state.home.dialogCreateCollection.main.isImportingContent
   }
 };
 

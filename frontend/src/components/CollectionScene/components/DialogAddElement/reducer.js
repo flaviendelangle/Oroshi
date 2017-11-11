@@ -4,7 +4,7 @@ import results from './components/Results/reducer'
 import { dialogs } from 'services/titles/interface'
 
 const defaultState = {
-  show: false
+  show: true
 };
 
 const main = (state = defaultState, action) => {

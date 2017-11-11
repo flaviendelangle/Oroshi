@@ -1,6 +1,8 @@
 import API  from './index'
 import { MovieCollectionsAPI } from './movieCollections';
 import { TVShowCollectionsAPI } from './tvShowsCollections';
+import { MoviesAPI } from './movies'
+import { TVShowsAPI } from './tvShows'
 
 class Collections extends API {
   
@@ -27,6 +29,19 @@ export const getCollectionAPI = (scene) => {
     case 'tv_shows':
       return TVShowCollectionsAPI;
       
+    default:
+      return null;
+  }
+};
+
+export const getElementAPI = (scene) => {
+  switch(scene) {
+    case 'movies':
+      return MoviesAPI;
+    
+    case 'tv_shows':
+      return TVShowsAPI;
+    
     default:
       return null;
   }

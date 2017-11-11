@@ -8,6 +8,7 @@ from api.MovieCollections.views import MovieCollectionsViewSet
 from api.TVShowCollections.views import TVShowCollectionsViewSet
 
 from api.Movies.views import MoviesViewSet, CollectionMoviesViewSet
+from api.TVShows.views import TVShowsViewSet, CollectionTVShowsViewet
 
 from api.Directors.views import DirectorsViewSet
 from api.Genres.views import GenresViewSet
@@ -23,10 +24,15 @@ tv_shows_collections_route = router.register(r'^tv_show_collections', TVShowColl
 router.register(r'^directors', DirectorsViewSet, base_name="directors")
 router.register(r'^genres', GenresViewSet, base_name="genres")
 router.register(r'^movies', MoviesViewSet, base_name="movies")
+router.register(r'^tv_shows', MoviesViewSet, base_name="tv_shows")
 
 movie_collections_routes.register(r'movies', CollectionMoviesViewSet,
                         base_name="collection_movies",
                         parents_query_lookups=["collection_movies"])
+
+movie_collections_routes.register(r'tv_shows', CollectionTVShowsViewet,
+                                  base_name="collection_tvshows",
+                                  parents_query_lookups=["collection_tvshows"])
 
 urlpatterns = [
     url(r'^api/', include(router.urls)),

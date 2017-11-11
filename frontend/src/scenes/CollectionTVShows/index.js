@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 
 import CollectionScene from 'components/CollectionScene';
+import TVShow from 'components/TVShow';
 import { TABLE_COLUMNS } from './services/list';
 
 class CollectionTVShows extends Component {
   
   config = {
     listColumns: TABLE_COLUMNS,
-    elementComponent: null
+    elementComponent: TVShow
   };
   
   render() {

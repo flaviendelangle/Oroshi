@@ -23,7 +23,7 @@ class Line extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const root = state.home.dialogCreateCollection.moviesImporter;
+  const root = state.home.dialogCreateCollection.contentImporter;
   return {
     done: !!root.created[ownProps.data.tmdbId]
   }

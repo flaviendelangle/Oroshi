@@ -1,34 +1,34 @@
 import { collectionContent, collections } from 'services/titles/api'
 
 const defaultState = {
-  moviesToImport: null,
+  contentToImport: null,
   created: {},
   keysNumber: 0,
-  moviesNumber: 0,
+  elementNumber: 0,
   progress: 0
 };
 
 
-const moviesImporterReducer = (state = defaultState, action) => {
+const contentImporterReducer = (state = defaultState, action) => {
   
   switch(action.type) {
     
     case collectionContent.create + '_FULFILLED':
-      if(!action.payload.importMovies) {
+      if(!action.payload.importContent) {
         return state;
       }
-      const data = action.payload.movies;
+      const data = action.payload.elements;
       return {
         ...state,
-        moviesToImport: data,
-        moviesNumber: data.length
+        contentToImport: data,
+        elementNumber: data.length
       };
     
     case collections.add:
       const keysNumber = state.keysNumber + 1;
       let progress = 0;
-      if(state.moviesNumber > 0) {
-        progress = keysNumber / state.moviesNumber * 100;
+      if(state.elementNumber > 0) {
+        progress = keysNumber / state.elementNumber * 100;
       }
       return {
         ...state,
@@ -46,4 +46,4 @@ const moviesImporterReducer = (state = defaultState, action) => {
   
 };
 
-export default moviesImporterReducer;
+export default contentImporterReducer;

@@ -1,23 +1,25 @@
-import { getCollectionAPI, CollectionsAPI } from 'services/api/collections'
-import { MoviesAPI } from 'services/api/movies'
+import { getCollectionAPI, getElementAPI, CollectionsAPI } from 'services/api/collections'
 
 import { collectionContent } from 'services/titles/api'
 
-export const createCollection = (type, data, elementsToImport)  => {
+export const createCollection = (scene, data, elementsToImport)  => {
   let promise;
   if(elementsToImport) {
-    promise = updateElementsToImport(type, data, elementsToImport)
+    promise = updateElementsToImport(scene, data, elementsToImport)
   } else {
-    promise = getCollectionAPI(type).create(data).then(collection => {
+    promise = getCollectionAPI(scene).create(data).then(collection => {
       return {
-        importMovies: false,
+        importContent: false,
         collection
       };
     });
   }
   return {
     type: collectionContent.create,
-    payload: promise
+    payload: promise,
+    meta: {
+      scene
+    }
   };
 };
 
@@ -28,34 +30,37 @@ export const loadCollections = () => {
   }
 };
 
-const updateElementsToImport = (type, data, elementsToImport) => {
-  let collection, movies;
+const updateElementsToImport = (scene, data, elementsToImport) => {
+  let collection, elements;
   return elementsToImport
     .then(response => {
-      movies = response;
-      return getCollectionAPI(type).create(data)
+      elements = response;
+      return getCollectionAPI(scene).create(data)
     })
     .then(response => {
       collection = response;
-      const IDs = movies.map(el => el.tmdbId);
-      return MoviesAPI.serialize(IDs, 'tmdbId')
+      const IDs = elements.map(el => el.tmdbId);
+      return getElementAPI(scene).serialize(IDs, 'tmdbId')
     })
     .then(exist => {
-      for(let i = 0; i < movies.length; i++) {
-        const match = exist.filter(filterById.bind(this, movies[i]));
-        movies[i].local = (match.length > 0) ? match[0] : undefined;
-        movies[i].current_collection = collection.pk;
-        movies[i].id = parseInt(movies[i].tmdbId, 10);
-        movies[i].release = parseInt(movies[i].release, 10);
+      for(let i = 0; i < elements.length; i++) {
+        const match = exist.filter(filterById.bind(this, elements[i]));
+        elements[i].local = (match.length > 0) ? match[0] : undefined;
+        elements[i].current_collection = collection.pk;
+        elements[i].id = parseInt(elements[i].tmdbId, 10);
+        elements[i].release = parseInt(elements[i].release, 10);
       }
       return {
-        importMovies: true,
-        movies,
-        collection
+        importContent: true,
+        elements,
+        collection,
+        meta: {
+          scene
+        }
       };
     })
 };
 
-const filterById = (movie, el) => {
-  return parseInt(movie.tmdbId, 10) === el.tmdbId;
+const filterById = (element, el) => {
+  return parseInt(element.tmdbId, 10) === el.tmdbId;
 };

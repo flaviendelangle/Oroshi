@@ -35,10 +35,11 @@ class TVShowsViewSet(viewsets.ModelViewSet):
             data = { 'pk': 0 }
         return Response(data)
 
-    @list_route(methods=['get'], url_path='serialize/tmdbId/(?P<movies>[0-9,]+)')
+    @list_route(methods=['get'], url_path='serialize/tmdbId/(?P<tv_shows>[0-9,]+)')
     def serialize(self, request, pk=None, movies=''):
-        movies = map(lambda id: int(id), movies.split(','))
-        data = self.get_queryset().filter(tmdbId__in=movies)
+        tv_shows = map(lambda id: int(id), movies.split(','))
+        print(tv_shows)
+        data = self.get_queryset().filter(tmdbId__in=tv_shows)
         data = self.get_serializer_class()(data, many=True).data
         return Response(data)
 
@@ -52,7 +53,7 @@ class TVShowsViewSet(viewsets.ModelViewSet):
         return Response(out)
 
 
-class CollectionMoviesViewSet(NestedViewSetMixin, TVShowsViewSet):
+class CollectionTVShowsViewet(NestedViewSetMixin, TVShowsViewSet):
 
     def list(self, *args, **kwargs):
         collection = kwargs['parent_lookup_collection_movies']

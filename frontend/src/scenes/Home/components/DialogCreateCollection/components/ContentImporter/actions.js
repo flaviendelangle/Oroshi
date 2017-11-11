@@ -3,30 +3,34 @@ import { collections } from 'services/titles/api'
 import { _addMovieToCollection } from 'services/actions/api'
 
 
-export const importMovies = (dispatch, movies) => {
-  console.log(movies[0].current_collection);
+export const importContent = (scene, dispatch, elements) => {
+  console.log(scene);
+  console.log(elements[0].current_collection);
   dispatch({
     type: collections.importStarted
   });
   return {
     type: dialogs.importMoviesInCollectionCreation,
-    payload: importMovie(dispatch, movies, 0)
+    payload: importElement(dispatch, elements, 0),
+    meta: {
+      scene
+    }
   }
 };
 
-const importMovie = (dispatch, movies, index) => {
-  if(movies.length <= index) {
+const importElement = (dispatch, elements, index) => {
+  if(elements.length <= index) {
     dispatch({
       type: collections.importFinished
     });
     return true;
   }
-  const movie = movies[index];
+  const movie = elements[index];
   return _addMovieToCollection(movie).payload.then(el => {
     dispatch({
       type: collections.add,
       data: el
     });
-    importMovie(dispatch, movies, ++index);
+    importElement(dispatch, elements, ++index);
   });
 };
