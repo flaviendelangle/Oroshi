@@ -3,6 +3,7 @@ from django.contrib import admin
 
 from rest_framework_extensions.routers import ExtendedSimpleRouter
 
+from api.Collections.views import CollectionsViewSet
 from api.MovieCollections.views import MovieCollectionsViewSet
 from api.Directors.views import DirectorsViewSet
 from api.Genres.views import GenresViewSet
@@ -10,6 +11,7 @@ from api.Movies.views import MoviesViewSet, CollectionMoviesViewSet
 
 router = ExtendedSimpleRouter()
 
+collections = router.register(r'^collections', CollectionsViewSet, base_name="collections")
 movie_collections_routes = router.register(r'^movie_collections', MovieCollectionsViewSet, base_name="movie_collections")
 router.register(r'^directors', DirectorsViewSet, base_name="directors")
 router.register(r'^genres', GenresViewSet, base_name="genres")

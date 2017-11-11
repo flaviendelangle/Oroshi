@@ -40,8 +40,7 @@ class MovieCollectionsViewSet(viewsets.ModelViewSet):
 
     @list_route(methods=['get'], url_path='settings')
     def settings_list(self, request):
-        data = self.get_queryset()
-        data = MovieCollectionSettingsSerializer(data, many=True).data
+        data = MovieCollectionsViewSet.get_settings_list()
         return Response(data)
 
 
@@ -51,3 +50,7 @@ class MovieCollectionsViewSet(viewsets.ModelViewSet):
         data = MovieCollectionSettingsSerializer(data).data
         return Response(data)
 
+    @staticmethod
+    def get_settings_list():
+        data = MovieCollections.objects.all()
+        return MovieCollectionSettingsSerializer(data, many=True).data
