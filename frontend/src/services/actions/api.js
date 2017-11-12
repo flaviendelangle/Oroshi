@@ -1,7 +1,10 @@
 import { MovieCollectionsAPI } from 'services/api/movieCollections'
 import { MoviesAPI } from 'services/api/movies'
+import { TVShowCollectionsAPI } from 'services/api/tvShowsCollections'
+import { TVShowsAPI } from 'services/api/tvShows'
 import { getCollectionAPI } from 'services/api/collections'
 import MoviesTMDB from 'services/TheMovieDatabaseJS/movies'
+import TVShowsTMDB from 'services/TheMovieDatabaseJS/tv'
 
 import * as titles from 'services/titles/api'
 import { date } from 'services/utils'
@@ -36,33 +39,59 @@ export const _loadCollectionSettings = pk => {
   }
 };
 
-/*
-  COLLECTION'S MOVIES
- */
-export const _addMovieToCollection = data => {
+
+export const _addElementToCollection = (scene, data) => {
+  
+  const methods = {
+    
+    movies: data => {
+      return createMovie(data)
+        .then(response => {
+          data = {
+            pk: response.data.pk,
+            seen: data.seen
+          };
+          return MovieCollectionsAPI.element(response.collection).movies.create(data);
+        })
+        .then(response => {
+          return {
+            ...response,
+            seen: data.seen
+          }
+        })
+    },
+    
+    tv_shows: data => {
+      return createTVShow(data)
+        .then(response => {
+          data = {
+            pk: response.data.pk,
+            seen: data.seen
+          };
+          return TVShowCollectionsAPI.element(response.collection).tv_shows.create(data);
+        })
+        .then(response => {
+          return {
+            ...response,
+            seen: data.seen
+          }
+        })
+    }
+    
+  };
   
   if(!data.hasOwnProperty('seen')) {
     data.seen = false;
   }
   return {
     type: titles.collections.add,
-    payload: createMovie(data)
-      .then(response => {
-        data = {
-          pk: response.data.pk,
-          seen: data.seen
-        };
-        return MovieCollectionsAPI.element(response.collection).movies.create(data);
-      })
-      .then(response => {
-        return {
-          ...response,
-          seen: data.seen
-        }
-      })
+    payload: methods[scene](data),
+    meta: {
+      scene
+    }
   }
+  
 };
-
 
 export const _updateElementInCollection = (scene, collection, id, data) => {
   return {
@@ -123,6 +152,54 @@ const createMovie = data => {
       return MoviesAPI.create(movie);
     })
     .then(response => {
+      return {
+        data: response,
+        collection: data.current_collection
+      }
+    })
+};
+
+
+
+/*
+  TV SHOWS
+ */
+
+const createTVShow = data => {
+  if(data.local) {
+    return Promise.resolve({
+      data: data.local,
+      collection: data.current_collection
+    });
+  }
+  const options = {
+    append_to_response: ['credits', 'images', 'lists']
+  };
+  return TVShowsTMDB.details(data.id, options)
+    .then(results => {
+      
+      const networks = results.networks
+        .map(({id, name}) => ({tmdbId: id, name}));
+
+      const genres = results.genres
+        .map(({id, name}) => ({tmdbId: id, name}));
+      
+      const poster = results.images.posters.length === 0 ? '' : results.images.posters[0].file_path;
+      
+      const movie = {
+        networks,
+        genres,
+        title: results.title,
+        tmdbId: results.id,
+        note: results.vote_average,
+        poster: poster,
+        release: date(results.release_date, date.TMDB_FORMAT, date.YEAR_FORMAT)
+      };
+      
+      return TVShowsAPI.create(movie);
+    })
+    .then(response => {
+      console.log(response);
       return {
         data: response,
         collection: data.current_collection

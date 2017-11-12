@@ -16,7 +16,7 @@ const spanStyle = {
   transform: 'translateY(-50%)',
 };
 
-class Movie extends Component {
+class Poster extends Component {
   
   url = () => {
     return path + '/w185' + this.props.path;
@@ -40,4 +40,4 @@ class Movie extends Component {
   
 }
 
-export default Movie;
+export default Poster;

@@ -102,6 +102,11 @@ class API {
     return this.methods[method].bind(this)(url);
   };
   
+  list_route(route_name, options, method='GET') {
+    const url = this.url(null, options, route_name);
+    return this.methods[method].bind(this)(url);
+  };
+  
   retrieve (pk, options = {}) {
     return this._GET(this.url(pk, options))
   };

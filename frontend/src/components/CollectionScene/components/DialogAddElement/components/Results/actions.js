@@ -1,6 +1,6 @@
-import * as publicAPI from 'services/actions/publicAPI'
+import { _addElementToCollection } from 'services/actions/api'
 
 
-export const save = (type, data) => {
-  return publicAPI[type].addElementToCollection(data);
+export const save = (scene, data) => {
+  return _addElementToCollection(scene, data);
 };

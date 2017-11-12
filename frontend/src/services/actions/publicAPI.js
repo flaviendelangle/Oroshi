@@ -1,7 +1,5 @@
 import searchAPI from 'services/TheMovieDatabaseJS/search';
 import { getCollectionAPI, getElementAPI } from 'services/api/collections';
-import { _addMovieToCollection } from './api';
-
 
 const tmdb = {
   
@@ -48,20 +46,9 @@ const tmdb = {
 
 
 export const movies = {
-  
-  addElementToCollection: (data) => {
-    return _addMovieToCollection(data);
-  },
-  
   search: (collection, query) => tmdb.search('movies', collection, query)
 };
 
 export const tv_shows = {
-  
-  addElementToCollection: (data) => {
-    return _addMovieToCollection(data);
-  },
-  
   search: (collection, query) => tmdb.search('tv_shows', collection, query)
-  
 };

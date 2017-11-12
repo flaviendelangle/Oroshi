@@ -6,7 +6,7 @@ import { dialogs } from 'services/titles/interface'
 import { collections } from 'services/titles/api'
 
 const defaultState = {
-  show: true,
+  show: false,
   collections: [],
   isImportingContent: false
 };

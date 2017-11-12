@@ -1,6 +1,6 @@
 import { dialogs } from 'services/titles/interface'
 import { collections } from 'services/titles/api'
-import { _addMovieToCollection } from 'services/actions/api'
+import { _addElementToCollection } from 'services/actions/api'
 
 
 export const importContent = (scene, dispatch, elements) => {
@@ -11,14 +11,14 @@ export const importContent = (scene, dispatch, elements) => {
   });
   return {
     type: dialogs.importMoviesInCollectionCreation,
-    payload: importElement(dispatch, elements, 0),
+    payload: importElement(scene, dispatch, elements, 0),
     meta: {
       scene
     }
   }
 };
 
-const importElement = (dispatch, elements, index) => {
+const importElement = (scene, dispatch, elements, index) => {
   if(elements.length <= index) {
     dispatch({
       type: collections.importFinished
@@ -26,7 +26,7 @@ const importElement = (dispatch, elements, index) => {
     return true;
   }
   const movie = elements[index];
-  return _addMovieToCollection(movie).payload.then(el => {
+  return _addElementToCollection(scene, movie).payload.then(el => {
     dispatch({
       type: collections.add,
       data: el

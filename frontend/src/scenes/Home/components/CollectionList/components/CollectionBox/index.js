@@ -24,7 +24,6 @@ class CollectionBox extends Component {
   };
   
   render() {
-    return (null);
     return (
       <Link to={this.url()}>
         <div className="collection-box">

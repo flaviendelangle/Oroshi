@@ -47,7 +47,6 @@ class ContentTable extends Component {
   };
   
   render() {
-    console.log(this.params);
     return (
         <div style={containerStyle}>
           <ScrollArea

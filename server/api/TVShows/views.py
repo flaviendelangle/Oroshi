@@ -24,7 +24,7 @@ class TVShowsViewSet(viewsets.ModelViewSet):
     def create(self, *args, **kwargs):
         data = super().create(*args, **kwargs).data
         data = TVShowsSerializer(self.get_queryset().get(pk=data['pk'])).data
-        return Response(data);
+        return Response(data)
 
     @detail_route(methods=['get'])
     def tmdbId(self, request, pk=None):
@@ -36,61 +36,61 @@ class TVShowsViewSet(viewsets.ModelViewSet):
         return Response(data)
 
     @list_route(methods=['get'], url_path='serialize/tmdbId/(?P<tv_shows>[0-9,]+)')
-    def serialize(self, request, pk=None, movies=''):
-        tv_shows = map(lambda id: int(id), movies.split(','))
+    def serialize(self, request, pk=None, tv_shows=''):
+        tv_shows = map(lambda id: int(id), tv_shows.split(','))
         print(tv_shows)
         data = self.get_queryset().filter(tmdbId__in=tv_shows)
         data = self.get_serializer_class()(data, many=True).data
         return Response(data)
 
-    @list_route(methods=['get'], url_path='exist/tmdbId/(?P<movies>[0-9,]+)')
-    def exist(self, request, parent_lookup_collection_movies, pk=None, movies=''):
-        movies = list(map(lambda id: int(id), movies.split(',')))
-        data = list(map(lambda el: el.tmdbId, self.get_queryset().filter(tmdbId__in=movies)))
+    @list_route(methods=['get'], url_path='exist/tmdbId/(?P<tv_shows>[0-9,]+)')
+    def exist(self, request, parent_lookup_collection_tv_shows, pk=None, tv_shows=''):
+        tv_shows = list(map(lambda id: int(id), tv_shows.split(',')))
+        data = list(map(lambda el: el.tmdbId, self.get_queryset().filter(tmdbId__in=tv_shows)))
         out = {}
-        for movie in movies :
-            out[movie] = len(list(filter(lambda el: el == movie, data))) > 0
+        for tv_show in tv_shows :
+            out[tv_show] = len(list(filter(lambda el: el == tv_show, data))) > 0
         return Response(out)
 
 
 class CollectionTVShowsViewet(NestedViewSetMixin, TVShowsViewSet):
 
     def list(self, *args, **kwargs):
-        collection = kwargs['parent_lookup_collection_movies']
-        movies = super().list(*args, **kwargs).data
-        for movie in movies :
-            movie['collection'] = int(collection)
-        return Response(movies)
+        collection = kwargs['parent_lookup_collection_tv_shows']
+        tv_shows = super().list(*args, **kwargs).data
+        for tv_show in tv_shows :
+            tv_show['collection'] = int(collection)
+        return Response(tv_shows)
 
-    def create(self, request, parent_lookup_collection_movies):
-        collection = get_object_or_404(TVShowCollections.objects.all(), pk=parent_lookup_collection_movies)
-        movie = get_object_or_404(TVShows.objects.all(), pk=request.data['pk'])
-        collection.movies.add(movie)
-        self.seen_update(collection, movie, request.data['seen'])
-        data = TVShowsSerializer(movie).data
+    def create(self, request, parent_lookup_collection_tv_shows):
+        collection = get_object_or_404(TVShowCollections.objects.all(), pk=parent_lookup_collection_tv_shows)
+        tv_show = get_object_or_404(TVShows.objects.all(), pk=request.data['pk'])
+        collection.content.add(tv_show)
+        self.seen_update(collection, tv_show, request.data['seen'])
+        data = TVShowsSerializer(tv_show).data
         data['collection'] = collection.pk
         return Response(data)
 
-    def destroy(self, request, pk, parent_lookup_collection_movies):
-        collection = get_object_or_404(TVShowCollections.objects.all(), pk=parent_lookup_collection_movies)
-        movie = get_object_or_404(TVShows.objects.all(), pk=pk)
-        collection.movies.remove(movie)
-        data = TVShowsSerializer(movie).data
+    def destroy(self, request, pk, parent_lookup_collection_tv_shows):
+        collection = get_object_or_404(TVShowCollections.objects.all(), pk=parent_lookup_collection_tv_shows)
+        tv_show = get_object_or_404(TVShows.objects.all(), pk=pk)
+        collection.content.remove(tv_show)
+        data = TVShowsSerializer(tv_show).data
         data['collection'] = collection.pk
         return Response(data)
 
-    def partial_update(self, request, pk, parent_lookup_collection_movies):
-        collection = get_object_or_404(TVShowCollections.objects.all(), pk=parent_lookup_collection_movies)
-        movie = get_object_or_404(TVShows.objects.all(), pk=pk)
+    def partial_update(self, request, pk, parent_lookup_collection_tv_shows):
+        collection = get_object_or_404(TVShowCollections.objects.all(), pk=parent_lookup_collection_tv_shows)
+        tv_show = get_object_or_404(TVShows.objects.all(), pk=pk)
         if 'seen' in request.data :
-            self.seen_update(collection, movie, request.data['seen'])
+            self.seen_update(collection, tv_show, request.data['seen'])
         data = SeenTVShowsSerializer(SeenTVShows.objects.filter(collection=collection), many=True).data
         return Response(data)
 
-    def seen_update(self, collection, movie, seen):
+    def seen_update(self, collection, tv_show, seen):
         if seen == 'true' :
-            SeenTVShows.objects.create(collection=collection, movie=movie)
+            SeenTVShows.objects.create(collection=collection, tv_show=tv_show)
         else :
-            obj = SeenTVShows.objects.filter(collection=collection, movie=movie)
+            obj = SeenTVShows.objects.filter(collection=collection, tv_show=tv_show)
             obj.delete()
 

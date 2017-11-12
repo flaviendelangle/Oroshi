@@ -1,5 +1,5 @@
 import API from './index'
-import { DirectorsAPI } from './directors'
+import { NetworksAPI } from './networks'
 import { GenresAPI } from './genres'
 
 class TVShows extends API {
@@ -12,17 +12,18 @@ class TVShows extends API {
     if(this.root) { // We are in a nested route so we just want to send the pk of the movie to add it
       return super.create(body);
     }
-    let directors, genres;
-    return DirectorsAPI.retrieveOrCreate(body.directors)
+    let networks, genres;
+    console.log(body);
+    return NetworksAPI.retrieveOrCreate(body.networks)
       .then(response => {
-        directors = response.map(director => director.pk);
+        networks = response.map(director => director.pk);
         return GenresAPI.retrieveOrCreate(body.genres);
       })
       .then(response => {
         genres = response.map(genre => genre.pk);
         return super.create({
           ...body,
-          directors,
+          networks,
           genres
         });
       });

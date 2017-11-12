@@ -1,30 +1,31 @@
 import API from './index'
 
-class Movies extends API {
+class TV extends API {
   
   CONFIG = {
-    root: '/movie',
+    root: '/tv',
     routes: {
       account_states: 'account_states',
       alternative_titles: 'alternative_titles',
+      changes: 'changes',
+      content_ratings: 'content_ratings',
       credits: 'credits',
+      external_ids: 'external_ids',
       images: 'images',
       keywords: 'keywords',
-      release_dates: 'release_dates',
-      videos: 'videos',
-      translations: 'translations',
       recommendations: 'recommendations',
+      screened_theatrically: 'screened_theatrically',
       similar: 'similar',
-      reviews: 'reviews',
-      lists: 'lists',
+      translations: 'translations',
+      videos: 'videos',
       
       rating: 'rating',
       
       latest: 'latest',
-      now_playing: 'now_playing',
+      airing_today: 'airing_today',
+      on_the_air: 'on_the_air',
       popular: 'popular',
       top_rated: 'top_rated',
-      upcoming: 'upcoming'
     }
   };
   
@@ -40,8 +41,20 @@ class Movies extends API {
     return super.detail_route(pk, this.CONFIG.routes.alternative_titles, options);
   };
   
+  changes = (pk, options = {}) => {
+    return super.detail_route(pk, this.CONFIG.routes.changes, options);
+  };
+  
+  contentRatings = (pk, options = {}) => {
+    return super.detail_route(pk, this.config.routes.content_ratings, options);
+  };
+  
   credits = (pk, options = {}) => {
     return super.detail_route(pk, this.CONFIG.routes.credits, options);
+  };
+  
+  externalIDs = (pk, options = {}) => {
+    return super.detail_route(pk, this.CONFIG.routes.external_ids, options);
   };
   
   images = (pk, options = {}) => {
@@ -52,40 +65,36 @@ class Movies extends API {
     return super.detail_route(pk, this.CONFIG.routes.keywords, options);
   };
   
-  releaseDates = (pk, options = {}) => {
-    return super.detail_route(pk, this.CONFIG.routes.release_dates, options);
+  recommendations = (pk, options = {}) => {
+    return super.detail_route(pk, this.CONFIG.routes.recommendations, options);
   };
   
-  videos = (pk, options = {}) => {
-    return super.detail_route(pk, this.CONFIG.routes.videos, options);
+  screenedTheatrically = (pk, options = {}) => {
+    return super.detail_route(pk, this.CONFIG.routes.screened_theatrically, options);
+  };
+  
+  similarTVShows = (pk, options = {}) => {
+    return super.detail_route(pk, this.CONFIG.routes.similar, options);
   };
   
   translations = (pk, options = {}) => {
     return super.detail_route(pk, this.CONFIG.routes.translations, options);
   };
   
-  recommendations = (pk, options = {}) => {
-    return super.detail_route(pk, this.CONFIG.routes.recommendations, options);
-  };
-  
-  similarMovies = (pk, options = {}) => {
-    return super.detail_route(pk, this.CONFIG.routes.similar, options);
-  };
-  
-  reviews = (pk, options = {}) => {
-    return super.detail_route(pk, this.CONFIG.routes.reviews, options);
-  };
-  
-  lists = (pk, options = {}) => {
-    return super.detail_route(pk, this.CONFIG.routes.lists, options);
+  videos = (pk, options = {}) => {
+    return super.detail_route(pk, this.CONFIG.routes.videos, options);
   };
   
   latest = (options = {}) => {
     return super.list_route(this.CONFIG.routes.latest, options);
   };
   
-  nowPlaying = (options = {}) => {
-    return super.list_route(this.CONFIG.routes.now_playing, options);
+  airingToday = (options = {}) => {
+    return super.list_route(this.CONFIG.routes.airing_today, options)
+  };
+  
+  onTheAir = (options = {}) => {
+    return super.list_route(this.CONFIG.routes.on_the_air, options);
   };
   
   popular = (options = {}) => {
@@ -96,30 +105,27 @@ class Movies extends API {
     return super.list_route(this.CONFIG.routes.top_rated, options);
   };
   
-  upcoming = (options = {}) => {
-    return super.list_route(this.CONFIG.routes.upcoming, options);
-  };
-  
   GET = {
     
     details: this.details,
     accountStates: this.accountStates,
     alternativeTitles: this.alternativeTitles,
+    changes: this.changes,
+    contentRatings: this.contentRatings,
     credits: this.credits,
+    externalIds: this.externalIDs,
     images: this.images,
     keywords: this.keywords,
-    releaseDates: this.releaseDates,
-    videos: this.videos,
-    translations: this.translations,
     recommendations: this.recommendations,
-    similarMovies: this.similarMovies,
-    reviews: this.reviews,
-    lists: this.lists,
+    screenedTheatrically: this.screenedTheatrically,
+    similarTVShows: this.similarTVShows,
+    translations: this.translations,
+    videos: this.videos,
     latest: this.latest,
-    nowPlaying: this.nowPlaying,
+    airingToday: this.airingToday,
+    onTheAir: this.onTheAir,
     popular: this.popular,
     topRated: this.topRated,
-    upcoming: this.upcoming
     
   };
   
@@ -142,4 +148,4 @@ class Movies extends API {
   
 }
 
-export default new Movies();
+export default new TV();
