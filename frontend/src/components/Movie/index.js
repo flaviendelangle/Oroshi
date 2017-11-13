@@ -46,7 +46,7 @@ class Movie extends Component {
   };
   
   renderOverlay = () => {
-    if(this.state.mouseOver || true) {
+    if(this.state.mouseOver) {
       if(this.props.creationMode) {
         return this.renderOverlayCreationMode();
       }

@@ -9,9 +9,9 @@ import { sort, search } from 'services/titles/data'
 import { layout } from 'services/titles/interface'
 import { getValue } from 'services/localstorage'
 import api from 'services/TheMovieDatabaseJS/index'
-import { getListGenerator, getStreamGenerator } from 'services/content/'
+import { getListGenerator, getStreamGenerator, getDefaultOrder } from 'services/content/'
 
-import { sortElements, setSortParameters, setLayoutParameters } from 'scenes/CollectionMovies/services/utils'
+import { sortElements, setSortParameters, setLayoutParameters } from './services/utils'
 import { addSeenToElements, addCollectionToElements } from 'scenes/CollectionSettings/services/utils'
 
 const reducerBuilder = _scene => {
@@ -19,16 +19,7 @@ const reducerBuilder = _scene => {
   const ListGenerator = getListGenerator(_scene);
   const StreamGenerator = getStreamGenerator(_scene);
   
-  const defaultOrder = {
-    default: {
-      field: 'title',
-      direction: 'asc'
-    },
-    stream: {
-      field: 'directors',
-      direction: 'desc'
-    }
-  };
+  const defaultOrder = getDefaultOrder(_scene);
   
   const defaultState = {
     content: [],
@@ -63,7 +54,10 @@ const reducerBuilder = _scene => {
         api.set_config({
           include_adult: action.payload.adult_content
         });
-        newContent = sortElements(action.payload.content, state.order.default);
+        newContent = sortElements(
+          action.payload.content,
+          state.order.default
+        );
         return {
           ...state,
           collection: action.payload.pk,
@@ -77,7 +71,7 @@ const reducerBuilder = _scene => {
       case collections.add + '_FULFILLED':
         newContent = sortElements(
           addCollectionToElements(
-            action.meta.scene,
+            scene,
             state.content.concat([action.payload]),
             state.collection
           ), state.order.default
@@ -109,7 +103,7 @@ const reducerBuilder = _scene => {
         };
       
       case collections.update + '_FULFILLED':
-        newContent = addSeenToElements(action.meta.scene, state.content, action.payload);
+        newContent = addSeenToElements(scene, state.content, action.payload);
         return {
           ...state,
           content: newContent,
@@ -118,7 +112,7 @@ const reducerBuilder = _scene => {
         };
       
       case sort.update:
-        setSortParameters(action.parameters, defaultOrder);
+        setSortParameters(scene, action.parameters, defaultOrder);
         if(action.parameters.layout === 'default') {
           newContent = sortElements(state.content, action.parameters);
         } else {
@@ -146,7 +140,7 @@ const reducerBuilder = _scene => {
         };
       
       case layout.update: // OK
-        setLayoutParameters(action.layout);
+        setLayoutParameters(scene, action.layout);
         return {
           ...state,
           query: '',

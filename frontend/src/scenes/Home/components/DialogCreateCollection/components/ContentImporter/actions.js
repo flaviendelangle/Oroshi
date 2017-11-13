@@ -4,8 +4,7 @@ import { _addElementToCollection } from 'services/actions/api'
 
 
 export const importContent = (scene, dispatch, elements) => {
-  console.log(scene);
-  console.log(elements[0].current_collection);
+  console.log('Collection ID : ' + elements[0].current_collection);
   dispatch({
     type: collections.importStarted
   });
@@ -25,12 +24,12 @@ const importElement = (scene, dispatch, elements, index) => {
     });
     return true;
   }
-  const movie = elements[index];
-  return _addElementToCollection(scene, movie).payload.then(el => {
+  const element = elements[index];
+  return _addElementToCollection(scene, element).payload.then(el => {
     dispatch({
       type: collections.add,
       data: el
     });
-    importElement(dispatch, elements, ++index);
+    importElement(scene, dispatch, elements, ++index);
   });
 };

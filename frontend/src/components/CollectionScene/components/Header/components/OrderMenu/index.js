@@ -31,6 +31,16 @@ class Search extends Component {
   };
   
   renderStreamMenu = () => {
+    switch(this.props.scene) {
+      case 'movies':
+        return this.renderStreamMenuMovies();
+      case 'tv_shows':
+        return this.renderStreamMenuTVShows();
+      
+    }
+  };
+  
+  renderStreamMenuMovies = () => {
     return (
       <IconMenu
         iconButtonElement={<IconButton><ContentSort /></IconButton>}
@@ -53,7 +63,35 @@ class Search extends Component {
     );
   };
   
+  renderStreamMenuTVShows = () => {
+    return (
+      <IconMenu
+        iconButtonElement={<IconButton><ContentSort /></IconButton>}
+        anchorOrigin={{horizontal: 'right', vertical: 'top'}}
+        targetOrigin={{horizontal: 'right', vertical: 'top'}}
+      >
+        <MenuItem
+          primaryText="Group by networks"
+          onClick={() => this.sort('stream', 'networks')}
+        />
+        <MenuItem
+          primaryText="Group by genres"
+          onClick={() => this.sort('stream', 'genres')}
+        />
+      </IconMenu>
+    );
+  };
+  
   renderDefaultMenu = () => {
+    switch(this.props.scene) {
+      case 'movies':
+        return this.renderDefaultMenuMovies();
+      case 'tv_shows':
+        return this.renderDefaultMenuTVShows();
+    }
+  };
+  
+  renderDefaultMenuMovies = () => {
     return (
       <IconMenu
         iconButtonElement={<IconButton><ContentSort /></IconButton>}
@@ -71,6 +109,25 @@ class Search extends Component {
         <MenuItem
           primaryText="Order by year of release"
           onClick={() => this.sort('default', 'release', 'desc')}
+        />
+      </IconMenu>
+    )
+  };
+  
+  renderDefaultMenuTVShows = () => {
+    return (
+      <IconMenu
+        iconButtonElement={<IconButton><ContentSort /></IconButton>}
+        anchorOrigin={{horizontal: 'right', vertical: 'top'}}
+        targetOrigin={{horizontal: 'right', vertical: 'top'}}
+      >
+        <MenuItem
+          primaryText="Order by title"
+          onClick={() => this.sort('default', 'title', 'asc')}
+        />
+        <MenuItem
+          primaryText="Order by note"
+          onClick={() => this.sort('default', 'note', 'desc')}
         />
       </IconMenu>
     )

@@ -13,7 +13,6 @@ class TVShows extends API {
       return super.create(body);
     }
     let networks, genres;
-    console.log(body);
     return NetworksAPI.retrieveOrCreate(body.networks)
       .then(response => {
         networks = response.map(director => director.pk);

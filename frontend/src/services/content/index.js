@@ -5,7 +5,7 @@ import TVShowListGenerator from 'scenes/CollectionTVShows/services/listGenerator
 import TVShowStreamGenerator from 'scenes/CollectionTVShows/services/streamGenerator'
 
 
-export const getListGenerator = (scene) => {
+export const getListGenerator = scene => {
   switch(scene) {
     case 'movies':
       return MovieListGenerator;
@@ -16,7 +16,7 @@ export const getListGenerator = (scene) => {
   }
 };
 
-export const getStreamGenerator = (scene) => {
+export const getStreamGenerator = scene => {
   switch(scene) {
     case 'movies':
       return MovieStreamGenerator;
@@ -25,4 +25,35 @@ export const getStreamGenerator = (scene) => {
     default:
       return null;
   }
+};
+
+export const getDefaultOrder = scene => {
+  
+  switch(scene) {
+    case 'movies':
+      return {
+        default: {
+          field: 'title',
+          direction: 'asc'
+        },
+        stream: {
+          field: 'directors',
+          direction: 'desc'
+        }
+      };
+      
+    case 'tv_shows':
+      return {
+        default: {
+          field: 'title',
+          direction: 'asc'
+        },
+        stream: {
+          field: 'networks',
+          direction: 'desc'
+        }
+      };
+  }
+  
+  
 };

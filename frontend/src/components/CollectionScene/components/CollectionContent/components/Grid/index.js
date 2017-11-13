@@ -6,6 +6,10 @@ import './style.css'
 
 class Grid extends Component {
   
+  state = {
+    useReactList: false
+  };
+  
   renderItem = (index, key) => {
     const Element = this.props.elementComponent;
     return (
@@ -18,6 +22,22 @@ class Grid extends Component {
     );
   };
   
+  renderItems = () => {
+    if(this.state.useReactList) {
+      return (
+        <ReactList
+          itemRenderer={this.renderItem}
+          length={this.props.data.length}
+          type='uniform'
+        />
+      );
+    } else {
+     return this.props.data.map(el => {
+       return this.renderItem(this.props.data.indexOf(el), el.tmdbId);
+     });
+    }
+  };
+  
   render() {
     return (
       <div className="content-grid-container">
@@ -26,11 +46,7 @@ class Grid extends Component {
           horizontal={false}
         >
           <div className="content-grid" style={{paddingBottom:400 }}>
-            <ReactList
-              itemRenderer={this.renderItem}
-              length={this.props.data.length}
-              type='uniform'
-            />
+            {this.renderItems()}
           </div>
         </ScrollArea>
       </div>

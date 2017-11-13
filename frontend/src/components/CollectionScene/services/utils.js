@@ -1,4 +1,4 @@
-import { setValue, getValue } from 'services/localstorage'
+import { setValue, getValue } from '../../../services/localstorage';
 
 export const sortElements = (elements, params) => {
   elements = elements.sort((a, b) => {
@@ -14,12 +14,14 @@ export const sortElements = (elements, params) => {
   return elements;
 };
 
-export const setSortParameters = (params, defaultOrder) => {
-  let oldParams = getValue('order') || defaultOrder;
+export const setSortParameters = (scene, params, defaultOrder) => {
+  const key = 'order_' + scene;
+  let oldParams = getValue(key) || defaultOrder;
   oldParams[params.layout] = params;
-  setValue('order', oldParams);
+  setValue(key, oldParams);
 };
 
-export const setLayoutParameters = params => {
-  setValue('layout', params);
+export const setLayoutParameters = (scene, params) => {
+  const key = 'layout_' + scene;
+  setValue(key, params);
 };

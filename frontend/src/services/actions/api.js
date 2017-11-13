@@ -110,6 +110,13 @@ export const _removeMovieFromCollection = (collection, id) => {
   }
 };
 
+export const _removeTVShowFromCollection = (collection, id) => {
+  return {
+    type: titles.collections.remove,
+    payload: TVShowCollectionsAPI.element(collection).tv_shows.destroy(id)
+  }
+};
+
 
 
 
@@ -185,11 +192,11 @@ const createTVShow = data => {
         .map(({id, name}) => ({tmdbId: id, name}));
       
       const poster = results.images.posters.length === 0 ? '' : results.images.posters[0].file_path;
-      
+      console.log(results);
       const movie = {
         networks,
         genres,
-        title: results.title,
+        title: results.name,
         tmdbId: results.id,
         note: results.vote_average,
         poster: poster,

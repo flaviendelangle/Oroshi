@@ -1,5 +1,5 @@
-import { _removeMovieFromCollection } from 'services/actions/api'
+import { _removeTVShowFromCollection } from 'services/actions/api'
 
-export const removeMovie = (collection, id) => {
-  return _removeMovieFromCollection(collection, id);
+export const removeTVShow = (collection, id) => {
+  return _removeTVShowFromCollection(collection, id);
 };
