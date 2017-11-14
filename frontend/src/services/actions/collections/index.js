@@ -128,6 +128,8 @@ export const getModule = scene => {
       return movies;
     case 'tv_shows':
       return tv_shows;
+    default:
+      return null;
   }
 };
 

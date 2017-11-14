@@ -1,5 +1,3 @@
-import * as tmdb from './tmdb'
-
 import { MoviesAPI } from 'services/api/movies';
 import { MovieCollectionsAPI } from 'services/api/movieCollections';
 import MoviesTMDB from 'services/TheMovieDatabaseJS/movies'

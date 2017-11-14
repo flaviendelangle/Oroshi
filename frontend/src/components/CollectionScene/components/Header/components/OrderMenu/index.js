@@ -36,7 +36,8 @@ class Search extends Component {
         return this.renderStreamMenuMovies();
       case 'tv_shows':
         return this.renderStreamMenuTVShows();
-      
+      default:
+        return null;
     }
   };
   
@@ -91,6 +92,8 @@ class Search extends Component {
         return this.renderDefaultMenuMovies();
       case 'tv_shows':
         return this.renderDefaultMenuTVShows();
+      default:
+        return null;
     }
   };
   

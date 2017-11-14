@@ -1,18 +1,18 @@
-import { combineReducers } from 'redux'
+import { combineReducers } from 'redux';
 
-import dialogAddElement from './components/DialogAddElement/reducer'
-import header from './components/Header/reducer'
+import dialogAddElement from './components/DialogAddElement/reducer';
+import header from './components/Header/reducer';
 
-import { collectionContent, collections } from 'services/titles/api'
-import { sort, search } from 'services/titles/data'
-import * as publicAPI from 'services/titles/publicAPI'
-import { layout, source } from 'services/titles/interface'
-import { getValue } from 'services/localstorage'
-import api from 'services/TheMovieDatabaseJS/index'
-import { getListGenerator, getStreamGenerator, getDefaultOrder } from 'services/content/'
+import { collectionContent, collections } from 'services/titles/api';
+import { sort, search } from 'services/titles/data';
+import * as publicAPI from 'services/titles/publicAPI';
+import { layout, source } from 'services/titles/interface';
+import { getValue } from 'services/localstorage';
+import TMDBAPI from 'services/TheMovieDatabaseJS/index';
+import { getListGenerator, getStreamGenerator, getDefaultOrder } from 'services/content/';
 
-import { sortElements, setSortParameters, setLayoutParameters } from './services/utils'
-import { addSeenToElements, addCollectionToElements } from 'scenes/CollectionSettings/services/utils'
+import { sortElements, setSortParameters, setLayoutParameters } from './services/utils';
+import { addSeenToElements, addCollectionToElements } from 'scenes/CollectionSettings/services/utils';
 
 const reducerBuilder = _scene => {
   
@@ -42,6 +42,7 @@ const reducerBuilder = _scene => {
   
   
   const main = (scene, state = defaultState, action) => {
+    
     if(action.meta && action.meta.scene && action.meta.scene !== scene) {
       return state;
     }
@@ -58,7 +59,7 @@ const reducerBuilder = _scene => {
             loaded: true
           }
         }
-        api.set_config({
+        TMDBAPI.set_config({
           include_adult: action.payload.adult_content
         });
         newContent = sortElements(
@@ -76,6 +77,38 @@ const reducerBuilder = _scene => {
         };
       
       case collections.add + '_FULFILLED':
+        
+        let newSearchResults;
+        if(state.addingSearch) {
+          newSearchResults = {
+            ...state.addingSearch,
+            results: state.addingSearch.results.map(el => {
+              if(el.id === action.payload.tmdbId) {
+                el.already_in_collection = true;
+              }
+              return el;
+            })
+          }
+        } else {
+          newSearchResults = null;
+        }
+        // state.recommendations.results[i].content
+        const newRecommendations = {
+          ...state.recommendations,
+          results: state.recommendations.results.map(section => {
+            return {
+              ...section,
+              content: section.content.map(el => {
+                if(el.id === action.payload.tmdbId) {
+                  el.already_in_collection = true;
+                }
+                return el;
+              })
+            }
+          })
+        };
+
+  
         newContent = sortElements(
           addCollectionToElements(
             scene,
@@ -87,7 +120,9 @@ const reducerBuilder = _scene => {
           ...state,
           content: newContent,
           stream: new StreamGenerator(newContent, state.query, state.order.stream),
-          toShow: new ListGenerator(newContent, state.query)
+          toShow: new ListGenerator(newContent, state.query),
+          recommendations: newRecommendations,
+          addingSearch: newSearchResults
         };
       
       case collections.remove + '_FULFILLED':

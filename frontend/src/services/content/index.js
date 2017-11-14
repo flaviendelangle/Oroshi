@@ -53,6 +53,8 @@ export const getDefaultOrder = scene => {
           direction: 'desc'
         }
       };
+    default:
+      return null;
   }
   
   

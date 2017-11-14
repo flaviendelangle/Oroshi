@@ -7,6 +7,7 @@ import Help from './components/Help/index'
 import Grid from './components/Grid/index'
 import Stream from './components/Stream/index'
 import { getCollectionState } from 'containers/reducer';
+import { addElement } from 'services/actions/collections';
 
 const progressStyle = {
   width: 40,
@@ -79,6 +80,7 @@ class CollectionContent extends Component {
           scene={this.props.scene}
           elementComponent={this.props.elementComponent}
           creationMode={true}
+          onCreate={this.props.create}
         />
       )
     }
@@ -89,6 +91,7 @@ class CollectionContent extends Component {
         scene={this.props.scene}
         elementComponent={this.props.elementComponent}
         creationMode={true}
+        onCreate={this.props.create}
       />
     )
   };
@@ -145,8 +148,10 @@ const mapStateToProps = (state, ownProps) => {
   }
 };
 
-const mapDispatchToProps = dispatch => {
-  return {}
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    create: data => dispatch(addElement(ownProps.scene, data))
+  }
 };
 
 export default connect(

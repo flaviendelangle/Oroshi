@@ -18,6 +18,7 @@ class Grid extends Component {
         collection={this.props.collection}
         key={key}
         creationMode={this.props.creationMode}
+        onCreate={this.props.onCreate}
       />
     );
   };

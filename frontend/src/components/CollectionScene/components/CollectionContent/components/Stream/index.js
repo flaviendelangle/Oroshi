@@ -45,6 +45,7 @@ class Stream extends Component {
           field={this.props.data.key}
           elementComponent={this.props.elementComponent}
           creationMode={this.props.creationMode}
+          onCreate={this.props.onCreate}
         />)
     })
   };

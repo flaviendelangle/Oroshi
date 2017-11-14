@@ -92,6 +92,8 @@ const getSearchKey = scene => {
       return 'movies';
     case 'tv_shows':
       return 'tvShow';
+    default:
+      return null;
   }
 };
 

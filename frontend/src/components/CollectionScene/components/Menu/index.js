@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import FloatingActionButton from 'material-ui/FloatingActionButton'
 import ContentAdd from 'material-ui/svg-icons/content/add'
+import ActionDoneAll from 'material-ui/svg-icons/action/done-all'
 import ActionViewList from 'material-ui/svg-icons/action/view-list'
 import ActionViewModule from 'material-ui/svg-icons/action/view-module'
 import ActionViewStream from 'material-ui/svg-icons/action/view-stream'
@@ -28,7 +29,7 @@ class Menu extends Component {
   
   renderLayout = () => {
     if(this.props.isAdding) {
-    
+      return null;
     }
     return (
       <div style={layoutStyle}>
@@ -48,6 +49,13 @@ class Menu extends Component {
     );
   };
   
+  renderAddingIcon = () => {
+    if(this.props.isAdding) {
+      return (<ActionDoneAll/>);
+    }
+    return (<ContentAdd/>);
+  };
+  
   render() {
     return (
       <span>
@@ -55,7 +63,7 @@ class Menu extends Component {
           style={addStyle}
           onClick={() => this.props.switchAddingMode(this.props.collection)}
         >
-          <ContentAdd/>
+          {this.renderAddingIcon()}
         </FloatingActionButton>
         
         {this.renderLayout()}

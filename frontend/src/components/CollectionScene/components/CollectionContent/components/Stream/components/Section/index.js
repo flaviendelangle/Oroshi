@@ -44,6 +44,7 @@ class Section extends Component {
           collection={this.props.collection}
           key={element.pk || element.id}
           creationMode={this.props.creationMode}
+          onCreate={this.props.onCreate}
         />
       )
     });

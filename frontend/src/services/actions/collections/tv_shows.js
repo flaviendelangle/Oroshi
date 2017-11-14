@@ -1,5 +1,3 @@
-import * as tmdb from './tmdb'
-
 import { TVShowsAPI } from 'services/api/tvShows';
 import { TVShowCollectionsAPI } from 'services/api/tvShowsCollections';
 import TVShowsTMDB from 'services/TheMovieDatabaseJS/tv'
