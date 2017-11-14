@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import ActionDelete from 'material-ui/svg-icons/action/delete'
 
 import SeenCheckbox from 'components/ContentTable/components/SeenCheckbox'
-import { removeMovie } from './actions'
+import { removeElement } from 'services/actions/collections'
 
 import './style.css'
 
@@ -43,7 +43,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    remove: (collection, pk) => dispatch(removeMovie(collection, pk))
+    remove: (collection, pk) => dispatch(removeElement('movies', collection, pk))
   }
 };
 

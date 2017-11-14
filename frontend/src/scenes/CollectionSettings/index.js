@@ -8,7 +8,7 @@ import Toggle from 'material-ui/Toggle';
 
 import Header from './components/Header'
 import Exports from './components/Exports'
-import { loadCollection } from './actions'
+import { getSettings } from 'services/actions/collections'
 
 const paperStyle = {
   width: 500,
@@ -53,7 +53,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    synchronize: collection => dispatch(loadCollection(collection))
+    synchronize: collection => dispatch(getSettings(collection))
   }
 };
 

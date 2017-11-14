@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 
 import { getCollectionState } from 'containers/reducer';
-import { save } from './actions'
+import { addElement } from 'services/actions/collections'
 
 class Results extends Component {
   
@@ -43,7 +43,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    save: data => dispatch(save(ownProps.scene, data))
+    save: data => dispatch(addElement(ownProps.scene, data))
   };
 };
 

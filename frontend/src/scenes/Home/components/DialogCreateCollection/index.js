@@ -7,7 +7,8 @@ import FlatButton from 'material-ui/FlatButton'
 import CollectionStepper from './components/CollectionStepper'
 import Content from './components/Content'
 import ContentImporter from './components/ContentImporter'
-import { showDialogCreateCollection, createCollection } from './actions'
+import { create as createCollection } from 'services/actions/collections'
+import { showDialogCreateCollection } from './actions'
 
 const fromName = 'DialogCreateCollectionConfigurationForm';
 

@@ -1,0 +1,1 @@
+import { getCollectionAPI } from 'services/api/collections'

@@ -1,5 +1,5 @@
 import searchAPI from 'services/TheMovieDatabaseJS/search';
-import { getCollectionAPI, getElementAPI } from 'services/api/collections';
+import { getCollectionAPI, getElementAPI } from 'services/actions/collections';
 
 const tmdb = {
   

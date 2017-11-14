@@ -1,6 +1,6 @@
 import { dialogs } from 'services/titles/interface'
 import { collections } from 'services/titles/api'
-import { _addElementToCollection } from 'services/actions/api'
+import { addElement } from 'services/actions/collections'
 
 
 export const importContent = (scene, dispatch, elements) => {
@@ -25,7 +25,7 @@ const importElement = (scene, dispatch, elements, index) => {
     return true;
   }
   const element = elements[index];
-  return _addElementToCollection(scene, element).payload.then(el => {
+  return addElement(scene, element).payload.then(el => {
     dispatch({
       type: collections.add,
       data: el

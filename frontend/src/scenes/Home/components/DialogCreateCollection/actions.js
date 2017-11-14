@@ -1,5 +1,3 @@
-import { createCollection as _createCollection } from '../../actions'
-
 import { dialogs } from 'services/titles/interface'
 
 export const showDialogCreateCollection = show => {
@@ -8,8 +6,3 @@ export const showDialogCreateCollection = show => {
     show
   };
 };
-
-export const createCollection = (...args) => {
-  return _createCollection(...args);
-};
-
