@@ -83,6 +83,9 @@ class Search extends Component {
   };
   
   renderDefaultMenu = () => {
+    if(this.props.isAdding) {
+      return null;
+    }
     switch(this.props.scene) {
       case 'movies':
         return this.renderDefaultMenuMovies();
@@ -143,8 +146,10 @@ class Search extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
+  const root = getCollectionState(state, ownProps.scene).main;
   return {
-    layout: getCollectionState(state, ownProps.scene).main.layout
+    layout: root.layout,
+    isAdding: root.isAdding
   };
 };
 

@@ -30,7 +30,9 @@ class CollectionScene extends Component {
           elementComponent={this.props.config.elementComponent}
           scene={this.props.scene}
         />
-        <Menu/>
+        <Menu
+          scene={this.props.scene}
+        />
       </div>
     )
     

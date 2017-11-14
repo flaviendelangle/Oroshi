@@ -112,6 +112,7 @@ export const updateElement = (scene, collection, id, data) => {
 };
 
 export const removeElement = (scene, collection, id) => {
+  const api = getCollectionAPI(scene).element(collection)[scene];
   return {
     type: titles.collections.remove,
     payload: api.destroy(id),

@@ -10,7 +10,6 @@ import collectionSettings from 'scenes/CollectionSettings/reducer'
 import { notify } from 'services/titles/router'
 
 
-//collections[ownProps.type]
 const appReducer = combineReducers({
   // External modules
   form,
@@ -29,7 +28,7 @@ const appReducer = combineReducers({
 
 const rootReducer = (state, action) => {
   
-
+  
   switch(action.type) {
     
     case notify.change:

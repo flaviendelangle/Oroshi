@@ -6,8 +6,10 @@ import ActionViewList from 'material-ui/svg-icons/action/view-list'
 import ActionViewModule from 'material-ui/svg-icons/action/view-module'
 import ActionViewStream from 'material-ui/svg-icons/action/view-stream'
 
-import { showDialog } from '../DialogAddElement/actions'
+import { getCollectionState } from 'containers/reducer';
+import { switchAddingMode } from '../../actions'
 import { switchLayout } from '../CollectionContent/actions'
+import { getRecommendations } from 'services/actions/publicAPI'
 
 
 const addStyle = {
@@ -24,30 +26,39 @@ const layoutStyle = {
 
 class Menu extends Component {
   
+  renderLayout = () => {
+    if(this.props.isAdding) {
+    
+    }
+    return (
+      <div style={layoutStyle}>
+        <ActionViewList
+          style={{marginRight: 10, cursor: 'pointer'}}
+          onClick={() => this.props.switchLayout('list')}
+        />
+        <ActionViewModule
+          style={{marginRight: 10, cursor: 'pointer'}}
+          onClick={() => this.props.switchLayout('grid')}
+        />
+        <ActionViewStream
+          style={{cursor: 'pointer'}}
+          onClick={() => this.props.switchLayout('stream')}
+        />
+      </div>
+    );
+  };
+  
   render() {
     return (
       <span>
         <FloatingActionButton
           style={addStyle}
-          onClick={this.props.addElement}
+          onClick={this.props.switchAddingMode}
         >
           <ContentAdd/>
         </FloatingActionButton>
         
-        <div style={layoutStyle}>
-          <ActionViewList
-            style={{marginRight: 10, cursor: 'pointer'}}
-            onClick={() => this.props.switchLayout('list')}
-          />
-          <ActionViewModule
-            style={{marginRight: 10, cursor: 'pointer'}}
-            onClick={() => this.props.switchLayout('grid')}
-          />
-          <ActionViewStream
-            style={{cursor: 'pointer'}}
-            onClick={() => this.props.switchLayout('stream')}
-          />
-        </div>
+        {this.renderLayout()}
       </span>
     )
     
@@ -55,14 +66,19 @@ class Menu extends Component {
   
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
+  const root = getCollectionState(state, ownProps.scene);
   return {
+    isAdding: root.main.isAdding
   }
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    addElement: () => dispatch(showDialog(true)),
+    switchAddingMode: () => {
+      dispatch(switchAddingMode(ownProps.scene));
+      dispatch(getRecommendations(ownProps.scene));
+    },
     switchLayout: layout => dispatch(switchLayout(ownProps.scene, layout))
   };
 };

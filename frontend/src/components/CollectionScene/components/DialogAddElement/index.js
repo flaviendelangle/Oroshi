@@ -7,7 +7,8 @@ import ScrollArea from 'react-scrollbar'
 
 import { getCollectionState } from 'containers/reducer';
 import Results from './components/Results/index'
-import { showDialog, search } from './actions'
+import { showDialog } from './actions'
+import { search } from 'services/actions/publicAPI'
 
 const searchStyle = {
   margin: '0 auto 20px auto',

@@ -13,5 +13,9 @@ export const collectionCreation = {
 };
 
 export const layout = {
-  update: 'UPDATE_CONTENT_LAYOUT'
+  update: 'UPDATE_CONTENT_LAYOUT',
+};
+
+export const source = {
+  updateIsAdding: 'UPDATE_IS_ADDING_ELEMENT'
 };

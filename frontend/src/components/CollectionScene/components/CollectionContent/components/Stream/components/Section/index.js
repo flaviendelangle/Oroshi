@@ -12,16 +12,23 @@ class Section extends Component {
     full: false
   };
   
-  getTitle = () => {
+  get title() {
     return this.props.data.key.title || this.props.data.key.name;
-  };
-  
-  getLink = () => {
-    return '/' + this.props.field.field + '/' + this.props.data.key.pk;
-  };
+  }
   
   showAll = () => {
     this.setState({full: !this.state.full});
+  };
+  
+  renderLink = () => {
+    if(this.props.data.hasOwnProperty('link') && !this.props.data.link) {
+      return this.title;
+    }
+    return (
+      <Link to={'/' + this.props.field.field + '/' + this.props.data.key.pk}>
+        {this.title}
+      </Link>
+    );
   };
   
   renderContent = () => {
@@ -29,15 +36,14 @@ class Section extends Component {
     if(!this.state.full && content.length > 7) {
       content = content.slice(0,7);
     }
-    
     const Element = this.props.elementComponent;
     return content.map(element => {
       return (
         <Element
           data={element}
           collection={this.props.collection}
-          key={element.pk}
-          creationMode={false}
+          key={element.pk || element.id}
+          creationMode={this.props.creationMode}
         />
       )
     });
@@ -50,9 +56,7 @@ class Section extends Component {
         data-amount={this.props.data.content.length}
       >
         <div className="title">
-          <Link to={this.getLink()}>
-            {this.getTitle()}
-          </Link>
+          {this.renderLink()}
           <IconButton onClick={this.showAll}>
             {this.state.full ? <NavigationLess/> : <NavigationMore/>}
           </IconButton>

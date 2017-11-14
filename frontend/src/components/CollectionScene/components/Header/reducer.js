@@ -1,12 +1,13 @@
-import { collectionContent } from 'services/titles/api'
+import { combineReducers } from 'redux';
 
-import { combineReducers } from 'redux'
+import { collectionContent } from 'services/titles/api';
+import { source } from 'services/titles/interface';
 
 import search from './components/Search/reducer'
 
 const defaultState = {
   collection: undefined,
-  title: ''
+  title: '',
 };
 
 const main = (state = defaultState, action) => {

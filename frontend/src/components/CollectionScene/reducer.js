@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux'
 
 import dialogAddElement from './components/DialogAddElement/reducer'
-import menu from './components/Menu/reducer'
 import header from './components/Header/reducer'
 
 import { collectionContent, collections } from 'services/titles/api'
 import { sort, search } from 'services/titles/data'
-import { layout } from 'services/titles/interface'
+import * as publicAPI from 'services/titles/publicAPI'
+import { layout, source } from 'services/titles/interface'
 import { getValue } from 'services/localstorage'
 import api from 'services/TheMovieDatabaseJS/index'
 import { getListGenerator, getStreamGenerator, getDefaultOrder } from 'services/content/'
@@ -30,7 +30,13 @@ const reducerBuilder = _scene => {
     layout: getValue('layout') || 'grid',
     order: getValue('order') || defaultOrder,
     stream: new StreamGenerator(),
-    toShow: new ListGenerator()
+    toShow: new ListGenerator(),
+    
+    // Adding mode
+    isAdding: false,
+    recommendations: {
+      results: []
+    }
   };
   
   
@@ -131,7 +137,7 @@ const reducerBuilder = _scene => {
           update: Math.random()
         };
       
-      case search.update_query: // OK
+      case search.update_query:
         return {
           ...state,
           query: action.query,
@@ -139,7 +145,7 @@ const reducerBuilder = _scene => {
           toShow: new ListGenerator(state.content, action.query)
         };
       
-      case layout.update: // OK
+      case layout.update:
         setLayoutParameters(scene, action.layout);
         return {
           ...state,
@@ -147,6 +153,18 @@ const reducerBuilder = _scene => {
           layout: action.layout,
           stream: new StreamGenerator(state.content, '', state.order.stream),
           toShow: new ListGenerator(state.content, '')
+        };
+        
+      case source.updateIsAdding:
+        return {
+          ...state,
+          isAdding: !state.isAdding
+        };
+        
+      case publicAPI.request.get_recommendations + '_FULFILLED':
+        return {
+          ...state,
+          recommendations: action.payload
         };
       
       default:
@@ -157,7 +175,6 @@ const reducerBuilder = _scene => {
   
   return combineReducers({
     main: main.bind(this, _scene),
-    menu,
     dialogAddElement,
     header,
   });

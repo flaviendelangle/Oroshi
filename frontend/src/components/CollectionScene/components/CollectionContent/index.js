@@ -35,7 +35,7 @@ class CollectionContent extends Component {
     query: '',
   };
   
-  renderContent = () => {
+  renderIsNotAdding = () => {
     if(this.props.layout === 'grid') {
       return (
         <Grid
@@ -69,6 +69,25 @@ class CollectionContent extends Component {
     }
   };
   
+  renderIsAdding = () => {
+    return (
+      <Stream
+        data={this.props.recommendations}
+        collection={this.props.collection}
+        scene={this.props.scene}
+        elementComponent={this.props.elementComponent}
+        creationMode={true}
+      />
+    )
+  };
+  
+  renderContent = () => {
+    if(this.props.isAdding) {
+      return this.renderIsAdding();
+    }
+    return this.renderIsNotAdding();
+  };
+  
   render() {
     if(!this.props.loaded) {
       return (
@@ -98,7 +117,6 @@ class CollectionContent extends Component {
 
 const mapStateToProps = (state, ownProps) => {
   const root = getCollectionState(state, ownProps.scene).main;
-  
   return {
     update: root.update,
     content: root.content,
@@ -108,7 +126,9 @@ const mapStateToProps = (state, ownProps) => {
     found: root.found,
     loaded: root.loaded,
     layout: root.layout,
-    order: root.order
+    order: root.order,
+    isAdding: root.isAdding,
+    recommendations: root.recommendations
   }
 };
 

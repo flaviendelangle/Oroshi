@@ -13,26 +13,38 @@ class Search extends Component {
     query: ''
   };
   
+  get hintText() {
+    if(this.props.isAdding) {
+      return 'Search for content to add';
+    }
+    return this.props.title ? ('Search in ' + this.props.title) : 'Search ...';
+  }
+  
   search = query => {
     this.setState({ query });
     this.props.filter(query);
   };
   
-  getElementCount = () => {
-    return this.props.count + ' element' + (this.props.count > 1 ? 's' : '');
+  renderCounter = () => {
+    if(this.props.isAdding) {
+      return null;
+    }
+    const count = this.props.count + ' element' + (this.props.count > 1 ? 's' : '');
+    return (
+      <div className="element-count">{count}</div>
+    );
   };
   
   render() {
-    const hintText = this.props.title ? ('Search in ' + this.props.title) : 'Search ...'
     return (
       <div className="search-bar-container">
         <SearchBar
-          hintText={hintText}
+          hintText={this.hintText}
           onChange={this.search}
           onRequestSearch={() => this.props.filter(this.state.query)}
           value={this.props.query}
         />
-        <div className="element-count">{this.getElementCount()}</div>
+        {this.renderCounter()}
       </div>
     );
   }
@@ -49,6 +61,7 @@ const mapStateToProps = (state, ownProps) => {
   }
   return {
     query: root.header.search.query,
+    isAdding: root.main.isAdding,
     count
   };
 };
