@@ -36,7 +36,8 @@ const reducerBuilder = _scene => {
     isAdding: false,
     recommendations: {
       results: []
-    }
+    },
+    addingSearch: null
   };
   
   
@@ -138,6 +139,9 @@ const reducerBuilder = _scene => {
         };
       
       case search.update_query:
+        if(this.isAdding) {
+          return state;
+        }
         return {
           ...state,
           query: action.query,
@@ -156,8 +160,10 @@ const reducerBuilder = _scene => {
         };
         
       case source.updateIsAdding:
+        
         return {
           ...state,
+          addingSearch: null,
           isAdding: !state.isAdding
         };
         
@@ -165,6 +171,12 @@ const reducerBuilder = _scene => {
         return {
           ...state,
           recommendations: action.payload
+        };
+  
+      case publicAPI.request.search + '_FULFILLED':
+        return {
+          ...state,
+          addingSearch: action.payload
         };
       
       default:

@@ -14,10 +14,10 @@ class Grid extends Component {
     const Element = this.props.elementComponent;
     return (
       <Element
-        data={this.props.data[index]}
+        data={this.props.data.results[index]}
         collection={this.props.collection}
         key={key}
-        creationMode={false}
+        creationMode={this.props.creationMode}
       />
     );
   };
@@ -27,13 +27,14 @@ class Grid extends Component {
       return (
         <ReactList
           itemRenderer={this.renderItem}
-          length={this.props.data.length}
+          length={this.props.data.results.length}
           type='uniform'
         />
       );
     } else {
-     return this.props.data.map(el => {
-       return this.renderItem(this.props.data.indexOf(el), el.tmdbId);
+     return this.props.data.results.map(el => {
+       const id = el.tmdbId || el.id;
+       return this.renderItem(this.props.data.results.indexOf(el), id);
      });
     }
   };

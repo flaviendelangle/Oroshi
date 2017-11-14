@@ -5,7 +5,7 @@ export const update = (scene, query) => {
     type: search.update_query,
     query,
     meta: {
-      scene
+      scene,
     }
   };
 };

@@ -4,6 +4,7 @@ import SearchBar from 'material-ui-search-bar'
 
 import { getCollectionState } from 'containers/reducer';
 import { update } from './actions'
+import { search } from 'services/actions/publicAPI'
 
 import './style.css'
 
@@ -22,7 +23,11 @@ class Search extends Component {
   
   search = query => {
     this.setState({ query });
-    this.props.filter(query);
+    this.filter(query, false)
+  };
+  
+  filter = (query, forced) => {
+    this.props.filter(query, forced, this.props.isAdding, this.props.collection);
   };
   
   renderCounter = () => {
@@ -41,7 +46,7 @@ class Search extends Component {
         <SearchBar
           hintText={this.hintText}
           onChange={this.search}
-          onRequestSearch={() => this.props.filter(this.state.query)}
+          onRequestSearch={() => this.filter(this.state.query, true)}
           value={this.props.query}
         />
         {this.renderCounter()}
@@ -62,13 +67,19 @@ const mapStateToProps = (state, ownProps) => {
   return {
     query: root.header.search.query,
     isAdding: root.main.isAdding,
+    collection: root.main.collection,
     count
   };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    filter: query => dispatch(update(ownProps.scene, query))
+    filter: (query, forced, isAdding, collection) => {
+      dispatch(update(ownProps.scene, query));
+      if(isAdding && forced) {
+        dispatch(search(ownProps.scene, collection, query));
+      }
+    }
   }
 };
 

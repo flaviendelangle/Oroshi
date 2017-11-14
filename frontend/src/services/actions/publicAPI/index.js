@@ -13,10 +13,10 @@ export const search = (scene, collection, query) => {
   };
 };
 
-export const getRecommendations = scene => {
+export const getRecommendations = (scene, collection) => {
  return {
    type: request.get_recommendations,
-   payload: getModule(scene).getRecommendations(scene),
+   payload: getModule(scene).getRecommendations(scene, collection),
    meta: {
      scene
    }

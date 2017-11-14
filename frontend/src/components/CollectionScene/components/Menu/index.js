@@ -53,7 +53,7 @@ class Menu extends Component {
       <span>
         <FloatingActionButton
           style={addStyle}
-          onClick={this.props.switchAddingMode}
+          onClick={() => this.props.switchAddingMode(this.props.collection)}
         >
           <ContentAdd/>
         </FloatingActionButton>
@@ -67,17 +67,18 @@ class Menu extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const root = getCollectionState(state, ownProps.scene);
+  const root = getCollectionState(state, ownProps.scene).main;
   return {
-    isAdding: root.main.isAdding
+    isAdding: root.isAdding,
+    collection: root.collection
   }
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    switchAddingMode: () => {
+    switchAddingMode: collection => {
       dispatch(switchAddingMode(ownProps.scene));
-      dispatch(getRecommendations(ownProps.scene));
+      dispatch(getRecommendations(ownProps.scene, collection));
     },
     switchLayout: layout => dispatch(switchLayout(ownProps.scene, layout))
   };

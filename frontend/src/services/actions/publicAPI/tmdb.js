@@ -3,7 +3,7 @@ import { getElementAPI, getCollectionAPI, getPublicAPI } from 'services/actions/
 import searchAPI from 'services/TheMovieDatabaseJS/search';
 
 export const search = (scene, collection, query) => {
-  
+
   const searchKey = getSearchKey(scene);
   
   const filterById = (movie, el) => {
@@ -20,9 +20,9 @@ export const search = (scene, collection, query) => {
       }
       return getElementAPI(scene).serialize(IDs, 'tmdbId');
     })
-    .then(exist => {
+    .then(existOnServer => {
       for(let i = 0; i < elements.results.length; i++) {
-        const match = exist.filter(filterById.bind(this, elements.results[i]));
+        const match = existOnServer.filter(filterById.bind(this, elements.results[i]));
         elements.results[i].local = (match.length > 0) ? match[0] : undefined;
       }
       return getCollectionAPI(scene).element(collection)[scene].exist(IDs, 'tmdbId');
@@ -30,12 +30,8 @@ export const search = (scene, collection, query) => {
     .catch(error => {
       return [];
     })
-    .then(exist => {
-      for(let i = 0; i < elements.results.length; i++) {
-        elements.results[i].already_in_collection = exist[elements.results[i].id];
-        elements.results[i].current_collection = collection;
-      }
-      return elements;
+    .then(existInCollection => {
+      return cleanResults(elements, collection, existInCollection);
     })
     .catch(error => {
       return [];
@@ -43,23 +39,47 @@ export const search = (scene, collection, query) => {
 };
 
 export const getRecommendations = (scene, collection) => {
+  
+  const _cleanResults = (elements, collection, existInCollection) => {
+    elements.content = cleanResults(
+      elements.content,
+      collection,
+      existInCollection
+    ).results;
+    return elements;
+  };
+  
   let elements = [];
-  const API = getPublicAPI(scene);
-  return API.popular()
+  let IDs, elementsTemp, cleanedData;
+  const API = getCollectionAPI(scene).element(collection)[scene];
+  const publicAPI = getPublicAPI(scene);
+  return publicAPI.popular()
     .then(response => {
-      elements.push({
+      elementsTemp = {
         key: { name: 'Popular', pk: 1 },
-        content: response.results,
+        content: response,
         link: false
-      });
-      return API.topRated()
+      };
+      IDs = response.results.map(el => el.id);
+      return API.exist(IDs, 'tmdbId');
+    })
+    .then(exist => {
+      cleanedData = _cleanResults(elementsTemp, collection, exist);
+      elements.push(cleanedData);
+      return publicAPI.topRated();
     })
     .then(response => {
-      elements.push({
+      elementsTemp = {
         key: { name: 'Top rated', pk: 2 },
-        content: cleanResults(response, collection).results,
+        content: response,
         link: false
-      });
+      };
+      IDs = response.results.map(el => el.id);
+      return API.exist(IDs, 'tmdbId');
+    })
+    .then(exist => {
+      cleanedData = _cleanResults(elementsTemp, collection, exist);
+      elements.push(cleanedData);
       return {
         results: elements,
       };
@@ -75,8 +95,9 @@ const getSearchKey = scene => {
   }
 };
 
-const cleanResults = (elements, collection) => {
+const cleanResults = (elements, collection, exist) => {
   for(let i = 0; i < elements.results.length; i++) {
+    elements.results[i].already_in_collection = exist[elements.results[i].id];
     elements.results[i].current_collection = collection;
   }
   return elements;
