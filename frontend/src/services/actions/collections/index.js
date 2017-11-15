@@ -99,7 +99,6 @@ export const getSettings = (scene, pk) => {
 };
 
 export const addElement = (scene, data) => {
-  
   if(!data.hasOwnProperty('seen')) {
     data.seen = false;
   }

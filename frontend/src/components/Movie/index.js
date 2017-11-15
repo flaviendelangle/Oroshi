@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Paper from 'material-ui/Paper';
 import ContentAdd from 'material-ui/svg-icons/content/add';
+import ActionDone from 'material-ui/svg-icons/action/done'
 import muiThemeable from 'material-ui/styles/muiThemeable';
 
 import Poster from './components/Poster';
@@ -14,7 +15,20 @@ import './style.css'
 const gradeStyle = {
   margin: 'auto',
   top: '50%',
+  transform: 'translateY(-50%)'
+};
+
+const creationIconStyle = {
+  height: 80,
+  width: 80,
+  borderRadius: '50%',
+  backgroundColor: '#1DE9B6',
+  top: '50%',
+  left: 'calc((185px - 80px)/2)',
   transform: 'translateY(-50%)',
+  position: 'absolute',
+  boxShadow: '6px 6px 10px rgba(0,0,0,0.6)',
+  cursor: 'pointer'
 };
 
 class Movie extends Component {
@@ -26,7 +40,10 @@ class Movie extends Component {
   
   get release_date() {
     if(this.props.creationMode) {
-      date(this.props.data.release_date, date.TMDB_FORMAT, date.YEAR_FORMAT);
+      return date(this.props.data.release_date, date.TMDB_FORMAT, date.YEAR_FORMAT);
+    }
+    if(Array.isArray(this.props.data.release)) {
+      return parseInt(this.props.data.release[0].name, 10);
     }
     return this.props.data.release;
   }
@@ -60,7 +77,7 @@ class Movie extends Component {
   };
   
   renderOverlay = () => {
-    if(this.state.mouseOver) {
+    if(this.state.mouseOver || true) {
       if(this.props.creationMode) {
         return this.renderOverlayCreationMode();
       }
@@ -83,7 +100,6 @@ class Movie extends Component {
           <Actions
             data={this.props.data}
             collection={this.props.collection}
-            scene='movies'
           />
         </div>
       )
@@ -93,17 +109,25 @@ class Movie extends Component {
     if(this.props.data.already_in_collection) {
       return (
         <div className="overlay">
-          ALREADY ADDED
+          <div style={creationIconStyle}>
+            <ActionDone
+              color="white"
+              className="add-icon"
+              onClick={this.save}
+            />
+          </div>
         </div>
       );
     }
     return (
       <div className="overlay">
-        <ContentAdd
-          color="white"
-          className="add-icon"
-          onClick={this.save}
-        />
+        <div style={creationIconStyle}>
+          <ContentAdd
+            color="white"
+            className="add-icon"
+            onClick={this.save}
+          />
+        </div>
       </div>
     )
   };

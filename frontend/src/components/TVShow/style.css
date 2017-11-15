@@ -1,19 +1,16 @@
 .tv-show-parent {
     display: inline-block;
-    margin: 20px 10px;
+    margin: 20px 20px;
     position: relative;
     width: 185px;
-}
-
-.tv-show-parent:not(.already-in-collection):not(.not-in-collection) {
-    height: 278px;
-}
-
-.tv-show-parent.already-in-collection, .tv-show-parent.not-in-collection {
-    height: 320px;
+    height: 340px;
 }
 
 .tv-show-parent .title {
+    display: block;
+    height: 42px;
+    line-height: 21px;
+    margin-top: 20px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -63,12 +60,9 @@
     cursor: pointer;
 }
 
-.not-in-collection .add-icon {
-    height: 100% !important;
-    width: 100% !important;
-}
-
 .already-in-collection .tv-show .overlay {
+    white-space: normal;
+    text-align: center;
     font-size: 2em;
     font-weight: bold;
     line-height: 2em;

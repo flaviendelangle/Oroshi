@@ -10,7 +10,7 @@ export const elementAPI = TVShowsAPI;
 
 export const publicAPI = TVShowsTMDB;
 
-export const addElementToCollection = data => {
+export const addElement = data => {
   return _createTVShow(data)
     .then(response => {
       data = {
@@ -56,7 +56,6 @@ const _createTVShow = data => {
         .map(({id, name}) => ({tmdbId: id, name}));
       
       const poster = results.images.posters.length === 0 ? '' : results.images.posters[0].file_path;
-      console.log(results);
       const movie = {
         networks,
         genres,
@@ -70,7 +69,6 @@ const _createTVShow = data => {
       return TVShowsAPI.create(movie);
     })
     .then(response => {
-      console.log(response);
       return {
         data: response,
         collection: data.current_collection

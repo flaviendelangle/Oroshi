@@ -1,14 +1,20 @@
-import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import Paper from 'material-ui/Paper';
-import ContentAdd from 'material-ui/svg-icons/content/add'
-import StarRatingComponent from 'react-star-rating-component';
+import ContentAdd from 'material-ui/svg-icons/content/add';
+import muiThemeable from 'material-ui/styles/muiThemeable';
 
-import Poster from './components/Poster'
-import Actions from './components/Actions'
-import { date } from 'services/utils';
+import Poster from './components/Poster';
+import Actions from './components/Actions';
+import Grade from 'components/Grade';
 
 import './style.css'
+
+const gradeStyle = {
+  margin: 'auto',
+  top: '50%',
+  transform: 'translateY(-50%)',
+};
 
 class TVShow extends Component {
   
@@ -16,6 +22,20 @@ class TVShow extends Component {
     mouseOver: false,
     isAdding: false
   };
+  
+  get title() {
+    if(this.props.creationMode) {
+      return this.props.data.name;
+    }
+    return this.props.data.title;
+  }
+  
+  get poster() {
+    if(this.props.creationMode) {
+      return this.props.data.poster_path;
+    }
+    return this.props.data.poster;
+  }
   
   handleMouseHover = mouseOver => {
     this.setState({mouseOver})
@@ -38,15 +58,8 @@ class TVShow extends Component {
     return className
   };
   
-  getPosterPath = () => {
-    if(this.props.creationMode) {
-      return this.props.data.poster_path;
-    }
-    return this.props.data.poster;
-  };
-  
   renderOverlay = () => {
-    if(this.state.mouseOver || true) {
+    if(this.state.mouseOver) {
       if(this.props.creationMode) {
         return this.renderOverlayCreationMode();
       }
@@ -60,21 +73,15 @@ class TVShow extends Component {
         <div className="overlay">
           <Link to={'/tv_shows/' + this.props.data.tmdbId + '/'}>
             <div className="overlay-main">
-              <div className="title">{this.props.data.title}</div>
-              <div className="note">
-                <StarRatingComponent
-                  name={"Rate " + this.props.data.title}
-                  starCount={10}
-                  value={this.props.data.note}
-                  editing={false}
-                />
-              </div>
+              <Grade
+                value={this.props.data.note}
+                style={gradeStyle}
+              />
             </div>
           </Link>
           <Actions
             data={this.props.data}
             collection={this.props.collection}
-            scene='tv_shows'
           />
         </div>
       )
@@ -100,13 +107,12 @@ class TVShow extends Component {
   };
   
   renderFooter = () => {
-    if(!this.props.creationMode) {
-      return null;
-    }
-    const release = date(this.props.data.first_air_date, date.TMDB_FORMAT, date.YEAR_FORMAT);
     return (
-      <div className="title">
-        {release + ' - ' + this.props.data.name}
+      <div
+        className="title"
+        style={{color: this.props.muiTheme.palette.textColor}}
+      >
+        <div>{this.title}</div>
       </div>
     );
   };
@@ -114,14 +120,14 @@ class TVShow extends Component {
   render() {
     return (
       <div className={'tv-show-parent ' + this.getParentClassName()}>
-        <div className="tv-show">
+        <div className="tv-show-container">
           <Paper
             zDepth={3}
             className="tv-show"
             onMouseEnter={() => this.handleMouseHover(true)}
             onMouseLeave={() => this.handleMouseHover(false)}
           >
-            <Poster path={this.getPosterPath()} title={this.props.data.title} />
+            <Poster path={this.poster} title={this.props.data.title} />
             {this.renderOverlay()}
           </Paper>
         </div>
@@ -132,4 +138,4 @@ class TVShow extends Component {
   
 }
 
-export default TVShow;
+export default muiThemeable()(TVShow);

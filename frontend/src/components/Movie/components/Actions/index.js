@@ -21,7 +21,7 @@ class Actions extends Component {
           <div>
             <SeenCheckbox
               data={this.props.data}
-              scene={this.props.scene}
+              scene="movies"
             />
           </div>
         </div>

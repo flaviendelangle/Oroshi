@@ -1,14 +1,15 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { withRouter } from 'react-router'
-import { Switch, Route } from 'react-router-dom'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
+import { Switch, Route } from 'react-router-dom';
 
-import Home from 'scenes/Home'
-import CollectionMovies from 'scenes/CollectionMovies'
-import CollectionTVShows from 'scenes/CollectionTVShows'
-import Movie from 'scenes/Movie'
-import CollectionMoviesSettings from 'scenes/CollectionMoviesSettings'
-import { notifyRouteChange } from 'services/actions/router'
+import Home from 'scenes/Home';
+import CollectionMovies from 'scenes/CollectionMovies';
+import CollectionTVShows from 'scenes/CollectionTVShows';
+import Movie from 'scenes/Movie';
+import CollectionMoviesSettings from 'scenes/CollectionMoviesSettings';
+import CollectionTVShowsSettings from 'scenes/CollectionTVShowsSettings';
+import { notifyRouteChange } from 'services/actions/router';
 
 
 class Main extends Component {
@@ -25,6 +26,7 @@ class Main extends Component {
         <Switch>
           <Route exact path='/' component={Home} />
           <Route path='/collections/movies/:collection_id/settings/' component={CollectionMoviesSettings} />
+          <Route path='/collections/tv_shows/:collection_id/settings/' component={CollectionTVShowsSettings} />
           <Route path='/collections/movies/:collection_id/' component={CollectionMovies} />
           <Route path='/collections/tv_shows/:collection_id/' component={CollectionTVShows} />
           <Route path='/movies/:movie_id/' component={Movie} />

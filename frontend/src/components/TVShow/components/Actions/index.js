@@ -21,7 +21,7 @@ class Actions extends Component {
           <div>
             <SeenCheckbox
               data={this.props.data}
-              scene={this.props.scene}
+              scene="tv_shows"
             />
           </div>
         </div>
@@ -43,7 +43,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    remove: (collection, pk) => dispatch(removeElement('tv_shows', collection, pk))
+    remove: (collection, pk) => dispatch(removeElement('movies', collection, pk))
   }
 };
 

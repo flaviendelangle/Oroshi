@@ -38,4 +38,4 @@ class SeenTVShowsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = SeenTVShows
-        fields = ('movie', 'collection')
+        fields = ('tv_show', 'collection')

@@ -1,6 +1,5 @@
 import { combineReducers } from 'redux';
 
-import dialogAddElement from './components/DialogAddElement/reducer';
 import header from './components/Header/reducer';
 
 import { collectionContent, collections } from 'services/titles/api';
@@ -222,7 +221,6 @@ const reducerBuilder = _scene => {
   
   return combineReducers({
     main: main.bind(this, _scene),
-    dialogAddElement,
     header,
   });
   

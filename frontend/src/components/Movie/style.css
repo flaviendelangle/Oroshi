@@ -9,7 +9,7 @@
 .movie-parent .title {
     display: block;
     height: 42px;
-    line-height: 24px;
+    line-height: 21px;
     margin-top: 20px;
     white-space: nowrap;
     overflow: hidden;
@@ -50,27 +50,8 @@
     height: calc(100% - 2em);
 }
 
-.movie .title {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.not-in-collection .movie .overlay {
-    cursor: pointer;
-}
-
-.not-in-collection .add-icon {
-    height: 100% !important;
-    width: 100% !important;
-}
-
-.already-in-collection .movie .overlay {
-    white-space: normal;
-    text-align: center;
-    font-size: 2em;
-    font-weight: bold;
-    line-height: 2em;
-    height: 184px;
-    padding-top: 90px;
+.movie .add-icon {
+    height: 80% !important;
+    width: 80% !important;
+    margin: 10% !important;
 }

@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import Header from './components/Header'
-import DialogAddElement from './components/DialogAddElement'
 import CollectionContent from './components/CollectionContent'
 import Menu from './components/Menu'
 
@@ -23,11 +22,6 @@ class CollectionScene extends Component {
         <CollectionContent
           elementComponent={this.props.config.elementComponent}
           listColumns={this.props.config.listColumns}
-          scene={this.props.scene}
-        />
-        <DialogAddElement
-          collection={this.props.match.params.collection_id}
-          elementComponent={this.props.config.elementComponent}
           scene={this.props.scene}
         />
         <Menu

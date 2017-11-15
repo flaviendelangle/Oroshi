@@ -22,19 +22,10 @@ class Poster extends Component {
     return path + '/w185' + this.props.path;
   };
   
-  showProps = img => {
-    setTimeout(() => {
-      if(!img) {
-        return false;
-      }
-      console.log(this.props.title, img.offsetHeight);
-    }, 2000);
-  };
-  
   render() {
     if(this.props.path) {
       return (
-        <img src={this.url()} alt="Poster" ref={this.showProps} />
+        <img src={this.url()} alt="Poster" />
       );
     } else {
       return (
