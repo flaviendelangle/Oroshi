@@ -8,13 +8,17 @@ import { getCollectionSettingsState } from 'containers/reducer'
 
 
 class Header extends Component {
-
+  
+  get link() {
+    return '/collections/' + this.props.scene + '/' + this.props.collection + '/';
+  }
+  
   render() {
     return (
       <div>
         <HeaderOriginal title={this.props.title}>
           <div className="menu">
-            <Link to={'/collections/' + this.props.collection + '/movies/' }>
+            <Link to={this.link}>
               <AVMovie/>
               <div>Return to my collection</div>
             </Link>

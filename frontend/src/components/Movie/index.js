@@ -1,14 +1,21 @@
-import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import Paper from 'material-ui/Paper';
-import ContentAdd from 'material-ui/svg-icons/content/add'
-import StarRatingComponent from 'react-star-rating-component';
+import ContentAdd from 'material-ui/svg-icons/content/add';
+import muiThemeable from 'material-ui/styles/muiThemeable';
 
-import Poster from './components/Poster'
-import Actions from './components/Actions'
+import Poster from './components/Poster';
+import Actions from './components/Actions';
+import Grade from 'components/Grade';
 import { date } from 'services/utils';
 
 import './style.css'
+
+const gradeStyle = {
+  margin: 'auto',
+  top: '50%',
+  transform: 'translateY(-50%)',
+};
 
 class Movie extends Component {
   
@@ -16,6 +23,13 @@ class Movie extends Component {
     mouseOver: false,
     isAdding: false
   };
+  
+  get release_date() {
+    if(this.props.creationMode) {
+      date(this.props.data.release_date, date.TMDB_FORMAT, date.YEAR_FORMAT);
+    }
+    return this.props.data.release;
+  }
   
   handleMouseHover = mouseOver => {
     this.setState({mouseOver})
@@ -60,15 +74,10 @@ class Movie extends Component {
         <div className="overlay">
           <Link to={'/movies/' + this.props.data.tmdbId + '/'}>
             <div className="overlay-main">
-              <div className="title">{this.props.data.title}</div>
-              <div className="note">
-                <StarRatingComponent
-                  name={"Rate " + this.props.data.title}
-                  starCount={10}
-                  value={this.props.data.note}
-                  editing={false}
-                />
-              </div>
+              <Grade
+                value={this.props.data.note}
+                style={gradeStyle}
+              />
             </div>
           </Link>
           <Actions
@@ -100,13 +109,13 @@ class Movie extends Component {
   };
   
   renderFooter = () => {
-    if(!this.props.creationMode) {
-      return null;
-    }
-    const release = date(this.props.data.release_date, date.TMDB_FORMAT, date.YEAR_FORMAT);
     return (
-      <div className="title">
-        {release + ' - ' + this.props.data.title}
+      <div
+        className="title"
+        style={{color: this.props.muiTheme.palette.textColor}}
+      >
+        <div>{this.release_date}</div>
+        <div>{this.props.data.title}</div>
       </div>
     );
   };
@@ -132,4 +141,4 @@ class Movie extends Component {
   
 }
 
-export default Movie;
+export default muiThemeable()(Movie);

@@ -3,17 +3,14 @@
     margin: 20px 20px;
     position: relative;
     width: 185px;
-}
-
-.movie-parent:not(.already-in-collection):not(.not-in-collection) {
-    height: 278px;
-}
-
-.movie-parent.already-in-collection, .movie-parent.not-in-collection {
-    height: 320px;
+    height: 340px;
 }
 
 .movie-parent .title {
+    display: block;
+    height: 42px;
+    line-height: 24px;
+    margin-top: 20px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
