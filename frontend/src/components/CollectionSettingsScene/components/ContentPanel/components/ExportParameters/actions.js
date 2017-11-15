@@ -6,7 +6,14 @@ import { collections } from 'services/titles/exports'
 
 const collectionFields = ['TmdbId', 'Title', 'Release', 'Directors', 'Genres', 'Seen', 'Note'];
 
-export const exportAsCSV = pk => {
+export const exportCollection = (pk, format) => {
+  switch(format) {
+    case 'csv':
+      return exportAsCSV(pk);
+  }
+};
+
+const exportAsCSV = pk => {
   return {
     type: collections.csv,
     payload: getCollection('movies', pk).payload.then(response => {

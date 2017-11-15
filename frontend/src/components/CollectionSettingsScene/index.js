@@ -17,7 +17,7 @@ class CollectionSettings extends Component {
       <div className="collection-settings">
         <Header scene={this.props.scene} />
         <MenuPanel scene={this.props.scene} />
-        <ContentPanel style scene={this.props.scene} />
+        <ContentPanel scene={this.props.scene} />
       </div>
     );
     

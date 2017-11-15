@@ -1,29 +1,45 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import {List, ListItem} from 'material-ui/List'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import FileDownload from 'material-ui/svg-icons/file/file-download';
+import SocialShare from 'material-ui/svg-icons/social/share';
 
-import { exportAsCSV } from './actions'
-import { getCollectionSettingsState } from 'containers/reducer'
+import ParametersSection from '../ParametersSection';
+import { exportCollection } from './actions';
+import { getCollectionSettingsState } from 'containers/reducer';
 
-class Exports extends Component {
+class ExportParameters extends Component {
   
   render() {
     return (
-      <List>
-        <ListItem
-          rightIcon={<FileDownload />}
-          primaryText="Export my collection"
-          secondaryText="Download as CSV"
-          onClick={() => this.props.exportAsCSV(this.props.collection)}
-        />
-      </List>
+      <ParametersSection>
+        <div className="title">Export your data</div>
+        <div className="content">
+          <div
+            rightIcon={<SocialShare />}
+            primaryText="Get your public link"
+            onClick={() => {}}
+          >
+          </div>
+          <div
+            rightIcon={<FileDownload />}
+            primaryText="Export as CSV"
+            onClick={() => this.props.exportCollection(this.props.collection, 'csv')}
+          >
+          </div>
+          <div
+            rightIcon={<FileDownload />}
+            primaryText="Export as JSON"
+            onClick={() => this.props.exportCollection(this.props.collection, 'json')}
+          >
+          </div>
+        </div>
+      </ParametersSection>
     );
   }
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const root = getCollectionSettingsState(state, ownProps.scene).exports;
+  const root = getCollectionSettingsState(state, ownProps.scene).main;
   return {
     collection: root.collection
   }
@@ -31,11 +47,11 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    exportAsCSV: pk => dispatch(exportAsCSV(pk))
+    exportCollection: (pk, format) => dispatch(exportCollection(pk, format))
   }
 };
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Exports);
+)(ExportParameters);

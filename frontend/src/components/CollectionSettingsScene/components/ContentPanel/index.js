@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import muiThemeable from 'material-ui/styles/muiThemeable';
 
+import SummaryParameters from './components/SummaryParameters';
+import LanguageParameters from './components/LanguageParameters';
+import ExportParameters from './components/ExportParameters';
 
 class MenuPanel extends Component {
   
@@ -16,8 +19,7 @@ class MenuPanel extends Component {
       bottom: 0,
       right: 0,
       paddingTop: 50,
-      paddingLeft: 20,
-      width: 'calc(60% - 20px)',
+      width: '60%',
       backgroundColor: this.palette.primary2Color
     };
   }
@@ -25,7 +27,9 @@ class MenuPanel extends Component {
   render() {
     return (
       <div style={this.panelStyle}>
-        TEST
+        <SummaryParameters scene={this.props.scene} />
+        <LanguageParameters scene={this.props.scene} />
+        <ExportParameters scene={this.props.scene} />
       </div>
     );
     

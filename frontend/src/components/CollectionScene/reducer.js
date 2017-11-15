@@ -26,8 +26,8 @@ const reducerBuilder = _scene => {
     collection: 0,
     found: false,
     loaded: false,
-    layout: getValue('layout') || 'grid',
-    order: getValue('order') || defaultOrder,
+    layout: getValue('layout_' + _scene) || 'grid',
+    order: getValue('order_' + _scene) || defaultOrder,
     stream: new StreamGenerator(),
     toShow: new ListGenerator(),
     
