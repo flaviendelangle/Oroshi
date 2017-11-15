@@ -1,28 +1,34 @@
 import React, { Component } from 'react';
 
+const circle = {
+  thickness: 10,
+  diameter: 80,
+  lineHeight: 20
+};
+
 const externalCircleStyle = {
   position: 'absolute',
   top: 0,
   left: 0,
-  width: 80,
-  height: 80,
+  width: circle.diameter,
+  height: circle.diameter,
   backgroundColor: '#90A4AE',
   borderRadius: '50%',
-  boxShadow: '6px 6px 10px rgba(0,0,0,0.5)'
+  boxShadow: '6px 6px 10px rgba(0,0,0,0.6)'
 };
 
 const innerCircleStyle = {
   position: 'absolute',
-  top: 15,
-  left: 15,
-  width: 50,
-  height: 20,
+  top: circle.thickness,
+  left: circle.thickness,
+  width: (circle.diameter - 2*circle.thickness),
+  height: circle.lineHeight,
   backgroundColor: '#ECEFF1',
   borderRadius: '50%',
   color: 'black',
-  fontSize: 20,
+  fontSize: circle.lineHeight,
   fontWeight: 'bold',
-  padding: '15px 0',
+  padding: String(circle.diameter/2 - circle.thickness - circle.lineHeight/2) + 'px 0',
   textAlign: 'center',
 };
 
@@ -37,9 +43,9 @@ class Grade extends Component {
   }
   
   get color() {
-    if(this.value >= 7) {
+    if(this.value >= 6.67) {
       return '#1DE9B6';
-    } else if(this.value >= 5) {
+    } else if(this.value > 3.33) {
       return '#FFCA28';
     } else {
       return '#D32F2F';
@@ -50,8 +56,8 @@ class Grade extends Component {
    return {
      ...this.props.style,
      position: 'relative',
-     width: 80,
-     height: 80
+     width: circle.diameter,
+     height: circle.diameter
    };
   }
   
@@ -62,8 +68,8 @@ class Grade extends Component {
       position: 'absolute',
       top: 0,
       left: 0,
-      width: 60,
-      height: 60,
+      width: (circle.diameter - 2*circle.thickness),
+      height: (circle.diameter - 2*circle.thickness),
       backgroundColor: '#90A4AE'
     };
   }
@@ -74,10 +80,10 @@ class Grade extends Component {
       position: 'absolute',
       top: 0,
       left: 0,
-      width: 50,
-      height: 50,
+      width: (circle.diameter - 2*circle.thickness),
+      height: (circle.diameter - 2*circle.thickness),
       borderRadius: '50%',
-      border: '15px solid',
+      border: String(circle.thickness) + 'px solid',
       borderColor: 'transparent ' + this.color + ' transparent transparent',
       transform: 'rotate(' + angle + 'deg)'
     };
