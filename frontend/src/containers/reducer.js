@@ -6,7 +6,7 @@ import header from 'components/Header/reducer'
 import home from 'scenes/Home/reducer'
 import movie from 'scenes/Movie/reducer'
 import collection from 'components/CollectionScene/reducer'
-import collectionSettings from 'scenes/CollectionSettings/reducer'
+import collectionSettings from 'components/CollectionSettingsScene/reducer'
 import { notify } from 'services/titles/router'
 
 
@@ -18,9 +18,10 @@ const appReducer = combineReducers({
   header,
   
   // Scenes
-  collectionSettings,
   collection_movies: collection('movies'),
   collection_tv_shows: collection('tv_shows'),
+  collection_movies_settings: collectionSettings('movies'),
+  collection_tv_shows_settings: collectionSettings('tv_shows'),
   home,
   movie
 });
@@ -42,6 +43,10 @@ const rootReducer = (state, action) => {
     
   }
   
+};
+
+export const getCollectionSettingsState = (state, scene) => {
+  return state['collection_' + scene + '_settings'];
 };
 
 export const getCollectionState = (state, scene) => {

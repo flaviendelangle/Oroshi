@@ -7,7 +7,7 @@ import Home from 'scenes/Home'
 import CollectionMovies from 'scenes/CollectionMovies'
 import CollectionTVShows from 'scenes/CollectionTVShows'
 import Movie from 'scenes/Movie'
-import Collection from 'scenes/CollectionSettings'
+import CollectionMoviesSettings from 'scenes/CollectionMoviesSettings'
 import { notifyRouteChange } from 'services/actions/router'
 
 
@@ -24,9 +24,9 @@ class Main extends Component {
       <main>
         <Switch>
           <Route exact path='/' component={Home} />
-          <Route path='/collections/:collection_id/movies/' component={CollectionMovies} />
-          <Route path='/collections/:collection_id/tv_shows' component={CollectionTVShows} />
-          <Route path='/collections/:collection_id/' component={Collection} />
+          <Route path='/collections/movies/:collection_id/settings/' component={CollectionMoviesSettings} />
+          <Route path='/collections/movies/:collection_id/' component={CollectionMovies} />
+          <Route path='/collections/tv_shows/:collection_id/' component={CollectionTVShows} />
           <Route path='/movies/:movie_id/' component={Movie} />
         </Switch>
       </main>

@@ -3,7 +3,6 @@ import downloadjs from 'downloadjs'
 
 import { get as getCollection } from 'services/actions/collections'
 import { collections } from 'services/titles/exports'
-import { prepareElements } from '../../services/utils'
 
 const collectionFields = ['TmdbId', 'Title', 'Release', 'Directors', 'Genres', 'Seen', 'Note'];
 
@@ -11,7 +10,6 @@ export const exportAsCSV = pk => {
   return {
     type: collections.csv,
     payload: getCollection('movies', pk).payload.then(response => {
-      response = prepareElements('movies', response);
       const content = response.content.map(el => {
         return {
           TmdbId: el.tmdbId,

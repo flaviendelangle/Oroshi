@@ -1,8 +1,12 @@
 import * as movies from './movies';
 import * as tv_shows from './tv_shows';
+import { CollectionsAPI } from 'services/api/collections'
 
 import * as titles from 'services/titles/api'
 
+/*
+  ACTIONS WITH DISPATCH
+ */
 export const create = (scene, data, elementsToImport)  => {
   
   const _import = () => {
@@ -66,7 +70,7 @@ export const get = (scene, pk) => {
     type: titles.collectionContent.load,
     payload: getCollectionAPI(scene).retrieve(pk)
       .then(response => {
-        return response;
+        return prepareElements(scene, response);
       })
       .catch(error => {
         error = error.toString();
@@ -77,6 +81,13 @@ export const get = (scene, pk) => {
     meta: {
       scene
     }
+  };
+};
+
+export const getAll = () => {
+  return {
+    type: titles.collectionContent.loadAllSettings,
+    payload: CollectionsAPI.settings()
   }
 };
 
@@ -132,7 +143,32 @@ export const getModule = scene => {
       return null;
   }
 };
+/*
+  ACTIONS WITHOUT DISPATCH
+ */
+export const addSeenToElements =  (scene, elements, seen) => {
+  return getModule(scene).addSeenToElements(elements, seen);
+};
 
+export const addCollectionToElements = (scene, elements, pk) => {
+  return elements.map(element => {
+    return {
+      ...element,
+      collection: pk
+    }
+  });
+};
+
+export const prepareElements = (scene, data) => {
+  data.content = addSeenToElements(scene, data.content, data.seen);
+  data.content = addCollectionToElements(scene, data.content, data.pk);
+  return data;
+};
+
+
+/*
+  UTILS FUNCTIONS
+ */
 export const getCollectionAPI = scene => {
   return getModule(scene).collectionAPI;
 };

@@ -27,6 +27,17 @@ export const addElement = data => {
     })
 };
 
+export const addSeenToElements = (elements, seen) => {
+  return elements.map(element => {
+    const matches = seen.filter(seen => {
+      return seen.movie === element.pk;
+    });
+    return {
+      ...element,
+      seen: matches.length > 0
+    };
+  });
+};
 
 const _createMovie = data => {
   if(data.local) {

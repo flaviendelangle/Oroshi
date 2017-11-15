@@ -6,7 +6,7 @@ import DialogAddElement from './components/DialogAddElement'
 import CollectionContent from './components/CollectionContent'
 import Menu from './components/Menu'
 
-import { loadCollection } from './actions'
+import { get as getCollection } from 'services/actions/collections'
 
 class CollectionScene extends Component {
   
@@ -46,7 +46,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    synchronize: collection => dispatch(loadCollection(ownProps.scene, collection))
+    synchronize: collection => dispatch(getCollection(ownProps.scene, collection))
   }
 };
 

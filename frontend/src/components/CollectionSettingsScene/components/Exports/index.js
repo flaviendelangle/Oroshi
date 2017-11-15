@@ -4,6 +4,7 @@ import {List, ListItem} from 'material-ui/List'
 import FileDownload from 'material-ui/svg-icons/file/file-download';
 
 import { exportAsCSV } from './actions'
+import { getCollectionSettingsState } from 'containers/reducer'
 
 class Exports extends Component {
   
@@ -21,9 +22,10 @@ class Exports extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
+  const root = getCollectionSettingsState(state, ownProps.scene).exports;
   return {
-    collection: state.collectionSettings.exports.collection
+    collection: root.collection
   }
 };
 

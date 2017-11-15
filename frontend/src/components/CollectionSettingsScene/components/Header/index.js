@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import AVMovie from 'material-ui/svg-icons/av/movie'
 
 import HeaderOriginal from 'components/Header'
+import { getCollectionSettingsState } from 'containers/reducer'
 
 
 class Header extends Component {
@@ -25,10 +26,11 @@ class Header extends Component {
   
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
+  const root = getCollectionSettingsState(state, ownProps.scene).header;
   return {
-    collection: state.collectionSettings.header.collection,
-    title: state.collectionSettings.header.title
+    collection: root.collection,
+    title: root.title
   }
 };
 

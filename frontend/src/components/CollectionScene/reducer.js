@@ -12,7 +12,7 @@ import TMDBAPI from 'services/TheMovieDatabaseJS/index';
 import { getListGenerator, getStreamGenerator, getDefaultOrder } from 'services/content/';
 
 import { sortElements, setSortParameters, setLayoutParameters } from './services/utils';
-import { addSeenToElements, addCollectionToElements } from 'scenes/CollectionSettings/services/utils';
+import { addSeenToElements, addCollectionToElements } from 'services/actions/collections';
 
 const reducerBuilder = _scene => {
   

@@ -12,13 +12,18 @@ import HeaderOriginal from 'components/Header/index';
 
 class Header extends Component {
 
+  get link() {
+    return '/collections/' + this.props.scene +
+           '/' + this.props.collection + '/settings/';
+  }
+  
   render() {
     return (
       <div>
         <DocumentTitle title={this.props.title || 'Loading...'}/>
         <HeaderOriginal>
           <div className="menu">
-            <Link to={'/collections/' + this.props.collection + '/settings/' }>
+            <Link to={this.link}>
               <ActionSettings/>
               <div>Collection Settings</div>
             </Link>

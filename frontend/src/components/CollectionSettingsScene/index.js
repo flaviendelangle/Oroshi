@@ -26,16 +26,23 @@ class CollectionSettings extends Component {
   render() {
     return (
       <div>
-        <Header/>
+        <Header
+          scene={this.props.scene}
+        />
         <Paper zDepth={3} style={paperStyle}>
           <Card>
             <CardTitle title="Collection Settings" />
             <CardText style={{padding:0}}>
               <List>
-                <ListItem primaryText="Include adult content" rightToggle={<Toggle />} />
+                <ListItem
+                  primaryText="Include adult content"
+                  rightToggle={<Toggle />}
+                />
               </List>
               <Divider inset={true} />
-              <Exports/>
+              <Exports
+                scene={this.props.scene}
+              />
             </CardText>
           </Card>
         </Paper>
@@ -51,9 +58,9 @@ const mapStateToProps = state => {
   }
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    synchronize: collection => dispatch(getSettings(collection))
+    synchronize: collection => dispatch(getSettings(ownProps.scene, collection))
   }
 };
 

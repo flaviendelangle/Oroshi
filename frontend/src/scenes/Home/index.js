@@ -7,7 +7,7 @@ import CollectionList from './components/CollectionList'
 import ManageButton from './components/ManageButton'
 import FirstCollectionButton from './components/FirstCollectionButton'
 import DialogCreateCollection from './components/DialogCreateCollection'
-import { loadCollections } from './actions'
+import { getAll as getCollections } from 'services/actions/collections'
 
 const scrollStyle = {
   position: 'absolute',
@@ -92,7 +92,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    loadCollections: () => dispatch(loadCollections())
+    loadCollections: () => dispatch(getCollections())
   }
 };
 

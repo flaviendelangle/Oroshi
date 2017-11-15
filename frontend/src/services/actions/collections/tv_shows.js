@@ -27,6 +27,15 @@ export const addElementToCollection = data => {
     })
 };
 
+export const addSeenToElements = (elements, seen) => {
+  return elements.map(element => {
+    return {
+      ...element,
+      seen: false
+    };
+  });
+};
+
 const _createTVShow = data => {
   if(data.local) {
     return Promise.resolve({
