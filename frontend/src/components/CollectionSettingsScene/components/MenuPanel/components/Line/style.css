@@ -1,0 +1,25 @@
+.collection-settings .line {
+    line-height: 2.5em;
+    height: 3em;
+    text-align: left;
+    position: relative;
+}
+
+.collection-settings .line-content {
+    display: inline-block;
+    float: right;
+    padding: 2px 15px;
+    margin: 4px 0;
+    height: calc(3em - 12px);
+    width: 200px;
+    border-radius: 5px;
+}
+
+.collection-settings .line[data-active="0"] .line-content:hover {
+    background: rgb(55, 71, 79);
+    cursor: pointer;
+}
+
+.collection-settings .line[data-active="1"] .line-content {
+    background: #0097A7;
+}

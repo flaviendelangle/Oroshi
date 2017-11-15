@@ -1,13 +1,14 @@
-import { combineReducers } from 'redux'
+import { combineReducers } from 'redux';
 
-import exports from './components/Exports/reducer'
-import header from './components/Header/reducer'
+import exports from './components/ContentPanel/components/ExportParameters/reducer';
+import header from './components/Header/reducer';
+import { collectionSettings } from '../../services/titles/interface';
 
 const reducerBuilder = _scene => {
   
   const defaultState = {
+    activeSection: 'summary'
   };
-  
   
   const main = (scene, state = defaultState, action) => {
     
@@ -16,6 +17,12 @@ const reducerBuilder = _scene => {
     }
     
     switch(action.type) {
+      
+      case collectionSettings.switchSection:
+        return {
+          ...state,
+          activeSection: action.value
+        };
       
       default:
         return state;

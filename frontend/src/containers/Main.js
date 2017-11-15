@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { Switch, Route } from 'react-router-dom';
+import muiThemeable from 'material-ui/styles/muiThemeable';
 
 import Home from 'scenes/Home';
 import CollectionMovies from 'scenes/CollectionMovies';
@@ -11,8 +12,13 @@ import CollectionMoviesSettings from 'scenes/CollectionMoviesSettings';
 import CollectionTVShowsSettings from 'scenes/CollectionTVShowsSettings';
 import { notifyRouteChange } from 'services/actions/router';
 
-
 class Main extends Component {
+  
+  get style() {
+    return {
+      backgroundColor: this.props.muiTheme.baseTheme.palette.backgroundColor
+    }
+  }
   
   componentWillReceiveProps(newProps) {
     if(this.props.location.pathname !== newProps.location.pathname) {
@@ -22,7 +28,7 @@ class Main extends Component {
   
   render() {
     return (
-      <main>
+      <main style={this.style}>
         <Switch>
           <Route exact path='/' component={Home} />
           <Route path='/collections/movies/:collection_id/settings/' component={CollectionMoviesSettings} />
@@ -50,4 +56,4 @@ const mapDispatchToProps = dispatch => {
 export default withRouter(connect(
   mapStateToProps,
   mapDispatchToProps
-)(Main));
+)(muiThemeable()(Main)));

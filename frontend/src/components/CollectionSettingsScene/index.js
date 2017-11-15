@@ -1,21 +1,10 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import Paper from 'material-ui/Paper';
-import {List, ListItem} from 'material-ui/List'
-import { Card, CardTitle, CardText } from 'material-ui/Card';
-import Divider from 'material-ui/Divider';
-import Toggle from 'material-ui/Toggle';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-import Header from './components/Header'
-import Exports from './components/Exports'
-import { getSettings } from 'services/actions/collections'
-
-const paperStyle = {
-  width: 500,
-  top: 300,
-  position: 'absolute',
-  left: 'calc(50% - 250px)'
-};
+import Header from './components/Header';
+import MenuPanel from './components/MenuPanel';
+import ContentPanel from './components/ContentPanel';
+import { getSettings } from 'services/actions/collections';
 
 class CollectionSettings extends Component {
   
@@ -25,27 +14,10 @@ class CollectionSettings extends Component {
   
   render() {
     return (
-      <div>
-        <Header
-          scene={this.props.scene}
-        />
-        <Paper zDepth={3} style={paperStyle}>
-          <Card>
-            <CardTitle title="Collection Settings" />
-            <CardText style={{padding:0}}>
-              <List>
-                <ListItem
-                  primaryText="Include adult content"
-                  rightToggle={<Toggle />}
-                />
-              </List>
-              <Divider inset={true} />
-              <Exports
-                scene={this.props.scene}
-              />
-            </CardText>
-          </Card>
-        </Paper>
+      <div className="collection-settings">
+        <Header scene={this.props.scene} />
+        <MenuPanel scene={this.props.scene} />
+        <ContentPanel style scene={this.props.scene} />
       </div>
     );
     

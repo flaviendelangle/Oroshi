@@ -17,7 +17,6 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    color: #717171;
 }
 
 .stream-section > .title > button {

@@ -19,3 +19,7 @@ export const layout = {
 export const source = {
   updateIsAdding: 'UPDATE_IS_ADDING_ELEMENT'
 };
+
+export const collectionSettings = {
+  switchSection: 'COLLECTION_SETTINGS_SWITCH_SECTION'
+};

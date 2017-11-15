@@ -1,7 +1,7 @@
 import json2csv from 'json2csv'
 import downloadjs from 'downloadjs'
 
-import { get as getCollection } from 'services/actions/collections'
+import { get as getCollection } from 'services/actions/collections/index'
 import { collections } from 'services/titles/exports'
 
 const collectionFields = ['TmdbId', 'Title', 'Release', 'Directors', 'Genres', 'Seen', 'Note'];

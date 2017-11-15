@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import IconButton from 'material-ui/IconButton'
 import NavigationLess from 'material-ui/svg-icons/navigation/expand-less'
 import NavigationMore from 'material-ui/svg-icons/navigation/expand-more'
+import muiThemeable from 'material-ui/styles/muiThemeable';
 
 import './style.css'
 
@@ -25,7 +26,10 @@ class Section extends Component {
       return this.title;
     }
     return (
-      <Link to={'/' + this.props.field.field + '/' + this.props.data.key.pk}>
+      <Link
+        to={'/' + this.props.field.field + '/' + this.props.data.key.pk}
+        style={{color: this.props.muiTheme.palette.titleColor}}
+      >
         {this.title}
       </Link>
     );
@@ -71,4 +75,4 @@ class Section extends Component {
   
 }
 
-export default Section;
+export default muiThemeable()(Section);
