@@ -1,6 +1,7 @@
 import { getElementAPI, getCollectionAPI, getPublicAPI } from 'services/actions/collections';
 
 import searchAPI from 'services/TheMovieDatabaseJS/search';
+import { getPopular as getPopularOriginal, getTopRated as getTopRatedOriginal } from './index';
 
 export const search = (scene, collection, query) => {
 
@@ -40,50 +41,82 @@ export const search = (scene, collection, query) => {
 
 export const getRecommendations = (scene, collection) => {
   
-  const _cleanResults = (elements, collection, existInCollection) => {
-    elements.content = cleanResults(
-      elements.content,
-      collection,
-      existInCollection
-    ).results;
-    return elements;
-  };
-  
   let elements = [];
-  let IDs, elementsTemp, cleanedData;
+  
+  return _getPopular(scene, collection)
+    .then(results => {
+      elements.push(results);
+      return _getTopRated(scene, collection)
+    })
+    .then(results => {
+      elements.push(results);
+      return {
+        results: elements
+      };
+    });
+};
+
+export const getPopular = (scene, collection, page) => {
+  return _getPopular(scene, collection, page)
+};
+
+export const getTopRated = (scene, collection, page) => {
+  return _getTopRated(scene, collection, page);
+};
+
+const _getPopular = (scene, collection, page=1) => {
+  console.log('GET POPULAR ' + page);
   const API = getCollectionAPI(scene).element(collection)[scene];
   const publicAPI = getPublicAPI(scene);
-  return publicAPI.popular()
+  let elements;
+  return publicAPI.popular({page})
     .then(response => {
-      elementsTemp = {
+      elements = {
         key: { name: 'Popular', pk: 1 },
         content: response,
         link: false
       };
-      IDs = response.results.map(el => el.id);
+      const IDs = response.results.map(el => el.id);
       return API.exist(IDs, 'tmdbId');
     })
     .then(exist => {
-      cleanedData = _cleanResults(elementsTemp, collection, exist);
-      elements.push(cleanedData);
-      return publicAPI.topRated();
-    })
+      return prepareResults(scene, collection, elements, exist, getPopularOriginal);
+    });
+};
+
+const _getTopRated = (scene, collection, page=1) => {
+  console.log('GET TOP RATED ' + page);
+  const API = getCollectionAPI(scene).element(collection)[scene];
+  const publicAPI = getPublicAPI(scene);
+  let elements;
+  return publicAPI.topRated({page})
     .then(response => {
-      elementsTemp = {
+      elements = {
         key: { name: 'Top rated', pk: 2 },
         content: response,
         link: false
       };
-      IDs = response.results.map(el => el.id);
+      const IDs = response.results.map(el => el.id);
       return API.exist(IDs, 'tmdbId');
     })
     .then(exist => {
-      cleanedData = _cleanResults(elementsTemp, collection, exist);
-      elements.push(cleanedData);
-      return {
-        results: elements,
-      };
-    })
+      return prepareResults(scene, collection, elements, exist, getTopRatedOriginal);
+    });
+};
+
+const prepareResults = (scene, collection, elements, existInCollection, nextAction) => {
+  
+  const content = cleanResults(elements.content, collection, existInCollection).results;
+  
+  let next = null;
+  if(elements.content.page < elements.content.total_pages) {
+    next = nextAction.bind(this, scene, collection, ++elements.content.page);
+  }
+  return {
+    ...elements,
+    content,
+    next
+  };
 };
 
 const getSearchKey = scene => {

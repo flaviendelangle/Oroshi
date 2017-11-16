@@ -23,6 +23,26 @@ export const getRecommendations = (scene, collection) => {
  }
 };
 
+export const getPopular = (scene, collection, page) => {
+  return {
+    type: request.get_popular,
+    payload: getModule(scene).getPopular(scene, collection, page),
+    meta: {
+      scene
+    }
+  }
+};
+
+export const getTopRated = (scene, collection, page) => {
+  return {
+    type: request.get_top_rated,
+    payload: getModule(scene).getTopRated(scene, collection, page),
+    meta: {
+      scene
+    }
+  }
+};
+
 export const getModule = scene => {
   switch(scene) {
     case 'movies':

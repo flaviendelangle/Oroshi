@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import ScrollArea from 'react-scrollbar'
 import IconButton from 'material-ui/IconButton'
-import NavigationMore from 'material-ui/svg-icons/navigation/more-horiz'
+import NavigationMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz'
 
 import Section from './components/Section/index'
 
@@ -27,7 +27,7 @@ class Stream extends Component {
     pages: 1
   };
   
-  showAll = () => {
+  showMore = () => {
     this.setState({pages: (++this.state.pages)});
   };
   
@@ -50,18 +50,18 @@ class Stream extends Component {
     })
   };
   
-  renderShowAll = () => {
+  renderShowMore = () => {
     if(this.props.data.results.length <= CONFIG.pageLength * this.state.pages) {
       return null;
     }
     return (
       <div style={{textAlign: 'center'}}>
           <IconButton
-            onClick={this.showAll}
+            onClick={this.showMore}
             style={buttonStyle}
             iconStyle={iconStyle}
           >
-            <NavigationMore/>
+            <NavigationMoreHoriz/>
           </IconButton>
       </div>
     );
@@ -76,7 +76,7 @@ class Stream extends Component {
         >
           <div className="content-grid">
             {this.renderSections()}
-            {this.renderShowAll()}
+            {this.renderShowMore()}
           </div>
         </ScrollArea>
       </div>

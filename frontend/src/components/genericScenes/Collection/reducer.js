@@ -59,7 +59,8 @@ const reducerBuilder = _scene => {
           }
         }
         TMDBAPI.set_config({
-          include_adult: action.payload.adult_content
+          include_adult: action.payload.adult_content,
+          language: action.payload.title_language
         });
         newContent = sortElements(
           action.payload.content,
