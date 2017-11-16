@@ -69,3 +69,9 @@
     height: 184px;
     padding-top: 90px;
 }
+
+.tv-show .add-icon {
+    height: 80% !important;
+    width: 80% !important;
+    margin: 10% !important;
+}

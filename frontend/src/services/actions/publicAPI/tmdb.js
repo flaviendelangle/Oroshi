@@ -1,42 +1,14 @@
 import { getElementAPI, getCollectionAPI, getPublicAPI } from 'services/actions/collections';
 
 import searchAPI from 'services/TheMovieDatabaseJS/search';
-import { getPopular as getPopularOriginal, getTopRated as getTopRatedOriginal } from './index';
+import { search as searchOriginal, getPopular as getPopularOriginal, getTopRated as getTopRatedOriginal } from './index';
 
-export const search = (scene, collection, query) => {
-
+export const search = (scene, collection, query, page) => {
   const searchKey = getSearchKey(scene);
-  
-  const filterById = (movie, el) => {
-    return movie.id === el.tmdbId;
-  };
-  
-  let elements, IDs;
-  return searchAPI[searchKey](query)
-    .then(response => {
-      elements = response;
-      IDs = elements.results.map(el => el.id);
-      if(IDs.length === 0) {
-        throw new Error('No result for this search');
-      }
-      return getElementAPI(scene).serialize(IDs, 'tmdbId');
-    })
-    .then(existOnServer => {
-      for(let i = 0; i < elements.results.length; i++) {
-        const match = existOnServer.filter(filterById.bind(this, elements.results[i]));
-        elements.results[i].local = (match.length > 0) ? match[0] : undefined;
-      }
-      return getCollectionAPI(scene).element(collection)[scene].exist(IDs, 'tmdbId');
-    })
-    .catch(error => {
-      return [];
-    })
-    .then(existInCollection => {
-      return cleanResults(elements, collection, existInCollection);
-    })
-    .catch(error => {
-      return [];
-    })
+  return searchAPI[searchKey](query, {page})
+    .then(elements => {
+      return prepareSearchResults(scene, collection, elements, query)
+    });
 };
 
 export const getRecommendations = (scene, collection) => {
@@ -65,7 +37,6 @@ export const getTopRated = (scene, collection, page) => {
 };
 
 const _getPopular = (scene, collection, page=1) => {
-  console.log('GET POPULAR ' + page);
   const API = getCollectionAPI(scene).element(collection)[scene];
   const publicAPI = getPublicAPI(scene);
   let elements;
@@ -77,16 +48,11 @@ const _getPopular = (scene, collection, page=1) => {
         content: response,
         link: false
       };
-      const IDs = response.results.map(el => el.id);
-      return API.exist(IDs, 'tmdbId');
-    })
-    .then(exist => {
-      return prepareResults(scene, collection, elements, exist, getPopularOriginal);
+      return prepareStreamResults(scene, collection, elements, getPopularOriginal);
     });
 };
 
 const _getTopRated = (scene, collection, page=1) => {
-  console.log('GET TOP RATED ' + page);
   const API = getCollectionAPI(scene).element(collection)[scene];
   const publicAPI = getPublicAPI(scene);
   let elements;
@@ -98,27 +64,67 @@ const _getTopRated = (scene, collection, page=1) => {
         content: response,
         link: false
       };
-      const IDs = response.results.map(el => el.id);
-      return API.exist(IDs, 'tmdbId');
-    })
-    .then(exist => {
-      return prepareResults(scene, collection, elements, exist, getTopRatedOriginal);
+      return prepareStreamResults(scene, collection, elements, getTopRatedOriginal);
     });
 };
 
-const prepareResults = (scene, collection, elements, existInCollection, nextAction) => {
+const prepareStreamResults = (scene, collection, elements, nextAction) => {
   
-  const content = cleanResults(elements.content, collection, existInCollection).results;
+  return checkExistence(scene, collection, elements.content).then(response => {
   
-  let next = null;
-  if(elements.content.page < elements.content.total_pages) {
-    next = nextAction.bind(this, scene, collection, ++elements.content.page);
-  }
-  return {
-    ...elements,
-    content,
-    next
+    let next = null;
+    if(elements.content.page < elements.content.total_pages) {
+      next = nextAction.bind(this, scene, collection, elements.content.page+1);
+    }
+    return {
+      ...elements,
+      content: response.results,
+      next
+    };
+  });
+};
+
+const prepareSearchResults = (scene, collection, elements, query) => {
+  return checkExistence(scene, collection, elements).then(response => {
+    let next = null;
+    if(elements.page < elements.total_pages) {
+      next = searchOriginal.bind(this, scene, collection, query, elements.page+1);
+    }
+    return {
+      ...response,
+      next
+    };
+  });
+  
+};
+
+const checkExistence = (scene, collection, elements) => {
+  
+  const filterById = (movie, el) => {
+    return movie.id === el.tmdbId;
   };
+  
+  const IDs = elements.results.map(el => el.id);
+  let existOnServer;
+  return getElementAPI(scene).serialize(IDs, 'tmdbId')
+    .then(response => {
+      existOnServer = response;
+      return getCollectionAPI(scene).element(collection)[scene].exist(IDs, 'tmdbId');
+    })
+    .then(existInCollection => {
+      for(let i = 0; i < elements.results.length; i++) {
+        elements.results = elements.results.map(el => {
+          const match = existOnServer.filter(filterById.bind(this, el));
+          el.local = (match.length > 0) ? match[0] : undefined;
+  
+          el.already_in_collection = existInCollection[el.id];
+          el.current_collection = collection;
+          
+          return el;
+        });
+      }
+      return elements;
+    })
 };
 
 const getSearchKey = scene => {
@@ -130,12 +136,4 @@ const getSearchKey = scene => {
     default:
       return null;
   }
-};
-
-const cleanResults = (elements, collection, exist) => {
-  for(let i = 0; i < elements.results.length; i++) {
-    elements.results[i].already_in_collection = exist[elements.results[i].id];
-    elements.results[i].current_collection = collection;
-  }
-  return elements;
 };

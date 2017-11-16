@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Paper from 'material-ui/Paper';
 import ContentAdd from 'material-ui/svg-icons/content/add';
+import ActionDone from 'material-ui/svg-icons/action/done'
 import muiThemeable from 'material-ui/styles/muiThemeable';
 
 import Poster from './components/Poster';
@@ -15,6 +16,20 @@ const gradeStyle = {
   top: '50%',
   transform: 'translateY(-50%)',
 };
+
+const creationIconStyle = {
+  height: 80,
+  width: 80,
+  borderRadius: '50%',
+  backgroundColor: '#1DE9B6',
+  top: '50%',
+  left: 'calc((185px - 80px)/2)',
+  transform: 'translateY(-50%)',
+  position: 'absolute',
+  boxShadow: '6px 6px 10px rgba(0,0,0,0.6)',
+  cursor: 'pointer'
+};
+
 
 class TVShow extends Component {
   
@@ -91,17 +106,25 @@ class TVShow extends Component {
     if(this.props.data.already_in_collection) {
       return (
         <div className="overlay">
-          ALREADY ADDED
+          <div style={creationIconStyle}>
+            <ActionDone
+              color="white"
+              className="add-icon"
+              onClick={this.save}
+            />
+          </div>
         </div>
       );
     }
     return (
       <div className="overlay">
-        <ContentAdd
-          color="white"
-          className="add-icon"
-          onClick={this.save}
-        />
+        <div style={creationIconStyle}>
+          <ContentAdd
+            color="white"
+            className="add-icon"
+            onClick={this.save}
+          />
+        </div>
       </div>
     )
   };

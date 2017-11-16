@@ -41,14 +41,15 @@ class Section extends Component {
     if(!this.state.full && elements.length > 7) {
       elements = elements.slice(0,7);
     }
-    else if(elements.length > CONFIG.pageLength) {
+    else if(elements.length > CONFIG.pageLength * this.state.pages) {
       elements = elements.slice(0,CONFIG.pageLength * this.state.pages);
     }
     return elements;
   }
   
   get isAllShown() {
-    return this.props.data.content.length <= CONFIG.pageLength * this.state.pages;
+    const local = this.props.data.content.length <= CONFIG.pageLength * this.state.pages;
+    return local && !this.props.data.next;
   }
   
   showFullVersion = () => {
@@ -99,7 +100,7 @@ class Section extends Component {
     if(!this.state.full) {
       return null;
     }
-    else if(this.isAllShown && !this.props.data.next) {
+    else if(this.isAllShown) {
       return null;
     }
     return (

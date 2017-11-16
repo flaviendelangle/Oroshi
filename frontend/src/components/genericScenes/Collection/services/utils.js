@@ -38,3 +38,13 @@ export const mergeRecommendations = (recommendations, newData, type) => {
     results: data
   };
 };
+
+export const mergeSearch = (oldData, newData) => {
+  if(!oldData || newData.page === 1) {
+    return newData;
+  }
+  return {
+    ...newData,
+    results: oldData.results.concat(newData.results)
+  }
+};

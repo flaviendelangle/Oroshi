@@ -10,7 +10,7 @@ import { getValue } from 'services/localstorage';
 import TMDBAPI from 'services/TheMovieDatabaseJS/index';
 import { getListGenerator, getStreamGenerator, getDefaultOrder } from 'services/content/';
 
-import { sortElements, setSortParameters, setLayoutParameters, mergeRecommendations } from './services/utils';
+import { sortElements, setSortParameters, setLayoutParameters, mergeRecommendations, mergeSearch } from './services/utils';
 import { addSeenToElements, addCollectionToElements } from 'services/actions/collections';
 
 const reducerBuilder = _scene => {
@@ -239,7 +239,10 @@ const reducerBuilder = _scene => {
       case publicAPI.request.search + '_FULFILLED':
         return {
           ...state,
-          addingSearch: action.payload
+          addingSearch: mergeSearch(
+            state.addingSearch,
+            action.payload
+          )
         };
       
       default:

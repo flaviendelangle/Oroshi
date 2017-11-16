@@ -3,10 +3,10 @@ import * as tv_shows from './tv_shows';
 
 import { request } from 'services/titles/publicAPI'
 
-export const search = (scene, collection, query) => {
+export const search = (scene, collection, query, page=1) => {
   return {
     type: request.search,
-    payload: getModule(scene).search(scene, collection, query),
+    payload: getModule(scene).search(scene, collection, query, page),
     meta: {
       scene
     }
