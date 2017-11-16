@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 
 import header from './components/Header/reducer';
+import dataImporter from './components/ContentPanel/components/DataImporter/reducer';
 import { collectionSettings } from 'services/titles/interface';
 import { collectionContent, collections } from 'services/titles/api';
 
@@ -9,11 +10,10 @@ const reducerBuilder = _scene => {
   const defaultState = {
     activeSection: 'imports',
     data: {},
-    importFromFile: null
   };
   
   const main = (scene, state = defaultState, action) => {
-    
+
     if(action.meta && action.meta.scene && action.meta.scene !== scene) {
       return state;
     }
@@ -43,12 +43,7 @@ const reducerBuilder = _scene => {
           activeSection: action.value
         };
       
-      case collectionContent.importFromFile + '_FULFILLED':
-        return {
-          ...state,
-          importFromFile: action.payload
-        };
-        
+
       default:
         return state;
     }
@@ -57,7 +52,8 @@ const reducerBuilder = _scene => {
   
   return combineReducers({
     main: main.bind(this, _scene),
-    header
+    header,
+    dataImporter: dataImporter.bind(this, _scene)
   });
   
 };

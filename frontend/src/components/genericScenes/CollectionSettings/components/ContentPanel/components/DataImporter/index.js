@@ -119,7 +119,12 @@ class DataImporter extends Component {
   renderLines = () => {
     let counter = 0;
     return this.state.elements.map(el => {
-      return (<Line data={el} key={++counter} />);
+      return (
+        <Line data={el}
+          key={++counter}
+          scene={this.props.scene}
+        />
+      );
     })
   };
   
@@ -161,10 +166,11 @@ class DataImporter extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const root = getCollectionSettingsState(state, ownProps.scene).main;
+  const root = getCollectionSettingsState(state, ownProps.scene);
   return {
-    data: root.data,
-    importFromFile: root.importFromFile
+    data: root.main.data,
+    importFromFile: root.dataImporter.importFromFile,
+    progress: root.dataImporter.progress
   }
 };
 

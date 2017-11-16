@@ -174,54 +174,45 @@ export const importElements = (scene, collection, elements, dispatch) => {
         ...element.local,
         collection
       };
-      dispatch({
+      setTimeout(() => _importElement(scene, elements, ++index, dispatch));
+      return dispatch({
         type: titles.collections.add,
         payload: result,
         meta: {
           scene
         }
       });
-      _importElement(scene, elements, ++index, dispatch);
-    }
-    addElement(scene, element).payload.then(el => {
-      dispatch({
-        type: titles.collections.add,
-        payload: el,
-        meta: {
-          scene
-        }
+    } else {
+      addElement(scene, element).payload.then(el => {
+        dispatch({
+          type: titles.collections.add,
+          payload: el,
+          meta: {
+            scene
+          }
+        });
+        _importElement(scene, elements, ++index, dispatch);
       });
-      _importElement(scene, elements, ++index, dispatch);
-    });
+    }
+
   };
   
   elements = {
     results: elements
   };
-  /*dispatch({
-    type: titles.collectionContent.import + '_STARTED'
-  });*/
+
   return {
     type: titles.collectionContent.importElement,
     payload: checkExistence(scene, collection, elements, 'true').then(elements => {
+      dispatch({
+        type: titles.collectionContent.import + '_STARTED',
+        data: elements.results
+      });
       _importElement(scene, elements.results, 0, dispatch);
     }),
     meta: {
       scene
     }
-  }
-};
-
-
-
-export const getModule = scene => {
-  switch(scene) {
-    case 'movies':
-      return movies;
-    case 'tv_shows':
-      return tv_shows;
-    default:
-      return null;
   }
 };
 
@@ -250,9 +241,23 @@ export const prepareElements = (scene, data) => {
 };
 
 
+
+
 /*
   UTILS FUNCTIONS
  */
+
+export const getModule = scene => {
+  switch(scene) {
+    case 'movies':
+      return movies;
+    case 'tv_shows':
+      return tv_shows;
+    default:
+      return null;
+  }
+};
+
 export const getCollectionAPI = scene => {
   return getModule(scene).collectionAPI;
 };
