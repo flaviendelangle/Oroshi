@@ -6,7 +6,7 @@ import muiThemeable from 'material-ui/styles/muiThemeable';
 
 import Poster from './components/Poster';
 import Actions from './components/Actions';
-import Grade from 'components/Grade';
+import Grade from 'components/generics/Grade';
 
 import './style.css'
 

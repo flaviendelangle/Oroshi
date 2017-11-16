@@ -1,15 +1,14 @@
 import { combineReducers } from 'redux';
 
 import header from './components/Header/reducer';
-import { collectionSettings } from '../../services/titles/interface';
-import { collectionContent } from '../../services/titles/api';
+import { collectionSettings } from 'services/titles/interface';
+import { collectionContent, collections } from 'services/titles/api';
 
 const reducerBuilder = _scene => {
   
   const defaultState = {
     activeSection: 'summary',
-    collection: undefined,
-    title: ''
+    data: {}
   };
   
   const main = (scene, state = defaultState, action) => {
@@ -27,7 +26,14 @@ const reducerBuilder = _scene => {
         return {
           ...state,
           collection: action.payload.pk,
-          title: action.payload.title
+          title: action.payload.title,
+          data: action.payload
+        };
+        
+      case collections.updateSettings + '_FULFILLED':
+        return {
+          ...state,
+          data: action.payload
         };
   
       case collectionSettings.switchSection:

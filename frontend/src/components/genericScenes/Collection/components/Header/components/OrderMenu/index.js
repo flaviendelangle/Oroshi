@@ -6,7 +6,7 @@ import IconButton from 'material-ui/IconButton';
 import ContentSort from 'material-ui/svg-icons/content/sort';
 
 import { getCollectionState } from 'containers/reducer';
-import { sort } from 'components/CollectionScene/components/CollectionContent/actions'
+import { sort } from 'components/genericScenes/Collection/components/CollectionContent/actions'
 
 const containerStyle = {
   position: 'absolute',

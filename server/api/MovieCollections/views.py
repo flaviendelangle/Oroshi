@@ -14,7 +14,7 @@ from api.MovieCollections.serializers import MovieCollectionsSerializer,\
 class MovieCollectionsViewSet(viewsets.ModelViewSet):
 
     def get_serializer_class(self):
-        if self.request.method == 'POST' :
+        if self.request.method in ['POST', 'PATCH'] :
             return MovieCollectionsWriteSerializer
         return MovieCollectionsSerializer
 

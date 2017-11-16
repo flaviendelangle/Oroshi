@@ -6,7 +6,8 @@ import Line from './components/Line';
 
 const sectionStyle = {
   width: '100%',
-  maxWidth: 500
+  maxWidth: 500,
+  marginBottom: 50
 };
 
 class ParametersSection extends Component {

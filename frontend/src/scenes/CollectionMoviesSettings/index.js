@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import CollectionSettingsScene from 'components/CollectionSettingsScene';
+import CollectionSettingsScene from 'components/genericScenes/CollectionSettings';
 
 
 class CollectionMoviesSettings extends Component {

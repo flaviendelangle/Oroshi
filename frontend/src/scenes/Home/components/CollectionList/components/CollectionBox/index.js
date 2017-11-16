@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 
 import ContentCreate from 'material-ui/svg-icons/content/create';
-import Identicon from 'components/Identicon'
+import Identicon from 'components/generics/Identicon'
 
 
 import './style.css';

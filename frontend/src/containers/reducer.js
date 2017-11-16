@@ -5,8 +5,8 @@ import header from 'components/Header/reducer'
 
 import home from 'scenes/Home/reducer'
 import movie from 'scenes/Movie/reducer'
-import collection from 'components/CollectionScene/reducer'
-import collectionSettings from 'components/CollectionSettingsScene/reducer'
+import collection from 'components/genericScenes/Collection/reducer'
+import collectionSettings from 'components/genericScenes/CollectionSettings/reducer'
 import { notify } from 'services/titles/router'
 
 

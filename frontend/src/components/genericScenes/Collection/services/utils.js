@@ -1,4 +1,4 @@
-import { setValue, getValue } from '../../../services/localstorage';
+import { setValue, getValue } from 'services/localstorage';
 
 export const sortElements = (elements, params) => {
   elements = elements.sort((a, b) => {

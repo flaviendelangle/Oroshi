@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import CollectionScene from 'components/CollectionScene';
+import CollectionScene from 'components/genericScenes/Collection';
 import TVShow from 'components/TVShow';
 import { TABLE_COLUMNS } from './services/list';
 

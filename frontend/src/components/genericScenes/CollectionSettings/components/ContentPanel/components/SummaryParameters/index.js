@@ -1,20 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Toggle from 'material-ui/Toggle';
-import TextField from 'material-ui/TextField';
 
 import ParametersSection from '../ParametersSection';
+import TextField from '../TextField';
 import { getCollectionSettingsState } from 'containers/reducer';
+import { update } from 'components/genericScenes/CollectionSettings/actions';
 
-const textFieldStyle = {
-  position: 'absolute',
-  top: -5,
-  right: 10,
-};
-
-const inputStyle = {
-  textAlign: 'right'
-};
 
 class SummaryParameters extends Component {
   
@@ -26,14 +18,19 @@ class SummaryParameters extends Component {
           <div primaryText="Collection title">
             <TextField
               id="collection_title"
-              style={textFieldStyle}
               value={this.props.title}
-              inputStyle={inputStyle}
             />
           </div>
           <div
             primaryText="Include adult content"
-            rightToggle={<Toggle />}
+            rightToggle={
+              <Toggle
+                toggled={this.props.data.adult_content}
+                onToggle={(proxy, active) => {
+                  this.props.update(this.props.data.pk, 'adult_content', active)
+                }}
+              />
+            }
           >
           </div>
         </div>
@@ -45,13 +42,14 @@ class SummaryParameters extends Component {
 const mapStateToProps = (state, ownProps) => {
   const root = getCollectionSettingsState(state, ownProps.scene).main;
   return {
-    collection: root.collection,
-    title: root.title
+    data: root.data
   }
 };
 
-const mapDispatchToProps = dispatch => {
-  return {}
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    update: (pk, field, value) => dispatch(update(ownProps.scene, pk, field, value))
+  }
 };
 
 export default connect(

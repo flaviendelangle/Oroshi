@@ -14,7 +14,7 @@ from api.TVShowCollections.serializers import TVShowCollectionsSerializer, \
 class TVShowCollectionsViewSet(viewsets.ModelViewSet):
 
     def get_serializer_class(self):
-        if self.request.method == 'POST' :
+        if self.request.method in ['POST', 'PATCH'] :
             return TVShowCollectionsWriteSerializer
         return TVShowCollectionsSerializer
 

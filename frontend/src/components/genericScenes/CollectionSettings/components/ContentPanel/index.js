@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import muiThemeable from 'material-ui/styles/muiThemeable';
 
 import SummaryParameters from './components/SummaryParameters';
+import SpoilerParameters from './components/SpoilerParameters';
 import LanguageParameters from './components/LanguageParameters';
 import ExportParameters from './components/ExportParameters';
 
@@ -28,6 +29,7 @@ class MenuPanel extends Component {
     return (
       <div style={this.panelStyle}>
         <SummaryParameters scene={this.props.scene} />
+        <SpoilerParameters scene={this.props.scene} />
         <LanguageParameters scene={this.props.scene} />
         <ExportParameters scene={this.props.scene} />
       </div>

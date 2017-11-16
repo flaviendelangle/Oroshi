@@ -10,10 +10,11 @@ class TVShowCollectionsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = TVShowCollections
-        fields = ('pk','title','hash','content', 'adult_content')
+        fields = ('pk', 'content', 'hash', 'title', 'adult_content',
+                  'hide_unseen_titles', 'title_language', 'poster_language')
         extra_kwargs = {
             'pk': {'read_only': True},
-            'movies': {'read_only': True}
+            'content': {'read_only': True}
         }
 
 
@@ -21,14 +22,14 @@ class TVShowCollectionSettingsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = TVShowCollections
-        fields = ('pk', 'title', 'hash', 'adult_content')
+        fields = ('pk', 'hash', 'title', 'adult_content', 'hide_unseen_titles', 'title_language', 'poster_language')
 
 
 class TVShowCollectionsWriteSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = TVShowCollections
-        fields = ('pk', 'title', 'hash', 'adult_content')
+        fields = ('pk', 'hash', 'title', 'adult_content', 'hide_unseen_titles', 'title_language', 'poster_language')
         extra_kwargs = {
             'pk': {'read_only': True},
         }

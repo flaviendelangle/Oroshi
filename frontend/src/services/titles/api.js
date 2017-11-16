@@ -7,6 +7,7 @@ export const collectionContent = {
 
 export const collections = {
   add: 'ADD_ELEMENT_TO_COLLECTION',
+  updateSettings: 'UPDATE_COLLECTION_SETTINGS',
   update: 'UPDATE_COLLECTION_ELEMENT',
   remove: 'REMOVE_ELEMENT_FROM_COLLECTION',
   importFinished: 'IMPORT_ELEMENTS_FINISHED',

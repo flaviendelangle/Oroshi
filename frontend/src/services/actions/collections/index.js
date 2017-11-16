@@ -98,6 +98,13 @@ export const getSettings = (scene, pk) => {
   }
 };
 
+export const update = (scene, pk, data) => {
+  return {
+    type: titles.collections.updateSettings,
+    payload: getCollectionAPI(scene).partial_update(pk, data)
+  }
+};
+
 export const addElement = (scene, data) => {
   if(!data.hasOwnProperty('seen')) {
     data.seen = false;
