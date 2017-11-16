@@ -25,3 +25,16 @@ export const setLayoutParameters = (scene, params) => {
   const key = 'layout_' + scene;
   setValue(key, params);
 };
+
+export const mergeRecommendations = (recommendations, newData, type) => {
+  const oldData = recommendations.results.filter(el => el.type === type)[0];
+  newData.content = oldData.content.concat(newData.content);
+  const data = [
+    ...recommendations.results.filter(el => el.type !== type),
+    newData
+  ];
+  return {
+    ...recommendations,
+    results: data
+  };
+};

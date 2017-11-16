@@ -73,6 +73,7 @@ const _getPopular = (scene, collection, page=1) => {
     .then(response => {
       elements = {
         key: { name: 'Popular', pk: 1 },
+        type: 'popular',
         content: response,
         link: false
       };
@@ -93,6 +94,7 @@ const _getTopRated = (scene, collection, page=1) => {
     .then(response => {
       elements = {
         key: { name: 'Top rated', pk: 2 },
+        type: 'top_rated',
         content: response,
         link: false
       };

@@ -10,7 +10,7 @@ import { getValue } from 'services/localstorage';
 import TMDBAPI from 'services/TheMovieDatabaseJS/index';
 import { getListGenerator, getStreamGenerator, getDefaultOrder } from 'services/content/';
 
-import { sortElements, setSortParameters, setLayoutParameters } from './services/utils';
+import { sortElements, setSortParameters, setLayoutParameters, mergeRecommendations } from './services/utils';
 import { addSeenToElements, addCollectionToElements } from 'services/actions/collections';
 
 const reducerBuilder = _scene => {
@@ -46,7 +46,7 @@ const reducerBuilder = _scene => {
       return state;
     }
     
-    let newContent, newOrder;
+    let newContent, newOrder,  newRecommendations;
     
     switch(action.type) {
       
@@ -93,7 +93,7 @@ const reducerBuilder = _scene => {
           newSearchResults = null;
         }
         // state.recommendations.results[i].content
-        const newRecommendations = {
+        newRecommendations = {
           ...state.recommendations,
           results: state.recommendations.results.map(section => {
             return {
@@ -206,6 +206,34 @@ const reducerBuilder = _scene => {
         return {
           ...state,
           recommendations: action.payload
+        };
+        
+      case publicAPI.request.get_popular + '_FULFILLED':
+        if(!state.isAdding) {
+          return state;
+        }
+        newRecommendations = mergeRecommendations(
+          state.recommendations,
+          action.payload,
+          'popular'
+        );
+        return {
+          ...state,
+          recommendations: newRecommendations
+        };
+      
+      case publicAPI.request.get_top_rated + '_FULFILLED':
+        if(!state.isAdding) {
+          return state;
+        }
+        newRecommendations = mergeRecommendations(
+          state.recommendations,
+          action.payload,
+          'top_rated'
+        );
+        return {
+          ...state,
+          recommendations: newRecommendations
         };
   
       case publicAPI.request.search + '_FULFILLED':
