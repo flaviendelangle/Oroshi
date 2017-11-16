@@ -67,7 +67,8 @@ const _createMovie = data => {
         tmdbId: results.id,
         note: results.vote_average,
         poster: poster,
-        release: date(results.release_date, date.TMDB_FORMAT, date.YEAR_FORMAT)
+        release: date(results.release_date, date.TMDB_FORMAT, date.YEAR_FORMAT),
+        original_language: results.original_language
       };
       
       return MoviesAPI.create(movie);

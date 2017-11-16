@@ -38,6 +38,9 @@ class MenuPanel extends Component {
         <Line active={this.props.active === 'exports'} value="exports">
           Export your data
         </Line>
+        <Line active={this.props.active === 'imports'} value="imports">
+          Import data
+        </Line>
       </div>
     );
     

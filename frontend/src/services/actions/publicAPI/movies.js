@@ -7,3 +7,5 @@ export const getRecommendations = tmdb.getRecommendations;
 export const getPopular = tmdb.getPopular;
 
 export const getTopRated = tmdb.getTopRated;
+
+export const checkExistence = tmdb.checkExistence;

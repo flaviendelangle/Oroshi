@@ -11,7 +11,7 @@ date.TMDB_FORMAT = 'YYYY-MM-DD';
 date.YEAR_FORMAT = 'YYYY';
 
 
-let parseDump = csv => {
+let parseCSV = csv => {
   return Papa.parse(csv, { header: true, dynamicTyping: true }).data
     .map(line => {
       let newLine = {};
@@ -22,6 +22,9 @@ let parseDump = csv => {
         }
       }
       return newLine;
+    })
+    .sort((a,b) => {
+      return a.title > b.title ? 1 : -1;
     });
 };
 
@@ -32,4 +35,4 @@ let unCapitalize = (field) => {
 
 
 
-export { date, parseDump };
+export { date, parseCSV };

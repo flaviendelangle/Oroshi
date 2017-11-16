@@ -3,6 +3,10 @@ import * as tv_shows from './tv_shows';
 
 import { request } from 'services/titles/publicAPI'
 
+
+/*
+  ACTIONS WITH DISPATCH
+ */
 export const search = (scene, collection, query, page=1) => {
   return {
     type: request.search,
@@ -41,6 +45,14 @@ export const getTopRated = (scene, collection, page) => {
       scene
     }
   }
+};
+
+
+/*
+  ACTIONS WITHOUT DISPATCH
+ */
+export const checkExistence = (scene, collection, elements, fromLocalAPI) => {
+  return getModule(scene).checkExistence(scene, collection, elements, fromLocalAPI);
 };
 
 export const getModule = scene => {

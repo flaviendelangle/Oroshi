@@ -30,6 +30,7 @@ const contentImporterReducer = (state = defaultState, action) => {
       if(state.elementNumber > 0) {
         progress = keysNumber / state.elementNumber * 100;
       }
+      return state;
       return {
         ...state,
         created: {

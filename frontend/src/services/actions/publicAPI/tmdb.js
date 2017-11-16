@@ -1,7 +1,11 @@
-import { getElementAPI, getCollectionAPI, getPublicAPI } from 'services/actions/collections';
+import { getCollectionAPI, getElementAPI, getPublicAPI } from 'services/actions/collections';
 
 import searchAPI from 'services/TheMovieDatabaseJS/search';
-import { search as searchOriginal, getPopular as getPopularOriginal, getTopRated as getTopRatedOriginal } from './index';
+import {
+  getPopular as getPopularOriginal,
+  getTopRated as getTopRatedOriginal,
+  search as searchOriginal
+} from './index';
 
 export const search = (scene, collection, query, page) => {
   const searchKey = getSearchKey(scene);
@@ -36,8 +40,49 @@ export const getTopRated = (scene, collection, page) => {
   return _getTopRated(scene, collection, page);
 };
 
+export const checkExistence = (scene, collection, elements, fromLocalAPI=false) => {
+  
+  if(fromLocalAPI) {
+    elements.results = elements.results.map(el => {
+      return {
+        ...el,
+        id: el.tmdbId
+      };
+    });
+  }
+  
+  const filterById = (movie, el) => {
+    return movie.id === el.tmdbId;
+  };
+  
+  const clean = el => {
+    const match = existOnServer.filter(filterById.bind(this, el));
+    el.local = (match.length > 0) ? match[0] : undefined;
+    
+    el.already_in_collection = existInCollection[el.id];
+    el.current_collection = collection;
+    
+    return el;
+  };
+  
+  const IDs = elements.results.map(el => el.id);
+
+  let existOnServer, existInCollection;
+  return getElementAPI(scene).serialize(IDs, 'tmdbId')
+    .then(response => {
+      existOnServer = response;
+      return getCollectionAPI(scene).element(collection)[scene].exist(IDs, 'tmdbId');
+    })
+    .then(response => {
+      existInCollection = response;
+      for(let i = 0; i < elements.results.length; i++) {
+        elements.results = elements.results.map(clean);
+      }
+      return elements;
+    })
+};
+
 const _getPopular = (scene, collection, page=1) => {
-  const API = getCollectionAPI(scene).element(collection)[scene];
   const publicAPI = getPublicAPI(scene);
   let elements;
   return publicAPI.popular({page})
@@ -53,7 +98,6 @@ const _getPopular = (scene, collection, page=1) => {
 };
 
 const _getTopRated = (scene, collection, page=1) => {
-  const API = getCollectionAPI(scene).element(collection)[scene];
   const publicAPI = getPublicAPI(scene);
   let elements;
   return publicAPI.topRated({page})
@@ -96,35 +140,6 @@ const prepareSearchResults = (scene, collection, elements, query) => {
     };
   });
   
-};
-
-const checkExistence = (scene, collection, elements) => {
-  
-  const filterById = (movie, el) => {
-    return movie.id === el.tmdbId;
-  };
-  
-  const IDs = elements.results.map(el => el.id);
-  let existOnServer;
-  return getElementAPI(scene).serialize(IDs, 'tmdbId')
-    .then(response => {
-      existOnServer = response;
-      return getCollectionAPI(scene).element(collection)[scene].exist(IDs, 'tmdbId');
-    })
-    .then(existInCollection => {
-      for(let i = 0; i < elements.results.length; i++) {
-        elements.results = elements.results.map(el => {
-          const match = existOnServer.filter(filterById.bind(this, el));
-          el.local = (match.length > 0) ? match[0] : undefined;
-  
-          el.already_in_collection = existInCollection[el.id];
-          el.current_collection = collection;
-          
-          return el;
-        });
-      }
-      return elements;
-    })
 };
 
 const getSearchKey = scene => {

@@ -7,8 +7,9 @@ import { collectionContent, collections } from 'services/titles/api';
 const reducerBuilder = _scene => {
   
   const defaultState = {
-    activeSection: 'summary',
-    data: {}
+    activeSection: 'imports',
+    data: {},
+    importFromFile: null
   };
   
   const main = (scene, state = defaultState, action) => {
@@ -42,6 +43,12 @@ const reducerBuilder = _scene => {
           activeSection: action.value
         };
       
+      case collectionContent.importFromFile + '_FULFILLED':
+        return {
+          ...state,
+          importFromFile: action.payload
+        };
+        
       default:
         return state;
     }

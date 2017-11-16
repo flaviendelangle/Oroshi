@@ -6,7 +6,7 @@ import CollectionType from './components/CollectionType';
 import CollectionSource from './components/CollectionSource';
 import CollectionConfiguration from './components/CollectionConfiguration';
 import CollectionCustomization from './components/CollectionCustomization';
-import { parseDump } from 'services/utils';
+import { parseCSV } from 'services/utils';
 
 class Content extends Component {
   
@@ -54,7 +54,7 @@ class Content extends Component {
     const params = this.state.collectionSource;
     if(params.source === 'external' && params.external === 'csv_file') {
       elementsToImport = readAsText(this.state.collectionConfiguration.csv).then(result => {
-        return parseDump(result);
+        return parseCSV(result);
       });
     }
     let data = {

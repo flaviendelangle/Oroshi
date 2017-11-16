@@ -1,8 +1,13 @@
+import { readAsText } from 'promise-file-reader';
+import { parseCSV } from 'services/utils';
+
 import * as movies from './movies';
 import * as tv_shows from './tv_shows';
-import { CollectionsAPI } from 'services/api/collections'
+import { CollectionsAPI } from 'services/api/collections';
+import { checkExistence } from 'services/actions/publicAPI';
 
-import * as titles from 'services/titles/api'
+import * as titles from 'services/titles/api';
+
 
 /*
   ACTIONS WITH DISPATCH
@@ -139,6 +144,76 @@ export const removeElement = (scene, collection, id) => {
   }
 };
 
+export const importCSV = (scene, file) => {
+  return {
+    type: titles.collectionContent.importFromFile,
+    payload: readAsText(file).then(result => {
+      return {
+        data: parseCSV(result),
+        format: 'csv'
+      };
+    }),
+    meta: {
+      scene
+    }
+  }
+};
+
+export const importElements = (scene, collection, elements, dispatch) => {
+  
+  const _importElement = (scene, elements, index, dispatch) => {
+    if(elements.length <= index) {
+      dispatch({
+        type: titles.collectionContent.import + '_FULFILLED'
+      });
+      return true;
+    }
+    const element = elements[index];
+    if(element.already_in_collection) {
+      const result = {
+        ...element.local,
+        collection
+      };
+      dispatch({
+        type: titles.collections.add,
+        payload: result,
+        meta: {
+          scene
+        }
+      });
+      _importElement(scene, elements, ++index, dispatch);
+    }
+    addElement(scene, element).payload.then(el => {
+      dispatch({
+        type: titles.collections.add,
+        payload: el,
+        meta: {
+          scene
+        }
+      });
+      _importElement(scene, elements, ++index, dispatch);
+    });
+  };
+  
+  elements = {
+    results: elements
+  };
+  /*dispatch({
+    type: titles.collectionContent.import + '_STARTED'
+  });*/
+  return {
+    type: titles.collectionContent.importElement,
+    payload: checkExistence(scene, collection, elements, 'true').then(elements => {
+      _importElement(scene, elements.results, 0, dispatch);
+    }),
+    meta: {
+      scene
+    }
+  }
+};
+
+
+
 export const getModule = scene => {
   switch(scene) {
     case 'movies':
@@ -149,6 +224,9 @@ export const getModule = scene => {
       return null;
   }
 };
+
+
+
 /*
   ACTIONS WITHOUT DISPATCH
  */

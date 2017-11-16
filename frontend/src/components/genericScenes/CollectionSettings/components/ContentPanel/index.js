@@ -6,6 +6,8 @@ import SummaryParameters from './components/SummaryParameters';
 import SpoilerParameters from './components/SpoilerParameters';
 import LanguageParameters from './components/LanguageParameters';
 import ExportParameters from './components/ExportParameters';
+import DataImporter from './components/DataImporter';
+import { getCollectionSettingsState } from 'containers/reducer'
 
 class MenuPanel extends Component {
   
@@ -25,13 +27,27 @@ class MenuPanel extends Component {
     };
   }
   
+  renderPanel = () => {
+    switch(this.props.active) {
+      case 'summary':
+        return <SummaryParameters scene={this.props.scene} />;
+      case 'spoilers':
+        return <SpoilerParameters scene={this.props.scene} />;
+      case 'languages':
+        return <LanguageParameters scene={this.props.scene} />;
+      case 'exports':
+        return <ExportParameters scene={this.props.scene} />;
+      case 'imports':
+        return <DataImporter scene={this.props.scene} />;
+      default:
+        return null;
+    }
+  };
+  
   render() {
     return (
       <div style={this.panelStyle}>
-        <SummaryParameters scene={this.props.scene} />
-        <SpoilerParameters scene={this.props.scene} />
-        <LanguageParameters scene={this.props.scene} />
-        <ExportParameters scene={this.props.scene} />
+        {this.renderPanel()}
       </div>
     );
     
@@ -39,8 +55,10 @@ class MenuPanel extends Component {
   
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
+  const root = getCollectionSettingsState(state, ownProps.scene).main;
   return {
+    active: root.activeSection
   }
 };
 
