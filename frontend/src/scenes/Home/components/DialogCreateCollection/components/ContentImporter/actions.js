@@ -4,7 +4,7 @@ import { addElement } from 'services/actions/collections'
 
 
 export const importContent = (scene, dispatch, elements) => {
-  console.log('Collection ID : ' + elements[0].current_collection);
+  console.log('Collection ID : ' + elements[0].current_collection.pk);
   dispatch({
     type: collections.importStarted
   });

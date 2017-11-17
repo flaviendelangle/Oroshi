@@ -1,11 +1,7 @@
-import { getCollectionAPI, getElementAPI, getPublicAPI } from 'services/actions/collections';
-
 import searchAPI from 'services/TheMovieDatabaseJS/search';
-import {
-  getPopular as getPopularOriginal,
-  getTopRated as getTopRatedOriginal,
-  search as searchOriginal
-} from './index';
+import { getCollectionAPI, getElementAPI, getPublicAPI } from 'services/actions/collections';
+import { getPopular as getPopularOriginal, getTopRated as getTopRatedOriginal, search as searchOriginal } from './index';
+import { getTmdbLanguages } from 'services/languages';
 
 export const search = (scene, collection, query, page) => {
   const searchKey = getSearchKey(scene);
@@ -41,7 +37,6 @@ export const getTopRated = (scene, collection, page) => {
 };
 
 export const checkExistence = (scene, collection, elements, fromLocalAPI=false) => {
-  
   if(fromLocalAPI) {
     elements.results = elements.results.map(el => {
       return {
@@ -71,7 +66,7 @@ export const checkExistence = (scene, collection, elements, fromLocalAPI=false) 
   return getElementAPI(scene).serialize(IDs, 'tmdbId')
     .then(response => {
       existOnServer = response;
-      return getCollectionAPI(scene).element(collection)[scene].exist(IDs, 'tmdbId');
+      return getCollectionAPI(scene).element(collection.pk)[scene].exist(IDs, 'tmdbId');
     })
     .then(response => {
       existInCollection = response;
@@ -80,6 +75,55 @@ export const checkExistence = (scene, collection, elements, fromLocalAPI=false) 
       }
       return elements;
     })
+};
+
+export const getDetails = (scene, collection, tmdbId, original_language) => {
+  
+  const languages = getTmdbLanguages(collection, original_language);
+  
+  let options = {
+    append_to_response: ['credits'],
+  };
+  if(languages.poster === 'en') {
+    options.append_to_response.push('images');
+  }
+  
+  return getPublicAPI(scene).details(tmdbId, options).then(details => {
+    if(languages.title === 'en' && languages.poster === 'en') {
+      return details;
+    }
+    else if(languages.title === 'en') {
+      return _getImages(scene, tmdbId, languages.poster).then(images => {
+        details.images = images;
+        return details;
+      });
+    }
+    return _getTitle(scene, tmdbId, languages.title).then(newDetails => {
+      details.title = newDetails.title;
+      if(languages.poster === 'en') {
+        return details;
+      } else {
+        return _getImages(scene, tmdbId, languages.poster).then(images => {
+          details.images = images;
+          return details;
+        });
+      }
+    });
+  });
+};
+
+const _getImages = (scene, tmdbId, language) => {
+  const options = {
+    language
+  };
+  return getPublicAPI(scene).images(tmdbId, options);
+};
+
+const _getTitle = (scene, tmdbId, language) => {
+  const options = {
+    language
+  };
+  return getPublicAPI(scene).details(tmdbId, options);
 };
 
 const _getPopular = (scene, collection, page=1) => {

@@ -77,7 +77,8 @@ class API {
   
   query = options => {
     options.api_key = API.USERCONFIG.api_key;
-    options.language = API.USERCONFIG.language;
+    if(!options.language)
+      options.language = API.USERCONFIG.language;
     options.include_adult = API.USERCONFIG.include_adult;
     let query = '?';
     if (Object.keys(options).length > 0) {

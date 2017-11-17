@@ -55,6 +55,14 @@ export const checkExistence = (scene, collection, elements, fromLocalAPI) => {
   return getModule(scene).checkExistence(scene, collection, elements, fromLocalAPI);
 };
 
+export const getDetails = (scene, ...args) => {
+  return getModule(scene).getDetails(scene, ...args);
+};
+
+export const cleanDetails = (scene, details) => {
+  return getModule(scene).cleanDetails(scene, details);
+};
+
 export const getModule = scene => {
   switch(scene) {
     case 'movies':

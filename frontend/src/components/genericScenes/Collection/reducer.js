@@ -23,7 +23,7 @@ const reducerBuilder = _scene => {
   const defaultState = {
     content: [],
     query: '',
-    collection: 0,
+    collection: null,
     found: false,
     loaded: false,
     layout: getValue('layout_' + _scene) || 'grid',
@@ -68,7 +68,7 @@ const reducerBuilder = _scene => {
         );
         return {
           ...state,
-          collection: action.payload.pk,
+          collection: action.payload,
           content: newContent,
           stream: new StreamGenerator(newContent, state.query, state.order.stream),
           toShow: new ListGenerator(newContent, state.query),

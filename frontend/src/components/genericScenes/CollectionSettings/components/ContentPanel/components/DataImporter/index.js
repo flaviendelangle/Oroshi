@@ -149,7 +149,7 @@ class DataImporter extends Component {
   
   componentWillReceiveProps(newProps) {
     if(!this.props.importFromFile && newProps.importFromFile) {
-      this.props.importContent(newProps.data.pk, newProps.importFromFile.data);
+      this.props.importContent(newProps.data, newProps.importFromFile.data);
       this.setState({ elements: newProps.importFromFile.data });
     }
   }

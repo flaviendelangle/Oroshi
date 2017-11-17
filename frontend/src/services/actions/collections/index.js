@@ -30,7 +30,7 @@ export const create = (scene, data, elementsToImport)  => {
         for(let i = 0; i < elements.length; i++) {
           const match = exist.filter(filterById.bind(this, elements[i]));
           elements[i].local = (match.length > 0) ? match[0] : undefined;
-          elements[i].current_collection = collection.pk;
+          elements[i].current_collection = collection;
           elements[i].id = parseInt(elements[i].tmdbId, 10);
           elements[i].release = parseInt(elements[i].release, 10);
         }
@@ -116,7 +116,7 @@ export const addElement = (scene, data) => {
   }
   return {
     type: titles.collections.add,
-    payload: getModule(scene).addElement(data),
+    payload: getModule(scene).addElement(scene, data),
     meta: {
       scene
     }
@@ -126,7 +126,7 @@ export const addElement = (scene, data) => {
 export const updateElement = (scene, collection, id, data) => {
   return {
     type: titles.collections.update,
-    payload: getCollectionAPI(scene).element(collection)[scene].partial_update(id, data),
+    payload: getCollectionAPI(scene).element(collection.pk)[scene].partial_update(id, data),
     meta: {
       scene
     }
@@ -134,7 +134,7 @@ export const updateElement = (scene, collection, id, data) => {
 };
 
 export const removeElement = (scene, collection, id) => {
-  const api = getCollectionAPI(scene).element(collection)[scene];
+  const api = getCollectionAPI(scene).element(collection.pk)[scene];
   return {
     type: titles.collections.remove,
     payload: api.destroy(id),

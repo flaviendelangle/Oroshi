@@ -114,7 +114,7 @@ class CollectionContent extends Component {
     else if(!this.props.found) {
       return (<div>Not found</div>)
     }
-    else if(this.props.content.length === 0) {
+    else if(this.props.content.length === 0 && !this.props.isAdding) {
       return (<Help/>)
     }
     else {
