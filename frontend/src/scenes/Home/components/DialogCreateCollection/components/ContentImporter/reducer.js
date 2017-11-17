@@ -31,15 +31,6 @@ const contentImporterReducer = (state = defaultState, action) => {
         progress = keysNumber / state.elementNumber * 100;
       }
       return state;
-      return {
-        ...state,
-        created: {
-          ...state.created,
-          [action.data.tmdbId]: action.data
-        },
-        keysNumber,
-        progress
-      };
       
     default:
       return state;

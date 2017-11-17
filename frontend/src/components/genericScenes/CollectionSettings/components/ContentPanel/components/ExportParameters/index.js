@@ -23,13 +23,13 @@ class ExportParameters extends Component {
           <div
             rightIcon={<FileDownload />}
             primaryText="Export as CSV"
-            onClick={() => this.props.exportCollection(this.props.collection, 'csv')}
+            onClick={() => this.props.exportCollection(this.props.data.pk, 'csv')}
           >
           </div>
           <div
             rightIcon={<FileDownload />}
             primaryText="Export as JSON"
-            onClick={() => this.props.exportCollection(this.props.collection, 'json')}
+            onClick={() => this.props.exportCollection(this.props.data.pk, 'json')}
           >
           </div>
         </div>

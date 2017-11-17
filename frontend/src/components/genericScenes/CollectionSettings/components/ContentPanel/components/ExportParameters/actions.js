@@ -10,6 +10,8 @@ export const exportCollection = (pk, format) => {
   switch(format) {
     case 'csv':
       return exportAsCSV(pk);
+    default:
+      return null;
   }
 };
 

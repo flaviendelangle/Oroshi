@@ -1,7 +1,6 @@
 import { combineReducers } from 'redux';
 
 import { collectionContent } from 'services/titles/api';
-import { source } from 'services/titles/interface';
 
 import search from './components/Search/reducer'
 

@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import muiThemeable from 'material-ui/styles/muiThemeable';
 import { ListItem } from 'material-ui/List';
 

@@ -96,7 +96,7 @@ const Overlay = ({ mouseOver, creationMode, handleSave, data, collection }) => {
     else
       RealOverlay = OverlayDefaultMode;
     
-    return <RealOverlay onSave={handleSave} data={data} collection={collection}/>
+    return <RealOverlay handleSave={handleSave} data={data} collection={collection}/>
   }
   return (null);
 };
