@@ -5,27 +5,18 @@ import ScrollArea from 'react-scrollbar';
 import IconButton from 'material-ui/IconButton';
 import NavigationMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz';
 
+import * as _style from './style';
 import './style.css'
 
+
 const CONFIG = {
-  pageLength: 20
-};
-
-const buttonStyle = {
-  width: 96,
-  height: 96,
-  padding: 24,
-};
-
-const iconStyle = {
-  width: 48,
-  height: 48
+  pageLength: 20,
+  useReactList: false
 };
 
 class Grid extends Component {
   
   state = {
-    useReactList: false,
     pages: 1
   };
   
@@ -62,25 +53,8 @@ class Grid extends Component {
     );
   };
   
-  renderShowMore = () => {
-    if(this.isAllShown) {
-      return null;
-    }
-    return (
-      <div style={{textAlign: 'center'}}>
-        <IconButton
-          onClick={this.showMore}
-          style={buttonStyle}
-          iconStyle={iconStyle}
-        >
-          <NavigationMoreHoriz/>
-        </IconButton>
-      </div>
-    );
-  };
-  
   renderItems = () => {
-    if(this.state.useReactList) {
+    if(CONFIG.useReactList) {
       return (
         <ReactList
           itemRenderer={this.renderItem}
@@ -105,7 +79,7 @@ class Grid extends Component {
         >
           <div className="content-grid" style={{paddingBottom:400 }}>
             {this.renderItems()}
-            {this.renderShowMore()}
+            <ShowMore isAllShow={this.isAllShown} showMore={this.showMore} />
           </div>
         </ScrollArea>
       </div>
@@ -113,6 +87,23 @@ class Grid extends Component {
   }
   
 }
+
+const ShowMore = ({ isAllShown, showMore }) => {
+  if(isAllShown) {
+    return null;
+  }
+  return (
+    <div style={_style.showMore}>
+      <IconButton
+        onClick={showMore}
+        style={_style.button}
+        iconStyle={_style.icon}
+      >
+        <NavigationMoreHoriz/>
+      </IconButton>
+    </div>
+  );
+};
 
 const mapStateToProps = state => {
   return {}

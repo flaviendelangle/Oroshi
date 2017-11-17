@@ -4,23 +4,7 @@ import EditorModeEdit from 'material-ui/svg-icons/editor/mode-edit'
 import ContentSave from 'material-ui/svg-icons/content/save';
 import IconButton from 'material-ui/IconButton';
 
-
-
-const textFieldStyle = {
-  position: 'absolute',
-  top: -5,
-  right: 50,
-};
-
-const inputStyle = {
-  textAlign: 'right'
-};
-
-const iconStyle = {
-  position: 'absolute',
-  top: -5,
-  right: 0
-};
+import * as _style from './style';
 
 class TextField extends Component {
   
@@ -32,29 +16,29 @@ class TextField extends Component {
     this.setState({ editing: !this.state.editing });
   };
   
-  renderIcon = () => {
-    if(this.state.editing) {
-      return <ContentSave onClick={this.switchMode}/>;
-    }
-    return <EditorModeEdit onClick={this.switchMode}/>;
-  };
-  
   render() {
     return (
       <div>
         <TextFieldOriginal
           id={this.props.id}
           value={this.props.value}
-          style={textFieldStyle}
-          inputStyle={inputStyle}
+          style={_style.textField}
+          inputStyle={_style.input}
           disabled={!this.state.editing}
         />
-        <IconButton style={iconStyle}>
-          {this.renderIcon()}
+        <IconButton style={_style.icon}>
+          <Icon editing={this.state.editing} handleClick={this.switchMode} />
         </IconButton>
       </div>
     );
   }
 }
+
+const Icon = ({ editing, handleClick }) => {
+  if(editing) {
+    return <ContentSave onClick={handleClick}/>;
+  }
+  return <EditorModeEdit onClick={handleClick}/>;
+};
 
 export default TextField;

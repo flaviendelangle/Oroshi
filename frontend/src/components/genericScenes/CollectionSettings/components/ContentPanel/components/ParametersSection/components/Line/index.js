@@ -3,13 +3,8 @@ import muiThemeable from 'material-ui/styles/muiThemeable';
 import { ListItem } from 'material-ui/List';
 
 
-class Line extends Component {
-  
-  render() {
-    return (
-      <ListItem {...this.props.params} />
-    );
-  }
-}
+const Line = ({ params }) => (
+  <ListItem {...params} />
+);
 
 export default muiThemeable()(Line);
