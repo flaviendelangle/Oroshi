@@ -154,7 +154,7 @@ class TVShow extends Component {
             {this.renderOverlay()}
           </Paper>
         </div>
-        {this.renderFooter()}
+        <Footer />
       </div>
     );
   }

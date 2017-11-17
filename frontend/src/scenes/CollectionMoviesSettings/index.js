@@ -2,24 +2,15 @@ import React, { Component } from 'react';
 
 import CollectionSettingsScene from 'components/genericScenes/CollectionSettings';
 
+const config = {
+};
 
-class CollectionMoviesSettings extends Component {
-  
-  config = {
-  
-  };
-  
-  render() {
-    return (
-      <CollectionSettingsScene
-        {...this.props}
-        config={this.config}
-        scene="movies"
-      />
-    );
-    
-  }
-  
-}
+const CollectionMoviesSettings = props => (
+  <CollectionSettingsScene
+    {...props}
+    config={config}
+    scene="movies"
+  />
+);
 
 export default CollectionMoviesSettings;

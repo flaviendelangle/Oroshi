@@ -9,27 +9,10 @@ import Poster from './components/Poster';
 import Actions from './components/Actions';
 import Grade from 'components/generics/Grade';
 import { date } from 'services/utils';
+import * as _style from './style';
 
 import './style.css'
 
-const gradeStyle = {
-  margin: 'auto',
-  top: '50%',
-  transform: 'translateY(-50%)'
-};
-
-const creationIconStyle = {
-  height: 80,
-  width: 80,
-  borderRadius: '50%',
-  backgroundColor: '#1DE9B6',
-  top: '50%',
-  left: 'calc((185px - 80px)/2)',
-  transform: 'translateY(-50%)',
-  position: 'absolute',
-  boxShadow: '6px 6px 10px rgba(0,0,0,0.6)',
-  cursor: 'pointer'
-};
 
 class Movie extends Component {
   
@@ -93,7 +76,7 @@ class Movie extends Component {
             <div className="overlay-main">
               <Grade
                 value={this.props.data.note}
-                style={gradeStyle}
+                style={_style.grade}
               />
             </div>
           </Link>
@@ -109,7 +92,7 @@ class Movie extends Component {
     if(this.props.data.already_in_collection) {
       return (
         <div className="overlay">
-          <div style={creationIconStyle}>
+          <div style={_style.creationIcon}>
             <ActionDone
               color="white"
               className="add-icon"
@@ -121,7 +104,7 @@ class Movie extends Component {
     }
     return (
       <div className="overlay">
-        <div style={creationIconStyle}>
+        <div style={_style.creationIcon}>
           <ContentAdd
             color="white"
             className="add-icon"
@@ -130,18 +113,6 @@ class Movie extends Component {
         </div>
       </div>
     )
-  };
-  
-  renderFooter = () => {
-    return (
-      <div
-        className="title"
-        style={{color: this.props.muiTheme.palette.textColor}}
-      >
-        <div>{this.release_date}</div>
-        <div>{this.props.data.title}</div>
-      </div>
-    );
   };
   
   render() {
@@ -158,11 +129,21 @@ class Movie extends Component {
             {this.renderOverlay()}
           </Paper>
         </div>
-        {this.renderFooter()}
+        <Footer title={this.props.data.title} release_date={this.release_date} />
       </div>
     );
   }
   
 }
+
+const Footer = ({ title, release_date }) => (
+  <div
+    className="title"
+    style={{color: this.props.muiTheme.palette.textColor}}
+  >
+    <div>{release_date}</div>
+    <div>{title}</div>
+  </div>
+);
 
 export default muiThemeable()(Movie);

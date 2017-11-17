@@ -16,7 +16,7 @@ const containerStyle = {
   top: 8
 };
 
-class Search extends Component {
+class OrderMenu extends Component {
   
   renderMenu = () => {
     if(this.props.layout === 'stream') {
@@ -165,4 +165,4 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Search);
+)(OrderMenu);

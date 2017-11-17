@@ -9,26 +9,7 @@ import FirstCollectionButton from './components/FirstCollectionButton'
 import DialogCreateCollection from './components/DialogCreateCollection'
 import { getAll as getCollections } from 'services/actions/collections'
 
-const scrollStyle = {
-  position: 'absolute',
-  top: '50%',
-  right: 0,
-  left: 0,
-  transform: 'translateY(-50%)',
-};
-
-const containerStyle = {
-  margin: '50px auto',
-  width: '80%'
-};
-
-const progressStyle = {
-  width: 40,
-  height: 40,
-  position: 'absolute',
-  left: 'calc(50% - 20px)',
-  top: 'calc(50% - 20px)',
-};
+import * as _style from './style';
 
 class Home extends Component {
   
@@ -43,14 +24,14 @@ class Home extends Component {
   render() {
     if(!this.props.loaded) {
       return (
-        <div style={progressStyle}>
+        <div style={_style.progress}>
           <CircularProgress />
         </div>
       );
     } else if(this.props.collections.length === 0) {
       return (
         <div>
-          <div style={containerStyle}>
+          <div style={_style.container}>
             <FirstCollectionButton/>
           </div>
           <DialogCreateCollection/>
@@ -62,9 +43,9 @@ class Home extends Component {
         <ScrollArea
           speed={0.8}
           horizontal={false}
-          style={scrollStyle}
+          style={_style.scroll}
         >
-        <div style={containerStyle}>
+        <div style={_style.container}>
             <ManageButton
               editing={this.state.editing}
               onClick={() => this.setState({editing: !this.state.editing}) }
