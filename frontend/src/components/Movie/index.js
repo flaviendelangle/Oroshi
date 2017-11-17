@@ -59,62 +59,6 @@ class Movie extends Component {
     return this.props.data.poster;
   };
   
-  renderOverlay = () => {
-    if(this.state.mouseOver || true) {
-      if(this.props.creationMode) {
-        return this.renderOverlayCreationMode();
-      }
-      return this.renderOverlayDefaultMode();
-    }
-    return (null);
-  };
-  
-  renderOverlayDefaultMode = () => {
-      return (
-        <div className="overlay">
-          <Link to={'/movies/' + this.props.data.tmdbId + '/'}>
-            <div className="overlay-main">
-              <Grade
-                value={this.props.data.note}
-                style={_style.grade}
-              />
-            </div>
-          </Link>
-          <Actions
-            data={this.props.data}
-            collection={this.props.collection}
-          />
-        </div>
-      )
-  };
-  
-  renderOverlayCreationMode = () => {
-    if(this.props.data.already_in_collection) {
-      return (
-        <div className="overlay">
-          <div style={_style.creationIcon}>
-            <ActionDone
-              color="white"
-              className="add-icon"
-              onClick={this.save}
-            />
-          </div>
-        </div>
-      );
-    }
-    return (
-      <div className="overlay">
-        <div style={_style.creationIcon}>
-          <ContentAdd
-            color="white"
-            className="add-icon"
-            onClick={this.save}
-          />
-        </div>
-      </div>
-    )
-  };
-  
   render() {
     return (
       <div className={'movie-parent ' + this.getParentClassName()}>
@@ -126,20 +70,84 @@ class Movie extends Component {
             onMouseLeave={() => this.handleMouseHover(false)}
           >
             <Poster path={this.getPosterPath()} title={this.props.data.title} />
-            {this.renderOverlay()}
+            <Overlay
+              {...this.props}
+              mouseOver={this.state.mouseOver}
+              handleSave={this.save}
+            />
           </Paper>
         </div>
-        <Footer title={this.props.data.title} release_date={this.release_date} />
+        <Footer
+          title={this.props.data.title}
+          muiTheme={this.props.muiTheme}
+          release_date={this.release_date}
+        />
       </div>
     );
   }
   
 }
 
-const Footer = ({ title, release_date }) => (
+const Overlay = ({ mouseOver, creationMode, handleSave, data, collection }) => {
+  if(mouseOver) {
+    let RealOverlay;
+    if(creationMode)
+      RealOverlay = OverlayCreationMode;
+    else
+      RealOverlay = OverlayDefaultMode;
+    
+    return <RealOverlay onSave={handleSave} data={data} collection={collection}/>
+  }
+  return (null);
+};
+
+const OverlayCreationMode = ({ handleSave, data }) => {
+  if(data.already_in_collection) {
+    return (
+      <div className="overlay">
+        <div style={_style.creationIcon}>
+          <ActionDone
+            color="white"
+            className="add-icon"
+          />
+        </div>
+      </div>
+    );
+  }
+  return (
+    <div className="overlay">
+      <div style={_style.creationIcon}>
+        <ContentAdd
+          color="white"
+          className="add-icon"
+          onClick={handleSave}
+        />
+      </div>
+    </div>
+  )
+};
+
+const OverlayDefaultMode = ({ data, collection }) => (
+  <div className="overlay">
+    <Link to={'/movies/' + data.tmdbId + '/'}>
+      <div className="overlay-main">
+        <Grade
+          value={data.note}
+          style={_style.grade}
+        />
+      </div>
+    </Link>
+    <Actions
+      data={data}
+      collection={collection}
+    />
+  </div>
+);
+
+const Footer = ({ title, muiTheme, release_date }) => (
   <div
     className="title"
-    style={{color: this.props.muiTheme.palette.textColor}}
+    style={{color: muiTheme.palette.textColor}}
   >
     <div>{release_date}</div>
     <div>{title}</div>

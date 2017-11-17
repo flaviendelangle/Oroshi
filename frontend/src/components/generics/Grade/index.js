@@ -5,18 +5,20 @@ import * as _style from './style';
 
 const Grade = ({ style, ...props }) => {
   
+  const degree = parseInt(props.value*36, 10);
+  
   return (
-    <div style={style.circle(style)}>
+    <div style={_style.circle(style)}>
       <div style={_style.externalCircle}>
       </div>
       <div style={_style.innerCircle}>
         {props.value}
       </div>
-      <Arc quarter={1} {...props} />
-      <Arc quarter={2} {...props} />
-      <Arc quarter={3} {...props} />
-      <Arc quarter={4} {...props} />
-      <div style={_style.cover(props)}>
+      <Arc quarter={1} degree={degree} {...props} />
+      <Arc quarter={2} degree={degree} {...props} />
+      <Arc quarter={3} degree={degree} {...props} />
+      <Arc quarter={4} degree={degree} {...props} />
+      <div style={_style.cover(degree)}>
       </div>
     </div>
   );

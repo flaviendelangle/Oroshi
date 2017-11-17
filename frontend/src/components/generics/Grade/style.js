@@ -30,11 +30,11 @@ export const innerCircle = {
   textAlign: 'center',
 };
 
-export const arc = ({ counter, degree, value }) => {
+export const arc = ({ quarter, degree, value }) => {
   
-  const angle = Math.min(counter*90, degree) - 45;
+  const angle = Math.min(quarter*90, degree) - 45;
   const gradeColor = color(value);
-  
+
   return {
     position: 'absolute',
     top: 0,
@@ -55,7 +55,7 @@ export const circle = style => ({
   height: CONFIG.diameter
 });
 
-export const cover = ({ degree }) => ({
+export const cover = (degree) => ({
   display: (degree > 90 ? 'none' : 'block'),
   position: 'absolute',
   top: 0,

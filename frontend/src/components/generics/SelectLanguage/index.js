@@ -5,9 +5,9 @@ import MenuItem from 'material-ui/MenuItem';
 import { getPublicAPILanguages } from 'services/languages';
 
 
-const SelectLanguage = ({ onChange }) => {
+const SelectLanguage = ({ onChange, scene, value, style }) => {
   
-  let languages = getPublicAPILanguages(this.props.scene);
+  let languages = getPublicAPILanguages(scene);
   const original = { name: 'Original language', code: '-' };
   languages = [original].concat(languages);
   
@@ -17,9 +17,9 @@ const SelectLanguage = ({ onChange }) => {
 
   return (
     <SelectField
-      value={this.props.value}
+      value={value}
       onChange={handleOnChange}
-      style={this.props.style}
+      style={style}
     >
       <Items languages={languages} />
     </SelectField>

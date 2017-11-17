@@ -27,33 +27,39 @@ class MenuPanel extends Component {
     };
   }
   
-  renderPanel = () => {
-    switch(this.props.active) {
-      case 'summary':
-        return <SummaryParameters scene={this.props.scene} />;
-      case 'spoilers':
-        return <SpoilerParameters scene={this.props.scene} />;
-      case 'languages':
-        return <LanguageParameters scene={this.props.scene} />;
-      case 'exports':
-        return <ExportParameters scene={this.props.scene} />;
-      case 'imports':
-        return <DataImporter scene={this.props.scene} />;
-      default:
-        return null;
-    }
-  };
-  
+
   render() {
     return (
       <div style={this.panelStyle}>
-        {this.renderPanel()}
+        <Panel active={this.props.active} scene={this.props.scene} />
       </div>
     );
     
   }
   
 }
+
+const getSectionComponent = active => {
+  switch(active) {
+    case 'summary':
+      return SummaryParameters;
+    case 'spoilers':
+      return SpoilerParameters;
+    case 'languages':
+      return LanguageParameters;
+    case 'exports':
+      return ExportParameters;
+    case 'imports':
+      return DataImporter;
+    default:
+      return null;
+  }
+};
+
+const Panel = ({ active, scene }) => {
+  const Section = getSectionComponent(active);
+  return Section ? <Section scene={scene} /> : null;
+};
 
 const mapStateToProps = (state, ownProps) => {
   const root = getCollectionSettingsState(state, ownProps.scene).main;
