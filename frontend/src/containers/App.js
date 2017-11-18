@@ -10,6 +10,7 @@ import Main from './Main';
 import store from './reducer';
 import theme from 'services/theme';
 import './App.css';
+import { DEFAULT_LANGUAGE } from 'services/languages';
 
 
 injectTapEventPlugin();
@@ -22,7 +23,7 @@ WebFont.load({
 
 api.set_config({
   api_key: 'de7ff1a87f9afdb1ccd29ad9a0738e31',
-  language: 'en',
+  language: DEFAULT_LANGUAGE,
   include_adult: 'false'
 });
 

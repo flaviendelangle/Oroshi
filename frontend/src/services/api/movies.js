@@ -30,6 +30,14 @@ class Movies extends API {
     });
   };
   
+  addTitle = (movie, language, title) => {
+    return super.detail_route(movie, 'title', 'POST', { language, title });
+  };
+  
+  addPoster = (movie, language, path) => {
+    return super.detail_route(movie, 'poster', 'POST', { language, path });
+  };
+  
 }
 
 

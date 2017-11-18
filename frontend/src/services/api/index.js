@@ -91,10 +91,16 @@ class API {
   /*
    REST API
    */
-  detail_route(value, route_name) {
+  detail_route(value, route_name, method='GET', body) {
     value = encodeURIComponent(value);
     const url = this.url() + value + '/' + route_name + '/';
-    return this.GET(url);
+    let data;
+    if(method === 'POST') {
+      data = {
+        body: this.objectToFormData(body)
+      };
+    }
+    return this[method](url, data);
   };
   
   list_route(route_name) {

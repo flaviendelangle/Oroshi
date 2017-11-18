@@ -13,6 +13,10 @@ export const checkExistence = tmdb.checkExistence;
 
 export const getDetails = tmdb.getDetails;
 
+export const getTitle = tmdb.getTitle;
+
+export const getPoster = tmdb.getPoster;
+
 export const cleanDetails = (scene, details) => {
   const directors = details.credits.crew
     .filter(el => el.job === 'Director')

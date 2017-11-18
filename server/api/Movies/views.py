@@ -13,6 +13,8 @@ from api.MovieCollections.models import MovieCollections, SeenMovies
 from api.MovieCollections.serializers import SeenMoviesSerializer
 from api.Titles.models import Titles
 from api.Posters.models import Posters
+from api.Titles.serializers import TitlesSerializer
+from api.Posters.serializers import PostersSerializer
 
 
 class MoviesViewSet(viewsets.ModelViewSet):
@@ -68,6 +70,30 @@ class MoviesViewSet(viewsets.ModelViewSet):
         for movie in movies :
             out[movie] = len(list(filter(lambda el: el == movie, data))) > 0
         return Response(out)
+
+    @detail_route(methods=['post'])
+    def title(self, request, pk=None):
+        movie = get_object_or_404(Movies.objects.all(), pk=pk)
+        title = request.data['title']
+
+        language = request.data['language']
+        title = Titles.objects.create(title=title, language=language)
+        movie.titles.add(title)
+
+        data = TitlesSerializer(title).data
+        return Response(data)
+
+    @detail_route(methods=['post'])
+    def poster(self, request, pk=None):
+        movie = get_object_or_404(Movies.objects.all(), pk=pk)
+        path = request.data['path']
+
+        language = request.data['language']
+        poster = Posters.objects.create(path=path, language=language)
+        movie.posters.add(poster)
+
+        data = PostersSerializer(poster).data
+        return Response(data)
 
 
 class CollectionMoviesViewSet(NestedViewSetMixin, MoviesViewSet):

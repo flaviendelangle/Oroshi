@@ -51,12 +51,20 @@ export const getTopRated = (scene, collection, page) => {
 /*
   ACTIONS WITHOUT DISPATCH
  */
-export const checkExistence = (scene, collection, elements, fromLocalAPI) => {
-  return getModule(scene).checkExistence(scene, collection, elements, fromLocalAPI);
+export const checkExistence = (scene, ...args) => {
+  return getModule(scene).checkExistence(scene, ...args);
 };
 
 export const getDetails = (scene, ...args) => {
   return getModule(scene).getDetails(scene, ...args);
+};
+
+export const getTitle = (scene, ...args) => {
+  return getModule(scene).getTitle(scene, ...args);
+};
+
+export const getPoster = (scene, ...args) => {
+  return getModule(scene).getPoster(scene, ...args);
 };
 
 export const cleanDetails = (scene, details) => {

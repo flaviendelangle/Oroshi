@@ -9,8 +9,9 @@ import Poster from './components/Poster';
 import Actions from './components/Actions';
 import Grade from 'components/generics/Grade';
 import { date } from 'services/utils';
-import * as _style from './style';
+import { pickElement } from 'services/languages';
 
+import * as _style from './style';
 import './style.css'
 
 
@@ -29,6 +30,22 @@ class Movie extends Component {
       return parseInt(this.props.data.release[0].name, 10);
     }
     return this.props.data.release;
+  }
+  
+  get title() {
+    if(this.props.creationMode) {
+      return this.props.data.title;
+    }
+    const language = this.props.collection.title_language;
+    return pickElement(this.props.data, 'titles', 'title', language);
+  }
+  
+  get posterPath() {
+    if(this.props.creationMode) {
+      return this.props.data.poster_path;
+    }
+    const language = this.props.collection.poster_language;
+    return pickElement(this.props.data, 'posters', 'path', language);
   }
   
   handleMouseHover = mouseOver => {
@@ -51,14 +68,7 @@ class Movie extends Component {
     }
     return className
   };
-  
-  getPosterPath = () => {
-    if(this.props.creationMode) {
-      return this.props.data.poster_path;
-    }
-    return this.props.data.poster;
-  };
-  
+
   render() {
     return (
       <div className={'movie-parent ' + this.getParentClassName()}>
@@ -69,7 +79,7 @@ class Movie extends Component {
             onMouseEnter={() => this.handleMouseHover(true)}
             onMouseLeave={() => this.handleMouseHover(false)}
           >
-            <Poster path={this.getPosterPath()} title={this.props.data.title} />
+            <Poster path={this.posterPath} title={this.title} />
             <Overlay
               {...this.props}
               mouseOver={this.state.mouseOver}
@@ -78,7 +88,7 @@ class Movie extends Component {
           </Paper>
         </div>
         <Footer
-          title={this.props.data.title}
+          title={this.title}
           muiTheme={this.props.muiTheme}
           release_date={this.release_date}
         />

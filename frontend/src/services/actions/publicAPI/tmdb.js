@@ -1,7 +1,7 @@
 import searchAPI from 'services/TheMovieDatabaseJS/search';
 import { getCollectionAPI, getElementAPI, getPublicAPI } from 'services/actions/collections';
 import { getPopular as getPopularOriginal, getTopRated as getTopRatedOriginal, search as searchOriginal } from './index';
-import { getTmdbLanguages } from 'services/languages';
+import { getTmdbLanguages, DEFAULT_LANGUAGE } from 'services/languages';
 
 export const search = (scene, collection, query, page) => {
   const searchKey = getSearchKey(scene);
@@ -83,7 +83,7 @@ export const getDetails = (scene, collection, tmdbId, original_language) => {
   
   let options = {
     append_to_response: ['credits', 'images'],
-    language: 'en'
+    language: DEFAULT_LANGUAGE
   };
   
   let details = {
@@ -92,24 +92,24 @@ export const getDetails = (scene, collection, tmdbId, original_language) => {
   };
   let promise =  Promise.resolve();
   
-  if(languages.title !== 'en' ) {
+  if(languages.title !== DEFAULT_LANGUAGE ) {
     promise = promise
-      .then(() => _getTitle(scene, tmdbId, languages.title))
-      .then(response => {
+      .then(() => getTitle(scene, tmdbId, languages.title))
+      .then(title => {
         details.titles.push({
           language: languages.title,
-          title: response.title
+          title: title
         });
       });
   }
-  if(languages.poster !== 'en') {
+  if(languages.poster !== DEFAULT_LANGUAGE) {
     promise = promise
-      .then(() => _getImages(scene, tmdbId, languages.poster))
-      .then(response => {
-        if(response.posters.length > 0) {
+      .then(() => getPoster(scene, tmdbId, languages.poster))
+      .then(poster => {
+        if(poster) {
           details.posters.push({
             language: languages.poster,
-            path: response.posters[0].file_path
+            path: poster
           });
         }
       })
@@ -120,12 +120,12 @@ export const getDetails = (scene, collection, tmdbId, original_language) => {
     .then(response => {
       if(response.images.posters.length > 0) {
         details.posters.push({
-          language: 'en',
+          language: DEFAULT_LANGUAGE,
           path: response.images.posters[0].file_path
         });
       }
       details.titles.push({
-        language: 'en',
+        language: DEFAULT_LANGUAGE,
         title: response.title
       });
       
@@ -136,18 +136,25 @@ export const getDetails = (scene, collection, tmdbId, original_language) => {
     });
 };
 
-const _getImages = (scene, tmdbId, language) => {
+export const getPoster = (scene, tmdbId, language) => {
   const options = {
     language
   };
-  return getPublicAPI(scene).images(tmdbId, options);
+  return getPublicAPI(scene).images(tmdbId, options)
+    .then(response => {
+      if(response.posters.length > 0) {
+        return response.posters[0].file_path;
+      }
+      return null;
+    });
 };
 
-const _getTitle = (scene, tmdbId, language) => {
+export const getTitle = (scene, tmdbId, language) => {
   const options = {
     language
   };
-  return getPublicAPI(scene).details(tmdbId, options);
+  return getPublicAPI(scene).details(tmdbId, options)
+    .then(response => response.title);
 };
 
 const _getPopular = (scene, collection, page=1) => {

@@ -17,7 +17,7 @@ class ElementLine extends Component {
 
 export const groupByLine = (elements, lineDimensions) => {
   if(elements.length === 0) {
-    return null;
+    return [];
   }
   let lines = [[]];
   elements.forEach(el => {

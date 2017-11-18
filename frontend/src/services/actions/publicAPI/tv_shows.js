@@ -13,6 +13,10 @@ export const checkExistence = tmdb.checkExistence;
 
 export const getDetails = tmdb.getDetails;
 
+export const getTitle = tmdb.getTitle;
+
+export const getPoster = tmdb.getPoster;
+
 export const cleanDetails = (scene, details) => {
   const networks = details.networks
     .map(({id, name}) => ({tmdbId: id, name}));

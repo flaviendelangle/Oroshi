@@ -1,5 +1,6 @@
 import { getCollectionAPI, getElementAPI } from './index';
-import { getDetails, cleanDetails } from 'services/actions/publicAPI';
+import { getDetails, cleanDetails, getTitle, getPoster } from 'services/actions/publicAPI';
+import { getMissingLanguages } from 'services/languages';
 
 export const addElement = (scene, data) => {
   
@@ -7,14 +8,13 @@ export const addElement = (scene, data) => {
   if(data.local) {
     promise = Promise.resolve({
       data: data.local,
-      collection: data.current_collection
+      collection: data.current_collection,
+      local: true
     });
   } else {
     promise = getDetails(scene, data.current_collection, data.id, data.original_language)
       .then(details => {
-        console.log(details);
         details = cleanDetails(scene, details);
-
         return getElementAPI(scene).create(details);
       })
       .then(response => {
@@ -24,12 +24,11 @@ export const addElement = (scene, data) => {
         }
       });
   }
-  return false;
   
   const localAPI = getCollectionAPI(scene);
   return promise
+    .then(response => createMissingData(scene, response))
     .then(response => {
-      console.log(response);
       data = {
         pk: response.data.pk,
         seen: data.seen
@@ -42,6 +41,50 @@ export const addElement = (scene, data) => {
         seen: data.seen
       }
     })
+};
+
+const createMissingData = (scene, { collection, data, local }) => {
+  
+  if(!local) {
+    return { collection, data };
+  }
+  
+  const languages = getMissingLanguages(collection, data);
+  const localAPI = getElementAPI(scene);
+
+  const createTitle = i => {
+    if(i < languages.title.length) {
+      return getTitle(scene, data.tmdbId, languages.title[i])
+        .then(title => {
+          return localAPI.addTitle(data.pk, languages.title[i], title);
+        })
+        .then(titles => {
+          data.titles.push(titles);
+          return createTitle(i+1);
+        })
+    } else {
+      return Promise.resolve({});
+    }
+  };
+  
+  const createPoster = i => {
+    if(i < languages.poster.length) {
+      return getPoster(scene, data.tmdbId, languages.poster[i])
+        .then(poster => {
+          poster = poster || '';
+          return localAPI.addPoster(data.pk, languages.poster[i], poster);
+        })
+        .then(poster => {
+          data.posters.push(poster);
+          return createPoster(i+1);
+        })
+    } else {
+      return Promise.resolve({ collection, data });
+    }
+  };
+  
+  return createTitle(0).then(res => createPoster(0));
+  
 };
 
 
