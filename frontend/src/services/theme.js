@@ -7,6 +7,8 @@ const muiTheme = {
     textColor: colors.grey200,
     primary2Color: colors.blueGrey800,
     backgroundColor: colors.blueGrey900,
+    paperBackground: colors.grey200,
+    paperColor: colors.grey800,
     titleColor: colors.grey400
   }
 };

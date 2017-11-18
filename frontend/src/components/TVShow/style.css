@@ -80,7 +80,7 @@
     margin: 10% !important;
 }
 
-.tv-show .expand {
+.tv-show-parent .expand {
     position: absolute;
     top: 0;
     right: 0;

@@ -7,7 +7,7 @@ class ElementLine extends Component {
   
   render() {
     return (
-      <div className="content-line">
+      <div className="element-line">
         {this.props.children}
       </div>
     );

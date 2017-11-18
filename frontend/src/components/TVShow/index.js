@@ -55,6 +55,10 @@ class TVShow extends Component {
     this.setState({ isExtended: true });
   };
   
+  showLess = () => {
+    this.setState({ isExtended: false });
+  };
+  
   getParentClassName = () => {
     let className = '';
     if(this.props.data.already_in_collection) {
@@ -89,7 +93,9 @@ class TVShow extends Component {
         </div>
         <Details
           show={this.state.isExtended}
+          title={this.title}
           data={this.props.data}
+          onCollapse={this.showLess}
         />
       </div>
     );
