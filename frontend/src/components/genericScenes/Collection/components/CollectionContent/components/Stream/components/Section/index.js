@@ -45,8 +45,8 @@ class Section extends Component {
   
   get elements() {
     let elements = this.props.data.content;
-    if(!this.state.full && elements.length > 7) {
-      elements = elements.slice(0,7);
+    if(!this.state.full && elements.length > this.props.lineDimensions.elementsPerLine) {
+      elements = elements.slice(0,this.props.lineDimensions.elementsPerLine);
     }
     else if(elements.length > this.amountToShow) {
       elements = elements.slice(0, this.amountToShow);
@@ -55,7 +55,7 @@ class Section extends Component {
   }
   
   get isAllShown() {
-    const local = this.props.data.results.length <= this.amountToShow;
+    const local = this.props.data.content.length <= this.amountToShow;
     return local && !this.props.data.next;
   }
   
