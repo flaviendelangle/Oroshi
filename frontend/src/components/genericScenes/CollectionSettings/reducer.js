@@ -8,7 +8,7 @@ import { collectionContent, collections } from 'services/titles/api';
 const reducerBuilder = _scene => {
   
   const defaultState = {
-    activeSection: 'imports',
+    activeSection: 'summary',
     data: {},
   };
   

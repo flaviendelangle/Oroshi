@@ -32,6 +32,17 @@ let unCapitalize = (field) => {
   return field.charAt(0).toLowerCase() + field.slice(1);
 };
 
+export const getCollectionTypeTitle = type => {
+  switch(type) {
+    case 'movies':
+      return 'Movies';
+    case 'tv_shows':
+      return 'TV Shows';
+    default:
+      return '';
+  }
+};
+
 
 
 
