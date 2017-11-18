@@ -74,7 +74,7 @@ class Grid extends Component {
         >
           <div className="content-grid" style={{paddingBottom:400 }}>
             {this.renderItems()}
-            <ShowMore isAllShow={this.isAllShown} showMore={this.showMore} />
+            <ShowMore isAllShown={this.isAllShown} showMore={this.showMore} />
           </div>
         </ScrollArea>
       </div>
