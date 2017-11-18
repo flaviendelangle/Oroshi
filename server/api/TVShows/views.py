@@ -5,10 +5,16 @@ from rest_framework.decorators import detail_route, list_route
 from rest_framework.response import Response
 from rest_framework_extensions.mixins import NestedViewSetMixin
 
+import json
+
 from api.TVShows.models import TVShows
 from api.TVShows.serializers import TVShowsSerializer, TVShowsWriteSerializer
 from api.TVShowCollections.models import TVShowCollections, SeenTVShows
 from api.TVShowCollections.serializers import SeenTVShowsSerializer
+from api.Titles.models import Titles
+from api.Posters.models import Posters
+from api.Titles.serializers import TitlesSerializer
+from api.Posters.serializers import PostersSerializer
 
 
 class TVShowsViewSet(viewsets.ModelViewSet):
@@ -21,9 +27,23 @@ class TVShowsViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         return TVShows.objects.all()
 
-    def create(self, *args, **kwargs):
-        data = super().create(*args, **kwargs).data
-        data = TVShowsSerializer(self.get_queryset().get(pk=data['pk'])).data
+    def create(self, request):
+        data = super().create(request).data
+        tv_show = self.get_queryset().get(pk=data['pk'])
+
+        titles = request.data.getlist('titles')
+        for el in titles:
+            el = json.loads(el)
+            title = Titles.objects.create(title=el['title'], language=el['language'])
+            tv_show.titles.add(title)
+
+        posters = request.data.getlist('posters')
+        for el in posters:
+            el = json.loads(el)
+            title = Posters.objects.create(path=el['path'], language=el['language'])
+            tv_show.posters.add(title)
+
+        data = TVShowsSerializer(tv_show).data
         return Response(data)
 
     @detail_route(methods=['get'])
@@ -51,6 +71,30 @@ class TVShowsViewSet(viewsets.ModelViewSet):
         for tv_show in tv_shows :
             out[tv_show] = len(list(filter(lambda el: el == tv_show, data))) > 0
         return Response(out)
+
+    @detail_route(methods=['post'])
+    def title(self, request, pk=None):
+        tv_show = get_object_or_404(TVShows.objects.all(), pk=pk)
+        title = request.data['title']
+
+        language = request.data['language']
+        title = Titles.objects.create(title=title, language=language)
+        tv_show.titles.add(title)
+
+        data = TitlesSerializer(title).data
+        return Response(data)
+
+    @detail_route(methods=['post'])
+    def poster(self, request, pk=None):
+        tv_show = get_object_or_404(TVShows.objects.all(), pk=pk)
+        path = request.data['path']
+
+        language = request.data['language']
+        poster = Posters.objects.create(path=path, language=language)
+        tv_show.posters.add(poster)
+
+        data = PostersSerializer(poster).data
+        return Response(data)
 
 
 class CollectionTVShowsViewet(NestedViewSetMixin, TVShowsViewSet):

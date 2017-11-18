@@ -3,7 +3,6 @@ import { getDetails, cleanDetails, getTitle, getPoster } from 'services/actions/
 import { getMissingLanguages } from 'services/languages';
 
 export const addElement = (scene, data) => {
-  
   let promise;
   if(data.local) {
     promise = Promise.resolve({

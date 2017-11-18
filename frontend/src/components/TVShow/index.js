@@ -10,9 +10,9 @@ import Poster from './components/Poster';
 import Actions from './components/Actions';
 import Grade from 'components/generics/Grade';
 import Details from './components/Details';
+import { pickElement } from 'services/languages';
 
 import './style.css'
-
 import * as _style from './style';
 
 
@@ -28,14 +28,16 @@ class TVShow extends Component {
     if(this.props.creationMode) {
       return this.props.data.name;
     }
-    return this.props.data.title;
+    const language = this.props.collection.title_language;
+    return pickElement(this.props.data, 'titles', 'title', language);
   }
   
-  get poster() {
+  get posterPath() {
     if(this.props.creationMode) {
       return this.props.data.poster_path;
     }
-    return this.props.data.poster;
+    const language = this.props.collection.poster_language;
+    return pickElement(this.props.data, 'posters', 'path', language);
   }
   
   handleMouseHover = mouseOver => {
@@ -74,7 +76,7 @@ class TVShow extends Component {
               onMouseEnter={() => this.handleMouseHover(true)}
               onMouseLeave={() => this.handleMouseHover(false)}
             >
-              <Poster path={this.poster} title={this.props.data.title} />
+              <Poster path={this.posterPath} title={this.props.data.title} />
               <Overlay
                 {...this.props}
                 mouseOver={this.state.mouseOver}

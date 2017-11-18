@@ -78,9 +78,7 @@ export const checkExistence = (scene, collection, elements, fromLocalAPI=false) 
 };
 
 export const getDetails = (scene, collection, tmdbId, original_language) => {
-  
-  const languages = getTmdbLanguages(collection, original_language);
-  
+
   let options = {
     append_to_response: ['credits', 'images'],
     language: DEFAULT_LANGUAGE
@@ -90,6 +88,34 @@ export const getDetails = (scene, collection, tmdbId, original_language) => {
     posters: [],
     titles: []
   };
+
+  const key = (scene === 'movies') ? 'title' : 'name';
+
+  return getPublicAPI(scene).details(tmdbId, options)
+    .then(response => {
+      if(response.images.posters.length > 0) {
+        details.posters.push({
+          language: DEFAULT_LANGUAGE,
+          path: response.images.posters[0].file_path
+        });
+      }
+      details.titles.push({
+        language: DEFAULT_LANGUAGE,
+        title: response[key]
+      });
+      
+      details = {
+        ...details,
+        ...response
+      };
+      return getMissingData(scene, tmdbId, collection, details)
+    });
+  
+};
+
+const getMissingData = (scene, tmdbId, collection, details) => {
+  
+  const languages = getTmdbLanguages(collection, details.original_language);
   let promise =  Promise.resolve();
   
   if(languages.title !== DEFAULT_LANGUAGE ) {
@@ -114,26 +140,7 @@ export const getDetails = (scene, collection, tmdbId, original_language) => {
         }
       })
   }
-  
-  return promise
-    .then(() => getPublicAPI(scene).details(tmdbId, options))
-    .then(response => {
-      if(response.images.posters.length > 0) {
-        details.posters.push({
-          language: DEFAULT_LANGUAGE,
-          path: response.images.posters[0].file_path
-        });
-      }
-      details.titles.push({
-        language: DEFAULT_LANGUAGE,
-        title: response.title
-      });
-      
-      return {
-        ...response,
-        ...details
-      };
-    });
+  return promise.then(() => details);
 };
 
 export const getPoster = (scene, tmdbId, language) => {
@@ -153,8 +160,9 @@ export const getTitle = (scene, tmdbId, language) => {
   const options = {
     language
   };
+  const key = (scene === 'movies') ? 'title' : 'name';
   return getPublicAPI(scene).details(tmdbId, options)
-    .then(response => response.title);
+    .then(response => response[key]);
 };
 
 const _getPopular = (scene, collection, page=1) => {

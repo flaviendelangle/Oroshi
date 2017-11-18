@@ -28,6 +28,14 @@ class TVShows extends API {
       });
   };
   
+  addTitle = (tv_show, language, title) => {
+    return super.detail_route(tv_show, 'title', 'POST', { language, title });
+  };
+  
+  addPoster = (tv_show, language, path) => {
+    return super.detail_route(tv_show, 'poster', 'POST', { language, path });
+  };
+  
 }
 
 
