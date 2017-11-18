@@ -1,0 +1,9 @@
+.tv-show-parent .details {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    left: 20px;
+    height: 340px;
+    background: red;
+    z-index: 2;
+}

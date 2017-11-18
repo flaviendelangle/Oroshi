@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Paper from 'material-ui/Paper';
 import ContentAdd from 'material-ui/svg-icons/content/add';
-import ActionDone from 'material-ui/svg-icons/action/done'
+import ActionDone from 'material-ui/svg-icons/action/done';
+import NavigationExpandMore from 'material-ui/svg-icons/navigation/expand-more';
 import muiThemeable from 'material-ui/styles/muiThemeable';
 
 import Poster from './components/Poster';
 import Actions from './components/Actions';
 import Grade from 'components/generics/Grade';
+import Details from './components/Details';
 
 import './style.css'
 
@@ -18,7 +20,8 @@ class TVShow extends Component {
   
   state = {
     mouseOver: false,
-    isAdding: false
+    isAdding: false,
+    isExtended: false
   };
   
   get title() {
@@ -46,6 +49,10 @@ class TVShow extends Component {
     }
   };
   
+  showMore = () => {
+    this.setState({ isExtended: true });
+  };
+  
   getParentClassName = () => {
     let className = '';
     if(this.props.data.already_in_collection) {
@@ -58,30 +65,37 @@ class TVShow extends Component {
   
   render() {
     return (
-      <div className={'tv-show-parent ' + this.getParentClassName()}>
-        <div className="tv-show-container">
-          <Paper
-            zDepth={3}
-            className="tv-show"
-            onMouseEnter={() => this.handleMouseHover(true)}
-            onMouseLeave={() => this.handleMouseHover(false)}
-          >
-            <Poster path={this.poster} title={this.props.data.title} />
-            <Overlay
-              {...this.props}
-              mouseOver={this.state.mouseOver}
-              handleSave={this.save}
-            />
-          </Paper>
+      <div className={'tv-show-parent'}>
+        <div className={'tv-show-container ' + this.getParentClassName()}>
+          <div className="tv-show-frame">
+            <Paper
+              zDepth={3}
+              className="tv-show"
+              onMouseEnter={() => this.handleMouseHover(true)}
+              onMouseLeave={() => this.handleMouseHover(false)}
+            >
+              <Poster path={this.poster} title={this.props.data.title} />
+              <Overlay
+                {...this.props}
+                mouseOver={this.state.mouseOver}
+                handleSave={this.save}
+                handleShowMore={this.showMore}
+              />
+            </Paper>
+          </div>
+          <Footer muiTheme={this.props.muiTheme} title={this.title} />
         </div>
-        <Footer muiTheme={this.props.muiTheme} title={this.title} />
+        <Details
+          show={this.state.isExtended}
+          data={this.props.data}
+        />
       </div>
     );
   }
   
 }
 
-const Overlay = ({ mouseOver, creationMode, handleSave, data, collection }) => {
+const Overlay = ({ mouseOver, creationMode, handleSave, handleShowMore, data, collection }) => {
   if(mouseOver) {
     let RealOverlay;
     if(creationMode)
@@ -89,7 +103,14 @@ const Overlay = ({ mouseOver, creationMode, handleSave, data, collection }) => {
     else
       RealOverlay = OverlayDefaultMode;
     
-    return <RealOverlay onSave={handleSave} data={data} collection={collection}/>
+    return (
+      <RealOverlay
+        handleSave={handleSave}
+        handleShowMore={handleShowMore}
+        data={data}
+        collection={collection}
+      />
+    );
   }
   return (null);
 };
@@ -120,8 +141,11 @@ const OverlayCreationMode = ({ handleSave, data }) => {
   )
 };
 
-const OverlayDefaultMode = ({ data, collection }) => (
+const OverlayDefaultMode = ({ handleShowMore, data, collection }) => (
   <div className="overlay">
+    <div className="expand" onClick={handleShowMore}>
+      <NavigationExpandMore />
+    </div>
     <Link to={'/tv_shows/' + data.tmdbId + '/'}>
       <div className="overlay-main">
         <Grade

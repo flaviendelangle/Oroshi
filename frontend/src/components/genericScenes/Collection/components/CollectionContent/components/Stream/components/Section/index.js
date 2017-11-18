@@ -7,11 +7,13 @@ import NavigationMore from 'material-ui/svg-icons/navigation/expand-more'
 import NavigationMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz'
 import muiThemeable from 'material-ui/styles/muiThemeable';
 
+import ElementLine, { groupByLine } from 'components/generics/ElementLine/index';
+
 import './style.css'
 
 
 const CONFIG = {
-  pageLength: 20
+  pageLength: 4
 };
 
 const buttonStyle = {
@@ -36,21 +38,27 @@ class Section extends Component {
     return this.props.data.key.title || this.props.data.key.name;
   }
   
+  get amountToShow() {
+    const perLine = this.props.lineDimensions.elementsPerLine;
+    return CONFIG.pageLength * perLine * this.state.pages;
+  };
+  
   get elements() {
     let elements = this.props.data.content;
     if(!this.state.full && elements.length > 7) {
       elements = elements.slice(0,7);
     }
-    else if(elements.length > CONFIG.pageLength * this.state.pages) {
-      elements = elements.slice(0,CONFIG.pageLength * this.state.pages);
+    else if(elements.length > this.amountToShow) {
+      elements = elements.slice(0, this.amountToShow);
     }
-    return elements;
+    return groupByLine(elements, this.props.lineDimensions);
   }
   
   get isAllShown() {
-    const local = this.props.data.content.length <= CONFIG.pageLength * this.state.pages;
+    const local = this.props.data.results.length <= this.amountToShow;
     return local && !this.props.data.next;
   }
+  
   
   showFullVersion = () => {
     this.setState({full: !this.state.full});
@@ -83,16 +91,21 @@ class Section extends Component {
   
   renderContent = () => {
     const Element = this.props.elementComponent;
-    return this.elements.map(element => {
-      return (
-        <Element
-          data={element}
-          collection={this.props.collection}
-          key={element.pk || element.id}
-          creationMode={this.props.creationMode}
-          onCreate={this.props.onCreate}
-        />
-      )
+    let i = 0;
+    return this.elements.map(line => {
+      const elements = line.map(el => {
+        const id = el.pk || el.id;
+        return (
+          <Element
+            data={el}
+            collection={this.props.collection}
+            key={id}
+            creationMode={this.props.creationMode}
+            onCreate={this.props.onCreate}
+          />
+        );
+      });
+      return (<ElementLine key={++i}>{elements}</ElementLine>);
     });
   };
   

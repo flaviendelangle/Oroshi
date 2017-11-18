@@ -44,6 +44,7 @@ class Stream extends Component {
           collection={this.props.collection}
           field={this.props.data.key}
           elementComponent={this.props.elementComponent}
+          lineDimensions={this.props.lineDimensions}
           creationMode={this.props.creationMode}
           onCreate={this.props.onCreate}
         />)

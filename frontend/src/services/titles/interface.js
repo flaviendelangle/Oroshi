@@ -1,3 +1,7 @@
+export const screen = {
+  resize: 'SCREEN_RESIZED'
+};
+
 export const dialogs = {
   addElement: 'SHOW_DIALOG_ADD_ELEMENT',
   createCollection: 'SHOW_DIALOG_CREATE_COLLECTION',

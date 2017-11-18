@@ -5,7 +5,7 @@ import header from './components/Header/reducer';
 import { collectionContent, collections } from 'services/titles/api';
 import { sort, search } from 'services/titles/data';
 import * as publicAPI from 'services/titles/publicAPI';
-import { layout, source } from 'services/titles/interface';
+import { screen, layout, source } from 'services/titles/interface';
 import { getValue } from 'services/localstorage';
 import TMDBAPI from 'services/TheMovieDatabaseJS/index';
 import { getListGenerator, getStreamGenerator, getDefaultOrder } from 'services/content/';
@@ -36,7 +36,8 @@ const reducerBuilder = _scene => {
     recommendations: {
       results: []
     },
-    addingSearch: null
+    addingSearch: null,
+    
   };
   
   

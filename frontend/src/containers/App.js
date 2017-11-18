@@ -1,25 +1,16 @@
 import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import injectTapEventPlugin from "react-tap-event-plugin"
-import promiseMiddleware from 'redux-promise-middleware';
 import WebFont from 'webfontloader';
 
 import api from 'services/TheMovieDatabaseJS';
 import Main from './Main';
-import reducer from './reducer';
+import store from './reducer';
 import theme from 'services/theme';
 import './App.css';
 
-const composeStoreWithMiddleware = applyMiddleware(
-  promiseMiddleware()
-)(createStore);
-
-
-
-let store = composeStoreWithMiddleware(reducer);
 
 injectTapEventPlugin();
 

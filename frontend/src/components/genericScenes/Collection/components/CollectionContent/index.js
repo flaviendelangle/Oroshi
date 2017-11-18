@@ -45,6 +45,7 @@ class CollectionContent extends Component {
           order={this.props.order.default}
           scene={this.props.scene}
           elementComponent={this.props.elementComponent}
+          lineDimensions={this.props.lineDimensions}
         />
       )
     }
@@ -65,6 +66,7 @@ class CollectionContent extends Component {
           collection={this.props.collection}
           scene={this.props.scene}
           elementComponent={this.props.elementComponent}
+          lineDimensions={this.props.lineDimensions}
         />
       )
     }
@@ -144,7 +146,9 @@ const mapStateToProps = (state, ownProps) => {
     order: root.order,
     isAdding: root.isAdding,
     recommendations: root.recommendations,
-    addingSearch: root.addingSearch
+    addingSearch: root.addingSearch,
+    
+    lineDimensions: state.app.lineDimensions
   }
 };
 
