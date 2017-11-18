@@ -36,6 +36,7 @@ class TVShowCollectionsViewSet(viewsets.ModelViewSet):
             new_collection  = get_object_or_404(self.get_queryset(), pk=data['pk'])
             for movie in old_collection.movies.all():
                 new_collection.movies.add(movie)
+        data['type'] = 'tv_shows'
         return Response(data)
 
     @list_route(methods=['get'], url_path='settings')
