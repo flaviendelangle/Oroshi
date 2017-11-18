@@ -47,15 +47,22 @@ class API {
     Utils
    */
   objectToFormData = data => {
+    
+    const add = (key, value) => {
+      if(Array.isArray(value)) {
+        for(let i=0; i<value.length; i++) {
+          add(key, value[i]);
+        }
+      } else if(value instanceof Object) {
+        add(key, JSON.stringify(value));
+      } else {
+        form.append(key, value);
+      }
+    };
+    
     let form = new FormData();
     for(let key in data) {
-      if(Array.isArray(data[key])) {
-        for(let i=0; i<data[key].length; i++) {
-          form.append(key, data[key][i]);
-        }
-      } else {
-        form.append(key, data[key]);
-      }
+      add(key, data[key])
     }
     return form;
   };
@@ -132,9 +139,9 @@ class API {
   }
 
   exist(data, route_name) {
-  const url = this.url() + 'exist/' + route_name + '/' + data + '/';
-  return this.GET(url);
-}
+    const url = this.url() + 'exist/' + route_name + '/' + data + '/';
+    return this.GET(url);
+  }
   
   retrieveOrCreate(data, route_name) {
     const send = element => {

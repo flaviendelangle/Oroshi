@@ -81,6 +81,7 @@ class CollectionContent extends Component {
           order={this.props.order.default}
           scene={this.props.scene}
           elementComponent={this.props.elementComponent}
+          lineDimensions={this.props.lineDimensions}
           creationMode={true}
           onCreate={this.props.create}
         />
@@ -92,6 +93,7 @@ class CollectionContent extends Component {
         collection={this.props.collection}
         scene={this.props.scene}
         elementComponent={this.props.elementComponent}
+        lineDimensions={this.props.lineDimensions}
         creationMode={true}
         onCreate={this.props.create}
       />

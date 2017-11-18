@@ -20,16 +20,14 @@ export const cleanDetails = (scene, details) => {
   
   const genres = details.genres
     .map(({id, name}) => ({tmdbId: id, name}));
-  
-  const poster = details.images.posters.length === 0 ? '' : details.images.posters[0].file_path;
-  
+
   return {
     directors,
     genres,
-    title: details.title,
     tmdbId: details.id,
     note: details.vote_average,
-    poster: poster,
+    posters: details.posters,
+    titles: details.titles,
     release: date(details.release_date, date.TMDB_FORMAT, date.YEAR_FORMAT),
     original_language: details.original_language
   };

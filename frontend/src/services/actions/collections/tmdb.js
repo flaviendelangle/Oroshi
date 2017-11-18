@@ -14,6 +14,7 @@ export const addElement = (scene, data) => {
       .then(details => {
         console.log(details);
         details = cleanDetails(scene, details);
+
         return getElementAPI(scene).create(details);
       })
       .then(response => {
@@ -23,9 +24,12 @@ export const addElement = (scene, data) => {
         }
       });
   }
+  return false;
+  
   const localAPI = getCollectionAPI(scene);
   return promise
     .then(response => {
+      console.log(response);
       data = {
         pk: response.data.pk,
         seen: data.seen

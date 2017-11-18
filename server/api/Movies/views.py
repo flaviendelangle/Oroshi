@@ -5,10 +5,15 @@ from rest_framework.decorators import detail_route, list_route
 from rest_framework.response import Response
 from rest_framework_extensions.mixins import NestedViewSetMixin
 
+import json
+
 from api.Movies.models import Movies
 from api.Movies.serializers import MoviesSerializer, MoviesWriteSerializer
 from api.MovieCollections.models import MovieCollections, SeenMovies
 from api.MovieCollections.serializers import SeenMoviesSerializer
+from api.Titles.models import Titles
+from api.Posters.models import Posters
+
 
 class MoviesViewSet(viewsets.ModelViewSet):
 
@@ -20,10 +25,24 @@ class MoviesViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         return Movies.objects.all()
 
-    def create(self, *args, **kwargs):
-        data = super().create(*args, **kwargs).data
-        data = MoviesSerializer(self.get_queryset().get(pk=data['pk'])).data
-        return Response(data);
+    def create(self, request):
+        data = super().create(request).data
+        movie = self.get_queryset().get(pk=data['pk'])
+
+        titles = request.data.getlist('titles')
+        for el in titles:
+            el = json.loads(el)
+            title = Titles.objects.create(title=el['title'], language=el['language'])
+            movie.titles.add(title)
+
+        posters = request.data.getlist('posters')
+        for el in posters:
+            el = json.loads(el)
+            title = Posters.objects.create(path=el['path'], language=el['language'])
+            movie.posters.add(title)
+
+        data = MoviesSerializer(movie).data
+        return Response(data)
 
     @detail_route(methods=['get'])
     def tmdbId(self, request, pk=None):

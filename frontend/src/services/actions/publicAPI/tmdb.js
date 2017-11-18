@@ -82,34 +82,58 @@ export const getDetails = (scene, collection, tmdbId, original_language) => {
   const languages = getTmdbLanguages(collection, original_language);
   
   let options = {
-    append_to_response: ['credits'],
+    append_to_response: ['credits', 'images'],
+    language: 'en'
   };
-  if(languages.poster === 'en') {
-    options.append_to_response.push('images');
+  
+  let details = {
+    posters: [],
+    titles: []
+  };
+  let promise =  Promise.resolve();
+  
+  if(languages.title !== 'en' ) {
+    promise = promise
+      .then(() => _getTitle(scene, tmdbId, languages.title))
+      .then(response => {
+        details.titles.push({
+          language: languages.title,
+          title: response.title
+        });
+      });
+  }
+  if(languages.poster !== 'en') {
+    promise = promise
+      .then(() => _getImages(scene, tmdbId, languages.poster))
+      .then(response => {
+        if(response.posters.length > 0) {
+          details.posters.push({
+            language: languages.poster,
+            path: response.posters[0].file_path
+          });
+        }
+      })
   }
   
-  return getPublicAPI(scene).details(tmdbId, options).then(details => {
-    if(languages.title === 'en' && languages.poster === 'en') {
-      return details;
-    }
-    else if(languages.title === 'en') {
-      return _getImages(scene, tmdbId, languages.poster).then(images => {
-        details.images = images;
-        return details;
-      });
-    }
-    return _getTitle(scene, tmdbId, languages.title).then(newDetails => {
-      details.title = newDetails.title;
-      if(languages.poster === 'en') {
-        return details;
-      } else {
-        return _getImages(scene, tmdbId, languages.poster).then(images => {
-          details.images = images;
-          return details;
+  return promise
+    .then(() => getPublicAPI(scene).details(tmdbId, options))
+    .then(response => {
+      if(response.images.posters.length > 0) {
+        details.posters.push({
+          language: 'en',
+          path: response.images.posters[0].file_path
         });
       }
+      details.titles.push({
+        language: 'en',
+        title: response.title
+      });
+      
+      return {
+        ...response,
+        ...details
+      };
     });
-  });
 };
 
 const _getImages = (scene, tmdbId, language) => {
