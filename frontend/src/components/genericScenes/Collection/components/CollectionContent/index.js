@@ -7,7 +7,6 @@ import Help from './components/Help/index'
 import Grid from './components/Grid/index'
 import Stream from './components/Stream/index'
 import { getCollectionState } from 'containers/reducer';
-import { addElement, removeElement } from 'services/actions/collections';
 
 const progressStyle = {
   width: 40,
@@ -46,7 +45,6 @@ class CollectionContent extends Component {
           scene={this.props.scene}
           elementComponent={this.props.elementComponent}
           lineDimensions={this.props.lineDimensions}
-          onDestroy={this.props.destroy}
         />
       )
     }
@@ -57,7 +55,6 @@ class CollectionContent extends Component {
           collection={this.props.collection}
           scene={this.props.scene}
           columns={this.props.listColumns}
-          onDestroy={this.props.destroy}
         />
       )
     }
@@ -69,7 +66,6 @@ class CollectionContent extends Component {
           scene={this.props.scene}
           elementComponent={this.props.elementComponent}
           lineDimensions={this.props.lineDimensions}
-          onDestroy={this.props.destroy}
         />
       )
     }
@@ -86,8 +82,6 @@ class CollectionContent extends Component {
           elementComponent={this.props.elementComponent}
           lineDimensions={this.props.lineDimensions}
           creationMode={true}
-          onCreate={this.props.create}
-          onDestroy={this.props.destroy}
         />
       )
     }
@@ -99,8 +93,6 @@ class CollectionContent extends Component {
         elementComponent={this.props.elementComponent}
         lineDimensions={this.props.lineDimensions}
         creationMode={true}
-        onCreate={this.props.create}
-        onDestroy={this.props.destroy}
       />
     )
   };
@@ -141,6 +133,7 @@ class CollectionContent extends Component {
 
 const mapStateToProps = (state, ownProps) => {
   const root = getCollectionState(state, ownProps.scene).main;
+
   return {
     update: root.update,
     content: root.content,
@@ -159,13 +152,9 @@ const mapStateToProps = (state, ownProps) => {
   }
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = dispatch => {
   return {
-    create: data => dispatch(addElement(ownProps.scene, data)),
-    destroy: (collection, data) => {
-      dispatch(removeElement(ownProps.scene, collection, data))
-    }
-  }
+  };
 };
 
 export default connect(

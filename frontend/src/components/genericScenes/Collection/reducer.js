@@ -10,8 +10,11 @@ import { getValue } from 'services/localstorage';
 import TMDBAPI from 'services/TheMovieDatabaseJS/index';
 import { getListGenerator, getStreamGenerator, getDefaultOrder } from 'services/content/';
 
-import { sortElements, setSortParameters, setLayoutParameters, mergeRecommendations, mergeSearch, updateRecommendations } from './services/utils';
-import { addSeenToElements, addCollectionToElements } from 'services/actions/collections';
+import { sortElements, setSortParameters, setLayoutParameters, mergeRecommendations, mergeSearch } from './services/utils';
+import { addSeenToElements, addCollectionToElement } from 'services/actions/collections';
+import * as adding_search_manager from './services/adding_search_manager';
+import * as recommendations_manager from './services/recommendations_manager';
+import * as content_manager from './services/content_manager';
 
 const reducerBuilder = _scene => {
   
@@ -47,10 +50,13 @@ const reducerBuilder = _scene => {
       return state;
     }
     
-    let newContent, newOrder,  newRecommendations;
+    let newContent, newOrder,  newRecommendations, newState, newElement;
     
     switch(action.type) {
-      
+  
+      /**
+       * The collection has been loaded
+       */
       case collectionContent.load + '_FULFILLED':
         if(!action.payload) {
           return {
@@ -76,83 +82,46 @@ const reducerBuilder = _scene => {
           found: true,
           loaded: true
         };
-      
-      case collections.add + '_FULFILLED':
-        
-        let newSearchResults;
-        if(state.addingSearch) {
-          newSearchResults = {
-            ...state.addingSearch,
-            results: state.addingSearch.results.map(el => {
-              if(el.id === action.payload.tmdbId) {
-                el.already_in_collection = true;
-              }
-              return el;
-            })
-          }
-        } else {
-          newSearchResults = null;
-        }
-        // state.recommendations.results[i].content
-        newRecommendations = {
-          ...state.recommendations,
-          results: state.recommendations.results.map(section => {
-            return {
-              ...section,
-              content: section.content.map(el => {
-                if(el.id === action.payload.tmdbId) {
-                  el.already_in_collection = true;
-                }
-                return el;
-              })
-            }
-          })
-        };
-
   
-        newContent = sortElements(
-          addCollectionToElements(
-            scene,
-            state.content.concat([action.payload]),
-            state.collection
-          ), state.order.default
-        );
+      /**
+       * An element has been added to the collection
+       */
+      case collections.add + '_FULFILLED':
+        newElement = addCollectionToElement(action.payload, state.collection);
+        
+        newState = adding_search_manager.add(state, newElement);
+        newState = recommendations_manager.add(state, newElement);
+  
+        newContent = content_manager.add(state.content, newElement, state.order.default);
+        
         return {
-          ...state,
+          ...newState,
           content: newContent,
           stream: new StreamGenerator(newContent, state.query, state.order.stream),
-          toShow: new ListGenerator(newContent, state.query),
-          recommendations: newRecommendations,
-          addingSearch: newSearchResults
+          toShow: new ListGenerator(newContent, state.query)
         };
-      
+  
+      /**
+       * An element has been removed from the collection
+       */
       case collections.remove + '_FULFILLED':
-        const match = state.content.filter(el => {
-          return el.pk === action.payload.pk
-        });
-        if(match.length === 0) {
-          return state;
-        }
-        const index = state.content.indexOf(match[0]);
-        newContent = [
-          ...state.content.slice(0, index),
-          ...state.content.slice(index + 1)
-        ];
+        newElement = action.payload;
         
-        if(state.recommendations) {
-          newRecommendations = updateRecommendations(state.recommendations, action);
-        } else {
-          newRecommendations = state.recommendations;
-        }
+        newState = adding_search_manager.remove(state, newElement);
+        newState = recommendations_manager.remove(state, newElement);
+        
+        newContent = content_manager.remove(state.content, newElement);
         
         return {
           ...state,
           content: newContent,
           stream: new StreamGenerator(newContent, state.query, state.order.stream),
           toShow: new ListGenerator(newContent, state.query),
-          recommendations: newRecommendations
         };
-      
+  
+      /**
+       * An element has been updated in the collection (ex : Not Seen => Seen)
+       */
       case collections.update + '_FULFILLED':
         newContent = addSeenToElements(scene, state.content, action.payload);
         return {
@@ -161,7 +130,11 @@ const reducerBuilder = _scene => {
           stream: new StreamGenerator(newContent, state.query, state.order.stream),
           toShow: new ListGenerator(newContent, state.query)
         };
-      
+  
+  
+      /**
+       * The order of the elements has been updated (check OrderMenu component)
+       */
       case sort.update:
         setSortParameters(scene, action.parameters, defaultOrder);
         if(action.parameters.layout === 'default') {
@@ -181,7 +154,10 @@ const reducerBuilder = _scene => {
           toShow: new ListGenerator(newContent, state.query),
           update: Math.random()
         };
-      
+  
+      /**
+       * The search query has been updated (check Header's Search component)
+       */
       case search.update_query:
         if(this.isAdding) {
           return state;
@@ -192,7 +168,10 @@ const reducerBuilder = _scene => {
           stream: new StreamGenerator(state.content, action.query, state.order.stream),
           toShow: new ListGenerator(state.content, action.query)
         };
-      
+  
+      /**
+       * The layout in which we want to see the elements has been updated
+       */
       case layout.update:
         setLayoutParameters(scene, action.layout);
         return {
@@ -202,7 +181,10 @@ const reducerBuilder = _scene => {
           stream: new StreamGenerator(state.content, '', state.order.stream),
           toShow: new ListGenerator(state.content, '')
         };
-        
+  
+      /**
+       * We enter / leave the adding more
+       */
       case source.updateIsAdding:
         
         return {
@@ -210,13 +192,19 @@ const reducerBuilder = _scene => {
           addingSearch: null,
           isAdding: !state.isAdding
         };
-        
+  
+      /**
+       * The recommendations for the adding mode (i.e Top Rated + Popular) has been loaded
+       */
       case publicAPI.request.get_recommendations + '_FULFILLED':
         return {
           ...state,
           recommendations: action.payload
         };
-        
+  
+      /**
+       * A new page of the popular movies has been loaded
+       */
       case publicAPI.request.get_popular + '_FULFILLED':
         if(!state.isAdding) {
           return state;
@@ -230,7 +218,10 @@ const reducerBuilder = _scene => {
           ...state,
           recommendations: newRecommendations
         };
-      
+  
+      /**
+       * A new page of the top rated movies has been loaded
+       */
       case publicAPI.request.get_top_rated + '_FULFILLED':
         if(!state.isAdding) {
           return state;
@@ -245,6 +236,9 @@ const reducerBuilder = _scene => {
           recommendations: newRecommendations
         };
   
+      /**
+       * A search to the public API has been completed (used only in Adding Mode)
+       */
       case publicAPI.request.search + '_FULFILLED':
         return {
           ...state,

@@ -57,8 +57,6 @@ class Grid extends Component {
             collection={this.props.collection}
             key={id}
             creationMode={this.props.creationMode}
-            onCreate={this.props.onCreate}
-            onDestroy={this.props.onDestroy}
           />
         );
       });

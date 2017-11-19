@@ -49,27 +49,3 @@ export const mergeSearch = (oldData, newData) => {
   }
 };
 
-export const updateRecommendations = (recommendations, action) => {
-  const tmdbId = action.payload.tmdbId;
-  console.log(tmdbId);
-  let newResults = [];
-  for(let i=0; i<recommendations.results.length; i++) {
-    const newContent = recommendations.results[i].content.map(el => {
-      if(el.id === tmdbId) {
-        return {
-          ...el,
-          already_in_collection: false
-        };
-      }
-      return el;
-    });
-    newResults.push({
-      ...recommendations.results[i],
-      content: newContent
-    });
-  }
-  return {
-    ...recommendations,
-    results: newResults
-  };
-};

@@ -19,6 +19,7 @@ class ElementOverlay extends Component {
           value={this.props.note}
           mouseOver={this.props.mouseOver}
         />
+        <TopRightAction>{this.props.topRightAction}</TopRightAction>
         <Footer
           creation_mode={this.props.creation_mode}
           already_in_collection={this.props.already_in_collection}
@@ -55,6 +56,10 @@ const Footer = ({ creation_mode, already_in_collection, handleSave, handleDestro
     );
   }
   return <div className="footer">{Content}</div>;
+};
+
+const TopRightAction = ({ children }) => {
+  return <div className="top-right-icon">{children}</div>
 };
 
 export default muiThemeable()(ElementOverlay);

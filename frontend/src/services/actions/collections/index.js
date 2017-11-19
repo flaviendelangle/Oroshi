@@ -225,18 +225,23 @@ export const addSeenToElements =  (scene, elements, seen) => {
   return getModule(scene).addSeenToElements(elements, seen);
 };
 
-export const addCollectionToElements = (scene, elements, pk) => {
+export const addCollectionToElement = (element, collection) => {
+  return {
+    ...element,
+    collection
+  };
+};
+
+export const addCollectionToElements = (elements, collection) => {
   return elements.map(element => {
-    return {
-      ...element,
-      collection: pk
-    }
+    return addCollectionToElement(element, collection);
   });
 };
 
 export const prepareElements = (scene, data) => {
-  data.content = addSeenToElements(scene, data.content, data.seen);
-  data.content = addCollectionToElements(scene, data.content, data.pk);
+  let { content, seen, ...clearedData } = data;
+  data.content = addSeenToElements(scene, content, seen);
+  data.content = addCollectionToElements(content, clearedData);
   return data;
 };
 

@@ -46,8 +46,6 @@ class Stream extends Component {
           elementComponent={this.props.elementComponent}
           lineDimensions={this.props.lineDimensions}
           creationMode={this.props.creationMode}
-          onCreate={this.props.onCreate}
-          onDestroy={this.props.onDestroy}
         />)
     })
   };

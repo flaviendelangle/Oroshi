@@ -59,15 +59,15 @@ const StreamMenuMovies = ({ sort }) => (
   >
     <MenuItem
       primaryText="Group by directors"
-      onClick={() => this.sort('stream', 'directors')}
+      onClick={() => sort('stream', 'directors')}
     />
     <MenuItem
       primaryText="Group by genres"
-      onClick={() => this.sort('stream', 'genres')}
+      onClick={() => sort('stream', 'genres')}
     />
     <MenuItem
       primaryText="Group by year of release"
-      onClick={() => this.sort('stream', 'release')}
+      onClick={() => sort('stream', 'release')}
     />
   </IconMenu>
 );

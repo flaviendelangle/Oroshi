@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import ActionDelete from 'material-ui/svg-icons/action/delete'
 
 import SeenCheckbox from 'components/ContentTable/components/SeenCheckbox'
-import { removeElement } from 'services/actions/collections'
 
 import './style.css'
 

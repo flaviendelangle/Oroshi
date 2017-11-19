@@ -1,17 +1,16 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { connect } from 'react-redux'
 import Paper from 'material-ui/Paper';
-import ContentAdd from 'material-ui/svg-icons/content/add';
-import ActionDone from 'material-ui/svg-icons/action/done'
 import muiThemeable from 'material-ui/styles/muiThemeable';
+import ImageEye from 'material-ui/svg-icons/image/remove-red-eye';
 
 import Poster from './components/Poster';
-import Actions from './components/Actions';
 import ElementOverlay from 'components/generics/ElementOverlay';
 import { date } from 'services/utils';
 import { pickElement } from 'services/languages';
+import { addElement, removeElement } from 'services/actions/collections';
+import { switchSeenOnElement } from 'services/actions/collections/movies';
 
-import * as _style from './style';
 import './style.css'
 
 
@@ -48,20 +47,27 @@ class Movie extends Component {
     return pickElement(this.props.data, 'posters', 'path', language);
   }
   
+  get note() {
+    if(this.props.creationMode) {
+      return this.props.data.vote_average;
+    }
+    return this.props.data.note;
+  }
+  
   handleMouseHover = mouseOver => {
     this.setState({mouseOver})
   };
   
   save = () => {
     if(!this.state.isAdding) {
-      this.props.onCreate(this.props.data);
-      //this.setState({ isAdding: true });
+      this.props.create(this.props.data);
+      this.setState({ isAdding: true });
     }
   };
   
   destroy = () => {
     const data = this.props.creationMode ? this.props.data.local : this.props.data;
-    this.props.onDestroy(this.props.collection, data);
+    this.props.destroy(this.props.collection, data);
   };
   
   getParentClassName = () => {
@@ -86,18 +92,18 @@ class Movie extends Component {
           >
             <Poster path={this.posterPath} title={this.title} />
             <ElementOverlay
-              note={this.props.data.note}
+              note={this.note}
               mouseOver={this.state.mouseOver}
               creation_mode={this.props.creationMode}
               already_in_collection={this.props.data.already_in_collection}
               handleSave={this.save}
               handleDestroy={this.destroy}
-            >
-            </ElementOverlay>
-            <Overlay
-              {...this.props}
-              mouseOver={this.state.mouseOver}
-              handleSave={this.save}
+              topRightAction={
+                <Seen
+                  seen={this.props.data.seen}
+                  handleClick={() => this.props.switchSeen(this.props.data)}
+                />
+              }
             />
           </Paper>
         </div>
@@ -112,59 +118,6 @@ class Movie extends Component {
   
 }
 
-const Overlay = ({ mouseOver, creationMode, handleSave, data, collection }) => {
-  return null;
-  if(mouseOver) {
-    let RealOverlay;
-    if(creationMode)
-      RealOverlay = OverlayCreationMode;
-    else
-      RealOverlay = OverlayDefaultMode;
-    
-    return <RealOverlay handleSave={handleSave} data={data} collection={collection}/>
-  }
-  return (null);
-};
-
-const OverlayCreationMode = ({ handleSave, data }) => {
-  if(data.already_in_collection) {
-    return (
-      <div className="overlay">
-        <div style={_style.creationIcon}>
-          <ActionDone
-            color="white"
-            className="add-icon"
-          />
-        </div>
-      </div>
-    );
-  }
-  return (
-    <div className="overlay">
-      <div style={_style.creationIcon}>
-        <ContentAdd
-          color="white"
-          className="add-icon"
-          onClick={handleSave}
-        />
-      </div>
-    </div>
-  )
-};
-
-const OverlayDefaultMode = ({ data, collection }) => (
-  <div className="overlay">
-    <Link to={'/movies/' + data.tmdbId + '/'}>
-      <div className="overlay-main">
-      </div>
-    </Link>
-    <Actions
-      data={data}
-      collection={collection}
-    />
-  </div>
-);
-
 const Footer = ({ title, muiTheme, release_date }) => (
   <div
     className="title"
@@ -175,4 +128,32 @@ const Footer = ({ title, muiTheme, release_date }) => (
   </div>
 );
 
-export default muiThemeable()(Movie);
+const Seen = ({ seen, handleClick }) => {
+  const color = seen ? 'green' : 'red';
+  return (
+    <ImageEye
+      style={{color}}
+      onClick={handleClick}
+    />
+  );
+};
+
+const mapStateToProps = state => {
+  return {
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    create: data => dispatch(addElement('movies', data)),
+    destroy: (collection, data) => {
+      dispatch(removeElement('movies', collection, data))
+    },
+    switchSeen: data => dispatch(switchSeenOnElement(data))
+  }
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(muiThemeable()(Movie));
