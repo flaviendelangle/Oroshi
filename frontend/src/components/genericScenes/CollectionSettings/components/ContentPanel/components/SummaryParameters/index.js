@@ -14,7 +14,7 @@ import { getCollectionTypeTitle } from 'services/utils';
 const selectStyle = {
   position: 'absolute',
   top: -5,
-  right: 20,
+  right: 50,
 };
 
 class SummaryParameters extends Component {

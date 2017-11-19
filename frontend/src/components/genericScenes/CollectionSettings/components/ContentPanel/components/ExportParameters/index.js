@@ -4,7 +4,7 @@ import FileDownload from 'material-ui/svg-icons/file/file-download';
 import SocialShare from 'material-ui/svg-icons/social/share';
 
 import ParametersSection, { Line } from '../ParametersSection';
-import { exportCollection } from './actions';
+import { exportCollection } from 'services/actions/collections';
 import { getCollectionSettingsState } from 'containers/reducer';
 
 class ExportParameters extends Component {
@@ -42,9 +42,11 @@ const mapStateToProps = (state, ownProps) => {
   }
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    exportCollection: (pk, format) => dispatch(exportCollection(pk, format))
+    exportCollection: (pk, format) => {
+      dispatch(exportCollection(ownProps.scene, pk, format));
+    }
   }
 };
 

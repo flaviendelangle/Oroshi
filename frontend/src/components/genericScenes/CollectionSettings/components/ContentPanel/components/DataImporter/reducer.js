@@ -5,7 +5,8 @@ const defaultState = {
   keysNumber: 0,
   elementNumber: 0,
   progress: 0,
-  importFromFile: null
+  importFromFile: null,
+  error: null
 };
 
 const reducer = (scene, state = defaultState, action) => {
@@ -17,8 +18,15 @@ const reducer = (scene, state = defaultState, action) => {
   switch(action.type) {
   
     case collectionContent.importFromFile + '_FULFILLED':
+      if(action.payload.error) {
+        return {
+          ...state,
+          error: action.payload.error
+        };
+      }
       return {
         ...state,
+        error: null,
         importFromFile: action.payload,
       };
 

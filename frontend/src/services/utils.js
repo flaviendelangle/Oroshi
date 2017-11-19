@@ -11,14 +11,19 @@ date.TMDB_FORMAT = 'YYYY-MM-DD';
 date.YEAR_FORMAT = 'YYYY';
 
 
-let parseCSV = csv => {
+let parseCSV = (scene, csv) => {
+  let comments = extractComments(csv);
+  if(comments.scene !== scene) {
+    return {
+      error: 'Wrong scene'
+    };
+  }
   return Papa.parse(csv, { header: true, dynamicTyping: true }).data
     .map(line => {
       let newLine = {};
       for(const field in line) {
         if(line.hasOwnProperty(field)) {
-          const newField = unCapitalize(field);
-          newLine[newField] = line[field];
+          newLine[field] = line[field];
         }
       }
       return newLine;
@@ -28,8 +33,15 @@ let parseCSV = csv => {
     });
 };
 
-let unCapitalize = (field) => {
-  return field.charAt(0).toLowerCase() + field.slice(1);
+const extractComments = csv => {
+  let comments = {};
+  csv.split('\n')
+    .filter(el => el[0] === '#')
+    .forEach(el => {
+      el = el.substring(1).split(',');
+      comments[el[0]] = el[1];
+    });
+  return comments;
 };
 
 export const getCollectionTypeTitle = type => {

@@ -1,5 +1,9 @@
 import { readAsText } from 'promise-file-reader';
+import json2csv from 'json2csv';
+import downloadjs from 'downloadjs';
+
 import { parseCSV } from 'services/utils';
+import { pickElement } from 'services/languages';
 
 import * as movies from './movies';
 import * as tv_shows from './tv_shows';
@@ -7,6 +11,7 @@ import { CollectionsAPI } from 'services/api/collections';
 import { checkExistence } from 'services/actions/publicAPI';
 
 import * as titles from 'services/titles/api';
+import { collections } from 'services/titles/exports'
 
 
 /*
@@ -149,7 +154,7 @@ export const importCSV = (scene, file) => {
     type: titles.collectionContent.importFromFile,
     payload: readAsText(file).then(result => {
       return {
-        data: parseCSV(result),
+        data: parseCSV(scene, result),
         format: 'csv'
       };
     }),
@@ -216,6 +221,54 @@ export const importElements = (scene, collection, elements, dispatch) => {
   }
 };
 
+export const exportCollection = (scene, pk, format) => {
+  switch(format) {
+    case 'csv':
+      return exportAsCSV(scene, pk);
+    default:
+      return null;
+  }
+};
+
+const exportAsCSV = (scene, pk) => {
+  
+  const generateComments = (scene, collection) => {
+    return '#scene,' + scene + '\n';
+  };
+  
+  return {
+    type: collections.csv,
+    payload: getDataToExport(scene, pk).then(({ fields, content, collection }) => {
+      const csv = json2csv({ data: content, fields: fields });
+      const comments = generateComments(scene, collection);
+      downloadjs(comments + csv, collection.title + '.csv', 'text/csv');
+      return null;
+    })
+  }
+};
+
+const getDataToExport = (scene, pk) => {
+  return get(scene, pk).payload.then(collection => {
+    const fields = getModule(scene).exportFields;
+    const content = collection.content.map(el => {
+      let data = {};
+      fields.forEach(field => {
+        if(field === 'title') {
+          data[field] = pickElement(el, 'titles', 'title', collection.title_language);
+        }
+        else {
+          data[field] = el[field]
+        }
+      });
+      return data;
+    });
+    return {
+      collection,
+      fields,
+      content
+    };
+  });
+};
 
 
 /*
@@ -274,3 +327,4 @@ export const getElementAPI = scene => {
 export const getPublicAPI = scene => {
   return getModule(scene).publicAPI;
 };
+

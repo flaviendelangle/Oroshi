@@ -6,7 +6,7 @@ export const textField = {
 };
 
 export const input = {
-  textAlign: 'right'
+  textAlign: 'left'
 };
 
 export const icon = {

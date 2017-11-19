@@ -42,6 +42,7 @@ class ParametersSection extends Component {
     return {
       fontSize: '1.5em',
       paddingLeft: 20,
+      paddingBottom: 20,
       color: this.props.muiTheme.baseTheme.palette.titleColor
     };
   }
