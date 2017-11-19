@@ -4,7 +4,9 @@ import Paper from 'material-ui/Paper';
 import NavigationExpandLess from 'material-ui/svg-icons/navigation/expand-less';
 import CircularProgress from 'material-ui/CircularProgress';
 import FlatButton from 'material-ui/FlatButton';
+import {List, ListItem} from 'material-ui/List';
 import muiThemeable from 'material-ui/styles/muiThemeable';
+import ScrollArea from 'react-scrollbar'
 
 import { getDetails } from 'services/actions/publicAPI';
 import { getSeasonDetails } from 'services/actions/publicAPI/tv_shows';
@@ -47,13 +49,11 @@ class Details extends Component {
         className="details"
         style={this.style}
       >
-        <div className="content">
-            <Content
-              {...this.props}
-              switchSeason={this.switchSeason}
-              season={this.state.season}
-            />
-        </div>
+        <Content
+          {...this.props}
+          switchSeason={this.switchSeason}
+          season={this.state.season}
+        />
         <div className="expand" onClick={this.handleShowLess}>
           <NavigationExpandLess style={this.style}/>
         </div>
@@ -72,7 +72,7 @@ const Content = ({ loaded, details, ...props }) => {
     );
   }
   return (
-    <div>
+    <div className="content">
       <Title
         title={props.title}
         muiTheme={props.muiTheme}
@@ -80,6 +80,7 @@ const Content = ({ loaded, details, ...props }) => {
         seasons={props.seasons}
       />
       <Season
+        muiTheme={props.muiTheme}
         season={props.season}
         seasons={props.seasons}
         loadSeason={props.loadSeason}
@@ -124,7 +125,7 @@ const Footer = ({ seasons, muiTheme, switchSeason }) => {
   return <div className="footer">{Elements}</div> ;
 };
 
-const Season = ({ season, seasons, loadSeason, tmdbId }) => {
+const Season = ({ season, seasons, loadSeason, tmdbId, muiTheme }) => {
   if(!seasons[season]) {
     if(!seasons.hasOwnProperty(season)) {
       setTimeout(() => loadSeason(tmdbId, season));
@@ -133,23 +134,36 @@ const Season = ({ season, seasons, loadSeason, tmdbId }) => {
   }
   const data = seasons[season];
   return (
-    <div>
-      <Episodes data={data.episodes} />
-    </div>
+    <List className="episodes-list">
+      <ScrollArea
+        speed={0.8}
+        horizontal={false}
+      >
+        <Episodes data={data.episodes} muiTheme={muiTheme} />
+      </ScrollArea>
+    </List>
   );
 };
 
-const Episodes = ({ data }) => {
+const Episodes = ({ data, muiTheme }) => {
   return data.map(episode => {
-    return <Episode {...episode} key={episode.episode_number} />
+    return (
+      <Episode
+        {...episode}
+        key={episode.episode_number}
+        muiTheme={muiTheme}
+      />
+    );
   })
 };
 
-const Episode = ({ episode_number, name }) => {
+const Episode = ({ episode_number, name, muiTheme }) => {
   return (
-    <div>
-      <div>E{episode_number} : {name}</div>
-    </div>
+    <ListItem
+      primaryText={'E' + episode_number + ' : ' + name}
+      style={{color: muiTheme.palette.paperColor}}
+      innerDivStyle={{padding: 8}}
+    />
   );
 };
 

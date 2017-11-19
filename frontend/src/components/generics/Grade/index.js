@@ -3,12 +3,12 @@ import React from 'react';
 import * as _style from './style';
 
 
-const Grade = ({ style, ...props }) => {
+const Grade = ({ className, ...props }) => {
   
   const degree = parseInt(props.value*36, 10);
   
   return (
-    <div style={_style.circle(style)}>
+    <div style={_style.circle} className={className}>
       <div style={_style.externalCircle}>
       </div>
       <div style={_style.innerCircle}>

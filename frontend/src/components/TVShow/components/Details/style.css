@@ -26,6 +26,11 @@
     top: calc(50% - 20px);
 }
 
+.tv-show-parent .details .episodes-list {
+    height: calc(100% - 62px - 1.5em);
+    overflow: hidden;
+}
+
 .tv-show-parent .details .footer {
     height: 36px;
     position: absolute;

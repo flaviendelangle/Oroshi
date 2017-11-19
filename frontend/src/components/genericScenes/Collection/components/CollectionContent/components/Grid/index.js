@@ -58,6 +58,7 @@ class Grid extends Component {
             key={id}
             creationMode={this.props.creationMode}
             onCreate={this.props.onCreate}
+            onDestroy={this.props.onDestroy}
           />
         );
       });

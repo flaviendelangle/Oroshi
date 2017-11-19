@@ -10,7 +10,7 @@ import { getValue } from 'services/localstorage';
 import TMDBAPI from 'services/TheMovieDatabaseJS/index';
 import { getListGenerator, getStreamGenerator, getDefaultOrder } from 'services/content/';
 
-import { sortElements, setSortParameters, setLayoutParameters, mergeRecommendations, mergeSearch } from './services/utils';
+import { sortElements, setSortParameters, setLayoutParameters, mergeRecommendations, mergeSearch, updateRecommendations } from './services/utils';
 import { addSeenToElements, addCollectionToElements } from 'services/actions/collections';
 
 const reducerBuilder = _scene => {
@@ -138,11 +138,19 @@ const reducerBuilder = _scene => {
           ...state.content.slice(0, index),
           ...state.content.slice(index + 1)
         ];
+        
+        if(state.recommendations) {
+          newRecommendations = updateRecommendations(state.recommendations, action);
+        } else {
+          newRecommendations = state.recommendations;
+        }
+        
         return {
           ...state,
           content: newContent,
           stream: new StreamGenerator(newContent, state.query, state.order.stream),
-          toShow: new ListGenerator(newContent, state.query)
+          toShow: new ListGenerator(newContent, state.query),
+          recommendations: newRecommendations
         };
       
       case collections.update + '_FULFILLED':

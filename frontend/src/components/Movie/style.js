@@ -1,9 +1,3 @@
-export const grade = {
-  margin: 'auto',
-  top: '50%',
-  transform: 'translateY(-50%)'
-};
-
 export const creationIcon = {
   height: 80,
   width: 80,

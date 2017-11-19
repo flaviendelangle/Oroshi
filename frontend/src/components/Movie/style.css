@@ -32,24 +32,6 @@
     margin-bottom: -4px;
 }
 
-.movie .overlay {
-    opacity: 0;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: calc(100% - 8px);
-    color: white;
-    padding: 4px;
-    line-height: 1.5em;
-    background: rgba(0,0,0,0.5);
-    transition: opacity 0.3s ease-in-out;
-}
-
-.movie:hover .overlay {
-    opacity: 1;
-}
-
 .movie .overlay-main {
     height: calc(100% - 2em);
 }

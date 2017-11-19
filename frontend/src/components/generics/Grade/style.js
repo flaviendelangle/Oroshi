@@ -48,12 +48,10 @@ export const arc = ({ quarter, degree, value }) => {
   };
 };
 
-export const circle = style => ({
-  ...style,
-  position: 'relative',
+export const circle = {
   width: CONFIG.diameter,
   height: CONFIG.diameter
-});
+};
 
 export const cover = (degree) => ({
   display: (degree > 90 ? 'none' : 'block'),

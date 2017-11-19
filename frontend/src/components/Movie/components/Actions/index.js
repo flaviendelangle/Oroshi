@@ -9,10 +9,6 @@ import './style.css'
 
 class Actions extends Component {
   
-  remove = () => {
-    this.props.remove(this.props.collection, this.props.data.pk)
-  };
-  
   render() {
     return (
       <div className="actions">
@@ -43,7 +39,6 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    remove: (collection, pk) => dispatch(removeElement('movies', collection, pk))
   }
 };
 

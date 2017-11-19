@@ -7,7 +7,7 @@ import muiThemeable from 'material-ui/styles/muiThemeable';
 
 import Poster from './components/Poster';
 import Actions from './components/Actions';
-import Grade from 'components/generics/Grade';
+import ElementOverlay from 'components/generics/ElementOverlay';
 import { date } from 'services/utils';
 import { pickElement } from 'services/languages';
 
@@ -55,8 +55,13 @@ class Movie extends Component {
   save = () => {
     if(!this.state.isAdding) {
       this.props.onCreate(this.props.data);
-      this.setState({ isAdding: true });
+      //this.setState({ isAdding: true });
     }
+  };
+  
+  destroy = () => {
+    const data = this.props.creationMode ? this.props.data.local : this.props.data;
+    this.props.onDestroy(this.props.collection, data);
   };
   
   getParentClassName = () => {
@@ -80,6 +85,15 @@ class Movie extends Component {
             onMouseLeave={() => this.handleMouseHover(false)}
           >
             <Poster path={this.posterPath} title={this.title} />
+            <ElementOverlay
+              note={this.props.data.note}
+              mouseOver={this.state.mouseOver}
+              creation_mode={this.props.creationMode}
+              already_in_collection={this.props.data.already_in_collection}
+              handleSave={this.save}
+              handleDestroy={this.destroy}
+            >
+            </ElementOverlay>
             <Overlay
               {...this.props}
               mouseOver={this.state.mouseOver}
@@ -99,6 +113,7 @@ class Movie extends Component {
 }
 
 const Overlay = ({ mouseOver, creationMode, handleSave, data, collection }) => {
+  return null;
   if(mouseOver) {
     let RealOverlay;
     if(creationMode)
@@ -141,10 +156,6 @@ const OverlayDefaultMode = ({ data, collection }) => (
   <div className="overlay">
     <Link to={'/movies/' + data.tmdbId + '/'}>
       <div className="overlay-main">
-        <Grade
-          value={data.note}
-          style={_style.grade}
-        />
       </div>
     </Link>
     <Actions

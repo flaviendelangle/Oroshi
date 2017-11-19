@@ -133,11 +133,11 @@ export const updateElement = (scene, collection, id, data) => {
   }
 };
 
-export const removeElement = (scene, collection, id) => {
+export const removeElement = (scene, collection, data) => {
   const api = getCollectionAPI(scene).element(collection.pk)[scene];
   return {
     type: titles.collections.remove,
-    payload: api.destroy(id),
+    payload: api.destroy(data.pk),
     meta: {
       scene
     }
