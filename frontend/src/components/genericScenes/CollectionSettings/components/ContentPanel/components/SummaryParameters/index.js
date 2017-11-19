@@ -3,8 +3,9 @@ import { connect } from 'react-redux';
 import Toggle from 'material-ui/Toggle';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
+import ActionDeleteForever from 'material-ui/svg-icons/action/delete-forever';
 
-import ParametersSection from '../ParametersSection';
+import ParametersSection, { Line } from '../ParametersSection';
 import TextField from '../TextField';
 import { getCollectionSettingsState } from 'containers/reducer';
 import { update } from 'components/genericScenes/CollectionSettings/actions';
@@ -31,7 +32,7 @@ class SummaryParameters extends Component {
       <ParametersSection>
         <div className="title">Summary</div>
         <div className="content">
-          <div primaryText="Collection title">
+          <Line primaryText="Collection title">
             <TextField
               id="collection_title"
               value={this.state.title}
@@ -40,8 +41,8 @@ class SummaryParameters extends Component {
                 this.props.update(this.props.data.pk, 'title', this.state.title)
               }
             />
-          </div>
-          <div primaryText="Collection type">
+          </Line>
+          <Line primaryText="Collection type">
             <SelectField
               value="0"
               disabled={true}
@@ -52,8 +53,8 @@ class SummaryParameters extends Component {
                 primaryText={getCollectionTypeTitle(this.props.scene)}
               />
             </SelectField>
-          </div>
-          <div
+          </Line>
+          <Line
             primaryText="Include adult content"
             rightToggle={
               <Toggle
@@ -63,8 +64,11 @@ class SummaryParameters extends Component {
                 }}
               />
             }
-          >
-          </div>
+          />
+          <Line
+            rightIcon={<ActionDeleteForever />}
+            primaryText="Destroy this collection"
+          />
         </div>
       </ParametersSection>
     );

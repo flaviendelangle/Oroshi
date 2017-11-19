@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import ParametersSection from '../ParametersSection';
+import ParametersSection, { Line } from '../ParametersSection';
 import SelectLanguage from 'components/generics/SelectLanguage';
 
 import { getCollectionSettingsState } from 'containers/reducer';
@@ -20,7 +20,7 @@ class LanguageParameters extends Component {
       <ParametersSection>
         <div className="title">Languages</div>
         <div className="content">
-          <div primaryText="Title language">
+          <Line primaryText="Title language">
             <SelectLanguage
               scene={this.props.scene}
               style={selectStyle}
@@ -29,8 +29,8 @@ class LanguageParameters extends Component {
                 this.props.update(this.props.data.pk, 'title_language', value)
               }}
             />
-          </div>
-          <div primaryText="Poster language">
+          </Line>
+          <Line primaryText="Poster language">
             <SelectLanguage
               scene={this.props.scene}
               style={selectStyle}
@@ -39,7 +39,7 @@ class LanguageParameters extends Component {
                 this.props.update(this.props.data.pk, 'poster_language', value)
               }}
             />
-          </div>
+          </Line>
         </div>
       </ParametersSection>
     );

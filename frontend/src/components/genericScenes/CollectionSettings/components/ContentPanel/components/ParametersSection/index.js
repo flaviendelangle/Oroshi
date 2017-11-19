@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import muiThemeable from 'material-ui/styles/muiThemeable';
 import { List } from 'material-ui/List';
-
-import Line from './components/Line';
+import { ListItem } from 'material-ui/List';
 
 const sectionStyle = {
   width: '100%',
@@ -58,5 +57,10 @@ class ParametersSection extends Component {
     );
   }
 }
+
+export const Line = ({ params }) => (
+  <ListItem {...params} />
+);
+
 
 export default muiThemeable()(ParametersSection);

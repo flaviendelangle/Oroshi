@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import FileDownload from 'material-ui/svg-icons/file/file-download';
 import SocialShare from 'material-ui/svg-icons/social/share';
 
-import ParametersSection from '../ParametersSection';
+import ParametersSection, { Line } from '../ParametersSection';
 import { exportCollection } from './actions';
 import { getCollectionSettingsState } from 'containers/reducer';
 
@@ -14,24 +14,21 @@ class ExportParameters extends Component {
       <ParametersSection>
         <div className="title">Export your data</div>
         <div className="content">
-          <div
+          <Line
             rightIcon={<SocialShare />}
             primaryText="Get your public link"
             onClick={() => {}}
-          >
-          </div>
-          <div
+          />
+          <Line
             rightIcon={<FileDownload />}
             primaryText="Export as CSV"
             onClick={() => this.props.exportCollection(this.props.data.pk, 'csv')}
-          >
-          </div>
-          <div
+          />
+          <Line
             rightIcon={<FileDownload />}
             primaryText="Export as JSON"
             onClick={() => this.props.exportCollection(this.props.data.pk, 'json')}
-          >
-          </div>
+          />
         </div>
       </ParametersSection>
     );

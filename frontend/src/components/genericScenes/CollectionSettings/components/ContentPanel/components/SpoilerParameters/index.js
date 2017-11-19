@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Toggle from 'material-ui/Toggle';
 
-import ParametersSection from '../ParametersSection';
+import ParametersSection, { Line } from '../ParametersSection';
 import { getCollectionSettingsState } from 'containers/reducer';
 import { update } from 'components/genericScenes/CollectionSettings/actions';
 
@@ -13,7 +13,7 @@ class SpoilerParameters extends Component {
       <ParametersSection>
         <div className="title">Spoilers</div>
         <div className="content">
-          <div
+          <Line
             primaryText="Hide the titles of the unseen episodes"
             rightToggle={
               <Toggle
@@ -23,8 +23,7 @@ class SpoilerParameters extends Component {
                 }}
               />
             }
-          >
-          </div>
+          />
         </div>
       </ParametersSection>
     );
