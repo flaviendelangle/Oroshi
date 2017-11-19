@@ -3,7 +3,6 @@ import { request } from 'services/titles/publicAPI';
 const defaultState = {};
 
 const defaultElementState = {
-  season_number: 1,
   seasons: {},
   details: null
 };

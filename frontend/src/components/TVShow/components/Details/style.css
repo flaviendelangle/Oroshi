@@ -7,6 +7,11 @@
     z-index: 2;
 }
 
+.tv-show-parent .details .content {
+    position: relative;
+    height: 100%;
+}
+
 .tv-show-parent .details .title {
     padding: 5px 15px;
     font-size: 1.5em;
@@ -19,4 +24,12 @@
     position: absolute;
     left: calc(50% - 20px);
     top: calc(50% - 20px);
+}
+
+.tv-show-parent .details .footer {
+    height: 36px;
+    position: absolute;
+    right: 0;
+    left: 0;
+    bottom: 0;
 }
