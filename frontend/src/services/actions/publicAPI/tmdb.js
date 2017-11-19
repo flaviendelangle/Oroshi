@@ -77,7 +77,7 @@ export const checkExistence = (scene, collection, elements, fromLocalAPI=false) 
     })
 };
 
-export const getDetails = (scene, collection, tmdbId, original_language) => {
+export const getDetails = (scene, collection, tmdbId) => {
 
   let options = {
     append_to_response: ['credits', 'images'],
@@ -113,6 +113,28 @@ export const getDetails = (scene, collection, tmdbId, original_language) => {
   
 };
 
+export const getPoster = (scene, tmdbId, language) => {
+  const options = {
+    language
+  };
+  return getPublicAPI(scene).images(tmdbId, options)
+    .then(response => {
+      if(response.posters.length > 0) {
+        return response.posters[0].file_path;
+      }
+      return null;
+    });
+};
+
+export const getTitle = (scene, tmdbId, language) => {
+  const options = {
+    language
+  };
+  const key = (scene === 'movies') ? 'title' : 'name';
+  return getPublicAPI(scene).details(tmdbId, options)
+    .then(response => response[key]);
+};
+
 const getMissingData = (scene, tmdbId, collection, details) => {
   
   const languages = getTmdbLanguages(collection, details.original_language);
@@ -141,28 +163,6 @@ const getMissingData = (scene, tmdbId, collection, details) => {
       })
   }
   return promise.then(() => details);
-};
-
-export const getPoster = (scene, tmdbId, language) => {
-  const options = {
-    language
-  };
-  return getPublicAPI(scene).images(tmdbId, options)
-    .then(response => {
-      if(response.posters.length > 0) {
-        return response.posters[0].file_path;
-      }
-      return null;
-    });
-};
-
-export const getTitle = (scene, tmdbId, language) => {
-  const options = {
-    language
-  };
-  const key = (scene === 'movies') ? 'title' : 'name';
-  return getPublicAPI(scene).details(tmdbId, options)
-    .then(response => response[key]);
 };
 
 const _getPopular = (scene, collection, page=1) => {

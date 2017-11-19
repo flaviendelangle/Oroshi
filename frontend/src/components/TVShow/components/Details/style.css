@@ -12,3 +12,11 @@
     font-size: 1.5em;
     line-height: 1.5em;
 }
+
+.tv-show-parent .details .progress {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    left: calc(50% - 20px);
+    top: calc(50% - 20px);
+}

@@ -1,5 +1,8 @@
 import * as tmdb from './tmdb'
 import { date } from '../../utils';
+import { request } from 'services/titles/publicAPI';
+
+import TVSeasonsTMDB from 'services/TheMovieDatabaseJS/tv_seasons';
 
 export const search = tmdb.search;
 
@@ -16,6 +19,17 @@ export const getDetails = tmdb.getDetails;
 export const getTitle = tmdb.getTitle;
 
 export const getPoster = tmdb.getPoster;
+
+export const getSeasonDetails = (tmdbId, season) => {
+  return {
+    type: request.get_season_details,
+    payload: TVSeasonsTMDB.details(tmdbId, season),
+    meta: {
+      tv_shows_id: tmdbId,
+      season
+    }
+  }
+};
 
 export const cleanDetails = (scene, details) => {
   const networks = details.networks

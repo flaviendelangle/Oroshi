@@ -91,17 +91,27 @@ class TVShow extends Component {
           </div>
           <Footer muiTheme={this.props.muiTheme} title={this.title} />
         </div>
-        <Details
+        <DetailsFrame
           show={this.state.isExtended}
           title={this.title}
           data={this.props.data}
           onCollapse={this.showLess}
+          collection={this.props.collection}
         />
       </div>
     );
   }
   
 }
+
+const DetailsFrame = ({ show, ...props }) => {
+  if(show) {
+    return (
+      <Details {...props} />
+    );
+  }
+  return null;
+};
 
 const Overlay = ({ mouseOver, creationMode, handleSave, handleShowMore, data, collection }) => {
   if(mouseOver) {

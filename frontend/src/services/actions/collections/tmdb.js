@@ -11,7 +11,7 @@ export const addElement = (scene, data) => {
       local: true
     });
   } else {
-    promise = getDetails(scene, data.current_collection, data.id, data.original_language)
+    promise = getDetails(scene, false, data.current_collection, data.id)
       .then(details => {
         details = cleanDetails(scene, details);
         return getElementAPI(scene).create(details);

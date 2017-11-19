@@ -1,0 +1,66 @@
+import { request } from 'services/titles/publicAPI';
+
+const defaultState = {};
+
+const defaultElementState = {
+  season_number: 1,
+  seasons: {},
+  details: null
+};
+
+const reducer = (state = defaultState, action) => {
+  
+  if(!action.meta || !action.meta.tv_shows_id) {
+    return state;
+  }
+  const id = action.meta.tv_shows_id;
+  
+  if(!state[id]) {
+    state = {
+      ...state,
+      [id]: defaultElementState
+    };
+  }
+  
+  const elementReducer = (elementState) => {
+    
+    switch(action.type) {
+    
+      case request.get_details + '_FULFILLED':
+        return {
+          ...elementState,
+          details: action.payload
+        };
+        
+      case request.get_season_details + '_PENDING':
+        return {
+          ...elementState,
+          seasons: {
+            ...elementState.seasons,
+            [action.meta.season]: null
+          }
+        };
+  
+      case request.get_season_details + '_FULFILLED':
+        return {
+          ...elementState,
+          seasons: {
+            ...elementState.seasons,
+            [action.meta.season]: action.payload
+          }
+        };
+    
+      default:
+        return elementState;
+    }
+  
+  };
+  
+  return {
+    ...state,
+    [id]: elementReducer(state[id])
+  };
+  
+};
+
+export default reducer;

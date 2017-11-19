@@ -6,6 +6,7 @@ import header from 'components/Header/reducer';
 
 import home from 'scenes/Home/reducer';
 import movie from 'scenes/Movie/reducer';
+import tv_shows from 'components/TVShow/reducer';
 import collection from 'components/genericScenes/Collection/reducer';
 import collectionSettings from 'components/genericScenes/CollectionSettings/reducer';
 
@@ -45,6 +46,9 @@ const appReducer = combineReducers({
   
   // Generics
   header,
+  
+  // Elements
+  tv_shows,
   
   // Scenes
   collection_movies: collection('movies'),
