@@ -2,6 +2,7 @@ import { combineReducers } from 'redux';
 
 import header from './components/Header/reducer';
 import content from './components/CollectionContent/reducer';
+import addingContent from './components/AddingContent/reducer';
 
 import { source } from 'services/titles/interface';
 
@@ -59,5 +60,6 @@ const main = (state = defaultState, action) => {
 export default combineReducers({
   main,
   content,
+  addingContent,
   header,
 });

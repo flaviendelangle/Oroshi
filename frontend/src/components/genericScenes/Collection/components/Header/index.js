@@ -13,7 +13,7 @@ class Header extends Component {
 
   get link() {
     return '/collections/' + this.props.scene +
-           '/' + this.props.collection + '/settings/';
+           '/' + this.props.collection.pk + '/settings/';
   }
   
   render() {
@@ -35,6 +35,9 @@ class Header extends Component {
               title={this.props.title}
               scene={this.props.scene}
               query={this.props.query}
+              count={this.props.count}
+              isAdding={this.props.isAdding}
+              collection={this.props.collection}
             />
           </div>
           <div className="actions">
@@ -50,6 +53,7 @@ class Header extends Component {
 const mapStateToProps = (state, ownProps) => {
   const contentRoot = state.collections.content[ownProps.scene];
   const headerRoot = state.collections.header[ownProps.scene];
+  const root = state.collections.main[ownProps.scene];
   
   if(!headerRoot) {
     return {
@@ -64,8 +68,9 @@ const mapStateToProps = (state, ownProps) => {
     count = contentRoot.toShow.getElementCount();
   }
   return {
-    loaded: true,
-    collection: headerRoot.collection,
+    isAdding: root.isAdding,
+    loaded: contentRoot.loaded,
+    collection: contentRoot.collection,
     title: headerRoot.title,
     query: headerRoot.query,
     count

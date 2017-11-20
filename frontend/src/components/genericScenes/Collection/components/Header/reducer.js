@@ -5,7 +5,6 @@ import { search } from 'services/titles/data'
 const defaultState = {};
 
 const defaultElementState = {
-  collection: undefined,
   title: '',
   query: ''
 };
@@ -34,7 +33,6 @@ const reducer = (state = defaultState, action) => {
         }
         return {
           ...sceneState,
-          collection: action.payload.pk,
           title: action.payload.title
         };
       

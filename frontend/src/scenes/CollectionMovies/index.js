@@ -2,11 +2,9 @@ import React from 'react';
 
 import CollectionScene from 'components/genericScenes/Collection';
 import Movie from 'components/Movie';
-import { TABLE_COLUMNS } from './services/list';
 
 
 const config = {
-  listColumns: TABLE_COLUMNS,
   elementComponent: Movie
 };
 

@@ -81,15 +81,6 @@ export const getCollectionSettingsState = (state, scene) => {
   return state['collection_' + scene + '_settings'];
 };
 
-export const getCollectionState = (state, scene) => {
-  console.log(state);
-  return state.collections.main[scene];
-};
-
-export const getCollectionContentState = (state, scene) => {
-  return state.collections.content[scene];
-};
-
 const composeStoreWithMiddleware = applyMiddleware(
   promiseMiddleware()
 )(createStore);

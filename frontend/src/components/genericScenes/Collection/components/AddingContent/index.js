@@ -4,7 +4,6 @@ import CircularProgress from 'material-ui/CircularProgress';
 
 import Grid from 'components/generics/Grid/index'
 import Stream from 'components/generics/Stream/index'
-import { getCollectionState } from 'containers/reducer';
 
 const progressStyle = {
   width: 40,
@@ -39,7 +38,6 @@ class AddingContent extends Component {
         <Grid
           data={this.props.addingSearch}
           collection={this.props.collection}
-          order={this.props.order.default}
           scene={this.props.scene}
           elementComponent={this.props.elementComponent}
           lineDimensions={this.props.lineDimensions}
@@ -81,13 +79,10 @@ class AddingContent extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const root = getCollectionState(state, ownProps.scene).main;
-  
+  const root = state.collections.addingContent[ownProps.scene];
   return {
-    update: root.update,
-    collection: root.collection,
     loaded: root.loaded,
-    
+    collection: root.collection,
     recommendations: root.recommendations,
     addingSearch: root.addingSearch,
     

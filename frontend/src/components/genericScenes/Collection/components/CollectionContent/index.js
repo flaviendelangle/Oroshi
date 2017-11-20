@@ -138,9 +138,6 @@ const mapStateToProps = (state, ownProps) => {
     layout: root.layout,
     order: root.order,
     
-    recommendations: root.recommendations,
-    addingSearch: root.addingSearch,
-    
     lineDimensions: state.app.lineDimensions
   }
 };

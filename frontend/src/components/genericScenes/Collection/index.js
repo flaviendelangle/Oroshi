@@ -7,7 +7,6 @@ import AddingContent from './components/AddingContent';
 import Menu from './components/Menu'
 
 import { get as getCollection } from 'services/actions/collections'
-import { getCollectionState } from 'containers/reducer';
 
 class CollectionScene extends Component {
   
@@ -50,7 +49,7 @@ const Content = ({ config, scene, isAdding }) => {
 };
 
 const mapStateToProps = (state, ownProps) => {
-  const root = getCollectionState(state, ownProps.scene);
+  const root = state.collections.main[ownProps.scene];
   if(!root) {
     return {
       isAdding: false

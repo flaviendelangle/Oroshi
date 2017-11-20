@@ -100,6 +100,7 @@ class Movie extends Component {
               handleDestroy={this.destroy}
               topRightAction={
                 <Seen
+                  creation_mode={this.props.creationMode}
                   seen={this.props.data.seen}
                   handleClick={() => this.props.switchSeen(this.props.data)}
                 />
@@ -128,7 +129,10 @@ const Footer = ({ title, muiTheme, release_date }) => (
   </div>
 );
 
-const Seen = ({ seen, handleClick }) => {
+const Seen = ({ seen, handleClick, creation_mode }) => {
+  if(creation_mode) {
+    return null;
+  }
   const color = seen ? 'green' : 'red';
   return (
     <ImageEye

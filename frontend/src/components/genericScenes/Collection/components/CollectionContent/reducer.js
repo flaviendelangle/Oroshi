@@ -2,14 +2,13 @@ import TMDBAPI from 'services/TheMovieDatabaseJS/index';
 
 import { collectionContent, collections } from 'services/titles/api';
 import { sort, search } from 'services/titles/data';
-import { layout, source } from 'services/titles/interface';
+import { layout } from 'services/titles/interface';
 
 import { getListGenerator, getStreamGenerator, getDefaultOrder } from 'services/content/';
 import { getValue } from 'services/localstorage';
 import { sortElements, setSortParameters, setLayoutParameters } from '../../services/utils';
 import { addSeenToElements, addCollectionToElement } from 'services/actions/collections';
 import * as content_manager from './services/content_manager';
-
 
 
 const defaultState = {};
@@ -50,7 +49,7 @@ const reducer = (state = defaultState, action) => {
   
   const sceneReducer = sceneState => {
     
-    let newContent, newState, newElement, newOrder;
+    let newContent, newElement, newOrder;
   
     const ListGenerator = getListGenerator(scene);
     const StreamGenerator = getStreamGenerator(scene);
@@ -179,18 +178,7 @@ const reducer = (state = defaultState, action) => {
           stream: new StreamGenerator(sceneState.content, '', sceneState.order.stream),
           toShow: new ListGenerator(sceneState.content, '')
         };
-    
-      /**
-       * We enter / leave the adding more
-       */
-      case source.updateIsAdding:
       
-        return {
-          ...sceneState,
-          addingSearch: null,
-          isAdding: !sceneState.isAdding
-        };
-    
       default:
         return sceneState;
     }

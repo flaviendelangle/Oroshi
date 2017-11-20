@@ -9,7 +9,10 @@ export const search = (scene, collection, query, page) => {
     .then(elements => {
       return prepareSearchResults(scene, collection, elements, query)
     })
-    .catch(error => ({page: 1, total_results: 0, total_pages: 0, results: [] }));
+    .catch(error => {
+      console.log(error);
+      return {page: 1, total_results: 0, total_pages: 0, results: [] }
+    });
 };
 
 export const getRecommendations = (scene, collection) => {
@@ -218,7 +221,6 @@ const prepareSearchResults = (scene, collection, elements, query) => {
     if(elements.page < elements.total_pages) {
       next = searchOriginal.bind(this, scene, collection, query, elements.page+1);
     }
-    console.log(response);
     return {
       ...response,
       next

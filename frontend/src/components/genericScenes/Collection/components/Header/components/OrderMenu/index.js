@@ -128,12 +128,13 @@ const DefaultMenuTVShows = ({ sort }) => (
 
 const mapStateToProps = (state, ownProps) => {
   const root = state.collections.main[ownProps.scene];
+  const contentRoot = state.collections.content[ownProps.scene];
   if(!root) {
     return {
     }
   }
   return {
-    layout: root.layout,
+    layout: contentRoot.layout,
     isAdding: root.isAdding
   };
 };
