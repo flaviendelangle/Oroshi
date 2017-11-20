@@ -22,14 +22,14 @@ export const switchSeenOnElement = data => {
 
 export const addSeenToElements = (elements, seen) => {
   return elements.map(element => {
-    const matches = seen.filter(seen => {
+    const matches = seen.find(seen => {
       return seen.movie === element.pk;
     });
     return {
       ...element,
-      seen: matches.length > 0
+      seen: !!matches
     };
   });
 };
 
-export const exportFields = ['tmdbId', 'title', 'release', 'note'];
+export const exportFields = ['tmdbId', 'title', 'release', 'note', 'seen'];

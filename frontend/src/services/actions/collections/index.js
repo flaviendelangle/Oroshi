@@ -293,9 +293,12 @@ export const addCollectionToElements = (elements, collection) => {
 
 export const prepareElements = (scene, data) => {
   let { content, seen, ...clearedData } = data;
-  data.content = addSeenToElements(scene, content, seen);
-  data.content = addCollectionToElements(content, clearedData);
-  return data;
+  content = addSeenToElements(scene, content, seen);
+  content = addCollectionToElements(content, clearedData);
+  return {
+    ...data,
+    content
+  };
 };
 
 
