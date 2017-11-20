@@ -293,11 +293,18 @@ export const addCollectionToElements = (elements, collection) => {
 
 export const prepareElements = (scene, data) => {
   let { content, seen, ...clearedData } = data;
-  content = addSeenToElements(scene, content, seen);
-  content = addCollectionToElements(content, clearedData);
+  const Element = getModule(scene).elementClass;
+  const elements = content
+    .map(el => new Element(el, true));
+
+  elements.forEach(el => {
+    el.setCollection(clearedData);
+    getModule(scene).prepareElement(el, seen);
+  });
+
   return {
     ...data,
-    content
+    content: elements
   };
 };
 

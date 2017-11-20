@@ -1,9 +1,12 @@
 import { MoviesAPI } from 'services/api/movies';
 import { MovieCollectionsAPI } from 'services/api/movieCollections';
 import MoviesTMDB from 'services/TheMovieDatabaseJS/movies'
+import MovieClass from 'scenes/CollectionMovies/services/movie';
 
 import * as tmdb from './tmdb';
 import { updateElement } from './index';
+
+export const elementClass = MovieClass;
 
 export const collectionAPI = MovieCollectionsAPI;
 
@@ -18,6 +21,11 @@ export const switchSeenOnElement = data => {
     seen: !data.seen
   };
   return updateElement('movies', data.collection, data.pk, clearedData);
+};
+
+export const prepareElement = (element, seenList) => {
+  const seen = !!(seenList.find(el => el.movie === element.getID()));
+  element.setSeen(seen);
 };
 
 export const addSeenToElements = (elements, seen) => {

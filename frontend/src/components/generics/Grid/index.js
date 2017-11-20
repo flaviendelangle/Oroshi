@@ -50,12 +50,11 @@ class Grid extends Component {
     let i = 0;
     return this.elements.map(line => {
       const elements = line.map(el => {
-        const id = el.tmdbId || el.id;
         return (
           <Element
             data={el}
             collection={this.props.collection}
-            key={id}
+            key={el.getPublicId()}
             creationMode={this.props.creationMode}
           />
         );

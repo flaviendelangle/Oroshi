@@ -6,20 +6,6 @@ class StreamGenerator extends StreamGeneratorOriginal {
     super('name', 'desc', ...args)
   }
   
-  prepareData() {
-    if(this.key.field === 'release') {
-      this.data = this.data.map(el => {
-        return {
-          ...el,
-          release: [{
-            name: String(el.release),
-            pk: el.release
-          }]
-        };
-      });
-    }
-  };
-  
 }
 
 export default StreamGenerator;

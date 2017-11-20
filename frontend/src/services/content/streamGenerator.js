@@ -28,7 +28,7 @@ class StreamGenerator {
     this.results = {};
     this.keys = {};
     this.data.forEach(el => {
-      el[this.key.field].forEach(value => {
+      el.getValue(this.key.field).forEach(value => {
         const pk = value.pk;
         const label = value[this.labelField].toUpperCase();
         if(!this.keys[pk] && label.includes(this.query)) {
@@ -42,8 +42,8 @@ class StreamGenerator {
     this.results = Object.keys(this.keys).map(pk_temp => {
       const pk = parseInt(pk_temp, 10);
       const key = this.keys[pk];
-      const content = this.data.filter(movie => {
-        return movie[this.key.field].filter(el => {
+      const content = this.data.filter(el => {
+        return el.getValue(this.key.field).filter(el => {
           return el.pk === pk
         }).length > 0;
       });

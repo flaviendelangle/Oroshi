@@ -6,8 +6,6 @@ import ImageEye from 'material-ui/svg-icons/image/remove-red-eye';
 
 import Poster from './components/Poster';
 import ElementOverlay from 'components/generics/ElementOverlay';
-import { date } from 'services/utils';
-import { pickElement } from 'services/languages';
 import { addElement, removeElement } from 'services/actions/collections';
 import { switchSeenOnElement } from 'services/actions/collections/movies';
 
@@ -22,36 +20,19 @@ class Movie extends Component {
   };
   
   get release_date() {
-    if(this.props.creationMode) {
-      return date(this.props.data.release_date, date.TMDB_FORMAT, date.YEAR_FORMAT);
-    }
-    if(Array.isArray(this.props.data.release)) {
-      return parseInt(this.props.data.release[0].name, 10);
-    }
-    return this.props.data.release;
+    return this.props.data.getReleaseDate();
   }
   
   get title() {
-    if(this.props.creationMode) {
-      return this.props.data.title;
-    }
-    const language = this.props.collection.title_language;
-    return pickElement(this.props.data, 'titles', 'title', language);
+    return this.props.data.getTitle();
   }
   
   get posterPath() {
-    if(this.props.creationMode) {
-      return this.props.data.poster_path;
-    }
-    const language = this.props.collection.poster_language;
-    return pickElement(this.props.data, 'posters', 'path', language);
+    return this.props.data.getPosterPath();
   }
   
   get note() {
-    if(this.props.creationMode) {
-      return this.props.data.vote_average;
-    }
-    return this.props.data.note;
+    return this.props.data.getNote();
   }
   
   handleMouseHover = mouseOver => {
@@ -79,6 +60,12 @@ class Movie extends Component {
     }
     return className
   };
+  
+  componentWillReceiveProps(newProps) {
+    if(this.props.data.already_in_collection !== newProps.data.already_in_collection) {
+      this.setState({ isAdding: false });
+    }
+  }
 
   render() {
     return (

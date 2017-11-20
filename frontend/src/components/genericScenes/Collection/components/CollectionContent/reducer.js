@@ -120,7 +120,7 @@ const reducer = (state = defaultState, action) => {
        * An element has been updated in the collection (ex : Not Seen => Seen)
        */
       case collections.update + '_FULFILLED':
-        newContent = addSeenToElements(scene, state.content, action.payload);
+        newContent = addSeenToElements(scene, sceneState.content, action.payload);
         return {
           ...sceneState,
           content: newContent,

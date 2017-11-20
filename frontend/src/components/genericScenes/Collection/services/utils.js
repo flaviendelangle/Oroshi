@@ -2,12 +2,16 @@ import { setValue, getValue } from 'services/localstorage';
 
 export const sortElements = (elements, params) => {
   elements = elements.sort((a, b) => {
+    
     let comparison = 0;
-    const key = params.field;
+    const field = params.field;
     const mul = params.direction === 'asc' ? 1 : -1;
-    if(a[key] > b[key])
+    const valueA = a.getValue(field);
+    const valueB = b.getValue(field);
+    
+    if(valueA > valueB)
       comparison = mul;
-    else if(a[key] < b[key])
+    else if(valueA < valueB)
       comparison = -1 * mul;
     return comparison;
   });
