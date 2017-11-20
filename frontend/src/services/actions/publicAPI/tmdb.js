@@ -41,6 +41,7 @@ export const getTopRated = (scene, collection, page) => {
 };
 
 export const checkExistence = (scene, collection, elements, fromLocalAPI=false) => {
+  // TODO : Find how the fromLocalAPI works and fix it
   if(fromLocalAPI) {
     elements.results = elements.results.map(el => {
       return {
@@ -50,23 +51,17 @@ export const checkExistence = (scene, collection, elements, fromLocalAPI=false) 
     });
   }
   
-  const filterById = (movie, el) => {
-    return movie.id === el.tmdbId;
-  };
-  
-  const clean = el => {
-    const match = existOnServer.filter(filterById.bind(this, el));
-    el.local = (match.length > 0) ? match[0] : undefined;
-    
-    el.already_in_collection = existInCollection[el.id];
-    el.current_collection = collection;
-    
-    return el;
+  const clean = distant => {
+    const local = existOnServer.find(el => el.tmdbId === distant.id);
+    return {
+      distant,
+      local
+    }
   };
   
   const IDs = elements.results.map(el => el.id);
-
   let existOnServer, existInCollection;
+  
   return getElementAPI(scene).serialize(IDs, 'tmdbId')
     .then(response => {
       existOnServer = response;
@@ -74,9 +69,7 @@ export const checkExistence = (scene, collection, elements, fromLocalAPI=false) 
     })
     .then(response => {
       existInCollection = response;
-      for(let i = 0; i < elements.results.length; i++) {
-        elements.results = elements.results.map(clean);
-      }
+      elements.results = elements.results.map(clean);
       return elements;
     })
 };
@@ -207,9 +200,10 @@ const prepareStreamResults = (scene, collection, elements, nextAction) => {
     if(elements.content.page < elements.content.total_pages) {
       next = nextAction.bind(this, scene, collection, elements.content.page+1);
     }
+    console.log(response);
     return {
       ...elements,
-      content: Element.fromDistantList(response.results),
+      content: Element.fromDistantList(response.results, collection),
       next
     };
   });

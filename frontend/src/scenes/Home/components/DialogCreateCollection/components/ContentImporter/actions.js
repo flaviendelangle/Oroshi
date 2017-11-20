@@ -24,6 +24,7 @@ const importElement = (scene, dispatch, elements, index) => {
     });
     return true;
   }
+  // TODO : Have collection to pass to the addElement method
   const element = elements[index];
   return addElement(scene, element).payload.then(el => {
     dispatch({

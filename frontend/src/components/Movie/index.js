@@ -41,7 +41,7 @@ class Movie extends Component {
   
   save = () => {
     if(!this.state.isAdding) {
-      this.props.create(this.props.data);
+      this.props.create(this.props.collection, this.props.data);
       this.setState({ isAdding: true });
     }
   };
@@ -136,9 +136,11 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    create: data => dispatch(addElement('movies', data)),
-    destroy: (collection, data) => {
-      dispatch(removeElement('movies', collection, data))
+    create: (collection, element) => {
+      dispatch(addElement('movies', collection, element));
+    },
+    destroy: (collection, element) => {
+      dispatch(removeElement('movies', collection, element));
     },
     switchSeen: data => dispatch(switchSeenOnElement(data))
   }

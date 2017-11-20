@@ -115,13 +115,10 @@ export const update = (scene, pk, data) => {
   }
 };
 
-export const addElement = (scene, data) => {
-  if(!data.hasOwnProperty('seen')) {
-    data.seen = false;
-  }
+export const addElement = (scene, collection, element) => {
   return {
     type: titles.collections.add,
-    payload: getModule(scene).addElement(scene, data),
+    payload: getModule(scene).addElement(scene, collection, element).then(response => console.log(response)),
     meta: {
       scene
     }
@@ -188,7 +185,7 @@ export const importElements = (scene, collection, elements, dispatch) => {
         }
       });
     } else {
-      addElement(scene, element).payload.then(el => {
+      addElement(scene, collection, element).payload.then(el => {
         dispatch({
           type: titles.collections.add,
           payload: el,
@@ -285,18 +282,11 @@ export const addCollectionToElement = (element, collection) => {
   };
 };
 
-export const addCollectionToElements = (elements, collection) => {
-  return elements.map(element => {
-    return addCollectionToElement(element, collection);
-  });
-};
-
 export const prepareElements = (scene, data) => {
   let { content, seen, ...clearedData } = data;
   const Element = getModule(scene).elementClass;
   const elements = content
-    .map(el => new Element(el, true));
-
+    .map(el => new Element(el));
   elements.forEach(el => {
     el.setCollection(clearedData);
     getModule(scene).prepareElement(el, seen);

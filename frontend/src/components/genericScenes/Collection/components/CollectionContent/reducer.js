@@ -90,9 +90,8 @@ const reducer = (state = defaultState, action) => {
        * An element has been added to the collection
        */
       case collections.add + '_FULFILLED':
-        newElement = addCollectionToElement(action.payload, sceneState.collection);
       
-        newContent = content_manager.add(sceneState.content, newElement, sceneState.order.default);
+        newContent = content_manager.add(sceneState.content, action.payload, sceneState.order.default);
       
         return {
           ...sceneState,
@@ -107,7 +106,7 @@ const reducer = (state = defaultState, action) => {
       case collections.remove + '_FULFILLED':
         newElement = action.payload;
       
-        newContent = content_manager.remove(sceneState.content, newElement);
+        newContent = content_manager.remove(sceneState.content, action.payload);
       
         return {
           ...sceneState,

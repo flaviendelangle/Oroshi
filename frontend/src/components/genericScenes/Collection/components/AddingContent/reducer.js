@@ -1,7 +1,7 @@
 import { collectionContent, collections } from 'services/titles/api';
 import * as publicAPI from 'services/titles/publicAPI';
 
-import { mergeRecommendations, mergeSearch } from '../../services/utils';
+import { mergeSearch } from '../../services/utils';
 import { addCollectionToElement } from 'services/actions/collections';
 import * as adding_search_manager from './services/adding_search_manager';
 import * as recommendations_manager from './services/recommendations_manager';
@@ -11,7 +11,6 @@ const defaultState = {};
 
 const defaultElementState = {
   collection: null,
-  isAdding: false,
   recommendations: {
     results: []
   },
@@ -35,7 +34,7 @@ const reducer = (state = defaultState, action) => {
   
   const sceneReducer = sceneState => {
     
-    let newElement, newState, newRecommendations;
+    let newElement, newState;
 
     switch(action.type) {
   
@@ -52,10 +51,9 @@ const reducer = (state = defaultState, action) => {
        * An element has been added to the collection
        */
       case collections.add + '_FULFILLED':
-        newElement = addCollectionToElement(action.payload, sceneState.collection);
     
-        newState = adding_search_manager.add(sceneState, newElement);
-        newState = recommendations_manager.add(sceneState, newElement);
+        newState = adding_search_manager.add(sceneState, action.payload);
+        newState = recommendations_manager.add(sceneState, action.payload);
     
         return newState;
   
@@ -85,32 +83,23 @@ const reducer = (state = defaultState, action) => {
        * A new page of the popular movies has been loaded
        */
       case publicAPI.request.get_popular + '_FULFILLED':
-        if(!sceneState.isAdding) {
-          return state;
-        }
-        newRecommendations = mergeRecommendations(
-          state.recommendations,
+        newState = recommendations_manager.merge(
+          sceneState,
           action.payload,
           'popular'
         );
-        return {
-          ...sceneState,
-          recommendations: newRecommendations
-        };
+        return newState;
   
       /**
        * A new page of the top rated movies has been loaded
        */
       case publicAPI.request.get_top_rated + '_FULFILLED':
-        newRecommendations = mergeRecommendations(
-          sceneState.recommendations,
+        newState = recommendations_manager.merge(
+          sceneState,
           action.payload,
           'top_rated'
         );
-        return {
-          ...sceneState,
-          recommendations: newRecommendations
-        };
+        return newState;
   
       /**
        * A search to the public API has been completed (used only in Adding Mode)

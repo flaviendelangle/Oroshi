@@ -30,19 +30,6 @@ export const setLayoutParameters = (scene, params) => {
   setValue(key, params);
 };
 
-export const mergeRecommendations = (recommendations, newData, type) => {
-  const oldData = recommendations.results.filter(el => el.type === type)[0];
-  newData.content = oldData.content.concat(newData.content);
-  const data = [
-    ...recommendations.results.filter(el => el.type !== type),
-    newData
-  ];
-  return {
-    ...recommendations,
-    results: data
-  };
-};
-
 export const mergeSearch = (oldData, newData) => {
   if(!oldData || newData.page === 1) {
     return newData;

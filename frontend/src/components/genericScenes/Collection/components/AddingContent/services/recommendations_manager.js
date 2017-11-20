@@ -61,3 +61,23 @@ export const remove = (state, newElement) => {
   };
 
 };
+
+export const merge = (state, newData, type) => {
+  const oldData = state.recommendations.results.find(el => el.type === type);
+  const otherData = state.recommendations.results.filter(el => el.type !== type);
+  
+  newData.content = oldData.content.concat(newData.content);
+  
+  const recommendations = {
+    ...state.recommendations,
+    results: [
+      ...otherData,
+      newData
+    ]
+  };
+  
+  return {
+    ...state,
+    recommendations
+  };
+};

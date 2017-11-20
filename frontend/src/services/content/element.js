@@ -6,16 +6,23 @@ class Element {
   local = null;
   distant = null;
   
-  constructor(data, isLocal) {
-    if(isLocal) {
-      this.setLocal(data);
-    } else {
-      this.setDistant(data);
-    }
+  constructor(localData, distantData) {
+    this.setLocal(localData);
+    this.setDistant(distantData);
   }
   
-  static fromDistantList(data, ChildClass) {
-    return data.map(el => new ChildClass(el, false));
+  static fromDistantList(data, collection, ChildClass) {
+    let { content, ...clearedCollection } = collection;
+    let elements = data.map(el => new ChildClass(el.local, el.distant));
+    elements.forEach(el => el.setCollection(clearedCollection));
+    return elements;
+  }
+  
+  static fromDistant(data, collection, ChildClass) {
+    let { content, ...clearedCollection } = collection;
+    let element = new ChildClass(data.local, data.distant);
+    element.setCollection(clearedCollection);
+    return element;
   }
   
   getLocal = () => {

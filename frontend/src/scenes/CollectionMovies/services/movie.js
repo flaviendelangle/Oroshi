@@ -5,15 +5,19 @@ class Movie extends Element {
   
   release_list = null;
   
-  constructor(data, isLocal) {
-    super(data, isLocal);
-    if(isLocal) {
+  constructor(localData, distantData) {
+    super(localData, distantData);
+    if(!!localData) {
       this.prepareStreamReleaseOption();
     }
   }
   
-  static fromDistantList(data) {
-    return super.fromDistantList(data, Movie);
+  static fromDistantList(data, collection) {
+    return super.fromDistantList(data, collection, Movie);
+  }
+  
+  static fromDistant(data, collection) {
+    return super.fromDistant(data, collection, Movie);
   }
   
   prepareStreamReleaseOption = () => {
