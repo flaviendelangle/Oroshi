@@ -1,20 +1,16 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import Paper from 'material-ui/Paper';
-import ContentAdd from 'material-ui/svg-icons/content/add';
-import ActionDone from 'material-ui/svg-icons/action/done';
 import NavigationExpandMore from 'material-ui/svg-icons/navigation/expand-more';
 import muiThemeable from 'material-ui/styles/muiThemeable';
 
 import Poster from './components/Poster';
-import Actions from './components/Actions';
-import Grade from 'components/generics/Grade';
+import ElementOverlay from 'components/generics/ElementOverlay';
 import Details from './components/Details';
 import { pickElement } from 'services/languages';
+import { addElement, removeElement } from 'services/actions/collections';
 
 import './style.css'
-import * as _style from './style';
-
 
 class TVShow extends Component {
   
@@ -40,15 +36,27 @@ class TVShow extends Component {
     return pickElement(this.props.data, 'posters', 'path', language);
   }
   
+  get note() {
+    if(this.props.creationMode) {
+      return this.props.data.vote_average;
+    }
+    return this.props.data.note;
+  }
+  
   handleMouseHover = mouseOver => {
     this.setState({mouseOver})
   };
   
   save = () => {
     if(!this.state.isAdding) {
-      this.props.onCreate(this.props.data);
+      this.props.create(this.props.data);
       this.setState({ isAdding: true });
     }
+  };
+  
+  destroy = () => {
+    const data = this.props.creationMode ? this.props.data.local : this.props.data;
+    this.props.destroy(this.props.collection, data);
   };
   
   showMore = () => {
@@ -80,12 +88,20 @@ class TVShow extends Component {
               onMouseEnter={() => this.handleMouseHover(true)}
               onMouseLeave={() => this.handleMouseHover(false)}
             >
-              <Poster path={this.posterPath} title={this.props.data.title} />
-              <Overlay
-                {...this.props}
+              <Poster path={this.posterPath} title={this.title} />
+              <ElementOverlay
+                note={this.note}
                 mouseOver={this.state.mouseOver}
+                creation_mode={this.props.creationMode}
+                already_in_collection={this.props.data.already_in_collection}
                 handleSave={this.save}
-                handleShowMore={this.showMore}
+                handleDestroy={this.destroy}
+                topRightAction={
+                    <DetailsIcon
+                      creationMode={this.props.creationMode}
+                      handleClick={this.showMore}
+                    />
+                }
               />
             </Paper>
           </div>
@@ -104,80 +120,21 @@ class TVShow extends Component {
   
 }
 
-const DetailsFrame = ({ show, ...props }) => {
-  if(show) {
+const DetailsIcon = ({ creationMode, handleClick }) => {
+  if(creationMode) {
+    return null;
+  }
+  return <NavigationExpandMore onClick={handleClick} />;
+};
+
+const DetailsFrame = ({ show, creationMode, ...props }) => {
+  if(!creationMode && show) {
     return (
       <Details {...props} />
     );
   }
   return null;
 };
-
-const Overlay = ({ mouseOver, creationMode, handleSave, handleShowMore, data, collection }) => {
-  if(mouseOver) {
-    let RealOverlay;
-    if(creationMode)
-      RealOverlay = OverlayCreationMode;
-    else
-      RealOverlay = OverlayDefaultMode;
-    
-    return (
-      <RealOverlay
-        handleSave={handleSave}
-        handleShowMore={handleShowMore}
-        data={data}
-        collection={collection}
-      />
-    );
-  }
-  return (null);
-};
-
-const OverlayCreationMode = ({ handleSave, data }) => {
-  if(data.already_in_collection) {
-    return (
-      <div className="overlay">
-        <div style={_style.creationIcon}>
-          <ActionDone
-            color="white"
-            className="add-icon"
-          />
-        </div>
-      </div>
-    );
-  }
-  return (
-    <div className="overlay">
-      <div style={_style.creationIcon}>
-        <ContentAdd
-          color="white"
-          className="add-icon"
-          onClick={handleSave}
-        />
-      </div>
-    </div>
-  )
-};
-
-const OverlayDefaultMode = ({ handleShowMore, data, collection }) => (
-  <div className="overlay">
-    <div className="expand" onClick={handleShowMore}>
-      <NavigationExpandMore />
-    </div>
-    <Link to={'/tv_shows/' + data.tmdbId + '/'}>
-      <div className="overlay-main">
-        <Grade
-          value={data.note}
-          style={_style.grade}
-        />
-      </div>
-    </Link>
-    <Actions
-      data={data}
-      collection={collection}
-    />
-  </div>
-);
 
 const Footer = ({ muiTheme, title }) => (
   <div
@@ -188,4 +145,21 @@ const Footer = ({ muiTheme, title }) => (
   </div>
 );
 
-export default muiThemeable()(TVShow);
+const mapStateToProps = state => {
+  return {
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    create: data => dispatch(addElement('tv_shows', data)),
+    destroy: (collection, data) => {
+      dispatch(removeElement('tv_shows', collection, data))
+    },
+  }
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(muiThemeable()(TVShow));

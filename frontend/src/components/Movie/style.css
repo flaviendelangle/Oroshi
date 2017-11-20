@@ -31,13 +31,3 @@
 .movie img {
     margin-bottom: -4px;
 }
-
-.movie .overlay-main {
-    height: calc(100% - 2em);
-}
-
-.movie .add-icon {
-    height: 80% !important;
-    width: 80% !important;
-    margin: 10% !important;
-}
