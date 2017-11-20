@@ -4,7 +4,7 @@ import ScrollArea from 'react-scrollbar';
 import IconButton from 'material-ui/IconButton';
 import NavigationMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz';
 
-import ElementLine, { groupByLine } from 'components/generics/ElementLine';
+import ElementLine, { groupByLine } from 'components/generics/ElementLine/index';
 
 import * as _style from './style';
 import './style.css'

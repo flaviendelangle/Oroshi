@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import DocumentTitle from 'react-document-title';
 import ActionSettings from 'material-ui/svg-icons/action/settings';
 
-import { getCollectionState } from 'containers/reducer';
 import Search from './components/Search/index';
 import OrderMenu from './components/OrderMenu/index';
 import HeaderOriginal from 'components/Header/index';
@@ -18,6 +17,9 @@ class Header extends Component {
   }
   
   render() {
+    if(!this.props.loaded) {
+      return null;
+    }
     return (
       <div>
         <DocumentTitle title={this.props.title || 'Loading...'}/>
@@ -32,6 +34,7 @@ class Header extends Component {
             <Search
               title={this.props.title}
               scene={this.props.scene}
+              query={this.props.query}
             />
           </div>
           <div className="actions">
@@ -45,10 +48,27 @@ class Header extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const root = getCollectionState(state, ownProps.scene).header.main;
+  const contentRoot = state.collections.content[ownProps.scene];
+  const headerRoot = state.collections.header[ownProps.scene];
+  
+  if(!headerRoot) {
+    return {
+      loaded: false
+    };
+  }
+  const layout = contentRoot.layout;
+  let count;
+  if(layout === 'stream') {
+    count = contentRoot.stream.getElementCount();
+  } else {
+    count = contentRoot.toShow.getElementCount();
+  }
   return {
-    collection: root.collection,
-    title: root.title
+    loaded: true,
+    collection: headerRoot.collection,
+    title: headerRoot.title,
+    query: headerRoot.query,
+    count
   }
 };
 

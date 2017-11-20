@@ -20,3 +20,5 @@ export const addSeenToElements = (elements, seen) => {
     };
   });
 };
+
+export const exportFields = ['tmdbId', 'title', 'note'];

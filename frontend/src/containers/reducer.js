@@ -7,7 +7,7 @@ import header from 'components/Header/reducer';
 import home from 'scenes/Home/reducer';
 import movie from 'scenes/Movie/reducer';
 import tv_shows from 'components/TVShow/reducer';
-import collection from 'components/genericScenes/Collection/reducer';
+import collections from 'components/genericScenes/Collection/reducer';
 import collectionSettings from 'components/genericScenes/CollectionSettings/reducer';
 
 import { notify } from 'services/titles/router';
@@ -51,8 +51,7 @@ const appReducer = combineReducers({
   tv_shows,
   
   // Scenes
-  collection_movies: collection('movies'),
-  collection_tv_shows: collection('tv_shows'),
+  collections: collections,
   collection_movies_settings: collectionSettings('movies'),
   collection_tv_shows_settings: collectionSettings('tv_shows'),
   home,
@@ -83,7 +82,12 @@ export const getCollectionSettingsState = (state, scene) => {
 };
 
 export const getCollectionState = (state, scene) => {
-  return state['collection_' + scene];
+  console.log(state);
+  return state.collections.main[scene];
+};
+
+export const getCollectionContentState = (state, scene) => {
+  return state.collections.content[scene];
 };
 
 const composeStoreWithMiddleware = applyMiddleware(

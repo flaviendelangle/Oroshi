@@ -4,7 +4,7 @@ import CircularProgress from 'material-ui/CircularProgress';
 
 import Grid from 'components/generics/Grid/index'
 import Stream from 'components/generics/Stream/index'
-import Help from './components/Help/index'
+import { getCollectionState } from 'containers/reducer';
 
 const progressStyle = {
   width: 40,
@@ -27,39 +27,13 @@ const containerStyle = {
   height: '100%'
 };
 
-class CollectionContent extends Component {
+class AddingContent extends Component {
   
   state = {
     query: '',
   };
   
-  renderIsNotAdding = () => {
-    if(this.props.layout === 'grid') {
-      return (
-        <Grid
-          data={this.props.toShow}
-          collection={this.props.collection}
-          order={this.props.order.default}
-          scene={this.props.scene}
-          elementComponent={this.props.elementComponent}
-          lineDimensions={this.props.lineDimensions}
-        />
-      )
-    }
-    else if(this.props.layout === 'stream') {
-      return (
-        <Stream
-          data={this.props.stream}
-          collection={this.props.collection}
-          scene={this.props.scene}
-          elementComponent={this.props.elementComponent}
-          lineDimensions={this.props.lineDimensions}
-        />
-      )
-    }
-  };
-  
-  renderIsAdding = () => {
+  renderContent = () => {
     if(this.props.addingSearch) {
       return (
         <Grid
@@ -85,13 +59,6 @@ class CollectionContent extends Component {
     )
   };
   
-  renderContent = () => {
-    if(this.props.isAdding) {
-      return this.renderIsAdding();
-    }
-    return this.renderIsNotAdding();
-  };
-  
   render() {
     if(!this.props.loaded) {
       return (
@@ -99,12 +66,6 @@ class CollectionContent extends Component {
           <CircularProgress />
         </div>
       );
-    }
-    else if(!this.props.found) {
-      return (<div>Not found</div>)
-    }
-    else if(this.props.content.length === 0 && !this.props.isAdding) {
-      return (<Help/>)
     }
     else {
       return (
@@ -120,23 +81,12 @@ class CollectionContent extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const root = state.collections.content[ownProps.scene];
-  if(!root) {
-    return {
-      loaded: false
-    };
-  }
-
+  const root = getCollectionState(state, ownProps.scene).main;
+  
   return {
     update: root.update,
-    content: root.content,
-    toShow: root.toShow,
-    stream: root.stream,
     collection: root.collection,
-    found: root.found,
     loaded: root.loaded,
-    layout: root.layout,
-    order: root.order,
     
     recommendations: root.recommendations,
     addingSearch: root.addingSearch,
@@ -153,4 +103,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(CollectionContent);
+)(AddingContent);

@@ -5,7 +5,6 @@ import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
 import ContentSort from 'material-ui/svg-icons/content/sort';
 
-import { getCollectionState } from 'containers/reducer';
 import { sort } from 'components/genericScenes/Collection/components/CollectionContent/actions';
 
 import * as _style from './style';
@@ -128,7 +127,11 @@ const DefaultMenuTVShows = ({ sort }) => (
 );
 
 const mapStateToProps = (state, ownProps) => {
-  const root = getCollectionState(state, ownProps.scene).main;
+  const root = state.collections.main[ownProps.scene];
+  if(!root) {
+    return {
+    }
+  }
   return {
     layout: root.layout,
     isAdding: root.isAdding

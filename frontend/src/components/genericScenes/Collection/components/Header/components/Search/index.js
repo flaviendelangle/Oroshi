@@ -2,9 +2,9 @@ import React, {Component} from 'react'
 import { connect } from 'react-redux'
 import SearchBar from 'material-ui-search-bar'
 
-import { getCollectionState } from 'containers/reducer';
 import { update } from './actions'
-import { search } from 'services/actions/publicAPI'
+import { search, getRecommendations } from 'services/actions/publicAPI'
+
 
 import './style.css'
 
@@ -55,20 +55,8 @@ class Search extends Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
-  const root = getCollectionState(state, ownProps.scene);
-  const layout = root.main.layout;
-  let count;
-  if(layout === 'stream') {
-    count = root.main.stream.getElementCount();
-  } else {
-    count = root.main.toShow.getElementCount();
-  }
+const mapStateToProps = state => {
   return {
-    query: root.header.search.query,
-    isAdding: root.main.isAdding,
-    collection: root.main.collection,
-    count
   };
 };
 
@@ -77,7 +65,11 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     filter: (query, forced, isAdding, collection) => {
       dispatch(update(ownProps.scene, query));
       if(isAdding && forced) {
-        dispatch(search(ownProps.scene, collection, query));
+        if(query === '') {
+          dispatch(getRecommendations(ownProps.scene, collection));
+        } else {
+          dispatch(search(ownProps.scene, collection, query));
+        }
       }
     }
   }

@@ -1,4 +1,4 @@
-import { sortElements } from './utils';
+import { sortElements } from '../../../services/utils';
 
 export const add = (content, newElement, order) => {
   let newContent = content.concat([newElement]);

@@ -9,7 +9,7 @@ import './style.css'
 class ElementOverlay extends Component {
   
   render() {
-    if(!this.props.mouseOver && false) {
+    if(!this.props.mouseOver) {
       return null;
     }
     return (

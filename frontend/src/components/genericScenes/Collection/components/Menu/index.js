@@ -7,11 +7,9 @@ import ActionViewList from 'material-ui/svg-icons/action/view-list'
 import ActionViewModule from 'material-ui/svg-icons/action/view-module'
 import ActionViewStream from 'material-ui/svg-icons/action/view-stream'
 
-import { getCollectionState } from 'containers/reducer';
 import { switchAddingMode } from '../../actions'
 import { switchLayout } from '../CollectionContent/actions'
 import { getRecommendations } from 'services/actions/publicAPI'
-
 
 const addStyle = {
   position: 'fixed',
@@ -75,10 +73,16 @@ class Menu extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const root = getCollectionState(state, ownProps.scene).main;
+  const root = state.collections.main[ownProps.scene];
+  const contentRoot = state.collections.content[ownProps.scene];
+  if(!root || !contentRoot) {
+    return {
+      isAdding: false
+    };
+  }
   return {
     isAdding: root.isAdding,
-    collection: root.collection
+    collection: contentRoot.collection
   }
 };
 

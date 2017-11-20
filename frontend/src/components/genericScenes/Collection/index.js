@@ -3,9 +3,11 @@ import { connect } from 'react-redux'
 
 import Header from './components/Header'
 import CollectionContent from './components/CollectionContent'
+import AddingContent from './components/AddingContent';
 import Menu from './components/Menu'
 
 import { get as getCollection } from 'services/actions/collections'
+import { getCollectionState } from 'containers/reducer';
 
 class CollectionScene extends Component {
   
@@ -19,11 +21,7 @@ class CollectionScene extends Component {
         <Header
           scene={this.props.scene}
         />
-        <CollectionContent
-          elementComponent={this.props.config.elementComponent}
-          listColumns={this.props.config.listColumns}
-          scene={this.props.scene}
-        />
+        <Content {...this.props} />
         <Menu
           scene={this.props.scene}
         />
@@ -34,8 +32,33 @@ class CollectionScene extends Component {
   
 }
 
-const mapStateToProps = state => {
-  return {}
+const Content = ({ config, scene, isAdding }) => {
+  if(isAdding) {
+    return (
+      <AddingContent
+        scene={scene}
+        elementComponent={config.elementComponent}
+      />
+    );
+  }
+  return (
+    <CollectionContent
+      elementComponent={config.elementComponent}
+      scene={scene}
+    />
+  );
+};
+
+const mapStateToProps = (state, ownProps) => {
+  const root = getCollectionState(state, ownProps.scene);
+  if(!root) {
+    return {
+      isAdding: false
+    };
+  }
+  return {
+    isAdding: root.isAdding,
+  }
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
