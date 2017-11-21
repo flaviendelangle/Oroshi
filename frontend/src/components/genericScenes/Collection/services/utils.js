@@ -9,9 +9,9 @@ export const sortElements = (elements, params) => {
     const valueA = a.getValue(field);
     const valueB = b.getValue(field);
     
-    if(valueA > valueB)
+    if (valueA > valueB)
       comparison = mul;
-    else if(valueA < valueB)
+    else if (valueA < valueB)
       comparison = -1 * mul;
     return comparison;
   });
@@ -31,7 +31,7 @@ export const setLayoutParameters = (scene, params) => {
 };
 
 export const mergeSearch = (oldData, newData) => {
-  if(!oldData || newData.page === 1) {
+  if (!oldData || newData.page === 1) {
     return newData;
   }
   return {

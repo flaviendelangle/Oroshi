@@ -5,14 +5,13 @@
  * @returns state
  */
 export const add = (state, newElement) => {
-  if(!state.addingSearch) {
+  if (!state.addingSearch) {
     return state;
   }
   
   const results = state.addingSearch.results.map(el => {
-    if(el.id === newElement.tmdbId) {
-      el.already_in_collection = true;
-      el.local = newElement;
+    if (el.getPublicId() === newElement.getPublicId()) {
+      return newElement;
     }
     return el;
   });
@@ -29,13 +28,13 @@ export const add = (state, newElement) => {
 };
 
 export const remove = (state, newElement) => {
-  if(!state.addingSearch) {
+  if (!state.addingSearch) {
     return state;
   }
   
   const results = state.addingSearch.results.map(el => {
-    if(el.id === newElement.tmdbId) {
-      el.already_in_collection = false;
+    if (el.getPublicId() === newElement.getPublicId()) {
+      return newElement;
     }
     return el;
   });

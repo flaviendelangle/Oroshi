@@ -27,7 +27,7 @@ class Grid extends Component {
   
   get elements() {
     let elements = this.props.data.results;
-    if(elements.length > this.amountToShow) {
+    if (elements.length > this.amountToShow) {
       elements = elements.slice(0, this.amountToShow);
     }
     return groupByLine(elements, this.props.lineDimensions);
@@ -39,7 +39,7 @@ class Grid extends Component {
   }
   
   showMore = () => {
-    if(this.props.data.next) {
+    if (this.props.data.next) {
       this.props.loadMore(this.props.data.next);
     }
     this.setState({pages: (++this.state.pages)});
@@ -82,7 +82,7 @@ class Grid extends Component {
 }
 
 const ShowMore = ({ isAllShown, showMore }) => {
-  if(isAllShown) {
+  if (isAllShown) {
     return null;
   }
   return (

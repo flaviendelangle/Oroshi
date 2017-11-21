@@ -42,7 +42,7 @@ export const getTopRated = (scene, collection, page) => {
 
 export const checkExistence = (scene, collection, elements, fromLocalAPI=false) => {
   // TODO : Find how the fromLocalAPI works and fix it
-  if(fromLocalAPI) {
+  if (fromLocalAPI) {
     elements.results = elements.results.map(el => {
       return {
         ...el,
@@ -53,9 +53,11 @@ export const checkExistence = (scene, collection, elements, fromLocalAPI=false) 
   
   const clean = distant => {
     const local = existOnServer.find(el => el.tmdbId === distant.id);
+    const in_collection = existInCollection[distant.id];
     return {
       distant,
-      local
+      local,
+      in_collection
     }
   };
   
@@ -90,7 +92,7 @@ export const getDetails = (scene, collection, tmdbId) => {
 
   return getPublicAPI(scene).details(tmdbId, options)
     .then(response => {
-      if(response.images.posters.length > 0) {
+      if (response.images.posters.length > 0) {
         details.posters.push({
           language: DEFAULT_LANGUAGE,
           path: response.images.posters[0].file_path
@@ -116,7 +118,7 @@ export const getPoster = (scene, tmdbId, language) => {
   };
   return getPublicAPI(scene).images(tmdbId, options)
     .then(response => {
-      if(response.posters.length > 0) {
+      if (response.posters.length > 0) {
         return response.posters[0].file_path;
       }
       return null;
@@ -137,7 +139,7 @@ const getMissingData = (scene, tmdbId, collection, details) => {
   const languages = getTmdbLanguages(collection, details.original_language);
   let promise =  Promise.resolve();
   
-  if(languages.title !== DEFAULT_LANGUAGE ) {
+  if (languages.title !== DEFAULT_LANGUAGE ) {
     promise = promise
       .then(() => getTitle(scene, tmdbId, languages.title))
       .then(title => {
@@ -147,11 +149,11 @@ const getMissingData = (scene, tmdbId, collection, details) => {
         });
       });
   }
-  if(languages.poster !== DEFAULT_LANGUAGE) {
+  if (languages.poster !== DEFAULT_LANGUAGE) {
     promise = promise
       .then(() => getPoster(scene, tmdbId, languages.poster))
       .then(poster => {
-        if(poster) {
+        if (poster) {
           details.posters.push({
             language: languages.poster,
             path: poster
@@ -197,7 +199,7 @@ const prepareStreamResults = (scene, collection, elements, nextAction) => {
   return checkExistence(scene, collection, elements.content).then(response => {
     const Element = getModule(scene).elementClass;
     let next = null;
-    if(elements.content.page < elements.content.total_pages) {
+    if (elements.content.page < elements.content.total_pages) {
       next = nextAction.bind(this, scene, collection, elements.content.page+1);
     }
     console.log(response);
@@ -212,7 +214,7 @@ const prepareStreamResults = (scene, collection, elements, nextAction) => {
 const prepareSearchResults = (scene, collection, elements, query) => {
   return checkExistence(scene, collection, elements).then(response => {
     let next = null;
-    if(elements.page < elements.total_pages) {
+    if (elements.page < elements.total_pages) {
       next = searchOriginal.bind(this, scene, collection, query, elements.page+1);
     }
     return {

@@ -13,13 +13,13 @@ class ContentImporter extends Component {
   
   constructor(props) {
     super(props);
-    if(props.contentToImport) {
+    if (props.contentToImport) {
       this.elements = props.contentToImport;
     }
   }
   
   componentWillReceiveProps(newProps) {
-    if(!this.props.contentToImport && newProps.contentToImport) {
+    if (!this.props.contentToImport && newProps.contentToImport) {
       this.props.importContent(newProps.contentToImport);
       this.elements = newProps.contentToImport;
     }

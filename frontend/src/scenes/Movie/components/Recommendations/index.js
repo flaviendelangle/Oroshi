@@ -82,7 +82,7 @@ class Recommendations extends Component {
   };
   
   renderRecommendations = () => {
-    if(!this.props.movies.results) {
+    if (!this.props.movies.results) {
       return (null);
     }
     return this.props.movies.results.map(el => {

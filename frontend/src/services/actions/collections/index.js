@@ -55,7 +55,7 @@ export const create = (scene, data, elementsToImport)  => {
   };
   
   let promise;
-  if(elementsToImport) {
+  if (elementsToImport) {
     promise = _import()
   }
   else {
@@ -84,8 +84,10 @@ export const get = (scene, pk) => {
       })
       .catch(error => {
         error = error.toString();
-        if(error === 'Error: Not Found') {
+        if (error === 'Error: Not Found') {
           return undefined;
+        } else {
+          console.error(error);
         }
       }),
     meta: {
@@ -118,7 +120,7 @@ export const update = (scene, pk, data) => {
 export const addElement = (scene, collection, element) => {
   return {
     type: titles.collections.add,
-    payload: getModule(scene).addElement(scene, collection, element).then(response => console.log(response)),
+    payload: getModule(scene).addElement(scene, collection, element),
     meta: {
       scene
     }
@@ -135,11 +137,14 @@ export const updateElement = (scene, collection, id, data) => {
   }
 };
 
-export const removeElement = (scene, collection, data) => {
+export const removeElement = (scene, collection, element) => {
   const api = getCollectionAPI(scene).element(collection.pk)[scene];
   return {
     type: titles.collections.remove,
-    payload: api.destroy(data.pk),
+    payload: api.destroy(element.getID()).then(response => {
+      element.setInCollection(false);
+      return element;
+    }),
     meta: {
       scene
     }
@@ -164,14 +169,14 @@ export const importCSV = (scene, file) => {
 export const importElements = (scene, collection, elements, dispatch) => {
   
   const _importElement = (scene, elements, index, dispatch) => {
-    if(elements.length <= index) {
+    if (elements.length <= index) {
       dispatch({
         type: titles.collectionContent.import + '_FULFILLED'
       });
       return true;
     }
     const element = elements[index];
-    if(element.already_in_collection) {
+    if (element.already_in_collection) {
       const result = {
         ...element.local,
         collection
@@ -250,7 +255,7 @@ const getDataToExport = (scene, pk) => {
     const content = collection.content.map(el => {
       let data = {};
       fields.forEach(field => {
-        if(field === 'title') {
+        if (field === 'title') {
           data[field] = pickElement(el, 'titles', 'title', collection.title_language);
         }
         else {

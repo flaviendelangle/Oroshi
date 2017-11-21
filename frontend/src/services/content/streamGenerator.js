@@ -12,7 +12,7 @@ class StreamGenerator {
   }
   
   build = () => {
-    if(this.prepareData) {
+    if (this.prepareData) {
       this.prepareData();
     }
     this.buildKeys();
@@ -31,7 +31,7 @@ class StreamGenerator {
       el.getValue(this.key.field).forEach(value => {
         const pk = value.pk;
         const label = value[this.labelField].toUpperCase();
-        if(!this.keys[pk] && label.includes(this.query)) {
+        if (!this.keys[pk] && label.includes(this.query)) {
           this.keys[pk] = value;
         }
       });
@@ -59,7 +59,7 @@ class StreamGenerator {
       let comparison = 0;
       const mul = this.direction === 'asc' ? 1 : -1;
       let valueA, valueB;
-      if(this.key.field === 'release') {
+      if (this.key.field === 'release') {
         valueA = a.key.pk;
         valueB = b.key.pk;
       } else {
@@ -67,9 +67,9 @@ class StreamGenerator {
         valueB = b.content.length;
       }
       
-      if(valueA > valueB)
+      if (valueA > valueB)
         comparison = mul;
-      else if(valueA < valueB)
+      else if (valueA < valueB)
         comparison = -1 * mul;
       return comparison;
     });

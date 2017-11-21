@@ -52,7 +52,7 @@ class DialogCreateCollection extends Component {
   
   create = () => {
     let { type, data, elementsToImport } = this.child.submit();
-    if(elementsToImport) {
+    if (elementsToImport) {
       elementsToImport = elementsToImport.then(data => {
         this.setState({
           importerMode: type,
@@ -68,7 +68,7 @@ class DialogCreateCollection extends Component {
   };
 
   nextStep = () => {
-    if(this.state.stepIndex === 2) {
+    if (this.state.stepIndex === 2) {
       this.props.submitConfiguration();
     } else {
       this.setState({ stepIndex: ++this.state.stepIndex });
@@ -81,14 +81,14 @@ class DialogCreateCollection extends Component {
   
   renderActions = () => {
     const actions = [];
-    if(this.state.stepIndex > 0) {
+    if (this.state.stepIndex > 0) {
       actions.push(this.actions.back);
     }
-    if(!this.props.isImportingContent) {
+    if (!this.props.isImportingContent) {
       actions.push(this.actions.close);
     }
-    if(!this.state.importerMode) {
-      if(this.state.stepIndex < 3) {
+    if (!this.state.importerMode) {
+      if (this.state.stepIndex < 3) {
         actions.push(this.actions.next);
       } else {
         actions.push(this.actions.save);
@@ -98,7 +98,7 @@ class DialogCreateCollection extends Component {
   };
   
   renderContent = () => {
-    if(!this.state.importerMode) {
+    if (!this.state.importerMode) {
       return (
         <div>
           <CollectionStepper stepIndex={this.state.stepIndex} />

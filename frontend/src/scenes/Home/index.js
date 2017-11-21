@@ -22,13 +22,13 @@ class Home extends Component {
   }
   
   render() {
-    if(!this.props.loaded) {
+    if (!this.props.loaded) {
       return (
         <div style={_style.progress}>
           <CircularProgress />
         </div>
       );
-    } else if(this.props.collections.length === 0) {
+    } else if (this.props.collections.length === 0) {
       return (
         <div>
           <div style={_style.container}>

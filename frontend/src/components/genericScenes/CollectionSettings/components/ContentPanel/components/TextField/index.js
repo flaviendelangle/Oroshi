@@ -15,7 +15,7 @@ class TextField extends Component {
   switchMode = () => {
     const editing = !this.state.editing;
     this.setState({ editing });
-    if(!editing) {
+    if (!editing) {
       this.props.onSave();
     }
   };
@@ -40,7 +40,7 @@ class TextField extends Component {
 }
 
 const Icon = ({ editing, handleClick }) => {
-  if(editing) {
+  if (editing) {
     return <ContentSave onClick={handleClick}/>;
   }
   return <EditorModeEdit onClick={handleClick}/>;

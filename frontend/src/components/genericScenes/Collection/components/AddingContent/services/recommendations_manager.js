@@ -5,7 +5,7 @@
  * @returns state
  */
 export const add = (state, newElement) => {
-  if(!state.recommendations) {
+  if (!state.recommendations) {
     return state;
   }
   
@@ -13,9 +13,8 @@ export const add = (state, newElement) => {
     return {
       ...section,
       content: section.content.map(el => {
-        if(el.id === newElement.tmdbId) {
-          el.already_in_collection = true;
-          el.local = newElement;
+        if (el.getPublicId() === newElement.getPublicId()) {
+          return newElement;
         }
         return el;
       })
@@ -34,7 +33,7 @@ export const add = (state, newElement) => {
 };
 
 export const remove = (state, newElement) => {
-  if(!state.recommendations) {
+  if (!state.recommendations) {
     return state;
   }
   
@@ -42,8 +41,8 @@ export const remove = (state, newElement) => {
     return {
       ...section,
       content: section.content.map(el => {
-        if(el.id === newElement.tmdbId) {
-          el.already_in_collection = false;
+        if (el.getPublicId() === newElement.getPublicId()) {
+          return newElement;
         }
         return el;
       })

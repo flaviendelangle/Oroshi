@@ -5,9 +5,9 @@ export const sortElements = (elements, params) => {
     let comparison = 0;
     const key = params.field;
     const mul = params.direction === 'asc' ? 1 : -1;
-    if(a[key] > b[key])
+    if (a[key] > b[key])
       comparison = mul;
-    else if(a[key] < b[key])
+    else if (a[key] < b[key])
       comparison = -1 * mul;
     return comparison;
   });

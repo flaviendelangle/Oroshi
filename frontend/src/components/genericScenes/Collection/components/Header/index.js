@@ -17,7 +17,7 @@ class Header extends Component {
   }
   
   render() {
-    if(!this.props.loaded) {
+    if (!this.props.loaded || !this.props.found) {
       return null;
     }
     return (
@@ -55,14 +55,14 @@ const mapStateToProps = (state, ownProps) => {
   const headerRoot = state.collections.header[ownProps.scene];
   const root = state.collections.main[ownProps.scene];
   
-  if(!headerRoot) {
+  if (!headerRoot) {
     return {
       loaded: false
     };
   }
   const layout = contentRoot.layout;
   let count;
-  if(layout === 'stream') {
+  if (layout === 'stream') {
     count = contentRoot.stream.getElementCount();
   } else {
     count = contentRoot.toShow.getElementCount();

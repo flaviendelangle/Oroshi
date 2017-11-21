@@ -8,7 +8,7 @@ const Poster = ({ path, title }) => {
   
   const url = _path + '/w185' + path;
   
-  if(path) {
+  if (path) {
     return (
       <img src={url} alt="Poster" />
     );

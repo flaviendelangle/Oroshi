@@ -45,10 +45,10 @@ class Section extends Component {
   
   get elements() {
     let elements = this.props.data.content;
-    if(!this.state.full && elements.length > this.props.lineDimensions.elementsPerLine) {
+    if (!this.state.full && elements.length > this.props.lineDimensions.elementsPerLine) {
       elements = elements.slice(0,this.props.lineDimensions.elementsPerLine);
     }
-    else if(elements.length > this.amountToShow) {
+    else if (elements.length > this.amountToShow) {
       elements = elements.slice(0, this.amountToShow);
     }
     return groupByLine(elements, this.props.lineDimensions);
@@ -65,14 +65,14 @@ class Section extends Component {
   };
   
   showMore = () => {
-    if(this.props.data.next) {
+    if (this.props.data.next) {
       this.props.loadMore(this.props.data.next);
     }
     this.setState({pages: (++this.state.pages)});
   };
   
   renderLink = () => {
-    if(this.props.data.hasOwnProperty('link') && !this.props.data.link) {
+    if (this.props.data.hasOwnProperty('link') && !this.props.data.link) {
       return (
         <span style={{color: this.props.muiTheme.palette.titleColor}}>
           {this.title}
@@ -108,10 +108,10 @@ class Section extends Component {
   };
   
   renderShowMore = () => {
-    if(!this.state.full) {
+    if (!this.state.full) {
       return null;
     }
-    else if(this.isAllShown) {
+    else if (this.isAllShown) {
       return null;
     }
     return (

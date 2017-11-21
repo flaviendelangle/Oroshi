@@ -34,7 +34,7 @@ class CollectionContent extends Component {
   };
   
   renderIsNotAdding = () => {
-    if(this.props.layout === 'grid') {
+    if (this.props.layout === 'grid') {
       return (
         <Grid
           data={this.props.toShow}
@@ -46,7 +46,7 @@ class CollectionContent extends Component {
         />
       )
     }
-    else if(this.props.layout === 'stream') {
+    else if (this.props.layout === 'stream') {
       return (
         <Stream
           data={this.props.stream}
@@ -60,7 +60,7 @@ class CollectionContent extends Component {
   };
   
   renderIsAdding = () => {
-    if(this.props.addingSearch) {
+    if (this.props.addingSearch) {
       return (
         <Grid
           data={this.props.addingSearch}
@@ -86,24 +86,24 @@ class CollectionContent extends Component {
   };
   
   renderContent = () => {
-    if(this.props.isAdding) {
+    if (this.props.isAdding) {
       return this.renderIsAdding();
     }
     return this.renderIsNotAdding();
   };
   
   render() {
-    if(!this.props.loaded) {
+    if (!this.props.loaded) {
       return (
         <div style={progressStyle}>
           <CircularProgress />
         </div>
       );
     }
-    else if(!this.props.found) {
+    else if (!this.props.found) {
       return (<div>Not found</div>)
     }
-    else if(this.props.content.length === 0 && !this.props.isAdding) {
+    else if (this.props.content.length === 0 && !this.props.isAdding) {
       return (<Help/>)
     }
     else {
@@ -121,7 +121,7 @@ class CollectionContent extends Component {
 
 const mapStateToProps = (state, ownProps) => {
   const root = state.collections.content[ownProps.scene];
-  if(!root) {
+  if (!root) {
     return {
       loaded: false
     };

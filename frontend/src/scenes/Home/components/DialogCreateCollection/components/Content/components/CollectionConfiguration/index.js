@@ -40,7 +40,7 @@ class CollectionConfiguration extends Component {
   renderFileInput = () => {
 
     const params = this.props.collectionSource;
-    if(params.source === 'external' && params.external === 'csv_file') {
+    if (params.source === 'external' && params.external === 'csv_file') {
       return (
         <div>
           <Field name="csv" component='input' type="hidden" ref="file_input"/>

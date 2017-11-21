@@ -2,7 +2,7 @@ const localStorageKey = 'application_settings';
 
 const getLocalStorage = () => {
   const rawData = localStorage.getItem(localStorageKey);
-  if(!rawData) {
+  if (!rawData) {
     return {};
   }
   try {

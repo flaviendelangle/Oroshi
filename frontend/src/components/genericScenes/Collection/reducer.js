@@ -15,12 +15,12 @@ const defaultElementState = {
 
 const main = (state = defaultState, action) => {
   
-  if(!action.meta || !action.meta.scene) {
+  if (!action.meta || !action.meta.scene) {
     return state;
   }
   const scene = action.meta.scene;
   
-  if(!state[scene]) {
+  if (!state[scene]) {
     state = {
       ...state,
       [scene]: defaultElementState

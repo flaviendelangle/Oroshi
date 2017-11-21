@@ -47,7 +47,7 @@ class CollectionSource extends Component {
   };
   
   componentDidMount() {
-    if(this.props.initialValues.hasOwnProperty('source')) {
+    if (this.props.initialValues.hasOwnProperty('source')) {
       this.setState(this.props.initialValues);
     } else {
       this.handleOnChange();

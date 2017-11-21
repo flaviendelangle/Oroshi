@@ -14,14 +14,14 @@ const reducerBuilder = _scene => {
   
   const main = (scene, state = defaultState, action) => {
 
-    if(action.meta && action.meta.scene && action.meta.scene !== scene) {
+    if (action.meta && action.meta.scene && action.meta.scene !== scene) {
       return state;
     }
     
     switch(action.type) {
   
       case collectionContent.loadSettings + '_FULFILLED':
-        if(!action.payload) {
+        if (!action.payload) {
           return state;
         }
         return {

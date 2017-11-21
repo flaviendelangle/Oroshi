@@ -129,7 +129,7 @@ class DataImporter extends Component {
   };
   
   renderElementsList = () => {
-    if(!this.state.elements) {
+    if (!this.state.elements) {
       return null;
     }
     return (
@@ -148,7 +148,7 @@ class DataImporter extends Component {
   };
   
   componentWillReceiveProps(newProps) {
-    if(!this.props.importFromFile && newProps.importFromFile) {
+    if (!this.props.importFromFile && newProps.importFromFile) {
       this.props.importContent(newProps.data, newProps.importFromFile.data);
       this.setState({ elements: newProps.importFromFile.data });
     }

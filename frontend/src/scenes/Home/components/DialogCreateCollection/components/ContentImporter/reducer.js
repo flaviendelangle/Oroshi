@@ -14,7 +14,7 @@ const contentImporterReducer = (state = defaultState, action) => {
   switch(action.type) {
     
     case collectionContent.create + '_FULFILLED':
-      if(!action.payload.importContent) {
+      if (!action.payload.importContent) {
         return state;
       }
       const data = action.payload.elements;
@@ -27,7 +27,7 @@ const contentImporterReducer = (state = defaultState, action) => {
     case collections.add:
       const keysNumber = state.keysNumber + 1;
       let progress = 0;
-      if(state.elementNumber > 0) {
+      if (state.elementNumber > 0) {
         progress = keysNumber / state.elementNumber * 100;
       }
       return state;

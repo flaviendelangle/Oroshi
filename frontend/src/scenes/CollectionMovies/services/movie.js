@@ -3,12 +3,10 @@ import { date } from 'services/utils';
 
 class Movie extends Element {
   
-  release_list = null;
-  
   constructor(localData, distantData) {
     super(localData, distantData);
-    if(!!localData) {
-      this.prepareStreamReleaseOption();
+    if (localData) {
+      this.prepareLocalOptions();
     }
   }
   
@@ -20,12 +18,18 @@ class Movie extends Element {
     return super.fromDistant(data, collection, Movie);
   }
   
-  prepareStreamReleaseOption = () => {
+  prepareLocalOptions = () => {
     const release = this.getReleaseDate();
     this.release_list = [{
       name: String(release),
       pk: release
-    }]
+    }];
+  };
+  
+  setLocal = newLocal => {
+    const results = super.setLocal(newLocal);
+    this.prepareLocalOptions();
+    return results;
   };
   
   getValue = field => {
@@ -48,12 +52,12 @@ class Movie extends Element {
   };
   
   getReleaseDate = () => {
-    if(this.hasDistant()) {
+    if (this.hasDistant()) {
       const rawDate = this.getDistant().release_date;
       return date(rawDate, date.TMDB_FORMAT, date.YEAR_FORMAT);
     }
     const release = this.getLocal().release;
-    if(Array.isArray(release)) {
+    if (Array.isArray(release)) {
       return parseInt(release[0].name, 10);
     }
     return release;

@@ -33,7 +33,7 @@ class AddingContent extends Component {
   };
   
   renderContent = () => {
-    if(this.props.addingSearch) {
+    if (this.props.addingSearch) {
       return (
         <Grid
           data={this.props.addingSearch}
@@ -58,7 +58,7 @@ class AddingContent extends Component {
   };
   
   render() {
-    if(!this.props.loaded) {
+    if (!this.props.loaded) {
       return (
         <div style={progressStyle}>
           <CircularProgress />

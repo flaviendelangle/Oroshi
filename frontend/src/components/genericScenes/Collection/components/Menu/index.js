@@ -26,7 +26,7 @@ const layoutStyle = {
 class Menu extends Component {
   
   renderLayout = () => {
-    if(this.props.isAdding) {
+    if (this.props.isAdding) {
       return null;
     }
     return (
@@ -48,7 +48,7 @@ class Menu extends Component {
   };
   
   renderAddingIcon = () => {
-    if(this.props.isAdding) {
+    if (this.props.isAdding) {
       return (<ActionDoneAll/>);
     }
     return (<ContentAdd/>);
@@ -75,7 +75,7 @@ class Menu extends Component {
 const mapStateToProps = (state, ownProps) => {
   const root = state.collections.main[ownProps.scene];
   const contentRoot = state.collections.content[ownProps.scene];
-  if(!root || !contentRoot) {
+  if (!root || !contentRoot) {
     return {
       isAdding: false
     };

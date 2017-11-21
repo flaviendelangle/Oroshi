@@ -9,7 +9,7 @@ const headerReducer = (state = defaultState, action) => {
   switch(action.type) {
   
     case collectionContent.loadSettings + '_FULFILLED':
-      if(!action.payload) {
+      if (!action.payload) {
         return state;
       }
       return {

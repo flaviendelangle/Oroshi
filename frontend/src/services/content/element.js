@@ -5,6 +5,9 @@ class Element {
   
   local = null;
   distant = null;
+  is_in_collection = false;
+  
+  release_list = null;
   
   constructor(localData, distantData) {
     this.setLocal(localData);
@@ -13,7 +16,11 @@ class Element {
   
   static fromDistantList(data, collection, ChildClass) {
     let { content, ...clearedCollection } = collection;
-    let elements = data.map(el => new ChildClass(el.local, el.distant));
+    let elements = data.map(el => {
+      let newElement = new ChildClass(el.local, el.distant);
+      newElement.setInCollection(el.in_collection);
+      return newElement;
+    });
     elements.forEach(el => el.setCollection(clearedCollection));
     return elements;
   }
@@ -37,7 +44,15 @@ class Element {
     return !!this.distant;
   };
   
-  setLocal = newLocal => {
+  isInCollection = () => {
+    return this.is_in_collection;
+  };
+  
+  setInCollection = isInCollection => {
+    this.is_in_collection = isInCollection;
+  };
+  
+  setLocal(newLocal) {
     this.local = newLocal;
   };
   
@@ -100,17 +115,17 @@ class Element {
     /*
         {
       for(const field in element) {
-        if(element.hasOwnProperty(field)) {
+        if (element.hasOwnProperty(field)) {
           const value = element[field];
-          if(Array.isArray(value)) {
+          if (Array.isArray(value)) {
             for(let i=0; i<value.length; i++) {
               const data = value[i];
               const value_2 = data.name ? data.name : data.title;
-              if(this.matchField(value_2)) {
+              if (this.matchField(value_2)) {
                 return true;
               }
             }
-          } else if(this.matchField(value)) {
+          } else if (this.matchField(value)) {
             return true;
           }
         }

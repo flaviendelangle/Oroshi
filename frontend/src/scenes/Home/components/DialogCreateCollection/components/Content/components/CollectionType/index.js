@@ -22,7 +22,7 @@ class CollectionType extends Component {
   };
   
   componentDidMount() {
-    if(this.props.initialValues.hasOwnProperty('type')) {
+    if (this.props.initialValues.hasOwnProperty('type')) {
       this.setState(this.props.initialValues);
     } else {
       this.handleOnChange();

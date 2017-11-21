@@ -32,7 +32,7 @@ class CollectionScene extends Component {
 }
 
 const Content = ({ config, scene, isAdding }) => {
-  if(isAdding) {
+  if (isAdding) {
     return (
       <AddingContent
         scene={scene}
@@ -50,7 +50,7 @@ const Content = ({ config, scene, isAdding }) => {
 
 const mapStateToProps = (state, ownProps) => {
   const root = state.collections.main[ownProps.scene];
-  if(!root) {
+  if (!root) {
     return {
       isAdding: false
     };

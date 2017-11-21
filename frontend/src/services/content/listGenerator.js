@@ -23,11 +23,11 @@ class ListGenerator {
       const results = this.regexp.exec(this.query);
       this.query = this.query.replace(results[0], '');
       
-      if(results[2] === 'true') {
+      if (results[2] === 'true') {
         results[2] = true;
-      } else if(results[2] === 'false') {
+      } else if (results[2] === 'false') {
         results[2] = false;
-      } else if(!isNaN(results[2])) {
+      } else if (!isNaN(results[2])) {
         results[2] = parseInt(results[2], 10);
       }
       
@@ -56,9 +56,9 @@ class ListGenerator {
   };
   
   matchField = value => {
-    if(Object.prototype.toString.call(value) === "[object String]") {
+    if (Object.prototype.toString.call(value) === "[object String]") {
       return this.clean(value).includes(this.query);
-    } else if(!isNaN(value)) {
+    } else if (!isNaN(value)) {
       return value === parseInt(this.query, 10);
     }
   };

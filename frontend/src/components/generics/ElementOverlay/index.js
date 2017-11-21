@@ -9,7 +9,7 @@ import './style.css'
 class ElementOverlay extends Component {
   
   render() {
-    if(!this.props.mouseOver) {
+    if (!this.props.mouseOver) {
       return null;
     }
     return (
@@ -34,7 +34,7 @@ class ElementOverlay extends Component {
 
 const Footer = ({ creation_mode, already_in_collection, handleSave, handleDestroy }) => {
   let Content;
-  if(creation_mode && !already_in_collection) {
+  if (creation_mode && !already_in_collection) {
     Content = (
       <div
         className="footer-content"

@@ -5,7 +5,7 @@ class API {
   };
   
   constructor(root) {
-    if(!root) {
+    if (!root) {
       root = '';
     }
     this.root = root;
@@ -17,7 +17,7 @@ class API {
   fetch = (url, data) => {
     return window.fetch(url, data)
       .then(response => {
-        if(response.status === 404)
+        if (response.status === 404)
           throw Error(response.statusText);
         return response.json();
       });
@@ -49,11 +49,11 @@ class API {
   objectToFormData = data => {
     
     const add = (key, value) => {
-      if(Array.isArray(value)) {
+      if (Array.isArray(value)) {
         for(let i=0; i<value.length; i++) {
           add(key, value[i]);
         }
-      } else if(value instanceof Object) {
+      } else if (value instanceof Object) {
         add(key, JSON.stringify(value));
       } else {
         form.append(key, value);
@@ -95,7 +95,7 @@ class API {
     value = encodeURIComponent(value);
     const url = this.url() + value + '/' + route_name + '/';
     let data;
-    if(method === 'POST') {
+    if (method === 'POST') {
       data = {
         body: this.objectToFormData(body)
       };
@@ -152,7 +152,7 @@ class API {
   retrieveOrCreate(data, route_name) {
     const send = element => {
       return this.detail_route(element[route_name], route_name).then(content => {
-        if(content.pk > 0) {
+        if (content.pk > 0) {
           return Promise.resolve({
             ...content,
             created: false
@@ -168,7 +168,7 @@ class API {
       });
     };
     
-    if(!Array.isArray(data)) {
+    if (!Array.isArray(data)) {
       data = [data];
     }
     let promises = [];

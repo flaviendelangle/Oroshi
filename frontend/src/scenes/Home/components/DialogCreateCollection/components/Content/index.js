@@ -38,12 +38,12 @@ class Content extends Component {
   
   validateConfiguration = collectionConfiguration => {
     const params = this.state.collectionSource;
-    if(params.source === 'external' && params.external === 'csv_file') {
-      if(!collectionConfiguration.csv) {
+    if (params.source === 'external' && params.external === 'csv_file') {
+      if (!collectionConfiguration.csv) {
         return false;
       }
     }
-    if(collectionConfiguration.title) {
+    if (collectionConfiguration.title) {
       this.props.onStepIndexUpdate(this.props.stepIndex + 1);
       this.setState({ collectionConfiguration })
     }
@@ -52,7 +52,7 @@ class Content extends Component {
   submit = () => {
     let elementsToImport;
     const params = this.state.collectionSource;
-    if(params.source === 'external' && params.external === 'csv_file') {
+    if (params.source === 'external' && params.external === 'csv_file') {
       elementsToImport = readAsText(this.state.collectionConfiguration.csv).then(result => {
         return parseCSV(result);
       });
@@ -63,7 +63,7 @@ class Content extends Component {
       hash: this.state.collectionCustomization.identiconString,
       adult_content: this.state.collectionConfiguration.adult_content || false
     };
-    if(this.state.collectionSource.source === 'duplicate') {
+    if (this.state.collectionSource.source === 'duplicate') {
       data.duplicate = this.state.collectionSource.duplicate;
     } else {
       data.duplicate = 0;

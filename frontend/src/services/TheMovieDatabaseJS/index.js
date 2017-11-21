@@ -23,7 +23,7 @@ class API {
   
   static set_config = config => {
     for(const key in config) {
-      if(config.hasOwnProperty(key)) {
+      if (config.hasOwnProperty(key)) {
         API.USERCONFIG[key] = config[key];
       }
     }
@@ -47,7 +47,7 @@ class API {
   };
   
   _handleSuccess = (url, data, response) => {
-    if(response.status === HTTP_STATUS.TOO_MANY_REQUESTS) {
+    if (response.status === HTTP_STATUS.TOO_MANY_REQUESTS) {
       let promise = new Promise(resolve => {
         window.setTimeout(() => {
           resolve();
@@ -77,7 +77,7 @@ class API {
   
   query = options => {
     options.api_key = API.USERCONFIG.api_key;
-    if(!options.language)
+    if (!options.language)
       options.language = API.USERCONFIG.language;
     options.include_adult = API.USERCONFIG.include_adult;
     let query = '?';

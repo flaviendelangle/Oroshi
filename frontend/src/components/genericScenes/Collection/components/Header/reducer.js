@@ -11,12 +11,12 @@ const defaultElementState = {
 
 const reducer = (state = defaultState, action) => {
   
-  if(!action.meta || !action.meta.scene) {
+  if (!action.meta || !action.meta.scene) {
     return state;
   }
   const scene = action.meta.scene;
   
-  if(!state[scene]) {
+  if (!state[scene]) {
     state = {
       ...state,
       [scene]: defaultElementState
@@ -28,7 +28,7 @@ const reducer = (state = defaultState, action) => {
     switch(action.type) {
   
       case collectionContent.load + '_FULFILLED':
-        if(!action.payload) {
+        if (!action.payload) {
           return sceneState;
         }
         return {

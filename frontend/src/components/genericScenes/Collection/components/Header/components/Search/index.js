@@ -15,7 +15,7 @@ class Search extends Component {
   };
   
   get hintText() {
-    if(this.props.isAdding) {
+    if (this.props.isAdding) {
       return 'Search for content to add';
     }
     return this.props.title ? ('Search in ' + this.props.title) : 'Search ...';
@@ -31,7 +31,7 @@ class Search extends Component {
   };
   
   renderCounter = () => {
-    if(this.props.isAdding) {
+    if (this.props.isAdding) {
       return null;
     }
     const count = this.props.count + ' element' + (this.props.count > 1 ? 's' : '');
@@ -64,8 +64,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     filter: (query, forced, isAdding, collection) => {
       dispatch(update(ownProps.scene, query));
-      if(isAdding && forced) {
-        if(query === '') {
+      if (isAdding && forced) {
+        if (query === '') {
           dispatch(getRecommendations(ownProps.scene, collection));
         } else {
           dispatch(search(ownProps.scene, collection, query));

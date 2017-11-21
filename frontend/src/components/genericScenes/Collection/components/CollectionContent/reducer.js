@@ -35,12 +35,12 @@ const generateDefaultElementState = scene => {
 
 const reducer = (state = defaultState, action) => {
   
-  if(!action.meta || !action.meta.scene) {
+  if (!action.meta || !action.meta.scene) {
     return state;
   }
   const scene = action.meta.scene;
   
-  if(!state[scene]) {
+  if (!state[scene]) {
     state = {
       ...state,
       [scene]: generateDefaultElementState(scene)
@@ -61,7 +61,7 @@ const reducer = (state = defaultState, action) => {
        * The collection has been loaded
        */
       case collectionContent.load + '_FULFILLED':
-        if(!action.payload) {
+        if (!action.payload) {
           return {
             ...sceneState,
             found: false,
@@ -104,8 +104,8 @@ const reducer = (state = defaultState, action) => {
        * An element has been removed from the collection
        */
       case collections.remove + '_FULFILLED':
+
         newElement = action.payload;
-      
         newContent = content_manager.remove(sceneState.content, action.payload);
       
         return {
@@ -133,7 +133,7 @@ const reducer = (state = defaultState, action) => {
        */
       case sort.update:
         setSortParameters(scene, action.parameters, defaultOrder);
-        if(action.parameters.layout === 'default') {
+        if (action.parameters.layout === 'default') {
           newContent = sortElements(sceneState.content, action.parameters);
         } else {
           newContent = sceneState.content;
@@ -155,7 +155,7 @@ const reducer = (state = defaultState, action) => {
        * The search query has been updated (check Header's Search component)
        */
       case search.update_query:
-        if(this.isAdding) {
+        if (this.isAdding) {
           return sceneState;
         }
         return {

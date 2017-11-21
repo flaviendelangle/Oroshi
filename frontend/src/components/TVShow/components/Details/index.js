@@ -29,7 +29,7 @@ class Details extends Component {
   };
   
   componentDidMount() {
-    if(!this.props.loaded) {
+    if (!this.props.loaded) {
       this.props.load(this.props.collection, this.props.data.tmdbId);
     }
   }
@@ -64,7 +64,7 @@ class Details extends Component {
 }
 
 const Content = ({ loaded, details, ...props }) => {
-  if(!loaded || !details) {
+  if (!loaded || !details) {
     return (
       <div className="progress">
         <CircularProgress />
@@ -97,7 +97,7 @@ const Content = ({ loaded, details, ...props }) => {
 
 const Title = ({ title, muiTheme, seasons, season }) => {
   let fullTitle = title;
-  if(seasons[season]) {
+  if (seasons[season]) {
     fullTitle += ' - ' + seasons[season].name;
   }
   return (
@@ -108,7 +108,7 @@ const Title = ({ title, muiTheme, seasons, season }) => {
 const Footer = ({ seasons, muiTheme, switchSeason }) => {
   const Elements = seasons.map(season => {
     let title;
-    if(season.season_number === 0) {
+    if (season.season_number === 0) {
       title = 'Specials';
     } else {
       title = 'Season ' + season.season_number;
@@ -126,8 +126,8 @@ const Footer = ({ seasons, muiTheme, switchSeason }) => {
 };
 
 const Season = ({ season, seasons, loadSeason, tmdbId, muiTheme }) => {
-  if(!seasons[season]) {
-    if(!seasons.hasOwnProperty(season)) {
+  if (!seasons[season]) {
+    if (!seasons.hasOwnProperty(season)) {
       setTimeout(() => loadSeason(tmdbId, season));
     }
     return null;
@@ -169,7 +169,7 @@ const Episode = ({ episode_number, name, muiTheme }) => {
 
 const mapStateToProps = (state, ownProps) => {
   const root = state.tv_shows[ownProps.data.tmdbId];
-  if(!root) {
+  if (!root) {
     return {
       loaded: false
     };

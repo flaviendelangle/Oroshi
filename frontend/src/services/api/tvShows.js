@@ -9,7 +9,7 @@ class TVShows extends API {
   };
   
   create = body => {
-    if(this.root) { // We are in a nested route so we just want to send the pk of the movie to add it
+    if (this.root) { // We are in a nested route so we just want to send the pk of the movie to add it
       return super.create(body);
     }
     let networks, genres;

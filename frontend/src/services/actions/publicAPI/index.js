@@ -49,7 +49,7 @@ export const getTopRated = (scene, collection, page) => {
 
 export const getDetails = (scene, shouldDispatch, collection, tmdbId) => {
   const payload = getModule(scene).getDetails(scene, collection, tmdbId);
-  if(shouldDispatch) {
+  if (shouldDispatch) {
     return {
       type: request.get_details,
       payload,

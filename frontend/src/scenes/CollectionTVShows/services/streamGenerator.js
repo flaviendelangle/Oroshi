@@ -7,7 +7,7 @@ class StreamGenerator extends StreamGeneratorOriginal {
   }
   
   prepareData() {
-    if(this.key.field === 'release') {
+    if (this.key.field === 'release') {
       this.data = this.data.map(el => {
         return {
           ...el,

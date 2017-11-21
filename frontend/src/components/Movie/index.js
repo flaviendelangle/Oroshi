@@ -40,29 +40,28 @@ class Movie extends Component {
   };
   
   save = () => {
-    if(!this.state.isAdding) {
+    if (!this.state.isAdding) {
       this.props.create(this.props.collection, this.props.data);
       this.setState({ isAdding: true });
     }
   };
   
   destroy = () => {
-    const data = this.props.creationMode ? this.props.data.local : this.props.data;
-    this.props.destroy(this.props.collection, data);
+    this.props.destroy(this.props.collection, this.props.data);
   };
   
   getParentClassName = () => {
     let className = '';
-    if(this.props.data.already_in_collection) {
+    if (this.props.data.isInCollection()) {
       className = 'already-in-collection';
-    } else if(this.props.creationMode) {
+    } else if (this.props.creationMode) {
       className = 'not-in-collection';
     }
     return className
   };
   
   componentWillReceiveProps(newProps) {
-    if(this.props.data.already_in_collection !== newProps.data.already_in_collection) {
+    if (this.props.data.isInCollection() !== newProps.data.isInCollection()) {
       this.setState({ isAdding: false });
     }
   }
@@ -82,7 +81,7 @@ class Movie extends Component {
               note={this.note}
               mouseOver={this.state.mouseOver}
               creation_mode={this.props.creationMode}
-              already_in_collection={this.props.data.already_in_collection}
+              already_in_collection={this.props.data.isInCollection()}
               handleSave={this.save}
               handleDestroy={this.destroy}
               topRightAction={
@@ -117,7 +116,7 @@ const Footer = ({ title, muiTheme, release_date }) => (
 );
 
 const Seen = ({ seen, handleClick, creation_mode }) => {
-  if(creation_mode) {
+  if (creation_mode) {
     return null;
   }
   const color = seen ? 'green' : 'red';

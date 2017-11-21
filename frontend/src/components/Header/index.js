@@ -9,13 +9,13 @@ class Header extends Component {
   
   getChildByClassName = className => {
     const children = this.props.children;
-    if(Array.isArray(children)) {
+    if (Array.isArray(children)) {
       for(let i=0; i<children.length; i++) {
-        if(children[i].props.className === className) {
+        if (children[i].props.className === className) {
           return children[i].props.children;
         }
       }
-    } else if(children.props.className === className) {
+    } else if (children.props.className === className) {
       return children;
     } else {
       return (null);

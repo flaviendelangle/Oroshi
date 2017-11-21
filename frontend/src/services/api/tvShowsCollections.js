@@ -12,7 +12,7 @@ class TVShowCollections extends API {
   };
   
   settings = pk => {
-    if(pk) {
+    if (pk) {
       return super.detail_route(pk, 'settings');
     }
     return super.list_route('settings');

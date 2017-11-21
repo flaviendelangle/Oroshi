@@ -23,7 +23,7 @@ const textStyle = {
 class Details extends Component {
   
   renderContent = () => {
-    if(this.props.data === null) {
+    if (this.props.data === null) {
       return (null)
     }
     return (

@@ -12,14 +12,14 @@ class CollectionBox extends Component {
   
   url = () => {
     let baseURL = '/collections/';
-    if(this.props.data.type === 'movies') {
+    if (this.props.data.type === 'movies') {
       baseURL += 'movies/';
     }
-    else if(this.props.data.type === 'tv_shows') {
+    else if (this.props.data.type === 'tv_shows') {
       baseURL += 'tv_shows/';
     }
     baseURL += this.props.data.pk + '/';
-    if(this.props.editing) {
+    if (this.props.editing) {
       baseURL += 'settings/';
     }
     return baseURL;

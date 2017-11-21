@@ -33,7 +33,7 @@ class Stream extends Component {
   
   renderSections = () => {
     let sections = this.props.data.results;
-    if(!this.state.full && sections.length > CONFIG.pageLength * this.state.pages) {
+    if (!this.state.full && sections.length > CONFIG.pageLength * this.state.pages) {
       sections = sections.slice(0,CONFIG.pageLength * this.state.pages);
     }
     return sections.map(section => {
@@ -51,7 +51,7 @@ class Stream extends Component {
   };
   
   renderShowMore = () => {
-    if(this.props.data.results.length <= CONFIG.pageLength * this.state.pages) {
+    if (this.props.data.results.length <= CONFIG.pageLength * this.state.pages) {
       return null;
     }
     return (

@@ -16,12 +16,12 @@ class ElementLine extends Component {
 }
 
 export const groupByLine = (elements, lineDimensions) => {
-  if(elements.length === 0) {
+  if (elements.length === 0) {
     return [];
   }
   let lines = [[]];
   elements.forEach(el => {
-    if(lines[lines.length-1].length === lineDimensions.elementsPerLine) {
+    if (lines[lines.length-1].length === lineDimensions.elementsPerLine) {
       lines.push([]);
     }
     lines[lines.length-1].push(el);

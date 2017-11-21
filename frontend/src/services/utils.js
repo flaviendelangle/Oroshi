@@ -13,7 +13,7 @@ date.YEAR_FORMAT = 'YYYY';
 
 let parseCSV = (scene, csv) => {
   let comments = extractComments(csv);
-  if(comments.scene !== scene) {
+  if (comments.scene !== scene) {
     return {
       error: 'Wrong scene'
     };
@@ -22,7 +22,7 @@ let parseCSV = (scene, csv) => {
     .map(line => {
       let newLine = {};
       for(const field in line) {
-        if(line.hasOwnProperty(field)) {
+        if (line.hasOwnProperty(field)) {
           newLine[field] = line[field];
         }
       }

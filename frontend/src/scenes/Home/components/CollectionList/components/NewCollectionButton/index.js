@@ -11,12 +11,12 @@ import '../CollectionBox/style.css';
 class NewCollectionButton extends Component {
   
   handleClick = () => {
-    if(this.props.editing)
+    if (this.props.editing)
       this.props.newCollection();
   };
   
   render(forced=false) {
-    if(!forced)
+    if (!forced)
       window.setTimeout(() => this.render(true), 300);
     
     return (

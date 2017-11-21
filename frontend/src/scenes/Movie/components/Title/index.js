@@ -30,7 +30,7 @@ const yearStyle = {
 class Title extends Component {
   
   renderTitle = () => {
-    if(this.props.title) {
+    if (this.props.title) {
       const release = date(this.props.release, date.TMDB_FORMAT, date.YEAR_FORMAT);
       return (
         <div>

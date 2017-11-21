@@ -25,10 +25,10 @@ class OrderMenu extends Component {
 }
 
 const Menu = ({ isAdding, layout, scene, sort }) => {
-  if(isAdding) {
+  if (isAdding) {
     return null;
   }
-  else if(layout === 'stream') {
+  else if (layout === 'stream') {
     switch(scene) {
       case 'movies':
         return <StreamMenuMovies sort={sort} />;
@@ -129,7 +129,7 @@ const DefaultMenuTVShows = ({ sort }) => (
 const mapStateToProps = (state, ownProps) => {
   const root = state.collections.main[ownProps.scene];
   const contentRoot = state.collections.content[ownProps.scene];
-  if(!root) {
+  if (!root) {
     return {
     }
   }

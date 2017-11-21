@@ -8,7 +8,7 @@ import { getCollectionSettingsState } from 'containers/reducer';
 class Line extends Component {
 
   renderIcon = () => {
-    if(this.props.done) {
+    if (this.props.done) {
       return <ActionDone/>;
     }
     return (null);

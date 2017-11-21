@@ -13,10 +13,10 @@ class Poster extends Component {
   };
   
   cadreContent = () => {
-    if(this.props.posters === null) {
+    if (this.props.posters === null) {
       return (<CircularProgress className="progress" />);
     }
-    if(this.props.posters.length === 0) {
+    if (this.props.posters.length === 0) {
       return (
         <div className="empty">
         </div>

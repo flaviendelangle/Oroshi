@@ -21,10 +21,10 @@ class ParametersSection extends Component {
     let lines = this.props.children.filter(el => {
       return el.props.className === 'content';
     })[0].props.children;
-    if(lines === undefined) {
+    if (lines === undefined) {
       return null;
     }
-    if(!Array.isArray(lines)) {
+    if (!Array.isArray(lines)) {
       lines = [lines];
     }
     let i=0;

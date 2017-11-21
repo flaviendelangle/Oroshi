@@ -18,7 +18,7 @@ export const importContent = (scene, dispatch, elements) => {
 };
 
 const importElement = (scene, dispatch, elements, index) => {
-  if(elements.length <= index) {
+  if (elements.length <= index) {
     dispatch({
       type: collections.importFinished
     });

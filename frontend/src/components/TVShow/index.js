@@ -21,7 +21,7 @@ class TVShow extends Component {
   };
   
   get title() {
-    if(this.props.creationMode) {
+    if (this.props.creationMode) {
       return this.props.data.name;
     }
     const language = this.props.collection.title_language;
@@ -29,7 +29,7 @@ class TVShow extends Component {
   }
   
   get posterPath() {
-    if(this.props.creationMode) {
+    if (this.props.creationMode) {
       return this.props.data.poster_path;
     }
     const language = this.props.collection.poster_language;
@@ -37,7 +37,7 @@ class TVShow extends Component {
   }
   
   get note() {
-    if(this.props.creationMode) {
+    if (this.props.creationMode) {
       return this.props.data.vote_average;
     }
     return this.props.data.note;
@@ -48,7 +48,7 @@ class TVShow extends Component {
   };
   
   save = () => {
-    if(!this.state.isAdding) {
+    if (!this.state.isAdding) {
       this.props.create(this.props.data);
       this.setState({ isAdding: true });
     }
@@ -69,9 +69,9 @@ class TVShow extends Component {
   
   getParentClassName = () => {
     let className = '';
-    if(this.props.data.already_in_collection) {
+    if (this.props.data.already_in_collection) {
       className = 'already-in-collection';
-    } else if(this.props.creationMode) {
+    } else if (this.props.creationMode) {
       className = 'not-in-collection';
     }
     return className
@@ -121,14 +121,14 @@ class TVShow extends Component {
 }
 
 const DetailsIcon = ({ creationMode, handleClick }) => {
-  if(creationMode) {
+  if (creationMode) {
     return null;
   }
   return <NavigationExpandMore onClick={handleClick} />;
 };
 
 const DetailsFrame = ({ show, creationMode, ...props }) => {
-  if(!creationMode && show) {
+  if (!creationMode && show) {
     return (
       <Details {...props} />
     );

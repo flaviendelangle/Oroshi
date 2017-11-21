@@ -21,7 +21,7 @@ class Main extends Component {
   }
   
   componentWillReceiveProps(newProps) {
-    if(this.props.location.pathname !== newProps.location.pathname) {
+    if (this.props.location.pathname !== newProps.location.pathname) {
       this.props.notifyRouteChange(newProps.location);
     }
   }

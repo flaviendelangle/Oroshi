@@ -64,9 +64,9 @@ export const cover = (degree) => ({
 });
 
 export const color = value => {
-  if(value >= 6.67) {
+  if (value >= 6.67) {
     return '#1DE9B6';
-  } else if(value > 3.33) {
+  } else if (value > 3.33) {
     return '#FFCA28';
   } else {
     return '#D32F2F';

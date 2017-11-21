@@ -9,7 +9,7 @@ export const remove = (content, newElement) => {
   const match = content.filter(el => {
     return el.pk === newElement.pk
   });
-  if(match.length === 0) {
+  if (match.length === 0) {
     return content;
   }
   else {

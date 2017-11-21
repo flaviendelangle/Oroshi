@@ -115,6 +115,7 @@ class CollectionMoviesViewSet(NestedViewSetMixin, MoviesViewSet):
         return Response(data)
 
     def destroy(self, request, pk, parent_lookup_collection_movies):
+        print('HEY')
         collection = get_object_or_404(MovieCollections.objects.all(), pk=parent_lookup_collection_movies)
         movie = get_object_or_404(Movies.objects.all(), pk=pk)
         collection.content.remove(movie)
