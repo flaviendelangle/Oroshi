@@ -5,6 +5,8 @@ import { getMissingLanguages } from 'services/languages';
 export const addElement = (scene, collection, element) => {
   let promise;
   let details;
+  let seen = element.hasBeenSeen();
+  console.log(seen);
   
   if (element.hasLocal()) {
     promise = Promise.resolve({
@@ -28,13 +30,12 @@ export const addElement = (scene, collection, element) => {
   }
   
   const localAPI = getCollectionAPI(scene);
-  
   return promise
     .then(response => createMissingData(scene, response))
     .then(() => {
       const data = {
         pk: element.getID(),
-        seen: element.hasBeenSeen()
+        seen
       };
       return localAPI.element(collection.pk)[scene].create(data);
     })

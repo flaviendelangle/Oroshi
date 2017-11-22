@@ -64,10 +64,17 @@ class Movie extends Element {
   };
 
   hasBeenSeen = () => {
-    if(!this.hasLocal()) {
+    if(this.hasLocal()) {
+      return this.local.seen;
+    }
+    if(this.hasDistant()) {
+      const distant = this.getDistant();
+      if(distant.hasOwnProperty('seen')) {
+        return distant.seen;
+      }
       return false;
     }
-    return this.local.seen;
+    return false;
   };
   
   setSeen = seen => {
