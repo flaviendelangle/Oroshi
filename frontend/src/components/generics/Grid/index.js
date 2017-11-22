@@ -47,7 +47,6 @@ class Grid extends Component {
   
   renderItems = () => {
     const Element = this.props.elementComponent;
-    let i = 0;
     return this.elements.map((line, index) => {
       const elements = line.map(el => {
         return (

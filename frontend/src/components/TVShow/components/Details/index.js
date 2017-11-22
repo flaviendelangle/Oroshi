@@ -30,7 +30,7 @@ class Details extends Component {
   
   componentDidMount() {
     if (!this.props.loaded) {
-      this.props.load(this.props.collection, this.props.data.tmdbId);
+      this.props.load(this.props.collection, this.props.data.getPublicId());
     }
   }
   
@@ -84,7 +84,7 @@ const Content = ({ loaded, details, ...props }) => {
         season={props.season}
         seasons={props.seasons}
         loadSeason={props.loadSeason}
-        tmdbId={props.data.tmdbId}
+        tmdbId={props.data.getPublicId()}
       />
       <Footer
         seasons={details.seasons}

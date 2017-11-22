@@ -91,7 +91,6 @@ class Section extends Component {
   
   renderContent = () => {
     const Element = this.props.elementComponent;
-    let i = 0;
     return this.elements.map((line, index) => {
       const elements = line.map(el => {
         return (

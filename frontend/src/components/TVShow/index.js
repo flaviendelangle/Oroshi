@@ -7,7 +7,6 @@ import muiThemeable from 'material-ui/styles/muiThemeable';
 import Poster from './components/Poster';
 import ElementOverlay from 'components/generics/ElementOverlay';
 import Details from './components/Details';
-import { pickElement } from 'services/languages';
 import { addElement, removeElement } from 'services/actions/collections';
 
 import './style.css'
@@ -21,26 +20,15 @@ class TVShow extends Component {
   };
   
   get title() {
-    if (this.props.creationMode) {
-      return this.props.data.name;
-    }
-    const language = this.props.collection.title_language;
-    return pickElement(this.props.data, 'titles', 'title', language);
+    return this.props.data.getTitle();
   }
   
   get posterPath() {
-    if (this.props.creationMode) {
-      return this.props.data.poster_path;
-    }
-    const language = this.props.collection.poster_language;
-    return pickElement(this.props.data, 'posters', 'path', language);
+    return this.props.data.getPosterPath();
   }
   
   get note() {
-    if (this.props.creationMode) {
-      return this.props.data.vote_average;
-    }
-    return this.props.data.note;
+    return this.props.data.getNote();
   }
   
   handleMouseHover = mouseOver => {
@@ -49,14 +37,13 @@ class TVShow extends Component {
   
   save = () => {
     if (!this.state.isAdding) {
-      this.props.create(this.props.data);
+      this.props.create(this.props.collection, this.props.data);
       this.setState({ isAdding: true });
     }
   };
   
   destroy = () => {
-    const data = this.props.creationMode ? this.props.data.local : this.props.data;
-    this.props.destroy(this.props.collection, data);
+    this.props.destroy(this.props.collection, this.props.data);
   };
   
   showMore = () => {
@@ -69,7 +56,7 @@ class TVShow extends Component {
   
   getParentClassName = () => {
     let className = '';
-    if (this.props.data.already_in_collection) {
+    if (this.props.data.isInCollection()) {
       className = 'already-in-collection';
     } else if (this.props.creationMode) {
       className = 'not-in-collection';
@@ -93,14 +80,14 @@ class TVShow extends Component {
                 note={this.note}
                 mouseOver={this.state.mouseOver}
                 creation_mode={this.props.creationMode}
-                already_in_collection={this.props.data.already_in_collection}
+                already_in_collection={this.props.data.isInCollection()}
                 handleSave={this.save}
                 handleDestroy={this.destroy}
                 topRightAction={
-                    <DetailsIcon
-                      creationMode={this.props.creationMode}
-                      handleClick={this.showMore}
-                    />
+                  <DetailsIcon
+                    creationMode={this.props.creationMode}
+                    handleClick={this.showMore}
+                  />
                 }
               />
             </Paper>
@@ -152,7 +139,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    create: data => dispatch(addElement('tv_shows', data)),
+    create: (collection, element) => {
+      dispatch(addElement('tv_shows', collection, element));
+    },
     destroy: (collection, data) => {
       dispatch(removeElement('tv_shows', collection, data))
     },

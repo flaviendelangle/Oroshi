@@ -7,7 +7,6 @@ import { layout } from 'services/titles/interface';
 import { getListGenerator, getStreamGenerator, getDefaultOrder } from 'services/content/';
 import { getValue } from 'services/localstorage';
 import { sortElements, setSortParameters, setLayoutParameters } from '../../services/utils';
-import { addSeenToElements, addCollectionToElement } from 'services/actions/collections';
 import * as content_manager from './services/content_manager';
 
 
@@ -49,7 +48,8 @@ const reducer = (state = defaultState, action) => {
   
   const sceneReducer = sceneState => {
     
-    let newContent, newElement, newOrder;
+    let newContent;
+    let newOrder;
   
     const ListGenerator = getListGenerator(scene);
     const StreamGenerator = getStreamGenerator(scene);

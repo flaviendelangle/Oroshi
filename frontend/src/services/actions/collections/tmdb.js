@@ -6,7 +6,6 @@ export const addElement = (scene, collection, element) => {
   let promise;
   let details;
   let seen = element.hasBeenSeen();
-  console.log(seen);
   
   if (element.hasLocal()) {
     promise = Promise.resolve({

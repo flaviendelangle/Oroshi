@@ -27,7 +27,6 @@ class ParametersSection extends Component {
     if (!Array.isArray(lines)) {
       lines = [lines];
     }
-    let i=0;
     return lines.map((el, index) => {
       return (
         <Line

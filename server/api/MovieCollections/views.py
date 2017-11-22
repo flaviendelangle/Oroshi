@@ -29,6 +29,8 @@ class MovieCollectionsViewSet(viewsets.ModelViewSet):
         return Response(data)
 
     def create(self, request, *args, **kwargs):
+        data = super().create(request, *args, **kwargs).data
+        """"
         collection_to_duplicate = request.data['duplicate']
         data = super().create(request, *args, **kwargs).data
         if len(collection_to_duplicate) == 1 and int(collection_to_duplicate[0]) > 0 :
@@ -36,6 +38,7 @@ class MovieCollectionsViewSet(viewsets.ModelViewSet):
             new_collection  = get_object_or_404(self.get_queryset(), pk=data['pk'])
             for movie in old_collection.movies.all():
                 new_collection.movies.add(movie)
+        """
         data['type'] = 'movies'
         return Response(data)
 
