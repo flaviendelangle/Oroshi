@@ -64,11 +64,14 @@ class Movie extends Element {
   };
 
   hasBeenSeen = () => {
-    return this.seen;
+    if(!this.hasLocal()) {
+      return false;
+    }
+    return this.local.seen;
   };
   
   setSeen = seen => {
-    this.seen = seen;
+    this.local.seen = seen;
   };
   
 }

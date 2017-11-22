@@ -87,7 +87,7 @@ class Movie extends Component {
               topRightAction={
                 <Seen
                   creation_mode={this.props.creationMode}
-                  seen={this.props.data.seen}
+                  seen={this.props.data.hasBeenSeen()}
                   handleClick={() => this.props.switchSeen(this.props.data)}
                 />
               }

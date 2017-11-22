@@ -16,11 +16,11 @@ export const publicAPI = MoviesTMDB;
 
 export const addElement = tmdb.addElement;
 
-export const switchSeenOnElement = data => {
-  const clearedData = {
-    seen: !data.seen
+export const switchSeenOnElement = element => {
+  const data = {
+    seen: !element.hasBeenSeen()
   };
-  return updateElement('movies', data.collection, data.pk, clearedData);
+  return updateElement('movies', element, data);
 };
 
 export const prepareElement = (element, seenList) => {

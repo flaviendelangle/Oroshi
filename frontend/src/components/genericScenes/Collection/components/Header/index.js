@@ -70,6 +70,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     isAdding: root.isAdding,
     loaded: contentRoot.loaded,
+    found: contentRoot.found,
     collection: contentRoot.collection,
     title: headerRoot.title,
     query: headerRoot.query,

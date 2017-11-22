@@ -5,7 +5,7 @@ import { getTmdbLanguages, DEFAULT_LANGUAGE } from 'services/languages';
 
 export const search = (scene, collection, query, page) => {
   const searchKey = getSearchKey(scene);
-  return searchAPI[searchKey](query, {page})
+  return searchAPI[searchKey](query, { page })
     .then(elements => {
       return prepareSearchResults(scene, collection, elements, query)
     })
@@ -202,7 +202,6 @@ const prepareStreamResults = (scene, collection, elements, nextAction) => {
     if (elements.content.page < elements.content.total_pages) {
       next = nextAction.bind(this, scene, collection, elements.content.page+1);
     }
-    console.log(response);
     return {
       ...elements,
       content: Element.fromDistantList(response.results, collection),
@@ -211,14 +210,17 @@ const prepareStreamResults = (scene, collection, elements, nextAction) => {
   });
 };
 
-const prepareSearchResults = (scene, collection, elements, query) => {
-  return checkExistence(scene, collection, elements).then(response => {
+const prepareSearchResults = (scene, collection, { content, ...elements }, query) => {
+  
+  return checkExistence(scene, collection, { content, ...elements}).then(response => {
+    const Element = getModule(scene).elementClass;
     let next = null;
     if (elements.page < elements.total_pages) {
       next = searchOriginal.bind(this, scene, collection, query, elements.page+1);
     }
     return {
-      ...response,
+      ...elements,
+      results: Element.fromDistantList(response.results, collection),
       next
     };
   });

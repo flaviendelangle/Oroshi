@@ -105,7 +105,6 @@ const reducer = (state = defaultState, action) => {
        */
       case collections.remove + '_FULFILLED':
 
-        newElement = action.payload;
         newContent = content_manager.remove(sceneState.content, action.payload);
       
         return {
@@ -119,7 +118,9 @@ const reducer = (state = defaultState, action) => {
        * An element has been updated in the collection (ex : Not Seen => Seen)
        */
       case collections.update + '_FULFILLED':
-        newContent = addSeenToElements(scene, sceneState.content, action.payload);
+
+        newContent = content_manager.update(sceneState.content, action.payload);
+        
         return {
           ...sceneState,
           content: newContent,

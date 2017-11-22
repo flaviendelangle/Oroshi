@@ -127,10 +127,15 @@ export const addElement = (scene, collection, element) => {
   }
 };
 
-export const updateElement = (scene, collection, id, data) => {
+export const updateElement = (scene, element, data) => {
+  const collection = element.getCollection().pk;
+  const pk = element.getID();
   return {
     type: titles.collections.update,
-    payload: getCollectionAPI(scene).element(collection.pk)[scene].partial_update(id, data),
+    payload: getCollectionAPI(scene).element(collection)[scene].partial_update(pk, data).then(res => {
+      element.editLocal(data);
+      return element;
+    }),
     meta: {
       scene
     }
@@ -138,6 +143,7 @@ export const updateElement = (scene, collection, id, data) => {
 };
 
 export const removeElement = (scene, collection, element) => {
+  console.log(element);
   const api = getCollectionAPI(scene).element(collection.pk)[scene];
   return {
     type: titles.collections.remove,

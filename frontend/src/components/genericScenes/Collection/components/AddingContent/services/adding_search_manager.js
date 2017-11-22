@@ -49,3 +49,14 @@ export const remove = (state, newElement) => {
     addingSearch
   };
 };
+
+export const merge = (state, newData) => {
+  const oldData = state.addingSearch;
+  if (!oldData || newData.page === 1) {
+    return newData;
+  }
+  return {
+    ...newData,
+    results: oldData.results.concat(newData.results)
+  }
+};

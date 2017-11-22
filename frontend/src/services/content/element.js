@@ -1,3 +1,5 @@
+import merge from 'lodash.merge';
+
 import { pickElement } from 'services/languages';
 
 
@@ -40,9 +42,14 @@ class Element {
     return !!this.local;
   };
   
-  hasDistant = () => {
-    return !!this.distant;
+  setLocal(newLocal) {
+    this.local = newLocal;
   };
+  
+  editLocal(editValues) {
+    const newLocal = merge(this.getLocal(), editValues);
+    this.setLocal(newLocal);
+  }
   
   isInCollection = () => {
     return this.is_in_collection;
@@ -52,12 +59,13 @@ class Element {
     this.is_in_collection = isInCollection;
   };
   
-  setLocal(newLocal) {
-    this.local = newLocal;
-  };
   
   getDistant = () => {
     return this.distant;
+  };
+  
+  hasDistant = () => {
+    return !!this.distant;
   };
   
   setDistant = newPublic => {

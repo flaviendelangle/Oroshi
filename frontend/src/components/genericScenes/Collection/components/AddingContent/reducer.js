@@ -1,8 +1,6 @@
 import { collectionContent, collections } from 'services/titles/api';
 import * as publicAPI from 'services/titles/publicAPI';
 
-import { mergeSearch } from '../../services/utils';
-import { addCollectionToElement } from 'services/actions/collections';
 import * as adding_search_manager from './services/adding_search_manager';
 import * as recommendations_manager from './services/recommendations_manager';
 
@@ -107,10 +105,7 @@ const reducer = (state = defaultState, action) => {
       case publicAPI.request.search + '_FULFILLED':
         return {
           ...sceneState,
-          addingSearch: mergeSearch(
-            state.addingSearch,
-            action.payload
-          )
+          addingSearch: adding_search_manager.merge(sceneState, action.payload)
         };
   
       default:
