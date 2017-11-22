@@ -28,11 +28,11 @@ class ParametersSection extends Component {
       lines = [lines];
     }
     let i=0;
-    return lines.map(el => {
+    return lines.map((el, index) => {
       return (
         <Line
           params={el.props}
-          key={++i}
+          key={index}
         />
       );
     });

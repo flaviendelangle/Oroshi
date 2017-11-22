@@ -92,7 +92,7 @@ class Section extends Component {
   renderContent = () => {
     const Element = this.props.elementComponent;
     let i = 0;
-    return this.elements.map(line => {
+    return this.elements.map((line, index) => {
       const elements = line.map(el => {
         return (
           <Element
@@ -103,7 +103,7 @@ class Section extends Component {
           />
         );
       });
-      return (<ElementLine key={++i}>{elements}</ElementLine>);
+      return (<ElementLine key={index}>{elements}</ElementLine>);
     });
   };
   

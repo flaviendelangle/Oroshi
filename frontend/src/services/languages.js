@@ -22,6 +22,14 @@ export const DEFAULT_LANGUAGE = 'en';
 
 export const getPublicAPILanguages = scene => languages[scene];
 
+export const getLanguages = () => {
+  return tmdbLanguages;
+};
+
+export const getLanguage = code => {
+  return getLanguages().find(el => el.code === code);
+};
+
 export const getTmdbLanguages = (collection, original) => {
 
   const title = replaceOriginalTmdb(collection.title_language, original);

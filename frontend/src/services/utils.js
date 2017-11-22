@@ -12,13 +12,13 @@ date.YEAR_FORMAT = 'YYYY';
 
 
 let parseCSV = (scene, csv) => {
-  let comments = extractComments(csv);
+  let { comments, content } = extractComments(csv);
   if (comments.scene !== scene) {
     return {
       error: 'Wrong scene'
     };
   }
-  return Papa.parse(csv, { header: true, dynamicTyping: true }).data
+  return Papa.parse(content, { header: true, dynamicTyping: true }).data
     .map(line => {
       let newLine = {};
       for(const field in line) {
@@ -35,13 +35,21 @@ let parseCSV = (scene, csv) => {
 
 const extractComments = csv => {
   let comments = {};
+  let content = [];
   csv.split('\n')
-    .filter(el => el[0] === '#')
     .forEach(el => {
-      el = el.substring(1).split(',');
-      comments[el[0]] = el[1];
+      if(el[0] === '#') {
+        el = el.substring(1).split(',');
+        comments[el[0]] = el[1];
+      } else {
+        content.push(el);
+      }
     });
-  return comments;
+  
+  return {
+    comments,
+    content: content.join('\n')
+  };
 };
 
 export const getCollectionTypeTitle = type => {

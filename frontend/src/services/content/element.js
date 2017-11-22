@@ -1,6 +1,6 @@
 import merge from 'lodash.merge';
 
-import { pickElement } from 'services/languages';
+import { pickElement, getLanguage } from 'services/languages';
 
 
 class Element {
@@ -10,6 +10,7 @@ class Element {
   is_in_collection = false;
   
   release_list = null;
+  search_index = [];
   
   constructor(localData, distantData) {
     this.setLocal(localData);
@@ -34,6 +35,25 @@ class Element {
     return element;
   }
   
+  buildSearchIndex = () => {
+    const local = this.getLocal();
+    let searchIndex = [];
+    
+    local.titles.forEach(el => searchIndex.push(el.title.toUpperCase()));
+    searchIndex.push(String(local.release));
+    
+    const language = getLanguage(local.original_language);
+    if(language) {
+      searchIndex.push(language.name.toUpperCase());
+    }
+    this.search_index = searchIndex;
+    
+  };
+  
+  getSearchIndex = () => {
+    return this.search_index;
+  };
+  
   getLocal = () => {
     return this.local;
   };
@@ -44,6 +64,9 @@ class Element {
   
   setLocal(newLocal) {
     this.local = newLocal;
+    if(this.hasLocal()) {
+      this.buildSearchIndex();
+    }
   };
   
   editLocal(editValues) {
@@ -119,7 +142,14 @@ class Element {
   };
   
   match = query => {
-    return true;
+    if (query.length === 1 && query[0] === '') {
+      return true;
+    }
+    const match = query
+      .map(queryWord => this.getSearchIndex().find(word => word.includes(queryWord)))
+      .find(el => !!el );
+    
+    return !!match;
     /*
         {
       for(const field in element) {

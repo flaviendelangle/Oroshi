@@ -33,9 +33,8 @@ class MainDrawer extends Component {
   }
   
   renderLines = () => {
-    let i=0;
-    const lines = this.GENERIC_LINES.concat(this.props.children).map(el => {
-      return (<MenuItem key={i++}>{el}</MenuItem>);
+    const lines = this.GENERIC_LINES.concat(this.props.children).map((el, index) => {
+      return (<MenuItem key={index}>{el}</MenuItem>);
     });
     return lines;
   };

@@ -41,7 +41,7 @@ class ListGenerator {
   };
   
   filter = () => {
-    let results = this.data.filter(element => element.match(this.query)) ;
+    let results = this.data.filter(element => element.match(this.query.split(' '))) ;
     
     /*for(let i=0; i<this.filters.length; i++) {
       const filter = this.filters[i];

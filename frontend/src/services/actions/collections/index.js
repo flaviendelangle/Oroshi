@@ -182,15 +182,11 @@ export const importElements = (scene, collection, elements, dispatch) => {
       return true;
     }
     const element = elements[index];
-    if (element.already_in_collection) {
-      const result = {
-        ...element.local,
-        collection
-      };
-      setTimeout(() => _importElement(scene, elements, ++index, dispatch));
+    if (element.isInCollection()) {
+      setTimeout(() => _importElement(scene, elements, index + 1, dispatch));
       return dispatch({
         type: titles.collections.add,
-        payload: result,
+        payload: element,
         meta: {
           scene
         }
@@ -204,7 +200,7 @@ export const importElements = (scene, collection, elements, dispatch) => {
             scene
           }
         });
-        _importElement(scene, elements, ++index, dispatch);
+        _importElement(scene, elements, index + 1, dispatch);
       });
     }
 
@@ -216,12 +212,15 @@ export const importElements = (scene, collection, elements, dispatch) => {
 
   return {
     type: titles.collectionContent.importElement,
-    payload: checkExistence(scene, collection, elements, 'true').then(elements => {
+    payload: checkExistence(scene, collection, elements, true).then(elements => {
+      
+      const Element = getModule(scene).elementClass;
+      elements = Element.fromDistantList(elements.results, collection);
       dispatch({
         type: titles.collectionContent.import + '_STARTED',
-        data: elements.results
+        data: elements
       });
-      _importElement(scene, elements.results, 0, dispatch);
+      _importElement(scene, elements, 0, dispatch);
     }),
     meta: {
       scene

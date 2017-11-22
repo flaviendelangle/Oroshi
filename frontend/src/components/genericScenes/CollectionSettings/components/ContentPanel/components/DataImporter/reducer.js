@@ -38,6 +38,7 @@ const reducer = (scene, state = defaultState, action) => {
       
     case collections.add:
       const keysNumber = state.keysNumber + 1;
+      const element = action.payload;
       let progress = 0;
       if (state.elementNumber > 0) {
         progress = keysNumber / state.elementNumber * 100;
@@ -46,7 +47,7 @@ const reducer = (scene, state = defaultState, action) => {
         ...state,
         created: {
           ...state.created,
-          [action.payload.tmdbId]: action.payload
+          [element.getPublicId()]: element
         },
         keysNumber,
         progress

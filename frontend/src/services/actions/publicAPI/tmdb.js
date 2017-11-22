@@ -41,7 +41,7 @@ export const getTopRated = (scene, collection, page) => {
 };
 
 export const checkExistence = (scene, collection, elements, fromLocalAPI=false) => {
-  // TODO : Find how the fromLocalAPI works and fix it
+
   if (fromLocalAPI) {
     elements.results = elements.results.map(el => {
       return {

@@ -31,6 +31,6 @@ const importElement = (scene, dispatch, elements, index) => {
       type: collections.add,
       data: el
     });
-    importElement(scene, dispatch, elements, ++index);
+    importElement(scene, dispatch, elements, index + 1);
   });
 };
