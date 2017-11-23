@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Dialog from 'material-ui/Dialog'
-import Paper from 'material-ui/Paper';
 import NavigationExpandLess from 'material-ui/svg-icons/navigation/expand-less';
 import CircularProgress from 'material-ui/CircularProgress';
 import FlatButton from 'material-ui/FlatButton';
@@ -52,10 +51,18 @@ class Details extends Component {
         onRequestClose={this.handleShowLess}
         autoScrollBodyContent={true}
         className="tv-show-details"
+        bodyStyle={this.style}
+        actionsContainerStyle={this.style}
+        actions={
+          <Footer
+            details={this.props.details}
+            muiTheme={this.props.muiTheme}
+            switchSeason={this.switchSeason}
+          />
+        }
       >
         <Content
           {...this.props}
-          switchSeason={this.switchSeason}
           season={this.state.season}
         />
         <div className="expand" onClick={this.handleShowLess}>
@@ -79,7 +86,6 @@ const Content = ({ loaded, details, ...props }) => {
     <div className="content">
       <Title
         title={props.title}
-        muiTheme={props.muiTheme}
         season={props.season}
         seasons={props.seasons}
       />
@@ -90,16 +96,11 @@ const Content = ({ loaded, details, ...props }) => {
         loadSeason={props.loadSeason}
         tmdbId={props.data.getPublicId()}
       />
-      <Footer
-        seasons={details.seasons}
-        muiTheme={props.muiTheme}
-        switchSeason={props.switchSeason}
-      />
     </div>
   );
 };
 
-const Title = ({ title, muiTheme, seasons, season }) => {
+const Title = ({ title, seasons, season }) => {
   let fullTitle = title;
   if (seasons[season]) {
     fullTitle += ' - ' + seasons[season].name;
@@ -109,24 +110,60 @@ const Title = ({ title, muiTheme, seasons, season }) => {
   );
 };
 
-const Footer = ({ seasons, muiTheme, switchSeason }) => {
-  const Elements = seasons.map(season => {
-    let title;
-    if (season.season_number === 0) {
-      title = 'Specials';
-    } else {
-      title = 'Season ' + season.season_number;
-    }
+const Footer = ({ details, muiTheme, switchSeason }) => {
+  if(!details) {
+    return null;
+  }
+  const short = details.seasons.length > 5;
+  const Elements = details.seasons.map(season => {
     return (
-      <FlatButton
-        key={season.season_number}
-        label={title}
-        style={{color: muiTheme.palette.paperColor}}
-        onClick={() => switchSeason(season.season_number)}
+      <SeasonButton
+        season={season}
+        short={short}
+        muiTheme={muiTheme}
+        switchSeason={switchSeason}
       />
     );
   });
-  return <div className="footer">{Elements}</div> ;
+  return (
+    <div className="footer">
+      <ScrollArea
+        speed={0.8}
+        vertical={false}
+      >
+        {Elements}
+      </ScrollArea>
+    </div>
+  );
+};
+
+const SeasonButton = ({ season, short, muiTheme, switchSeason }) => {
+  let title;
+  if (season.season_number === 0) {
+    title = short ? 'S0' : 'Specials';
+  } else {
+    title = (short ? 'S' : 'Season ') + season.season_number;
+  }
+  
+  let style;
+  if(short) {
+    style = {
+      color: muiTheme.palette.paperColor,
+      minWidth: 0
+    };
+  } else {
+    style = {
+      color: muiTheme.palette.paperColor
+    };
+  }
+  return (
+    <FlatButton
+      key={season.season_number}
+      label={title}
+      style={style}
+      onClick={() => switchSeason(season.season_number)}
+    />
+  );
 };
 
 const Season = ({ season, seasons, loadSeason, tmdbId, muiTheme }) => {
@@ -134,7 +171,11 @@ const Season = ({ season, seasons, loadSeason, tmdbId, muiTheme }) => {
     if (!seasons.hasOwnProperty(season)) {
       setTimeout(() => loadSeason(tmdbId, season));
     }
-    return null;
+    return (
+      <div className="progress">
+        <CircularProgress />
+      </div>
+    );
   }
   const data = seasons[season];
   return (

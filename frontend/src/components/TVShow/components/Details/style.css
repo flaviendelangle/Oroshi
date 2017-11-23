@@ -17,22 +17,16 @@
 }
 
 .tv-show-details .progress {
-    width: 40px;
     height: 40px;
-    position: absolute;
-    left: calc(50% - 20px);
-    top: calc(50% - 20px);
+    padding: 88px 0;
+    text-align: center;
 }
 
 .tv-show-details .episodes-list {
-    height: calc(100% - 62px - 1.5em);
+    height: 200px;
     overflow: hidden;
 }
 
 .tv-show-details .footer {
-    height: 36px;
-    position: absolute;
-    right: 0;
-    left: 0;
-    bottom: 0;
+    white-space: nowrap;
 }
