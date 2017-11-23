@@ -7,12 +7,17 @@ const Grade = ({ className, ...props }) => {
   
   const degree = parseInt(props.value*36, 10);
   
+  let grade = String(props.value);
+  if(Math.abs(props.value%1) < 0.05) {
+    grade += '.0';
+  }
+  
   return (
     <div style={_style.circle} className={className}>
       <div style={_style.externalCircle}>
       </div>
       <div style={_style.innerCircle}>
-        {props.value}
+        {grade}
       </div>
       <Arc quarter={1} degree={degree} {...props} />
       <Arc quarter={2} degree={degree} {...props} />

@@ -3,7 +3,7 @@ import { combineReducers } from 'redux'
 import { dialogs } from 'services/titles/interface'
 
 const defaultState = {
-  show: true,
+  show: false,
   collections: [],
 };
 

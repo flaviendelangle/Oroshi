@@ -114,8 +114,8 @@ const DetailsIcon = ({ creationMode, handleClick }) => {
   return <NavigationExpandMore onClick={handleClick} />;
 };
 
-const DetailsFrame = ({ show, creationMode, ...props }) => {
-  if (!creationMode && show) {
+const DetailsFrame = ({ creationMode, ...props }) => {
+  if (!creationMode) {
     return (
       <Details {...props} />
     );

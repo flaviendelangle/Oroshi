@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Dialog from 'material-ui/Dialog'
 import Paper from 'material-ui/Paper';
 import NavigationExpandLess from 'material-ui/svg-icons/navigation/expand-less';
 import CircularProgress from 'material-ui/CircularProgress';
@@ -28,8 +29,8 @@ class Details extends Component {
     }
   };
   
-  componentDidMount() {
-    if (!this.props.loaded) {
+  componentWillReceiveProps(newProps) {
+    if (!this.props.loaded && !this.props.show && newProps.show) {
       this.props.load(this.props.collection, this.props.data.getPublicId());
     }
   }
@@ -44,10 +45,13 @@ class Details extends Component {
   
   render() {
     return (
-      <Paper
-        zDepth={3}
-        className="details"
-        style={this.style}
+      <Dialog
+        title={this.title}
+        modal={false}
+        open={this.props.show}
+        onRequestClose={this.handleShowLess}
+        autoScrollBodyContent={true}
+        className="tv-show-details"
       >
         <Content
           {...this.props}
@@ -55,9 +59,9 @@ class Details extends Component {
           season={this.state.season}
         />
         <div className="expand" onClick={this.handleShowLess}>
-          <NavigationExpandLess style={this.style}/>
+          <NavigationExpandLess/>
         </div>
-      </Paper>
+      </Dialog>
     )
   }
   
@@ -168,7 +172,7 @@ const Episode = ({ episode_number, name, muiTheme }) => {
 };
 
 const mapStateToProps = (state, ownProps) => {
-  const root = state.tv_shows[ownProps.data.tmdbId];
+  const root = state.tv_shows[ownProps.data.getPublicId()];
   if (!root) {
     return {
       loaded: false

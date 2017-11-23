@@ -17,6 +17,13 @@ class Home extends Component {
     editing: false,
   };
   
+  constructor(props) {
+    super(props);
+    if (true) {
+      this.props.history.push('/login/');
+    }
+  }
+  
   componentDidMount() {
     this.props.loadCollections();
   }

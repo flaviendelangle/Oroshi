@@ -191,7 +191,7 @@ export const exportCollection = (scene, pk, format) => {
 
 const exportAsCSV = (scene, pk) => {
   
-  const generateComments = (scene, collection) => {
+  const generateComments = scene => {
     return '#scene,' + scene + '\n';
   };
   
@@ -199,7 +199,7 @@ const exportAsCSV = (scene, pk) => {
     type: collections.csv,
     payload: getDataToExport(scene, pk).then(({ fields, content, collection }) => {
       const csv = json2csv({ data: content, fields: fields });
-      const comments = generateComments(scene, collection);
+      const comments = generateComments(scene);
       downloadjs(comments + csv, collection.title + '.csv', 'text/csv');
       return null;
     })
@@ -211,12 +211,13 @@ const getDataToExport = (scene, pk) => {
     const fields = getModule(scene).exportFields;
     const content = collection.content.map(el => {
       let data = {};
+      const values = el.getLocal();
       fields.forEach(field => {
         if (field === 'title') {
-          data[field] = pickElement(el, 'titles', 'title', collection.title_language);
+          data[field] = pickElement(values, 'titles', 'title', collection.title_language);
         }
         else {
-          data[field] = el[field]
+          data[field] = values[field]
         }
       });
       return data;

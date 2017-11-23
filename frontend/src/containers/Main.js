@@ -5,6 +5,7 @@ import { Switch, Route } from 'react-router-dom';
 import muiThemeable from 'material-ui/styles/muiThemeable';
 
 import Home from 'scenes/Home';
+import Login from 'scenes/Login';
 import CollectionMovies from 'scenes/CollectionMovies';
 import CollectionTVShows from 'scenes/CollectionTVShows';
 import Movie from 'scenes/Movie';
@@ -31,10 +32,13 @@ class Main extends Component {
       <main style={this.style}>
         <Switch>
           <Route exact path='/' component={Home} />
+          <Route path='/login/' component={Login} />
+          
           <Route path='/collections/movies/:collection_id/settings/' component={CollectionMoviesSettings} />
           <Route path='/collections/tv_shows/:collection_id/settings/' component={CollectionTVShowsSettings} />
           <Route path='/collections/movies/:collection_id/' component={CollectionMovies} />
           <Route path='/collections/tv_shows/:collection_id/' component={CollectionTVShows} />
+          
           <Route path='/movies/:movie_id/' component={Movie} />
         </Switch>
       </main>

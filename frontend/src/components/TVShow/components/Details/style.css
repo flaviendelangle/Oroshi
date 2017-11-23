@@ -1,24 +1,22 @@
-.tv-show-parent .details {
+.tv-show-details .expand {
     position: absolute;
-    top: 20px;
-    right: 20px;
-    left: 20px;
-    height: 340px;
-    z-index: 2;
+    top: 0;
+    right: 0;
+    cursor: pointer;
 }
 
-.tv-show-parent .details .content {
+.tv-show-details .content {
     position: relative;
     height: 100%;
 }
 
-.tv-show-parent .details .title {
+.tv-show-details .title {
     padding: 5px 15px;
     font-size: 1.5em;
     line-height: 1.5em;
 }
 
-.tv-show-parent .details .progress {
+.tv-show-details .progress {
     width: 40px;
     height: 40px;
     position: absolute;
@@ -26,12 +24,12 @@
     top: calc(50% - 20px);
 }
 
-.tv-show-parent .details .episodes-list {
+.tv-show-details .episodes-list {
     height: calc(100% - 62px - 1.5em);
     overflow: hidden;
 }
 
-.tv-show-parent .details .footer {
+.tv-show-details .footer {
     height: 36px;
     position: absolute;
     right: 0;

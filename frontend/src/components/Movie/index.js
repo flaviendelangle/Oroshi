@@ -16,7 +16,7 @@ class Movie extends Component {
   
   state = {
     mouseOver: false,
-    isAdding: false
+    isAdding: false,
   };
   
   get release_date() {
