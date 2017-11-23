@@ -18,6 +18,15 @@ class Movie extends Element {
     return super.fromDistant(data, collection, Movie);
   }
   
+  buildSearchIndex() {
+    const local = this.getLocal();
+    let searchIndex = [];
+    
+    local.directors.forEach(el => searchIndex.push(el.name.toUpperCase()));
+    
+    super.buildSearchIndex(searchIndex)
+  };
+  
   prepareLocalOptions = () => {
     const release = this.getReleaseDate();
     this.release_list = [{

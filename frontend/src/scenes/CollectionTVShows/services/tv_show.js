@@ -17,6 +17,14 @@ class TVShow extends Element {
     return super.fromDistant(data, collection, TVShow);
   }
   
+  buildSearchIndex() {
+    const local = this.getLocal();
+    let searchIndex = [];
+    local.networks.forEach(el => searchIndex.push(el.name.toUpperCase()));
+    
+    super.buildSearchIndex(searchIndex)
+  };
+  
   prepareLocalOptions = () => {
   };
   

@@ -35,11 +35,11 @@ class Element {
     return element;
   }
   
-  buildSearchIndex = () => {
+  buildSearchIndex(searchIndex = []) {
     const local = this.getLocal();
-    let searchIndex = [];
     
     local.titles.forEach(el => searchIndex.push(el.title.toUpperCase()));
+    local.genres.forEach(el => searchIndex.push(el.name.toUpperCase()));
     searchIndex.push(String(local.release));
     
     const language = getLanguage(local.original_language);

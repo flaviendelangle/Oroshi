@@ -52,10 +52,6 @@ const LayoutButtons = ({ isAdding, switchLayout }) => {
   }
   return (
     <div style={layoutStyle}>
-      <ActionViewList
-        style={{marginRight: 10, cursor: 'pointer'}}
-        onClick={() => switchLayout('list')}
-      />
       <ActionViewModule
         style={{marginRight: 10, cursor: 'pointer'}}
         onClick={() => switchLayout('grid')}
