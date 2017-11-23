@@ -25,62 +25,79 @@ const layoutStyle = {
 
 class Menu extends Component {
   
-  renderLayout = () => {
-    if (this.props.isAdding) {
+  render() {
+    if(!this.props.found || !this.props.loaded) {
       return null;
     }
     return (
-      <div style={layoutStyle}>
-        <ActionViewList
-          style={{marginRight: 10, cursor: 'pointer'}}
-          onClick={() => this.props.switchLayout('list')}
-        />
-        <ActionViewModule
-          style={{marginRight: 10, cursor: 'pointer'}}
-          onClick={() => this.props.switchLayout('grid')}
-        />
-        <ActionViewStream
-          style={{cursor: 'pointer'}}
-          onClick={() => this.props.switchLayout('stream')}
-        />
-      </div>
-    );
-  };
-  
-  renderAddingIcon = () => {
-    if (this.props.isAdding) {
-      return (<ActionDoneAll/>);
-    }
-    return (<ContentAdd/>);
-  };
-  
-  render() {
-    return (
       <span>
-        <FloatingActionButton
-          style={addStyle}
-          onClick={() => this.props.switchAddingMode(this.props.collection)}
-        >
-          {this.renderAddingIcon()}
-        </FloatingActionButton>
-        
-        {this.renderLayout()}
+        <AddingIcon
+          collection={this.props.collection}
+          switchAddingMode={this.props.switchAddingMode}
+          isAdding={this.props.isAdding}
+        />
+        <LayoutButtons
+          isAdding={this.props.isAdding}
+          switchLayout={this.props.switchLayout}
+        />
       </span>
     )
-    
-  };
+  }
   
 }
+
+const LayoutButtons = ({ isAdding, switchLayout }) => {
+  if (isAdding) {
+    return null;
+  }
+  return (
+    <div style={layoutStyle}>
+      <ActionViewList
+        style={{marginRight: 10, cursor: 'pointer'}}
+        onClick={() => switchLayout('list')}
+      />
+      <ActionViewModule
+        style={{marginRight: 10, cursor: 'pointer'}}
+        onClick={() => switchLayout('grid')}
+      />
+      <ActionViewStream
+        style={{cursor: 'pointer'}}
+        onClick={() => switchLayout('stream')}
+      />
+    </div>
+  );
+};
+
+const AddingIcon = ({ isAdding, collection, switchAddingMode }) => {
+  let Icon;
+  if (isAdding) {
+    Icon = ActionDoneAll;
+  } else {
+    Icon = ContentAdd;
+  }
+  
+  return (
+    <FloatingActionButton
+      style={addStyle}
+      onClick={() => switchAddingMode(collection)}
+    >
+      <Icon/>
+    </FloatingActionButton>
+  );
+};
+
 
 const mapStateToProps = (state, ownProps) => {
   const root = state.collections.main[ownProps.scene];
   const contentRoot = state.collections.content[ownProps.scene];
   if (!root || !contentRoot) {
     return {
-      isAdding: false
+      loaded: false
     };
   }
   return {
+    loaded: contentRoot.loaded,
+    found: contentRoot.found,
     isAdding: root.isAdding,
     collection: contentRoot.collection
   }
