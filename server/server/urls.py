@@ -7,6 +7,8 @@ from api.Collections.views import CollectionsViewSet
 from api.MovieCollections.views import MovieCollectionsViewSet
 from api.TVShowCollections.views import TVShowCollectionsViewSet
 
+from api.Users.views import UsersViewSet
+
 from api.Movies.views import MoviesViewSet, CollectionMoviesViewSet
 from api.TVShows.views import TVShowsViewSet, CollectionTVShowsViewet
 
@@ -22,6 +24,7 @@ movie_collections_routes = router.register(r'^movie_collections', MovieCollectio
                                            base_name="movie_collections")
 tv_shows_collections_route = router.register(r'^tv_show_collections', TVShowCollectionsViewSet,
                                              base_name="tv_show_collections")
+router.register(r'^users', UsersViewSet, base_name="users")
 router.register(r'^directors', DirectorsViewSet, base_name="directors")
 router.register(r'^networks', NetworksViewSet, base_name="networks")
 router.register(r'^genres', GenresViewSet, base_name="genres")
