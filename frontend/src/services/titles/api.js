@@ -20,3 +20,7 @@ export const collections = {
 export const movie = {
   load: 'LOAD_MOVIE'
 };
+
+export const users = {
+  create: 'USERS_CREATE'
+};

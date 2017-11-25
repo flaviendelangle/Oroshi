@@ -1,9 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { SubmissionError } from 'redux-form';
 import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import muiThemeable from 'material-ui/styles/muiThemeable';
+
+import RegisterForm from './components/RegisterForm';
+import { create } from 'services/actions/users';
 
 import * as _style from './style';
 
@@ -11,7 +15,11 @@ class Login extends Component {
   
   state = {
     mouseOver: false,
-    mode: 'login'
+    mode: 'register',
+  };
+  
+  register = data => {
+    this.props.register(data);
   };
   
   handleMouseHover = mouseOver => {
@@ -31,8 +39,17 @@ class Login extends Component {
         onMouseEnter={() => this.handleMouseHover(true)}
         onMouseLeave={() => this.handleMouseHover(false)}
       >
-        <LoginForm theme={theme} onSwitch={this.switchMode} mode={this.state.mode} />
-        <RegisterForm theme={theme} onSwitch={this.switchMode} mode={this.state.mode} />
+        <LoginForm
+          theme={theme}
+          onSwitch={this.switchMode}
+          mode={this.state.mode}
+        />
+        <RegisterForm
+          theme={theme}
+          onSwitch={this.switchMode}
+          onSubmit={this.register}
+          mode={this.state.mode}
+        />
       </Paper>
     );
   }
@@ -68,34 +85,7 @@ const LoginForm = ({ theme, onSwitch, mode }) => {
   );
 };
 
-const RegisterForm = ({ theme, onSwitch, mode }) => {
-  if(mode !== 'register') {
-    return null;
-  }
-  return (
-    <div>
-      <TextField
-        floatingLabelStyle={_style.input(theme)}
-        inputStyle={_style.input(theme)}
-        underlineStyle={_style.input(theme)}
-        floatingLabelText="Username"
-      />
-      <TextField
-        floatingLabelStyle={_style.input(theme)}
-        inputStyle={_style.input(theme)}
-        underlineStyle={_style.input(theme)}
-        floatingLabelText="Password"
-        type="password"
-      />
-      <RaisedButton
-        style={_style.button}
-        backgroundColor={_style.buttonBackground}
-        label="Sign Up"
-      />
-      <LoginButton theme={theme} onSwitch={onSwitch}/>
-    </div>
-  );
-};
+
 
 const RegisterButton = ({ theme, onSwitch }) => (
   <div style={_style.flatButton(theme)}>
@@ -109,18 +99,6 @@ const RegisterButton = ({ theme, onSwitch }) => (
   </div>
 );
 
-const LoginButton = ({ theme, onSwitch }) => (
-  <div style={_style.flatButton(theme)}>
-    <span>Don't have an account? </span>
-    <span
-      style={_style.flatButtonLink}
-      onClick={() => onSwitch('login')}
-    >
-      Sign In
-    </span>
-  </div>
-);
-
 const mapStateToProps = state => {
   return {
   }
@@ -128,6 +106,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
+    register: data => create(data)
   }
 };
 

@@ -17,10 +17,11 @@ class API {
   fetch = (url, data) => {
     return window.fetch(url, data)
       .then(response => {
-        if (response.status === 404)
+        if (!response.ok) {
           throw Error(response.statusText);
+        }
         return response.json();
-      });
+      })
   };
   
   GET = (url, data = {}) => {
