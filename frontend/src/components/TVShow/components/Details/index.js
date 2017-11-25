@@ -28,19 +28,26 @@ class Details extends Component {
     }
   };
   
+  /**
+   * Hide the modal
+   */
+  handleShowLess = () => {
+    this.props.onCollapse();
+  };
+  
+  /**
+   * Change the season we want to display in the modal
+   * @param {number} season - the season to show
+   */
+  switchSeason = season => {
+    this.setState({ season });
+  };
+  
   componentWillReceiveProps(newProps) {
     if (!this.props.loaded && !this.props.show && newProps.show) {
       this.props.load(this.props.collection, this.props.data.getPublicId());
     }
   }
-  
-  handleShowLess = () => {
-    this.props.onCollapse();
-  };
-  
-  switchSeason = season => {
-    this.setState({ season });
-  };
   
   render() {
     return (

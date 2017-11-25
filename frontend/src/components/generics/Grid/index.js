@@ -14,6 +14,10 @@ const CONFIG = {
   pageLength: 4,
 };
 
+/**
+ * Class representing the Grid layout
+ * This layout show the elements as a responsive grid with CONFIG.pageLength lines
+ */
 class Grid extends Component {
   
   state = {
@@ -38,6 +42,9 @@ class Grid extends Component {
     return local && !this.props.data.next;
   }
   
+  /**
+   * Show CONFIG.pageLength more lines in the Grid
+   */
   showMore = () => {
     if (this.props.data.next) {
       this.props.loadMore(this.props.data.next);

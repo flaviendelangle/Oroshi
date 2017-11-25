@@ -12,31 +12,7 @@ import Progress from './components/Progress'
 import { getCollectionSettingsState } from 'containers/reducer';
 import { importCSV, importElements } from 'services/actions/collections';
 
-const sourceStyle = {
-  textAlign: 'left',
-  marginBottom: 20
-};
-
-const dropZoneStyle = {
-  padding: 10,
-  width: 300,
-  maxWidth: '50%',
-  height: 50,
-  lineHeight: '50px',
-  textAlign: 'center',
-  margin: 'auto',
-  borderColor: 'rgb(102, 102, 102)',
-  borderStyle: 'dashed',
-  borderRadius: 5,
-  cursor: 'pointer'
-};
-
-const buttonStyle = {
-  margin: '12px',
-  position: 'absolute',
-  left: '50%',
-  transform: 'translateX(-50%)'
-};
+import * as _style from './style';
 
 class DataImporter extends Component {
   
@@ -45,16 +21,25 @@ class DataImporter extends Component {
     csv: null
   };
   
-  updateFile = upload => {
+  /**
+   * Update the csv file from which we want to retrieve the data
+   * @param {Array<File>} upload - the files which have been selected by the user
+   */
+  updateCSVFile = upload => {
     this.setState({ csv: upload[0] });
   };
   
+  /**
+   * Handle the click to launch the importation
+   */
   handleClick = () => {
     switch(this.state.source) {
-      case 'csv':
-        return this.props.importCSV(this.state.csv);
+      case 'csv': {
+        this.props.importCSV(this.state.csv);
+        break;
+      }
       default:
-        return null;
+        break;
     }
   };
   
@@ -64,7 +49,7 @@ class DataImporter extends Component {
       <SelectField
         floatingLabelText="Source"
         value={this.state.source}
-        style={sourceStyle}
+        style={_style.source}
         onChange={(proxy, index, source) => this.setState({source})}
       >
         <MenuItem value="csv" primaryText="CSV File" />
@@ -80,10 +65,10 @@ class DataImporter extends Component {
     return (
       <div style={{height: 150}}>
         <Dropzone
-          onDrop={this.updateFile}
+          onDrop={this.updateCSVFile}
           multiple={false}
           accept={'.' + format}
-          style={dropZoneStyle}
+          style={_style.dropZone}
         >
           {() => {
             if (this.state.csv) {
@@ -101,7 +86,7 @@ class DataImporter extends Component {
     return (
       <RaisedButton
         label="Import !"
-        style={buttonStyle}
+        style={_style.button}
         onClick={this.handleClick}
       />
     );

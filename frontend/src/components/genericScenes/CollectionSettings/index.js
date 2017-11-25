@@ -20,7 +20,6 @@ class CollectionSettings extends Component {
         <ContentPanel scene={this.props.scene} />
       </div>
     );
-    
   }
   
 }

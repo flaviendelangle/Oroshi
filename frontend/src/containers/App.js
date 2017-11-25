@@ -5,23 +5,32 @@ import { Provider } from 'react-redux';
 import injectTapEventPlugin from "react-tap-event-plugin"
 import WebFont from 'webfontloader';
 
-import api from 'services/TheMovieDatabaseJS';
+import tmdbApi from 'services/TheMovieDatabaseJS';
 import Main from './Main';
 import store from './reducer';
 import theme from 'services/theme';
-import './App.css';
 import { DEFAULT_LANGUAGE } from 'services/languages';
 
+import './App.css';
 
+/**
+ * Remove touch detail issues
+ */
 injectTapEventPlugin();
 
+/**
+ * Font settings
+ */
 WebFont.load({
   google: {
     families: ['Roboto', 'sans-serif']
   }
 });
 
-api.set_config({
+/**
+ * Public APIs settings
+ */
+tmdbApi.set_config({
   api_key: 'de7ff1a87f9afdb1ccd29ad9a0738e31',
   language: DEFAULT_LANGUAGE,
   include_adult: 'false'

@@ -5,27 +5,17 @@ import muiThemeable from 'material-ui/styles/muiThemeable';
 import Line from './components/Line';
 import { getCollectionSettingsState } from 'containers/reducer'
 
+import * as _style from './style';
+
 class MenuPanel extends Component {
   
   get palette() {
     return this.props.muiTheme.baseTheme.palette;
   }
   
-  get panelStyle() {
-    return {
-      position: 'absolute',
-      top: 64,
-      bottom: 0,
-      left: 0,
-      paddingTop: 50,
-      width: 'calc(40% - 20px)',
-      paddingRight: 20,
-    };
-  }
-  
   render() {
     return (
-      <div style={this.panelStyle}>
+      <div style={_style.panel}>
         <Line active={this.props.active === 'summary'} value="summary">
           Summary
         </Line>

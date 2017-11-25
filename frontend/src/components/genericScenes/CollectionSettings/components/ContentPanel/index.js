@@ -26,7 +26,6 @@ class MenuPanel extends Component {
       backgroundColor: this.palette.primary2Color
     };
   }
-  
 
   render() {
     return (
@@ -39,6 +38,11 @@ class MenuPanel extends Component {
   
 }
 
+/**
+ * Return the component of a given settings section
+ * @param {string} active - name of the current settings section
+ * @returns {Component} component representing this settings section
+ */
 const getSectionComponent = active => {
   switch(active) {
     case 'summary':

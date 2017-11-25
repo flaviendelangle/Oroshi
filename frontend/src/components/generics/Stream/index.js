@@ -6,19 +6,10 @@ import NavigationMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz'
 
 import Section from './components/Section/index'
 
+import * as _style from './style';
+
 const CONFIG = {
   pageLength: 10
-};
-
-const buttonStyle = {
-  width: 96,
-  height: 96,
-  padding: 24,
-};
-
-const iconStyle = {
-  width: 48,
-  height: 48
 };
 
 class Stream extends Component {
@@ -32,7 +23,9 @@ class Stream extends Component {
   };
   
   renderSections = () => {
-    let sections = this.props.data.results;
+    let { data, collection, elementComponent, lineDimensions, creationMode } = this.props;
+    let sections = data.results;
+    
     if (!this.state.full && sections.length > CONFIG.pageLength * this.state.pages) {
       sections = sections.slice(0,CONFIG.pageLength * this.state.pages);
     }
@@ -41,11 +34,11 @@ class Stream extends Component {
         <Section
           key={section.key.pk}
           data={section}
-          collection={this.props.collection}
-          field={this.props.data.key}
-          elementComponent={this.props.elementComponent}
-          lineDimensions={this.props.lineDimensions}
-          creationMode={this.props.creationMode}
+          collection={collection}
+          field={data.key}
+          elementComponent={elementComponent}
+          lineDimensions={lineDimensions}
+          creationMode={creationMode}
         />)
     })
   };
@@ -58,8 +51,8 @@ class Stream extends Component {
       <div style={{textAlign: 'center'}}>
           <IconButton
             onClick={this.showMore}
-            style={buttonStyle}
-            iconStyle={iconStyle}
+            style={_style.button}
+            iconStyle={_style.icon}
           >
             <NavigationMoreHoriz/>
           </IconButton>

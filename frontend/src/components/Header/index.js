@@ -7,7 +7,24 @@ import { showMainDrawer } from "./components/MainDrawer/actions";
 
 class Header extends Component {
   
-  getChildByClassName = className => {
+  get drawerLinks() {
+    return this.getChildrenByClassName('menu');
+  };
+  
+  get searchBar() {
+    return this.getChildrenByClassName('search');
+  };
+  
+  get actionsButton() {
+    return this.getChildrenByClassName('actions');
+  };
+  
+  /**
+   * Get all the children of the component which have the right className
+   * @param {string} className - className of which we want to find all matching children
+   * @returns {Array<Component>} the children with the right className
+   */
+  getChildrenByClassName = className => {
     const children = this.props.children;
     if (Array.isArray(children)) {
       for(let i=0; i<children.length; i++) {
@@ -22,18 +39,6 @@ class Header extends Component {
     }
   };
   
-  getDrawerLinks = () => {
-    return this.getChildByClassName('menu');
-  };
-  
-  getSearchBar = () => {
-    return this.getChildByClassName('search');
-  };
-  
-  getActionsButton = () => {
-    return this.getChildByClassName('actions');
-  };
-  
   render() {
     return (
       <div>
@@ -41,11 +46,11 @@ class Header extends Component {
           title={this.props.title}
           onLeftIconButtonTouchTap={() => this.props.openMainDrawer(true)}
         >
-          {this.getSearchBar()}
-          {this.getActionsButton()}
+          {this.searchBar}
+          {this.actionsButton}
         </AppBar>
         <MainDrawer>
-          {this.getDrawerLinks()}
+          {this.drawerLinks}
         </MainDrawer>
       </div>
     )

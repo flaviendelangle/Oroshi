@@ -11,10 +11,11 @@ import { addElement, removeElement } from 'services/actions/collections';
 
 import './style.css'
 
+/** Class representing a tv-show frame, used mainly in the layouts (Grid + Stream) */
 class TVShow extends Component {
   
   state = {
-    mouseOver: false,
+    isMouseOver: false,
     isAdding: false,
     isExtended: false
   };
@@ -31,30 +32,7 @@ class TVShow extends Component {
     return this.props.data.getNote();
   }
   
-  handleMouseHover = mouseOver => {
-    this.setState({mouseOver})
-  };
-  
-  save = () => {
-    if (!this.state.isAdding) {
-      this.props.create(this.props.collection, this.props.data);
-      this.setState({ isAdding: true });
-    }
-  };
-  
-  destroy = () => {
-    this.props.destroy(this.props.collection, this.props.data);
-  };
-  
-  showMore = () => {
-    this.setState({ isExtended: true });
-  };
-  
-  showLess = () => {
-    this.setState({ isExtended: false });
-  };
-  
-  getParentClassName = () => {
+  get parentClassName() {
     let className = '';
     if (this.props.data.isInCollection()) {
       className = 'already-in-collection';
@@ -62,12 +40,51 @@ class TVShow extends Component {
       className = 'not-in-collection';
     }
     return className
+  }
+  
+  /**
+   * Update state.mouseOver to decide if we want to generate the Overlay
+   * @param {boolean} isMouseOver
+   */
+  handleMouseHover = isMouseOver => {
+    this.setState({ isMouseOver })
+  };
+  
+  /**
+   * Add the movie to the collection
+   */
+  save = () => {
+    if (!this.state.isAdding) {
+      this.props.create(this.props.collection, this.props.data);
+      this.setState({ isAdding: true });
+    }
+  };
+  
+  /**
+   * Remove the movie from the collection
+   */
+  destroy = () => {
+    this.props.destroy(this.props.collection, this.props.data);
+  };
+  
+  /**
+   * Launch the Details modal
+   */
+  showMore = () => {
+    this.setState({ isExtended: true });
+  };
+  
+  /**
+   * Hide the Details modal
+   */
+  showLess = () => {
+    this.setState({ isExtended: false });
   };
   
   render() {
     return (
       <div className={'tv-show-parent'}>
-        <div className={'tv-show-container ' + this.getParentClassName()}>
+        <div className={'tv-show-container ' + this.parentClassName}>
           <div className="tv-show-frame">
             <Paper
               zDepth={3}

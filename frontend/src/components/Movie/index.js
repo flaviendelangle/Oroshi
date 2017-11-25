@@ -11,11 +11,11 @@ import { switchSeenOnElement } from 'services/actions/collections/movies';
 
 import './style.css'
 
-
+/** Class representing a movie frame, used mainly in the layouts (Grid + Stream) */
 class Movie extends Component {
   
   state = {
-    mouseOver: false,
+    isMouseOver: false,
     isAdding: false,
   };
   
@@ -35,22 +35,7 @@ class Movie extends Component {
     return this.props.data.getNote();
   }
   
-  handleMouseHover = mouseOver => {
-    this.setState({mouseOver})
-  };
-  
-  save = () => {
-    if (!this.state.isAdding) {
-      this.props.create(this.props.collection, this.props.data);
-      this.setState({ isAdding: true });
-    }
-  };
-  
-  destroy = () => {
-    this.props.destroy(this.props.collection, this.props.data);
-  };
-  
-  getParentClassName = () => {
+  get parentClassName() {
     let className = '';
     if (this.props.data.isInCollection()) {
       className = 'already-in-collection';
@@ -58,6 +43,31 @@ class Movie extends Component {
       className = 'not-in-collection';
     }
     return className
+  };
+  
+  /**
+   * Update state.mouseOver to decide if we want to generate the Overlay
+   * @param {boolean} isMouseOver
+   */
+  handleMouseHover = isMouseOver => {
+    this.setState({ isMouseOver })
+  };
+  
+  /**
+   * Add the movie into the collection
+   */
+  save = () => {
+    if (!this.state.isAdding) {
+      this.props.create(this.props.collection, this.props.data);
+      this.setState({ isAdding: true });
+    }
+  };
+  
+  /**
+   * Remove the movie from the collection
+   */
+  destroy = () => {
+    this.props.destroy(this.props.collection, this.props.data);
   };
   
   componentWillReceiveProps(newProps) {
@@ -68,7 +78,7 @@ class Movie extends Component {
 
   render() {
     return (
-      <div className={'movie-parent ' + this.getParentClassName()}>
+      <div className={'movie-parent ' + this.parentClassName}>
         <div className="movie-container">
           <Paper
             zDepth={3}

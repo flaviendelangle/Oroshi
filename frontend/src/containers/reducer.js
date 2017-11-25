@@ -2,11 +2,10 @@ import { combineReducers, createStore, applyMiddleware } from 'redux';
 import { reducer as form } from 'redux-form';
 import promiseMiddleware from 'redux-promise-middleware';
 
-import header from 'components/Header/reducer';
-
 import home from 'scenes/Home/reducer';
 import login from 'scenes/Login/reducer';
 import movie from 'scenes/Movie/reducer';
+import header from 'components/Header/reducer';
 import tv_shows from 'components/TVShow/reducer';
 import collections from 'components/genericScenes/Collection/reducer';
 import collectionSettings from 'components/genericScenes/CollectionSettings/reducer';
@@ -79,6 +78,12 @@ const reducer = (state, action) => {
   
 };
 
+/**
+ * Return the current state of the settings of a collection
+ * @param state - current root state of the application
+ * @param scene - scene from which we want to get the state
+ * @returns {Object} - state of the settings of our scene
+ */
 export const getCollectionSettingsState = (state, scene) => {
   return state['collection_' + scene + '_settings'];
 };
