@@ -100,13 +100,15 @@ const RegisterButton = ({ theme, onSwitch }) => (
 );
 
 const mapStateToProps = state => {
+  const root = state.login.main;
   return {
+    registerError: root.registerError
   }
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    register: data => create(data)
+    register: data => dispatch(create(data))
   }
 };
 

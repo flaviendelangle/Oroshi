@@ -9,6 +9,12 @@ export const FORM_NAME = 'REGISTER_FORM';
 
 const required = value => value ? undefined : 'Required';
 const minLength8 = value => value.length >= 8 ? undefined : 'Must be at least 8 characters long';
+const email = value => {
+  if(value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
+    return 'Invalid email address';
+  }
+  return undefined;
+}
 
 let RegisterForm = ({ theme, onSwitch, mode, handleSubmit }) => {
   if(mode !== 'register') {
@@ -24,6 +30,16 @@ let RegisterForm = ({ theme, onSwitch, mode, handleSubmit }) => {
         name="username"
         component={TextField}
         validate={[ required ]}
+      />
+      <Field
+        floatingLabelStyle={_style.input(theme)}
+        inputStyle={_style.input(theme)}
+        underlineStyle={_style.input(theme)}
+        floatingLabelText="Email"
+        name="email"
+        component={TextField}
+        validate={[ required, email ]}
+        type="email"
       />
       <Field
         floatingLabelStyle={_style.input(theme)}

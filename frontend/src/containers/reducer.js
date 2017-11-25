@@ -5,6 +5,7 @@ import promiseMiddleware from 'redux-promise-middleware';
 import header from 'components/Header/reducer';
 
 import home from 'scenes/Home/reducer';
+import login from 'scenes/Login/reducer';
 import movie from 'scenes/Movie/reducer';
 import tv_shows from 'components/TVShow/reducer';
 import collections from 'components/genericScenes/Collection/reducer';
@@ -55,6 +56,7 @@ const appReducer = combineReducers({
   collection_movies_settings: collectionSettings('movies'),
   collection_tv_shows_settings: collectionSettings('tv_shows'),
   home,
+  login,
   movie
 });
 
