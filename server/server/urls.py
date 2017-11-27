@@ -41,5 +41,6 @@ tv_shows_collections_route.register(r'tv_shows', CollectionTVShowsViewet,
 
 urlpatterns = [
     url(r'^api/', include(router.urls)),
-    #url(r'^admin/', admin.site.urls),
+    url(r'^api/o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
+    url(r'^api/admin/', admin.site.urls),
 ]

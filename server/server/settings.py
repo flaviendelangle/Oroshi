@@ -31,6 +31,8 @@ CORS_ORIGIN_WHITELIST = (
     'localhost:3000',
 )
 
+#CORS_ORIGIN_ALLOW_ALL = True
+
 
 # Application definition
 
@@ -43,9 +45,18 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders',
+    'oauth2_provider',
 
     'api',
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
+    ),
+}
+
+AUTH_USER_MODEL = 'api.Users'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
