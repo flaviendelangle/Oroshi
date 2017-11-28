@@ -37,6 +37,9 @@ CORS_ORIGIN_WHITELIST = (
 # Application definition
 
 INSTALLED_APPS = [
+    'api',
+
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -46,8 +49,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'oauth2_provider',
-
-    'api',
 ]
 
 REST_FRAMEWORK = {
@@ -55,8 +56,6 @@ REST_FRAMEWORK = {
         'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
     ),
 }
-
-AUTH_USER_MODEL = 'api.Users'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -72,6 +71,9 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'server.urls'
+
+AUTH_USER_MODEL = 'api.Users'
+
 
 TEMPLATES = [
     {

@@ -13,8 +13,14 @@ class UsersManager(BaseUserManager):
             username=username,
             email=self.normalize_email(email),
         )
-        print(password)
         user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_superuser(self, username, password, email):
+        user = self.create_user(username, password, email)
+        user.is_admin = True
+        user.is_staff = True
         user.save(using=self._db)
         return user
 
@@ -22,8 +28,16 @@ class UsersManager(BaseUserManager):
 class Users(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(max_length=254, unique=True)
     username = models.TextField(max_length=50, unique=True)
+    is_admin = models.BooleanField(default=False)
+    is_staff = models.BooleanField(default=False)
+
+    USERNAME_FIELD = 'username'
+    REQUIRED_FIELDS = ['email', 'password']
 
     objects = UsersManager()
 
-    USERNAME_FIELS = 'username'
-    REQUIRED_FIELDS = ['email', 'password']
+    def get_full_name(self):
+        return self.email
+
+    def get_short_name(self):
+        return self.username
