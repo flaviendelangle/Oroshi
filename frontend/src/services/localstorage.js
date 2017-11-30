@@ -27,3 +27,8 @@ export const setValue = (key, value) => {
   setLocalStorage(state);
 };
 
+export const destroyValue = key => {
+  const state = getLocalStorage();
+  delete state[key];
+  setLocalStorage(state);
+};

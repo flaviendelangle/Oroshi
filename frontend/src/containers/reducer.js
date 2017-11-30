@@ -37,11 +37,16 @@ const app = (state=defaultState, action) => {
       if(action.payload.error) {
         return state;
       }
-      console.log('LOADED');
       saveOauth(action.payload);
       return {
         ...state,
         oauth: action.payload
+      };
+  
+    case notify.change:
+      return {
+        ...state,
+        oauth: loadOauth()
       };
       
     default:

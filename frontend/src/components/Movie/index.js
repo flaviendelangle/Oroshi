@@ -89,7 +89,7 @@ class Movie extends Component {
             <Poster path={this.posterPath} title={this.title} />
             <ElementOverlay
               note={this.note}
-              mouseOver={this.state.mouseOver}
+              mouseOver={this.state.isMouseOver}
               creation_mode={this.props.creationMode}
               already_in_collection={this.props.data.isInCollection()}
               handleSave={this.save}
