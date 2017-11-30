@@ -22,5 +22,6 @@ export const movie = {
 };
 
 export const users = {
-  create: 'USERS_CREATE'
+  create: 'USERS_CREATE',
+  login: 'USERS_LOGIN'
 };

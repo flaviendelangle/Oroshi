@@ -18,7 +18,9 @@ class API {
     return window.fetch(url, data)
       .then(response => {
         if (!response.ok) {
-          throw Error(response.statusText);
+          return response.json().then(content => {
+            throw content
+          });
         }
         return response.json();
       })
@@ -63,7 +65,9 @@ class API {
     
     let form = new FormData();
     for(let key in data) {
-      add(key, data[key])
+      if(data.hasOwnProperty(key)) {
+        add(key, data[key])
+      }
     }
     return form;
   };
@@ -78,9 +82,11 @@ class API {
     let prototype = {};
   
     for(let key in this.nested_routes) {
-      Object.defineProperty(prototype, key, {
-        get: () => new this.nested_routes[key](this.config.root + '/' + pk)
-      });
+      if(this.nested_routes.hasOwnProperty(key)) {
+        Object.defineProperty(prototype, key, {
+          get: () => new this.nested_routes[key](this.config.root + '/' + pk)
+        });
+      }
     }
   
     return Object.create(prototype);
@@ -104,9 +110,15 @@ class API {
     return this[method](url, data);
   };
   
-  list_route(route_name) {
+  list_route(route_name, method='GET', body) {
     const url = this.url() + route_name + '/';
-    return this.GET(url);
+    let data;
+    if (method === 'POST') {
+      data = {
+        body: this.objectToFormData(body)
+      };
+    }
+    return this[method](url, data);
   }
   
   create(body) {

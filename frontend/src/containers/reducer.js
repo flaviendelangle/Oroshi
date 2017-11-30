@@ -12,11 +12,15 @@ import collectionSettings from 'components/genericScenes/CollectionSettings/redu
 
 import { notify } from 'services/titles/router';
 import { screen } from 'services/titles/interface';
+import { users } from 'services/titles/api';
+
 import { alertScreenResize } from '../services/actions/interface';
+import { loginFromCache, saveOauth, loadOauth } from '../services/actions/users';
 
 
 const defaultState = {
-  lineDimensions: null
+  lineDimensions: null,
+  oauth: null
 };
 
 const app = (state=defaultState, action) => {
@@ -27,6 +31,17 @@ const app = (state=defaultState, action) => {
       return {
         ...state,
         lineDimensions: action.lineDimensions
+      };
+      
+    case users.login + '_FULFILLED':
+      if(action.payload.error) {
+        return state;
+      }
+      console.log('LOADED');
+      saveOauth(action.payload);
+      return {
+        ...state,
+        oauth: action.payload
       };
       
     default:
@@ -98,6 +113,12 @@ window.addEventListener('resize', () => {
   store.dispatch(alertScreenResize());
 });
 
+
 store.dispatch(alertScreenResize());
+
+const oauth = loadOauth();
+if(oauth) {
+  store.dispatch(loginFromCache(oauth));
+}
 
 export default store;

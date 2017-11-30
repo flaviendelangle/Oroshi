@@ -36,6 +36,7 @@ tmdbApi.set_config({
   include_adult: 'false'
 });
 
+
 class App extends Component {
 
     render() {

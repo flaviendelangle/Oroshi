@@ -19,7 +19,7 @@ class Home extends Component {
   
   constructor(props) {
     super(props);
-    if (true) {
+    if (!this.props.oauth) {
       this.props.history.push('/login/');
     }
   }
@@ -72,9 +72,12 @@ class Home extends Component {
 }
 
 const mapStateToProps = state => {
+  const root = state.home.main;
+  const appRoot = state.app;
   return {
-    collections: state.home.main.collections,
-    loaded: state.home.main.loaded
+    collections: root.collections,
+    loaded: root.loaded,
+    oauth: appRoot.oauth
   }
 };
 
