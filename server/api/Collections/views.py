@@ -10,10 +10,10 @@ class CollectionsViewSet(viewsets.ViewSet):
 
     @list_route(methods=['get'], url_path='settings')
     def settings_list(self, request):
-        movies = MovieCollectionsViewSet.get_settings_list()
+        movies = MovieCollectionsViewSet.get_settings_list(request.user)
         movies = CollectionsViewSet.addType(movies, 'movies')
 
-        tv_shows = TVShowCollectionsViewSet.get_settings_list()
+        tv_shows = TVShowCollectionsViewSet.get_settings_list(request.user)
         tv_shows = CollectionsViewSet.addType(tv_shows, 'tv_shows')
 
         data = movies + tv_shows

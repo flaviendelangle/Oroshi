@@ -55,6 +55,6 @@ class MovieCollectionsViewSet(viewsets.ModelViewSet):
         return Response(data)
 
     @staticmethod
-    def get_settings_list():
-        data = MovieCollections.objects.all()
+    def get_settings_list(user):
+        data = MovieCollections.objects.filter(user=user)
         return MovieCollectionSettingsSerializer(data, many=True).data

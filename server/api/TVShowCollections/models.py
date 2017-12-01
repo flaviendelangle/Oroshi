@@ -1,11 +1,13 @@
 from django.db import models
 
 from api.TVShows.models import TVShows
+from api.Users.models import Users
 
 
 class TVShowCollections(models.Model):
     hash = models.CharField(max_length=128, default="")
     content = models.ManyToManyField(TVShows, verbose_name="list_of_tv_shows", related_name="collection_tv_shows")
+    user = models.ForeignKey(Users)
 
     # Summary
     title = models.CharField(max_length=1000, default="")

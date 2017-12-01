@@ -52,6 +52,6 @@ class TVShowCollectionsViewSet(viewsets.ModelViewSet):
         return Response(data)
 
     @staticmethod
-    def get_settings_list():
-        data = TVShowCollections.objects.all()
+    def get_settings_list(user):
+        data = TVShowCollections.objects.filter(user=user)
         return TVShowCollectionSettingsSerializer(data, many=True).data
