@@ -48,10 +48,10 @@ export const get = (scene, pk) => {
   };
 };
 
-export const getAll = () => {
+export const getAll = pk => {
   return {
     type: titles.collectionContent.loadAllSettings,
-    payload: CollectionsAPI.settings()
+    payload: CollectionsAPI.settings(pk)
   }
 };
 

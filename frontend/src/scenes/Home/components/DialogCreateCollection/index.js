@@ -27,7 +27,8 @@ class DialogCreateCollection extends Component {
   create = () => {
     if(this.state.title) {
       const data = {
-        title: this.state.title
+        title: this.state.title,
+        user: this.props.profile.pk
       };
       this.props.create(this.state.type, data);
     }
@@ -91,11 +92,15 @@ class DialogCreateCollection extends Component {
 }
 
 const mapStateToProps = state => {
+  const root = state.home.dialogCreateCollection.main;
+  const homeRoot = state.home.main;
+  const appRoot = state.app;
   return {
-    isOpen: state.home.dialogCreateCollection.main.show,
-    collections: state.home.main.collections,
-    update: state.home.dialogCreateCollection.main.update,
-    isImportingContent: state.home.dialogCreateCollection.main.isImportingContent
+    isOpen: root.show,
+    update: root.update,
+    isImportingContent: root.isImportingContent,
+    collections: homeRoot.collections,
+    profile: appRoot.profile
   }
 };
 

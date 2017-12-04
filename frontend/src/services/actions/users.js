@@ -1,7 +1,6 @@
 import { UsersAPI } from 'services/api/users';
 import { users } from 'services/titles/api';
 import { OauthAPI } from 'services/api/oauth';
-import { setValue, getValue } from 'services/localstorage';
 
 export const create = data => {
   return {
@@ -14,28 +13,32 @@ export const create = data => {
   };
 };
 
-export const login = data => {
+export const login = ({ username, password }) => {
   return {
     type: users.login,
-    payload: OauthAPI.requestToken(data.username, data.password).catch(error => {
-      return {
-        error
-      };
-    })
+    payload: OauthAPI.requestToken(username, password)
+      .catch(error => {
+        return {
+          error
+        };
+      }),
+    meta: {
+      username: username
+    }
   }
 };
 
-export const loginFromCache = oauth => {
+export const loginFromCache = ({ oauth, meta }) => {
   return {
     type: users.login + '_FULFILLED',
-    payload: oauth
+    payload: oauth,
+    meta
   }
 };
 
-export const saveOauth = oauth => {
-  setValue('oauth', oauth);
-};
-
-export const loadOauth = () => {
-  return getValue('oauth');
+export const getProfile = username => {
+  return {
+    type: users.getProfile,
+    payload: UsersAPI.retrieveByUsername(username)
+  };
 };

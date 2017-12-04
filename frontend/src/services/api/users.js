@@ -6,6 +6,10 @@ class Users extends API {
     root: '/users'
   };
   
+  retrieveByUsername = username => {
+    return super.detail_route(username, 'username');
+  };
+  
 }
 
 export const UsersAPI = new Users();

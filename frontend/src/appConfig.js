@@ -1,4 +1,4 @@
 export const OAUTH2 = {
-  client_id: '5BnSm317FH8cAoGNweRZ1rCWK8LLcPaPuBbCXZhk',
+  client_id: 'cEcynhqmnyGsnK3JbbQbCBfjySC84WU3HtX5EXfh',
   grant_type: 'password'
 };

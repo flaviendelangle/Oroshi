@@ -32,3 +32,28 @@ export const destroyValue = key => {
   delete state[key];
   setLocalStorage(state);
 };
+
+export const saveOauth = (oauth, meta) => {
+  let exData = loadOauth();
+  let data;
+  if(!meta && exData) {
+    data = {
+      oauth,
+      meta: exData.meta
+    };
+  } else {
+    data = {
+      oauth,
+      meta
+    };
+  }
+  setValue('oauth', data);
+};
+
+export const loadOauth = () => {
+  return getValue('oauth');
+};
+
+export const destroyOauth = () => {
+  return destroyValue('oauth');
+};

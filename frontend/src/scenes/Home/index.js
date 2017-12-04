@@ -25,8 +25,20 @@ class Home extends Component {
   }
   
   componentDidMount() {
-    this.props.loadCollections();
+    if(this.props.profile) {
+      this.loadCollection(this.props.profile);
+    }
   }
+  
+  componentWillReceiveProps(newProps) {
+    if(newProps.profile && !this.props.profile) {
+      this.loadCollection(newProps.profile);
+    }
+  }
+  
+  loadCollection = profile => {
+    this.props.loadCollections(profile.pk);
+  };
   
   render() {
     if (!this.props.loaded) {
@@ -77,13 +89,14 @@ const mapStateToProps = state => {
   return {
     collections: root.collections,
     loaded: root.loaded,
-    oauth: appRoot.oauth
+    oauth: appRoot.oauth,
+    profile: appRoot.profile
   }
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    loadCollections: () => dispatch(getCollections())
+    loadCollections: pk => dispatch(getCollections(pk))
   }
 };
 

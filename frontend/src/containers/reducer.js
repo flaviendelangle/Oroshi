@@ -15,12 +15,15 @@ import { screen } from 'services/titles/interface';
 import { users } from 'services/titles/api';
 
 import { alertScreenResize } from '../services/actions/interface';
-import { loginFromCache, saveOauth, loadOauth } from '../services/actions/users';
+import { loginFromCache } from 'services/actions/users';
+import { saveOauth, loadOauth } from 'services/localstorage';
 
 
 const defaultState = {
   lineDimensions: null,
-  oauth: null
+  oauth: null,
+  profile: null,
+  username: null
 };
 
 const app = (state=defaultState, action) => {
@@ -37,16 +40,25 @@ const app = (state=defaultState, action) => {
       if(action.payload.error) {
         return state;
       }
-      saveOauth(action.payload);
+      saveOauth(action.payload, action.meta);
       return {
         ...state,
+        username: action.meta.username,
         oauth: action.payload
+      };
+      
+    case users.getProfile + '_FULFILLED':
+      return {
+        ...state,
+        profile: action.payload
       };
   
     case notify.change:
+      const { oauth, meta } = loadOauth();
       return {
         ...state,
-        oauth: loadOauth()
+        oauth,
+        username: meta.username
       };
       
     default:
@@ -121,9 +133,9 @@ window.addEventListener('resize', () => {
 
 store.dispatch(alertScreenResize());
 
-const oauth = loadOauth();
-if(oauth) {
-  store.dispatch(loginFromCache(oauth));
+const data = loadOauth();
+if(data) {
+  store.dispatch(loginFromCache(data));
 }
 
 export default store;

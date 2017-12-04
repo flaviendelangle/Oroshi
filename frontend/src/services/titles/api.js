@@ -23,5 +23,6 @@ export const movie = {
 
 export const users = {
   create: 'USERS_CREATE',
-  login: 'USERS_LOGIN'
+  login: 'USERS_LOGIN',
+  getProfile: 'USERS_GET_PROFILE'
 };

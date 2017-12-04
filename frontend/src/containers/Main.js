@@ -9,15 +9,23 @@ import Login from 'scenes/Login';
 import CollectionMovies from 'scenes/CollectionMovies';
 import CollectionTVShows from 'scenes/CollectionTVShows';
 import Movie from 'scenes/Movie';
+
 import CollectionMoviesSettings from 'scenes/CollectionMoviesSettings';
 import CollectionTVShowsSettings from 'scenes/CollectionTVShowsSettings';
 import { notifyRouteChange } from 'services/actions/router';
+import { getProfile } from 'services/actions/users';
 
 class Main extends Component {
   
   get style() {
     return {
       backgroundColor: this.props.muiTheme.baseTheme.palette.backgroundColor
+    }
+  }
+  
+  componentDidMount() {
+    if(!this.props.profile && this.props.oauth && this.props.username) {
+      this.props.getProfile(this.props.username);
     }
   }
   
@@ -48,12 +56,18 @@ class Main extends Component {
 
 
 const mapStateToProps = state => {
-  return {};
+  const root = state.app;
+  return {
+    profile: root.profile,
+    oauth: root.oauth,
+    username: root.username
+  };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    notifyRouteChange: location => dispatch(notifyRouteChange(location))
+    notifyRouteChange: location => dispatch(notifyRouteChange(location)),
+    getProfile: username => dispatch(getProfile(username))
   };
 };
 

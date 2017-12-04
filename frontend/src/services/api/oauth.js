@@ -1,7 +1,6 @@
 import BaseAPI from './base'
 import { OAUTH2 as config } from 'appConfig';
-import { getValue, destroyValue } from 'services/localstorage';
-import { setValue } from "../localstorage";
+import { loadOauth, saveOauth, destroyOauth } from 'services/localstorage';
 
 
 class Oauth extends BaseAPI {
@@ -30,23 +29,24 @@ class Oauth extends BaseAPI {
   };
   
   getTokenOrRefresh = () => {
-    const oauth = getValue('oauth');
+    const { oauth, meta } = loadOauth('oauth');
     const SECURITY_MARGIN = 10000;
     if(oauth && oauth.expiration) {
       if(oauth.expiration > new Date().getTime() + SECURITY_MARGIN) {
-        return Promise.resolve(oauth.access_token);
+        return Promise.resolve({ oauth, meta });
       }
       return this.refreshToken(oauth.refresh_token)
         .catch(response => {
           if(response.error === 'invalid_grant') {
-            destroyValue('oauth');
+            destroyOauth();
             return undefined;
           }
         })
         .then(response => {
           if(response) {
             response = addExpiration(response);
-            setValue('oauth', response);
+            saveOauth(response);
+            return response;
           }
         })
     }

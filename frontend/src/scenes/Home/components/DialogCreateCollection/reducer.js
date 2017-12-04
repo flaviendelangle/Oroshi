@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux'
 
 import { dialogs } from 'services/titles/interface'
+import { collectionContent } from "../../../../services/titles/api";
 
 const defaultState = {
   show: false,
@@ -15,6 +16,12 @@ const main = (state = defaultState, action) => {
       return {
         ...state,
         show: action.show
+      };
+  
+    case collectionContent.create + '_FULFILLED':
+      return {
+        ...state,
+        show: false
       };
       
     default:
