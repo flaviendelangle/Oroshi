@@ -109,7 +109,7 @@ class Element {
   
   getValueToSort(field) {
     if(field === 'title') {
-      return this.getTitle();
+      return this.getTitle().replace(/ /g, '').toLowerCase();
     }
     return this.local[field];
   }

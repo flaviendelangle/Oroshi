@@ -5,14 +5,17 @@ import merge from 'lodash.merge';
 const muiTheme = {
   palette: {
     textColor: colors.grey200,
+    primary1Color: colors.blueGrey800, // Header background
     primary2Color: colors.blueGrey800,
     backgroundColor: colors.blueGrey900,
     paperBackground: colors.grey200,
     paperColor: colors.grey800,
-    titleColor: colors.grey400
+    titleColor: colors.grey400,
+    alternateTextColor: colors.amber900
   }
 };
-console.log('THEME : ', darkBaseTheme);
+
 const theme = merge(darkBaseTheme, muiTheme);
+console.log('THEME : ', theme);
 
 export default theme;

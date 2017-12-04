@@ -3,9 +3,9 @@ import { connect } from 'react-redux'
 import FloatingActionButton from 'material-ui/FloatingActionButton'
 import ContentAdd from 'material-ui/svg-icons/content/add'
 import ActionDoneAll from 'material-ui/svg-icons/action/done-all'
-import ActionViewList from 'material-ui/svg-icons/action/view-list'
 import ActionViewModule from 'material-ui/svg-icons/action/view-module'
 import ActionViewStream from 'material-ui/svg-icons/action/view-stream'
+import muiThemeable from 'material-ui/styles/muiThemeable';
 
 import { switchAddingMode } from '../../actions'
 import { switchLayout } from '../CollectionContent/actions'
@@ -29,6 +29,7 @@ class Menu extends Component {
     if(!this.props.found || !this.props.loaded) {
       return null;
     }
+    const theme = this.props.muiTheme.palette;
     return (
       <span>
         <AddingIcon
@@ -39,6 +40,7 @@ class Menu extends Component {
         <LayoutButtons
           isAdding={this.props.isAdding}
           switchLayout={this.props.switchLayout}
+          theme={theme}
         />
       </span>
     )
@@ -46,18 +48,18 @@ class Menu extends Component {
   
 }
 
-const LayoutButtons = ({ isAdding, switchLayout }) => {
+const LayoutButtons = ({ isAdding, switchLayout, theme }) => {
   if (isAdding) {
     return null;
   }
   return (
     <div style={layoutStyle}>
       <ActionViewModule
-        style={{marginRight: 10, cursor: 'pointer'}}
+        style={{ marginRight: 10, cursor: 'pointer', color: theme.alternateTextColor }}
         onClick={() => switchLayout('grid')}
       />
       <ActionViewStream
-        style={{cursor: 'pointer'}}
+        style={{ cursor: 'pointer', color: theme.alternateTextColor }}
         onClick={() => switchLayout('stream')}
       />
     </div>
@@ -112,5 +114,5 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Menu);
+)(muiThemeable()(Menu));
 
