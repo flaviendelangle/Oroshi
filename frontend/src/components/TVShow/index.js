@@ -90,7 +90,7 @@ class TVShow extends Component {
               zDepth={3}
               className="tv-show"
               onMouseEnter={() => this.handleMouseHover(true)}
-              onMouseLeave={() => this.handleMouseHover(false)}
+              onMouseLeave={() => setTimeout(() => this.handleMouseHover(false), 300)}
             >
               <Poster path={this.posterPath} title={this.title} />
               <ElementOverlay

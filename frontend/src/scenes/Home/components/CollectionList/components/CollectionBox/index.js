@@ -1,9 +1,10 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import muiThemeable from 'material-ui/styles/muiThemeable';
 
 import ContentCreate from 'material-ui/svg-icons/content/create';
-import Identicon from 'components/generics/Identicon'
+import Identicon from 'components/generics/Identicon';
 
 
 import './style.css';
@@ -35,7 +36,12 @@ class CollectionBox extends Component {
             </div>
             <Identicon size="200" string={this.props.data.title}/>
           </div>
-          <div className="collection-title">{this.props.data.title}</div>
+          <div
+            className="collection-title"
+            style={{color: this.props.muiTheme.palette.titleColor}}
+          >
+            {this.props.data.title}
+          </div>
         </div>
       </Link>
     )
@@ -55,4 +61,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(CollectionBox);
+)(muiThemeable()(CollectionBox));

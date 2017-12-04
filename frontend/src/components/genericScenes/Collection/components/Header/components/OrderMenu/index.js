@@ -4,6 +4,7 @@ import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
 import ContentSort from 'material-ui/svg-icons/content/sort';
+import muiThemeable from 'material-ui/styles/muiThemeable';
 
 import { sort } from 'components/genericScenes/Collection/components/CollectionContent/actions';
 
@@ -18,22 +19,26 @@ class OrderMenu extends Component {
   render() {
     return (
       <div style={_style.container}>
-        <Menu {...this.props} sort={this.sort} />
+        <Menu
+          {...this.props}
+          sort={this.sort}
+          color={this.props.muiTheme.palette.alternateTextColor}
+        />
       </div>
     );
   }
 }
 
-const Menu = ({ isAdding, layout, scene, sort }) => {
+const Menu = ({ isAdding, layout, scene, sort, color }) => {
   if (isAdding) {
     return null;
   }
   else if (layout === 'stream') {
     switch(scene) {
       case 'movies':
-        return <StreamMenuMovies sort={sort} />;
+        return <StreamMenuMovies sort={sort} color={color} />;
       case 'tv_shows':
-        return <StreamMenuTVShows sort={sort} />;
+        return <StreamMenuTVShows sort={sort} color={color} />;
       default:
         return null;
     }
@@ -41,18 +46,18 @@ const Menu = ({ isAdding, layout, scene, sort }) => {
   else {
     switch(scene) {
       case 'movies':
-        return <DefaultMenuMovies sort={sort} />;
+        return <DefaultMenuMovies sort={sort} color={color} />;
       case 'tv_shows':
-        return <DefaultMenuTVShows sort={sort} />;
+        return <DefaultMenuTVShows sort={sort} color={color} />;
       default:
         return null;
     }
   }
 };
 
-const StreamMenuMovies = ({ sort }) => (
+const StreamMenuMovies = ({ sort, color }) => (
   <IconMenu
-    iconButtonElement={<IconButton><ContentSort /></IconButton>}
+    iconButtonElement={<IconButton iconStyle={{color}}><ContentSort /></IconButton>}
     anchorOrigin={{horizontal: 'right', vertical: 'top'}}
     targetOrigin={{horizontal: 'right', vertical: 'top'}}
   >
@@ -71,9 +76,9 @@ const StreamMenuMovies = ({ sort }) => (
   </IconMenu>
 );
 
-const StreamMenuTVShows = ({ sort }) => (
+const StreamMenuTVShows = ({ sort, color }) => (
   <IconMenu
-    iconButtonElement={<IconButton><ContentSort /></IconButton>}
+    iconButtonElement={<IconButton iconStyle={{color}}><ContentSort /></IconButton>}
     anchorOrigin={{horizontal: 'right', vertical: 'top'}}
     targetOrigin={{horizontal: 'right', vertical: 'top'}}
   >
@@ -88,9 +93,9 @@ const StreamMenuTVShows = ({ sort }) => (
   </IconMenu>
 );
 
-const DefaultMenuMovies = ({ sort }) => (
+const DefaultMenuMovies = ({ sort, color }) => (
   <IconMenu
-    iconButtonElement={<IconButton><ContentSort /></IconButton>}
+    iconButtonElement={<IconButton iconStyle={{color}}><ContentSort /></IconButton>}
     anchorOrigin={{horizontal: 'right', vertical: 'top'}}
     targetOrigin={{horizontal: 'right', vertical: 'top'}}
   >
@@ -109,9 +114,9 @@ const DefaultMenuMovies = ({ sort }) => (
   </IconMenu>
 );
 
-const DefaultMenuTVShows = ({ sort }) => (
+const DefaultMenuTVShows = ({ sort, color }) => (
   <IconMenu
-    iconButtonElement={<IconButton><ContentSort /></IconButton>}
+    iconButtonElement={<IconButton iconStyle={{color}}><ContentSort /></IconButton>}
     anchorOrigin={{horizontal: 'right', vertical: 'top'}}
     targetOrigin={{horizontal: 'right', vertical: 'top'}}
   >
@@ -148,4 +153,4 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(OrderMenu);
+)(muiThemeable()(OrderMenu));

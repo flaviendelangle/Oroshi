@@ -3,8 +3,11 @@ import IdenticonGenerator from 'identicon.js'
 import md5 from 'md5-hash'
 
 const Identicon = ({ size, string }) => {
-
-  const img = new IdenticonGenerator(md5(string), size).toString();
+  const options = {
+    size: parseInt(size, 10),
+    background: [55,71,79,255]
+  };
+  const img = new IdenticonGenerator(md5(string), options).toString();
   
   return (
     <img

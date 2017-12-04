@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import DocumentTitle from 'react-document-title';
 import ActionSettings from 'material-ui/svg-icons/action/settings';
+import muiThemeable from 'material-ui/styles/muiThemeable';
 
 import Search from './components/Search/index';
 import OrderMenu from './components/OrderMenu/index';
@@ -20,13 +21,14 @@ class Header extends Component {
     if (!this.props.loaded || !this.props.found) {
       return null;
     }
+    const style = { color: this.props.muiTheme.palette.alternateTextColor };
     return (
       <div>
         <DocumentTitle title={this.props.title || 'Loading...'}/>
         <HeaderOriginal>
           <div className="menu">
             <Link to={this.link}>
-              <ActionSettings/>
+              <ActionSettings style={style}/>
               <div>Collection Settings</div>
             </Link>
           </div>
@@ -85,4 +87,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Header);
+)(muiThemeable()(Header));

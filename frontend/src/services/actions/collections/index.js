@@ -209,9 +209,11 @@ const exportAsCSV = (scene, pk) => {
 const getDataToExport = (scene, pk) => {
   return get(scene, pk).payload.then(collection => {
     const fields = getModule(scene).exportFields;
+    console.log(fields);
     const content = collection.content.map(el => {
       let data = {};
       const values = el.getLocal();
+      console.log(values);
       fields.forEach(field => {
         if (field === 'title') {
           data[field] = pickElement(values, 'titles', 'title', collection.title_language);

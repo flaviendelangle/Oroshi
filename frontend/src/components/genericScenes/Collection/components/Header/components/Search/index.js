@@ -1,9 +1,10 @@
-import React, {Component} from 'react'
-import { connect } from 'react-redux'
-import SearchBar from 'material-ui-search-bar'
+import React, {Component} from 'react';
+import { connect } from 'react-redux';
+import SearchBar from 'material-ui-search-bar';
+import muiThemeable from 'material-ui/styles/muiThemeable';
 
 import { update } from './actions'
-import { search, getRecommendations } from 'services/actions/publicAPI'
+import { search, getRecommendations } from 'services/actions/publicAPI';
 
 
 import './style.css'
@@ -21,6 +22,10 @@ class Search extends Component {
     return this.props.title ? ('Search in ' + this.props.title) : 'Search ...';
   }
   
+  get color() {
+    return this.props.muiTheme.palette.alternateTextColor;
+  }
+  
   search = query => {
     this.setState({ query });
     this.filter(query, false)
@@ -35,8 +40,9 @@ class Search extends Component {
       return null;
     }
     const count = this.props.count + ' element' + (this.props.count > 1 ? 's' : '');
+    const style = { color: this.color };
     return (
-      <div className="element-count">{count}</div>
+      <div className="element-count" style={style}>{count}</div>
     );
   };
   
@@ -78,4 +84,4 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Search);
+)(muiThemeable()(Search));
