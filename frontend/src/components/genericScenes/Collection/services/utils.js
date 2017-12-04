@@ -1,13 +1,14 @@
 import { setValue, getValue } from 'services/localstorage';
 
 export const sortElements = (elements, params) => {
+  
+  const field = params.field;
+  const mul = params.direction === 'asc' ? 1 : -1;
   elements = elements.sort((a, b) => {
     
     let comparison = 0;
-    const field = params.field;
-    const mul = params.direction === 'asc' ? 1 : -1;
-    const valueA = a.getValue(field);
-    const valueB = b.getValue(field);
+    const valueA = a.getValueToSort(field);
+    const valueB = b.getValueToSort(field);
     
     if (valueA > valueB)
       comparison = mul;

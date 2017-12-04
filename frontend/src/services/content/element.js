@@ -107,6 +107,13 @@ class Element {
     return this.local[field];
   };
   
+  getValueToSort(field) {
+    if(field === 'title') {
+      return this.getTitle();
+    }
+    return this.local[field];
+  }
+  
   getID = () => {
     return this.getLocal().pk;
   };

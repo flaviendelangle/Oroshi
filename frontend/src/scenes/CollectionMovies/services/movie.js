@@ -48,6 +48,13 @@ class Movie extends Element {
     return super.getValue(field);
   };
   
+  getValueToSort = field => {
+    if (field === 'release') {
+      return this.release_list[0].pk;
+    }
+    return super.getValueToSort(field);
+  };
+  
   getLocalPublicID = () => {
     return this.getLocal().tmdbId;
   };
