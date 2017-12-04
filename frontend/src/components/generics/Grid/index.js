@@ -76,7 +76,7 @@ class Grid extends Component {
           speed={0.8}
           horizontal={false}
         >
-          <div className="content-grid" style={{paddingBottom:400 }}>
+          <div className="content-grid">
             {this.renderItems()}
             <ShowMore isAllShown={this.isAllShown} showMore={this.showMore} />
           </div>

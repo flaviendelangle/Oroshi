@@ -1,30 +1,17 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
-import Drawer from 'material-ui/Drawer'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
-import ActionSettings from 'material-ui/svg-icons/action/settings'
-import ActionHome from 'material-ui/svg-icons/action/home'
+import ActionSettings from 'material-ui/svg-icons/action/settings';
+import ActionHome from 'material-ui/svg-icons/action/home';
+import muiThemeable from 'material-ui/styles/muiThemeable';
 
-import { showMainDrawer } from './actions'
+import { showMainDrawer } from './actions';
 
-import './style.css'
+import './style.css';
 
 class MainDrawer extends Component {
-  
-  GENERIC_LINES = [
-    (
-      <Link to='/'>
-        <ActionHome/>
-        <div>Home</div>
-      </Link>
-    ),(
-      <Link to='/settings/'>
-        <ActionSettings/>
-        <div>Settings</div>
-      </Link>
-    )
-  ];
   
   constructor(props) {
     super();
@@ -33,10 +20,29 @@ class MainDrawer extends Component {
   }
   
   renderLines = () => {
-    const lines = this.GENERIC_LINES.concat(this.props.children).map((el, index) => {
-      return (<MenuItem key={index}>{el}</MenuItem>);
+    const style = { color: this.props.muiTheme.palette.alternateTextColor };
+    const GENERIC_LINES = [
+      (
+        <Link to='/'>
+          <ActionHome style={style}/>
+          <div>Home</div>
+        </Link>
+      ),(
+        <Link to='/settings/'>
+          <ActionSettings style={style}/>
+          <div>Settings</div>
+        </Link>
+      )
+    ];
+    
+    const lines = [...GENERIC_LINES, this.props.children];
+    return lines.map((el, index) => {
+      return (
+        <MenuItem key={index}>
+          {el}
+        </MenuItem>
+      );
     });
-    return lines;
   };
   
   render() {
@@ -70,4 +76,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(MainDrawer);
+)(muiThemeable()(MainDrawer));

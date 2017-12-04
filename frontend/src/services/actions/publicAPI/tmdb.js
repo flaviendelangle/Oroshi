@@ -79,7 +79,7 @@ export const checkExistence = (scene, collection, elements, fromLocalAPI=false) 
 export const getDetails = (scene, collection, tmdbId) => {
 
   let options = {
-    append_to_response: ['credits', 'images'],
+    append_to_response: ['credits'],
     language: DEFAULT_LANGUAGE
   };
   
@@ -92,12 +92,10 @@ export const getDetails = (scene, collection, tmdbId) => {
 
   return getPublicAPI(scene).details(tmdbId, options)
     .then(response => {
-      if (response.images.posters.length > 0) {
-        details.posters.push({
-          language: DEFAULT_LANGUAGE,
-          path: response.images.posters[0].file_path
-        });
-      }
+      details.posters.push({
+        language: DEFAULT_LANGUAGE,
+        path: response.poster_path
+      });
       details.titles.push({
         language: DEFAULT_LANGUAGE,
         title: response[key]
@@ -116,12 +114,9 @@ export const getPoster = (scene, tmdbId, language) => {
   const options = {
     language
   };
-  return getPublicAPI(scene).images(tmdbId, options)
+  return getPublicAPI(scene).details(tmdbId, options)
     .then(response => {
-      if (response.posters.length > 0) {
-        return response.posters[0].file_path;
-      }
-      return null;
+        return response.poster_path;
     });
 };
 
