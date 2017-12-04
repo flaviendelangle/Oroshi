@@ -6,4 +6,6 @@ export const panel = {
   paddingTop: 50,
   width: 'calc(40% - 20px)',
   paddingRight: 20,
+  zIndex: 2,
+  boxShadow: '5px 0px 5px 0px rgba(0,0,0,0.35)',
 };

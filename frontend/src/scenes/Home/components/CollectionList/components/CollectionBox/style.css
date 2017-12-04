@@ -2,6 +2,7 @@
     position: relative;
     width: 200px;
     height: 260px;
+    vertical-align: top;
     display: inline-block;
     margin : 15px;
     cursor: pointer;
@@ -15,13 +16,14 @@
 }
 
 .fake-img-new-collection {
-    background: white;
+    background: rgb(0,0,0);
     width: 200px;
     height: 200px;
     display: inline-block;
 }
 
 .collection-icon {
+    position: relative;
     width: 200px;
     height: 200px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
@@ -48,8 +50,9 @@
     height: 200px;
     width: 100%;
     position: absolute;
-    background: rgba(0,0,0,0.6);
+    background: rgba(255,255,255,0.2);
     opacity: 1;
+    z-index: 2;
     transition: opacity 0.3s ease-in-out;
 }
 
@@ -73,4 +76,21 @@
     width: 60px !important;
     top: 70px;
     left: 70px;
+}
+
+.collection-box .collection-type {
+    position: absolute;
+    bottom: -4px;
+    right: 1px;
+}
+
+.collection-box .collection-type svg {
+    height: 20px !important;
+    width: 20px !important;
+}
+
+.collection-box .collection-icon img {
+    position: absolute;
+    top: 5px;
+    left: 5px;
 }

@@ -1,18 +1,10 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
-import CircularProgress from 'material-ui/CircularProgress';
 
-import Grid from 'components/generics/Grid/index'
-import Stream from 'components/generics/Stream/index'
-import Help from './components/Help/index'
-
-const progressStyle = {
-  width: 40,
-  height: 40,
-  position: 'absolute',
-  left: 'calc(50% - 20px)',
-  top: 'calc(50% - 20px)',
-};
+import Grid from 'components/generics/Grid/';
+import Stream from 'components/generics/Stream/';
+import Progress from 'components/generics/Progress';
+import Help from './components/Help/';
 
 const pageStyle = {
   position: 'fixed',
@@ -95,9 +87,7 @@ class CollectionContent extends Component {
   render() {
     if (!this.props.loaded) {
       return (
-        <div style={progressStyle}>
-          <CircularProgress />
-        </div>
+        <Progress />
       );
     }
     else if (!this.props.found) {

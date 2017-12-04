@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import AVMovie from 'material-ui/svg-icons/av/movie';
+import HardwareTV from 'material-ui/svg-icons/hardware/tv';
 import muiThemeable from 'material-ui/styles/muiThemeable';
 
 import ContentCreate from 'material-ui/svg-icons/content/create';
@@ -27,14 +29,19 @@ class CollectionBox extends Component {
   };
   
   render() {
+    const Icon = this.props.data.type === 'movies' ? AVMovie : HardwareTV;
+    const color = this.props.muiTheme.palette.primary2Color;
     return (
       <Link to={this.url()}>
         <div className="collection-box">
-          <div className="collection-icon">
+          <div className="collection-icon" style={{background: color}}>
             <div className={ 'collection-editing-mask ' + (this.props.editing ? '' : 'invisible') } >
               <ContentCreate color="white" className="editing-icon" />
             </div>
-            <Identicon size="200" string={this.props.data.title}/>
+            <Identicon size="190" string={this.props.data.title}/>
+            <div className="collection-type">
+              <Icon/>
+            </div>
           </div>
           <div
             className="collection-title"

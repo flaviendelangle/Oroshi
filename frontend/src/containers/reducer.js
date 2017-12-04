@@ -54,7 +54,15 @@ const app = (state=defaultState, action) => {
       };
   
     case notify.change:
-      const { oauth, meta } = loadOauth();
+      const data = loadOauth();
+      if(!data) {
+        return {
+          ...state,
+          oauth: undefined,
+          username: undefined
+        };
+      }
+      const { oauth, meta } = data;
       return {
         ...state,
         oauth,

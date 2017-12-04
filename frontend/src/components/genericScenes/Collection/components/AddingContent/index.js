@@ -1,17 +1,9 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
-import CircularProgress from 'material-ui/CircularProgress';
 
-import Grid from 'components/generics/Grid/index'
-import Stream from 'components/generics/Stream/index'
-
-const progressStyle = {
-  width: 40,
-  height: 40,
-  position: 'absolute',
-  left: 'calc(50% - 20px)',
-  top: 'calc(50% - 20px)',
-};
+import Grid from 'components/generics/Grid/';
+import Stream from 'components/generics/Stream/';
+import Progress from 'components/generics/Progress';
 
 const pageStyle = {
   position: 'fixed',
@@ -60,9 +52,7 @@ class AddingContent extends Component {
   render() {
     if (!this.props.loaded) {
       return (
-        <div style={progressStyle}>
-          <CircularProgress />
-        </div>
+        <Progress />
       );
     }
     else {
