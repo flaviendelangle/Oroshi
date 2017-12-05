@@ -1,13 +1,14 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
+
 import SearchBar from 'material-ui-search-bar';
 import muiThemeable from 'material-ui/styles/muiThemeable';
 
 import { update } from './actions'
 import { search, getRecommendations } from 'services/actions/publicAPI';
 
+import './style.css';
 
-import './style.css'
 
 class Search extends Component {
   

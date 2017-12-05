@@ -1,10 +1,11 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import ScrollArea from 'react-scrollbar'
-import IconButton from 'material-ui/IconButton'
-import NavigationMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import ScrollArea from 'react-scrollbar';
 
-import Section from './components/Section/index'
+import IconButton from 'material-ui/IconButton';
+import NavigationMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz';
+
+import Section from './components/Section/index';
 
 import * as _style from './style';
 

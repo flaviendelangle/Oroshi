@@ -1,27 +1,19 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import FloatingActionButton from 'material-ui/FloatingActionButton'
-import ContentAdd from 'material-ui/svg-icons/content/add'
-import ActionDoneAll from 'material-ui/svg-icons/action/done-all'
-import ActionViewModule from 'material-ui/svg-icons/action/view-module'
-import ActionViewStream from 'material-ui/svg-icons/action/view-stream'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import ContentAdd from 'material-ui/svg-icons/content/add';
+import ActionDoneAll from 'material-ui/svg-icons/action/done-all';
+import ActionViewModule from 'material-ui/svg-icons/action/view-module';
+import ActionViewStream from 'material-ui/svg-icons/action/view-stream';
 import muiThemeable from 'material-ui/styles/muiThemeable';
 
-import { switchAddingMode } from '../../actions'
-import { switchLayout } from '../CollectionContent/actions'
-import { getRecommendations } from 'services/actions/publicAPI'
+import { switchAddingMode } from '../../actions';
+import { switchLayout } from '../CollectionContent/actions';
+import { getRecommendations } from 'services/actions/publicAPI';
 
-const addStyle = {
-  position: 'fixed',
-  bottom: 20,
-  right: 20
-};
+import * as _style from './style';
 
-const layoutStyle = {
-  position: 'fixed',
-  top: 84,
-  right: 20
-};
 
 class Menu extends Component {
   
@@ -53,7 +45,7 @@ const LayoutButtons = ({ isAdding, switchLayout, theme }) => {
     return null;
   }
   return (
-    <div style={layoutStyle}>
+    <div style={_style.layout}>
       <ActionViewModule
         style={{ marginRight: 10, cursor: 'pointer', color: theme.alternateTextColor }}
         onClick={() => switchLayout('grid')}
@@ -76,7 +68,7 @@ const AddingIcon = ({ isAdding, collection, switchAddingMode }) => {
   
   return (
     <FloatingActionButton
-      style={addStyle}
+      style={_style.add}
       onClick={() => switchAddingMode(collection)}
     >
       <Icon/>

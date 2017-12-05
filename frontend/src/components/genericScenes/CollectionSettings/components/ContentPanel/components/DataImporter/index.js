@@ -1,18 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import ScrollArea from 'react-scrollbar'
+import ScrollArea from 'react-scrollbar';
+import Dropzone from 'react-dropzone';
+
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
-import Dropzone from 'react-dropzone'
 import RaisedButton from 'material-ui/RaisedButton';
-import { List } from 'material-ui/List'
+import { List } from 'material-ui/List';
 
-import Line from './components/Line'
-import Progress from './components/Progress'
+import Line from './components/Line';
+import Progress from './components/Progress';
 import { getCollectionSettingsState } from 'containers/reducer';
 import { importCSV, importElements } from 'services/actions/collections';
 
 import * as _style from './style';
+
 
 class DataImporter extends Component {
   

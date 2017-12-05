@@ -5,7 +5,8 @@ import Header from './components/Header';
 import MenuPanel from './components/MenuPanel';
 import ContentPanel from './components/ContentPanel';
 import { getSettings } from 'services/actions/collections';
-import { getCollectionSettingsState } from 'containers/reducer'
+import { getCollectionSettingsState } from 'containers/reducer';
+
 
 class CollectionSettings extends Component {
   

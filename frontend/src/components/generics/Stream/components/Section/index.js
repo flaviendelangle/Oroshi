@@ -1,30 +1,21 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
-import IconButton from 'material-ui/IconButton'
-import NavigationLess from 'material-ui/svg-icons/navigation/expand-less'
-import NavigationMore from 'material-ui/svg-icons/navigation/expand-more'
-import NavigationMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+
+import IconButton from 'material-ui/IconButton';
+import NavigationLess from 'material-ui/svg-icons/navigation/expand-less';
+import NavigationMore from 'material-ui/svg-icons/navigation/expand-more';
+import NavigationMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz';
 import muiThemeable from 'material-ui/styles/muiThemeable';
 
 import ElementLine, { groupByLine } from 'components/generics/ElementLine/index';
 
+import * as _style from './style';
 import './style.css'
 
 
 const CONFIG = {
   pageLength: 4
-};
-
-const buttonStyle = {
-  width: 72,
-  height: 72,
-  padding: 18,
-};
-
-const iconStyle = {
-  width: 36,
-  height: 36
 };
 
 class Section extends Component {
@@ -118,8 +109,8 @@ class Section extends Component {
       <div style={{textAlign: 'center'}}>
         <IconButton
           onClick={this.showMore}
-          style={buttonStyle}
-          iconStyle={iconStyle}
+          style={_style.button}
+          iconStyle={_style.icon}
         >
           <NavigationMoreHoriz/>
         </IconButton>

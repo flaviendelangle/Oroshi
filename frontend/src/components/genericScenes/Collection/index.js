@@ -8,6 +8,7 @@ import Menu from './components/Menu'
 
 import { get as getCollection } from 'services/actions/collections'
 
+
 class CollectionScene extends Component {
   
   componentDidMount() {

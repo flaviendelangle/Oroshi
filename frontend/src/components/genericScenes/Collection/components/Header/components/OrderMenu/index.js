@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
+
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
@@ -9,6 +10,7 @@ import muiThemeable from 'material-ui/styles/muiThemeable';
 import { sort } from 'components/genericScenes/Collection/components/CollectionContent/actions';
 
 import * as _style from './style';
+
 
 class OrderMenu extends Component {
   

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+
 import muiThemeable from 'material-ui/styles/muiThemeable';
 
 import SummaryParameters from './components/SummaryParameters';

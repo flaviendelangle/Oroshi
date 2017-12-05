@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ScrollArea from 'react-scrollbar';
+
 import IconButton from 'material-ui/IconButton';
 import NavigationMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz';
 

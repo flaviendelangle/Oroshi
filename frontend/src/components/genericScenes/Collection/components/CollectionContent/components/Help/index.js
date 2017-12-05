@@ -1,5 +1,6 @@
-import React from 'react'
-import Paper from 'material-ui/Paper'
+import React from 'react';
+
+import Paper from 'material-ui/Paper';
 
 import * as _style from './style';
 

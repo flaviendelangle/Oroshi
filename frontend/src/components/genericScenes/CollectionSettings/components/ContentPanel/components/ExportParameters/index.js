@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+
 import FileDownload from 'material-ui/svg-icons/file/file-download';
 import SocialShare from 'material-ui/svg-icons/social/share';
 
 import ParametersSection, { Line } from '../ParametersSection';
 import { exportCollection } from 'services/actions/collections';
 import { getCollectionSettingsState } from 'containers/reducer';
+
 
 class ExportParameters extends Component {
   

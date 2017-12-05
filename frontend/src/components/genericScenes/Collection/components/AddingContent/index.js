@@ -5,18 +5,8 @@ import Grid from 'components/generics/Grid/';
 import Stream from 'components/generics/Stream/';
 import Progress from 'components/generics/Progress';
 
-const pageStyle = {
-  position: 'fixed',
-  top: 64,
-  bottom: 0,
-  right: 0,
-  left: 0
-};
+import * as _style from './style';
 
-const containerStyle = {
-  position: 'relative',
-  height: '100%'
-};
 
 class AddingContent extends Component {
   
@@ -57,8 +47,8 @@ class AddingContent extends Component {
     }
     else {
       return (
-        <div style={pageStyle}>
-          <div style={containerStyle}>
+        <div style={_style.page}>
+          <div style={_style.container}>
             {this.renderContent()}
           </div>
         </div>

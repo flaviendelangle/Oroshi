@@ -1,4 +1,5 @@
 import React from 'react'
+
 import IdenticonGenerator from 'identicon.js'
 import md5 from 'md5-hash'
 
