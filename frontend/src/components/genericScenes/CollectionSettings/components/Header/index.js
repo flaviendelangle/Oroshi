@@ -1,11 +1,12 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import DocumentTitle from 'react-document-title';
 import AVMovie from 'material-ui/svg-icons/av/movie'
 import muiThemeable from 'material-ui/styles/muiThemeable';
 
-import HeaderOriginal from 'components/Header'
-import { getCollectionSettingsState } from 'containers/reducer'
+import HeaderOriginal from 'components/Header';
+import { getCollectionSettingsState } from 'containers/reducer';
 
 
 class Header extends Component {
@@ -18,7 +19,8 @@ class Header extends Component {
     const style = { color: this.props.muiTheme.palette.alternateTextColor };
     return (
       <div>
-        <HeaderOriginal title={this.props.title}>
+        <DocumentTitle title={(this.props.title + '- Settings') || 'Loading...'}/>
+        <HeaderOriginal title={this.props.title} showTitle={true}>
           <div className="menu">
             <Link to={this.link}>
               <AVMovie style={style}/>

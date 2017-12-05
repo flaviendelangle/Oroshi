@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import AppBar from 'material-ui/AppBar';
 
 import MainDrawer from './components/MainDrawer'
-import { showMainDrawer } from "./components/MainDrawer/actions";
+import { showMainDrawer } from './components/MainDrawer/actions';
 
 class Header extends Component {
   
@@ -43,13 +43,13 @@ class Header extends Component {
     return (
       <div>
         <AppBar
-          title={this.props.title}
+          title={ this.props.showTitle ? this.props.title : ''}
           onLeftIconButtonTouchTap={() => this.props.openMainDrawer(true)}
         >
           {this.searchBar}
           {this.actionsButton}
         </AppBar>
-        <MainDrawer>
+        <MainDrawer title={this.props.title}>
           {this.drawerLinks}
         </MainDrawer>
       </div>

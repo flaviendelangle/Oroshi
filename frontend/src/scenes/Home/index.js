@@ -1,7 +1,8 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import DocumentTitle from 'react-document-title';
+import ScrollArea from 'react-scrollbar';
 import CircularProgress from 'material-ui/CircularProgress';
-import ScrollArea from 'react-scrollbar'
 
 import CollectionList from './components/CollectionList'
 import ManageButton from './components/ManageButton'
@@ -59,6 +60,7 @@ class Home extends Component {
     }
     return (
       <div>
+        <DocumentTitle title={'Collection manager'}/>
         <ScrollArea
           speed={0.8}
           horizontal={false}

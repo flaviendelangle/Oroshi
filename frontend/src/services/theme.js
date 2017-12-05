@@ -11,7 +11,8 @@ const muiTheme = {
     paperBackground: colors.grey200,
     paperColor: colors.grey800,
     titleColor: colors.grey400,
-    alternateTextColor: colors.amber900
+    alternateTextColor: colors.amber900,
+    canvasColor: colors.blueGrey900
   }
 };
 

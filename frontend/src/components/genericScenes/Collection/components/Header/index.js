@@ -19,13 +19,15 @@ class Header extends Component {
   
   render() {
     if (!this.props.loaded || !this.props.found) {
-      return null;
+      return (
+        <DocumentTitle title='Loading...' />
+      );
     }
     const style = { color: this.props.muiTheme.palette.alternateTextColor };
     return (
       <div>
-        <DocumentTitle title={this.props.title || 'Loading...'}/>
-        <HeaderOriginal>
+        <DocumentTitle title={this.props.title}/>
+        <HeaderOriginal title={this.props.title} showTitle={false}>
           <div className="menu">
             <Link to={this.link}>
               <ActionSettings style={style}/>

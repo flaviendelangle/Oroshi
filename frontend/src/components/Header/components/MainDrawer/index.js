@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
+import AppBar from 'material-ui/AppBar';
 import ActionSettings from 'material-ui/svg-icons/action/settings';
 import ActionHome from 'material-ui/svg-icons/action/home';
 import muiThemeable from 'material-ui/styles/muiThemeable';
@@ -52,6 +53,13 @@ class MainDrawer extends Component {
           docked={false}
           onRequestChange={open => this.open(open) }
         >
+          <AppBar
+            title={this.props.title}
+            onLeftIconButtonTouchTap={() => this.props.open(false)}
+          >
+            {this.searchBar}
+            {this.actionsButton}
+          </AppBar>
           <div className="drawer">
             {this.renderLines()}
           </div>
