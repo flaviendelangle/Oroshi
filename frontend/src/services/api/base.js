@@ -22,7 +22,7 @@ export default class BaseAPI {
             throw content
           });
         }
-        return response.json();
+          return response.json().catch(e => ({}))
       })
   }
   

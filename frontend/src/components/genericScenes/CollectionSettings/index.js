@@ -5,11 +5,18 @@ import Header from './components/Header';
 import MenuPanel from './components/MenuPanel';
 import ContentPanel from './components/ContentPanel';
 import { getSettings } from 'services/actions/collections';
+import { getCollectionSettingsState } from 'containers/reducer'
 
 class CollectionSettings extends Component {
   
   componentDidMount() {
     this.props.synchronize(this.props.match.params.collection_id);
+  }
+  
+  componentWillReceiveProps(newProps) {
+    if(!this.props.redirect && newProps.redirect) {
+      this.props.history.push(newProps.redirect);
+    }
   }
   
   render() {
@@ -24,9 +31,11 @@ class CollectionSettings extends Component {
   
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
+  const root = getCollectionSettingsState(state, ownProps.scene).main;
   return {
-  }
+    redirect: root.redirect
+  };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {

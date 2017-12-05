@@ -9,6 +9,7 @@ export const collectionContent = {
 };
 
 export const collections = {
+  destroy: 'COLLECTIONS_DESTROY',
   add: 'ADD_ELEMENT_TO_COLLECTION',
   updateSettings: 'UPDATE_COLLECTION_SETTINGS',
   update: 'UPDATE_COLLECTION_ELEMENT',

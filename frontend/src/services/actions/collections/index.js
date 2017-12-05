@@ -27,6 +27,13 @@ export const create = (scene, data)  => {
   };
 };
 
+export const destroy = (scene, pk) => {
+  return {
+    type: titles.collections.destroy,
+    payload: getCollectionAPI(scene).destroy(pk)
+  };
+};
+
 export const get = (scene, pk) => {
   return {
     type: titles.collectionContent.load,

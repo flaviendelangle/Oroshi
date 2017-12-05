@@ -10,6 +10,7 @@ const reducerBuilder = _scene => {
   const defaultState = {
     activeSection: 'summary',
     data: {},
+    redirect: null
   };
   
   const main = (scene, state = defaultState, action) => {
@@ -35,6 +36,11 @@ const reducerBuilder = _scene => {
         return {
           ...state,
           data: action.payload
+        };
+        
+      case collections.destroy + '_FULFILLED':
+        return {
+          redirect: '/'
         };
   
       case collectionSettings.switchSection:

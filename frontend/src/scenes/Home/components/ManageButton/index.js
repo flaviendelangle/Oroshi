@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import RaisedButton from 'material-ui/RaisedButton';
 
 const containerStyle = {
-  textAlign: 'center'
+  textAlign: 'center',
+  marginBottom: 20
 };
 
 

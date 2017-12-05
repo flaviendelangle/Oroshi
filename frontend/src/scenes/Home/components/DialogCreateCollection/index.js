@@ -73,6 +73,12 @@ class DialogCreateCollection extends Component {
     this.props.close();
   };
   
+  componentWillReceiveProps(newProps) {
+    if(this.props.isOpen && !newProps.isOpen) {
+      this.setState({ stepIndex: 0 });
+    }
+  }
+  
   render() {
     const actions = this.renderActions();
     return (

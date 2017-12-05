@@ -16,7 +16,7 @@
 }
 
 .fake-img-new-collection {
-    background: rgb(0,0,0);
+    background: rgb(55, 71, 79);
     width: 200px;
     height: 200px;
     display: inline-block;
@@ -80,8 +80,8 @@
 
 .collection-box .collection-type {
     position: absolute;
-    bottom: -4px;
-    right: 1px;
+    bottom: -3px;
+    right: 2px;
 }
 
 .collection-box .collection-type svg {

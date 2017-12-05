@@ -31,12 +31,13 @@ class CollectionBox extends Component {
   render() {
     const Icon = this.props.data.type === 'movies' ? AVMovie : HardwareTV;
     const color = this.props.muiTheme.palette.primary2Color;
+    const color2 = this.props.muiTheme.palette.primary1Color;
     return (
       <Link to={this.url()}>
         <div className="collection-box">
           <div className="collection-icon" style={{background: color}}>
             <div className={ 'collection-editing-mask ' + (this.props.editing ? '' : 'invisible') } >
-              <ContentCreate color="white" className="editing-icon" />
+              <ContentCreate color={color2} className="editing-icon" />
             </div>
             <Identicon size="190" string={this.props.data.title}/>
             <div className="collection-type">
