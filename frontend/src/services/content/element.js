@@ -154,30 +154,8 @@ class Element {
     }
     const match = query
       .map(queryWord => this.getSearchIndex().find(word => word.includes(queryWord)))
-      .find(el => !!el );
-    
-    return !!match;
-    /*
-        {
-      for(const field in element) {
-        if (element.hasOwnProperty(field)) {
-          const value = element[field];
-          if (Array.isArray(value)) {
-            for(let i=0; i<value.length; i++) {
-              const data = value[i];
-              const value_2 = data.name ? data.name : data.title;
-              if (this.matchField(value_2)) {
-                return true;
-              }
-            }
-          } else if (this.matchField(value)) {
-            return true;
-          }
-        }
-      }
-      return false;
-    });
-     */
+      .filter(el => !!el);
+    return match.length === query.length;
   };
   
 }
