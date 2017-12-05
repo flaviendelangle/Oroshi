@@ -24,7 +24,6 @@ export const remove = (content, newElement) => {
 export const update = (content, newElement) => {
   return content.map(el => {
     if (el.getPublicId() === newElement.getPublicId()) {
-      console.log(newElement);
       return newElement;
     }
     return el;

@@ -25,7 +25,7 @@ class CollectionContent extends Component {
     query: '',
   };
   
-  renderIsNotAdding = () => {
+  renderContent = () => {
     if (this.props.layout === 'grid') {
       return (
         <Grid
@@ -49,39 +49,6 @@ class CollectionContent extends Component {
         />
       )
     }
-  };
-  
-  renderIsAdding = () => {
-    if (this.props.addingSearch) {
-      return (
-        <Grid
-          data={this.props.addingSearch}
-          collection={this.props.collection}
-          order={this.props.order.default}
-          scene={this.props.scene}
-          elementComponent={this.props.elementComponent}
-          lineDimensions={this.props.lineDimensions}
-          creationMode={true}
-        />
-      )
-    }
-    return (
-      <Stream
-        data={this.props.recommendations}
-        collection={this.props.collection}
-        scene={this.props.scene}
-        elementComponent={this.props.elementComponent}
-        lineDimensions={this.props.lineDimensions}
-        creationMode={true}
-      />
-    )
-  };
-  
-  renderContent = () => {
-    if (this.props.isAdding) {
-      return this.renderIsAdding();
-    }
-    return this.renderIsNotAdding();
   };
   
   render() {

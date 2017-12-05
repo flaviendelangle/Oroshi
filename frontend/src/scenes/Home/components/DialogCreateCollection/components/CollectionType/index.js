@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React  from 'react';
 import IconButton from 'material-ui/IconButton';
 import AVMovie from 'material-ui/svg-icons/av/movie';
 import HardwareTV from 'material-ui/svg-icons/hardware/tv';

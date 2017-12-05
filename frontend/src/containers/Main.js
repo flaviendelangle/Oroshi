@@ -8,7 +8,6 @@ import Home from 'scenes/Home';
 import Login from 'scenes/Login';
 import CollectionMovies from 'scenes/CollectionMovies';
 import CollectionTVShows from 'scenes/CollectionTVShows';
-import Movie from 'scenes/Movie';
 
 import CollectionMoviesSettings from 'scenes/CollectionMoviesSettings';
 import CollectionTVShowsSettings from 'scenes/CollectionTVShowsSettings';
@@ -47,7 +46,6 @@ class Main extends Component {
           <Route path='/collections/movies/:collection_id/' component={CollectionMovies} />
           <Route path='/collections/tv_shows/:collection_id/' component={CollectionTVShows} />
           
-          <Route path='/movies/:movie_id/' component={Movie} />
         </Switch>
       </main>
     );

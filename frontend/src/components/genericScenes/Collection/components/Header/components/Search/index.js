@@ -54,7 +54,6 @@ class Search extends Component {
           onChange={this.search}
           onRequestSearch={() => this.filter(this.state.query, true)}
           value={this.props.query}
-          style={{background:this.props.muiTheme.palette.backgroundColor}}
         />
         {this.renderCounter()}
       </div>

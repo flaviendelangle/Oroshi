@@ -58,6 +58,7 @@ class Grid extends Component {
       const elements = line.map(el => {
         return (
           <Element
+            update={Math.random()}
             data={el}
             collection={this.props.collection}
             key={el.getPublicId()}
