@@ -12,14 +12,24 @@
 
 .movie-parent .title {
     display: block;
-    height: 42px;
+    position: absolute;
+    top: calc(100% - 42px);
+    left: 0;
+    width: 185px;
     line-height: 21px;
-    margin-top: 20px;
+}
+
+.movie-parent .title > div:last-child {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    text-align: left;
-    user-select: text;
+    height: 21px;
+}
+
+.movie-parent .title > div:last-child:hover {
+    height: auto;
+    white-space: normal;
+    word-break: break-all;
 }
 
 .movie-container {
