@@ -20,7 +20,7 @@ class MenuPanel extends Component {
     return {
       position: 'absolute',
       top: 64,
-      bottom: 0,
+      bottom: 40,
       right: 0,
       paddingTop: 50,
       width: '60%',

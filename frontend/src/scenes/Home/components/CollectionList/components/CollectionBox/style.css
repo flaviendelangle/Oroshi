@@ -35,8 +35,9 @@
 }
 
 .collection-title {
+    display: block;
     position: absolute;
-    bottom: 0;
+    top: calc(100% - 2em);
     left: 0;
     right: 0;
     height: 2em;
@@ -44,7 +45,17 @@
     padding-left: 5px;
     font-size: 1.5em;
     text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
+
+.collection-title:hover {
+    height: auto;
+    white-space: normal;
+    word-break: break-all;
+}
+
 
 .collection-editing-mask {
     height: 200px;
