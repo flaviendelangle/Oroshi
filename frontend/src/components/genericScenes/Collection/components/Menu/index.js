@@ -46,17 +46,25 @@ const LayoutButtons = ({ isAdding, switchLayout, theme }) => {
   }
   return (
     <div style={_style.layout}>
-      <ActionViewModule
-        style={{ marginRight: 10, cursor: 'pointer', color: theme.alternateTextColor }}
+      <LayoutIcon
+        Component={ActionViewModule}
+        theme={theme}
         onClick={() => switchLayout('grid')}
       />
-      <ActionViewStream
-        style={{ cursor: 'pointer', color: theme.alternateTextColor }}
+      <LayoutIcon
+        Component={ActionViewStream}
+        theme={theme}
         onClick={() => switchLayout('stream')}
       />
     </div>
   );
 };
+
+const LayoutIcon = ({ Component, theme, onClick }) => (
+  <div style={_style.layoutIcon(theme)}>
+    <Component onClick={onClick} style={{ color: theme.alternateTextColor }}/>
+  </div>
+);
 
 const AddingIcon = ({ isAdding, collection, switchAddingMode }) => {
   let Icon;

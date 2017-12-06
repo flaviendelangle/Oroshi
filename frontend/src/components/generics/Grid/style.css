@@ -1,6 +1,5 @@
 .content-grid-container {
-    height: calc(100% - 70px);
-    margin-top: 50px;
+    height: 100%;
 }
 
 .content-grid-container > div {
@@ -8,7 +7,9 @@
 }
 
 .content-grid {
-    height: 100%;
+    height: calc(100% - 40px);
+    padding-top: 20px;
+    padding-bottom: 20px;
     position: relative;
     margin: auto;
 }

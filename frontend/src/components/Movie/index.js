@@ -17,6 +17,7 @@ class Movie extends Component {
   state = {
     isMouseOver: false,
     isAdding: false,
+    isReady: false
   };
   
   get release_date() {
@@ -42,6 +43,9 @@ class Movie extends Component {
     } else if (this.props.creationMode) {
       className = 'not-in-collection';
     }
+    if(this.state.isReady) {
+      className += ' ready';
+    }
     return className
   };
   
@@ -51,6 +55,10 @@ class Movie extends Component {
    */
   handleMouseHover = isMouseOver => {
     this.setState({ isMouseOver })
+  };
+  
+  handlePosterLoad = () => {
+    this.setState({ isReady: true });
   };
   
   /**
@@ -86,7 +94,11 @@ class Movie extends Component {
             onMouseEnter={() => this.handleMouseHover(true)}
             onMouseLeave={() => setTimeout(() => this.handleMouseHover(false), 300)}
           >
-            <Poster path={this.posterPath} title={this.title} />
+            <Poster
+              path={this.posterPath}
+              title={this.title}
+              onLoad={this.handlePosterLoad}
+            />
             <ElementOverlay
               note={this.note}
               mouseOver={this.state.isMouseOver}

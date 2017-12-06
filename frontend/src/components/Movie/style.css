@@ -6,6 +6,10 @@
     height: 340px;
 }
 
+.movie-parent:not(.ready) {
+    height: 0 !important;
+}
+
 .movie-parent .title {
     display: block;
     height: 42px;

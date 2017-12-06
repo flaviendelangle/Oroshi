@@ -9,3 +9,14 @@ export const layout = {
   top: 84,
   right: 20
 };
+
+export const layoutIcon = theme => ({
+  display: 'inline-block',
+  cursor: 'pointer',
+  backgroundColor: theme.backgroundColor,
+  marginRight: 10,
+  borderRadius: '50%',
+  height: 24,
+  width: 24,
+  padding: 8
+});

@@ -24,7 +24,9 @@ class Details extends Component {
     const palette = this.props.muiTheme.palette;
     return {
       backgroundColor: palette.paperBackground,
-      color: palette.paperColor
+      color: palette.paperColor,
+      paddingLeft: 0,
+      paddingRight: 0,
     }
   };
   
@@ -122,9 +124,10 @@ const Footer = ({ details, muiTheme, switchSeason }) => {
     return null;
   }
   const short = details.seasons.length > 5;
-  const Elements = details.seasons.map(season => {
+  const Elements = details.seasons.map((season, index) => {
     return (
       <SeasonButton
+        key={index}
         season={season}
         short={short}
         muiTheme={muiTheme}

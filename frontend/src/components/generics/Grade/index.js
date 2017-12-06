@@ -5,11 +5,18 @@ import * as _style from './style';
 
 const Grade = ({ className, ...props }) => {
   
-  const degree = parseInt(props.value*36, 10);
+  let grade;
+  let degree;
   
-  let grade = String(props.value);
-  if(Math.abs(props.value%1) < 0.05) {
-    grade += '.0';
+  if(!props.value) {
+    degree = 360;
+    grade = '?';
+  } else {
+    degree = parseInt(props.value*36, 10);
+    grade = String(props.value);
+    if(Math.abs(props.value % 1) < 0.05) {
+      grade += '.0';
+    }
   }
   
   return (

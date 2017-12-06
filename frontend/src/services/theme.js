@@ -8,11 +8,12 @@ const muiTheme = {
     primary1Color: colors.blueGrey800, // Header background
     primary2Color: colors.blueGrey800,
     backgroundColor: colors.blueGrey900,
-    paperBackground: colors.grey200,
-    paperColor: colors.grey800,
     titleColor: colors.grey400,
     alternateTextColor: colors.amber900,
-    canvasColor: colors.blueGrey900
+    canvasColor: colors.blueGrey900,
+  
+    paperBackground: colors.blueGrey800,
+    paperColor: colors.grey200,
   }
 };
 

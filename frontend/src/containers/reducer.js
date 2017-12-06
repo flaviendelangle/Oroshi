@@ -104,8 +104,7 @@ const reducer = (state, action) => {
     
     case notify.change:
       const newState = {
-        ...state,
-        movie: undefined
+        ...state
       };
       return appReducer(newState, action);
       
