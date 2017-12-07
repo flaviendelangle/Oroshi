@@ -43,19 +43,46 @@ class Element {
     return elements;
   }
   
+  static buildAutocomplete(elements, streamKey={field: 'directors'}) {
+    let indexes = {
+      grid: [],
+      stream: []
+    };
+    elements.forEach(el => {
+      el.search_index_raw
+        .map(str => str)
+        .forEach(str => {
+          if(!indexes.grid.includes(str)) {
+            indexes.grid.push(str);
+          }
+        });
+      el.getValue(streamKey.field)
+        .forEach(value => {
+          const name = value.name;
+          if(!indexes.stream.includes(name)) {
+            indexes.stream.push(name);
+          }
+        })
+    });
+    return {
+      grid: indexes.grid.sort(),
+      stream: indexes.stream.sort()
+    }
+  };
   
   buildSearchIndex(searchIndex = []) {
     const local = this.getLocal();
     
-    local.titles.forEach(el => searchIndex.push(el.title.toUpperCase()));
-    local.genres.forEach(el => searchIndex.push(el.name.toUpperCase()));
+    local.titles.forEach(el => searchIndex.push(el.title));
+    local.genres.forEach(el => searchIndex.push(el.name));
     searchIndex.push(String(local.release));
     
     const language = getLanguage(local.original_language);
     if(language) {
-      searchIndex.push(language.name.toUpperCase());
+      searchIndex.push(language.name);
     }
-    this.search_index = searchIndex;
+    this.search_index_raw = searchIndex;
+    this.search_index = searchIndex.map(el => el.toUpperCase());
     
   };
   

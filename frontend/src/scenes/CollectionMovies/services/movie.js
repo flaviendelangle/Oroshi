@@ -22,7 +22,7 @@ class Movie extends Element {
     const local = this.getLocal();
     let searchIndex = [];
     
-    local.directors.forEach(el => searchIndex.push(el.name.toUpperCase()));
+    local.directors.forEach(el => searchIndex.push(el.name));
     
     super.buildSearchIndex(searchIndex)
   };

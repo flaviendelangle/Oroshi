@@ -20,7 +20,7 @@ class TVShow extends Element {
   buildSearchIndex() {
     const local = this.getLocal();
     let searchIndex = [];
-    local.networks.forEach(el => searchIndex.push(el.name.toUpperCase()));
+    local.networks.forEach(el => searchIndex.push(el.name));
     
     super.buildSearchIndex(searchIndex)
   };

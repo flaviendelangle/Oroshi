@@ -83,6 +83,7 @@ const reducer = (state = defaultState, action) => {
           content: newContent,
           stream: new StreamGenerator(newContent, sceneState.query, sceneState.order.stream),
           grid: new ListGenerator(newContent, sceneState.query),
+          autoComplete: Element.buildAutocomplete(newContent, sceneState.order.stream),
           found: true,
           loaded: true
         };
@@ -98,7 +99,8 @@ const reducer = (state = defaultState, action) => {
           ...sceneState,
           content: newContent,
           stream: new StreamGenerator(newContent, sceneState.query, sceneState.order.stream),
-          grid: new ListGenerator(newContent, sceneState.query)
+          grid: new ListGenerator(newContent, sceneState.query),
+          autoComplete: Element.buildAutocomplete(newContent, sceneState.order.stream),
         };
     
       /**
@@ -113,6 +115,7 @@ const reducer = (state = defaultState, action) => {
           content: newContent,
           stream: new StreamGenerator(newContent, sceneState.query, sceneState.order.stream),
           grid: new ListGenerator(newContent, sceneState.query),
+          autoComplete: Element.buildAutocomplete(newContent, sceneState.order.stream)
         };
     
       /**
@@ -126,7 +129,8 @@ const reducer = (state = defaultState, action) => {
           ...sceneState,
           content: newContent,
           stream: new StreamGenerator(newContent, sceneState.query, sceneState.order.stream),
-          grid: new ListGenerator(newContent, sceneState.query)
+          grid: new ListGenerator(newContent, sceneState.query),
+          autoComplete: Element.buildAutocomplete(newContent, sceneState.order.stream)
         };
     
     
@@ -150,6 +154,7 @@ const reducer = (state = defaultState, action) => {
           content: newContent,
           stream: new StreamGenerator(newContent, sceneState.query, newOrder.stream),
           grid: new ListGenerator(newContent, sceneState.query),
+          autoComplete: Element.buildAutocomplete(newContent, newOrder.stream),
           update: Math.random()
         };
     

@@ -4,7 +4,14 @@
     position: relative;
     width: 185px;
     height: 340px;
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out;
 }
+
+.tv-show-parent:not(.ready) {
+    opacity: 0;
+}
+
 
 .tv-show-parent .title {
     display: block;

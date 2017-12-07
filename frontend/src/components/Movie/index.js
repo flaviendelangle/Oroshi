@@ -6,7 +6,7 @@ import Paper from 'material-ui/Paper';
 import muiThemeable from 'material-ui/styles/muiThemeable';
 import ImageEye from 'material-ui/svg-icons/image/remove-red-eye';
 
-import Poster from './components/Poster';
+import Poster from 'components/generics/Poster';
 import ElementOverlay from 'components/generics/ElementOverlay';
 import { addElement, removeElement } from 'services/actions/collections';
 import { switchSeenOnElement } from 'services/actions/collections/movies';
@@ -42,9 +42,9 @@ class Movie extends Component {
   get parentClassName() {
     let className = '';
     if (this.props.data.isInCollection()) {
-      className = 'already-in-collection';
+      className = ' already-in-collection';
     } else if (this.props.creationMode) {
-      className = 'not-in-collection';
+      className = ' not-in-collection';
     }
     if(this.state.isReady) {
       className += ' ready';

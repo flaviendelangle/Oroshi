@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 
 import SearchBar from 'material-ui-search-bar';
+import AutoComplete from 'material-ui/AutoComplete';
 import muiThemeable from 'material-ui/styles/muiThemeable';
 
 import { update } from './actions'
@@ -55,6 +56,9 @@ class Search extends Component {
           onChange={this.search}
           onRequestSearch={() => this.filter(this.state.query, true)}
           value={this.props.query}
+          dataSource={this.props.autoComplete}
+          filter={AutoComplete.caseInsensitiveFilter}
+          maxSearchResults={10}
         />
         {this.renderCounter()}
       </div>

@@ -4,7 +4,7 @@ import Paper from 'material-ui/Paper';
 import NavigationExpandMore from 'material-ui/svg-icons/navigation/expand-more';
 import muiThemeable from 'material-ui/styles/muiThemeable';
 
-import Poster from './components/Poster';
+import Poster from 'components/generics/Poster';
 import ElementOverlay from 'components/generics/ElementOverlay';
 import Details from './components/Details';
 import { addElement, removeElement } from 'services/actions/collections';
@@ -17,7 +17,8 @@ class TVShow extends Component {
   state = {
     isMouseOver: false,
     isAdding: false,
-    isExtended: false
+    isExtended: false,
+    isReady: false
   };
   
   get title() {
@@ -35,9 +36,12 @@ class TVShow extends Component {
   get parentClassName() {
     let className = '';
     if (this.props.data.isInCollection()) {
-      className = 'already-in-collection';
+      className = ' already-in-collection';
     } else if (this.props.creationMode) {
-      className = 'not-in-collection';
+      className = ' not-in-collection';
+    }
+    if(this.state.isReady) {
+      className += ' ready';
     }
     return className
   }
@@ -48,6 +52,10 @@ class TVShow extends Component {
    */
   handleMouseHover = isMouseOver => {
     this.setState({ isMouseOver })
+  };
+  
+  handlePosterLoad = () => {
+    this.setState({ isReady: true });
   };
   
   /**
@@ -83,8 +91,8 @@ class TVShow extends Component {
   
   render() {
     return (
-      <div className={'tv-show-parent'}>
-        <div className={'tv-show-container ' + this.parentClassName}>
+      <div className={'tv-show-parent' + this.parentClassName}>
+        <div className={'tv-show-container '}>
           <div className="tv-show-frame">
             <Paper
               zDepth={3}
@@ -92,7 +100,11 @@ class TVShow extends Component {
               onMouseEnter={() => this.handleMouseHover(true)}
               onMouseLeave={() => setTimeout(() => this.handleMouseHover(false), 300)}
             >
-              <Poster path={this.posterPath} title={this.title} />
+              <Poster
+                path={this.posterPath}
+                title={this.title}
+                onLoad={this.handlePosterLoad}
+              />
               <ElementOverlay
                 note={this.note}
                 mouseOver={this.state.isMouseOver}

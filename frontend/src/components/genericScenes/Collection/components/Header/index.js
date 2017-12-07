@@ -18,6 +18,17 @@ class Header extends Component {
            '/' + this.props.collection.pk + '/settings/';
   }
   
+  get autoComplete() {
+    if(this.props.isAdding) {
+      return null;
+    }
+    console.log(this.props.autoComplete);
+    if(this.props.layout === 'stream') {
+      return this.props.autoComplete.stream;
+    }
+    return this.props.autoComplete.grid;
+  }
+  
   render() {
     if (!this.props.loaded || !this.props.found) {
       return (
@@ -43,6 +54,7 @@ class Header extends Component {
               count={this.props.count}
               isAdding={this.props.isAdding}
               collection={this.props.collection}
+              autoComplete={this.autoComplete}
             />
           </div>
           <div className="actions">
@@ -72,13 +84,19 @@ const mapStateToProps = (state, ownProps) => {
   } else {
     count = contentRoot.grid.getElementCount();
   }
+
   return {
     isAdding: root.isAdding,
+    
     loaded: contentRoot.loaded,
     found: contentRoot.found,
+    layout: contentRoot.layout,
     collection: contentRoot.collection,
+    autoComplete: contentRoot.autoComplete,
+    
     title: headerRoot.title,
     query: headerRoot.query,
+    
     count
   }
 };
