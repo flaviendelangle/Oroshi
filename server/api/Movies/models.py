@@ -7,6 +7,10 @@ from api.Posters.models import Posters
 
 
 class Movies(models.Model):
+
+    class Meta:
+        app_label = 'api'
+
     tmdbId = models.IntegerField(default=0)
     release = models.IntegerField(default=0)
     note = models.FloatField(default=0)

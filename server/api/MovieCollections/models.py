@@ -5,6 +5,10 @@ from api.Users.models import Users
 
 
 class MovieCollections(models.Model):
+
+    class Meta:
+        app_label = 'api'
+
     hash = models.CharField(max_length=128, default="")
     content = models.ManyToManyField(Movies, verbose_name="list_of_movies", related_name="collection_movies")
     user = models.ForeignKey(Users, on_delete=models.CASCADE)
@@ -22,6 +26,10 @@ class MovieCollections(models.Model):
 
 
 class SeenMovies(models.Model):
+
+    class Meta:
+        app_label = 'api'
+
     movie = models.ForeignKey(Movies, on_delete=models.CASCADE)
     collection = models.ForeignKey(MovieCollections, on_delete=models.CASCADE)
     seen = models.BooleanField(default=0)

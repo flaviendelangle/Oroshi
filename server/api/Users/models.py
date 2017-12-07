@@ -4,6 +4,9 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseU
 
 class UsersManager(BaseUserManager):
 
+    class Meta:
+        app_label = 'api'
+
     def create_user(self, username, password, email):
         if not username:
             raise ValueError('Users must have a username')
@@ -26,6 +29,10 @@ class UsersManager(BaseUserManager):
 
 
 class Users(AbstractBaseUser, PermissionsMixin):
+
+    class Meta:
+        app_label = 'api'
+
     email = models.EmailField(max_length=254, unique=True)
     username = models.TextField(max_length=50, unique=True)
     is_admin = models.BooleanField(default=False)

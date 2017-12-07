@@ -32,12 +32,12 @@ router.register(r'^movies', MoviesViewSet, base_name="movies")
 router.register(r'^tv_shows', TVShowsViewSet, base_name="tv_shows")
 
 movie_collections_routes.register(r'movies', CollectionMoviesViewSet,
-                        base_name="collection_movies",
-                        parents_query_lookups=["collection_movies"])
+                                  base_name="collection_movies",
+                                  parents_query_lookups=["collection_movies"])
 
 tv_shows_collections_route.register(r'tv_shows', CollectionTVShowsViewet,
-                                  base_name="collection_tv_shows",
-                                  parents_query_lookups=["collection_tv_shows"])
+                                    base_name="collection_tv_shows",
+                                    parents_query_lookups=["collection_tv_shows"])
 
 urlpatterns = [
     url(r'^api/', include(router.urls)),
