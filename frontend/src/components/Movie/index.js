@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import Paper from 'material-ui/Paper';
 import muiThemeable from 'material-ui/styles/muiThemeable';
@@ -9,6 +10,7 @@ import Poster from './components/Poster';
 import ElementOverlay from 'components/generics/ElementOverlay';
 import { addElement, removeElement } from 'services/actions/collections';
 import { switchSeenOnElement } from 'services/actions/collections/movies';
+import { publicRoot } from 'services/TheMovieDatabaseJS/movies';
 
 import './style.css'
 
@@ -93,7 +95,7 @@ class Movie extends Component {
             zDepth={3}
             className="movie"
             onMouseEnter={() => this.handleMouseHover(true)}
-            onMouseLeave={() => setTimeout(() => this.handleMouseHover(false), 300)}
+            onMouseLeave={() => this.handleMouseHover(false)}
           >
             <Poster
               path={this.posterPath}
@@ -119,6 +121,7 @@ class Movie extends Component {
         </div>
         <Footer
           title={this.title}
+          tmdbId={this.props.data.getPublicId()}
           muiTheme={this.props.muiTheme}
           release_date={this.release_date}
         />
@@ -128,13 +131,13 @@ class Movie extends Component {
   
 }
 
-const Footer = ({ title, muiTheme, release_date }) => (
+const Footer = ({ title, tmdbId, muiTheme, release_date }) => (
   <div
     className="title"
     style={{color: muiTheme.palette.textColor}}
   >
     <div>{release_date}</div>
-    <div>{title}</div>
+    <Link to={publicRoot + tmdbId} target="_blank">{title}</Link>
   </div>
 );
 

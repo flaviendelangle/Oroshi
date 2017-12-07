@@ -143,3 +143,5 @@ class Movies extends API {
 }
 
 export default new Movies();
+
+export const publicRoot = 'https://www.themoviedb.org/movie/';

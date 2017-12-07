@@ -1,8 +1,9 @@
-import { sortElements } from '../../../services/utils';
+import Element from 'services/content/element';
+
 
 export const add = (content, newElement, order) => {
   let newContent = content.concat([newElement]);
-  return sortElements(newContent, order);
+  return Element.sortList(newContent, order);
 };
 
 export const remove = (content, newElement) => {

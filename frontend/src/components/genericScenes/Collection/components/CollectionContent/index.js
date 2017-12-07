@@ -19,7 +19,7 @@ class CollectionContent extends Component {
     if (this.props.layout === 'grid') {
       return (
         <Grid
-          data={this.props.toShow}
+          data={this.props.grid}
           collection={this.props.collection}
           order={this.props.order.default}
           scene={this.props.scene}
@@ -77,7 +77,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     update: root.update,
     content: root.content,
-    toShow: root.toShow,
+    grid: root.grid,
     stream: root.stream,
     collection: root.collection,
     found: root.found,

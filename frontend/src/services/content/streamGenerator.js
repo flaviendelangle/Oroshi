@@ -1,3 +1,10 @@
+import Element from 'services/content/element';
+
+
+const SORT_ORDER = {
+  field: 'note',
+  direction: 'desc'
+};
 
 class StreamGenerator {
   
@@ -5,7 +12,8 @@ class StreamGenerator {
     this.labelField = labelField;
     this.direction = direction;
     
-    this.data = data;
+    this.data = Element.sortList(data, SORT_ORDER);
+
     this.query = query.toUpperCase().trim();
     this.key = key;
     this.build();

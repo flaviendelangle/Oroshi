@@ -70,7 +70,7 @@ const mapStateToProps = (state, ownProps) => {
   if (layout === 'stream') {
     count = contentRoot.stream.getElementCount();
   } else {
-    count = contentRoot.toShow.getElementCount();
+    count = contentRoot.grid.getElementCount();
   }
   return {
     isAdding: root.isAdding,

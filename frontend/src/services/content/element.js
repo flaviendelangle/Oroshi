@@ -35,6 +35,15 @@ class Element {
     return element;
   }
   
+  static sortList(elements, params) {
+    const mul = params.direction === 'asc' ? 1 : -1;
+    elements = elements.sort((a, b) => {
+      return a.isGreater(b, params.field)*mul;
+    });
+    return elements;
+  }
+  
+  
   buildSearchIndex(searchIndex = []) {
     const local = this.getLocal();
     

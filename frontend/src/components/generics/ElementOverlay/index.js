@@ -9,8 +9,32 @@ import './style.css'
 
 class ElementOverlay extends Component {
   
+  state = {
+    show: true,
+    waiting: false
+  };
+  
+  timeout = null;
+  
+  componentWillUnmount() {
+    clearTimeout(this.timeout)
+  }
+  
+  componentWillReceiveProps(newProps) {
+    if(newProps.mouseOver) {
+      this.setState({ show: true, waiting: false });
+    } else {
+      this.setState({ waiting: true });
+      this.timeout = setTimeout(() => {
+        if(this.state.waiting) {
+          this.setState({ show: false, waiting: false });
+        }
+      }, 300);
+    }
+  }
+  
   render() {
-    if (!this.props.mouseOver) {
+    if (!this.state.show) {
       return null;
     }
     return (
@@ -18,7 +42,7 @@ class ElementOverlay extends Component {
         <Grade
           className="grade"
           value={this.props.note}
-          mouseOver={this.props.mouseOver}
+          mouseOver={this.state.show}
         />
         <TopRightAction>{this.props.topRightAction}</TopRightAction>
         <Footer

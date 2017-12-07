@@ -4,9 +4,10 @@ import { collectionContent, collections } from 'services/titles/api';
 import { sort, search } from 'services/titles/data';
 import { layout } from 'services/titles/interface';
 
-import { getListGenerator, getStreamGenerator, getDefaultOrder } from 'services/content/';
+import { getListGenerator, getStreamGenerator, getDefaultOrder } from 'services/content';
 import { getValue } from 'services/localstorage';
-import { sortElements, setSortParameters, setLayoutParameters } from '../../services/utils';
+import Element from 'services/content/element';
+import { setSortParameters, setLayoutParameters } from '../../services/utils';
 import * as content_manager from './services/content_manager';
 
 
@@ -28,7 +29,7 @@ const generateDefaultElementState = scene => {
     layout: getValue('layout_' + scene) || 'grid',
     order: getValue('order_' + scene) || defaultOrder,
     stream: new StreamGenerator(),
-    toShow: new ListGenerator(),
+    grid: new ListGenerator(),
   };
 };
 
@@ -72,7 +73,7 @@ const reducer = (state = defaultState, action) => {
           include_adult: action.payload.adult_content,
           language: action.payload.title_language
         });
-        newContent = sortElements(
+        newContent = Element.sortList(
           action.payload.content,
           sceneState.order.default
         );
@@ -81,7 +82,7 @@ const reducer = (state = defaultState, action) => {
           collection: action.payload,
           content: newContent,
           stream: new StreamGenerator(newContent, sceneState.query, sceneState.order.stream),
-          toShow: new ListGenerator(newContent, sceneState.query),
+          grid: new ListGenerator(newContent, sceneState.query),
           found: true,
           loaded: true
         };
@@ -97,7 +98,7 @@ const reducer = (state = defaultState, action) => {
           ...sceneState,
           content: newContent,
           stream: new StreamGenerator(newContent, sceneState.query, sceneState.order.stream),
-          toShow: new ListGenerator(newContent, sceneState.query)
+          grid: new ListGenerator(newContent, sceneState.query)
         };
     
       /**
@@ -111,7 +112,7 @@ const reducer = (state = defaultState, action) => {
           ...sceneState,
           content: newContent,
           stream: new StreamGenerator(newContent, sceneState.query, sceneState.order.stream),
-          toShow: new ListGenerator(newContent, sceneState.query),
+          grid: new ListGenerator(newContent, sceneState.query),
         };
     
       /**
@@ -125,7 +126,7 @@ const reducer = (state = defaultState, action) => {
           ...sceneState,
           content: newContent,
           stream: new StreamGenerator(newContent, sceneState.query, sceneState.order.stream),
-          toShow: new ListGenerator(newContent, sceneState.query)
+          grid: new ListGenerator(newContent, sceneState.query)
         };
     
     
@@ -135,7 +136,7 @@ const reducer = (state = defaultState, action) => {
       case sort.update:
         setSortParameters(scene, action.parameters, defaultOrder);
         if (action.parameters.layout === 'default') {
-          newContent = sortElements(sceneState.content, action.parameters);
+          newContent = Element.sortList(sceneState.content, action.parameters);
         } else {
           newContent = sceneState.content;
         }
@@ -148,7 +149,7 @@ const reducer = (state = defaultState, action) => {
           order: newOrder,
           content: newContent,
           stream: new StreamGenerator(newContent, sceneState.query, newOrder.stream),
-          toShow: new ListGenerator(newContent, sceneState.query),
+          grid: new ListGenerator(newContent, sceneState.query),
           update: Math.random()
         };
     
@@ -163,7 +164,7 @@ const reducer = (state = defaultState, action) => {
           ...sceneState,
           query: action.query,
           stream: new StreamGenerator(sceneState.content, action.query, sceneState.order.stream),
-          toShow: new ListGenerator(sceneState.content, action.query)
+          grid: new ListGenerator(sceneState.content, action.query)
         };
     
       /**
@@ -176,7 +177,7 @@ const reducer = (state = defaultState, action) => {
           query: '',
           layout: action.layout,
           stream: new StreamGenerator(sceneState.content, '', sceneState.order.stream),
-          toShow: new ListGenerator(sceneState.content, '')
+          grid: new ListGenerator(sceneState.content, '')
         };
       
       default:
