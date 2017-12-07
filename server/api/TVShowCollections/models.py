@@ -7,7 +7,7 @@ from api.Users.models import Users
 class TVShowCollections(models.Model):
     hash = models.CharField(max_length=128, default="")
     content = models.ManyToManyField(TVShows, verbose_name="list_of_tv_shows", related_name="collection_tv_shows")
-    user = models.ForeignKey(Users)
+    user = models.ForeignKey(Users, on_delete=models.CASCADE)
 
     # Summary
     title = models.CharField(max_length=1000, default="")
@@ -22,6 +22,6 @@ class TVShowCollections(models.Model):
 
 
 class SeenTVShows(models.Model):
-    tv_show = models.ForeignKey(TVShows)
-    collection = models.ForeignKey(TVShowCollections)
+    tv_show = models.ForeignKey(TVShows, on_delete=models.CASCADE)
+    collection = models.ForeignKey(TVShowCollections, on_delete=models.CASCADE)
     seen = models.BooleanField(default=0)

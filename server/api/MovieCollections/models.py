@@ -7,7 +7,7 @@ from api.Users.models import Users
 class MovieCollections(models.Model):
     hash = models.CharField(max_length=128, default="")
     content = models.ManyToManyField(Movies, verbose_name="list_of_movies", related_name="collection_movies")
-    user = models.ForeignKey(Users)
+    user = models.ForeignKey(Users, on_delete=models.CASCADE)
 
     # Summary
     title = models.CharField(max_length=1000, default="")
@@ -22,6 +22,6 @@ class MovieCollections(models.Model):
 
 
 class SeenMovies(models.Model):
-    movie = models.ForeignKey(Movies)
-    collection = models.ForeignKey(MovieCollections)
+    movie = models.ForeignKey(Movies, on_delete=models.CASCADE)
+    collection = models.ForeignKey(MovieCollections, on_delete=models.CASCADE)
     seen = models.BooleanField(default=0)
