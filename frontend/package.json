@@ -17,7 +17,6 @@
     "npm": "^5.5.1",
     "papaparse": "^4.3.6",
     "promise-file-reader": "^1.0.0",
-    "react": "^16.0.0",
     "react-document-title": "^2.0.3",
     "react-dom": "^16.0.0",
     "react-dropzone": "^4.2.1",

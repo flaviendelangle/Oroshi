@@ -6,15 +6,7 @@ export const sortElements = (elements, params) => {
   const mul = params.direction === 'asc' ? 1 : -1;
   elements = elements.sort((a, b) => {
     
-    let comparison = 0;
-    const valueA = a.getValueToSort(field);
-    const valueB = b.getValueToSort(field);
-    
-    if (valueA > valueB)
-      comparison = mul;
-    else if (valueA < valueB)
-      comparison = -1 * mul;
-    return comparison;
+    return a.isGreater(b, field)*mul;
   });
   return elements;
 };

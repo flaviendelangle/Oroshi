@@ -74,6 +74,21 @@ class Element {
     this.setLocal(newLocal);
   }
   
+  isGreater = (other, field) => {
+    const valueA = this.getValueToSort(field);
+    const valueB = other.getValueToSort(field);
+    if(valueA > valueB) {
+      return 1;
+    }
+    if(valueA < valueB) {
+      return -1;
+    }
+    if(field !== 'note') {
+      return this.isGreater(other, 'note');
+    }
+    return 0;
+  };
+  
   isInCollection = () => {
     return this.is_in_collection;
   };

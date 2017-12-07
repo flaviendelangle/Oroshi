@@ -4,11 +4,14 @@
     position: relative;
     width: 185px;
     height: 340px;
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out;
 }
 
 .movie-parent:not(.ready) {
-    height: 0 !important;
+    opacity: 0;
 }
+
 
 .movie-parent .title {
     display: block;
