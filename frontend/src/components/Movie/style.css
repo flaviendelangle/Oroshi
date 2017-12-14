@@ -22,14 +22,15 @@
     line-height: 21px;
 }
 
-.movie-parent .title > div:last-child {
+.movie-parent .title > a:last-child {
+    display: block;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     height: 21px;
 }
 
-.movie-parent .title > div:last-child:hover {
+.movie-parent .title > a:last-child:hover {
     height: auto;
     white-space: normal;
     word-break: break-all;
