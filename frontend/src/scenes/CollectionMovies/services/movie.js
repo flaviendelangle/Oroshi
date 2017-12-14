@@ -3,13 +3,6 @@ import date from 'services/content/date';
 
 class Movie extends Element {
   
-  constructor(localData, distantData) {
-    super(localData, distantData);
-    if (localData) {
-      this.prepareLocalOptions();
-    }
-  }
-  
   static fromDistantList(data, collection) {
     return super.fromDistantList(data, collection, Movie);
   }
@@ -27,20 +20,6 @@ class Movie extends Element {
     super.buildSearchIndex(searchIndex)
   };
   
-  prepareLocalOptions = () => {
-    const release = this.getReleaseDate();
-    this.release_list = [{
-      name: String(release),
-      pk: release
-    }];
-  };
-  
-  setLocal = newLocal => {
-    const results = super.setLocal(newLocal);
-    this.prepareLocalOptions();
-    return results;
-  };
-  
   isGreater = (other, field) => {
     if(field === 'release') {
       const date_A = this.getValueToSort(field);
@@ -52,16 +31,20 @@ class Movie extends Element {
   };
   
   getValue = field => {
-    if (field === 'release') {
-      return this.release_list;
+    if (field === 'release_year') {
+      const newDate = date(this.getReleaseDate(), date.TMDB_FORMAT, date.YEAR_FORMAT);
+      return [{
+        pk: parseInt(newDate, 10),
+        name: newDate
+      }];
     }
     return super.getValue(field);
   };
   
   getValueToSort = field => {
-    if (field === 'release') {
+    /*if (field === 'release') {
       return this.release_list[0].pk;
-    }
+    }*/
     return super.getValueToSort(field);
   };
   

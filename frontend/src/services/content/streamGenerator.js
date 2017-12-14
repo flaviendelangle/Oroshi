@@ -11,7 +11,6 @@ class StreamGenerator {
   constructor(labelField, direction, data=[], query='', key={field: 'directors'}) {
     this.labelField = labelField;
     this.direction = direction;
-    
     this.data = Element.sortList(data, SORT_ORDER);
 
     this.query = query.toUpperCase().trim();
@@ -67,7 +66,7 @@ class StreamGenerator {
       let comparison = 0;
       const mul = this.direction === 'asc' ? 1 : -1;
       let valueA, valueB;
-      if (this.key.field === 'release') {
+      if (this.key.field === 'release_year') {
         valueA = a.key.pk;
         valueB = b.key.pk;
       } else {

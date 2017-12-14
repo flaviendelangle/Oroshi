@@ -73,7 +73,7 @@ const StreamMenuMovies = ({ sort, color }) => (
     />
     <MenuItem
       primaryText="Group by year of release"
-      onClick={() => sort('stream', 'release')}
+      onClick={() => sort('stream', 'release_year')}
     />
   </IconMenu>
 );
