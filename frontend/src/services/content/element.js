@@ -9,7 +9,6 @@ class Element {
   distant = null;
   is_in_collection = false;
   
-  release_list = null;
   search_index = [];
   
   constructor(localData, distantData) {
@@ -76,7 +75,6 @@ class Element {
     
     local.titles.forEach(el => searchIndex.push(el.title));
     local.genres.forEach(el => searchIndex.push(el.name));
-    searchIndex.push(String(local.release));
     
     const language = getLanguage(local.original_language);
     if(language) {

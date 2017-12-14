@@ -16,6 +16,7 @@ class Movie extends Element {
     let searchIndex = [];
     
     local.directors.forEach(el => searchIndex.push(el.name));
+    searchIndex.push(this.getReleaseYear());
     
     super.buildSearchIndex(searchIndex)
   };
@@ -32,7 +33,7 @@ class Movie extends Element {
   
   getValue = field => {
     if (field === 'release_year') {
-      const newDate = date(this.getReleaseDate(), date.TMDB_FORMAT, date.YEAR_FORMAT);
+      const newDate = this.getReleaseYear();
       return [{
         pk: parseInt(newDate, 10),
         name: newDate
@@ -60,7 +61,7 @@ class Movie extends Element {
     return this.getDistant().title;
   };
   
-  getReleaseDate = () => {
+  getReleaseDate() {
     if (this.hasDistant()) {
       const rawDate = this.getDistant().release_date;
       return date(rawDate, date.TMDB_FORMAT, date.YEAR_FORMAT);
@@ -70,6 +71,10 @@ class Movie extends Element {
       return parseInt(release[0].name, 10);
     }
     return release;
+  };
+  
+  getReleaseYear() {
+    return date(this.getReleaseDate(), date.TMDB_FORMAT, date.YEAR_FORMAT);
   };
 
   hasBeenSeen = () => {
