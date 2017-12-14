@@ -1,5 +1,5 @@
 import * as tmdb from './tmdb'
-import { date } from '../../utils';
+import date from 'services/content/date';
 import { request } from 'services/titles/publicAPI';
 
 import TVSeasonsTMDB from 'services/TheMovieDatabaseJS/tv_seasons';

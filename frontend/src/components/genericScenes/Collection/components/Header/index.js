@@ -20,9 +20,8 @@ class Header extends Component {
   
   get autoComplete() {
     if(this.props.isAdding) {
-      return null;
+      return [];
     }
-    console.log(this.props.autoComplete);
     if(this.props.layout === 'stream') {
       return this.props.autoComplete.stream;
     }

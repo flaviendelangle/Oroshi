@@ -1,5 +1,5 @@
 import Element from 'services/content/element';
-import { date } from 'services/utils';
+import date from 'services/content/date';
 
 class Movie extends Element {
   
@@ -39,6 +39,16 @@ class Movie extends Element {
     const results = super.setLocal(newLocal);
     this.prepareLocalOptions();
     return results;
+  };
+  
+  isGreater = (other, field) => {
+    if(field === 'release') {
+      const date_A = this.getValueToSort(field);
+      const date_B = other.getValueToSort(field);
+      const isAfter = date.isAfter(date_A, date_B, date.TMDB_FORMAT);
+      return isAfter ? 1 : -1;
+    }
+    return super.isGreater(other, field);
   };
   
   getValue = field => {

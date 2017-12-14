@@ -1,14 +1,4 @@
-import moment from 'moment'
 import Papa from 'papaparse'
-
-let date = (date, oldFormat, newFormat) => {
-  const newDate = moment(date, oldFormat);
-  return newDate.format(newFormat);
-};
-
-date.TMDB_FORMAT = 'YYYY-MM-DD';
-
-date.YEAR_FORMAT = 'YYYY';
 
 
 let parseCSV = (scene, csv) => {
@@ -66,4 +56,4 @@ export const getCollectionTypeTitle = type => {
 
 
 
-export { date, parseCSV };
+export { parseCSV };

@@ -110,7 +110,7 @@ const DefaultMenuMovies = ({ sort, color }) => (
       onClick={() => sort('default', 'note', 'desc')}
     />
     <MenuItem
-      primaryText="Order by year of release"
+      primaryText="Order by release date"
       onClick={() => sort('default', 'release', 'desc')}
     />
   </IconMenu>

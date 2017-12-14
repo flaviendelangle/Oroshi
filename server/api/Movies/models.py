@@ -12,7 +12,7 @@ class Movies(models.Model):
         app_label = 'api'
 
     tmdbId = models.IntegerField(default=0)
-    release = models.IntegerField(default=0)
+    release = models.DateField(default=0)
     note = models.FloatField(default=0)
 
     original_language = models.CharField(max_length=4, default="")

@@ -11,6 +11,7 @@ import ElementOverlay from 'components/generics/ElementOverlay';
 import { addElement, removeElement } from 'services/actions/collections';
 import { switchSeenOnElement } from 'services/actions/collections/movies';
 import { publicRoot } from 'services/TheMovieDatabaseJS/movies';
+import date from 'services/content/date';
 
 import './style.css'
 
@@ -24,7 +25,7 @@ class Movie extends Component {
   };
   
   get release_date() {
-    return this.props.data.getReleaseDate();
+    return date(this.props.data.getReleaseDate(), date.TMDB_FORMAT, date.YEAR_FORMAT);
   }
   
   get title() {

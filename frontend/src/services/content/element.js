@@ -36,6 +36,7 @@ class Element {
   }
   
   static sortList(elements, params) {
+    elements = [...elements];
     const mul = params.direction === 'asc' ? 1 : -1;
     elements = elements.sort((a, b) => {
       return a.isGreater(b, params.field)*mul;
@@ -110,7 +111,7 @@ class Element {
     this.setLocal(newLocal);
   }
   
-  isGreater = (other, field) => {
+  isGreater(other, field) {
     const valueA = this.getValueToSort(field);
     const valueB = other.getValueToSort(field);
     if(valueA > valueB) {
@@ -123,7 +124,7 @@ class Element {
       return this.isGreater(other, 'note');
     }
     return 0;
-  };
+  }
   
   isInCollection = () => {
     return this.is_in_collection;

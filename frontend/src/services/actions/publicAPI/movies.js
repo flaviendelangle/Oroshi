@@ -1,5 +1,5 @@
 import * as tmdb from './tmdb';
-import { date } from '../../utils';
+import date from 'services/content/date';
 
 export const search = tmdb.search;
 
@@ -32,7 +32,7 @@ export const cleanDetails = (scene, details) => {
     note: details.vote_average,
     posters: details.posters,
     titles: details.titles,
-    release: date(details.release_date, date.TMDB_FORMAT, date.YEAR_FORMAT),
+    release: details.release_date,
     original_language: details.original_language
   };
 };
