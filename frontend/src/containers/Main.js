@@ -6,6 +6,7 @@ import muiThemeable from 'material-ui/styles/muiThemeable';
 
 import Home from 'scenes/Home';
 import Login from 'scenes/Login';
+import Logout from 'scenes/Logout';
 import CollectionMovies from 'scenes/CollectionMovies';
 import CollectionTVShows from 'scenes/CollectionTVShows';
 
@@ -23,7 +24,7 @@ class Main extends Component {
   }
   
   componentDidMount() {
-    if(!this.props.profile && this.props.oauth && this.props.username) {
+    if(this.props.location.pathname !== '/logout/' && !this.props.profile && this.props.oauth && this.props.username) {
       this.props.getProfile(this.props.username);
     }
   }
@@ -40,6 +41,7 @@ class Main extends Component {
         <Switch>
           <Route exact path='/' component={Home} />
           <Route path='/login/' component={Login} />
+          <Route path='/logout/' component={Logout} />
           
           <Route path='/collections/movies/:collection_id/settings/' component={CollectionMoviesSettings} />
           <Route path='/collections/tv_shows/:collection_id/settings/' component={CollectionTVShowsSettings} />

@@ -3,19 +3,17 @@ import React from 'react'
 import CircularProgress from 'material-ui/CircularProgress';
 import muiThemeable from 'material-ui/styles/muiThemeable';
 
-const progressStyle = {
-  width: 40,
-  height: 40,
-  position: 'absolute',
-  left: 'calc(50% - 20px)',
-  top: 'calc(50% - 20px)',
-};
+import * as _style from './style';
 
-const Progress = ({ muiTheme }) => {
-  const color= muiTheme.palette.alternateTextColor;
+
+const Progress = ({ muiTheme, message }) => {
+  const palette = muiTheme.palette;
   return (
-    <div style={progressStyle}>
-      <CircularProgress color={color} />
+    <div style={_style.container}>
+      <div style={_style.progress}>
+        <CircularProgress color={palette.alternateTextColor} />
+      </div>
+      { message ? <div style={_style.message(palette)}>{message}</div> : null }
     </div>
   );
 };

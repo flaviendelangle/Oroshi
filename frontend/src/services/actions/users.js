@@ -1,6 +1,7 @@
 import { UsersAPI } from 'services/api/users';
 import { users } from 'services/titles/api';
 import { OauthAPI } from 'services/api/oauth';
+import { destroyOauth } from 'services/localstorage';
 
 export const create = data => {
   return {
@@ -25,6 +26,18 @@ export const login = ({ username, password }) => {
     meta: {
       username: username
     }
+  }
+};
+
+export const logout = () => {
+  destroyOauth();
+  return {
+    type: users.logout,
+    payload: new Promise(resolve => {
+      window.setTimeout(() => {
+        resolve();
+      }, 1000);
+    })
   }
 };
 

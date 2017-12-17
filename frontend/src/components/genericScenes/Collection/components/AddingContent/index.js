@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
 
-import Grid from 'components/generics/Grid/';
-import Stream from 'components/generics/Stream/';
+import Grid from 'components/generics/Grid';
+import Stream from 'components/generics/Stream';
 import Progress from 'components/generics/Progress';
 
 import * as _style from './style';
