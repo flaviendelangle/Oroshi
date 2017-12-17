@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 
+import NotFound from 'components/errors/NotFound';
 import Grid from 'components/generics/Grid';
 import Stream from 'components/generics/Stream';
 import Progress from 'components/generics/Progress';
@@ -48,7 +49,7 @@ class CollectionContent extends Component {
       );
     }
     else if (!this.props.found) {
-      return (<div>Not found</div>)
+      return (<NotFound />)
     }
     else if (this.props.content.length === 0 && !this.props.isAdding) {
       return (<Help/>)
