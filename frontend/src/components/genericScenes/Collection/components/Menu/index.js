@@ -18,7 +18,7 @@ import * as _style from './style';
 class Menu extends Component {
   
   render() {
-    if(!this.props.found || !this.props.loaded) {
+    if (!this.props.found || !this.props.loaded) {
       return null;
     }
     const theme = this.props.muiTheme.palette;

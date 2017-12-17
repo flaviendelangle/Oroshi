@@ -8,13 +8,13 @@ const Grade = ({ className, ...props }) => {
   let grade;
   let degree;
   
-  if(!props.value) {
+  if (!props.value) {
     degree = 360;
     grade = '?';
   } else {
     degree = parseInt(props.value*36, 10);
     grade = String(props.value);
-    if(Math.abs(props.value % 1) < 0.05) {
+    if (Math.abs(props.value % 1) < 0.05) {
       grade += '.0';
     }
   }

@@ -36,7 +36,7 @@ export const destroyValue = key => {
 export const saveOauth = (oauth, meta) => {
   let exData = loadOauth();
   let data;
-  if(!meta && exData) {
+  if (!meta && exData) {
     data = {
       oauth,
       meta: exData.meta

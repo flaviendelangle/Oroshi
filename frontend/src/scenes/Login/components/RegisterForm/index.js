@@ -10,14 +10,14 @@ export const FORM_NAME = 'REGISTER_FORM';
 const required = value => value ? undefined : 'Required';
 const minLength8 = value => value.length >= 8 ? undefined : 'Must be at least 8 characters long';
 const email = value => {
-  if(value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
+  if (value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
     return 'Invalid email address';
   }
   return undefined;
 };
 
 let RegisterForm = ({ theme, onSwitch, mode, handleSubmit }) => {
-  if(mode !== 'register') {
+  if (mode !== 'register') {
     return null;
   }
   return (

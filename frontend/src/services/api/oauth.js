@@ -31,19 +31,19 @@ class Oauth extends BaseAPI {
   getTokenOrRefresh = () => {
     const { oauth, meta } = loadOauth('oauth');
     const SECURITY_MARGIN = 10000;
-    if(oauth && oauth.expiration) {
-      if(oauth.expiration > new Date().getTime() + SECURITY_MARGIN) {
+    if (oauth && oauth.expiration) {
+      if (oauth.expiration > new Date().getTime() + SECURITY_MARGIN) {
         return Promise.resolve({ oauth, meta });
       }
       return this.refreshToken(oauth.refresh_token)
         .catch(response => {
-          if(response.error === 'invalid_grant') {
+          if (response.error === 'invalid_grant') {
             destroyOauth();
             return undefined;
           }
         })
         .then(response => {
-          if(response) {
+          if (response) {
             response = addExpiration(response);
             saveOauth(response);
             return response;

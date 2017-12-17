@@ -28,7 +28,7 @@ const extractComments = csv => {
   let content = [];
   csv.split('\n')
     .forEach(el => {
-      if(el[0] === '#') {
+      if (el[0] === '#') {
         el = el.substring(1).split(',');
         comments[el[0]] = el[1];
       } else {

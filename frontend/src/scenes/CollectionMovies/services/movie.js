@@ -22,7 +22,7 @@ class Movie extends Element {
   };
   
   isGreater = (other, field) => {
-    if(field === 'release') {
+    if (field === 'release') {
       const date_A = this.getValueToSort(field);
       const date_B = other.getValueToSort(field);
       const isAfter = date.isAfter(date_A, date_B, date.TMDB_FORMAT);
@@ -78,12 +78,12 @@ class Movie extends Element {
   };
 
   hasBeenSeen = () => {
-    if(this.hasLocal() && this.getLocal().hasOwnProperty('seen')) {
+    if (this.hasLocal() && this.getLocal().hasOwnProperty('seen')) {
       return this.getLocal().seen;
     }
-    if(this.hasDistant()) {
+    if (this.hasDistant()) {
       const distant = this.getDistant();
-      if(distant.hasOwnProperty('seen')) {
+      if (distant.hasOwnProperty('seen')) {
         return distant.seen;
       }
       return false;

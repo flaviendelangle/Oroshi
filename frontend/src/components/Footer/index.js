@@ -9,7 +9,7 @@ import * as _style from './style';
 class Footer extends Component {
   
   render() {
-    if(!this.props.loaded || !this.props.found) {
+    if (!this.props.loaded || !this.props.found) {
       return null;
     }
     return (
@@ -23,7 +23,7 @@ class Footer extends Component {
 
 const mapStateToProps = (state, ownProps) => {
   const contentRoot = state.collections.content[ownProps.scene];
-  if(!contentRoot) {
+  if (!contentRoot) {
     return {
       loaded: false,
       found: false

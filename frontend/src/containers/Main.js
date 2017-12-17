@@ -24,7 +24,7 @@ class Main extends Component {
   }
   
   componentDidMount() {
-    if(this.props.location.pathname !== '/logout/' && !this.props.profile && this.props.oauth && this.props.username) {
+    if (this.props.location.pathname !== '/logout/' && !this.props.profile && this.props.oauth && this.props.username) {
       this.props.getProfile(this.props.username);
     }
   }

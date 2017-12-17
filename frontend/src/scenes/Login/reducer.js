@@ -10,7 +10,7 @@ const main = (state = defaultState, action) => {
   switch(action.type) {
     
     case users.create + '_FULFILLED':
-      if(action.payload.error) {
+      if (action.payload.error) {
         return {
           state
         }

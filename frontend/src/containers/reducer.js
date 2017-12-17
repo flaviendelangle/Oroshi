@@ -36,7 +36,7 @@ const app = (state=defaultState, action) => {
       };
       
     case users.login + '_FULFILLED':
-      if(action.payload.error) {
+      if (action.payload.error) {
         return state;
       }
       saveOauth(action.payload, action.meta);
@@ -54,7 +54,7 @@ const app = (state=defaultState, action) => {
   
     case notify.change:
       const data = loadOauth();
-      if(!data) {
+      if (!data) {
         return {
           ...state,
           oauth: undefined,
@@ -139,7 +139,7 @@ window.addEventListener('resize', () => {
 store.dispatch(alertScreenResize());
 
 const data = loadOauth();
-if(data) {
+if (data) {
   store.dispatch(loginFromCache(data));
 }
 

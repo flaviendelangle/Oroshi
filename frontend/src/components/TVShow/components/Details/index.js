@@ -120,7 +120,7 @@ const Title = ({ title, seasons, season }) => {
 };
 
 const Footer = ({ details, muiTheme, switchSeason }) => {
-  if(!details) {
+  if (!details) {
     return null;
   }
   const short = details.seasons.length > 5;
@@ -156,7 +156,7 @@ const SeasonButton = ({ season, short, muiTheme, switchSeason }) => {
   }
   
   let style;
-  if(short) {
+  if (short) {
     style = {
       color: muiTheme.palette.paperColor,
       minWidth: 0

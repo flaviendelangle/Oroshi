@@ -10,7 +10,7 @@ export const FORM_NAME = 'LOGIN_FORM';
 const required = value => value ? undefined : 'Required';
 
 let LoginForm = ({ theme, onSwitch, mode, handleSubmit }) => {
-  if(mode !== 'login') {
+  if (mode !== 'login') {
     return null;
   }
   return (

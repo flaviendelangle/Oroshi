@@ -65,7 +65,7 @@ export default class BaseAPI {
     
     let form = new FormData();
     for(let key in data) {
-      if(data.hasOwnProperty(key)) {
+      if (data.hasOwnProperty(key)) {
         add(key, data[key])
       }
     }
@@ -82,7 +82,7 @@ export default class BaseAPI {
     let prototype = {};
     
     for(let key in this.nested_routes) {
-      if(this.nested_routes.hasOwnProperty(key)) {
+      if (this.nested_routes.hasOwnProperty(key)) {
         Object.defineProperty(prototype, key, {
           get: () => new this.nested_routes[key](this.config.root + '/' + pk)
         });

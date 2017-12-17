@@ -40,7 +40,7 @@ class TVShow extends Component {
     } else if (this.props.creationMode) {
       className = ' not-in-collection';
     }
-    if(this.state.isReady) {
+    if (this.state.isReady) {
       className += ' ready';
     }
     return className

@@ -52,14 +52,14 @@ class Element {
       el.search_index_raw
         .map(str => str)
         .forEach(str => {
-          if(!indexes.grid.includes(str)) {
+          if (!indexes.grid.includes(str)) {
             indexes.grid.push(str);
           }
         });
       el.getValue(streamKey.field)
         .forEach(value => {
           const name = value.name;
-          if(!indexes.stream.includes(name)) {
+          if (!indexes.stream.includes(name)) {
             indexes.stream.push(name);
           }
         })
@@ -77,7 +77,7 @@ class Element {
     local.genres.forEach(el => searchIndex.push(el.name));
     
     const language = getLanguage(local.original_language);
-    if(language) {
+    if (language) {
       searchIndex.push(language.name);
     }
     this.search_index_raw = searchIndex;
@@ -99,7 +99,7 @@ class Element {
   
   setLocal(newLocal) {
     this.local = newLocal;
-    if(this.hasLocal()) {
+    if (this.hasLocal()) {
       this.buildSearchIndex();
     }
   };
@@ -112,13 +112,13 @@ class Element {
   isGreater(other, field) {
     const valueA = this.getValueToSort(field);
     const valueB = other.getValueToSort(field);
-    if(valueA > valueB) {
+    if (valueA > valueB) {
       return 1;
     }
-    if(valueA < valueB) {
+    if (valueA < valueB) {
       return -1;
     }
-    if(field !== 'note') {
+    if (field !== 'note') {
       return this.isGreater(other, 'note');
     }
     return 0;
@@ -158,7 +158,7 @@ class Element {
   };
   
   getValueToSort(field) {
-    if(field === 'title') {
+    if (field === 'title') {
       return this.getTitle().replace(/ /g, '').toLowerCase();
     }
     return this.local[field];

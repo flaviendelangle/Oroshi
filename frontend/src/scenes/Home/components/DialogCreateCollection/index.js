@@ -18,14 +18,14 @@ class DialogCreateCollection extends Component {
   };
   
   get title() {
-    if(this.state.stepIndex === 0) {
+    if (this.state.stepIndex === 0) {
       return 'What to you want to put in your collection ?';
     }
     return 'How should I name it ?';
   }
   
   create = () => {
-    if(this.state.title) {
+    if (this.state.title) {
       const data = {
         title: this.state.title,
         user: this.props.profile.pk
@@ -39,7 +39,7 @@ class DialogCreateCollection extends Component {
   };
   
   renderActions = () => {
-    if(this.state.stepIndex > 0) {
+    if (this.state.stepIndex > 0) {
       return (
         <FlatButton
           label="Create"
@@ -74,7 +74,7 @@ class DialogCreateCollection extends Component {
   };
   
   componentWillReceiveProps(newProps) {
-    if(this.props.isOpen && !newProps.isOpen) {
+    if (this.props.isOpen && !newProps.isOpen) {
       this.setState({ stepIndex: 0 });
     }
   }

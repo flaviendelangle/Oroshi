@@ -21,12 +21,12 @@ class ElementOverlay extends Component {
   }
   
   componentWillReceiveProps(newProps) {
-    if(newProps.mouseOver) {
+    if (newProps.mouseOver) {
       this.setState({ show: true, waiting: false });
     } else {
       this.setState({ waiting: true });
       this.timeout = setTimeout(() => {
-        if(this.state.waiting) {
+        if (this.state.waiting) {
           this.setState({ show: false, waiting: false });
         }
       }, 300);

@@ -26,13 +26,13 @@ class Home extends Component {
   }
   
   componentDidMount() {
-    if(this.props.profile) {
+    if (this.props.profile) {
       this.loadCollection(this.props.profile);
     }
   }
   
   componentWillReceiveProps(newProps) {
-    if(newProps.profile && !this.props.profile) {
+    if (newProps.profile && !this.props.profile) {
       this.loadCollection(newProps.profile);
     }
   }

@@ -15,7 +15,7 @@ class CollectionSettings extends Component {
   }
   
   componentWillReceiveProps(newProps) {
-    if(!this.props.redirect && newProps.redirect) {
+    if (!this.props.redirect && newProps.redirect) {
       this.props.history.push(newProps.redirect);
     }
   }
