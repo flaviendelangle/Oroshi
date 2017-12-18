@@ -84,7 +84,7 @@ export default class BaseAPI {
     for(let key in this.nested_routes) {
       if (this.nested_routes.hasOwnProperty(key)) {
         Object.defineProperty(prototype, key, {
-          get: () => new this.nested_routes[key](this.config.root + '/' + pk)
+          get: _ => new this.nested_routes[key](this.config.root + '/' + pk)
         });
       }
     }

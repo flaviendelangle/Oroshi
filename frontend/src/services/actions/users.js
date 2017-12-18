@@ -29,12 +29,12 @@ export const login = ({ username, password }) => {
   }
 };
 
-export const logout = () => {
+export const logout = _ => {
   destroyOauth();
   return {
     type: users.logout,
     payload: new Promise(resolve => {
-      window.setTimeout(() => {
+      window.setTimeout(_ => {
         resolve();
       }, 1000);
     })

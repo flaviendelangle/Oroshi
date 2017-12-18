@@ -44,7 +44,7 @@ class Header extends Component {
       <div>
         <AppBar
           title={ this.props.showTitle ? this.props.title : ''}
-          onLeftIconButtonTouchTap={() => this.props.openMainDrawer(true)}
+          onLeftIconButtonTouchTap={_ => this.props.openMainDrawer(true)}
         >
           {this.searchBar}
           {this.actionsButton}

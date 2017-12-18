@@ -86,7 +86,7 @@ export const addElement = (scene, collection, element) => {
   }
 };
 
-export const updateElement = (scene, element, data) => {
+export const updateElement = (scene, element, data, type) => {
   const collection = element.getCollection().pk;
   const pk = element.getID();
   return {
@@ -96,7 +96,8 @@ export const updateElement = (scene, element, data) => {
       return element;
     }),
     meta: {
-      scene
+      scene,
+      type
     }
   }
 };
@@ -142,7 +143,7 @@ export const importElements = (scene, collection, elements, dispatch) => {
     }
     const element = elements[index];
     if (element.isInCollection()) {
-      setTimeout(() => _importElement(scene, elements, index + 1, dispatch));
+      setTimeout(_ => _importElement(scene, elements, index + 1, dispatch));
       return dispatch({
         type: titles.collections.add,
         payload: element,

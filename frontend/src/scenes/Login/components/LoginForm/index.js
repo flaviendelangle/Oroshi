@@ -50,7 +50,7 @@ const RegisterButton = ({ theme, onSwitch }) => (
     <span>Don't have an account? </span>
     <span
       style={_style.flatButtonLink}
-      onClick={() => onSwitch('register')}
+      onClick={_ => onSwitch('register')}
     >
       Sign In
     </span>

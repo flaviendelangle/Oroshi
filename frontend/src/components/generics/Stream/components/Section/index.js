@@ -51,18 +51,18 @@ class Section extends Component {
   }
   
   
-  showFullVersion = () => {
+  showFullVersion = _ => {
     this.setState({full: !this.state.full});
   };
   
-  showMore = () => {
+  showMore = _ => {
     if (this.props.data.next) {
       this.props.loadMore(this.props.data.next);
     }
     this.setState({pages: (++this.state.pages)});
   };
   
-  renderLink = () => {
+  renderLink = _ => {
     if (this.props.data.hasOwnProperty('link') && !this.props.data.link) {
       return (
         <span style={{color: this.props.muiTheme.palette.titleColor}}>
@@ -80,7 +80,7 @@ class Section extends Component {
     );
   };
   
-  renderContent = () => {
+  renderContent = _ => {
     const Element = this.props.elementComponent;
     return this.elements.map((line, index) => {
       const elements = line.map(el => {
@@ -98,7 +98,7 @@ class Section extends Component {
     });
   };
   
-  renderShowMore = () => {
+  renderShowMore = _ => {
     if (!this.state.full) {
       return null;
     }

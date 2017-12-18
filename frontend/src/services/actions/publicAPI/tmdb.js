@@ -136,7 +136,7 @@ const getMissingData = (scene, tmdbId, collection, details) => {
   
   if (languages.title !== DEFAULT_LANGUAGE ) {
     promise = promise
-      .then(() => getTitle(scene, tmdbId, languages.title))
+      .then(_ => getTitle(scene, tmdbId, languages.title))
       .then(title => {
         details.titles.push({
           language: languages.title,
@@ -146,7 +146,7 @@ const getMissingData = (scene, tmdbId, collection, details) => {
   }
   if (languages.poster !== DEFAULT_LANGUAGE) {
     promise = promise
-      .then(() => getPoster(scene, tmdbId, languages.poster))
+      .then(_ => getPoster(scene, tmdbId, languages.poster))
       .then(poster => {
         if (poster) {
           details.posters.push({
@@ -156,7 +156,7 @@ const getMissingData = (scene, tmdbId, collection, details) => {
         }
       })
   }
-  return promise.then(() => details);
+  return promise.then(_ => details);
 };
 
 const _getPopular = (scene, collection, page=1) => {

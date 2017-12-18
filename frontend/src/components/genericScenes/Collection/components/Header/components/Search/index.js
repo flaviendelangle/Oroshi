@@ -37,7 +37,7 @@ class Search extends Component {
     this.props.filter(query, forced, this.props.isAdding, this.props.collection);
   };
   
-  renderCounter = () => {
+  renderCounter = _ => {
     if (this.props.isAdding) {
       return null;
     }
@@ -54,7 +54,7 @@ class Search extends Component {
         <SearchBar
           hintText={this.hintText}
           onChange={this.search}
-          onRequestSearch={() => this.filter(this.state.query, true)}
+          onRequestSearch={_ => this.filter(this.state.query, true)}
           value={this.props.query}
           dataSource={this.props.autoComplete}
           filter={AutoComplete.caseInsensitiveFilter}

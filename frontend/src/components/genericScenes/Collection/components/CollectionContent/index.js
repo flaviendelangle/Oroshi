@@ -5,7 +5,7 @@ import NotFound from 'components/errors/NotFound';
 import Grid from 'components/generics/Grid';
 import Stream from 'components/generics/Stream';
 import Progress from 'components/generics/Progress';
-import Help from './components/Help';
+import Help from 'components/generics/Help';
 
 import * as _style from './style';
 
@@ -16,7 +16,7 @@ class CollectionContent extends Component {
     query: '',
   };
   
-  renderContent = () => {
+  renderContent = _ => {
     if (this.props.layout === 'grid') {
       return (
         <Grid
@@ -52,7 +52,13 @@ class CollectionContent extends Component {
       return (<NotFound />)
     }
     else if (this.props.content.length === 0 && !this.props.isAdding) {
-      return (<Help/>)
+      return (
+        <Help
+          scene={this.props.scene}
+          collection={this.props.collection}
+          elementComponent={this.props.elementComponent}
+        />
+      );
     }
     else {
       return (

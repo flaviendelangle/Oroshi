@@ -52,8 +52,9 @@ class MainDrawer extends Component {
     this.open = props.open;
   }
   
-  renderLines = () => {
+  renderLines = _ => {
     const lines = [...this.GENERIC_LINES_BEFORE, this.props.children, this.GENERIC_LINES_AFTER];
+    return null;
     return lines.map((el, index) => {
       return (
         <MenuItem key={index}>
@@ -72,7 +73,7 @@ class MainDrawer extends Component {
         >
           <AppBar
             title={this.props.title}
-            onLeftIconButtonTouchTap={() => this.props.open(false)}
+            onLeftIconButtonTouchTap={_ => this.props.open(false)}
           >
             {this.searchBar}
             {this.actionsButton}

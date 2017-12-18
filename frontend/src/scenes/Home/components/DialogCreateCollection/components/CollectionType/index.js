@@ -29,7 +29,7 @@ const TypeFrame = ({ type, label, Icon, onClick }) => {
     <IconButton
       iconStyle={_style.icon}
       style={_style.iconContainer}
-      onClick={() => onClick(type)}
+      onClick={_ => onClick(type)}
     >
       <Icon />
     </IconButton>

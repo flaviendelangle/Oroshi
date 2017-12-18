@@ -28,7 +28,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onClick: () => dispatch(showDialogCreateCollection(true))
+    onClick: _ => dispatch(showDialogCreateCollection(true))
   }
 };
 

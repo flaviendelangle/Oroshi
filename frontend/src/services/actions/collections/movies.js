@@ -20,7 +20,7 @@ export const switchSeenOnElement = element => {
   const data = {
     seen: !element.hasBeenSeen()
   };
-  return updateElement('movies', element, data);
+  return updateElement('movies', element, data, 'seen');
 };
 
 export const prepareElement = (element, seenList) => {

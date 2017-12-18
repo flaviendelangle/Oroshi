@@ -1,5 +1,4 @@
 import * as tmdb from './tmdb';
-import date from 'services/content/date';
 
 export const search = tmdb.search;
 

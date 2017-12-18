@@ -28,7 +28,7 @@ class Oauth extends BaseAPI {
     return super.list_route('token', 'POST', body);
   };
   
-  getTokenOrRefresh = () => {
+  getTokenOrRefresh = _ => {
     const { oauth, meta } = loadOauth('oauth');
     const SECURITY_MARGIN = 10000;
     if (oauth && oauth.expiration) {

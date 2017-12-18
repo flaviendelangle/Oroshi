@@ -19,17 +19,17 @@ class ExportParameters extends Component {
           <Line
             rightIcon={<SocialShare />}
             primaryText="Get your public link"
-            onClick={() => {}}
+            onClick={_ => {}}
           />
           <Line
             rightIcon={<FileDownload />}
             primaryText="Export as CSV"
-            onClick={() => this.props.exportCollection(this.props.data.pk, 'csv')}
+            onClick={_ => this.props.exportCollection(this.props.data.pk, 'csv')}
           />
           <Line
             rightIcon={<FileDownload />}
             primaryText="Export as JSON"
-            onClick={() => this.props.exportCollection(this.props.data.pk, 'json')}
+            onClick={_ => this.props.exportCollection(this.props.data.pk, 'json')}
           />
         </div>
       </ParametersSection>

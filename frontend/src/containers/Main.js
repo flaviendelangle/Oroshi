@@ -42,11 +42,12 @@ class Main extends Component {
           <Route exact path='/' component={Home} />
           <Route path='/login/' component={Login} />
           <Route path='/logout/' component={Logout} />
-          
-          <Route path='/collections/movies/:collection_id/settings/' component={CollectionMoviesSettings} />
-          <Route path='/collections/tv_shows/:collection_id/settings/' component={CollectionTVShowsSettings} />
+  
           <Route path='/collections/movies/:collection_id/' component={CollectionMovies} />
+          <Route path='/collections/movies/:collection_id/settings/' component={CollectionMoviesSettings} />
+          
           <Route path='/collections/tv_shows/:collection_id/' component={CollectionTVShows} />
+          <Route path='/collections/tv_shows/:collection_id/settings/' component={CollectionTVShowsSettings} />
           
         </Switch>
       </main>

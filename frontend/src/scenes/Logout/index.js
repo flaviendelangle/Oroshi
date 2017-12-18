@@ -10,7 +10,7 @@ import { logout } from 'services/actions/users';
 class Logout extends Component {
   
   componentDidMount() {
-    this.props.logout().then(() => {
+    this.props.logout().then(_ => {
       this.props.history.push('/login/');
     });
   }
@@ -29,7 +29,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    logout: () => dispatch(logout())
+    logout: _ => dispatch(logout())
   }
 };
 

@@ -25,7 +25,7 @@ class ElementOverlay extends Component {
       this.setState({ show: true, waiting: false });
     } else {
       this.setState({ waiting: true });
-      this.timeout = setTimeout(() => {
+      this.timeout = setTimeout(_ => {
         if (this.state.waiting) {
           this.setState({ show: false, waiting: false });
         }

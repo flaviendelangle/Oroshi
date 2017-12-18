@@ -41,7 +41,7 @@ class SummaryParameters extends Component {
                 id="collection_title"
                 value={this.state.title}
                 onChange={(proxy, title) => this.setState({ title })}
-                onSave={() =>
+                onSave={_ =>
                   this.props.update(this.props.data.pk, 'title', this.state.title)
                 }
               />
@@ -72,14 +72,14 @@ class SummaryParameters extends Component {
             <Line
               rightIcon={<ActionDeleteForever />}
               primaryText="Destroy this collection"
-              onClick={() => this.setState({ showDeleteAlert: true })}
+              onClick={_ => this.setState({ showDeleteAlert: true })}
             />
           </div>
         </ParametersSection>
         <DeleteAlert
           open={this.state.showDeleteAlert}
-          onClose={() => this.setState({ showDeleteAlert: false })}
-          onDelete={() => this.props.deleteCollection(this.props.data.pk)}
+          onClose={_ => this.setState({ showDeleteAlert: false })}
+          onDelete={_ => this.props.deleteCollection(this.props.data.pk)}
         />
       </div>
     );

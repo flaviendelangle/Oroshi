@@ -1,12 +1,21 @@
-import { screen } from 'services/titles/interface';
+import * as titles from 'services/titles/interface';
 
 import { getLineDimensions } from 'services/interface';
 
-export const alertScreenResize = () => {
+export const alertScreenResize = _ => {
   return {
-    type: screen.resize,
+    type: titles.screen.resize,
     width: window.innerWidth,
     height: window.innerHeight,
     lineDimensions: getLineDimensions(window.innerWidth)
   }
+};
+
+export const removeSnack = scene => {
+  return {
+    type: titles.snacks.remove,
+    meta: {
+      scene
+    }
+  };
 };

@@ -12,7 +12,7 @@ class TextField extends Component {
     editing: false
   };
   
-  switchMode = () => {
+  switchMode = _ => {
     const editing = !this.state.editing;
     this.setState({ editing });
     if (!editing) {

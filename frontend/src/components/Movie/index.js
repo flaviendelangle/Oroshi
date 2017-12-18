@@ -61,14 +61,14 @@ class Movie extends Component {
     this.setState({ isMouseOver })
   };
   
-  handlePosterLoad = () => {
+  handlePosterLoad = _ => {
     this.setState({ isReady: true });
   };
   
   /**
    * Add the movie into the collection
    */
-  save = () => {
+  save = _ => {
     if (!this.state.isAdding) {
       this.props.create(this.props.collection, this.props.data);
       this.setState({ isAdding: true });
@@ -78,7 +78,7 @@ class Movie extends Component {
   /**
    * Remove the movie from the collection
    */
-  destroy = () => {
+  destroy = _ => {
     this.props.destroy(this.props.collection, this.props.data);
   };
   
@@ -90,13 +90,13 @@ class Movie extends Component {
 
   render() {
     return (
-      <div className={'movie-parent ' + this.parentClassName}>
+      <div className={'movie-parent ' + this.parentClassName} style={this.props.style}>
         <div className="movie-container">
           <Paper
             zDepth={3}
             className="movie"
-            onMouseEnter={() => this.handleMouseHover(true)}
-            onMouseLeave={() => this.handleMouseHover(false)}
+            onMouseEnter={_ => this.handleMouseHover(true)}
+            onMouseLeave={_ => this.handleMouseHover(false)}
           >
             <Poster
               path={this.posterPath}
@@ -114,7 +114,7 @@ class Movie extends Component {
                 <Seen
                   creation_mode={this.props.creationMode}
                   seen={this.props.data.hasBeenSeen()}
-                  handleClick={() => this.props.switchSeen(this.props.data)}
+                  handleClick={_ => this.props.switchSeen(this.props.data)}
                 />
               }
             />

@@ -11,14 +11,14 @@ import '../CollectionBox/style.css';
 
 class NewCollectionButton extends Component {
   
-  handleClick = () => {
+  handleClick = _ => {
     if (this.props.editing)
       this.props.newCollection();
   };
   
   render(forced=false) {
     if (!forced) {
-      window.setTimeout(() => this.render(true), 300);
+      window.setTimeout(_ => this.render(true), 300);
     }
     const color = this.props.muiTheme.palette.primary1Color;
     return (
@@ -45,7 +45,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-      newCollection: () => dispatch(showDialogCreateCollection(true))
+      newCollection: _ => dispatch(showDialogCreateCollection(true))
   }
 };
 

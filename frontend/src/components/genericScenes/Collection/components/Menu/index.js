@@ -11,6 +11,7 @@ import muiThemeable from 'material-ui/styles/muiThemeable';
 import { switchAddingMode } from '../../actions';
 import { switchLayout } from '../CollectionContent/actions';
 import { getRecommendations } from 'services/actions/publicAPI';
+import SnackbarList from 'components/generics/SnackbarList';
 
 import * as _style from './style';
 
@@ -34,6 +35,7 @@ class Menu extends Component {
           switchLayout={this.props.switchLayout}
           theme={theme}
         />
+        <SnackbarList scene={this.props.scene} />
       </span>
     )
   }
@@ -49,12 +51,12 @@ const LayoutButtons = ({ isAdding, switchLayout, theme }) => {
       <LayoutIcon
         Component={ActionViewModule}
         theme={theme}
-        onClick={() => switchLayout('grid')}
+        onClick={_ => switchLayout('grid')}
       />
       <LayoutIcon
         Component={ActionViewStream}
         theme={theme}
-        onClick={() => switchLayout('stream')}
+        onClick={_ => switchLayout('stream')}
       />
     </div>
   );
@@ -77,7 +79,7 @@ const AddingIcon = ({ isAdding, collection, switchAddingMode }) => {
   return (
     <FloatingActionButton
       style={_style.add}
-      onClick={() => switchAddingMode(collection)}
+      onClick={_ => switchAddingMode(collection)}
     >
       <Icon/>
     </FloatingActionButton>

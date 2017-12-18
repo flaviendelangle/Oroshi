@@ -47,15 +47,15 @@ export const getTopRated = (scene, collection, page) => {
   }
 };
 
-export const getDetails = (scene, shouldDispatch, collection, tmdbId) => {
-  const payload = getModule(scene).getDetails(scene, collection, tmdbId);
+export const getDetails = (scene, shouldDispatch, collection, publicId) => {
+  const payload = getModule(scene).getDetails(scene, collection, publicId);
   if (shouldDispatch) {
     return {
       type: request.get_details,
       payload,
       meta: {
         scene,
-        [scene + '_id']: tmdbId
+        [scene + '_id']: publicId
       }
     };
   }
@@ -66,6 +66,7 @@ export const getDetails = (scene, shouldDispatch, collection, tmdbId) => {
 /*
   ACTIONS WITHOUT DISPATCH
  */
+
 export const checkExistence = (scene, ...args) => {
   return getModule(scene).checkExistence(scene, ...args);
 };

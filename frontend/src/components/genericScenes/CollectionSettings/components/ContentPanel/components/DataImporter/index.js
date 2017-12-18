@@ -34,7 +34,7 @@ class DataImporter extends Component {
   /**
    * Handle the click to launch the importation
    */
-  handleClick = () => {
+  handleClick = _ => {
     switch(this.state.source) {
       case 'csv': {
         this.props.importCSV(this.state.csv);
@@ -45,7 +45,7 @@ class DataImporter extends Component {
     }
   };
   
-  renderSourcePicker = () => {
+  renderSourcePicker = _ => {
     return (
       <div style={{textAlign: 'center'}}>
       <SelectField
@@ -72,7 +72,7 @@ class DataImporter extends Component {
           accept={'.' + format}
           style={_style.dropZone}
         >
-          {() => {
+          {_ => {
             if (this.state.csv) {
               return 'File dropped successfully';
             }
@@ -94,7 +94,7 @@ class DataImporter extends Component {
     );
   };
   
-  renderParameters = () => {
+  renderParameters = _ => {
     switch(this.state.source) {
       case 'csv':
         return this.renderFilePicker('csv');
@@ -103,7 +103,7 @@ class DataImporter extends Component {
     }
   };
   
-  renderLines = () => {
+  renderLines = _ => {
     let counter = 0;
     return this.state.elements.map(el => {
       return (
@@ -115,7 +115,7 @@ class DataImporter extends Component {
     })
   };
   
-  renderElementsList = () => {
+  renderElementsList = _ => {
     if (!this.state.elements) {
       return null;
     }

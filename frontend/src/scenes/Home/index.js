@@ -69,7 +69,7 @@ class Home extends Component {
         <div style={_style.container}>
             <ManageButton
               editing={this.state.editing}
-              onClick={() => this.setState({editing: !this.state.editing}) }
+              onClick={_ => this.setState({editing: !this.state.editing}) }
             />
             <CollectionList
               editing={this.state.editing}

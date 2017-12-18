@@ -5,6 +5,7 @@ import promiseMiddleware from 'redux-promise-middleware';
 import home from 'scenes/Home/reducer';
 import login from 'scenes/Login/reducer';
 import header from 'components/Header/reducer';
+import help from 'components/generics/Help/reducer';
 import tv_shows from 'components/TVShow/reducer';
 import collections from 'components/genericScenes/Collection/reducer';
 import collectionSettings from 'components/genericScenes/CollectionSettings/reducer';
@@ -85,6 +86,7 @@ const appReducer = combineReducers({
   
   // Generics
   header,
+  help,
   
   // Elements
   tv_shows,
@@ -131,7 +133,7 @@ const composeStoreWithMiddleware = applyMiddleware(
 
 let store = composeStoreWithMiddleware(reducer);
 
-window.addEventListener('resize', () => {
+window.addEventListener('resize', _ => {
   store.dispatch(alertScreenResize());
 });
 

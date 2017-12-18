@@ -27,3 +27,7 @@ export const source = {
 export const collectionSettings = {
   switchSection: 'COLLECTION_SETTINGS_SWITCH_SECTION'
 };
+
+export const snacks = {
+  remove: 'REMOVE_SNACK'
+};

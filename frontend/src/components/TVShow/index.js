@@ -54,14 +54,14 @@ class TVShow extends Component {
     this.setState({ isMouseOver })
   };
   
-  handlePosterLoad = () => {
+  handlePosterLoad = _ => {
     this.setState({ isReady: true });
   };
   
   /**
    * Add the movie to the collection
    */
-  save = () => {
+  save = _ => {
     if (!this.state.isAdding) {
       this.props.create(this.props.collection, this.props.data);
       this.setState({ isAdding: true });
@@ -71,21 +71,21 @@ class TVShow extends Component {
   /**
    * Remove the movie from the collection
    */
-  destroy = () => {
+  destroy = _ => {
     this.props.destroy(this.props.collection, this.props.data);
   };
   
   /**
    * Launch the Details modal
    */
-  showMore = () => {
+  showMore = _ => {
     this.setState({ isExtended: true });
   };
   
   /**
    * Hide the Details modal
    */
-  showLess = () => {
+  showLess = _ => {
     this.setState({ isExtended: false });
   };
   
@@ -97,8 +97,8 @@ class TVShow extends Component {
             <Paper
               zDepth={3}
               className="tv-show"
-              onMouseEnter={() => this.handleMouseHover(true)}
-              onMouseLeave={() => setTimeout(() => this.handleMouseHover(false), 300)}
+              onMouseEnter={_ => this.handleMouseHover(true)}
+              onMouseLeave={_ => setTimeout(_ => this.handleMouseHover(false), 300)}
             >
               <Poster
                 path={this.posterPath}

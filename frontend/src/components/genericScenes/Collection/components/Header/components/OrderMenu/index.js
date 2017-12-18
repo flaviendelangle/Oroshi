@@ -65,15 +65,15 @@ const StreamMenuMovies = ({ sort, color }) => (
   >
     <MenuItem
       primaryText="Group by directors"
-      onClick={() => sort('stream', 'directors')}
+      onClick={_ => sort('stream', 'directors')}
     />
     <MenuItem
       primaryText="Group by genres"
-      onClick={() => sort('stream', 'genres')}
+      onClick={_ => sort('stream', 'genres')}
     />
     <MenuItem
       primaryText="Group by year of release"
-      onClick={() => sort('stream', 'release_year')}
+      onClick={_ => sort('stream', 'release_year')}
     />
   </IconMenu>
 );
@@ -86,11 +86,11 @@ const StreamMenuTVShows = ({ sort, color }) => (
   >
     <MenuItem
       primaryText="Group by networks"
-      onClick={() => sort('stream', 'networks')}
+      onClick={_ => sort('stream', 'networks')}
     />
     <MenuItem
       primaryText="Group by genres"
-      onClick={() => sort('stream', 'genres')}
+      onClick={_ => sort('stream', 'genres')}
     />
   </IconMenu>
 );
@@ -103,15 +103,15 @@ const DefaultMenuMovies = ({ sort, color }) => (
   >
     <MenuItem
       primaryText="Order by title"
-      onClick={() => sort('default', 'title', 'asc')}
+      onClick={_ => sort('default', 'title', 'asc')}
     />
     <MenuItem
       primaryText="Order by note"
-      onClick={() => sort('default', 'note', 'desc')}
+      onClick={_ => sort('default', 'note', 'desc')}
     />
     <MenuItem
       primaryText="Order by release date"
-      onClick={() => sort('default', 'release', 'desc')}
+      onClick={_ => sort('default', 'release', 'desc')}
     />
   </IconMenu>
 );
@@ -124,11 +124,11 @@ const DefaultMenuTVShows = ({ sort, color }) => (
   >
     <MenuItem
       primaryText="Order by title"
-      onClick={() => sort('default', 'title', 'asc')}
+      onClick={_ => sort('default', 'title', 'asc')}
     />
     <MenuItem
       primaryText="Order by note"
-      onClick={() => sort('default', 'note', 'desc')}
+      onClick={_ => sort('default', 'note', 'desc')}
     />
   </IconMenu>
 );

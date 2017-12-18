@@ -19,11 +19,11 @@ class Stream extends Component {
     pages: 1
   };
   
-  showMore = () => {
+  showMore = _ => {
     this.setState({pages: (++this.state.pages)});
   };
   
-  renderSections = () => {
+  renderSections = _ => {
     let { data, collection, elementComponent, lineDimensions, creationMode } = this.props;
     let sections = data.results;
     
@@ -44,7 +44,7 @@ class Stream extends Component {
     })
   };
   
-  renderShowMore = () => {
+  renderShowMore = _ => {
     if (this.props.data.results.length <= CONFIG.pageLength * this.state.pages) {
       return null;
     }

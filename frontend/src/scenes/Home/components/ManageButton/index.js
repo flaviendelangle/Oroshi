@@ -9,7 +9,7 @@ const containerStyle = {
 
 class ManageButton extends Component {
   
-  getLabel = () => this.props.editing ? 'Finished' : 'Manage';
+  getLabel = _ => this.props.editing ? 'Finished' : 'Manage';
 
   render() {
     return (

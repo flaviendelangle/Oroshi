@@ -18,7 +18,7 @@ class SelectLanguage extends Component {
     this.props.onChange(value);
   };
   
-  renderLanguages = () => {
+  renderLanguages = _ => {
     return this.languages.map(el => {
       return (
         <MenuItem

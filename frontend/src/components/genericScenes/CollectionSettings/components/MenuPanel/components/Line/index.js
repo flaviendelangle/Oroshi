@@ -29,7 +29,7 @@ class Line extends Component {
         <div
           style={this.contentStyle}
           className="line-content"
-          onClick={() => this.props.goTo(this.props.value)}
+          onClick={_ => this.props.goTo(this.props.value)}
         >
           {this.props.children}
         </div>

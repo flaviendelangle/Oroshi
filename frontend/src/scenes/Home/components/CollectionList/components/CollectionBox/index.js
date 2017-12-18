@@ -13,7 +13,7 @@ import './style.css';
 
 class CollectionBox extends Component {
   
-  url = () => {
+  url = _ => {
     let baseURL = '/collections/';
     if (this.props.data.type === 'movies') {
       baseURL += 'movies/';

@@ -66,8 +66,8 @@ class Login extends Component {
       <Paper
         style={_style.paper(theme)}
         zDepth={this.state.mouseOver ? 5 : 3}
-        onMouseEnter={() => this.handleMouseHover(true)}
-        onMouseLeave={() => this.handleMouseHover(false)}
+        onMouseEnter={_ => this.handleMouseHover(true)}
+        onMouseLeave={_ => this.handleMouseHover(false)}
       >
         <LoginForm
           theme={theme}
