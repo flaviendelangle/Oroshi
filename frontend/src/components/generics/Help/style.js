@@ -5,11 +5,6 @@ export const elementHelp = {
   maxWidth: 1200,
 };
 
-export const elementLoaded = {
-  margin: 'auto',
-  display: 'block'
-};
-
 export const title = palette => ({
   color: palette.titleColor,
   fontSize: '1.8em',

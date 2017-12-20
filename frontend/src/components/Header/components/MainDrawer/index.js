@@ -54,7 +54,6 @@ class MainDrawer extends Component {
   
   renderLines = _ => {
     const lines = [...this.GENERIC_LINES_BEFORE, this.props.children, this.GENERIC_LINES_AFTER];
-    return null;
     return lines.map((el, index) => {
       return (
         <MenuItem key={index}>

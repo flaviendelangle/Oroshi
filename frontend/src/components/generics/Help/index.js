@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import muiThemeable from 'material-ui/styles/muiThemeable';
 
 import Progress from 'components/generics/Progress';
+import Canvas from './components/Canvas';
 import { getElement } from 'services/actions/help';
 
 import * as _style from './style';
@@ -23,22 +24,19 @@ class Help extends Component {
   
 }
 
-const ElementHelp = ({ element, collection, elementComponent, muiTheme }) => {
+const ElementHelp = ({ element, elementComponent, muiTheme, ...props }) => {
   let content;
+  const childProps = {
+    ...props,
+    element,
+  };
   if(!element) {
     content = <Progress />;
   } else {
-    const Element = elementComponent;
     content = (
       <div>
         <div style={_style.title(muiTheme.palette)}>Element layout :</div>
-        <Element
-          data={element}
-          collection={collection}
-          key={element.getPublicId()}
-          creationMode={false}
-          style={_style.elementLoaded}
-        />
+        <Canvas component={elementComponent} elementProps={childProps} />
       </div>
     );
   }

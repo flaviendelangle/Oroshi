@@ -66,6 +66,13 @@ class Movie extends Component {
   };
   
   /**
+   * Check if we are in test mode
+   */
+  isTesting = _ => {
+    return this.props.mode === 'test';
+  };
+  
+  /**
    * Add the movie into the collection
    */
   save = _ => {
@@ -80,6 +87,17 @@ class Movie extends Component {
    */
   destroy = _ => {
     this.props.destroy(this.props.collection, this.props.data);
+  };
+  
+  /**
+   * Switch the seen paramter of the movie
+   */
+  switchSeen = _ => {
+    if(this.isTesting()) {
+      console.log('OK');
+      return null;
+    }
+    this.props.switchSeen(this.props.data);
   };
   
   componentWillReceiveProps(newProps) {
@@ -114,7 +132,7 @@ class Movie extends Component {
                 <Seen
                   creation_mode={this.props.creationMode}
                   seen={this.props.data.hasBeenSeen()}
-                  handleClick={_ => this.props.switchSeen(this.props.data)}
+                  handleClick={_ => this.switchSeen()}
                 />
               }
             />
