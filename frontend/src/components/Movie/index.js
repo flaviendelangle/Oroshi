@@ -15,6 +15,7 @@ import date from 'services/content/date';
 
 import './style.css'
 
+
 /** Class representing a movie frame, used mainly in the layouts (Grid + Stream) */
 class Movie extends Component {
   
@@ -22,6 +23,29 @@ class Movie extends Component {
     isMouseOver: false,
     isAdding: false,
     isReady: false
+  };
+  
+  layout = {
+    title: {
+      element: null,
+      label: 'Title'
+    },
+    year: {
+      element: null,
+      label: 'Year of release'
+    },
+    grade: {
+      element: null,
+      label: 'Public grade'
+    },
+    seen: {
+      element: null,
+      label: 'Have you seen it ?'
+    },
+    add: {
+      element: null,
+      label: 'Add to collection'
+    }
   };
   
   get release_date() {
@@ -72,6 +96,10 @@ class Movie extends Component {
     return this.props.mode === 'test';
   };
   
+  addToLayout = (key, element) => {
+    this.layout[key].element = element
+  };
+  
   /**
    * Add the movie into the collection
    */
@@ -94,7 +122,6 @@ class Movie extends Component {
    */
   switchSeen = _ => {
     if(this.isTesting()) {
-      console.log('OK');
       return null;
     }
     this.props.switchSeen(this.props.data);
@@ -103,6 +130,14 @@ class Movie extends Component {
   componentWillReceiveProps(newProps) {
     if (this.props.data.isInCollection() !== newProps.data.isInCollection()) {
       this.setState({ isAdding: false });
+    }
+  }
+  
+  componentDidUpdate() {
+    if(this.props.onRender) {
+      this.props.onRender({
+        layout: this.layout
+      });
     }
   }
 
@@ -122,6 +157,8 @@ class Movie extends Component {
               onLoad={this.handlePosterLoad}
             />
             <ElementOverlay
+              mode={this.props.mode}
+              addToLayout={this.addToLayout}
               note={this.note}
               mouseOver={this.state.isMouseOver}
               creation_mode={this.props.creationMode}
@@ -133,6 +170,7 @@ class Movie extends Component {
                   creation_mode={this.props.creationMode}
                   seen={this.props.data.hasBeenSeen()}
                   handleClick={_ => this.switchSeen()}
+                  addToLayout={this.addToLayout}
                 />
               }
             />
@@ -143,6 +181,7 @@ class Movie extends Component {
           tmdbId={this.props.data.getPublicId()}
           muiTheme={this.props.muiTheme}
           release_date={this.release_date}
+          addToLayout={this.addToLayout}
         />
       </div>
     );
@@ -150,17 +189,23 @@ class Movie extends Component {
   
 }
 
-const Footer = ({ title, tmdbId, muiTheme, release_date }) => (
+const Footer = ({ title, tmdbId, muiTheme, release_date, addToLayout }) => (
   <div
     className="title"
     style={{color: muiTheme.palette.textColor}}
   >
-    <div>{release_date}</div>
-    <Link to={publicRoot + tmdbId} target="_blank">{title}</Link>
+    <div ref={el => addToLayout('year', el)}>{release_date}</div>
+    <Link
+      to={publicRoot + tmdbId}
+      target="_blank"
+      ref={el => addToLayout('title', el)}
+    >
+      {title}
+      </Link>
   </div>
 );
 
-const Seen = ({ seen, handleClick, creation_mode }) => {
+const Seen = ({ seen, handleClick, creation_mode, addToLayout }) => {
   if (creation_mode) {
     return null;
   }
@@ -169,6 +214,7 @@ const Seen = ({ seen, handleClick, creation_mode }) => {
     <ImageEye
       style={{color}}
       onClick={handleClick}
+      ref={el => addToLayout('seen', el)}
     />
   );
 };

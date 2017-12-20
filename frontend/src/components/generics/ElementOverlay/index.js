@@ -16,6 +16,16 @@ class ElementOverlay extends Component {
   
   timeout = null;
   
+  isTesting = _ => {
+    return this.props.mode === 'test';
+  };
+  
+  addToLayout = (key, element) => {
+    if(this.props.addToLayout) {
+      this.props.addToLayout(key, element);
+    }
+  };
+  
   componentWillUnmount() {
     clearTimeout(this.timeout)
   }
@@ -34,15 +44,16 @@ class ElementOverlay extends Component {
   }
   
   render() {
-    if (!this.state.show) {
+    if (!this.state.show && !this.isTesting()) {
       return null;
     }
     return (
-      <div className="element-overlay">
+      <div className={'element-overlay ' + (this.isTesting() ? ' testing' : '')}>
         <Grade
           className="grade"
           value={this.props.note}
           mouseOver={this.state.show}
+          ref={el => this.addToLayout('grade', el)}
         />
         <TopRightAction>{this.props.topRightAction}</TopRightAction>
         <Footer
@@ -50,6 +61,7 @@ class ElementOverlay extends Component {
           already_in_collection={this.props.already_in_collection}
           handleSave={this.props.handleSave}
           handleDestroy={this.props.handleDestroy}
+          addToLayout={this.addToLayout}
         />
       </div>
     );
@@ -57,7 +69,7 @@ class ElementOverlay extends Component {
   
 }
 
-const Footer = ({ creation_mode, already_in_collection, handleSave, handleDestroy }) => {
+const Footer = ({ creation_mode, already_in_collection, handleSave, handleDestroy, addToLayout }) => {
   let Content;
   if (creation_mode && !already_in_collection) {
     Content = (
@@ -65,6 +77,7 @@ const Footer = ({ creation_mode, already_in_collection, handleSave, handleDestro
         className="footer-content"
         onClick={handleSave}
         style={{background: 'rgba(76,175,80,0.8)'}}
+        ref={el => addToLayout('add', el)}
       >
         ADD
       </div>
@@ -75,6 +88,7 @@ const Footer = ({ creation_mode, already_in_collection, handleSave, handleDestro
         className="footer-content"
         onClick={handleDestroy}
         style={{background: 'rgba(244,67,54,0.8)'}}
+        ref={el => addToLayout('add', el)}
       >
         REMOVE
       </div>

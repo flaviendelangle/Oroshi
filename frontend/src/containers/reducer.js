@@ -106,7 +106,8 @@ const reducer = (state, action) => {
     
     case notify.change:
       const newState = {
-        ...state
+        ...state,
+        collections: undefined
       };
       return appReducer(newState, action);
       

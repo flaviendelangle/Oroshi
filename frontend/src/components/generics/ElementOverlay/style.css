@@ -5,8 +5,11 @@
     transform: translateX(-50%) translateY(-50%);
 }
 
-.element-overlay {
+.element-overlay:not(.testing) {
     opacity: 0;
+}
+
+.element-overlay {
     position: absolute;
     top: 0;
     left: 0;
