@@ -28,7 +28,16 @@ class StreamGenerator {
   };
   
   getElementCount = _ => {
-    return this.data.length;
+    let elements = {};
+    this.results.forEach(list => {
+      list.content.forEach(el => {
+        const id = el.getPublicId();
+        if(!elements.hasOwnProperty(id)) {
+          elements[id] = el;
+        }
+      })
+    });
+    return Object.keys(elements).length;
   };
   
   buildKeys = _ => {
