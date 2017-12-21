@@ -16,6 +16,16 @@ import SnackbarList from 'components/generics/SnackbarList';
 import * as _style from './style';
 
 
+const LAYOUTS = [
+  {
+    name: 'grid',
+    icon: ActionViewModule
+  }, {
+    name: 'stream',
+    icon: ActionViewStream
+  }
+];
+
 class Menu extends Component {
   
   render() {
@@ -23,7 +33,7 @@ class Menu extends Component {
       return null;
     }
     const theme = this.props.muiTheme.palette;
-    const { isAdding, collection, scene, isPublic } = this.props;
+    const { isAdding, collection, scene, layout, isPublic } = this.props;
     return (
       <span>
         <AddingIcon
@@ -36,6 +46,7 @@ class Menu extends Component {
           isAdding={isAdding}
           switchLayout={this.props.switchLayout}
           theme={theme}
+          layout={layout}
         />
         <SnackbarList scene={scene} />
       </span>
@@ -44,31 +55,39 @@ class Menu extends Component {
   
 }
 
-const LayoutButtons = ({ isAdding, switchLayout, theme }) => {
+const LayoutButtons = ({ isAdding, switchLayout, theme, layout }) => {
   if (isAdding) {
     return null;
   }
+  const content = LAYOUTS.map((el, index) => {
+    return (
+      <LayoutIcon
+        key={index}
+        Component={el.icon}
+        theme={theme}
+        onClick={_ => switchLayout(el.name)}
+        active={layout === el.name}
+      />
+    );
+  });
   return (
     <div style={_style.layout}>
-      <LayoutIcon
-        Component={ActionViewModule}
-        theme={theme}
-        onClick={_ => switchLayout('grid')}
-      />
-      <LayoutIcon
-        Component={ActionViewStream}
-        theme={theme}
-        onClick={_ => switchLayout('stream')}
-      />
+      {content}
     </div>
   );
 };
 
-const LayoutIcon = ({ Component, theme, onClick }) => (
-  <div style={_style.layoutIcon(theme)}>
-    <Component onClick={onClick} style={{ color: theme.alternateTextColor }}/>
-  </div>
-);
+const LayoutIcon = ({ Component, theme, active, onClick }) => {
+  const style = {
+    color: theme.alternateTextColor,
+    opacity: active ? 1 : 0.4
+  };
+  return (
+    <div style={_style.layoutIcon(theme)}>
+      <Component onClick={onClick} style={style} />
+    </div>
+  );
+};
 
 const AddingIcon = ({ isAdding, collection, switchAddingMode, isPublic }) => {
   if(isPublic) {
@@ -101,10 +120,12 @@ const mapStateToProps = (state, ownProps) => {
     };
   }
   return {
-    loaded: contentRoot.loaded,
-    found: contentRoot.found,
     isAdding: root.isAdding,
-    collection: contentRoot.collection
+  
+    found: contentRoot.found,
+    collection: contentRoot.collection,
+    layout: contentRoot.layout,
+    loaded: contentRoot.loaded,
   }
 };
 

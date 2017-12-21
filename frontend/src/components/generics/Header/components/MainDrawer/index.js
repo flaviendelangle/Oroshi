@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import AppBar from 'material-ui/AppBar';
-import ActionSettings from 'material-ui/svg-icons/action/settings';
+//import ActionSettings from 'material-ui/svg-icons/action/settings';
+import Divider from 'material-ui/Divider';
 import ActionHome from 'material-ui/svg-icons/action/home';
 import ActionExit from 'material-ui/svg-icons/action/exit-to-app';
 import muiThemeable from 'material-ui/styles/muiThemeable';
@@ -22,28 +23,28 @@ class MainDrawer extends Component {
   get GENERIC_LINES_BEFORE() {
     return [
       (
+        
         <Link to='/'>
           <ActionHome style={this.lineStyle} />
           <div>Home</div>
         </Link>
       ), (
-        <Link to='/settings/'>
-          <ActionSettings style={this.lineStyle}/>
-          <div>Settings</div>
-        </Link>
-      )
-    ];
-  }
-  
-  get GENERIC_LINES_AFTER() {
-    return [
-      (
         <Link to='/logout/'>
           <ActionExit style={this.lineStyle} />
           <div>Logout</div>
         </Link>
-      )
+      ),
+      /*(
+        <Link to='/settings/'>
+          <ActionSettings style={this.lineStyle}/>
+          <div>Settings</div>
+        </Link>
+      )*/
     ];
+  }
+  
+  get GENERIC_LINES_AFTER() {
+    return [];
   }
   
   constructor(props) {
@@ -53,8 +54,16 @@ class MainDrawer extends Component {
   }
   
   renderLines = _ => {
-    const lines = [...this.GENERIC_LINES_BEFORE, this.props.children, this.GENERIC_LINES_AFTER];
+    const lines = [
+      ...this.GENERIC_LINES_BEFORE,
+      <Divider key={-1}/>,
+      this.props.children,
+      ...this.GENERIC_LINES_AFTER
+    ];
     return lines.map((el, index) => {
+      if(el.type.name === 'Divider') {
+        return el;
+      }
       return (
         <MenuItem key={index}>
           {el}

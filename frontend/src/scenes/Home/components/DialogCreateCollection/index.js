@@ -1,7 +1,9 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import Dialog from 'material-ui/Dialog'
-import FlatButton from 'material-ui/FlatButton'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
+import Dialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
+import muiThemeable from 'material-ui/styles/muiThemeable';
 
 import CollectionType from './components/CollectionType';
 import CollectionConfiguration from './components/CollectionConfiguration';
@@ -45,6 +47,7 @@ class DialogCreateCollection extends Component {
           label="Create"
           primary={true}
           onClick={this.create}
+          style={{color: this.props.muiTheme.palette.alternateTextColor}}
         />
       );
     } else {
@@ -120,4 +123,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(DialogCreateCollection);
+)(muiThemeable()(DialogCreateCollection));

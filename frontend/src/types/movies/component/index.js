@@ -27,23 +27,18 @@ class Movie extends Component {
   
   layout = {
     title: {
-      element: null,
       label: 'Title'
     },
     year: {
-      element: null,
       label: 'Year of release'
     },
     grade: {
-      element: null,
       label: 'Public grade'
     },
     seen: {
-      element: null,
       label: 'Have you seen it ?'
     },
     add: {
-      element: null,
       label: 'Add to collection'
     }
   };
