@@ -7,13 +7,12 @@ import muiThemeable from 'material-ui/styles/muiThemeable';
 import Home from 'scenes/Home';
 import Login from 'scenes/Login';
 import Logout from 'scenes/Logout';
-import CollectionMovies from 'scenes/CollectionMovies';
-import CollectionTVShows from 'scenes/CollectionTVShows';
+import Collection from 'scenes/Collection';
+import CollectionSettings from 'scenes/CollectionSettings';
 
-import CollectionMoviesSettings from 'scenes/CollectionMoviesSettings';
-import CollectionTVShowsSettings from 'scenes/CollectionTVShowsSettings';
 import { notifyRouteChange } from 'services/actions/router';
 import { getProfile } from 'services/actions/users';
+import { collectionTypes } from 'appConfig';
 
 class Main extends Component {
   
@@ -47,12 +46,17 @@ class Main extends Component {
           <Route exact path='/' component={Home} />
           <Route path='/login/' component={Login} />
           <Route path='/logout/' component={Logout} />
-  
-          <Route path='/collections/movies/:collection_id/settings/' component={CollectionMoviesSettings} />
-          <Route path='/collections/movies/:collection_id/' component={CollectionMovies} />
           
-          <Route path='/collections/tv_shows/:collection_id/settings/' component={CollectionTVShowsSettings} />
-          <Route path='/collections/tv_shows/:collection_id/' component={CollectionTVShows} />
+          {collectionTypes.map(el => [
+            <Route
+              path={'/collections/' + el.name + '/:collection_id/settings/'}
+              render={props => <CollectionSettings config={el} scene={el.name} {...props} />}
+            />,
+            <Route
+              path={'/collections/' + el.name + '/:collection_id/'}
+              render={props => <Collection config={el} scene={el.name} {...props} />}
+            />
+          ])}
           
         </Switch>
       </main>

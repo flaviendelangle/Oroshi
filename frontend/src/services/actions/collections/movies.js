@@ -1,7 +1,7 @@
 import { MoviesAPI } from 'services/api/movies';
 import { MovieCollectionsAPI } from 'services/api/movieCollections';
 import MoviesTMDB from 'services/TheMovieDatabaseJS/movies'
-import MovieClass from 'scenes/CollectionMovies/services/movie';
+import MovieClass from 'components/collectionTypes/movies/elementClass';
 
 import * as tmdb from './tmdb';
 import { updateElement } from './index';

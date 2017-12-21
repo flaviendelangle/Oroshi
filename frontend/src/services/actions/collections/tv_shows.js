@@ -1,7 +1,7 @@
 import { TVShowsAPI } from 'services/api/tvShows';
 import { TVShowCollectionsAPI } from 'services/api/tvShowsCollections';
 import TVShowsTMDB from 'services/TheMovieDatabaseJS/tv';
-import TVShowClass from 'scenes/CollectionTVShows/services/tv_show';
+import TVShowClass from 'components/collectionTypes/tvShows/elementClass';
 
 import * as tmdb from './tmdb';
 

@@ -45,8 +45,8 @@ class ListGenerator {
     
     /*for(let i=0; i<this.filters.length; i++) {
       const filter = this.filters[i];
-      results = results.filter(element => {
-        const movieValue = element[filter[1]];
+      results = results.filter(component => {
+        const movieValue = component[filter[1]];
         const filterValue = filter[2];
         return this.matchFilter(movieValue, filterValue);
       });

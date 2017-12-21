@@ -1,8 +1,8 @@
-import MovieListGenerator from 'scenes/CollectionMovies/services/listGenerator'
-import MovieStreamGenerator from 'scenes/CollectionMovies/services/streamGenerator'
+import MovieListGenerator from 'components/collectionTypes/movies/listGenerator'
+import MovieStreamGenerator from 'components/collectionTypes/movies/streamGenerator'
 
-import TVShowListGenerator from 'scenes/CollectionTVShows/services/listGenerator'
-import TVShowStreamGenerator from 'scenes/CollectionTVShows/services/streamGenerator'
+import TVShowListGenerator from 'components/collectionTypes/tvShows/listGenerator'
+import TVShowStreamGenerator from 'components/collectionTypes/tvShows/streamGenerator'
 
 
 export const getListGenerator = scene => {
