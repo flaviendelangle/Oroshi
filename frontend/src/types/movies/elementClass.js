@@ -74,7 +74,7 @@ class Movie extends Element {
   };
   
   getReleaseYear() {
-    return date(this.getReleaseDate(), date.TMDB_FORMAT, date.YEAR_FORMAT);
+    return date.getYear(this.getReleaseDate());
   };
 
   hasBeenSeen = _ => {

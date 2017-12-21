@@ -89,7 +89,7 @@ const reducer = (state = defaultState, action) => {
         };
     
       /**
-       * An component has been added to the collection
+       * An element has been added to the collection
        */
       case collections.add + '_FULFILLED':
       
@@ -104,7 +104,7 @@ const reducer = (state = defaultState, action) => {
         };
     
       /**
-       * An component has been removed from the collection
+       * An element has been removed from the collection
        */
       case collections.remove + '_FULFILLED':
 
@@ -119,7 +119,7 @@ const reducer = (state = defaultState, action) => {
         };
     
       /**
-       * An component has been updated in the collection (ex : Not Seen => Seen)
+       * An element has been updated in the collection (ex : Not Seen => Seen)
        */
       case collections.update + '_FULFILLED':
 
@@ -139,7 +139,7 @@ const reducer = (state = defaultState, action) => {
        */
       case sort.update:
         setSortParameters(scene, action.parameters, defaultOrder);
-        if (action.parameters.layout === 'default') {
+        if (action.parameters.layout === 'grid') {
           newContent = Element.sortList(sceneState.content, action.parameters);
         } else {
           newContent = sceneState.content;
@@ -180,9 +180,7 @@ const reducer = (state = defaultState, action) => {
         return {
           ...sceneState,
           query: '',
-          layout: action.layout,
-          stream: new StreamGenerator(sceneState.content, '', sceneState.order.stream),
-          grid: new ListGenerator(sceneState.content, '')
+          layout: action.layout
         };
       
       default:

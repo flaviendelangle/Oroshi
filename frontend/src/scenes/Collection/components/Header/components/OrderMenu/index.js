@@ -103,15 +103,15 @@ const DefaultMenuMovies = ({ sort, color }) => (
   >
     <MenuItem
       primaryText="Order by title"
-      onClick={_ => sort('default', 'title', 'asc')}
+      onClick={_ => sort('grid', 'title', 'asc')}
     />
     <MenuItem
       primaryText="Order by note"
-      onClick={_ => sort('default', 'note', 'desc')}
+      onClick={_ => sort('grid', 'note', 'desc')}
     />
     <MenuItem
       primaryText="Order by release date"
-      onClick={_ => sort('default', 'release', 'desc')}
+      onClick={_ => sort('grid', 'release', 'desc')}
     />
   </IconMenu>
 );
@@ -124,11 +124,11 @@ const DefaultMenuTVShows = ({ sort, color }) => (
   >
     <MenuItem
       primaryText="Order by title"
-      onClick={_ => sort('default', 'title', 'asc')}
+      onClick={_ => sort('grid', 'title', 'asc')}
     />
     <MenuItem
       primaryText="Order by note"
-      onClick={_ => sort('default', 'note', 'desc')}
+      onClick={_ => sort('grid', 'note', 'desc')}
     />
   </IconMenu>
 );
