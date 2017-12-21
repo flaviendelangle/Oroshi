@@ -60,8 +60,8 @@ class DataImporter extends Component {
       >
         <MenuItem value="csv" primaryText="CSV File" />
         <MenuItem value="json" primaryText="JSON File" />
-        <MenuItem value="imdb" primaryText="IMDB List" />
-        <MenuItem value="tmdb" primaryText="TMDB List" />
+        {/*<MenuItem value="imdb" primaryText="IMDB List" />
+        <MenuItem value="tmdb" primaryText="TMDB List" />*/}
       </SelectField>
       </div>
     );
@@ -74,7 +74,7 @@ class DataImporter extends Component {
           onDrop={upload => this.updateFile(format, upload)}
           multiple={false}
           accept={'.' + format}
-          style={_style.dropZone}
+          style={_style.dropZone(!!this.state[format])}
         >
           {_ => {
             if (this.state[format]) {
