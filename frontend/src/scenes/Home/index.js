@@ -27,17 +27,17 @@ class Home extends Component {
   
   componentDidMount() {
     if (this.props.profile) {
-      this.loadCollection(this.props.profile);
+      this.loadCollections(this.props.profile);
     }
   }
   
   componentWillReceiveProps(newProps) {
     if (newProps.profile && !this.props.profile) {
-      this.loadCollection(newProps.profile);
+      this.loadCollections(newProps.profile);
     }
   }
   
-  loadCollection = profile => {
+  loadCollections = profile => {
     this.props.loadCollections(profile.pk);
   };
   

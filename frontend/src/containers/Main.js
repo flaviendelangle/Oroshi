@@ -23,15 +23,20 @@ class Main extends Component {
     }
   }
   
-  componentDidMount() {
+  getProfile = _ => {
     if (this.props.location.pathname !== '/logout/' && !this.props.profile && this.props.oauth && this.props.username) {
       this.props.getProfile(this.props.username);
     }
+  };
+  
+  componentDidMount() {
+    this.getProfile();
   }
   
   componentWillReceiveProps(newProps) {
     if (this.props.location.pathname !== newProps.location.pathname) {
       this.props.notifyRouteChange(newProps.location);
+      this.getProfile();
     }
   }
   

@@ -26,20 +26,20 @@ let RegisterForm = ({ theme, onSwitch, mode, handleSubmit }) => {
         floatingLabelStyle={_style.input(theme)}
         inputStyle={_style.input(theme)}
         underlineStyle={_style.input(theme)}
-        floatingLabelText="Username"
-        name="username"
-        component={TextField}
-        validate={[ required ]}
-      />
-      <Field
-        floatingLabelStyle={_style.input(theme)}
-        inputStyle={_style.input(theme)}
-        underlineStyle={_style.input(theme)}
         floatingLabelText="Email"
         name="email"
         component={TextField}
         validate={[ required, email ]}
         type="email"
+      />
+      <Field
+        floatingLabelStyle={_style.input(theme)}
+        inputStyle={_style.input(theme)}
+        underlineStyle={_style.input(theme)}
+        floatingLabelText="Username"
+        name="username"
+        component={TextField}
+        validate={[ required ]}
       />
       <Field
         floatingLabelStyle={_style.input(theme)}
