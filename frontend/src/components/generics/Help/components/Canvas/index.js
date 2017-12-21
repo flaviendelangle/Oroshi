@@ -72,24 +72,35 @@ class Canvas extends Component {
   };
   
   onElementRender = ({ layout }) => {
-    layout = Object
-      .keys(layout).map(el => {
-        const config = layout[el];
-        const domElement = ReactDOM.findDOMNode(config.element);
-        const coordinates = domElement.getBoundingClientRect();
-        const canvasCoordinates = this.translateCoordinates(coordinates);
-        const props = this.buildArrow(canvasCoordinates, config.label);
-        return {
-          ...config,
-          domElement,
-          coordinates,
-          canvasCoordinates,
-          props,
-          name: el
-        };
-      });
-    
-    this.setState({ layout });
+    if(!this.canvas) {
+      this.setState({ layout: [] });
+    } else {
+      layout = Object
+        .keys(layout)
+        .map(el => {
+          return {
+            ...layout[el],
+            name: el
+          };
+        })
+        .filter(el => (!el.hasOwnProperty('show') || el.show ) && el.element)
+        .map(config => {
+          const domElement = ReactDOM.findDOMNode(config.element);
+          const coordinates = domElement.getBoundingClientRect();
+          const canvasCoordinates = this.translateCoordinates(coordinates);
+          const props = this.buildArrow(canvasCoordinates, config.label);
+          return {
+            ...config,
+            domElement,
+            coordinates,
+            canvasCoordinates,
+            props,
+            name: config.name
+          };
+        });
+  
+      this.setState({ layout });
+    }
   };
   
   render() {

@@ -12,7 +12,6 @@ export const layout = {
 
 export const layoutIcon = theme => ({
   display: 'inline-block',
-  cursor: 'pointer',
   backgroundColor: theme.backgroundColor,
   marginRight: 10,
   borderRadius: '50%',

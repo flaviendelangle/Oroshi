@@ -45,20 +45,23 @@ class CollectionContent extends Component {
   };
   
   render() {
-    if (!this.props.loaded) {
+    const { loaded, found, content, collection, isAdding, isPublic,
+            scene, elementComponent } = this.props;
+    if (!loaded) {
       return (
         <Progress />
       );
     }
-    else if (!this.props.found) {
+    else if (!found) {
       return (<NotFound />)
     }
-    else if (this.props.content.length === 0 && !this.props.isAdding) {
+    else if (content.length === 0 && !isAdding) {
       return (
         <Help
-          scene={this.props.scene}
-          collection={this.props.collection}
-          elementComponent={this.props.elementComponent}
+          scene={scene}
+          collection={collection}
+          elementComponent={elementComponent}
+          isPublic={isPublic}
         />
       );
     }

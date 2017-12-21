@@ -17,6 +17,11 @@ class Help extends Component {
   }
   
   render() {
+    if(this.props.isPublic) {
+      return (
+        <PublicHelp palette={this.props.muiTheme.palette} />
+      );
+    }
     return (
       <ElementHelp {...this.props} />
     );
@@ -47,6 +52,12 @@ const ElementHelp = ({ element, elementComponent, muiTheme, ...props }) => {
   );
 
 };
+
+const PublicHelp = ({ palette }) => (
+  <div style={_style.publicContainer(palette)}>
+      <span style={_style.publicContent(palette)}>There is nothing to see here :(</span>
+  </div>
+);
 
 const mapStateToProps = state => {
   const root = state.help;

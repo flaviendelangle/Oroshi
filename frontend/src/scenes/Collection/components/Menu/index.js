@@ -29,11 +29,11 @@ const LAYOUTS = [
 class Menu extends Component {
   
   render() {
-    if (!this.props.found || !this.props.loaded) {
+    const { isAdding, collection, scene, layout, found, loaded, isPublic, content } = this.props;
+    if (!found || !loaded || content.length === 0) {
       return null;
     }
     const theme = this.props.muiTheme.palette;
-    const { isAdding, collection, scene, layout, isPublic } = this.props;
     return (
       <span>
         <AddingIcon
@@ -80,7 +80,8 @@ const LayoutButtons = ({ isAdding, switchLayout, theme, layout }) => {
 const LayoutIcon = ({ Component, theme, active, onClick }) => {
   const style = {
     color: theme.alternateTextColor,
-    opacity: active ? 1 : 0.4
+    opacity: active ? 1 : 0.4,
+    cursor: active ? 'auto' : 'pointer'
   };
   return (
     <div style={_style.layoutIcon(theme)}>
@@ -126,6 +127,7 @@ const mapStateToProps = (state, ownProps) => {
     collection: contentRoot.collection,
     layout: contentRoot.layout,
     loaded: contentRoot.loaded,
+    content: contentRoot.content
   }
 };
 

@@ -6,7 +6,7 @@ import home from 'scenes/Home/reducer';
 import login from 'scenes/Login/reducer';
 import header from 'components/generics/Header/reducer';
 import help from 'components/generics/Help/reducer';
-import tv_shows from 'components/collectionTypes/tvShows/component/reducer';
+import tv_shows from 'types/tvShows/component/reducer';
 import collections from 'scenes/Collection/reducer';
 import collectionSettings from 'scenes/CollectionSettings/reducer';
 
