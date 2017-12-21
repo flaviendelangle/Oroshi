@@ -80,7 +80,7 @@ class Movie extends Component {
     this.setState({ isMouseOver })
   };
   
-  handlePosterLoad = _ => {
+  handlePosterLoad = success => {
     this.setState({ isReady: true });
   };
   

@@ -29,6 +29,12 @@ class SummaryParameters extends Component {
     showDeleteAlert: false,
     showGetPublicLinkAlert: false
   };
+
+  componentDidMount() {
+    if(this.props.data.title) {
+      this.setState({ title: this.props.data.title });
+    }
+  }
   
   componentWillReceiveProps(newProps) {
     this.setState({ title: newProps.data.title });
