@@ -100,7 +100,6 @@ export const updateElement = (scene, element, data, type) => {
 };
 
 export const removeElement = (scene, collection, element) => {
-  console.log(element);
   const api = getCollectionAPI(scene).element(collection.pk)[scene];
   return {
     type: titles.collections.remove,

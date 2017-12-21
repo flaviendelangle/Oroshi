@@ -30,7 +30,7 @@ class Menu extends Component {
   
   render() {
     const { isAdding, collection, scene, layout, found, loaded, isPublic, content } = this.props;
-    if (!found || !loaded || content.length === 0) {
+    if (!found || !loaded) {
       return null;
     }
     const theme = this.props.muiTheme.palette;
@@ -47,6 +47,7 @@ class Menu extends Component {
           switchLayout={this.props.switchLayout}
           theme={theme}
           layout={layout}
+          content={content}
         />
         <SnackbarList scene={scene} />
       </span>
@@ -55,11 +56,11 @@ class Menu extends Component {
   
 }
 
-const LayoutButtons = ({ isAdding, switchLayout, theme, layout }) => {
-  if (isAdding) {
+const LayoutButtons = ({ isAdding, switchLayout, theme, layout, content }) => {
+  if (isAdding || content.length === 0) {
     return null;
   }
-  const content = LAYOUTS.map((el, index) => {
+  const componentContent = LAYOUTS.map((el, index) => {
     return (
       <LayoutIcon
         key={index}
@@ -72,7 +73,7 @@ const LayoutButtons = ({ isAdding, switchLayout, theme, layout }) => {
   });
   return (
     <div style={_style.layout}>
-      {content}
+      {componentContent}
     </div>
   );
 };

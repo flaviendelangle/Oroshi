@@ -6,6 +6,8 @@ import addingContent from './components/AddingContent/reducer';
 
 import { source, snacks } from 'services/titles/interface';
 import { collections } from "services/titles/api";
+import * as content_manager from "./components/CollectionContent/services/content_manager";
+import Element from "../../services/content/element";
 
 
 const defaultState = {};
@@ -30,6 +32,8 @@ const main = (state = defaultState, action) => {
   }
   
   const sceneReducer = sceneState => {
+    
+    let title, newMessage;
 
     switch(action.type) {
   
@@ -45,21 +49,49 @@ const main = (state = defaultState, action) => {
         };
   
       /**
-       * An component has been updated in the collection (ex : Not Seen => Seen)
+       * An element has been updated in the collection (ex : Not Seen => Seen)
        */
       case collections.update + '_FULFILLED':
         if(action.meta.type !== 'seen') {
           return sceneState;
         }
-        const title = action.payload.getTitle();
         const seen = (action.payload.hasBeenSeen() ? '' : 'not ') + 'seen';
-        const newMessage = {
+        title = action.payload.getTitle();
+        newMessage = {
           content: title + ' marked as ' + seen
         };
         return {
           ...sceneState,
           messages: [...sceneState.messages, newMessage]
         };
+  
+      /**
+       * An element has been added to the collection
+       */
+      case collections.add + '_FULFILLED':
+        title = action.payload.getTitle();
+        newMessage = {
+          content: title + ' added to your collection'
+        };
+        return {
+          ...sceneState,
+          messages: [...sceneState.messages, newMessage]
+        };
+  
+      /**
+       * An element has been removed from the collection
+       */
+      case collections.remove + '_FULFILLED':
+        title = action.payload.getTitle();
+        newMessage = {
+          content: title + ' removed from your collection'
+        };
+        return {
+          ...sceneState,
+          messages: [...sceneState.messages, newMessage]
+        };
+    
+
   
       /**
        * A snack must be removed
