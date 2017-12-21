@@ -54,7 +54,6 @@ class Login extends Component {
   
   componentWillReceiveProps(newProps) {
     if (newProps.registerError) {
-      console.log(newProps.registerError);
       //throw new SubmissionError({ username: 'User does not exist', _error: 'Login failed!' })
       //throw new SubmissionError(newProps.registerError);
     }

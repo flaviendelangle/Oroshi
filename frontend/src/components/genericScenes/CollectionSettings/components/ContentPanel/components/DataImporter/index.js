@@ -11,7 +11,7 @@ import { List } from 'material-ui/List';
 import Line from './components/Line';
 import Progress from './components/Progress';
 import { getCollectionSettingsState } from 'containers/reducer';
-import { importCSV, importElements } from 'services/actions/collections';
+import { importCSV, importJSON, importElements } from 'services/actions/collections';
 
 import * as _style from './style';
 
@@ -27,8 +27,8 @@ class DataImporter extends Component {
    * Update the csv file from which we want to retrieve the data
    * @param {Array<File>} upload - the files which have been selected by the user
    */
-  updateCSVFile = upload => {
-    this.setState({ csv: upload[0] });
+  updateFile = (format, upload) => {
+    this.setState({ [format]: upload[0] });
   };
   
   /**
@@ -38,6 +38,10 @@ class DataImporter extends Component {
     switch(this.state.source) {
       case 'csv': {
         this.props.importCSV(this.state.csv);
+        break;
+      }
+      case 'json': {
+        this.props.importJSON(this.state.json);
         break;
       }
       default:
@@ -67,13 +71,13 @@ class DataImporter extends Component {
     return (
       <div style={{height: 150}}>
         <Dropzone
-          onDrop={this.updateCSVFile}
+          onDrop={upload => this.updateFile(format, upload)}
           multiple={false}
           accept={'.' + format}
           style={_style.dropZone}
         >
           {_ => {
-            if (this.state.csv) {
+            if (this.state[format]) {
               return 'File dropped successfully';
             }
             return 'Click to pick your ' + format.toUpperCase() + ' file';
@@ -98,6 +102,8 @@ class DataImporter extends Component {
     switch(this.state.source) {
       case 'csv':
         return this.renderFilePicker('csv');
+      case 'json':
+        return this.renderFilePicker('json');
       default:
         return null;
     }
@@ -164,6 +170,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     importCSV: file => dispatch(importCSV(ownProps.scene, file)),
+    importJSON: file => dispatch(importJSON(ownProps.scene, file)),
     importContent: (collection, elements) => {
       dispatch(importElements(ownProps.scene, collection, elements, dispatch));
     }

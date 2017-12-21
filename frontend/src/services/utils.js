@@ -1,5 +1,16 @@
 import Papa from 'papaparse'
 
+let parseJSON = (scene, json) => {
+  let { comments, content } = JSON.parse(json);
+  if (comments.scene !== scene) {
+    return {
+      error: 'Wrong scene'
+    };
+  }
+  return content.sort((a, b) => {
+    return a.title > b.title ? 1 : -1;
+  });
+};
 
 let parseCSV = (scene, csv) => {
   let { comments, content } = extractComments(csv);
@@ -56,4 +67,4 @@ export const getCollectionTypeTitle = type => {
 
 
 
-export { parseCSV };
+export { parseCSV, parseJSON };

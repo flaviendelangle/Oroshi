@@ -2,7 +2,7 @@ import { readAsText } from 'promise-file-reader';
 import json2csv from 'json2csv';
 import downloadjs from 'downloadjs';
 
-import { parseCSV } from 'services/utils';
+import { parseCSV, parseJSON } from 'services/utils';
 import { pickElement } from 'services/languages';
 
 import * as movies from './movies';
@@ -132,6 +132,21 @@ export const importCSV = (scene, file) => {
   }
 };
 
+export const importJSON = (scene, file) => {
+  return {
+    type: titles.collectionContent.importFromFile,
+    payload: readAsText(file).then(result => {
+      return {
+        data: parseJSON(scene, result),
+        format: 'json'
+      }
+    }),
+    meta: {
+      scene
+    }
+  };
+};
+
 export const importElements = (scene, collection, elements, dispatch) => {
   
   const _importElement = (scene, elements, index, dispatch) => {
@@ -192,6 +207,8 @@ export const exportCollection = (scene, pk, format) => {
   switch(format) {
     case 'csv':
       return exportAsCSV(scene, pk);
+    case 'json':
+      return exportAsJSON(scene, pk);
     default:
       return null;
   }
@@ -214,14 +231,30 @@ const exportAsCSV = (scene, pk) => {
   }
 };
 
+const exportAsJSON = (scene, pk) => {
+  
+  return {
+    type: collections.json,
+    payload: getDataToExport(scene, pk).then(({ fields, content, collection}) => {
+      const comments = {
+        scene
+      };
+      const json = JSON.stringify({
+        comments,
+        content
+      });
+      downloadjs(json, collection.title + '.json', 'text/json');
+    })
+  };
+  
+};
+
 const getDataToExport = (scene, pk) => {
   return get(scene, pk).payload.then(collection => {
     const fields = getModule(scene).exportFields;
-    console.log(fields);
     const content = collection.content.map(el => {
       let data = {};
       const values = el.getLocal();
-      console.log(values);
       fields.forEach(field => {
         if (field === 'title') {
           data[field] = pickElement(values, 'titles', 'title', collection.title_language);
