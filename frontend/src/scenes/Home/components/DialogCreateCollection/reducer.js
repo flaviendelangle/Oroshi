@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 
 import { dialogs } from 'services/titles/interface'
-import { collectionContent } from "../../../../services/titles/api";
+import { collectionContent } from "services/titles/api";
 
 const defaultState = {
   show: false,

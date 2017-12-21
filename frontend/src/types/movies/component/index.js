@@ -8,8 +8,8 @@ import ImageEye from 'material-ui/svg-icons/image/remove-red-eye';
 
 import Poster from 'components/generics/Poster/index';
 import ElementOverlay from 'components/generics/ElementOverlay/index';
-import { addElement, removeElement } from 'services/actions/collections/index';
-import { switchSeenOnElement } from 'services/actions/collections/movies';
+import { addElement, removeElement } from 'services/actions/collections';
+import { switchSeenOnElement } from 'types/movies/actions';
 import { publicRoot } from 'services/TheMovieDatabaseJS/movies';
 import date from 'services/content/date';
 

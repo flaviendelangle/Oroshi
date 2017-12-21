@@ -1,9 +1,9 @@
 import { TVShowsAPI } from 'services/api/tvShows';
 import { TVShowCollectionsAPI } from 'services/api/tvShowsCollections';
 import TVShowsTMDB from 'services/TheMovieDatabaseJS/tv';
-import TVShowClass from 'components/collectionTypes/tvShows/elementClass';
+import TVShowClass from './elementClass';
 
-import * as tmdb from './tmdb';
+import * as tmdb from 'services/actions/collections/tmdb';
 
 export const elementClass = TVShowClass;
 

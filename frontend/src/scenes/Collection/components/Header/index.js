@@ -8,7 +8,7 @@ import muiThemeable from 'material-ui/styles/muiThemeable';
 
 import Search from './components/Search/index';
 import OrderMenu from './components/OrderMenu/index';
-import HeaderOriginal from 'components/Header/index';
+import HeaderOriginal from 'components/generics/Header/index';
 
 
 class Header extends Component {

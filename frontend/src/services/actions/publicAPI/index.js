@@ -1,8 +1,5 @@
-import * as movies from './movies';
-import * as tv_shows from './tv_shows';
-
 import { request } from 'services/titles/publicAPI'
-
+import { getPublicActions } from 'services/content/collectionTypes';
 
 /*
   ACTIONS WITH DISPATCH
@@ -10,7 +7,7 @@ import { request } from 'services/titles/publicAPI'
 export const search = (scene, collection, query, page=1) => {
   return {
     type: request.search,
-    payload: getModule(scene).search(scene, collection, query, page),
+    payload: getPublicActions(scene).search(scene, collection, query, page),
     meta: {
       scene
     }
@@ -20,7 +17,7 @@ export const search = (scene, collection, query, page=1) => {
 export const getRecommendations = (scene, collection) => {
  return {
    type: request.get_recommendations,
-   payload: getModule(scene).getRecommendations(scene, collection),
+   payload: getPublicActions(scene).getRecommendations(scene, collection),
    meta: {
      scene
    }
@@ -30,7 +27,7 @@ export const getRecommendations = (scene, collection) => {
 export const getPopular = (scene, collection, page) => {
   return {
     type: request.get_popular,
-    payload: getModule(scene).getPopular(scene, collection, page),
+    payload: getPublicActions(scene).getPopular(scene, collection, page),
     meta: {
       scene
     }
@@ -40,7 +37,7 @@ export const getPopular = (scene, collection, page) => {
 export const getTopRated = (scene, collection, page) => {
   return {
     type: request.get_top_rated,
-    payload: getModule(scene).getTopRated(scene, collection, page),
+    payload: getPublicActions(scene).getTopRated(scene, collection, page),
     meta: {
       scene
     }
@@ -48,7 +45,7 @@ export const getTopRated = (scene, collection, page) => {
 };
 
 export const getDetails = (scene, shouldDispatch, collection, publicId) => {
-  const payload = getModule(scene).getDetails(scene, collection, publicId);
+  const payload = getPublicActions(scene).getDetails(scene, collection, publicId);
   if (shouldDispatch) {
     return {
       type: request.get_details,
@@ -68,28 +65,17 @@ export const getDetails = (scene, shouldDispatch, collection, publicId) => {
  */
 
 export const checkExistence = (scene, ...args) => {
-  return getModule(scene).checkExistence(scene, ...args);
+  return getPublicActions(scene).checkExistence(scene, ...args);
 };
 
 export const getTitle = (scene, ...args) => {
-  return getModule(scene).getTitle(scene, ...args);
+  return getPublicActions(scene).getTitle(scene, ...args);
 };
 
 export const getPoster = (scene, ...args) => {
-  return getModule(scene).getPoster(scene, ...args);
+  return getPublicActions(scene).getPoster(scene, ...args);
 };
 
 export const cleanDetails = (scene, details) => {
-  return getModule(scene).cleanDetails(scene, details);
-};
-
-export const getModule = scene => {
-  switch(scene) {
-    case 'movies':
-      return movies;
-    case 'tv_shows':
-      return tv_shows;
-    default:
-      return null;
-  }
+  return getPublicActions(scene).cleanDetails(scene, details);
 };

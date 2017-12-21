@@ -5,7 +5,7 @@ import DocumentTitle from 'react-document-title';
 import AVMovie from 'material-ui/svg-icons/av/movie'
 import muiThemeable from 'material-ui/styles/muiThemeable';
 
-import HeaderOriginal from 'components/Header';
+import HeaderOriginal from 'components/generics/Header';
 import { getCollectionSettingsState } from 'containers/reducer';
 
 

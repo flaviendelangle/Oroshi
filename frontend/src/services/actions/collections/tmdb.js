@@ -1,4 +1,4 @@
-import { getCollectionAPI, getElementAPI } from './index';
+import { getCollectionAPI, getElementAPI } from 'services/content/collectionTypes';
 import { getDetails, cleanDetails, getTitle, getPoster } from 'services/actions/publicAPI';
 import { getMissingLanguages } from 'services/languages';
 

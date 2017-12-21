@@ -9,7 +9,7 @@ import muiThemeable from 'material-ui/styles/muiThemeable';
 import ScrollArea from 'react-scrollbar'
 
 import { getDetails } from 'services/actions/publicAPI/index';
-import { getSeasonDetails } from 'services/actions/publicAPI/tv_shows';
+import { getSeasonDetails } from '../../../publicActions';
 
 import './style.css'
 

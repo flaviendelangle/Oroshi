@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import AppBar from 'material-ui/AppBar';
 
-import MainDrawer from './components/MainDrawer'
+import MainDrawer from './components/MainDrawer/index'
 import { showMainDrawer } from './components/MainDrawer/actions';
 
 class Header extends Component {

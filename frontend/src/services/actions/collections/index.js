@@ -2,14 +2,11 @@ import { readAsText } from 'promise-file-reader';
 import json2csv from 'json2csv';
 import downloadjs from 'downloadjs';
 
+import { getActions, getCollectionAPI } from "services/content/collectionTypes";
 import { parseCSV, parseJSON } from 'services/utils';
 import { pickElement } from 'services/languages';
-
-import * as movies from './movies';
-import * as tv_shows from './tv_shows';
 import { CollectionsAPI } from 'services/api/collections';
 import { checkExistence } from 'services/actions/publicAPI';
-
 import * as titles from 'services/titles/api';
 import { collections } from 'services/titles/exports'
 
@@ -79,7 +76,7 @@ export const update = (scene, pk, data) => {
 export const addElement = (scene, collection, element) => {
   return {
     type: titles.collections.add,
-    payload: getModule(scene).addElement(scene, collection, element),
+    payload: getActions(scene).addElement(scene, collection, element),
     meta: {
       scene
     }
@@ -189,7 +186,7 @@ export const importElements = (scene, collection, elements, dispatch) => {
     type: titles.collectionContent.importElement,
     payload: checkExistence(scene, collection, elements, true).then(elements => {
       
-      const Element = getModule(scene).elementClass;
+      const Element = getActions(scene).elementClass;
       elements = Element.fromDistantList(elements.results, collection);
       dispatch({
         type: titles.collectionContent.import + '_STARTED',
@@ -251,7 +248,7 @@ const exportAsJSON = (scene, pk) => {
 
 const getDataToExport = (scene, pk) => {
   return get(scene, pk).payload.then(collection => {
-    const fields = getModule(scene).exportFields;
+    const fields = getActions(scene).exportFields;
     const content = collection.content.map(el => {
       let data = {};
       const values = el.getLocal();
@@ -278,7 +275,7 @@ const getDataToExport = (scene, pk) => {
   ACTIONS WITHOUT DISPATCH
  */
 export const addSeenToElements =  (scene, elements, seen) => {
-  return getModule(scene).addSeenToElements(elements, seen);
+  return getActions(scene).addSeenToElements(elements, seen);
 };
 
 export const addCollectionToElement = (element, collection) => {
@@ -290,47 +287,17 @@ export const addCollectionToElement = (element, collection) => {
 
 export const prepareElements = (scene, data) => {
   let { content, seen, ...clearedData } = data;
-  const Element = getModule(scene).elementClass;
+  const Element = getActions(scene).elementClass;
   const elements = content
     .map(el => new Element(el));
   elements.forEach(el => {
     el.setCollection(clearedData);
-    getModule(scene).prepareElement(el, seen);
+    getActions(scene).prepareElement(el, seen);
   });
 
   return {
     ...data,
     content: elements
   };
-};
-
-
-
-
-/*
-  UTILS FUNCTIONS
- */
-
-export const getModule = scene => {
-  switch(scene) {
-    case 'movies':
-      return movies;
-    case 'tv_shows':
-      return tv_shows;
-    default:
-      return null;
-  }
-};
-
-export const getCollectionAPI = scene => {
-  return getModule(scene).collectionAPI;
-};
-
-export const getElementAPI = scene => {
-  return getModule(scene).elementAPI;
-};
-
-export const getPublicAPI = scene => {
-  return getModule(scene).publicAPI;
 };
 

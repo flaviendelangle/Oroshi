@@ -1,5 +1,5 @@
 import searchAPI from 'services/TheMovieDatabaseJS/search';
-import { getModule, getCollectionAPI, getElementAPI, getPublicAPI } from 'services/actions/collections';
+import { getActions, getCollectionAPI, getElementAPI, getPublicAPI } from 'services/content/collectionTypes';
 import { getPopular as getPopularOriginal, getTopRated as getTopRatedOriginal, search as searchOriginal } from './index';
 import { getTmdbLanguages, DEFAULT_LANGUAGE } from 'services/languages';
 
@@ -192,7 +192,7 @@ const _getTopRated = (scene, collection, page=1) => {
 const prepareStreamResults = (scene, collection, elements, nextAction) => {
   
   return checkExistence(scene, collection, elements.content).then(response => {
-    const Element = getModule(scene).elementClass;
+    const Element = getActions(scene).elementClass;
     let next = null;
     if (elements.content.page < elements.content.total_pages) {
       next = nextAction.bind(this, scene, collection, elements.content.page+1);
@@ -208,7 +208,7 @@ const prepareStreamResults = (scene, collection, elements, nextAction) => {
 const prepareSearchResults = (scene, collection, { content, ...elements }, query) => {
   
   return checkExistence(scene, collection, { content, ...elements}).then(response => {
-    const Element = getModule(scene).elementClass;
+    const Element = getActions(scene).elementClass;
     let next = null;
     if (elements.page < elements.total_pages) {
       next = searchOriginal.bind(this, scene, collection, query, elements.page+1);

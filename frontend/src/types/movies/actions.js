@@ -1,10 +1,10 @@
 import { MoviesAPI } from 'services/api/movies';
 import { MovieCollectionsAPI } from 'services/api/movieCollections';
 import MoviesTMDB from 'services/TheMovieDatabaseJS/movies'
-import MovieClass from 'components/collectionTypes/movies/elementClass';
+import MovieClass from './elementClass';
 
-import * as tmdb from './tmdb';
-import { updateElement } from './index';
+import * as tmdb from 'services/actions/collections/tmdb';
+import { updateElement } from 'services/actions/collections';
 
 export const elementClass = MovieClass;
 
