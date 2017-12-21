@@ -64,6 +64,7 @@ class Grid extends Component {
             collection={this.props.collection}
             key={el.getPublicId()}
             creationMode={this.props.creationMode}
+            isPublic={this.props.isPublic}
           />
         );
       });

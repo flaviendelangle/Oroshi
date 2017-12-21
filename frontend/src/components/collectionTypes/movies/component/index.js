@@ -165,6 +165,7 @@ class Movie extends Component {
               already_in_collection={this.props.data.isInCollection()}
               handleSave={this.save}
               handleDestroy={this.destroy}
+              isPublic={this.props.isPublic}
               topRightAction={
                 <Seen
                   creation_mode={this.props.creationMode}

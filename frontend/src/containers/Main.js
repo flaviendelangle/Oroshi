@@ -53,8 +53,12 @@ class Main extends Component {
               render={props => <CollectionSettings config={el} scene={el.name} {...props} />}
             />,
             <Route
+              path={'/collections/' + el.name + '/:collection_id/public/'}
+              render={props => <Collection config={el} scene={el.name} isPublic={true} {...props} />}
+            />,
+            <Route
               path={'/collections/' + el.name + '/:collection_id/'}
-              render={props => <Collection config={el} scene={el.name} {...props} />}
+              render={props => <Collection config={el} scene={el.name} isPublic={false} {...props} />}
             />
           ])}
           

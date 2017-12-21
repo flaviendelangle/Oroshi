@@ -26,6 +26,7 @@ class CollectionContent extends Component {
           scene={this.props.scene}
           elementComponent={this.props.elementComponent}
           lineDimensions={this.props.lineDimensions}
+          isPublic={this.props.isPublic}
         />
       )
     }
@@ -37,6 +38,7 @@ class CollectionContent extends Component {
           scene={this.props.scene}
           elementComponent={this.props.elementComponent}
           lineDimensions={this.props.lineDimensions}
+          isPublic={this.props.isPublic}
         />
       )
     }

@@ -20,10 +20,12 @@ class CollectionScene extends Component {
       <div>
         <Header
           scene={this.props.scene}
+          isPublic={this.props.isPublic}
         />
         <Content {...this.props} />
         <Menu
           scene={this.props.scene}
+          isPublic={this.props.isPublic}
         />
       </div>
     )
@@ -32,19 +34,21 @@ class CollectionScene extends Component {
   
 }
 
-const Content = ({ config, scene, isAdding }) => {
+const Content = ({ config, scene, isAdding, isPublic }) => {
   if (isAdding) {
     return (
       <AddingContent
         scene={scene}
         elementComponent={config.elementComponent}
+        isPublic={isPublic}
       />
     );
   }
   return (
     <CollectionContent
-      elementComponent={config.elementComponent}
       scene={scene}
+      elementComponent={config.elementComponent}
+      isPublic={isPublic}
     />
   );
 };

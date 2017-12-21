@@ -38,7 +38,11 @@ class Header extends Component {
     return (
       <div>
         <DocumentTitle title={this.props.title}/>
-        <HeaderOriginal title={this.props.title} showTitle={false}>
+        <HeaderOriginal
+          title={this.props.title}
+          isPublic={this.props.isPublic}
+          showTitle={false}
+        >
           <div className="menu">
             <Link to={this.link}>
               <ActionSettings style={style}/>

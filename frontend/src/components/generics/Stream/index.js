@@ -40,6 +40,7 @@ class Stream extends Component {
           elementComponent={elementComponent}
           lineDimensions={lineDimensions}
           creationMode={creationMode}
+          isPublic={this.props.isPublic}
         />)
     })
   };

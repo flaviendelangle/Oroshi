@@ -23,19 +23,21 @@ class Menu extends Component {
       return null;
     }
     const theme = this.props.muiTheme.palette;
+    const { isAdding, collection, scene, isPublic } = this.props;
     return (
       <span>
         <AddingIcon
-          collection={this.props.collection}
+          collection={collection}
           switchAddingMode={this.props.switchAddingMode}
-          isAdding={this.props.isAdding}
+          isAdding={isAdding}
+          isPublic={isPublic}
         />
         <LayoutButtons
-          isAdding={this.props.isAdding}
+          isAdding={isAdding}
           switchLayout={this.props.switchLayout}
           theme={theme}
         />
-        <SnackbarList scene={this.props.scene} />
+        <SnackbarList scene={scene} />
       </span>
     )
   }
@@ -68,7 +70,10 @@ const LayoutIcon = ({ Component, theme, onClick }) => (
   </div>
 );
 
-const AddingIcon = ({ isAdding, collection, switchAddingMode }) => {
+const AddingIcon = ({ isAdding, collection, switchAddingMode, isPublic }) => {
+  if(isPublic) {
+    return null;
+  }
   let Icon;
   if (isAdding) {
     Icon = ActionDoneAll;

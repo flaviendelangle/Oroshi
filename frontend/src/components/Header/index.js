@@ -45,11 +45,12 @@ class Header extends Component {
         <AppBar
           title={ this.props.showTitle ? this.props.title : ''}
           onLeftIconButtonTouchTap={_ => this.props.openMainDrawer(true)}
+          showMenuIconButton={!this.props.isPublic}
         >
           {this.searchBar}
           {this.actionsButton}
         </AppBar>
-        <MainDrawer title={this.props.title}>
+        <MainDrawer title={this.props.title} isPublic={this.props.isPublic} >
           {this.drawerLinks}
         </MainDrawer>
       </div>

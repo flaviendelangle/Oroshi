@@ -64,6 +64,9 @@ class MainDrawer extends Component {
   };
   
   render() {
+    if(this.props.isPublic) {
+      return null;
+    }
     return (
         <Drawer
           open={this.props.isOpen}

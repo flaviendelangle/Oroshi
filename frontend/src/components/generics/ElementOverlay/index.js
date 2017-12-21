@@ -10,7 +10,7 @@ import './style.css'
 class ElementOverlay extends Component {
   
   state = {
-    show: true,
+    show: false,
     waiting: false
   };
   
@@ -55,13 +55,16 @@ class ElementOverlay extends Component {
           mouseOver={this.state.show}
           ref={el => this.addToLayout('grade', el)}
         />
-        <TopRightAction>{this.props.topRightAction}</TopRightAction>
+        <TopRightAction isPublic={this.props.isPublic}>
+          {this.props.topRightAction}
+        </TopRightAction>
         <Footer
           creation_mode={this.props.creation_mode}
           already_in_collection={this.props.already_in_collection}
           handleSave={this.props.handleSave}
           handleDestroy={this.props.handleDestroy}
           addToLayout={this.addToLayout}
+          isPublic={this.props.isPublic}
         />
       </div>
     );
@@ -69,7 +72,10 @@ class ElementOverlay extends Component {
   
 }
 
-const Footer = ({ creation_mode, already_in_collection, handleSave, handleDestroy, addToLayout }) => {
+const Footer = ({ creation_mode, already_in_collection, handleSave, handleDestroy, addToLayout, isPublic }) => {
+  if(isPublic) {
+    return null;
+  }
   let Content;
   if (creation_mode && !already_in_collection) {
     Content = (
@@ -97,8 +103,12 @@ const Footer = ({ creation_mode, already_in_collection, handleSave, handleDestro
   return <div className="footer">{Content}</div>;
 };
 
-const TopRightAction = ({ children }) => {
-  return <div className="top-right-icon">{children}</div>
+const TopRightAction = ({ children, isPublic }) => {
+  return (
+    <div className={'top-right-icon ' + (isPublic ? 'public' : 'private')}>
+      {children}
+      </div>
+  );
 };
 
 export default muiThemeable()(ElementOverlay);
