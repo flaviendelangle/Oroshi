@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import muiThemeable from 'material-ui/styles/muiThemeable';
 
 import SummaryParameters from './components/SummaryParameters';
-import SpoilerParameters from './components/SpoilerParameters';
+//import SpoilerParameters from './components/SpoilerParameters';
 import LanguageParameters from './components/LanguageParameters';
 import ExportParameters from './components/ExportParameters';
 import DataImporter from './components/DataImporter';
@@ -48,8 +48,8 @@ const getSectionComponent = active => {
   switch(active) {
     case 'summary':
       return SummaryParameters;
-    case 'spoilers':
-      return SpoilerParameters;
+    /*case 'spoilers':
+      return SpoilerParameters;*/
     case 'languages':
       return LanguageParameters;
     case 'exports':

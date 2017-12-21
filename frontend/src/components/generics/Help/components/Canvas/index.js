@@ -7,14 +7,6 @@ import muiThemeable from 'material-ui/styles/muiThemeable';
 import * as _style from './style';
 
 
-const ARROW_CONFIG = {
-  pointerWidth: 8,
-  pointerLength: 8,
-  fill: 'white',
-  stroke: 'white',
-  strokeWidth: 2
-};
-
 class Canvas extends Component {
   
   state = {
@@ -32,6 +24,16 @@ class Canvas extends Component {
     });
   }
   
+  get arrow_config() {
+    return {
+      pointerWidth: 8,
+      pointerLength: 8,
+      fill: this.props.muiTheme.palette.titleColor,
+      stroke: this.props.muiTheme.palette.titleColor,
+      strokeWidth: 2
+    };
+  }
+  
   translateCoordinates = coordinates => {
     const canvas = ReactDOM.findDOMNode(this.canvas);
     const canvasCoordinates = canvas.getBoundingClientRect();
@@ -47,7 +49,7 @@ class Canvas extends Component {
   buildArrow = (canvasCoordinates, label) => {
     const verticalMiddle = (canvasCoordinates.top + canvasCoordinates.bottom)/2;
     const arrow = {
-      ...ARROW_CONFIG,
+      ...this.arrow_config,
       points: [
         150,
         verticalMiddle,
@@ -60,6 +62,7 @@ class Canvas extends Component {
       x: 0,
       y: (verticalMiddle - 8),
       fontSize: 16,
+      fill: this.props.muiTheme.palette.titleColor
     };
     
     return {

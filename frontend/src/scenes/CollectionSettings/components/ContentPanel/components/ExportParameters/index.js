@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import FileDownload from 'material-ui/svg-icons/file/file-download';
-import SocialShare from 'material-ui/svg-icons/social/share';
 
 import ParametersSection, { Line } from '../ParametersSection';
 import { exportCollection } from 'services/actions/collections';
@@ -16,11 +15,6 @@ class ExportParameters extends Component {
       <ParametersSection>
         <div className="title">Export your data</div>
         <div className="content">
-          <Line
-            rightIcon={<SocialShare />}
-            primaryText="Get your public link"
-            onClick={_ => {}}
-          />
           <Line
             rightIcon={<FileDownload />}
             primaryText="Export as CSV"

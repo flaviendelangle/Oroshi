@@ -16,3 +16,7 @@ export const collectionTypes = [
   movies,
   tv_shows
 ];
+
+export const urls = {
+  frontend: 'http://localhost:3000/'
+};

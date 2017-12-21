@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Toggle from 'material-ui/Toggle';
+
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import ActionDeleteForever from 'material-ui/svg-icons/action/delete-forever';
+import SocialShare from 'material-ui/svg-icons/social/share';
 
 import DeleteAlert from './components/DeleteAlert';
+import ShowPublicLinkAlert from './components/ShowPublicLinkAlert';
 import ParametersSection, { Line } from '../ParametersSection';
-import TextField from '../TextField';
+import TextField from 'components/form/TextField';
+import Toggle from 'components/form/Toggle';
 import { getCollectionSettingsState } from 'containers/reducer';
 import { update } from 'scenes/CollectionSettings/actions';
 import { getCollectionTypeTitle } from 'services/utils';
@@ -23,7 +26,8 @@ class SummaryParameters extends Component {
   
   state = {
     title: '',
-    showDeleteAlert: false
+    showDeleteAlert: false,
+    showGetPublicLinkAlert: false
   };
   
   componentWillReceiveProps(newProps) {
@@ -70,6 +74,22 @@ class SummaryParameters extends Component {
               }
             />
             <Line
+              primaryText="Public access to your collection"
+              rightToggle={
+                <Toggle
+                  toggled={this.props.data.public}
+                  onToggle={(proxy, active) => {
+                    this.props.update(this.props.data.pk, 'public', active)
+                  }}
+                />
+              }
+            />
+            <Line
+              rightIcon={<SocialShare />}
+              primaryText="Get your public link"
+              onClick={_ => this.setState({ showGetPublicLinkAlert: true })}
+            />
+            <Line
               rightIcon={<ActionDeleteForever />}
               primaryText="Destroy this collection"
               onClick={_ => this.setState({ showDeleteAlert: true })}
@@ -80,6 +100,13 @@ class SummaryParameters extends Component {
           open={this.state.showDeleteAlert}
           onClose={_ => this.setState({ showDeleteAlert: false })}
           onDelete={_ => this.props.deleteCollection(this.props.data.pk)}
+        />
+        <ShowPublicLinkAlert
+          open={this.state.showGetPublicLinkAlert}
+          data={this.props.data}
+          scene={this.props.scene}
+          onClose={_ => this.setState({ showGetPublicLinkAlert: false })}
+          onDelete={_ => {}} //this.props.deleteCollection(this.props.data.pk)}
         />
       </div>
     );

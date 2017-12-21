@@ -19,9 +19,9 @@ class MenuPanel extends Component {
         <Line active={this.props.active === 'summary'} value="summary">
           Summary
         </Line>
-        <Line active={this.props.active === 'spoilers'} value="spoilers">
+        {/*<Line active={this.props.active === 'spoilers'} value="spoilers">
           Spoilers
-        </Line>
+        </Line>*/}
         <Line active={this.props.active === 'languages'} value="languages">
           Languages
         </Line>
