@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import Paper from 'material-ui/Paper';
 import muiThemeable from 'material-ui/styles/muiThemeable';
 import ImageEye from 'material-ui/svg-icons/image/remove-red-eye';
+import ContentAdd from 'material-ui/svg-icons/content/add';
 
 import Poster from 'components/generics/Poster/index';
 import ElementOverlay from 'components/generics/ElementOverlay/index';
@@ -80,7 +81,7 @@ class Movie extends Component {
     this.setState({ isMouseOver })
   };
   
-  handlePosterLoad = success => {
+  handlePosterLoad = _ => {
     this.setState({ isReady: true });
   };
   
@@ -137,8 +138,9 @@ class Movie extends Component {
   }
 
   render() {
+    const { style, creationMode, isPublic, mode, collection, data } = this.props;
     return (
-      <div className={'movie-parent ' + this.parentClassName} style={this.props.style}>
+      <div className={'movie-parent ' + this.parentClassName} style={style}>
         <div className="movie-container">
           <Paper
             zDepth={3}
@@ -152,21 +154,30 @@ class Movie extends Component {
               onLoad={this.handlePosterLoad}
             />
             <ElementOverlay
-              mode={this.props.mode}
+              mode={mode}
               addToLayout={this.addToLayout}
               note={this.note}
               mouseOver={this.state.isMouseOver}
-              creation_mode={this.props.creationMode}
+              creation_mode={creationMode}
               already_in_collection={this.props.data.isInCollection()}
               handleSave={this.save}
               handleDestroy={this.destroy}
-              isPublic={this.props.isPublic}
+              isPublic={isPublic}
               topRightAction={
                 <Seen
-                  creation_mode={this.props.creationMode}
-                  seen={this.props.data.hasBeenSeen()}
+                  creation_mode={creationMode}
+                  seen={data.hasBeenSeen()}
                   handleClick={_ => this.switchSeen()}
                   addToLayout={this.addToLayout}
+                />
+              }
+              topLeftAction={
+                <Suggestions
+                  creation_mode={creationMode}
+                  addToLayout={this.addToLayout}
+                  collection={collection}
+                  data={data}
+                  isPublic={isPublic}
                 />
               }
             />
@@ -212,6 +223,21 @@ const Seen = ({ seen, handleClick, creation_mode, addToLayout }) => {
       onClick={handleClick}
       ref={el => addToLayout('seen', el)}
     />
+  );
+};
+
+const Suggestions = ({ creation_mode, addToLayout, collection, data, isPublic }) => {
+  if (creation_mode || isPublic) {
+    return null;
+  }
+  const url = '/collections/movies/' + collection.pk +
+              '/suggestions/' + data.getPublicId() + '/';
+  return (
+    <Link to={url}>
+      <ContentAdd
+        ref={el => addToLayout('seen', el)}
+      />
+    </Link>
   );
 };
 

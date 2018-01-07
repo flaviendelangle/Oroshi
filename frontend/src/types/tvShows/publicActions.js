@@ -8,6 +8,8 @@ export const search = tmdb.search;
 
 export const getRecommendations = tmdb.getRecommendations;
 
+export const getSuggestions = tmdb.getSuggestions;
+
 export const getPopular = tmdb.getPopular;
 
 export const getTopRated = tmdb.getTopRated;

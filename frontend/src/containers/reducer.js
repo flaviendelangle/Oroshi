@@ -9,6 +9,7 @@ import help from 'components/generics/Help/reducer';
 import tv_shows from 'types/tvShows/component/reducer';
 import collections from 'scenes/Collection/reducer';
 import collectionSettings from 'scenes/CollectionSettings/reducer';
+import elementSuggestions from 'scenes/ElementSuggestions/reducer';
 
 import { notify } from 'services/titles/router';
 import { screen } from 'services/titles/interface';
@@ -92,7 +93,8 @@ const appReducer = combineReducers({
   tv_shows,
   
   // Scenes
-  collections: collections,
+  collections,
+  elementSuggestions,
   collection_movies_settings: collectionSettings('movies'),
   collection_tv_shows_settings: collectionSettings('tv_shows'),
   home,

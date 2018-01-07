@@ -15,6 +15,8 @@ export const publicAPI = TVShowsTMDB;
 
 export const addElement = tmdb.addElement;
 
+export const getSuggestions = tmdb.getSuggestions;
+
 export const prepareElement = (element, seenList) => {
   const seen = false;
   element.setSeen(seen);

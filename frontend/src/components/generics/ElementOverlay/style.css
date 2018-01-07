@@ -40,13 +40,20 @@
     cursor: pointer;
 }
 
-.element-overlay .top-right-icon {
+.element-overlay .top-left-icon, .element-overlay .top-right-icon {
     position: absolute;
     top: 0;
-    right: 0;
     padding: 5px;
 }
 
-.element-overlay .top-right-icon.private {
+.element-overlay .top-left-icon {
+    left: 0;
+}
+
+.element-overlay .top-right-icon {
+    right: 0;
+}
+
+.element-overlay .top-left-icon.private, .element-overlay .top-right-icon.private {
     cursor: pointer;
 }

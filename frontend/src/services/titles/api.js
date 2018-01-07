@@ -2,6 +2,7 @@ export const collectionContent = {
   load: 'LOAD_COLLECTION_CONTENT',
   loadSettings: 'LOAD_COLLECTION_SETTINGS',
   loadAllSettings: 'LOAD_COLLECTIONS_SETTINGS',
+  loadSuggestions: 'LOAD_COLLECTION_ELEMENT_SUGGESTIONS',
   create: 'CREATE_NEW_COLLECTION',
   importFromFile: 'COLLECTION_CONTENT_IMPORT_FROM_FILE',
   importElement: 'COLLECTION_CONTENT_IMPORT_ELEMENT',

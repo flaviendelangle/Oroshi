@@ -1,4 +1,4 @@
-import { getCollectionAPI, getElementAPI } from 'services/content/collectionTypes';
+import { getCollectionAPI, getElementAPI, getPublicActions } from 'services/content/collectionTypes';
 import { getDetails, cleanDetails, getTitle, getPoster } from 'services/actions/publicAPI';
 import { getMissingLanguages } from 'services/languages';
 
@@ -84,6 +84,10 @@ const createMissingData = (scene, { collection, local }) => {
   
   return createTitle(0).then(res => createPoster(0));
   
+};
+
+export const getSuggestions = (scene, collection, tmdbId) => {
+  return getPublicActions(scene).getSuggestions(scene, collection, tmdbId);
 };
 
 

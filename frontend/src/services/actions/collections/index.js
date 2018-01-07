@@ -62,8 +62,21 @@ export const getAll = pk => {
 export const getSettings = (scene, pk) => {
   return {
     type: titles.collectionContent.loadSettings,
-    payload: getCollectionAPI(scene).settings(pk)
+    payload: getCollectionAPI(scene).settings(pk),
+    meta: {
+      scene
+    }
   }
+};
+
+export const getSuggestions = (scene, collection, publicId) => {
+  return {
+    type: titles.collectionContent.loadSuggestions,
+    payload: getActions(scene).getSuggestions(scene, collection, publicId),
+    meta: {
+      scene
+    }
+  };
 };
 
 export const update = (scene, pk, data) => {

@@ -32,6 +32,13 @@ export const getRecommendations = (scene, collection) => {
     });
 };
 
+export const getSuggestions = (scene, collection, tmdbId) => {
+  const results = Promise.all([
+    _getElementRecommendations(scene, collection, tmdbId)
+  ]);
+  return results.then(results => ({ results }));
+};
+
 export const getPopular = (scene, collection, page) => {
   return _getPopular(scene, collection, page)
 };
@@ -157,6 +164,20 @@ const getMissingData = (scene, tmdbId, collection, details) => {
       })
   }
   return promise.then(_ => details);
+};
+
+const _getElementRecommendations = (scene, collection, tmdbId) => {
+  const publicAPI = getPublicAPI(scene);
+  let elements;
+  return publicAPI.recommendations(tmdbId).then(response => {
+    elements = {
+      key: { name: 'Recommendations', pk: 1 },
+      type: 'recommendations',
+      content: response,
+      link: false
+    };
+    return prepareStreamResults(scene, collection, elements, null)
+  });
 };
 
 const _getPopular = (scene, collection, page=1) => {

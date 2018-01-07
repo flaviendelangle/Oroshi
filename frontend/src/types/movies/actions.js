@@ -16,6 +16,8 @@ export const publicAPI = MoviesTMDB;
 
 export const addElement = tmdb.addElement;
 
+export const getSuggestions = tmdb.getSuggestions;
+
 export const switchSeenOnElement = element => {
   const data = {
     seen: !element.hasBeenSeen()

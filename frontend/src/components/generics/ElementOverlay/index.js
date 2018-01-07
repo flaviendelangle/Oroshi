@@ -55,6 +55,9 @@ class ElementOverlay extends Component {
           mouseOver={this.state.show}
           ref={el => this.addToLayout('grade', el)}
         />
+        <TopLeftAction isPublic={this.props.isPublic}>
+          {this.props.topLeftAction}
+        </TopLeftAction>
         <TopRightAction isPublic={this.props.isPublic}>
           {this.props.topRightAction}
         </TopRightAction>
@@ -103,11 +106,19 @@ const Footer = ({ creation_mode, already_in_collection, handleSave, handleDestro
   return <div className="footer">{Content}</div>;
 };
 
+const TopLeftAction = ({ children, isPublic }) => {
+  return (
+    <div className={'top-left-icon ' + (isPublic ? 'public' : 'private')}>
+      {children}
+    </div>
+  );
+};
+
 const TopRightAction = ({ children, isPublic }) => {
   return (
     <div className={'top-right-icon ' + (isPublic ? 'public' : 'private')}>
       {children}
-      </div>
+    </div>
   );
 };
 

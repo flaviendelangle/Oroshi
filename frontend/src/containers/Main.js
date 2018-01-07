@@ -9,10 +9,12 @@ import Login from 'scenes/Login';
 import Logout from 'scenes/Logout';
 import Collection from 'scenes/Collection';
 import CollectionSettings from 'scenes/CollectionSettings';
+import ElementSuggestions from 'scenes/ElementSuggestions';
 
 import { notifyRouteChange } from 'services/actions/router';
 import { getProfile } from 'services/actions/users';
 import { collectionTypes } from 'appConfig';
+
 
 class Main extends Component {
   
@@ -48,6 +50,10 @@ class Main extends Component {
           <Route path='/logout/' component={Logout} />
           
           {collectionTypes.map(el => [
+            <Route
+              path={'/collections/' + el.name + '/:collection_id/suggestions/:element_id/'}
+              render={props => <ElementSuggestions config={el} scene={el.name} {...props} />}
+            />,
             <Route
               path={'/collections/' + el.name + '/:collection_id/settings/'}
               render={props => <CollectionSettings config={el} scene={el.name} {...props} />}
