@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
-import { connect } from 'react-redux';
 
 
 import Stream from 'components/generics/Stream';
 import Header from './components/Header';
 import { getSuggestions, getSettings } from "services/actions/collections";
+import { connect } from 'services/redux';
 
 
 class ElementSuggestions extends Component {
@@ -50,17 +50,11 @@ class ElementSuggestions extends Component {
   
 }
 
-const mapStateToProps = (state, ownProps) => {
-  const root = state.elementSuggestions.main[ownProps.scene];
-  if(!root) {
-    return {
-      loaded: false
-    };
-  }
+const mapStateToProps = ({ suggestions }, state) => {
   return {
-    loaded: root.loaded,
-    collection: root.collection,
-    suggestions: root.suggestions,
+    loaded: suggestions.loaded,
+    collection: suggestions.collection,
+    suggestions: suggestions.suggestions,
   
     lineDimensions: state.app.lineDimensions
   };

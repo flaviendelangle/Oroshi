@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
 
 import Header from './components/Header';
 import CollectionContent from './components/CollectionContent'
@@ -7,25 +6,27 @@ import AddingContent from './components/AddingContent';
 import Menu from './components/Menu';
 
 import { get as getCollection } from 'services/actions/collections'
-import { bindState } from 'services/decorators';
+import { connect } from 'services/redux';
 
 class CollectionScene extends Component {
   
   componentDidMount() {
-    this.props.synchronize(this.props.match.params.collection_id);
+    this.props.synchronize(this.props.collection.pk);
   }
   
   render() {
+    const { scene, collection, isPublic } = this.props;
     return (
       <div>
         <Header
-          scene={this.props.scene}
-          isPublic={this.props.isPublic}
+          scene={scene}
+          isPublic={isPublic}
+          collection={collection}
         />
         <Content {...this.props} />
         <Menu
-          scene={this.props.scene}
-          isPublic={this.props.isPublic}
+          scene={scene}
+          isPublic={isPublic}
         />
       </div>
     )
@@ -34,11 +35,12 @@ class CollectionScene extends Component {
   
 }
 
-const Content = ({ config, scene, isAdding, isPublic }) => {
+const Content = ({ config, scene, isAdding, isPublic, collection }) => {
   if (isAdding) {
     return (
       <AddingContent
         scene={scene}
+        collection={collection}
         elementComponent={config.elementComponent}
         isPublic={isPublic}
       />
@@ -47,22 +49,16 @@ const Content = ({ config, scene, isAdding, isPublic }) => {
   return (
     <CollectionContent
       scene={scene}
+      collection={collection}
       elementComponent={config.elementComponent}
       isPublic={isPublic}
     />
   );
 };
 
-@bindState
-const mapStateToProps = (state, ownProps) => {
-  const root = state.collections.main[ownProps.scene];
-  if (!root) {
-    return {
-      isAdding: false
-    };
-  }
+const mapStateToProps = ({ main }) => {
   return {
-    isAdding: root.isAdding,
+    isAdding: main.isAdding,
   }
 };
 

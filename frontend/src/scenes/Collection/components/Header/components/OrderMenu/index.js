@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import { connect } from 'react-redux';
 
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
@@ -8,6 +7,7 @@ import ContentSort from 'material-ui/svg-icons/content/sort';
 import muiThemeable from 'material-ui/styles/muiThemeable';
 
 import { sort } from 'scenes/Collection/components/CollectionContent/actions';
+import { connect } from 'services/redux';
 
 import * as _style from './style';
 
@@ -133,16 +133,10 @@ const DefaultMenuTVShows = ({ sort, color }) => (
   </IconMenu>
 );
 
-const mapStateToProps = (state, ownProps) => {
-  const root = state.collections.main[ownProps.scene];
-  const contentRoot = state.collections.content[ownProps.scene];
-  if (!root) {
-    return {
-    }
-  }
+const mapStateToProps = ({ main, content }) => {
   return {
-    layout: contentRoot.layout,
-    isAdding: root.isAdding
+    layout: content.layout,
+    isAdding: main.isAdding
   };
 };
 

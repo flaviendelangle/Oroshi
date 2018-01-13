@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
-import { connect } from 'react-redux';
 
 import NotFound from 'components/errors/NotFound';
 import Grid from 'components/generics/Grid';
 import Stream from 'components/generics/Stream';
 import Progress from 'components/generics/Progress';
 import Help from 'components/generics/Help';
+import { connect } from "services/redux";
 
 import * as _style from './style';
 
@@ -89,24 +89,17 @@ class CollectionContent extends Component {
   
 }
 
-const mapStateToProps = (state, ownProps) => {
-  const root = state.collections.content[ownProps.scene];
-  if (!root) {
-    return {
-      loaded: false
-    };
-  }
-
+const mapStateToProps = ({ content }, state) => {
   return {
-    update: root.update,
-    content: root.content,
-    grid: root.grid,
-    stream: root.stream,
-    collection: root.collection,
-    found: root.found,
-    loaded: root.loaded,
-    layout: root.layout,
-    order: root.order,
+    update: content.update,
+    content: content.content,
+    grid: content.grid,
+    stream: content.stream,
+    collection: content.collection,
+    found: content.found,
+    loaded: content.loaded,
+    layout: content.layout,
+    order: content.order,
     
     lineDimensions: state.app.lineDimensions
   }

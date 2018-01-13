@@ -36,6 +36,15 @@ class Main extends Component {
     }
   };
   
+  getSceneProps = (el, props) => ({
+    ...props,
+    config: el,
+    scene: el.name,
+    collection: {
+      pk: props.match.params.collection_id,
+    },
+  });
+  
   componentDidMount() {
     this.getProfile();
   }
@@ -59,19 +68,19 @@ class Main extends Component {
           {collectionTypes.map(el => [
             <Route
               path={`/collections/${el.name}/:collection_id/suggestions/:element_id/`}
-              render={props => <ElementSuggestions config={el} scene={el.name} {...props} />}
+              render={props => <ElementSuggestions {...this.getSceneProps(el, props)} />}
             />,
             <Route
               path={`/collections/${el.name}/:collection_id/settings/`}
-              render={props => <CollectionSettings config={el} scene={el.name} {...props} />}
+              render={props => <CollectionSettings {...this.getSceneProps(el, props)} />}
             />,
             <Route
               path={`/collections/${el.name}/:collection_id/public/`}
-              render={props => <Collection config={el} scene={el.name} isPublic={true} {...props} />}
+              render={props => <Collection  {...this.getSceneProps(el, props)}  isPublic={true} />}
             />,
             <Route
               path={`/collections/${el.name}/:collection_id/`}
-              render={props => <Collection config={el} scene={el.name} isPublic={false} {...props} />}
+              render={props => <Collection {...this.getSceneProps(el, props)} isPublic={false} />}
             />
           ])}
           

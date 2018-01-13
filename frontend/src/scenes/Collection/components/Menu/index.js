@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
@@ -12,6 +11,7 @@ import { switchAddingMode } from '../../actions';
 import { switchLayout } from '../CollectionContent/actions';
 import { getRecommendations } from 'services/actions/publicAPI';
 import SnackbarList from 'components/generics/SnackbarList';
+import { connect } from 'services/redux';
 
 import * as _style from './style';
 
@@ -113,22 +113,15 @@ const AddingIcon = ({ isAdding, collection, switchAddingMode, isPublic }) => {
 };
 
 
-const mapStateToProps = (state, ownProps) => {
-  const root = state.collections.main[ownProps.scene];
-  const contentRoot = state.collections.content[ownProps.scene];
-  if (!root || !contentRoot) {
-    return {
-      loaded: false
-    };
-  }
+const mapStateToProps = ({ content, main }) => {
   return {
-    isAdding: root.isAdding,
+    isAdding: main.isAdding,
   
-    found: contentRoot.found,
-    collection: contentRoot.collection,
-    layout: contentRoot.layout,
-    loaded: contentRoot.loaded,
-    content: contentRoot.content
+    found: content.found,
+    collection: content.collection,
+    layout: content.layout,
+    loaded: content.loaded,
+    content: content.content
   }
 };
 

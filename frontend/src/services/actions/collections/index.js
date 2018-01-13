@@ -47,7 +47,8 @@ export const get = (scene, pk) => {
         }
       }),
     meta: {
-      scene
+      scene,
+      collection: { pk },
     }
   };
 };
@@ -64,7 +65,8 @@ export const getSettings = (scene, pk) => {
     type: titles.collectionContent.loadSettings,
     payload: getCollectionAPI(scene).settings(pk),
     meta: {
-      scene
+      scene,
+      collection: { pk }
     }
   }
 };
@@ -74,7 +76,8 @@ export const getSuggestions = (scene, collection, publicId) => {
     type: titles.collectionContent.loadSuggestions,
     payload: getActions(scene).getSuggestions(scene, collection, publicId),
     meta: {
-      scene
+      scene,
+      collection,
     }
   };
 };
@@ -91,7 +94,8 @@ export const addElement = (scene, collection, element) => {
     type: titles.collections.add,
     payload: getActions(scene).addElement(scene, collection, element),
     meta: {
-      scene
+      scene,
+      collection,
     }
   }
 };
@@ -121,7 +125,8 @@ export const removeElement = (scene, collection, element) => {
       return element;
     }),
     meta: {
-      scene
+      scene,
+      collection,
     }
   }
 };
@@ -172,7 +177,8 @@ export const importElements = (scene, collection, elements, dispatch) => {
         type: titles.collections.add,
         payload: element,
         meta: {
-          scene
+          scene,
+          collection,
         }
       });
     } else {
@@ -181,7 +187,8 @@ export const importElements = (scene, collection, elements, dispatch) => {
           type: titles.collections.add,
           payload: el,
           meta: {
-            scene
+            scene,
+            collection,
           }
         });
         _importElement(scene, elements, index + 1, dispatch);

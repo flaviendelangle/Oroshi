@@ -19,6 +19,8 @@ import { alertScreenResize } from '../services/actions/interface';
 import { loginFromCache } from 'services/actions/users';
 import { saveOauth, loadOauth } from 'services/localstorage';
 
+import scenes from 'reducers/scenes';
+
 
 const defaultState = {
   lineDimensions: null,
@@ -77,8 +79,7 @@ const app = (state=defaultState, action) => {
   
 };
 
-
-const appReducer = combineReducers({
+const baseReducers = {
   
   app,
   
@@ -93,17 +94,25 @@ const appReducer = combineReducers({
   tv_shows,
   
   // Scenes
+  /*
   collections,
   elementSuggestions,
   collection_movies_settings: collectionSettings('movies'),
   collection_tv_shows_settings: collectionSettings('tv_shows'),
+  */
   home,
   login
+};
+
+
+const appReducer = combineReducers({
+  ...baseReducers,
+  scenes,
 });
 
 
 const reducer = (state, action) => {
-  
+
   switch(action.type) {
     
     case notify.change:

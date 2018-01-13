@@ -11,8 +11,6 @@ import { setSortParameters, setLayoutParameters } from '../../services/utils';
 import * as content_manager from './services/content_manager';
 
 
-const defaultState = {};
-
 const generateDefaultElementState = scene => {
   
   const ListGenerator = getListGenerator(scene);
@@ -33,166 +31,151 @@ const generateDefaultElementState = scene => {
   };
 };
 
-const reducer = (state = defaultState, action) => {
-  
-  if (!action.meta || !action.meta.scene) {
-    return state;
-  }
+const reducer = (state, action) => {
+
   const scene = action.meta.scene;
-  
-  if (!state[scene]) {
-    state = {
-      ...state,
-      [scene]: generateDefaultElementState(scene)
-    };
+  if(!state) {
+    state = generateDefaultElementState(scene);
   }
   
-  const sceneReducer = sceneState => {
-    
-    let newContent;
-    let newOrder;
+  let newContent;
+  let newOrder;
   
-    const ListGenerator = getListGenerator(scene);
-    const StreamGenerator = getStreamGenerator(scene);
-    const defaultOrder = getDefaultOrder(scene);
+  const ListGenerator = getListGenerator(scene);
+  const StreamGenerator = getStreamGenerator(scene);
+  const defaultOrder = getDefaultOrder(scene);
   
-    switch(action.type) {
+  switch(action.type) {
     
-      /**
-       * The collection has been loaded
-       */
-      case collectionContent.load + '_FULFILLED':
-        if (!action.payload) {
-          return {
-            ...sceneState,
-            found: false,
-            loaded: true
-          }
-        }
-        TMDBAPI.set_config({
-          include_adult: action.payload.adult_content,
-          language: action.payload.title_language
-        });
-        newContent = Element.sortList(
-          action.payload.content,
-          sceneState.order.default
-        );
+    /**
+     * The collection has been loaded
+     */
+    case collectionContent.load + '_FULFILLED':
+      if (!action.payload) {
         return {
-          ...sceneState,
-          collection: action.payload,
-          content: newContent,
-          stream: new StreamGenerator(newContent, sceneState.query, sceneState.order.stream),
-          grid: new ListGenerator(newContent, sceneState.query),
-          autoComplete: Element.buildAutocomplete(newContent, sceneState.order.stream),
-          found: true,
+          ...state,
+          found: false,
           loaded: true
-        };
-    
-      /**
-       * An element has been added to the collection
-       */
-      case collections.add + '_FULFILLED':
-      
-        newContent = content_manager.add(sceneState.content, action.payload, sceneState.order.default);
-      
-        return {
-          ...sceneState,
-          content: newContent,
-          stream: new StreamGenerator(newContent, sceneState.query, sceneState.order.stream),
-          grid: new ListGenerator(newContent, sceneState.query),
-          autoComplete: Element.buildAutocomplete(newContent, sceneState.order.stream),
-        };
-    
-      /**
-       * An element has been removed from the collection
-       */
-      case collections.remove + '_FULFILLED':
-
-        newContent = content_manager.remove(sceneState.content, action.payload);
-      
-        return {
-          ...sceneState,
-          content: newContent,
-          stream: new StreamGenerator(newContent, sceneState.query, sceneState.order.stream),
-          grid: new ListGenerator(newContent, sceneState.query),
-          autoComplete: Element.buildAutocomplete(newContent, sceneState.order.stream)
-        };
-    
-      /**
-       * An element has been updated in the collection (ex : Not Seen => Seen)
-       */
-      case collections.update + '_FULFILLED':
-
-        newContent = content_manager.update(sceneState.content, action.payload);
-        
-        return {
-          ...sceneState,
-          content: newContent,
-          stream: new StreamGenerator(newContent, sceneState.query, sceneState.order.stream),
-          grid: new ListGenerator(newContent, sceneState.query),
-          autoComplete: Element.buildAutocomplete(newContent, sceneState.order.stream)
-        };
-    
-    
-      /**
-       * The order of the elements has been updated (check OrderMenu component)
-       */
-      case sort.update:
-        setSortParameters(scene, action.parameters, defaultOrder);
-        if (action.parameters.layout === 'grid') {
-          newContent = Element.sortList(sceneState.content, action.parameters);
-        } else {
-          newContent = sceneState.content;
         }
-        newOrder = {
-          ...sceneState.order,
-          [action.parameters.layout]: action.parameters
-        };
-        return {
-          ...sceneState,
-          order: newOrder,
-          content: newContent,
-          stream: new StreamGenerator(newContent, sceneState.query, newOrder.stream),
-          grid: new ListGenerator(newContent, sceneState.query),
-          autoComplete: Element.buildAutocomplete(newContent, newOrder.stream),
-          update: Math.random()
-        };
+      }
+      TMDBAPI.set_config({
+        include_adult: action.payload.adult_content,
+        language: action.payload.title_language
+      });
+      newContent = Element.sortList(
+        action.payload.content,
+        state.order.default
+      );
+      return {
+        ...state,
+        collection: action.payload,
+        content: newContent,
+        stream: new StreamGenerator(newContent, state.query, state.order.stream),
+        grid: new ListGenerator(newContent, state.query),
+        autoComplete: Element.buildAutocomplete(newContent, state.order.stream),
+        found: true,
+        loaded: true
+      };
     
-      /**
-       * The search query has been updated (check Header's Search component)
-       */
-      case search.update_query:
-        if (this.isAdding) {
-          return sceneState;
-        }
-        return {
-          ...sceneState,
-          query: action.query,
-          stream: new StreamGenerator(sceneState.content, action.query, sceneState.order.stream),
-          grid: new ListGenerator(sceneState.content, action.query)
-        };
-    
-      /**
-       * The layout in which we want to see the elements has been updated
-       */
-      case layout.update:
-        setLayoutParameters(scene, action.layout);
-        return {
-          ...sceneState,
-          query: '',
-          layout: action.layout
-        };
+    /**
+     * An element has been added to the collection
+     */
+    case collections.add + '_FULFILLED':
       
-      default:
-        return sceneState;
-    }
+      newContent = content_manager.add(state.content, action.payload, state.order.default);
+      
+      return {
+        ...state,
+        content: newContent,
+        stream: new StreamGenerator(newContent, state.query, state.order.stream),
+        grid: new ListGenerator(newContent, state.query),
+        autoComplete: Element.buildAutocomplete(newContent, state.order.stream),
+      };
     
-  };
-  
-  return {
-    ...state,
-    [scene]: sceneReducer(state[scene])
-  };
+    /**
+     * An element has been removed from the collection
+     */
+    case collections.remove + '_FULFILLED':
+      
+      newContent = content_manager.remove(state.content, action.payload);
+      
+      return {
+        ...state,
+        content: newContent,
+        stream: new StreamGenerator(newContent, state.query, state.order.stream),
+        grid: new ListGenerator(newContent, state.query),
+        autoComplete: Element.buildAutocomplete(newContent, state.order.stream)
+      };
+    
+    /**
+     * An element has been updated in the collection (ex : Not Seen => Seen)
+     */
+    case collections.update + '_FULFILLED':
+      
+      newContent = content_manager.update(state.content, action.payload);
+      
+      return {
+        ...state,
+        content: newContent,
+        stream: new StreamGenerator(newContent, state.query, state.order.stream),
+        grid: new ListGenerator(newContent, state.query),
+        autoComplete: Element.buildAutocomplete(newContent, state.order.stream)
+      };
+    
+    
+    /**
+     * The order of the elements has been updated (check OrderMenu component)
+     */
+    case sort.update:
+      setSortParameters(scene, action.parameters, defaultOrder);
+      if (action.parameters.layout === 'grid') {
+        newContent = Element.sortList(state.content, action.parameters);
+      } else {
+        newContent = state.content;
+      }
+      newOrder = {
+        ...state.order,
+        [action.parameters.layout]: action.parameters
+      };
+      return {
+        ...state,
+        order: newOrder,
+        content: newContent,
+        stream: new StreamGenerator(newContent, state.query, newOrder.stream),
+        grid: new ListGenerator(newContent, state.query),
+        autoComplete: Element.buildAutocomplete(newContent, newOrder.stream),
+        update: Math.random()
+      };
+    
+    /**
+     * The search query has been updated (check Header's Search component)
+     */
+    case search.update_query:
+      if (this.isAdding) {
+        return state;
+      }
+      return {
+        ...state,
+        query: action.query,
+        stream: new StreamGenerator(state.content, action.query, state.order.stream),
+        grid: new ListGenerator(state.content, action.query)
+      };
+    
+    /**
+     * The layout in which we want to see the elements has been updated
+     */
+    case layout.update:
+      setLayoutParameters(scene, action.layout);
+      return {
+        ...state,
+        query: '',
+        layout: action.layout
+      };
+    
+    default:
+      return state;
+  }
+
   
 };
 

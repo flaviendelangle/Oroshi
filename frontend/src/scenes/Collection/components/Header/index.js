@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import DocumentTitle from 'react-document-title';
 
@@ -9,6 +8,7 @@ import muiThemeable from 'material-ui/styles/muiThemeable';
 import Search from './components/Search/index';
 import OrderMenu from './components/OrderMenu/index';
 import HeaderOriginal from 'components/generics/Header/index';
+import { connect } from 'services/redux';
 
 
 class Header extends Component {
@@ -76,7 +76,7 @@ class Header extends Component {
             />
           </div>
           <div className="actions">
-            <OrderMenu scene={scene}/>
+            <OrderMenu scene={scene} collection={collection} />
           </div>
         </HeaderOriginal>
       </div>
@@ -85,35 +85,26 @@ class Header extends Component {
   
 }
 
-const mapStateToProps = (state, ownProps) => {
-  const contentRoot = state.collections.content[ownProps.scene];
-  const headerRoot = state.collections.header[ownProps.scene];
-  const root = state.collections.main[ownProps.scene];
-  
-  if (!headerRoot) {
-    return {
-      loaded: false
-    };
-  }
-  const layout = contentRoot.layout;
+const mapStateToProps = ({ main, content, header }) => {
+  const layout = content.layout;
   let count;
   if (layout === 'stream') {
-    count = contentRoot.stream.getElementCount();
+    count = content.stream.getElementCount();
   } else {
-    count = contentRoot.grid.getElementCount();
+    count = content.grid.getElementCount();
   }
 
   return {
-    isAdding: root.isAdding,
+    isAdding: main.isAdding,
     
-    loaded: contentRoot.loaded,
-    found: contentRoot.found,
-    layout: contentRoot.layout,
-    collection: contentRoot.collection,
-    autoComplete: contentRoot.autoComplete,
+    loaded: content.loaded,
+    found: content.found,
+    layout: content.layout,
+    collection: content.collection,
+    autoComplete: content.autoComplete,
     
-    title: headerRoot.title,
-    query: headerRoot.query,
+    title: header.title,
+    query: header.query,
     
     count
   }
