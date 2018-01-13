@@ -37,7 +37,7 @@ class Stream extends Component {
     return sections.map(section => {
       return (
         <Section
-          key={section.key.pk}
+          key={`${section.type}_${section.key.pk}`}
           data={section}
           collection={collection}
           field={data.key}

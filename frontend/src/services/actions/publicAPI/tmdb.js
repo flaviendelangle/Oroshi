@@ -7,6 +7,7 @@ export const search = (scene, collection, query, page) => {
   const searchKey = getSearchKey(scene);
   return searchAPI[searchKey](query, { page })
     .then(elements => {
+      console.log(elements);
       return prepareSearchResults(scene, collection, elements, query)
     })
     .catch(error => {
@@ -32,9 +33,10 @@ export const getRecommendations = (scene, collection) => {
     });
 };
 
-export const getSuggestions = (scene, collection, tmdbId) => {
+export const getSuggestions = (scene, collection, element, promises=[]) => {
   const results = Promise.all([
-    _getElementRecommendations(scene, collection, tmdbId)
+    _getElementRecommendations(scene, collection, element),
+    ...promises,
   ]);
   return results.then(results => ({ results }));
 };
@@ -48,7 +50,7 @@ export const getTopRated = (scene, collection, page) => {
 };
 
 export const checkExistence = (scene, collection, elements, fromLocalAPI=false) => {
-
+  
   if (fromLocalAPI) {
     elements.results = elements.results.map(el => {
       return {
@@ -166,10 +168,10 @@ const getMissingData = (scene, tmdbId, collection, details) => {
   return promise.then(_ => details);
 };
 
-const _getElementRecommendations = (scene, collection, tmdbId) => {
+const _getElementRecommendations = (scene, collection, element) => {
   const publicAPI = getPublicAPI(scene);
   let elements;
-  return publicAPI.recommendations(tmdbId).then(response => {
+  return publicAPI.recommendations(element.getPublicId()).then(response => {
     elements = {
       key: { name: 'Recommendations', pk: 1 },
       type: 'recommendations',
@@ -210,7 +212,7 @@ const _getTopRated = (scene, collection, page=1) => {
     });
 };
 
-const prepareStreamResults = (scene, collection, elements, nextAction) => {
+export const prepareStreamResults = (scene, collection, elements, nextAction) => {
   
   return checkExistence(scene, collection, elements.content).then(response => {
     const Element = getActions(scene).elementClass;
@@ -226,7 +228,7 @@ const prepareStreamResults = (scene, collection, elements, nextAction) => {
   });
 };
 
-const prepareSearchResults = (scene, collection, { content, ...elements }, query) => {
+export const prepareSearchResults = (scene, collection, { content, ...elements }, query) => {
   
   return checkExistence(scene, collection, { content, ...elements}).then(response => {
     const Element = getActions(scene).elementClass;

@@ -1,4 +1,4 @@
-import { getCollectionAPI, getElementAPI, getPublicActions } from 'services/content/collectionTypes';
+import { getCollectionAPI, getElementAPI, getActions, getPublicActions } from 'services/content/collectionTypes';
 import { getDetails, cleanDetails, getTitle, getPoster } from 'services/actions/publicAPI';
 import { getMissingLanguages } from 'services/languages';
 
@@ -87,7 +87,15 @@ const createMissingData = (scene, { collection, local }) => {
 };
 
 export const getSuggestions = (scene, collection, tmdbId) => {
-  return getPublicActions(scene).getSuggestions(scene, collection, tmdbId);
+  return getPublicActions(scene).getDetails(scene, collection, tmdbId).then(response => {
+    const Element =  getActions(scene).elementClass;
+    const data = {
+      distant: response,
+      local: getPublicActions(scene).cleanDetails(scene, response),
+    };
+    const element = Element.fromDistant(data , collection);
+    return getPublicActions(scene).getSuggestions(scene, collection, element);
+  });
 };
 
 

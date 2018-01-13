@@ -76,6 +76,13 @@ class Movie extends Element {
   getReleaseYear() {
     return date.getYear(this.getReleaseDate());
   };
+  
+  getDirectors = _ => {
+    if(this.hasLocal()) {
+      return this.getLocal().directors
+    }
+    return [];
+  };
 
   hasBeenSeen = _ => {
     if (

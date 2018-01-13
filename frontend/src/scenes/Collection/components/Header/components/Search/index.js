@@ -41,7 +41,7 @@ class Search extends Component {
     const style = { color: palette.alternateTextColor };
     return (
       <div className="element-count" style={style}>
-        {`${count} element' + ${(count > 1 ? 's' : '')}`}
+        {`${count} element${(count > 1 ? 's' : '')}`}
         </div>
     );
   };
