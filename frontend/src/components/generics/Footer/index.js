@@ -9,11 +9,12 @@ import * as _style from './style';
 class Footer extends Component {
   
   render() {
-    if (!this.props.loaded || !this.props.found) {
+    const { loaded, found, muiTheme: { palette }} = this.props;
+    if (!loaded || !found) {
       return null;
     }
     return (
-      <div style={_style.container(this.props.muiTheme.palette)}>
+      <div style={_style.container(palette)}>
         Build with the TMDb API
       </div>
     )

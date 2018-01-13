@@ -17,28 +17,39 @@ class CollectionContent extends Component {
   };
   
   renderContent = _ => {
-    if (this.props.layout === 'grid') {
+    const {
+      layout,
+      grid,
+      stream,
+      collection,
+      order,
+      scene,
+      elementComponent,
+      lineDimensions,
+      isPublic
+    } = this.props;
+    if (layout === 'grid') {
       return (
         <Grid
-          data={this.props.grid}
-          collection={this.props.collection}
-          order={this.props.order.default}
-          scene={this.props.scene}
-          elementComponent={this.props.elementComponent}
-          lineDimensions={this.props.lineDimensions}
-          isPublic={this.props.isPublic}
+          data={grid}
+          collection={collection}
+          order={order.default}
+          scene={scene}
+          elementComponent={elementComponent}
+          lineDimensions={lineDimensions}
+          isPublic={isPublic}
         />
       )
     }
-    else if (this.props.layout === 'stream') {
+    else if (layout === 'stream') {
       return (
         <Stream
-          data={this.props.stream}
-          collection={this.props.collection}
-          scene={this.props.scene}
-          elementComponent={this.props.elementComponent}
-          lineDimensions={this.props.lineDimensions}
-          isPublic={this.props.isPublic}
+          data={stream}
+          collection={collection}
+          scene={scene}
+          elementComponent={elementComponent}
+          lineDimensions={lineDimensions}
+          isPublic={isPublic}
         />
       )
     }

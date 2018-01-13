@@ -18,7 +18,8 @@ class ParametersSection extends Component {
   }
   
   get content() {
-    let lines = this.props.children.filter(el => {
+    const { children } = this.props;
+    let lines = children.filter(el => {
       return el.props.className === 'content';
     })[0].props.children;
     if (lines === undefined) {
@@ -38,11 +39,12 @@ class ParametersSection extends Component {
   }
   
   get titleStyle() {
+    const { muiTheme: { baseTheme }} = this.props;
     return {
       fontSize: '1.5em',
       paddingLeft: 20,
       paddingBottom: 20,
-      color: this.props.muiTheme.baseTheme.palette.titleColor
+      color: baseTheme.palette.titleColor
     };
   }
   

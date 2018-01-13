@@ -26,28 +26,36 @@ class Section extends Component {
   };
   
   get title() {
-    return this.props.data.key.title || this.props.data.key.name;
+    const { data: { key }} = this.props;
+    return key.title || key.name;
   }
   
   get amountToShow() {
-    const perLine = this.props.lineDimensions.elementsPerLine;
-    return CONFIG.pageLength * perLine * this.state.pages;
+    const { lineDimensions } = this.props;
+    const { pages } = this.state;
+    return CONFIG.pageLength * lineDimensions.elementsPerLine * pages;
   };
   
   get elements() {
-    let elements = this.props.data.content;
-    if (!this.state.full && elements.length > this.props.lineDimensions.elementsPerLine) {
-      elements = elements.slice(0,this.props.lineDimensions.elementsPerLine);
+    const { data: { content }, lineDimensions } = this.props;
+    const { full } = this.state;
+    let elements = content;
+    if (
+      !full &&
+      elements.length > lineDimensions.elementsPerLine
+    ) {
+      elements = elements.slice(0,lineDimensions.elementsPerLine);
     }
     else if (elements.length > this.amountToShow) {
       elements = elements.slice(0, this.amountToShow);
     }
-    return groupByLine(elements, this.props.lineDimensions);
+    return groupByLine(elements, lineDimensions);
   }
   
   get isAllShown() {
-    const local = this.props.data.content.length <= this.amountToShow;
-    return local && !this.props.data.next;
+    const { data: { content, next }} = this.props;
+    const local = content.length <= this.amountToShow;
+    return local && !next;
   }
   
   
@@ -56,24 +64,30 @@ class Section extends Component {
   };
   
   showMore = _ => {
-    if (this.props.data.next) {
-      this.props.loadMore(this.props.data.next);
+    const { data: { next }, loadMore } = this.props;
+    const { pages } = this.state;
+    if (next) {
+      loadMore(next);
     }
-    this.setState({pages: (++this.state.pages)});
+    this.setState({pages: pages+1});
   };
   
   renderLink = _ => {
-    if (this.props.data.hasOwnProperty('link') && !this.props.data.link) {
+    const { data, field, muiTheme: { palette }} = this.props;
+    if (
+      data.hasOwnProperty('link') &&
+      !data.link
+    ) {
       return (
-        <span style={{color: this.props.muiTheme.palette.titleColor}}>
+        <span style={{color: palette.titleColor}}>
           {this.title}
         </span>
       );
     }
     return (
       <Link
-        to={'/' + this.props.field.field + '/' + this.props.data.key.pk}
-        style={{color: this.props.muiTheme.palette.titleColor}}
+        to={'/' + field.field + '/' + data.key.pk}
+        style={{color: palette.titleColor}}
       >
         {this.title}
       </Link>
@@ -81,17 +95,18 @@ class Section extends Component {
   };
   
   renderContent = _ => {
-    const Element = this.props.elementComponent;
+    const { elementComponent, collection, creationMode, isPublic } = this.props;
+    const Element = elementComponent;
     return this.elements.map((line, index) => {
       const elements = line.map(el => {
         return (
           <Element
             update={Math.random()}
             data={el}
-            collection={this.props.collection}
+            collection={collection}
             key={el.getPublicId()}
-            creationMode={this.props.creationMode}
-            isPublic={this.props.isPublic}
+            creationMode={creationMode}
+            isPublic={isPublic}
           />
         );
       });
@@ -120,15 +135,17 @@ class Section extends Component {
   };
   
   render() {
+    const { data } = this.props;
+    const { full } = this.state;
     return (
       <div
-        className={'stream-section ' + (this.state.full ? 'full': '')}
-        data-amount={this.props.data.content.length}
+        className={'stream-section ' + (full ? 'full': '')}
+        data-amount={data.content.length}
       >
         <div className="title">
           {this.renderLink()}
           <IconButton onClick={this.showFullVersion}>
-            {this.state.full ? <NavigationLess/> : <NavigationMore/>}
+            {full ? <NavigationLess/> : <NavigationMore/>}
           </IconButton>
         </div>
         <div className="content">

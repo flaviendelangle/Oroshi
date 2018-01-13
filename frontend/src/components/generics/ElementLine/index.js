@@ -1,19 +1,13 @@
-import React, { Component } from 'react';
+import React  from 'react';
 
 import './style.css'
 
 
-class ElementLine extends Component {
-  
-  render() {
-    return (
-      <div className="element-line">
-        {this.props.children}
-      </div>
-    );
-  }
-  
-}
+const ElementLine = ({ children }) => (
+  <div className="element-line">
+    {children}
+  </div>
+);
 
 export const groupByLine = (elements, lineDimensions) => {
   if (elements.length === 0) {

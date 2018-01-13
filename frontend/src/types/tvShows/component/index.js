@@ -21,26 +21,16 @@ class TVShow extends Component {
     isReady: false
   };
   
-  get title() {
-    return this.props.data.getTitle();
-  }
-  
-  get posterPath() {
-    return this.props.data.getPosterPath();
-  }
-  
-  get note() {
-    return this.props.data.getNote();
-  }
-  
   get parentClassName() {
+    const { data, creationMode } = this.props;
+    const { isReady } = this.props;
     let className = '';
-    if (this.props.data.isInCollection()) {
+    if (data.isInCollection()) {
       className = ' already-in-collection';
-    } else if (this.props.creationMode) {
+    } else if (creationMode) {
       className = ' not-in-collection';
     }
-    if (this.state.isReady) {
+    if (isReady) {
       className += ' ready';
     }
     return className
@@ -62,8 +52,10 @@ class TVShow extends Component {
    * Add the movie to the collection
    */
   save = _ => {
-    if (!this.state.isAdding) {
-      this.props.create(this.props.collection, this.props.data);
+    const { collection, data, create } = this.props;
+    const { isAdding } = this.state;
+    if (!isAdding) {
+      create(collection, data);
       this.setState({ isAdding: true });
     }
   };
@@ -72,7 +64,8 @@ class TVShow extends Component {
    * Remove the movie from the collection
    */
   destroy = _ => {
-    this.props.destroy(this.props.collection, this.props.data);
+    const { destroy, collection, data } = this.props;
+    destroy(collection, data);
   };
   
   /**
@@ -90,6 +83,8 @@ class TVShow extends Component {
   };
   
   render() {
+    const { creationMode, collection, data, muiTheme: { palette }} = this.props;
+    const { isMouseOver, isExtended } = this.state;
     return (
       <div className={'tv-show-parent' + this.parentClassName}>
         <div className={'tv-show-container '}>
@@ -101,34 +96,34 @@ class TVShow extends Component {
               onMouseLeave={_ => setTimeout(_ => this.handleMouseHover(false), 300)}
             >
               <Poster
-                path={this.posterPath}
-                title={this.title}
+                path={data.getPosterPath()}
+                title={data.getTitle()}
                 onLoad={this.handlePosterLoad}
               />
               <ElementOverlay
                 note={this.note}
-                mouseOver={this.state.isMouseOver}
-                creation_mode={this.props.creationMode}
-                already_in_collection={this.props.data.isInCollection()}
+                mouseOver={isMouseOver}
+                creation_mode={creationMode}
+                already_in_collection={data.isInCollection()}
                 handleSave={this.save}
                 handleDestroy={this.destroy}
                 topRightAction={
                   <DetailsIcon
-                    creationMode={this.props.creationMode}
+                    creationMode={creationMode}
                     handleClick={this.showMore}
                   />
                 }
               />
             </Paper>
           </div>
-          <Footer muiTheme={this.props.muiTheme} title={this.title} />
+          <Footer palette={palette} title={data.getTitle()} />
         </div>
         <DetailsFrame
-          show={this.state.isExtended}
-          title={this.title}
-          data={this.props.data}
+          show={isExtended}
+          title={data.getTitle()}
+          data={data}
           onCollapse={this.showLess}
-          collection={this.props.collection}
+          collection={collection}
         />
       </div>
     );
@@ -152,10 +147,10 @@ const DetailsFrame = ({ creationMode, ...props }) => {
   return null;
 };
 
-const Footer = ({ muiTheme, title }) => (
+const Footer = ({ palette, title }) => (
   <div
     className="title"
-    style={{color: muiTheme.palette.textColor}}
+    style={{color: palette.textColor}}
   >
     <div>{title}</div>
   </div>

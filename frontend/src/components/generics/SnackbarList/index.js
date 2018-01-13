@@ -11,10 +11,11 @@ const DURATION = 2000;
 class SnackbarList extends Component {
   
   get oldestMessage() {
-    if(this.props.messages && this.props.messages.length > 0) {
+    const { messages } = this.props;
+    if(messages && messages.length > 0) {
       return {
         show: true,
-        ...this.props.messages[0]
+        ...messages[0]
       }
     }
     return {

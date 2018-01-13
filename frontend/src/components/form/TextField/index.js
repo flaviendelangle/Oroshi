@@ -13,26 +13,29 @@ class TextField extends Component {
   };
   
   switchMode = _ => {
-    const editing = !this.state.editing;
-    this.setState({ editing });
-    if (!editing) {
-      this.props.onSave();
+    const { onSave } = this.props;
+    const { editing } = this.state;
+    this.setState({ editing: !editing });
+    if (editing) {
+      onSave();
     }
   };
   
   render() {
+    const { id, value, onChange } = this.props;
+    const { editing } = this.state;
     return (
       <div>
         <TextFieldOriginal
-          id={this.props.id}
-          value={this.props.value}
+          id={id}
+          value={value}
           style={_style.textField}
           inputStyle={_style.input}
-          disabled={!this.state.editing}
-          onChange={this.props.onChange}
+          disabled={!editing}
+          onChange={onChange}
         />
         <IconButton style={_style.icon}>
-          <Icon editing={this.state.editing} handleClick={this.switchMode} />
+          <Icon editing={editing} handleClick={this.switchMode} />
         </IconButton>
       </div>
     );

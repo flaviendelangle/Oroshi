@@ -13,42 +13,42 @@ import './style.css';
 
 class CollectionBox extends Component {
   
-  url = _ => {
+  get url() {
+    const { data, editing } = this.props;
     let baseURL = '/collections/';
-    if (this.props.data.type === 'movies') {
+    if (data.type === 'movies') {
       baseURL += 'movies/';
     }
-    else if (this.props.data.type === 'tv_shows') {
+    else if (data.type === 'tv_shows') {
       baseURL += 'tv_shows/';
     }
-    baseURL += this.props.data.pk + '/';
-    if (this.props.editing) {
+    baseURL += data.pk + '/';
+    if (editing) {
       baseURL += 'settings/';
     }
     return baseURL;
-  };
+  }
   
   render() {
-    const Icon = this.props.data.type === 'movies' ? AVMovie : HardwareTV;
-    const color = this.props.muiTheme.palette.primary2Color;
-    const color2 = this.props.muiTheme.palette.primary1Color;
+    const { data, editing, muiTheme: { palette }} = this.props;
+    const Icon = data.type === 'movies' ? AVMovie : HardwareTV;
     return (
-      <Link to={this.url()}>
+      <Link to={this.url}>
         <div className="collection-box">
-          <div className="collection-icon" style={{background: color}}>
-            <div className={ 'collection-editing-mask ' + (this.props.editing ? '' : 'invisible') } >
-              <ContentCreate color={color2} className="editing-icon" />
+          <div className="collection-icon" style={{background: palette.primary2Color}}>
+            <div className={ 'collection-editing-mask ' + (editing ? '' : 'invisible') } >
+              <ContentCreate color={palette.primary1Color} className="editing-icon" />
             </div>
-            <Identicon size="190" string={this.props.data.title}/>
+            <Identicon size="190" string={data.title}/>
             <div className="collection-type">
               <Icon/>
             </div>
           </div>
           <div
             className="collection-title"
-            style={{color: this.props.muiTheme.palette.titleColor}}
+            style={{color: palette.titleColor}}
           >
-            {this.props.data.title}
+            {data.title}
           </div>
         </div>
       </Link>

@@ -48,26 +48,16 @@ class Movie extends Component {
     return date(this.props.data.getReleaseDate(), date.TMDB_FORMAT, date.YEAR_FORMAT);
   }
   
-  get title() {
-    return this.props.data.getTitle();
-  }
-  
-  get posterPath() {
-    return this.props.data.getPosterPath();
-  }
-  
-  get note() {
-    return this.props.data.getNote();
-  }
-  
   get parentClassName() {
+    const { data, creationMode } = this.props;
+    const { isReady } = this.state;
     let className = '';
-    if (this.props.data.isInCollection()) {
+    if (data.isInCollection()) {
       className = ' already-in-collection';
-    } else if (this.props.creationMode) {
+    } else if (creationMode) {
       className = ' not-in-collection';
     }
-    if (this.state.isReady) {
+    if (isReady) {
       className += ' ready';
     }
     return className
@@ -124,21 +114,24 @@ class Movie extends Component {
   };
   
   componentWillReceiveProps(newProps) {
-    if (this.props.data.isInCollection() !== newProps.data.isInCollection()) {
+    const { data } = this.props;
+    if (data.isInCollection() !== newProps.data.isInCollection()) {
       this.setState({ isAdding: false });
     }
   }
   
   componentDidUpdate() {
-    if(this.props.onRender) {
-      this.props.onRender({
+    const { onRender } = this.props;
+    if(onRender) {
+      onRender({
         layout: this.layout
       });
     }
   }
 
   render() {
-    const { style, creationMode, isPublic, mode, collection, data } = this.props;
+    const { style, creationMode, isPublic, mode, collection, data, muiTheme } = this.props;
+    const { isMouseOver } = this.state;
     return (
       <div className={'movie-parent ' + this.parentClassName} style={style}>
         <div className="movie-container">
@@ -149,17 +142,17 @@ class Movie extends Component {
             onMouseLeave={_ => this.handleMouseHover(false)}
           >
             <Poster
-              path={this.posterPath}
-              title={this.title}
+              path={data.getPosterPath()}
+              title={data.getTitle()}
               onLoad={this.handlePosterLoad}
             />
             <ElementOverlay
               mode={mode}
               addToLayout={this.addToLayout}
-              note={this.note}
-              mouseOver={this.state.isMouseOver}
+              note={data.getNote()}
+              mouseOver={isMouseOver}
               creation_mode={creationMode}
-              already_in_collection={this.props.data.isInCollection()}
+              already_in_collection={data.isInCollection()}
               handleSave={this.save}
               handleDestroy={this.destroy}
               isPublic={isPublic}
@@ -184,9 +177,9 @@ class Movie extends Component {
           </Paper>
         </div>
         <Footer
-          title={this.title}
-          tmdbId={this.props.data.getPublicId()}
-          muiTheme={this.props.muiTheme}
+          title={data.getTitle()}
+          tmdbId={data.getPublicId()}
+          muiTheme={muiTheme}
           release_date={this.release_date}
           addToLayout={this.addToLayout}
         />
@@ -230,8 +223,7 @@ const Suggestions = ({ creation_mode, addToLayout, collection, data, isPublic })
   if (creation_mode || isPublic) {
     return null;
   }
-  const url = '/collections/movies/' + collection.pk +
-              '/suggestions/' + data.getPublicId() + '/';
+  const url = `/collections/movies/${collection.pk}/suggestions/${data.getPublicId()}/`;
   return (
     <Link to={url}>
       <ContentAdd

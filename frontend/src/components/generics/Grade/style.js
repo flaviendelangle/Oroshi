@@ -26,7 +26,7 @@ export const innerCircle = {
   color: 'black',
   fontSize: CONFIG.lineHeight,
   fontWeight: 'bold',
-  padding: String(CONFIG.diameter/2 - CONFIG.thickness - CONFIG.lineHeight/2) + 'px 0',
+  padding: `${String(CONFIG.diameter/2 - CONFIG.thickness - CONFIG.lineHeight/2)}px 0`,
   textAlign: 'center',
 };
 
@@ -42,9 +42,9 @@ export const arc = ({ quarter, degree, value }) => {
     width: (CONFIG.diameter - 2*CONFIG.thickness),
     height: (CONFIG.diameter - 2*CONFIG.thickness),
     borderRadius: '50%',
-    border: String(CONFIG.thickness) + 'px solid',
-    borderColor: 'transparent ' + gradeColor + ' transparent transparent',
-    transform: 'rotate(' + angle + 'deg)'
+    border: `${String(CONFIG.thickness)}px solid`,
+    borderColor: `transparent ${gradeColor} transparent transparent`,
+    transform: `rotate(${angle}deg)`
   };
 };
 

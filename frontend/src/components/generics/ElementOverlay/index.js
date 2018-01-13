@@ -44,30 +44,41 @@ class ElementOverlay extends Component {
   }
   
   render() {
-    if (!this.state.show && !this.isTesting()) {
+    const {
+      topLeftAction,
+      topRightAction,
+      isPublic,
+      note,
+      creation_mode,
+      handleSave,
+      handleDestroy,
+      already_in_collection,
+    } = this.props;
+    const { show } = this.state;
+    if (!show && !this.isTesting()) {
       return null;
     }
     return (
       <div className={'element-overlay ' + (this.isTesting() ? ' testing' : '')}>
         <Grade
           className="grade"
-          value={this.props.note}
-          mouseOver={this.state.show}
+          value={note}
+          mouseOver={show}
           ref={el => this.addToLayout('grade', el)}
         />
-        <TopLeftAction isPublic={this.props.isPublic}>
-          {this.props.topLeftAction}
+        <TopLeftAction isPublic={isPublic}>
+          {topLeftAction}
         </TopLeftAction>
-        <TopRightAction isPublic={this.props.isPublic}>
-          {this.props.topRightAction}
+        <TopRightAction isPublic={isPublic}>
+          {topRightAction}
         </TopRightAction>
         <Footer
-          creation_mode={this.props.creation_mode}
-          already_in_collection={this.props.already_in_collection}
-          handleSave={this.props.handleSave}
-          handleDestroy={this.props.handleDestroy}
+          creation_mode={creation_mode}
+          already_in_collection={already_in_collection}
+          handleSave={handleSave}
+          handleDestroy={handleDestroy}
           addToLayout={this.addToLayout}
-          isPublic={this.props.isPublic}
+          isPublic={isPublic}
         />
       </div>
     );
@@ -80,7 +91,10 @@ const Footer = ({ creation_mode, already_in_collection, handleSave, handleDestro
     return null;
   }
   let Content;
-  if (creation_mode && !already_in_collection) {
+  if (
+    creation_mode &&
+    !already_in_collection
+  ) {
     Content = (
       <div
         className="footer-content"

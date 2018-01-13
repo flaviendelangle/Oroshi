@@ -153,12 +153,12 @@ export default class BaseAPI {
    */
   
   serialize(data, route_name) {
-    const url = this.url() + 'serialize/' + route_name + '/' + data + '/';
+    const url = `${this.url()}serialize/${route_name}/${data}/`;
     return this.GET(url);
   }
   
   exist(data, route_name) {
-    const url = this.url() + 'exist/' + route_name + '/' + data + '/';
+    const url = `${this.url()}exist/${route_name}/${data}/`;
     return this.GET(url);
   }
   

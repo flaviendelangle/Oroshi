@@ -16,16 +16,24 @@ class ElementSuggestions extends Component {
   }
   
   render() {
-    if(!this.props.loaded) {
+    const {
+      loaded,
+      suggestions,
+      collection,
+      scene,
+      config,
+      lineDimensions
+    } = this.props;
+    if(!loaded) {
       return null;
     }
     return (
       <Stream
-        data={this.props.suggestions}
-        collection={this.props.collection}
-        scene={this.props.scene}
-        elementComponent={this.props.config.elementComponent}
-        lineDimensions={this.props.lineDimensions}
+        data={suggestions}
+        collection={collection}
+        scene={scene}
+        elementComponent={config.elementComponent}
+        lineDimensions={lineDimensions}
         creationMode={true}
       />
     );

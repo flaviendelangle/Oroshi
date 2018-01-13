@@ -24,10 +24,14 @@ class Stream extends Component {
   };
   
   renderSections = _ => {
-    let { data, collection, elementComponent, lineDimensions, creationMode } = this.props;
+    const { data, collection, elementComponent, lineDimensions, creationMode } = this.props;
+    const { full } = this.state;
     let sections = data.results;
     
-    if (!this.state.full && sections.length > CONFIG.pageLength * this.state.pages) {
+    if (
+      !full &&
+      sections.length > CONFIG.pageLength * this.state.pages
+    ) {
       sections = sections.slice(0,CONFIG.pageLength * this.state.pages);
     }
     return sections.map(section => {
@@ -46,7 +50,9 @@ class Stream extends Component {
   };
   
   renderShowMore = _ => {
-    if (this.props.data.results.length <= CONFIG.pageLength * this.state.pages) {
+    const { data } = this.props;
+    const { pages } = this.state;
+    if (data.results.length <= CONFIG.pageLength * pages) {
       return null;
     }
     return (

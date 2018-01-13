@@ -47,12 +47,6 @@ class MainDrawer extends Component {
     return [];
   }
   
-  constructor(props) {
-    super();
-    this.props = props;
-    this.open = props.open;
-  }
-  
   renderLines = _ => {
     const lines = [
       ...this.GENERIC_LINES_BEFORE,
@@ -73,18 +67,19 @@ class MainDrawer extends Component {
   };
   
   render() {
-    if(this.props.isPublic) {
+    const { isPublic, isOpen, title, open } = this.props;
+    if(isPublic) {
       return null;
     }
     return (
         <Drawer
-          open={this.props.isOpen}
+          open={isOpen}
           docked={false}
-          onRequestChange={open => this.open(open) }
+          onRequestChange={open => open(open) }
         >
           <AppBar
-            title={this.props.title}
-            onLeftIconButtonTouchTap={_ => this.props.open(false)}
+            title={title}
+            onLeftIconButtonTouchTap={_ => open(false)}
           >
             {this.searchBar}
             {this.actionsButton}

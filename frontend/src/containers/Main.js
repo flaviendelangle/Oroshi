@@ -25,8 +25,14 @@ class Main extends Component {
   }
   
   getProfile = _ => {
-    if (this.props.location.pathname !== '/logout/' && !this.props.profile && this.props.oauth && this.props.username) {
-      this.props.getProfile(this.props.username);
+    const { location, profile, oauth, username, getProfile } = this.props;
+    if (
+      location.pathname !== '/logout/' &&
+      !profile &&
+      oauth &&
+      username
+    ) {
+      getProfile(username);
     }
   };
   
@@ -35,7 +41,8 @@ class Main extends Component {
   }
   
   componentWillReceiveProps(newProps) {
-    if (this.props.location.pathname !== newProps.location.pathname) {
+    const { location } = this.props;
+    if (location.pathname !== newProps.location.pathname) {
       this.props.notifyRouteChange(newProps.location);
       this.getProfile();
     }
@@ -51,19 +58,19 @@ class Main extends Component {
           
           {collectionTypes.map(el => [
             <Route
-              path={'/collections/' + el.name + '/:collection_id/suggestions/:element_id/'}
+              path={`/collections/${el.name}/:collection_id/suggestions/:element_id/`}
               render={props => <ElementSuggestions config={el} scene={el.name} {...props} />}
             />,
             <Route
-              path={'/collections/' + el.name + '/:collection_id/settings/'}
+              path={`/collections/${el.name}/:collection_id/settings/`}
               render={props => <CollectionSettings config={el} scene={el.name} {...props} />}
             />,
             <Route
-              path={'/collections/' + el.name + '/:collection_id/public/'}
+              path={`/collections/${el.name}/:collection_id/public/`}
               render={props => <Collection config={el} scene={el.name} isPublic={true} {...props} />}
             />,
             <Route
-              path={'/collections/' + el.name + '/:collection_id/'}
+              path={`/collections/${el.name}/:collection_id/`}
               render={props => <Collection config={el} scene={el.name} isPublic={false} {...props} />}
             />
           ])}

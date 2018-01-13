@@ -12,21 +12,22 @@ import '../CollectionBox/style.css';
 class NewCollectionButton extends Component {
   
   handleClick = _ => {
-    if (this.props.editing)
-      this.props.newCollection();
+    const { editing, newCollection } = this.props;
+    if (editing)
+      newCollection();
   };
   
   render(forced=false) {
     if (!forced) {
       window.setTimeout(_ => this.render(true), 300);
     }
-    const color = this.props.muiTheme.palette.primary1Color;
+    const { editing, muiTheme: { palette }} = this.props;
     return (
       <Link to='/'>
-        <div className={'collection-box ' + (this.props.editing ? '' : 'invisible')} onClick={this.handleClick}>
+        <div className={'collection-box ' + (editing ? '' : 'invisible')} onClick={this.handleClick}>
           <div className="collection-icon">
             <div className="collection-editing-mask" >
-              <ContentAdd color={color} className="editing-icon big" />
+              <ContentAdd color={palette.primary1Color} className="editing-icon big" />
             </div>
             <div className="fake-img-new-collection">
             </div>

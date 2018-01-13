@@ -9,29 +9,28 @@ import './style.css';
 
 class Line extends Component {
   
-  get palette() {
-    return this.props.muiTheme.baseTheme.palette;
-  }
-  
   get active() {
-    return this.props.active ? 1 : 0;
+    const { active } = this.props;
+    return active ? 1 : 0;
   }
   
   get contentStyle() {
+    const { muiTheme: { baseTheme } } = this.props;
    return {
-     color: this.palette.textColor
+     color: baseTheme.palette.textColor
    };
   }
   
   render() {
+    const { goTo, value, children } = this.props;
     return (
       <div className="line" data-active={this.active}>
         <div
           style={this.contentStyle}
           className="line-content"
-          onClick={_ => this.props.goTo(this.props.value)}
+          onClick={_ => goTo(value)}
         >
-          {this.props.children}
+          {children}
         </div>
       </div>
     );

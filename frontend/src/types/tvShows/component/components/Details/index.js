@@ -46,17 +46,20 @@ class Details extends Component {
   };
   
   componentWillReceiveProps(newProps) {
-    if (!this.props.loaded && !this.props.show && newProps.show) {
-      this.props.load(this.props.collection, this.props.data.getPublicId());
+    const { loaded, show, load, collection, data } = this.props;
+    if (!loaded && !show && newProps.show) {
+      load(collection, data.getPublicId());
     }
   }
   
   render() {
+    const { show, details, muiTheme } = this.props;
+    const { season } = this.state;
     return (
       <Dialog
         title={this.title}
         modal={false}
-        open={this.props.show}
+        open={show}
         onRequestClose={this.handleShowLess}
         autoScrollBodyContent={true}
         className="tv-show-details"
@@ -64,15 +67,15 @@ class Details extends Component {
         actionsContainerStyle={this.style}
         actions={
           <Footer
-            details={this.props.details}
-            muiTheme={this.props.muiTheme}
+            details={details}
+            muiTheme={muiTheme}
             switchSeason={this.switchSeason}
           />
         }
       >
         <Content
           {...this.props}
-          season={this.state.season}
+          season={season}
         />
         <div className="expand" onClick={this.handleShowLess}>
           <NavigationExpandLess/>
@@ -83,7 +86,16 @@ class Details extends Component {
   
 }
 
-const Content = ({ loaded, details, ...props }) => {
+const Content = ({
+  loaded,
+  details,
+  title,
+  season,
+  seasons,
+  muiTheme,
+  loadSeason,
+  data
+}) => {
   if (!loaded || !details) {
     return (
       <div className="progress">
@@ -94,16 +106,16 @@ const Content = ({ loaded, details, ...props }) => {
   return (
     <div className="content">
       <Title
-        title={props.title}
-        season={props.season}
-        seasons={props.seasons}
+        title={title}
+        season={season}
+        seasons={seasons}
       />
       <Season
-        muiTheme={props.muiTheme}
-        season={props.season}
-        seasons={props.seasons}
-        loadSeason={props.loadSeason}
-        tmdbId={props.data.getPublicId()}
+        muiTheme={muiTheme}
+        season={season}
+        seasons={seasons}
+        loadSeason={loadSeason}
+        tmdbId={data.getPublicId()}
       />
     </div>
   );

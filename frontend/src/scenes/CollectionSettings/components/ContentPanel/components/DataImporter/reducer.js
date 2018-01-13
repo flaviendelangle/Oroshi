@@ -11,7 +11,11 @@ const defaultState = {
 
 const reducer = (scene, state = defaultState, action) => {
   
-  if (action.meta && action.meta.scene && action.meta.scene !== scene) {
+  if (
+    action.meta &&
+    action.meta.scene &&
+    action.meta.scene !== scene
+  ) {
     return state;
   }
   

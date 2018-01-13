@@ -15,7 +15,7 @@ class TVSeasons extends API {
   };
   
   getRoot = (season, key) => {
-    let root = 'season/' + season;
+    let root = `season/${season}`;
     if (key) {
       root += '/' + this.CONFIG.routes[key];
     }

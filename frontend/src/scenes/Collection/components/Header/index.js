@@ -14,33 +14,48 @@ import HeaderOriginal from 'components/generics/Header/index';
 class Header extends Component {
 
   get link() {
-    return '/collections/' + this.props.scene +
-           '/' + this.props.collection.pk + '/settings/';
+    const { scene, collection } = this.props;
+    return `/collections/${scene}/${collection.pk}/settings/`;
   }
   
   get autoComplete() {
-    if (this.props.isAdding) {
+    const { isAdding, layout, autoComplete } = this.props;
+    if (isAdding) {
       return [];
     }
-    if (this.props.layout === 'stream') {
-      return this.props.autoComplete.stream;
+    if (layout === 'stream') {
+      return autoComplete.stream;
     }
-    return this.props.autoComplete.grid;
+    return autoComplete.grid;
   }
   
   render() {
-    if (!this.props.loaded || !this.props.found) {
+    const {
+      loaded,
+      found,
+      title,
+      scene,
+      query,
+      count,
+      isAdding,
+      collection,
+      muiTheme,
+      isPublic,
+    } = this.props;
+    if (!loaded || !found) {
       return (
         <DocumentTitle title='Loading...' />
       );
     }
-    const style = { color: this.props.muiTheme.palette.alternateTextColor };
+    const style = {
+      color: muiTheme.palette.alternateTextColor
+    };
     return (
       <div>
-        <DocumentTitle title={this.props.title}/>
+        <DocumentTitle title={title}/>
         <HeaderOriginal
-          title={this.props.title}
-          isPublic={this.props.isPublic}
+          title={title}
+          isPublic={isPublic}
           showTitle={false}
         >
           <div className="menu">
@@ -51,17 +66,17 @@ class Header extends Component {
           </div>
           <div className="search">
             <Search
-              title={this.props.title}
-              scene={this.props.scene}
-              query={this.props.query}
-              count={this.props.count}
-              isAdding={this.props.isAdding}
-              collection={this.props.collection}
+              title={title}
+              scene={scene}
+              query={query}
+              count={count}
+              isAdding={isAdding}
+              collection={collection}
               autoComplete={this.autoComplete}
             />
           </div>
           <div className="actions">
-            <OrderMenu scene={this.props.scene}/>
+            <OrderMenu scene={scene}/>
           </div>
         </HeaderOriginal>
       </div>

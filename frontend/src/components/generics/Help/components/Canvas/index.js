@@ -25,11 +25,12 @@ class Canvas extends Component {
   }
   
   get arrow_config() {
+    const { muiTheme: { palette }} = this.props;
     return {
       pointerWidth: 8,
       pointerLength: 8,
-      fill: this.props.muiTheme.palette.titleColor,
-      stroke: this.props.muiTheme.palette.titleColor,
+      fill: palette.titleColor,
+      stroke: palette.titleColor,
       strokeWidth: 2
     };
   }
@@ -47,6 +48,7 @@ class Canvas extends Component {
   };
   
   buildArrow = (canvasCoordinates, label) => {
+    const { muiTheme: { palette }} = this.props;
     const verticalMiddle = (canvasCoordinates.top + canvasCoordinates.bottom)/2;
     const arrow = {
       ...this.arrow_config,
@@ -62,7 +64,7 @@ class Canvas extends Component {
       x: 0,
       y: (verticalMiddle - 8),
       fontSize: 16,
-      fill: this.props.muiTheme.palette.titleColor
+      fill: palette.titleColor
     };
     
     return {
@@ -104,8 +106,8 @@ class Canvas extends Component {
   };
   
   render() {
-    const { element, collection } = this.props.elementProps;
-    const Element = this.props.component;
+    const { component, elementProps: { element, collection } } = this.props;
+    const Element = component;
     return (
       <div style={_style.container}>
         <Element

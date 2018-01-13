@@ -80,7 +80,7 @@ class DataImporter extends Component {
             if (this.state[format]) {
               return 'File dropped successfully';
             }
-            return 'Click to pick your ' + format.toUpperCase() + ' file';
+            return `Click to pick your ${format.toUpperCase()} file`;
           }}
         </Dropzone>
         {this.state[format] ? this.renderLaunchButton(format) : null}

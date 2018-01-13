@@ -10,7 +10,7 @@ const ShowPublicLinkAlert = ({ open, data, scene, onClose, onPublish }) => {
   let actions = null;
   
   if(data.public) {
-    const url = urls.frontend + 'collections/' + scene + '/' + data.pk + '/public/';
+    const url = `${urls.frontend}collections/${scene}/${data.pk}/public/`;
     content = (
       <div style={{userSelect: 'text'}}>
         {url}

@@ -13,13 +13,15 @@ import * as _style from './style';
 class Help extends Component {
   
   componentDidMount() {
-    this.props.getElement(this.props.scene, this.props.collection);
+    const { getElement, collection, scene } = this.props;
+    getElement(scene, collection);
   }
   
   render() {
-    if(this.props.isPublic) {
+    const { isPublic, muiTheme: { palette } } = this.props;
+    if(isPublic) {
       return (
-        <PublicHelp palette={this.props.muiTheme.palette} />
+        <PublicHelp palette={palette} />
       );
     }
     return (

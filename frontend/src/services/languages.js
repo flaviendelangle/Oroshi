@@ -65,14 +65,20 @@ export const getMissingLanguages = (collection, data) => {
   if (!hasLanguage(data.posters, DEFAULT_LANGUAGE)) {
     languages.poster.push(DEFAULT_LANGUAGE);
   }
-  if (tmdbLanguages.poster !== DEFAULT_LANGUAGE && !hasLanguage(data.posters, tmdbLanguages.poster)) {
+  if (
+    tmdbLanguages.poster !== DEFAULT_LANGUAGE &&
+    !hasLanguage(data.posters, tmdbLanguages.poster)
+  ) {
     languages.poster.push(tmdbLanguages.poster);
   }
   
   if (!hasLanguage(data.titles, DEFAULT_LANGUAGE)) {
     languages.title.push(DEFAULT_LANGUAGE);
   }
-  if (tmdbLanguages.title !== DEFAULT_LANGUAGE && !hasLanguage(data.titles, tmdbLanguages.title)) {
+  if (
+    tmdbLanguages.title !== DEFAULT_LANGUAGE &&
+    !hasLanguage(data.titles, tmdbLanguages.title)
+  ) {
     languages.title.push(tmdbLanguages.title);
   }
   return languages;

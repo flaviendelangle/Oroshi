@@ -12,11 +12,8 @@ import { getCollectionSettingsState } from 'containers/reducer'
 
 class MenuPanel extends Component {
   
-  get palette() {
-    return this.props.muiTheme.baseTheme.palette;
-  }
-  
   get panelStyle() {
+    const { muiTheme: { palette }} = this.props;
     return {
       position: 'absolute',
       top: 64,
@@ -24,14 +21,15 @@ class MenuPanel extends Component {
       right: 0,
       paddingTop: 50,
       width: '60%',
-      backgroundColor: this.palette.primary2Color
+      backgroundColor: palette.primary2Color
     };
   }
 
   render() {
+    const { active, scene } = this.props;
     return (
       <div style={this.panelStyle}>
-        <Panel active={this.props.active} scene={this.props.scene} />
+        <Panel active={active} scene={scene} />
       </div>
     );
     

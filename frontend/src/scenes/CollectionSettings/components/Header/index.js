@@ -12,15 +12,17 @@ import { getCollectionSettingsState } from 'containers/reducer';
 class Header extends Component {
   
   get link() {
-    return '/collections/' + this.props.scene + '/' + this.props.collection + '/';
+    const { scene, collection } = this.props;
+    return `/collections/${scene}/${collection}/`;
   }
   
   render() {
-    const style = { color: this.props.muiTheme.palette.alternateTextColor };
+    const { title, muiTheme: { palette } } = this.props;
+    const style = { color: palette.alternateTextColor };
     return (
       <div>
-        <DocumentTitle title={(this.props.title + '- Settings') || 'Loading...'}/>
-        <HeaderOriginal title={this.props.title} showTitle={true}>
+        <DocumentTitle title={(`${title}- Settings`) || 'Loading...'}/>
+        <HeaderOriginal title={title} showTitle={true}>
           <div className="menu">
             <Link to={this.link}>
               <AVMovie style={style}/>

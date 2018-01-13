@@ -32,7 +32,10 @@ class Home extends Component {
   }
   
   componentWillReceiveProps(newProps) {
-    if (newProps.profile && !this.props.profile) {
+    if (
+      newProps.profile &&
+      !this.props.profile
+    ) {
       this.loadCollections(newProps.profile);
     }
   }
@@ -42,13 +45,15 @@ class Home extends Component {
   };
   
   render() {
-    if (!this.props.loaded) {
+    const { loaded, collections } = this.props;
+    const { editing } = this.state;
+    if (!loaded) {
       return (
         <div style={_style.progress}>
           <CircularProgress />
         </div>
       );
-    } else if (this.props.collections.length === 0) {
+    } else if (collections.length === 0) {
       return (
         <div>
           <div style={_style.container}>
@@ -68,12 +73,12 @@ class Home extends Component {
         >
         <div style={_style.container}>
             <ManageButton
-              editing={this.state.editing}
-              onClick={_ => this.setState({editing: !this.state.editing}) }
+              editing={editing}
+              onClick={_ => this.setState({editing: !editing}) }
             />
             <CollectionList
-              editing={this.state.editing}
-              data={this.props.collections}
+              editing={editing}
+              data={collections}
             />
         </div>
         </ScrollArea>

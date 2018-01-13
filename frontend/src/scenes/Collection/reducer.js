@@ -6,8 +6,6 @@ import addingContent from './components/AddingContent/reducer';
 
 import { source, snacks } from 'services/titles/interface';
 import { collections } from "services/titles/api";
-import * as content_manager from "./components/CollectionContent/services/content_manager";
-import Element from "../../services/content/element";
 
 
 const defaultState = {};

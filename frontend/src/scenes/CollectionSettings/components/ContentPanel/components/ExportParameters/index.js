@@ -11,6 +11,7 @@ import { getCollectionSettingsState } from 'containers/reducer';
 class ExportParameters extends Component {
   
   render() {
+    const { exportCollection, data } = this.props;
     return (
       <ParametersSection>
         <div className="title">Export your data</div>
@@ -18,12 +19,12 @@ class ExportParameters extends Component {
           <Line
             rightIcon={<FileDownload />}
             primaryText="Export as CSV"
-            onClick={_ => this.props.exportCollection(this.props.data.pk, 'csv')}
+            onClick={_ => exportCollection(data.pk, 'csv')}
           />
           <Line
             rightIcon={<FileDownload />}
             primaryText="Export as JSON"
-            onClick={_ => this.props.exportCollection(this.props.data.pk, 'json')}
+            onClick={_ => exportCollection(data.pk, 'json')}
           />
         </div>
       </ParametersSection>

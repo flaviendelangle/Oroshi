@@ -11,21 +11,24 @@ import { getCollectionSettingsState } from 'containers/reducer';
 class CollectionSettings extends Component {
   
   componentDidMount() {
-    this.props.synchronize(this.props.match.params.collection_id);
+    const { synchronize, match: { params }} = this.props;
+    synchronize(params.collection_id);
   }
   
   componentWillReceiveProps(newProps) {
-    if (!this.props.redirect && newProps.redirect) {
-      this.props.history.push(newProps.redirect);
+    const { redirect, history } = this.props;
+    if (!redirect && newProps.redirect) {
+      history.push(newProps.redirect);
     }
   }
   
   render() {
+    const { scene } = this.props;
     return (
       <div className="collection-settings">
-        <Header scene={this.props.scene} />
-        <MenuPanel scene={this.props.scene} />
-        <ContentPanel scene={this.props.scene} />
+        <Header scene={scene} />
+        <MenuPanel scene={scene} />
+        <ContentPanel scene={scene} />
       </div>
     );
   }

@@ -9,17 +9,12 @@ const dimensions = [
   { min: 1795, amount: 7 },
 ];
 
-/*
-@media screen and (max-width: 460px) {
-.content-grid {
-    width: calc(225px + 1px);
-  }
-}
-*/
-
 const getMatchingDimensions = width => {
   let i=0;
-  while(i < dimensions.length - 1 && width > dimensions[i+1].min) {
+  while(
+    i < dimensions.length - 1 &&
+    width > dimensions[i+1].min
+  ) {
     i++;
   }
   return dimensions[i];

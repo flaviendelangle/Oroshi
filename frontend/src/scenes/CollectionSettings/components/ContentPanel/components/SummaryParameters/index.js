@@ -41,6 +41,8 @@ class SummaryParameters extends Component {
   }
   
   render() {
+    const { data, scene, update, deleteCollection } = this.props;
+    const { title, showDeleteAlert, showGetPublicLinkAlert } = this.state;
     return (
       <div>
         <ParametersSection>
@@ -49,10 +51,10 @@ class SummaryParameters extends Component {
             <Line primaryText="Collection title">
               <TextField
                 id="collection_title"
-                value={this.state.title}
+                value={title}
                 onChange={(proxy, title) => this.setState({ title })}
                 onSave={_ =>
-                  this.props.update(this.props.data.pk, 'title', this.state.title)
+                  update(this.props.data.pk, 'title', title)
                 }
               />
             </Line>
@@ -64,7 +66,7 @@ class SummaryParameters extends Component {
               >
                 <MenuItem
                   value="0"
-                  primaryText={getCollectionTypeTitle(this.props.scene)}
+                  primaryText={getCollectionTypeTitle(scene)}
                 />
               </SelectField>
             </Line>
@@ -72,9 +74,9 @@ class SummaryParameters extends Component {
               primaryText="Include adult content"
               rightToggle={
                 <Toggle
-                  toggled={this.props.data.adult_content}
+                  toggled={data.adult_content}
                   onToggle={(proxy, active) => {
-                    this.props.update(this.props.data.pk, 'adult_content', active)
+                    update(data.pk, 'adult_content', active)
                   }}
                 />
               }
@@ -83,9 +85,9 @@ class SummaryParameters extends Component {
               primaryText="Public access to your collection"
               rightToggle={
                 <Toggle
-                  toggled={this.props.data.public}
+                  toggled={data.public}
                   onToggle={(proxy, active) => {
-                    this.props.update(this.props.data.pk, 'public', active)
+                    update(data.pk, 'public', active)
                   }}
                 />
               }
@@ -103,14 +105,14 @@ class SummaryParameters extends Component {
           </div>
         </ParametersSection>
         <DeleteAlert
-          open={this.state.showDeleteAlert}
+          open={showDeleteAlert}
           onClose={_ => this.setState({ showDeleteAlert: false })}
-          onDelete={_ => this.props.deleteCollection(this.props.data.pk)}
+          onDelete={_ => deleteCollection(data.pk)}
         />
         <ShowPublicLinkAlert
-          open={this.state.showGetPublicLinkAlert}
-          data={this.props.data}
-          scene={this.props.scene}
+          open={showGetPublicLinkAlert}
+          data={data}
+          scene={scene}
           onClose={_ => this.setState({ showGetPublicLinkAlert: false })}
           onDelete={_ => {}} //this.props.deleteCollection(this.props.data.pk)}
         />

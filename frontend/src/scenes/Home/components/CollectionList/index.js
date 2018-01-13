@@ -9,23 +9,26 @@ import './style.css';
 class CollectionList extends Component {
   
   mapCollections = _ => {
-    return this.props.data.map(collection => {
+    const { data, editing } = this.props;
+    return data.map(collection => {
+      const { type, pk } = collection;
       return (
         <CollectionBox
-          key={collection.type + '_' + collection.pk}
+          key={`${type}_${pk}`}
           data={collection}
-          editing={this.props.editing}
+          editing={editing}
         />
       )
     });
   };
   
   render() {
+    const { editing } = this.props;
     return (
       <div className="collection-list-container">
         <div>
           {this.mapCollections()}
-          <NewCollectionButton editing={this.props.editing}/>
+          <NewCollectionButton editing={editing}/>
         </div>
       </div>
     )

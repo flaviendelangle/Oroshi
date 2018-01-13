@@ -24,10 +24,6 @@ class Search extends Component {
     return this.props.title ? ('Search in ' + this.props.title) : 'Search ...';
   }
   
-  get color() {
-    return this.props.muiTheme.palette.alternateTextColor;
-  }
-  
   search = query => {
     this.setState({ query });
     this.filter(query, false)
@@ -38,25 +34,28 @@ class Search extends Component {
   };
   
   renderCounter = _ => {
-    if (this.props.isAdding) {
+    const { isAdding, count, muiTheme: { palette }} = this.props;
+    if (isAdding) {
       return null;
     }
-    const count = this.props.count + ' element' + (this.props.count > 1 ? 's' : '');
-    const style = { color: this.color };
+    const style = { color: palette.alternateTextColor };
     return (
-      <div className="element-count" style={style}>{count}</div>
+      <div className="element-count" style={style}>
+        {`${count} element' + ${(count > 1 ? 's' : '')}`}
+        </div>
     );
   };
   
   render() {
+    const { query, autoComplete } = this.props;
     return (
       <div className="search-bar-container">
         <SearchBar
           hintText={this.hintText}
           onChange={this.search}
           onRequestSearch={_ => this.filter(this.state.query, true)}
-          value={this.props.query}
-          dataSource={this.props.autoComplete}
+          value={query}
+          dataSource={autoComplete}
           filter={AutoComplete.caseInsensitiveFilter}
           maxSearchResults={10}
         />

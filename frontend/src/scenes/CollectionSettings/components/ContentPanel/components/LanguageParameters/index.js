@@ -16,27 +16,28 @@ const selectStyle = {
 class LanguageParameters extends Component {
   
   render() {
+    const { data, scene, update } = this.props;
     return (
       <ParametersSection>
         <div className="title">Languages</div>
         <div className="content">
           <Line primaryText="Title language">
             <SelectLanguage
-              scene={this.props.scene}
+              scene={scene}
               style={selectStyle}
-              value={this.props.data.title_language}
+              value={data.title_language}
               onChange={ value => {
-                this.props.update(this.props.data.pk, 'title_language', value)
+                update(data.pk, 'title_language', value)
               }}
             />
           </Line>
           <Line primaryText="Poster language">
             <SelectLanguage
-              scene={this.props.scene}
+              scene={scene}
               style={selectStyle}
-              value={this.props.data.poster_language}
+              value={data.poster_language}
               onChange={ value => {
-                this.props.update(this.props.data.pk, 'poster_language', value)
+                update(data.pk, 'poster_language', value)
               }}
             />
           </Line>
