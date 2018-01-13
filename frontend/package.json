@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "classnames": "^2.2.5",
     "downloadjs": "^1.4.7",
     "i": "^0.3.6",
     "identicon.js": "^2.3.1",
@@ -44,6 +45,5 @@
     "test": "NODE_PATH=src/ react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
-  "devDependencies": {
-  }
+  "devDependencies": {}
 }

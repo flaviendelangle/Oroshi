@@ -139,7 +139,7 @@ export const getTitle = (scene, tmdbId, language) => {
 };
 
 const getMissingData = (scene, tmdbId, collection, details) => {
-  
+
   const languages = getTmdbLanguages(collection, details.original_language);
   let promise =  Promise.resolve();
   

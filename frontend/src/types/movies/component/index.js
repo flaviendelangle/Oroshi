@@ -7,6 +7,8 @@ import muiThemeable from 'material-ui/styles/muiThemeable';
 import ImageEye from 'material-ui/svg-icons/image/remove-red-eye';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 
+import cx from 'classnames'
+
 import Poster from 'components/generics/Poster/index';
 import ElementOverlay from 'components/generics/ElementOverlay/index';
 import { addElement, removeElement } from 'services/actions/collections';
@@ -48,19 +50,15 @@ class Movie extends Component {
     return date(this.props.data.getReleaseDate(), date.TMDB_FORMAT, date.YEAR_FORMAT);
   }
   
-  get parentClassName() {
+  getParentClasses = () => {
     const { data, creationMode } = this.props;
     const { isReady } = this.state;
-    let className = '';
-    if (data.isInCollection()) {
-      className = ' already-in-collection';
-    } else if (creationMode) {
-      className = ' not-in-collection';
-    }
-    if (isReady) {
-      className += ' ready';
-    }
-    return className
+    return cx({
+      'movie-parent': true,
+      'already-in-collection': (data.isInCollection() && creationMode),
+      'not-in-collection': (!data.isInCollection() && creationMode),
+      'ready': isReady,
+    })
   };
   
   /**
@@ -133,7 +131,7 @@ class Movie extends Component {
     const { style, creationMode, isPublic, mode, collection, data, muiTheme } = this.props;
     const { isMouseOver } = this.state;
     return (
-      <div className={'movie-parent ' + this.parentClassName} style={style}>
+      <div className={this.getParentClasses()} style={style}>
         <div className="movie-container">
           <Paper
             zDepth={3}

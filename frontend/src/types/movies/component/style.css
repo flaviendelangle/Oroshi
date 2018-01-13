@@ -12,6 +12,10 @@
     opacity: 0;
 }
 
+.movie-parent.already-in-collection:not(:hover) {
+    opacity: 0.2;
+}
+
 
 .movie-parent .title {
     display: block;

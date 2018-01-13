@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 
 import Stream from 'components/generics/Stream';
+import Header from './components/Header';
 import { getSuggestions, getSettings } from "services/actions/collections";
 
 
@@ -10,8 +11,10 @@ class ElementSuggestions extends Component {
   
   componentDidMount() {
     const { collection_id, element_id } = this.props.match.params;
-    this.props.loadCollection(collection_id).then( _  => {
-      this.props.synchronize(this.props.collection, element_id)
+    const { loadCollection, synchronize } = this.props;
+    loadCollection(collection_id).then( _  => {
+      const { collection } = this.props;
+      synchronize(collection, element_id)
     });
   }
   
@@ -27,7 +30,12 @@ class ElementSuggestions extends Component {
     if(!loaded) {
       return null;
     }
-    return (
+    return [
+      <Header
+        scene={scene}
+        collection={collection}
+        key={1}
+      />,
       <Stream
         data={suggestions}
         collection={collection}
@@ -35,8 +43,9 @@ class ElementSuggestions extends Component {
         elementComponent={config.elementComponent}
         lineDimensions={lineDimensions}
         creationMode={true}
+        key={2}
       />
-    );
+    ];
   }
   
 }
