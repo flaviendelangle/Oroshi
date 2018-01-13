@@ -7,7 +7,7 @@ import AddingContent from './components/AddingContent';
 import Menu from './components/Menu';
 
 import { get as getCollection } from 'services/actions/collections'
-
+import { bindState } from 'services/decorators';
 
 class CollectionScene extends Component {
   
@@ -53,6 +53,7 @@ const Content = ({ config, scene, isAdding, isPublic }) => {
   );
 };
 
+@bindState
 const mapStateToProps = (state, ownProps) => {
   const root = state.collections.main[ownProps.scene];
   if (!root) {

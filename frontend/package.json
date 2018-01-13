@@ -45,5 +45,13 @@
     "test": "NODE_PATH=src/ react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "babel": {
+    "plugins": [
+      "transform-decorators-legacy"
+    ],
+    "presets": [
+      "react-app"
+    ]
+  }
 }
