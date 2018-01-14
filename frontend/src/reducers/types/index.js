@@ -1,11 +1,11 @@
 import { collectionTypes } from 'appConfig';
 
-import mainReducer from 'scenes/Collection/reducer';
-import contentReducer from 'scenes/Collection/components/CollectionContent/reducer';
-import addingReducer from 'scenes/Collection/components/AddingContent/reducer';
-import suggestionsReducer from 'scenes/ElementSuggestions/reducer';
-import settingsReducer from 'scenes/CollectionSettings/reducer';
-import headerReducer from 'components/appStructure/Header/reducer';
+import mainReducer from 'reducers/types/main';
+import contentReducer from 'reducers/types/content';
+import addingReducer from 'reducers/types/adding';
+import suggestionsReducer from 'reducers/types/suggestions';
+import settingsReducer from 'reducers/types/settings';
+import headerReducer from 'reducers/types/header';
 
 const defaultState = {};
 
@@ -27,7 +27,7 @@ const reducer = (state = defaultState, action) => {
       [type]: {}
     };
   }
-  if(!state[type][collection.pk]) {
+  if (!state[type][collection.pk]) {
     state = {
       ...state,
       [type]: {

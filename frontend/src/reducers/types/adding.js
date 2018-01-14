@@ -1,8 +1,8 @@
 import { collectionContent, collections } from 'services/titles/api';
 import * as publicAPI from 'services/titles/publicAPI';
 
-import * as adding_search_manager from './services/adding_search_manager';
-import * as recommendations_manager from './services/recommendations_manager';
+import * as adding_search_manager from '../../scenes/Collection/components/AddingContent/services/adding_search_manager';
+import * as recommendations_manager from '../../scenes/Collection/components/AddingContent/services/recommendations_manager';
 
 
 const defaultState = {

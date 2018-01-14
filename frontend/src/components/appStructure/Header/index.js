@@ -29,7 +29,7 @@ class Header extends Component {
   onButtonClick = () => {
     console.log('HEY');
     const { scene, openMainDrawer } = this.props;
-    if(scene === 'content' || scene === 'settings') {
+    if (scene === 'content' || scene === 'settings') {
       openMainDrawer(true);
     }
   };

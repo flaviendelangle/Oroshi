@@ -31,7 +31,7 @@ class StreamGenerator {
     this.results.forEach(list => {
       list.content.forEach(el => {
         const id = el.getPublicId();
-        if(!elements.hasOwnProperty(id)) {
+        if (!elements.hasOwnProperty(id)) {
           elements[id] = el;
         }
       })

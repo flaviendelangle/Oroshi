@@ -105,7 +105,7 @@ class Movie extends Component {
    * Switch the seen paramter of the movie
    */
   switchSeen = _ => {
-    if(this.isTesting()) {
+    if (this.isTesting()) {
       return null;
     }
     this.props.switchSeen(this.props.data);
@@ -120,7 +120,7 @@ class Movie extends Component {
   
   componentDidUpdate() {
     const { onRender } = this.props;
-    if(onRender) {
+    if (onRender) {
       onRender({
         layout: this.layout
       });

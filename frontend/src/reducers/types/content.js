@@ -4,11 +4,11 @@ import { collectionContent, collections } from 'services/titles/api';
 import { sort, search } from 'services/titles/data';
 import { layout } from 'services/titles/interface';
 
-import { getListGenerator, getStreamGenerator, getDefaultOrder } from 'services/content';
+import { getListGenerator, getStreamGenerator, getDefaultOrder } from 'services/content/index';
 import { getValue } from 'services/localstorage';
 import Element from 'services/content/element';
-import { setSortParameters, setLayoutParameters } from '../../services/utils';
-import * as content_manager from './services/content_manager';
+import { setSortParameters, setLayoutParameters } from '../../scenes/Collection/services/utils';
+import * as content_manager from '../../scenes/Collection/components/CollectionContent/services/content_manager';
 
 
 const generateDefaultElementState = type => {
@@ -34,7 +34,7 @@ const generateDefaultElementState = type => {
 const reducer = (state, action) => {
 
   const type = action.meta.type;
-  if(!state) {
+  if (!state) {
     state = generateDefaultElementState(type);
   }
   

@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 
-import collectionList from './components/CollectionList/reducer'
-import dialogCreateCollection from './components/DialogCreateCollection/reducer'
+import collectionList from '../scenes/Home/components/CollectionList/reducer'
+import dialogCreateCollection from '../scenes/Home/components/DialogCreateCollection/reducer'
 
 import { collectionContent } from 'services/titles/api'
 

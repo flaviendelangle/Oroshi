@@ -47,14 +47,14 @@ class MainDrawer extends Component {
     const style = {
       color: palette.alternateTextColor
     };
-    if(scene === 'content') {
+    if (scene === 'content') {
       return [
         <Link to={`/collections/${type}/${collection.pk}/settings/`} key={1}>
           <ActionSettings style={style}/>
           <div>Collection Settings</div>
         </Link>
       ];
-    } else if(scene === 'settings') {
+    } else if (scene === 'settings') {
       return [
         <Link to={`/collections/${type}/${collection.pk}/`} key={1}>
           <AVMovie style={style}/>
@@ -74,7 +74,7 @@ class MainDrawer extends Component {
       ...this.GENERIC_LINES_AFTER
     ];
     return lines.map((el, index) => {
-      if(el.type.name === 'Divider') {
+      if (el.type.name === 'Divider') {
         return el;
       }
       return (
@@ -87,14 +87,14 @@ class MainDrawer extends Component {
   
   render() {
     const { isPublic, isOpen, title, onOpen } = this.props;
-    if(isPublic) {
+    if (isPublic) {
       return null;
     }
     return (
         <Drawer
           open={isOpen}
           docked={false}
-          onRequestChange={open => open(open) }
+          onRequestChange={open => onOpen(open) }
         >
           <AppBar
             title={title}

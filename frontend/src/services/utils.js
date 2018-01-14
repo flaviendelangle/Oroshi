@@ -22,7 +22,7 @@ let parseCSV = (scene, csv) => {
   return Papa.parse(content, { header: true, dynamicTyping: true }).data
     .map(line => {
       let newLine = {};
-      for(const field in line) {
+      for (const field in line) {
         if (line.hasOwnProperty(field)) {
           newLine[field] = line[field];
         }

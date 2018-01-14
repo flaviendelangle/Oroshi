@@ -19,7 +19,7 @@ class Help extends Component {
   
   render() {
     const { isPublic, muiTheme: { palette } } = this.props;
-    if(isPublic) {
+    if (isPublic) {
       return (
         <PublicHelp palette={palette} />
       );
@@ -37,7 +37,7 @@ const ElementHelp = ({ element, elementComponent, muiTheme, ...props }) => {
     ...props,
     element,
   };
-  if(!element) {
+  if (!element) {
     content = <Progress />;
   } else {
     content = (

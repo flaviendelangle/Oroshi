@@ -28,7 +28,7 @@ class MenuPanel extends Component {
 
   render() {
     const { active, type, collection, data } = this.props;
-    if(!data) {
+    if (!data) {
       return (
         <div style={this.panelStyle}>
           <Progress />
@@ -69,7 +69,7 @@ const getSectionComponent = active => {
 
 const Panel = ({ active, type, collection, data  }) => {
   const Section = getSectionComponent(active);
-  if(!Section) {
+  if (!Section) {
     return null;
   }
   return <Section type={type} collection={collection} data={data} />;

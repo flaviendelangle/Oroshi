@@ -12,7 +12,6 @@ class ElementSuggestions extends Component {
     const { collection_id, element_id } = this.props.match.params;
     const { loadCollection, synchronize } = this.props;
     loadCollection(collection_id).then( _  => {
-      const { collection } = this.props;
       synchronize(element_id)
     });
   }
@@ -26,7 +25,7 @@ class ElementSuggestions extends Component {
       config,
       lineDimensions
     } = this.props;
-    if(!loaded) {
+    if (!loaded) {
       return null;
     }
     return (

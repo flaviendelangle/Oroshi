@@ -158,14 +158,14 @@ class Element {
   };
   
   getValueToSort(field) {
-    if(field === 'title') {
+    if (field === 'title') {
       return this.getTitle().replace(/ /g, '').toLowerCase();
     }
-    if(field === 'note') {
+    if (field === 'note') {
       const note = this.getNote();
       return note || 0;
     }
-    if(this.hasLocal()) {
+    if (this.hasLocal()) {
       return this.getLocal()[field];
     }
     return this.getDistant()[field];

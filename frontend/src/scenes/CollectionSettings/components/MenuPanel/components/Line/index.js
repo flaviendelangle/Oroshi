@@ -44,9 +44,9 @@ const mapStateToProps = state => {
   }
 };
 
-const mapDispatchToProps = (dispatch, { scene, collection }) => {
+const mapDispatchToProps = (dispatch, { type, collection }) => {
   return {
-    goTo: value => dispatch(goToSection(scene, collection, value))
+    goTo: value => dispatch(goToSection(type, collection, value))
   }
 };
 

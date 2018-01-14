@@ -78,7 +78,7 @@ class Movie extends Element {
   };
   
   getDirectors = _ => {
-    if(this.hasLocal()) {
+    if (this.hasLocal()) {
       return this.getLocal().directors
     }
     return [];

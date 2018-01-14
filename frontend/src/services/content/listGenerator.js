@@ -43,7 +43,7 @@ class ListGenerator {
   filter = _ => {
     let results = this.data.filter(element => element.match(this.query.split(' '))) ;
     
-    /*for(let i=0; i<this.filters.length; i++) {
+    /*for (let i=0; i<this.filters.length; i++) {
       const filter = this.filters[i];
       results = results.filter(component => {
         const movieValue = component[filter[1]];

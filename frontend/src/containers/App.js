@@ -6,8 +6,8 @@ import injectTapEventPlugin from "react-tap-event-plugin"
 import WebFont from 'webfontloader';
 
 import tmdbApi from 'services/TheMovieDatabaseJS';
-import Main from './Main';
-import store from './reducer';
+import Container from 'components/appStructure/Container';
+import store from 'reducers/store';
 import theme from 'services/theme';
 import { DEFAULT_LANGUAGE } from 'services/languages';
 
@@ -24,8 +24,7 @@ injectTapEventPlugin();
 WebFont.load({
   google: {
     families: ['Roboto', 'sans-serif']
-  }
-});
+  }});
 
 /**
  * Public APIs settings
@@ -43,7 +42,7 @@ class App extends Component {
       return (
         <MuiThemeProvider muiTheme={getMuiTheme(theme)}>
           <Provider store={store}>
-            <Main store={store} />
+            <Container store={store} />
           </Provider>
         </MuiThemeProvider>
       )

@@ -30,7 +30,7 @@ class SummaryParameters extends Component {
   };
 
   componentDidMount() {
-    if(this.props.data.title) {
+    if (this.props.data.title) {
       this.setState({ title: this.props.data.title });
     }
   }

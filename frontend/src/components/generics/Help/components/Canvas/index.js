@@ -74,7 +74,7 @@ class Canvas extends Component {
   };
   
   onElementRender = ({ layout }) => {
-    if(!this.canvas) {
+    if (!this.canvas) {
       this.setState({ layout: [] });
     } else {
       layout = Object

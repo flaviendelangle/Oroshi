@@ -92,7 +92,7 @@ const LayoutIcon = ({ Component, theme, active, onClick }) => {
 };
 
 const AddingIcon = ({ isAdding, collection, switchAddingMode, isPublic }) => {
-  if(isPublic) {
+  if (isPublic) {
     return null;
   }
   let Icon;

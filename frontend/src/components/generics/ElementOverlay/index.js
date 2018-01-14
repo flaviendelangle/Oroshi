@@ -21,7 +21,7 @@ class ElementOverlay extends Component {
   };
   
   addToLayout = (key, element) => {
-    if(this.props.addToLayout) {
+    if (this.props.addToLayout) {
       this.props.addToLayout(key, element);
     }
   };
@@ -87,7 +87,7 @@ class ElementOverlay extends Component {
 }
 
 const Footer = ({ creation_mode, already_in_collection, handleSave, handleDestroy, addToLayout, isPublic }) => {
-  if(isPublic) {
+  if (isPublic) {
     return null;
   }
   let Content;

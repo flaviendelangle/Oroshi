@@ -12,7 +12,7 @@ import Collection from 'components/appStructure/Collection';
 import { notifyRouteChange } from 'services/actions/router';
 import { getProfile } from 'services/actions/users';
 
-class Main extends Component {
+class Container extends Component {
   
   get style() {
     return {
@@ -78,4 +78,4 @@ const mapDispatchToProps = dispatch => {
 export default withRouter(connect(
   mapStateToProps,
   mapDispatchToProps
-)(muiThemeable()(Main)));
+)(muiThemeable()(Container)));

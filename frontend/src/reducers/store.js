@@ -2,8 +2,8 @@ import { combineReducers, createStore, applyMiddleware } from 'redux';
 import { reducer as form } from 'redux-form';
 import promiseMiddleware from 'redux-promise-middleware';
 
-import home from 'scenes/Home/reducer';
-import login from 'scenes/Login/reducer';
+import home from 'reducers/home';
+import login from 'reducers/login';
 import help from 'components/generics/Help/reducer';
 import tv_shows from 'types/tvShows/component/reducer';
 
@@ -15,7 +15,7 @@ import { alertScreenResize } from '../services/actions/interface';
 import { loginFromCache } from 'services/actions/users';
 import { saveOauth, loadOauth } from 'services/localstorage';
 
-import types from 'reducers/types';
+import types from 'reducers/types/index';
 
 
 const defaultState = {
@@ -75,12 +75,10 @@ const app = (state=defaultState, action) => {
   
 };
 
-const baseReducers = {
+
+const appReducer = combineReducers({
   
   app,
-  
-  // External modules
-  form,
   
   // Generics
   help,
@@ -89,20 +87,12 @@ const baseReducers = {
   tv_shows,
   
   // Scenes
-  /*
-  collections,
-  elementSuggestions,
-  collection_movies_settings: collectionSettings('movies'),
-  collection_tv_shows_settings: collectionSettings('tv_shows'),
-  */
   home,
-  login
-};
-
-
-const appReducer = combineReducers({
-  ...baseReducers,
+  login,
   types,
+  
+  // External modules
+  form,
 });
 
 

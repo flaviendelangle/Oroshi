@@ -11,7 +11,7 @@ class CollectionScene extends Component {
   
   componentDidMount() {
     const { synchronize, collection, loaded } = this.props;
-    if(!loaded) {
+    if (!loaded) {
       synchronize(collection.pk);
     }
   }
