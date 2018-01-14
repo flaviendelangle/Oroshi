@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import muiThemeable from 'material-ui/styles/muiThemeable';
 
 import Line from './components/Line';
 import { getCollectionSettingsState } from 'containers/reducer'
+import { connect } from 'services/redux';
 
 import * as _style from './style';
+
 
 class MenuPanel extends Component {
   
@@ -13,22 +14,47 @@ class MenuPanel extends Component {
     return this.props.muiTheme.baseTheme.palette;
   }
   
+  isActive(section) {
+    return this.props.active === section;
+  }
+  
   render() {
+    const { scene, collection } = this.props;
     return (
       <div style={_style.panel}>
-        <Line active={this.props.active === 'summary'} value="summary">
+        <Line
+          active={this.isActive('summary')}
+          value="summary"
+          scene={scene}
+          collection={collection}
+        >
           Summary
         </Line>
         {/*<Line active={this.props.active === 'spoilers'} value="spoilers">
           Spoilers
         </Line>*/}
-        <Line active={this.props.active === 'languages'} value="languages">
+        <Line
+          active={this.isActive('languages')}
+          value="languages"
+          scene={scene}
+          collection={collection}
+        >
           Languages
         </Line>
-        <Line active={this.props.active === 'exports'} value="exports">
+        <Line
+          active={this.isActive('exports')}
+          value="exports"
+          scene={scene}
+          collection={collection}
+        >
           Export your data
         </Line>
-        <Line active={this.props.active === 'imports'} value="imports">
+        <Line
+          active={this.isActive('imports')}
+          value="imports"
+          scene={scene}
+          collection={collection}
+        >
           Import data
         </Line>
       </div>
@@ -38,10 +64,9 @@ class MenuPanel extends Component {
   
 }
 
-const mapStateToProps = (state, ownProps) => {
-  const root = getCollectionSettingsState(state, ownProps.scene).main;
+const mapStateToProps = ({ settings }) => {
   return {
-    active: root.activeSection
+    active: settings.activeSection
   }
 };
 

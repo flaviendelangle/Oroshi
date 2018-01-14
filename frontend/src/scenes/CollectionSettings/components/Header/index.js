@@ -1,19 +1,19 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import DocumentTitle from 'react-document-title';
+
 import AVMovie from 'material-ui/svg-icons/av/movie'
 import muiThemeable from 'material-ui/styles/muiThemeable';
 
 import HeaderOriginal from 'components/generics/Header';
-import { getCollectionSettingsState } from 'containers/reducer';
+import { connect } from 'services/redux';
 
 
 class Header extends Component {
   
   get link() {
     const { scene, collection } = this.props;
-    return `/collections/${scene}/${collection}/`;
+    return `/collections/${scene}/${collection.pk}/`;
   }
   
   render() {
@@ -36,11 +36,10 @@ class Header extends Component {
   
 }
 
-const mapStateToProps = (state, ownProps) => {
-  const root = getCollectionSettingsState(state, ownProps.scene).header;
+const mapStateToProps = ({ header }) => {
   return {
-    collection: root.collection,
-    title: root.title
+    collection: header.collection,
+    title: header.title
   }
 };
 

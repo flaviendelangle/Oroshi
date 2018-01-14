@@ -1,8 +1,12 @@
 import { collectionSettings } from 'services/titles/interface';
 
-export const goToSection = value => {
+export const goToSection = (scene, collection, value) => {
   return {
     type: collectionSettings.switchSection,
-    value
+    value,
+    meta: {
+      collection,
+      scene,
+    }
   };
 };

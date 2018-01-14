@@ -11,7 +11,6 @@ import ShowPublicLinkAlert from './components/ShowPublicLinkAlert';
 import ParametersSection, { Line } from '../ParametersSection';
 import TextField from 'components/form/TextField';
 import Toggle from 'components/form/Toggle';
-import { getCollectionSettingsState } from 'containers/reducer';
 import { update } from 'scenes/CollectionSettings/actions';
 import { getCollectionTypeTitle } from 'services/utils';
 import { destroy } from 'services/actions/collections';
@@ -121,11 +120,8 @@ class SummaryParameters extends Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
-  const root = getCollectionSettingsState(state, ownProps.scene).main;
-  return {
-    data: root.data
-  }
+const mapStateToProps = () => {
+  return {};
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {

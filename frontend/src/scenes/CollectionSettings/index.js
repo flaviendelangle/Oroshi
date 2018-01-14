@@ -1,18 +1,16 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 
 import Header from './components/Header';
 import MenuPanel from './components/MenuPanel';
 import ContentPanel from './components/ContentPanel';
 import { getSettings } from 'services/actions/collections';
-import { getCollectionSettingsState } from 'containers/reducer';
-
+import { connect } from 'services/redux';
 
 class CollectionSettings extends Component {
   
   componentDidMount() {
-    const { synchronize, match: { params }} = this.props;
-    synchronize(params.collection_id);
+    const { synchronize, collection } = this.props;
+    synchronize(collection.pk);
   }
   
   componentWillReceiveProps(newProps) {
@@ -23,22 +21,21 @@ class CollectionSettings extends Component {
   }
   
   render() {
-    const { scene } = this.props;
+    const { scene, collection } = this.props;
     return (
       <div className="collection-settings">
-        <Header scene={scene} />
-        <MenuPanel scene={scene} />
-        <ContentPanel scene={scene} />
+        <Header scene={scene} collection={collection} />
+        <MenuPanel scene={scene} collection={collection} />
+        <ContentPanel scene={scene} collection={collection} />
       </div>
     );
   }
   
 }
 
-const mapStateToProps = (state, ownProps) => {
-  const root = getCollectionSettingsState(state, ownProps.scene).main;
+const mapStateToProps = ({ settings }) => {
   return {
-    redirect: root.redirect
+    redirect: settings.redirect
   };
 };
 

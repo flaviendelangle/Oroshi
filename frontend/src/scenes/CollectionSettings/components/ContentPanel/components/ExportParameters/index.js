@@ -5,8 +5,6 @@ import FileDownload from 'material-ui/svg-icons/file/file-download';
 
 import ParametersSection, { Line } from '../ParametersSection';
 import { exportCollection } from 'services/actions/collections';
-import { getCollectionSettingsState } from 'containers/reducer';
-
 
 class ExportParameters extends Component {
   
@@ -32,11 +30,8 @@ class ExportParameters extends Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
-  const root = getCollectionSettingsState(state, ownProps.scene).main;
-  return {
-    data: root.data
-  }
+const mapStateToProps = () => {
+  return {};
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {

@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 
 import muiThemeable from 'material-ui/styles/muiThemeable';
 
 import SummaryParameters from './components/SummaryParameters';
+import Progress from 'components/generics/Progress';
 //import SpoilerParameters from './components/SpoilerParameters';
 import LanguageParameters from './components/LanguageParameters';
 import ExportParameters from './components/ExportParameters';
 import DataImporter from './components/DataImporter';
-import { getCollectionSettingsState } from 'containers/reducer'
+import { connect } from 'services/redux';
+
 
 class MenuPanel extends Component {
   
@@ -26,10 +27,17 @@ class MenuPanel extends Component {
   }
 
   render() {
-    const { active, scene } = this.props;
+    const { active, scene, collection, data } = this.props;
+    if(!data) {
+      return (
+        <div style={this.panelStyle}>
+          <Progress />
+        </div>
+      );
+    }
     return (
       <div style={this.panelStyle}>
-        <Panel active={active} scene={scene} />
+        <Panel active={active} scene={scene} collection={collection} data={data} />
       </div>
     );
     
@@ -59,15 +67,18 @@ const getSectionComponent = active => {
   }
 };
 
-const Panel = ({ active, scene }) => {
+const Panel = ({ active, scene, collection, data  }) => {
   const Section = getSectionComponent(active);
-  return Section ? <Section scene={scene} /> : null;
+  if(!Section) {
+    return null;
+  }
+  return <Section scene={scene} collection={collection} data={data} />;
 };
 
-const mapStateToProps = (state, ownProps) => {
-  const root = getCollectionSettingsState(state, ownProps.scene).main;
+const mapStateToProps = ({ settings }) => {
   return {
-    active: root.activeSection
+    active: settings.activeSection,
+    data: settings.data,
   }
 };
 

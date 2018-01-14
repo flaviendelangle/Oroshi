@@ -31,10 +31,7 @@ class SpoilerParameters extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const root = getCollectionSettingsState(state, ownProps.scene).main;
-  return {
-    data: root.data
-  }
+  return {};
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {

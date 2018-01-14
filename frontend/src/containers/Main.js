@@ -7,14 +7,10 @@ import muiThemeable from 'material-ui/styles/muiThemeable';
 import Home from 'scenes/Home';
 import Login from 'scenes/Login';
 import Logout from 'scenes/Logout';
-import Collection from 'scenes/Collection';
-import CollectionSettings from 'scenes/CollectionSettings';
-import ElementSuggestions from 'scenes/ElementSuggestions';
+import Collection from 'components/appStructure/Collection';
 
 import { notifyRouteChange } from 'services/actions/router';
 import { getProfile } from 'services/actions/users';
-import { collectionTypes } from 'appConfig';
-
 
 class Main extends Component {
   
@@ -36,15 +32,6 @@ class Main extends Component {
     }
   };
   
-  getSceneProps = (el, props) => ({
-    ...props,
-    config: el,
-    scene: el.name,
-    collection: {
-      pk: props.match.params.collection_id,
-    },
-  });
-  
   componentDidMount() {
     this.getProfile();
   }
@@ -64,26 +51,7 @@ class Main extends Component {
           <Route exact path='/' component={Home} />
           <Route path='/login/' component={Login} />
           <Route path='/logout/' component={Logout} />
-          
-          {collectionTypes.map(el => [
-            <Route
-              path={`/collections/${el.name}/:collection_id/suggestions/:element_id/`}
-              render={props => <ElementSuggestions {...this.getSceneProps(el, props)} />}
-            />,
-            <Route
-              path={`/collections/${el.name}/:collection_id/settings/`}
-              render={props => <CollectionSettings {...this.getSceneProps(el, props)} />}
-            />,
-            <Route
-              path={`/collections/${el.name}/:collection_id/public/`}
-              render={props => <Collection  {...this.getSceneProps(el, props)}  isPublic={true} />}
-            />,
-            <Route
-              path={`/collections/${el.name}/:collection_id/`}
-              render={props => <Collection {...this.getSceneProps(el, props)} isPublic={false} />}
-            />
-          ])}
-          
+          <Route path='/collections/' component={Collection} />
         </Switch>
       </main>
     );

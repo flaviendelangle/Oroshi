@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import ParametersSection, { Line } from '../ParametersSection';
 import SelectLanguage from 'components/generics/SelectLanguage';
 
-import { getCollectionSettingsState } from 'containers/reducer';
 import { update } from 'scenes/CollectionSettings/actions';
 
 const selectStyle = {
@@ -48,10 +47,7 @@ class LanguageParameters extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const root = getCollectionSettingsState(state, ownProps.scene).main;
-  return {
-    data: root.data
-  }
+  return {};
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {

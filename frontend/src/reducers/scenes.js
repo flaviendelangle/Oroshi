@@ -5,6 +5,7 @@ import contentReducer from 'scenes/Collection/components/CollectionContent/reduc
 import addingReducer from 'scenes/Collection/components/AddingContent/reducer';
 import headerReducer from 'scenes/Collection/components/Header/reducer';
 import suggestionsReducer from 'scenes/ElementSuggestions/reducer';
+import settingsReducer from 'scenes/CollectionSettings/reducer';
 
 const defaultState = {};
 
@@ -13,6 +14,7 @@ collectionTypes.forEach(el => {
 });
 
 const reducer = (state = defaultState, action) => {
+  
   if (!action.meta || !action.meta.scene || !action.meta.collection) {
     return state;
   }
@@ -44,7 +46,8 @@ const reducer = (state = defaultState, action) => {
         header: headerReducer(oldState.header, action),
         content: contentReducer(oldState.content, action),
         adding: addingReducer(oldState.adding, action),
-        suggestions: suggestionsReducer(oldState.suggestions, action)
+        suggestions: suggestionsReducer(oldState.suggestions, action),
+        settings: settingsReducer(oldState.settings, action),
       }
     }
   };

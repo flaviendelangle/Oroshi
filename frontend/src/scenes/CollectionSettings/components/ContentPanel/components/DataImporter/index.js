@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import ScrollArea from 'react-scrollbar';
 import Dropzone from 'react-dropzone';
 
@@ -10,8 +9,8 @@ import { List } from 'material-ui/List';
 
 import Line from './components/Line';
 import Progress from './components/Progress';
-import { getCollectionSettingsState } from 'containers/reducer';
 import { importCSV, importJSON, importElements } from 'services/actions/collections';
+import { connect } from 'services/redux';
 
 import * as _style from './style';
 
@@ -158,12 +157,10 @@ class DataImporter extends Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
-  const root = getCollectionSettingsState(state, ownProps.scene);
+const mapStateToProps = ({ settings: { dataImporter }}) => {
   return {
-    data: root.main.data,
-    importFromFile: root.dataImporter.importFromFile,
-    progress: root.dataImporter.progress
+    importFromFile: dataImporter.importFromFile,
+    progress: dataImporter.progress
   }
 };
 
