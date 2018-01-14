@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 
-import Header from './components/Header';
 import MenuPanel from './components/MenuPanel';
 import ContentPanel from './components/ContentPanel';
 import { getSettings } from 'services/actions/collections';
@@ -24,7 +23,6 @@ class CollectionSettings extends Component {
     const { type, collection } = this.props;
     return (
       <div className="collection-settings">
-        <Header type={type} collection={collection} />
         <MenuPanel type={type} collection={collection} />
         <ContentPanel type={type} collection={collection} />
       </div>

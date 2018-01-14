@@ -1,4 +1,3 @@
-//import header from './components/Header/reducer';
 import { collectionSettings } from 'services/titles/interface';
 import { collectionContent, collections } from 'services/titles/api';
 

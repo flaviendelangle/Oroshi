@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 
-import Header from './components/Header';
 import CollectionContent from './components/CollectionContent'
 import AddingContent from './components/AddingContent';
 import Menu from './components/Menu';
@@ -11,7 +10,10 @@ import { connect } from 'services/redux';
 class CollectionScene extends Component {
   
   componentDidMount() {
-    this.props.synchronize(this.props.collection.pk);
+    const { synchronize, collection, loaded } = this.props;
+    if(!loaded) {
+      synchronize(collection.pk);
+    }
   }
   
   render() {
@@ -52,9 +54,10 @@ const Content = ({ config, type, isAdding, isPublic, collection }) => {
   );
 };
 
-const mapStateToProps = ({ main }) => {
+const mapStateToProps = ({ main, content }) => {
   return {
     isAdding: main.isAdding,
+    loaded: content.loaded
   }
 };
 

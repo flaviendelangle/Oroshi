@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 
 
 import Stream from 'components/generics/Stream';
-import Header from './components/Header';
 import { getSuggestions, getSettings } from "services/actions/collections";
 import { connect } from 'services/redux';
 
@@ -30,12 +29,7 @@ class ElementSuggestions extends Component {
     if(!loaded) {
       return null;
     }
-    return [
-      <Header
-        type={type}
-        collection={collection}
-        key={1}
-      />,
+    return (
       <Stream
         data={suggestions}
         collection={collection}
@@ -45,7 +39,7 @@ class ElementSuggestions extends Component {
         creationMode={true}
         key={2}
       />
-    ];
+    );
   }
   
 }

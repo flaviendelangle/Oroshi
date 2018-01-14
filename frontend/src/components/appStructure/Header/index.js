@@ -1,5 +1,11 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+
 import AppBar from 'material-ui/AppBar';
+import IconButton from 'material-ui/IconButton';
+import BackSpace from 'material-ui/svg-icons/hardware/keyboard-backspace';
+import NavigationMenu from 'material-ui/svg-icons/navigation/menu';
+import muiThemeable from 'material-ui/styles/muiThemeable';
 
 import MainDrawer from './components/MainDrawer'
 import Search from './components/Search'
@@ -20,6 +26,14 @@ class Header extends Component {
     return autoComplete.grid;
   }
   
+  onButtonClick = () => {
+    console.log('HEY');
+    const { scene, openMainDrawer } = this.props;
+    if(scene === 'content' || scene === 'settings') {
+      openMainDrawer(true);
+    }
+  };
+  
   render() {
     const {
       isDrawerOpen,
@@ -33,15 +47,21 @@ class Header extends Component {
       query,
       scene,
       openMainDrawer,
+      muiTheme: { palette }
     } = this.props;
-    
     return (
       <div>
         <AppBar
+          iconElementLeft={
+            <Icon
+              palette={palette}
+              scene={scene}
+              link={`/collections/${type}/${collection.pk}/`}
+              onClick={this.onButtonClick}
+            />
+          }
           title={ showTitle ? title : ''}
-          onLeftIconButtonTouchTap={_ => {
-            openMainDrawer(true)
-          }}
+          onLeftIconButtonTouchTap={this.onButtonClick}
           showMenuIconButton={!isPublic}
         >
           {
@@ -64,18 +84,45 @@ class Header extends Component {
             ]
           }
         </AppBar>
-        <MainDrawer
-          title={title}
-          isPublic={isPublic}
-          isOpen={isDrawerOpen}
-          onOpen={openMainDrawer}
-        />
+        {
+          (scene === 'content' || scene === 'settings') &&
+          <MainDrawer
+            title={title}
+            isPublic={isPublic}
+            isOpen={isDrawerOpen}
+            onOpen={openMainDrawer}
+          />
+        }
       </div>
     )
     
   }
   
 }
+
+const Icon = ({ scene, palette, link, ...props }) => {
+  if (scene === 'suggestions'){
+    return (
+      <Link to={link}>
+        <IconButton
+          tooltip="Return to collection"
+          iconStyle={{ color: palette.alternateTextColor }}
+        >
+          <BackSpace />
+        </IconButton>
+      </Link>
+
+    );
+  }
+  return (
+    <IconButton
+      iconStyle={{ color: palette.alternateTextColor }}
+      {...props}
+    >
+      <NavigationMenu />
+    </IconButton>
+  );
+};
 
 const mapStateToProps = ({ header, content, main }) => {
   const layout = content.layout;
@@ -110,4 +157,4 @@ const mapDispatchToProps = (dispatch, { type, collection }) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Header);
+)(muiThemeable()(Header));

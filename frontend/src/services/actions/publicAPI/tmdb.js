@@ -7,11 +7,9 @@ export const search = (type, collection, query, page) => {
   const searchKey = getSearchKey(type);
   return searchAPI[searchKey](query, { page })
     .then(elements => {
-      console.log(elements);
       return prepareSearchResults(type, collection, elements, query)
     })
     .catch(error => {
-      console.log(error);
       return {page: 1, total_results: 0, total_pages: 0, results: [] }
     });
 };
