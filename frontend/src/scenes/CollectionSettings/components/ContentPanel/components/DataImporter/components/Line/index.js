@@ -3,8 +3,6 @@ import { connect } from 'react-redux'
 import {ListItem} from 'material-ui/List';
 import ActionDone from 'material-ui/svg-icons/action/done'
 
-import { getCollectionSettingsState } from 'containers/reducer';
-
 class Line extends Component {
 
   renderIcon = _ => {
@@ -24,10 +22,9 @@ class Line extends Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
-  const root = getCollectionSettingsState(state, ownProps.scene);
+const mapStateToProps = ({ settings: { dataImporter }}, state, { data }) => {
   return {
-    done: !!root.dataImporter.created[ownProps.data.tmdbId]
+    done: !!dataImporter.created[data.tmdbId]
   }
 };
 

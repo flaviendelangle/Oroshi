@@ -10,8 +10,8 @@ import muiThemeable from 'material-ui/styles/muiThemeable';
 class Header extends Component {
   
   get link() {
-    const { scene, collection } = this.props;
-    return `/collections/${scene}/${collection.pk}/`;
+    const { type, collection } = this.props;
+    return `/collections/${type}/${collection.pk}/`;
   }
   
   render() {

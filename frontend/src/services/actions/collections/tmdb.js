@@ -2,7 +2,7 @@ import { getCollectionAPI, getElementAPI, getActions, getPublicActions } from 's
 import { getDetails, cleanDetails, getTitle, getPoster } from 'services/actions/publicAPI';
 import { getMissingLanguages } from 'services/languages';
 
-export const addElement = (scene, collection, element) => {
+export const addElement = (type, collection, element) => {
   let promise;
   let details;
   let seen = element.hasBeenSeen();
@@ -12,11 +12,11 @@ export const addElement = (scene, collection, element) => {
       local: element.getLocal(),
     });
   } else {
-    promise = getDetails(scene, false, collection, element.getPublicId())
+    promise = getDetails(type, false, collection, element.getPublicId())
       .then(response => {
         details = response;
-        const cleanedDetails = cleanDetails(scene, details);
-        return getElementAPI(scene).create(cleanedDetails);
+        const cleanedDetails = cleanDetails(type, details);
+        return getElementAPI(type).create(cleanedDetails);
       })
       .then(local => {
         element.setLocal(local);
@@ -27,15 +27,15 @@ export const addElement = (scene, collection, element) => {
       });
   }
   
-  const localAPI = getCollectionAPI(scene);
+  const localAPI = getCollectionAPI(type);
   return promise
-    .then(response => createMissingData(scene, response))
+    .then(response => createMissingData(type, response))
     .then(_ => {
       const data = {
         pk: element.getID(),
         seen
       };
-      return localAPI.element(collection.pk)[scene].create(data);
+      return localAPI.element(collection.pk)[type].create(data);
     })
     .then(newLocal => {
       element.setLocal(newLocal);
@@ -44,18 +44,18 @@ export const addElement = (scene, collection, element) => {
     })
 };
 
-const createMissingData = (scene, { collection, local }) => {
+const createMissingData = (type, { collection, local }) => {
   
   if (!local) {
     return Promise.resolve();
   }
   
   const languages = getMissingLanguages(collection, local);
-  const localAPI = getElementAPI(scene);
+  const localAPI = getElementAPI(type);
 
   const createTitle = i => {
     if (i < languages.title.length) {
-      return getTitle(scene, local.tmdbId, languages.title[i])
+      return getTitle(type, local.tmdbId, languages.title[i])
         .then(title => {
           return localAPI.addTitle(local.pk, languages.title[i], title);
         })
@@ -69,7 +69,7 @@ const createMissingData = (scene, { collection, local }) => {
   
   const createPoster = i => {
     if (i < languages.poster.length) {
-      return getPoster(scene, local.tmdbId, languages.poster[i])
+      return getPoster(type, local.tmdbId, languages.poster[i])
         .then(poster => {
           poster = poster || '';
           return localAPI.addPoster(local.pk, languages.poster[i], poster);
@@ -86,15 +86,15 @@ const createMissingData = (scene, { collection, local }) => {
   
 };
 
-export const getSuggestions = (scene, collection, tmdbId) => {
-  return getPublicActions(scene).getDetails(scene, collection, tmdbId).then(response => {
-    const Element =  getActions(scene).elementClass;
+export const getSuggestions = (type, collection, tmdbId) => {
+  return getPublicActions(type).getDetails(type, collection, tmdbId).then(response => {
+    const Element =  getActions(type).elementClass;
     const data = {
       distant: response,
-      local: getPublicActions(scene).cleanDetails(scene, response),
+      local: getPublicActions(type).cleanDetails(type, response),
     };
     const element = Element.fromDistant(data , collection);
-    return getPublicActions(scene).getSuggestions(scene, collection, element);
+    return getPublicActions(type).getSuggestions(type, collection, element);
   });
 };
 

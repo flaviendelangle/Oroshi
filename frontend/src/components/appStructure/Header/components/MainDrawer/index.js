@@ -23,7 +23,6 @@ class MainDrawer extends Component {
   get GENERIC_LINES_BEFORE() {
     return [
       (
-        
         <Link to='/'>
           <ActionHome style={this.lineStyle} />
           <div>Home</div>
@@ -41,11 +40,15 @@ class MainDrawer extends Component {
     return [];
   }
   
+  get sceneLines() {
+    return [];
+  }
+  
   renderLines = _ => {
     const lines = [
       ...this.GENERIC_LINES_BEFORE,
+      ...this.sceneLines,
       <Divider key={-1}/>,
-      this.props.children,
       ...this.GENERIC_LINES_AFTER
     ];
     return lines.map((el, index) => {
@@ -61,7 +64,7 @@ class MainDrawer extends Component {
   };
   
   render() {
-    const { isPublic, isOpen, title, open } = this.props;
+    const { isPublic, isOpen, title, onOpen } = this.props;
     if(isPublic) {
       return null;
     }
@@ -73,7 +76,7 @@ class MainDrawer extends Component {
         >
           <AppBar
             title={title}
-            onLeftIconButtonTouchTap={_ => open(false)}
+            onLeftIconButtonTouchTap={_ => onOpen(false)}
           >
             {this.searchBar}
             {this.actionsButton}
@@ -88,9 +91,7 @@ class MainDrawer extends Component {
 }
 
 const mapStateToProps = ({ header }) => {
-  return {
-    isOpen: header.mainDrawer.isOpen
-  }
+  return {}
 };
 
 const mapDispatchToProps = dispatch => {

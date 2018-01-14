@@ -14,29 +14,29 @@ import { collections } from 'services/titles/exports'
 /*
   ACTIONS WITH DISPATCH
  */
-export const create = (scene, data)  => {
+export const create = (type, data)  => {
   return {
     type: titles.collectionContent.create,
-    payload: getCollectionAPI(scene).create(data),
+    payload: getCollectionAPI(type).create(data),
     meta: {
-      scene
+      type
     }
   };
 };
 
-export const destroy = (scene, pk) => {
+export const destroy = (type, pk) => {
   return {
     type: titles.collections.destroy,
-    payload: getCollectionAPI(scene).destroy(pk)
+    payload: getCollectionAPI(type).destroy(pk)
   };
 };
 
-export const get = (scene, pk) => {
+export const get = (type, pk) => {
   return {
     type: titles.collectionContent.load,
-    payload: getCollectionAPI(scene).retrieve(pk)
+    payload: getCollectionAPI(type).retrieve(pk)
       .then(response => {
-        return prepareElements(scene, response);
+        return prepareElements(type, response);
       })
       .catch(error => {
         error = error.toString();
@@ -47,7 +47,7 @@ export const get = (scene, pk) => {
         }
       }),
     meta: {
-      scene,
+      type,
       collection: { pk },
     }
   };
@@ -60,64 +60,64 @@ export const getAll = pk => {
   }
 };
 
-export const getSettings = (scene, pk) => {
+export const getSettings = (type, pk) => {
   return {
     type: titles.collectionContent.loadSettings,
-    payload: getCollectionAPI(scene).settings(pk),
+    payload: getCollectionAPI(type).settings(pk),
     meta: {
-      scene,
+      type,
       collection: { pk }
     }
   }
 };
 
-export const getSuggestions = (scene, collection, publicId) => {
+export const getSuggestions = (type, collection, publicId) => {
   return {
     type: titles.collectionContent.loadSuggestions,
-    payload: getActions(scene).getSuggestions(scene, collection, publicId),
+    payload: getActions(type).getSuggestions(type, collection, publicId),
     meta: {
-      scene,
+      type,
       collection,
     }
   };
 };
 
-export const update = (scene, pk, data) => {
+export const update = (type, pk, data) => {
   return {
     type: titles.collections.updateSettings,
-    payload: getCollectionAPI(scene).partial_update(pk, data)
+    payload: getCollectionAPI(type).partial_update(pk, data)
   }
 };
 
-export const addElement = (scene, collection, element) => {
+export const addElement = (type, collection, element) => {
   return {
     type: titles.collections.add,
-    payload: getActions(scene).addElement(scene, collection, element),
+    payload: getActions(type).addElement(type, collection, element),
     meta: {
-      scene,
+      type,
       collection,
     }
   }
 };
 
-export const updateElement = (scene, element, data, type) => {
+export const updateElement = (type, element, data, field) => {
   const collection = element.getCollection().pk;
   const pk = element.getID();
   return {
     type: titles.collections.update,
-    payload: getCollectionAPI(scene).element(collection)[scene].partial_update(pk, data).then(res => {
+    payload: getCollectionAPI(type).element(collection)[type].partial_update(pk, data).then(res => {
       element.editLocal(data);
       return element;
     }),
     meta: {
-      scene,
-      type
+      type,
+      field
     }
   }
 };
 
-export const removeElement = (scene, collection, element) => {
-  const api = getCollectionAPI(scene).element(collection.pk)[scene];
+export const removeElement = (type, collection, element) => {
+  const api = getCollectionAPI(type).element(collection.pk)[type];
   return {
     type: titles.collections.remove,
     payload: api.destroy(element.getID()).then(response => {
@@ -125,45 +125,45 @@ export const removeElement = (scene, collection, element) => {
       return element;
     }),
     meta: {
-      scene,
+      type,
       collection,
     }
   }
 };
 
-export const importCSV = (scene, file) => {
+export const importCSV = (type, file) => {
   return {
     type: titles.collectionContent.importFromFile,
     payload: readAsText(file).then(result => {
       return {
-        data: parseCSV(scene, result),
+        data: parseCSV(type, result),
         format: 'csv'
       };
     }),
     meta: {
-      scene
+      type
     }
   }
 };
 
-export const importJSON = (scene, file) => {
+export const importJSON = (type, file) => {
   return {
     type: titles.collectionContent.importFromFile,
     payload: readAsText(file).then(result => {
       return {
-        data: parseJSON(scene, result),
+        data: parseJSON(type, result),
         format: 'json'
       }
     }),
     meta: {
-      scene
+      type
     }
   };
 };
 
-export const importElements = (scene, collection, elements, dispatch) => {
+export const importElements = (type, collection, elements, dispatch) => {
   
-  const _importElement = (scene, elements, index, dispatch) => {
+  const _importElement = (type, elements, index, dispatch) => {
     if (elements.length <= index) {
       dispatch({
         type: titles.collectionContent.import + '_FULFILLED'
@@ -172,26 +172,26 @@ export const importElements = (scene, collection, elements, dispatch) => {
     }
     const element = elements[index];
     if (element.isInCollection()) {
-      setTimeout(_ => _importElement(scene, elements, index + 1, dispatch));
+      setTimeout(_ => _importElement(type, elements, index + 1, dispatch));
       return dispatch({
         type: titles.collections.add,
         payload: element,
         meta: {
-          scene,
+          type,
           collection,
         }
       });
     } else {
-      addElement(scene, collection, element).payload.then(el => {
+      addElement(type, collection, element).payload.then(el => {
         dispatch({
           type: titles.collections.add,
           payload: el,
           meta: {
-            scene,
+            type,
             collection,
           }
         });
-        _importElement(scene, elements, index + 1, dispatch);
+        _importElement(type, elements, index + 1, dispatch);
       });
     }
 
@@ -203,57 +203,57 @@ export const importElements = (scene, collection, elements, dispatch) => {
 
   return {
     type: titles.collectionContent.importElement,
-    payload: checkExistence(scene, collection, elements, true).then(elements => {
+    payload: checkExistence(type, collection, elements, true).then(elements => {
       
-      const Element = getActions(scene).elementClass;
+      const Element = getActions(type).elementClass;
       elements = Element.fromDistantList(elements.results, collection);
       dispatch({
         type: titles.collectionContent.import + '_STARTED',
         data: elements
       });
-      _importElement(scene, elements, 0, dispatch);
+      _importElement(type, elements, 0, dispatch);
     }),
     meta: {
-      scene
+      type
     }
   }
 };
 
-export const exportCollection = (scene, pk, format) => {
+export const exportCollection = (type, pk, format) => {
   switch(format) {
     case 'csv':
-      return exportAsCSV(scene, pk);
+      return exportAsCSV(type, pk);
     case 'json':
-      return exportAsJSON(scene, pk);
+      return exportAsJSON(type, pk);
     default:
       return null;
   }
 };
 
-const exportAsCSV = (scene, pk) => {
+const exportAsCSV = (type, pk) => {
   
-  const generateComments = scene => {
-    return '#scene,' + scene + '\n';
+  const generateComments = type => {
+    return '#type,' + type + '\n';
   };
   
   return {
     type: collections.csv,
-    payload: getDataToExport(scene, pk).then(({ fields, content, collection }) => {
+    payload: getDataToExport(type, pk).then(({ fields, content, collection }) => {
       const csv = json2csv({ data: content, fields: fields });
-      const comments = generateComments(scene);
+      const comments = generateComments(type);
       downloadjs(comments + csv, collection.title + '.csv', 'text/csv');
       return null;
     })
   }
 };
 
-const exportAsJSON = (scene, pk) => {
+const exportAsJSON = (type, pk) => {
   
   return {
     type: collections.json,
-    payload: getDataToExport(scene, pk).then(({ fields, content, collection}) => {
+    payload: getDataToExport(type, pk).then(({ fields, content, collection}) => {
       const comments = {
-        scene
+        type
       };
       const json = JSON.stringify({
         comments,
@@ -265,9 +265,9 @@ const exportAsJSON = (scene, pk) => {
   
 };
 
-const getDataToExport = (scene, pk) => {
-  return get(scene, pk).payload.then(collection => {
-    const fields = getActions(scene).exportFields;
+const getDataToExport = (type, pk) => {
+  return get(type, pk).payload.then(collection => {
+    const fields = getActions(type).exportFields;
     const content = collection.content.map(el => {
       let data = {};
       const values = el.getLocal();
@@ -293,8 +293,8 @@ const getDataToExport = (scene, pk) => {
 /*
   ACTIONS WITHOUT DISPATCH
  */
-export const addSeenToElements =  (scene, elements, seen) => {
-  return getActions(scene).addSeenToElements(elements, seen);
+export const addSeenToElements =  (type, elements, seen) => {
+  return getActions(type).addSeenToElements(elements, seen);
 };
 
 export const addCollectionToElement = (element, collection) => {
@@ -304,14 +304,14 @@ export const addCollectionToElement = (element, collection) => {
   };
 };
 
-export const prepareElements = (scene, data) => {
+export const prepareElements = (type, data) => {
   let { content, seen, ...clearedData } = data;
-  const Element = getActions(scene).elementClass;
+  const Element = getActions(type).elementClass;
   const elements = content
     .map(el => new Element(el));
   elements.forEach(el => {
     el.setCollection(clearedData);
-    getActions(scene).prepareElement(el, seen);
+    getActions(type).prepareElement(el, seen);
   });
 
   return {

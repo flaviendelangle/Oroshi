@@ -40,7 +40,7 @@ class SummaryParameters extends Component {
   }
   
   render() {
-    const { data, scene, update, deleteCollection } = this.props;
+    const { data, type, update, deleteCollection } = this.props;
     const { title, showDeleteAlert, showGetPublicLinkAlert } = this.state;
     return (
       <div>
@@ -65,7 +65,7 @@ class SummaryParameters extends Component {
               >
                 <MenuItem
                   value="0"
-                  primaryText={getCollectionTypeTitle(scene)}
+                  primaryText={getCollectionTypeTitle(type)}
                 />
               </SelectField>
             </Line>
@@ -111,7 +111,7 @@ class SummaryParameters extends Component {
         <ShowPublicLinkAlert
           open={showGetPublicLinkAlert}
           data={data}
-          scene={scene}
+          type={type}
           onClose={_ => this.setState({ showGetPublicLinkAlert: false })}
           onDelete={_ => {}} //this.props.deleteCollection(this.props.data.pk)}
         />
@@ -124,10 +124,10 @@ const mapStateToProps = () => {
   return {};
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = (dispatch, { type }) => {
   return {
-    update: (pk, field, value) => dispatch(update(ownProps.scene, pk, field, value)),
-    deleteCollection: pk => dispatch(destroy(ownProps.scene, pk))
+    update: (pk, field, value) => dispatch(update(type, pk, field, value)),
+    deleteCollection: pk => dispatch(destroy(type, pk))
   }
 };
 

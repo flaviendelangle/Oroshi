@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
-import { connect } from "react-redux";
 
 import Snackbar from 'material-ui/Snackbar';
 
 import { removeSnack } from 'services/actions/interface';
+import { connect } from 'services/redux';
 
 
 const DURATION = 2000;
@@ -42,16 +42,15 @@ class SnackbarList extends Component {
   
 }
 
-const mapStateToProps = (state, ownProps) => {
-  const root = state.collections.main[ownProps.scene];
+const mapStateToProps = ({ main }) => {
   return {
-    messages: root.messages
+    messages: main.messages
   }
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = (dispatch, { type, collection }) => {
   return {
-    remove: _ => dispatch(removeSnack(ownProps.scene))
+    remove: _ => dispatch(removeSnack(type, collection))
   }
 };
 

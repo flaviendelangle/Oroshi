@@ -3,9 +3,9 @@ import { collectionTypes } from 'appConfig';
 import mainReducer from 'scenes/Collection/reducer';
 import contentReducer from 'scenes/Collection/components/CollectionContent/reducer';
 import addingReducer from 'scenes/Collection/components/AddingContent/reducer';
-import headerReducer from 'scenes/Collection/components/Header/reducer';
 import suggestionsReducer from 'scenes/ElementSuggestions/reducer';
 import settingsReducer from 'scenes/CollectionSettings/reducer';
+import headerReducer from 'components/appStructure/Header/reducer';
 
 const defaultState = {};
 
@@ -15,32 +15,32 @@ collectionTypes.forEach(el => {
 
 const reducer = (state = defaultState, action) => {
   
-  if (!action.meta || !action.meta.scene || !action.meta.collection) {
+  if (!action.meta || !action.meta.types || !action.meta.collection) {
     return state;
   }
 
-  const { scene, collection } = action.meta;
+  const { type, collection } = action.meta;
   
-  if (!state[scene]) {
+  if (!state[type]) {
     state = {
       ...state,
-      [scene]: {}
+      [type]: {}
     };
   }
-  if(!state[scene][collection.pk]) {
+  if(!state[type][collection.pk]) {
     state = {
       ...state,
-      [scene]: {
+      [type]: {
         [collection.pk]: {}
       }
     };
   }
   
-  const oldState = state[scene][collection.pk];
+  const oldState = state[type][collection.pk];
 
   state = {
     ...state,
-    [scene]: {
+    [type]: {
       [collection.pk]: {
         main: mainReducer(oldState.main, action),
         header: headerReducer(oldState.header, action),

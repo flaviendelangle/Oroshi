@@ -1,26 +1,32 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
 import AppBar from 'material-ui/AppBar';
 
 import MainDrawer from './components/MainDrawer/index'
 import { showMainDrawer } from './components/MainDrawer/actions';
+import { connect } from 'services/redux';
 
 class Header extends Component {
   
   render() {
+    const { isDrawerOpen, isPublic, title, showTitle, openMainDrawer } = this.props;
     return (
       <div>
         <AppBar
-          title={ this.props.showTitle ? this.props.title : ''}
-          onLeftIconButtonTouchTap={_ => this.props.openMainDrawer(true)}
-          showMenuIconButton={!this.props.isPublic}
+          title={ showTitle ? title : ''}
+          onLeftIconButtonTouchTap={_ => {
+            openMainDrawer(true)
+          }}
+          showMenuIconButton={!isPublic}
         >
           {this.searchBar}
           {this.actionsButton}
         </AppBar>
-        <MainDrawer title={this.props.title} isPublic={this.props.isPublic} >
-          {this.drawerLinks}
-        </MainDrawer>
+        <MainDrawer
+          title={title}
+          isPublic={isPublic}
+          isOpen={isDrawerOpen}
+          onOpen={openMainDrawer}
+        />
       </div>
     )
     
@@ -28,13 +34,15 @@ class Header extends Component {
   
 }
 
-const mapStateToProps = state => {
-  return {};
+const mapStateToProps = ({ header }) => {
+  return {
+    isDrawerOpen: header.isDrawerOpen,
+  };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch, { type, collection }) => {
   return {
-    openMainDrawer: show => dispatch(showMainDrawer(show))
+    openMainDrawer: show => dispatch(showMainDrawer(type, collection, show))
   };
 };
 

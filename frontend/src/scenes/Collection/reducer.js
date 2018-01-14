@@ -28,7 +28,7 @@ const main = (state = defaultState, action) => {
      * An element has been updated in the collection (ex : Not Seen => Seen)
      */
     case collections.update + '_FULFILLED':
-      if(action.meta.type !== 'seen') {
+      if(action.meta.field !== 'seen') {
         return state;
       }
       const seen = (action.payload.hasBeenSeen() ? '' : 'not ') + 'seen';

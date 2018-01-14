@@ -11,15 +11,15 @@ const defaultElementState = {
 
 const reducer = (state = defaultState, action) => {
   
-  if (!action.meta || !action.meta.scene) {
+  if (!action.meta || !action.meta.type) {
     return state;
   }
-  const scene = action.meta.scene;
+  const type = action.meta.type;
   
-  if (!state[scene]) {
+  if (!state[type]) {
     state = {
       ...state,
-      [scene]: defaultElementState
+      [type]: defaultElementState
     };
   }
   
@@ -57,7 +57,7 @@ const reducer = (state = defaultState, action) => {
   
   return {
     ...state,
-    [scene]: sceneReducer(state[scene])
+    [type]: sceneReducer(state[type])
   };
   
 };

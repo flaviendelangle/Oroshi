@@ -5,12 +5,12 @@ import FlatButton from 'material-ui/FlatButton';
 
 import { urls } from 'appConfig';
 
-const ShowPublicLinkAlert = ({ open, data, scene, onClose, onPublish }) => {
+const ShowPublicLinkAlert = ({ open, data, type, onClose, onPublish }) => {
   let content;
   let actions = null;
   
   if(data.public) {
-    const url = `${urls.frontend}collections/${scene}/${data.pk}/public/`;
+    const url = `${urls.frontend}collections/${type}/${data.pk}/public/`;
     content = (
       <div style={{userSelect: 'text'}}>
         {url}

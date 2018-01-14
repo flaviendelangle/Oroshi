@@ -21,12 +21,12 @@ class CollectionSettings extends Component {
   }
   
   render() {
-    const { scene, collection } = this.props;
+    const { type, collection } = this.props;
     return (
       <div className="collection-settings">
-        <Header scene={scene} collection={collection} />
-        <MenuPanel scene={scene} collection={collection} />
-        <ContentPanel scene={scene} collection={collection} />
+        <Header type={type} collection={collection} />
+        <MenuPanel type={type} collection={collection} />
+        <ContentPanel type={type} collection={collection} />
       </div>
     );
   }
@@ -39,9 +39,9 @@ const mapStateToProps = ({ settings }) => {
   };
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = (dispatch, { type }) => {
   return {
-    synchronize: collection => dispatch(getSettings(ownProps.scene, collection))
+    synchronize: collection => dispatch(getSettings(type, collection))
   }
 };
 

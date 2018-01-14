@@ -1,9 +1,9 @@
 import React, {Component} from 'react'
-import { connect } from 'react-redux'
 
 import Grid from 'components/generics/Grid';
 import Stream from 'components/generics/Stream';
 import Progress from 'components/generics/Progress';
+import { connect } from 'services/redux';
 
 import * as _style from './style';
 
@@ -20,7 +20,7 @@ class AddingContent extends Component {
         <Grid
           data={this.props.addingSearch}
           collection={this.props.collection}
-          scene={this.props.scene}
+          type={this.props.type}
           elementComponent={this.props.elementComponent}
           lineDimensions={this.props.lineDimensions}
           creationMode={true}
@@ -31,7 +31,7 @@ class AddingContent extends Component {
       <Stream
         data={this.props.recommendations}
         collection={this.props.collection}
-        scene={this.props.scene}
+        type={this.props.type}
         elementComponent={this.props.elementComponent}
         lineDimensions={this.props.lineDimensions}
         creationMode={true}
@@ -58,13 +58,12 @@ class AddingContent extends Component {
   
 }
 
-const mapStateToProps = (state, ownProps) => {
-  const root = state.collections.addingContent[ownProps.scene];
+const mapStateToProps = ({ adding }, state) => {
   return {
-    loaded: root.loaded,
-    collection: root.collection,
-    recommendations: root.recommendations,
-    addingSearch: root.addingSearch,
+    loaded: adding.loaded,
+    collection: adding.collection,
+    recommendations: adding.recommendations,
+    addingSearch: adding.addingSearch,
     
     lineDimensions: state.app.lineDimensions
   }

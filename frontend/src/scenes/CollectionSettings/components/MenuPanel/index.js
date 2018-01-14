@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import muiThemeable from 'material-ui/styles/muiThemeable';
 
 import Line from './components/Line';
-import { getCollectionSettingsState } from 'containers/reducer'
 import { connect } from 'services/redux';
 
 import * as _style from './style';
@@ -19,13 +18,13 @@ class MenuPanel extends Component {
   }
   
   render() {
-    const { scene, collection } = this.props;
+    const { type, collection } = this.props;
     return (
       <div style={_style.panel}>
         <Line
           active={this.isActive('summary')}
           value="summary"
-          scene={scene}
+          type={type}
           collection={collection}
         >
           Summary
@@ -36,7 +35,7 @@ class MenuPanel extends Component {
         <Line
           active={this.isActive('languages')}
           value="languages"
-          scene={scene}
+          type={type}
           collection={collection}
         >
           Languages
@@ -44,7 +43,7 @@ class MenuPanel extends Component {
         <Line
           active={this.isActive('exports')}
           value="exports"
-          scene={scene}
+          type={type}
           collection={collection}
         >
           Export your data
@@ -52,7 +51,7 @@ class MenuPanel extends Component {
         <Line
           active={this.isActive('imports')}
           value="imports"
-          scene={scene}
+          type={type}
           collection={collection}
         >
           Import data
@@ -70,7 +69,7 @@ const mapStateToProps = ({ settings }) => {
   }
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = dispatch => {
   return {}
 };
 

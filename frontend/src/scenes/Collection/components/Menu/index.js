@@ -29,7 +29,7 @@ const LAYOUTS = [
 class Menu extends Component {
   
   render() {
-    const { isAdding, collection, scene, layout, found, loaded, isPublic, content } = this.props;
+    const { isAdding, collection, type, layout, found, loaded, isPublic, content } = this.props;
     if (!found || !loaded) {
       return null;
     }
@@ -49,7 +49,7 @@ class Menu extends Component {
           layout={layout}
           content={content}
         />
-        <SnackbarList scene={scene} />
+        <SnackbarList type={type} />
       </span>
     )
   }
@@ -125,13 +125,13 @@ const mapStateToProps = ({ content, main }) => {
   }
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = (dispatch, { type }) => {
   return {
     switchAddingMode: collection => {
-      dispatch(switchAddingMode(ownProps.scene));
-      dispatch(getRecommendations(ownProps.scene, collection));
+      dispatch(switchAddingMode(type, collection));
+      dispatch(getRecommendations(type, collection));
     },
-    switchLayout: layout => dispatch(switchLayout(ownProps.scene, layout))
+    switchLayout: layout => dispatch(switchLayout(type, layout))
   };
 };
 

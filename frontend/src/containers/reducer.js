@@ -7,9 +7,6 @@ import login from 'scenes/Login/reducer';
 import header from 'components/generics/Header/reducer';
 import help from 'components/generics/Help/reducer';
 import tv_shows from 'types/tvShows/component/reducer';
-import collections from 'scenes/Collection/reducer';
-import collectionSettings from 'scenes/CollectionSettings/reducer';
-import elementSuggestions from 'scenes/ElementSuggestions/reducer';
 
 import { notify } from 'services/titles/router';
 import { screen } from 'services/titles/interface';
@@ -19,7 +16,7 @@ import { alertScreenResize } from '../services/actions/interface';
 import { loginFromCache } from 'services/actions/users';
 import { saveOauth, loadOauth } from 'services/localstorage';
 
-import scenes from 'reducers/scenes';
+import types from 'reducers/types';
 
 
 const defaultState = {
@@ -107,7 +104,7 @@ const baseReducers = {
 
 const appReducer = combineReducers({
   ...baseReducers,
-  scenes,
+  types,
 });
 
 
@@ -129,15 +126,6 @@ const reducer = (state, action) => {
   
 };
 
-/**
- * Return the current state of the settings of a collection
- * @param state - current root state of the application
- * @param scene - scene from which we want to get the state
- * @returns {Object} - state of the settings of our scene
- */
-export const getCollectionSettingsState = (state, scene) => {
-  return state['collection_' + scene + '_settings'];
-};
 
 const composeStoreWithMiddleware = applyMiddleware(
   promiseMiddleware()

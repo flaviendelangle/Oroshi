@@ -8,9 +8,9 @@ import { update as _update } from 'services/actions/collections'
  * @param {*} value - value of the new field
  * @returns {Action} - asynchronous action to dispatch
  */
-export const update = (scene, pk, field, value) => {
+export const update = (type, pk, field, value) => {
   const data = {
     [field]: value
   };
-  return _update(scene, pk, data);
+  return _update(type, pk, data);
 };

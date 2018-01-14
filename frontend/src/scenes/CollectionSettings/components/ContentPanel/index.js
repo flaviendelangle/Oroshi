@@ -27,7 +27,7 @@ class MenuPanel extends Component {
   }
 
   render() {
-    const { active, scene, collection, data } = this.props;
+    const { active, type, collection, data } = this.props;
     if(!data) {
       return (
         <div style={this.panelStyle}>
@@ -37,7 +37,7 @@ class MenuPanel extends Component {
     }
     return (
       <div style={this.panelStyle}>
-        <Panel active={active} scene={scene} collection={collection} data={data} />
+        <Panel active={active} type={type} collection={collection} data={data} />
       </div>
     );
     
@@ -67,12 +67,12 @@ const getSectionComponent = active => {
   }
 };
 
-const Panel = ({ active, scene, collection, data  }) => {
+const Panel = ({ active, type, collection, data  }) => {
   const Section = getSectionComponent(active);
   if(!Section) {
     return null;
   }
-  return <Section scene={scene} collection={collection} data={data} />;
+  return <Section type={type} collection={collection} data={data} />;
 };
 
 const mapStateToProps = ({ settings }) => {
@@ -82,7 +82,7 @@ const mapStateToProps = ({ settings }) => {
   }
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = dispatch => {
   return {}
 };
 

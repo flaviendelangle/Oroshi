@@ -1,10 +1,11 @@
 import { source } from 'services/titles/interface'
 
-export const switchAddingMode = scene => {
+export const switchAddingMode = (type, collection) => {
   return {
     type: source.updateIsAdding,
     meta: {
-      scene
+      type,
+      collection,
     }
   }
 };

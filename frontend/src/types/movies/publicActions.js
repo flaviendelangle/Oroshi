@@ -6,11 +6,11 @@ export const search = tmdb.search;
 
 export const getRecommendations = tmdb.getRecommendations;
 
-export const getSuggestions = (scene, collection, element) => {
+export const getSuggestions = (type, collection, element) => {
   const promises = [
-    ..._getElementsSameDirectors(scene, collection, element)
+    ..._getElementsSameDirectors(type, collection, element)
   ];
-  return tmdb.getSuggestions(scene, collection, element, promises);
+  return tmdb.getSuggestions(type, collection, element, promises);
 };
 
 export const getPopular = tmdb.getPopular;
@@ -25,7 +25,7 @@ export const getTitle = tmdb.getTitle;
 
 export const getPoster = tmdb.getPoster;
 
-export const cleanDetails = (scene, details) => {
+export const cleanDetails = (type, details) => {
   const directors = details.credits.crew
     .filter(el => el.job === 'Director')
     .map(el => ({ tmdbId: el.id, name: el.name }));
@@ -45,11 +45,11 @@ export const cleanDetails = (scene, details) => {
   };
 };
 
-export const _getElementsSameDirectors = (scene, collection, element) => {
+export const _getElementsSameDirectors = (type, collection, element) => {
   return element.getDirectors().map(director => {
     return PersonAPI.movieCredits(director.tmdbId).then(response => {
       const results = response.crew.filter(el => el.job === 'Director');
-      return tmdb.prepareSearchResults(scene, collection, { results })
+      return tmdb.prepareSearchResults(type, collection, { results })
         .then(el => ({
           key: { name: `Directed by ${director.name}`, pk: director.tmdbId },
           type: 'same_director',

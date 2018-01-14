@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import Toggle from 'material-ui/Toggle';
 
 import ParametersSection, { Line } from '../ParametersSection';
-import { getCollectionSettingsState } from 'containers/reducer';
 import { update } from 'scenes/CollectionSettings/actions';
 
 class SpoilerParameters extends Component {
@@ -34,9 +33,9 @@ const mapStateToProps = (state, ownProps) => {
   return {};
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = (dispatch, { type }) => {
   return {
-    update: (pk, field, value) => dispatch(update(ownProps.scene, pk, field, value))
+    update: (pk, field, value) => dispatch(update(type, pk, field, value))
   }
 };
 

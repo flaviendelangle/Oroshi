@@ -11,12 +11,12 @@ import { setSortParameters, setLayoutParameters } from '../../services/utils';
 import * as content_manager from './services/content_manager';
 
 
-const generateDefaultElementState = scene => {
+const generateDefaultElementState = type => {
   
-  const ListGenerator = getListGenerator(scene);
-  const StreamGenerator = getStreamGenerator(scene);
+  const ListGenerator = getListGenerator(type);
+  const StreamGenerator = getStreamGenerator(type);
   
-  const defaultOrder = getDefaultOrder(scene);
+  const defaultOrder = getDefaultOrder(type);
   
   return {
     content: [],
@@ -24,8 +24,8 @@ const generateDefaultElementState = scene => {
     collection: null,
     found: false,
     loaded: false,
-    layout: getValue('layout_' + scene) || 'grid',
-    order: getValue('order_' + scene) || defaultOrder,
+    layout: getValue('layout_' + type) || 'grid',
+    order: getValue('order_' + type) || defaultOrder,
     stream: new StreamGenerator(),
     grid: new ListGenerator(),
   };
@@ -33,17 +33,17 @@ const generateDefaultElementState = scene => {
 
 const reducer = (state, action) => {
 
-  const scene = action.meta.scene;
+  const type = action.meta.type;
   if(!state) {
-    state = generateDefaultElementState(scene);
+    state = generateDefaultElementState(type);
   }
   
   let newContent;
   let newOrder;
   
-  const ListGenerator = getListGenerator(scene);
-  const StreamGenerator = getStreamGenerator(scene);
-  const defaultOrder = getDefaultOrder(scene);
+  const ListGenerator = getListGenerator(type);
+  const StreamGenerator = getStreamGenerator(type);
+  const defaultOrder = getDefaultOrder(type);
   
   switch(action.type) {
     
@@ -127,7 +127,7 @@ const reducer = (state, action) => {
      * The order of the elements has been updated (check OrderMenu component)
      */
     case sort.update:
-      setSortParameters(scene, action.parameters, defaultOrder);
+      setSortParameters(type, action.parameters, defaultOrder);
       if (action.parameters.layout === 'grid') {
         newContent = Element.sortList(state.content, action.parameters);
       } else {
@@ -165,7 +165,7 @@ const reducer = (state, action) => {
      * The layout in which we want to see the elements has been updated
      */
     case layout.update:
-      setLayoutParameters(scene, action.layout);
+      setLayoutParameters(type, action.layout);
       return {
         ...state,
         query: '',

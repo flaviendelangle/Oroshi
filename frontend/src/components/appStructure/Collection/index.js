@@ -8,11 +8,12 @@ import Header from 'components/appStructure/Header';
 import { collectionTypes } from 'appConfig';
 
 
-const getSceneProps = (el, sceneProps) => {
+const getSceneProps = (el, scene, sceneProps) => {
   const props = {
     ...sceneProps,
+    scene,
     config: el,
-    scene: el.name,
+    type: el.name,
     collection: {
       pk: sceneProps.match.params.collection_id,
     },
@@ -28,28 +29,28 @@ const generate = () => {
         path={`/collections/${scene.name}/:collection_id/suggestions/:element_id/`}
         key={`${scene.name}_${index}`}
         render={props => (
-          <Scene {...getSceneProps(scene, props)} Component={ElementSuggestions} />
+          <Scene {...getSceneProps(scene, 'suggestions', props)} Component={ElementSuggestions} />
         )}
       />,
       <Route
         path={`/collections/${scene.name}/:collection_id/settings/`}
         key={`${scene.name}_${index}`}
         render={props => (
-          <Scene {...getSceneProps(scene, props)} Component={CollectionSettings} />
+          <Scene {...getSceneProps(scene, 'settings', props)} Component={CollectionSettings} />
         )}
       />,
       <Route
         path={`/collections/${scene.name}/:collection_id/public/`}
         key={`${scene.name}_${index}`}
         render={props => (
-          <Scene {...getSceneProps(scene, props)} Component={CollectionContent} isPublic={true} />
+          <Scene {...getSceneProps(scene, 'content', props)} Component={CollectionContent} isPublic={true} />
         )}
       />,
       <Route
         path={`/collections/${scene.name}/:collection_id/`}
         key={`${scene.name}_${index}`}
         render={props => (
-          <Scene {...getSceneProps(scene, props)} Component={CollectionContent} isPublic={false} />
+          <Scene {...getSceneProps(scene, 'content', props)} Component={CollectionContent} isPublic={false} />
         )}
       />,
     ]
@@ -70,10 +71,8 @@ class Collection extends Component {
 
 const Scene = ({ Component, ...props }) => {
   return [
-    <Component
-      key={1}
-      {...props}
-    />
+    <Header key={1} {...props} />,
+    <Component key={2}  {...props} />
   ];
 };
 

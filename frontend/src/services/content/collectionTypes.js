@@ -4,23 +4,23 @@ export const getConfig = scene => {
   return collectionTypes.find(el => el.name === scene);
 };
 
-export const getActions = scene => {
-  return getConfig(scene).actions;
+export const getActions = type => {
+  return getConfig(type).actions;
 };
 
-export const getPublicActions = scene => {
-  return getConfig(scene).publicActions;
+export const getPublicActions = type => {
+  return getConfig(type).publicActions;
 };
 
-export const getCollectionAPI = scene => {
-  return getActions(scene).collectionAPI;
+export const getCollectionAPI = type => {
+  return getActions(type).collectionAPI;
 };
 
-export const getElementAPI = scene => {
-  return getActions(scene).elementAPI;
+export const getElementAPI = type => {
+  return getActions(type).elementAPI;
 };
 
-export const getPublicAPI = scene => {
-  return getActions(scene).publicAPI;
+export const getPublicAPI = type => {
+  return getActions(type).publicAPI;
 };
 

@@ -15,17 +15,12 @@ class CollectionScene extends Component {
   }
   
   render() {
-    const { scene, collection, isPublic } = this.props;
+    const { type, isPublic } = this.props;
     return (
       <div>
-        <Header
-          scene={scene}
-          isPublic={isPublic}
-          collection={collection}
-        />
         <Content {...this.props} />
         <Menu
-          scene={scene}
+          type={type}
           isPublic={isPublic}
         />
       </div>
@@ -35,11 +30,11 @@ class CollectionScene extends Component {
   
 }
 
-const Content = ({ config, scene, isAdding, isPublic, collection }) => {
+const Content = ({ config, type, isAdding, isPublic, collection }) => {
   if (isAdding) {
     return (
       <AddingContent
-        scene={scene}
+        type={type}
         collection={collection}
         elementComponent={config.elementComponent}
         isPublic={isPublic}
@@ -48,7 +43,7 @@ const Content = ({ config, scene, isAdding, isPublic, collection }) => {
   }
   return (
     <CollectionContent
-      scene={scene}
+      type={type}
       collection={collection}
       elementComponent={config.elementComponent}
       isPublic={isPublic}
@@ -62,9 +57,9 @@ const mapStateToProps = ({ main }) => {
   }
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = (dispatch, { type }) => {
   return {
-    synchronize: collection => dispatch(getCollection(ownProps.scene, collection))
+    synchronize: collection => dispatch(getCollection(type, collection))
   }
 };
 

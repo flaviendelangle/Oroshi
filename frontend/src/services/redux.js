@@ -6,15 +6,15 @@ export const connect = (mapStateToProps, mapDispatchToProps, component) => {
 };
 
 const _customMapStateToProps = (mapStateToProps, state, ownProps) => {
-  const { scene, collection } = ownProps;
-  if(scene && collection) {
-    const sceneRoot = state.scenes[scene];
-    if(!sceneRoot[collection.pk]) {
+  const { type, collection } = ownProps;
+  if(type && collection) {
+    const typeRoot = state.types[type];
+    if(!typeRoot[collection.pk]) {
       return {
         loaded: false
       };
     } else {
-      const newState = mapStateToProps(sceneRoot[collection.pk], state, ownProps);
+      const newState = mapStateToProps(typeRoot[collection.pk], state, ownProps);
       if(!newState.collection && ownProps.collection) {
         newState.collection = ownProps.collection;
       }

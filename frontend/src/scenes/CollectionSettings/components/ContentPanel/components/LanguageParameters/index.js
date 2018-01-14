@@ -15,14 +15,14 @@ const selectStyle = {
 class LanguageParameters extends Component {
   
   render() {
-    const { data, scene, update } = this.props;
+    const { data, type, update } = this.props;
     return (
       <ParametersSection>
         <div className="title">Languages</div>
         <div className="content">
           <Line primaryText="Title language">
             <SelectLanguage
-              scene={scene}
+              type={type}
               style={selectStyle}
               value={data.title_language}
               onChange={ value => {
@@ -32,7 +32,7 @@ class LanguageParameters extends Component {
           </Line>
           <Line primaryText="Poster language">
             <SelectLanguage
-              scene={scene}
+              type={type}
               style={selectStyle}
               value={data.poster_language}
               onChange={ value => {
@@ -46,13 +46,13 @@ class LanguageParameters extends Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = state => {
   return {};
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = (dispatch, { type }) => {
   return {
-    update: (pk, field, value) => dispatch(update(ownProps.scene, pk, field, value))
+    update: (pk, field, value) => dispatch(update(type, pk, field, value))
   }
 };
 

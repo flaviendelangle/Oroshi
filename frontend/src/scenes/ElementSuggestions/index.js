@@ -23,7 +23,7 @@ class ElementSuggestions extends Component {
       loaded,
       suggestions,
       collection,
-      scene,
+      type,
       config,
       lineDimensions
     } = this.props;
@@ -32,14 +32,14 @@ class ElementSuggestions extends Component {
     }
     return [
       <Header
-        scene={scene}
+        type={type}
         collection={collection}
         key={1}
       />,
       <Stream
         data={suggestions}
         collection={collection}
-        scene={scene}
+        type={type}
         elementComponent={config.elementComponent}
         lineDimensions={lineDimensions}
         creationMode={true}

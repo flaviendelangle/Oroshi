@@ -114,7 +114,7 @@ class DataImporter extends Component {
       return (
         <Line data={el}
           key={++counter}
-          scene={this.props.scene}
+          type={this.props.type}
         />
       );
     })
@@ -164,12 +164,12 @@ const mapStateToProps = ({ settings: { dataImporter }}) => {
   }
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = (dispatch, { type }) => {
   return {
-    importCSV: file => dispatch(importCSV(ownProps.scene, file)),
-    importJSON: file => dispatch(importJSON(ownProps.scene, file)),
+    importCSV: file => dispatch(importCSV(type, file)),
+    importJSON: file => dispatch(importJSON(type, file)),
     importContent: (collection, elements) => {
-      dispatch(importElements(ownProps.scene, collection, elements, dispatch));
+      dispatch(importElements(type, collection, elements, dispatch));
     }
   }
 };

@@ -20,7 +20,7 @@ const languages = {
 
 export const DEFAULT_LANGUAGE = 'en';
 
-export const getPublicAPILanguages = scene => languages[scene];
+export const getPublicAPILanguages = type => languages[type];
 
 export const getLanguages = _ => {
   return tmdbLanguages;

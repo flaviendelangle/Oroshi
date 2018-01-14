@@ -1,13 +1,13 @@
 import { setValue, getValue } from 'services/localstorage';
 
-export const setSortParameters = (scene, params, defaultOrder) => {
-  const key = 'order_' + scene;
+export const setSortParameters = (type, params, defaultOrder) => {
+  const key = 'order_' + type;
   let oldParams = getValue(key) || defaultOrder;
   oldParams[params.layout] = params;
   setValue(key, oldParams);
 };
 
-export const setLayoutParameters = (scene, params) => {
-  const key = 'layout_' + scene;
+export const setLayoutParameters = (type, params) => {
+  const key = 'layout_' + type;
   setValue(key, params);
 };

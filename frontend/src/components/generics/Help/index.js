@@ -13,8 +13,8 @@ import * as _style from './style';
 class Help extends Component {
   
   componentDidMount() {
-    const { getElement, collection, scene } = this.props;
-    getElement(scene, collection);
+    const { getElement, collection, type } = this.props;
+    getElement(type, collection);
   }
   
   render() {

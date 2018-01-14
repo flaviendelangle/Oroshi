@@ -3,12 +3,12 @@ import { getActions, getCollectionAPI, getElementAPI, getPublicAPI } from 'servi
 import { getPopular as getPopularOriginal, getTopRated as getTopRatedOriginal, search as searchOriginal } from './index';
 import { getTmdbLanguages, DEFAULT_LANGUAGE } from 'services/languages';
 
-export const search = (scene, collection, query, page) => {
-  const searchKey = getSearchKey(scene);
+export const search = (type, collection, query, page) => {
+  const searchKey = getSearchKey(type);
   return searchAPI[searchKey](query, { page })
     .then(elements => {
       console.log(elements);
-      return prepareSearchResults(scene, collection, elements, query)
+      return prepareSearchResults(type, collection, elements, query)
     })
     .catch(error => {
       console.log(error);
@@ -16,14 +16,14 @@ export const search = (scene, collection, query, page) => {
     });
 };
 
-export const getRecommendations = (scene, collection) => {
+export const getRecommendations = (type, collection) => {
   
   let elements = [];
   
-  return _getPopular(scene, collection)
+  return _getPopular(type, collection)
     .then(results => {
       elements.push(results);
-      return _getTopRated(scene, collection)
+      return _getTopRated(type, collection)
     })
     .then(results => {
       elements.push(results);
@@ -33,23 +33,23 @@ export const getRecommendations = (scene, collection) => {
     });
 };
 
-export const getSuggestions = (scene, collection, element, promises=[]) => {
+export const getSuggestions = (type, collection, element, promises=[]) => {
   const results = Promise.all([
-    _getElementRecommendations(scene, collection, element),
+    _getElementRecommendations(type, collection, element),
     ...promises,
   ]);
   return results.then(results => ({ results }));
 };
 
-export const getPopular = (scene, collection, page) => {
-  return _getPopular(scene, collection, page)
+export const getPopular = (type, collection, page) => {
+  return _getPopular(type, collection, page)
 };
 
-export const getTopRated = (scene, collection, page) => {
-  return _getTopRated(scene, collection, page);
+export const getTopRated = (type, collection, page) => {
+  return _getTopRated(type, collection, page);
 };
 
-export const checkExistence = (scene, collection, elements, fromLocalAPI=false) => {
+export const checkExistence = (type, collection, elements, fromLocalAPI=false) => {
   
   if (fromLocalAPI) {
     elements.results = elements.results.map(el => {
@@ -73,10 +73,10 @@ export const checkExistence = (scene, collection, elements, fromLocalAPI=false) 
   const IDs = elements.results.map(el => el.id);
   let existOnServer, existInCollection;
   
-  return getElementAPI(scene).serialize(IDs, 'tmdbId')
+  return getElementAPI(type).serialize(IDs, 'tmdbId')
     .then(response => {
       existOnServer = response;
-      return getCollectionAPI(scene).element(collection.pk)[scene].exist(IDs, 'tmdbId');
+      return getCollectionAPI(type).element(collection.pk)[type].exist(IDs, 'tmdbId');
     })
     .then(response => {
       existInCollection = response;
@@ -85,7 +85,7 @@ export const checkExistence = (scene, collection, elements, fromLocalAPI=false) 
     })
 };
 
-export const getDetails = (scene, collection, tmdbId) => {
+export const getDetails = (type, collection, tmdbId) => {
 
   let options = {
     append_to_response: ['credits'],
@@ -97,9 +97,9 @@ export const getDetails = (scene, collection, tmdbId) => {
     titles: []
   };
 
-  const key = (scene === 'movies') ? 'title' : 'name';
+  const key = (type === 'movies') ? 'title' : 'name';
 
-  return getPublicAPI(scene).details(tmdbId, options)
+  return getPublicAPI(type).details(tmdbId, options)
     .then(response => {
       details.posters.push({
         language: DEFAULT_LANGUAGE,
@@ -114,38 +114,38 @@ export const getDetails = (scene, collection, tmdbId) => {
         ...details,
         ...response
       };
-      return getMissingData(scene, tmdbId, collection, details)
+      return getMissingData(type, tmdbId, collection, details)
     });
   
 };
 
-export const getPoster = (scene, tmdbId, language) => {
+export const getPoster = (type, tmdbId, language) => {
   const options = {
     language
   };
-  return getPublicAPI(scene).details(tmdbId, options)
+  return getPublicAPI(type).details(tmdbId, options)
     .then(response => {
         return response.poster_path;
     });
 };
 
-export const getTitle = (scene, tmdbId, language) => {
+export const getTitle = (type, tmdbId, language) => {
   const options = {
     language
   };
-  const key = (scene === 'movies') ? 'title' : 'name';
-  return getPublicAPI(scene).details(tmdbId, options)
+  const key = (type === 'movies') ? 'title' : 'name';
+  return getPublicAPI(type).details(tmdbId, options)
     .then(response => response[key]);
 };
 
-const getMissingData = (scene, tmdbId, collection, details) => {
+const getMissingData = (type, tmdbId, collection, details) => {
 
   const languages = getTmdbLanguages(collection, details.original_language);
   let promise =  Promise.resolve();
   
   if (languages.title !== DEFAULT_LANGUAGE ) {
     promise = promise
-      .then(_ => getTitle(scene, tmdbId, languages.title))
+      .then(_ => getTitle(type, tmdbId, languages.title))
       .then(title => {
         details.titles.push({
           language: languages.title,
@@ -155,7 +155,7 @@ const getMissingData = (scene, tmdbId, collection, details) => {
   }
   if (languages.poster !== DEFAULT_LANGUAGE) {
     promise = promise
-      .then(_ => getPoster(scene, tmdbId, languages.poster))
+      .then(_ => getPoster(type, tmdbId, languages.poster))
       .then(poster => {
         if (poster) {
           details.posters.push({
@@ -168,8 +168,8 @@ const getMissingData = (scene, tmdbId, collection, details) => {
   return promise.then(_ => details);
 };
 
-const _getElementRecommendations = (scene, collection, element) => {
-  const publicAPI = getPublicAPI(scene);
+const _getElementRecommendations = (type, collection, element) => {
+  const publicAPI = getPublicAPI(type);
   let elements;
   return publicAPI.recommendations(element.getPublicId()).then(response => {
     elements = {
@@ -178,12 +178,12 @@ const _getElementRecommendations = (scene, collection, element) => {
       content: response,
       link: false
     };
-    return prepareStreamResults(scene, collection, elements, null)
+    return prepareStreamResults(type, collection, elements, null)
   });
 };
 
-const _getPopular = (scene, collection, page=1) => {
-  const publicAPI = getPublicAPI(scene);
+const _getPopular = (type, collection, page=1) => {
+  const publicAPI = getPublicAPI(type);
   let elements;
   return publicAPI.popular({page})
     .then(response => {
@@ -193,12 +193,12 @@ const _getPopular = (scene, collection, page=1) => {
         content: response,
         link: false
       };
-      return prepareStreamResults(scene, collection, elements, getPopularOriginal);
+      return prepareStreamResults(type, collection, elements, getPopularOriginal);
     });
 };
 
-const _getTopRated = (scene, collection, page=1) => {
-  const publicAPI = getPublicAPI(scene);
+const _getTopRated = (type, collection, page=1) => {
+  const publicAPI = getPublicAPI(type);
   let elements;
   return publicAPI.topRated({page})
     .then(response => {
@@ -208,17 +208,17 @@ const _getTopRated = (scene, collection, page=1) => {
         content: response,
         link: false
       };
-      return prepareStreamResults(scene, collection, elements, getTopRatedOriginal);
+      return prepareStreamResults(type, collection, elements, getTopRatedOriginal);
     });
 };
 
-export const prepareStreamResults = (scene, collection, elements, nextAction) => {
+export const prepareStreamResults = (type, collection, elements, nextAction) => {
   
-  return checkExistence(scene, collection, elements.content).then(response => {
-    const Element = getActions(scene).elementClass;
+  return checkExistence(type, collection, elements.content).then(response => {
+    const Element = getActions(type).elementClass;
     let next = null;
     if (elements.content.page < elements.content.total_pages) {
-      next = nextAction.bind(this, scene, collection, elements.content.page+1);
+      next = nextAction.bind(this, type, collection, elements.content.page+1);
     }
     return {
       ...elements,
@@ -228,13 +228,13 @@ export const prepareStreamResults = (scene, collection, elements, nextAction) =>
   });
 };
 
-export const prepareSearchResults = (scene, collection, { content, ...elements }, query) => {
+export const prepareSearchResults = (type, collection, { content, ...elements }, query) => {
   
-  return checkExistence(scene, collection, { content, ...elements}).then(response => {
-    const Element = getActions(scene).elementClass;
+  return checkExistence(type, collection, { content, ...elements}).then(response => {
+    const Element = getActions(type).elementClass;
     let next = null;
     if (elements.page < elements.total_pages) {
-      next = searchOriginal.bind(this, scene, collection, query, elements.page+1);
+      next = searchOriginal.bind(this, type, collection, query, elements.page+1);
     }
     return {
       ...elements,
@@ -245,8 +245,8 @@ export const prepareSearchResults = (scene, collection, { content, ...elements }
   
 };
 
-const getSearchKey = scene => {
-  switch(scene) {
+const getSearchKey = type => {
+  switch(type) {
     case 'movies':
       return 'movies';
     case 'tv_shows':

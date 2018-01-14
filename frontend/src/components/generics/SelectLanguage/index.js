@@ -9,7 +9,8 @@ import { getPublicAPILanguages } from 'services/languages';
 class SelectLanguage extends Component {
   
   get languages() {
-    const languages = getPublicAPILanguages(this.props.scene);
+    const { type } = this.props;
+    const languages = getPublicAPILanguages(type);
     const original = { name: 'Original language', code: '-' };
     return [original].concat(languages);
   }

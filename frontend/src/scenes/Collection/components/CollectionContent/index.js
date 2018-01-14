@@ -23,7 +23,7 @@ class CollectionContent extends Component {
       stream,
       collection,
       order,
-      scene,
+      type,
       elementComponent,
       lineDimensions,
       isPublic
@@ -34,7 +34,7 @@ class CollectionContent extends Component {
           data={grid}
           collection={collection}
           order={order.default}
-          scene={scene}
+          type={type}
           elementComponent={elementComponent}
           lineDimensions={lineDimensions}
           isPublic={isPublic}
@@ -46,7 +46,7 @@ class CollectionContent extends Component {
         <Stream
           data={stream}
           collection={collection}
-          scene={scene}
+          type={type}
           elementComponent={elementComponent}
           lineDimensions={lineDimensions}
           isPublic={isPublic}
@@ -56,8 +56,16 @@ class CollectionContent extends Component {
   };
   
   render() {
-    const { loaded, found, content, collection, isAdding, isPublic,
-            scene, elementComponent } = this.props;
+    const {
+      loaded,
+      found,
+      content,
+      collection,
+      isAdding,
+      isPublic,
+      type,
+      elementComponent
+    } = this.props;
     if (!loaded) {
       return (
         <Progress />
@@ -69,7 +77,7 @@ class CollectionContent extends Component {
     else if (content.length === 0 && !isAdding) {
       return (
         <Help
-          scene={scene}
+          type={type}
           collection={collection}
           elementComponent={elementComponent}
           isPublic={isPublic}

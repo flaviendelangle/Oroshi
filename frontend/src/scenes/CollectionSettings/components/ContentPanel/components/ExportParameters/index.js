@@ -34,10 +34,10 @@ const mapStateToProps = () => {
   return {};
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = (dispatch, { type }) => {
   return {
     exportCollection: (pk, format) => {
-      dispatch(exportCollection(ownProps.scene, pk, format));
+      dispatch(exportCollection(type, pk, format));
     }
   }
 };

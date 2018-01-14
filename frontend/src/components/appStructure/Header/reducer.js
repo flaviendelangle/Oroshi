@@ -1,12 +1,27 @@
-import { combineReducers } from 'redux'
+import { notify } from "services/titles/router";
+import { drawers } from "services/titles/interface";
 
-import mainDrawer from './components/MainDrawer/reducer'
 
-const defaultState = {};
+const defaultState = {
+  isDrawerOpen: false,
+};
 
-const main = (state = defaultState, action) => {
+const header = (state = defaultState, action) => {
   
   switch(action.type) {
+    
+    case notify.change:
+      return {
+        ...state,
+        isDrawerOpen: false
+      };
+  
+    case drawers.main :
+      return {
+        ...state,
+        isDrawerOpen: action.show
+      };
+      
     default:
       return state;
   }
@@ -14,10 +29,5 @@ const main = (state = defaultState, action) => {
   
 };
 
-const reducer = combineReducers({
-  main,
-  mainDrawer
-});
 
-
-export default reducer;
+export default header;
