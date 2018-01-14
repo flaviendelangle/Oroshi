@@ -91,6 +91,10 @@ class Header extends Component {
             isPublic={isPublic}
             isOpen={isDrawerOpen}
             onOpen={openMainDrawer}
+            scene={scene}
+            palette={palette}
+            collection={collection}
+            type={type}
           />
         }
       </div>
