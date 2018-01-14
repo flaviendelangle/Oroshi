@@ -125,13 +125,13 @@ const mapStateToProps = ({ content, main }) => {
   }
 };
 
-const mapDispatchToProps = (dispatch, { type }) => {
+const mapDispatchToProps = (dispatch, { type, collection }) => {
   return {
     switchAddingMode: collection => {
       dispatch(switchAddingMode(type, collection));
       dispatch(getRecommendations(type, collection));
     },
-    switchLayout: layout => dispatch(switchLayout(type, layout))
+    switchLayout: layout => dispatch(switchLayout(type, collection, layout))
   };
 };
 

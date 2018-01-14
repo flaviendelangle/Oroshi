@@ -14,29 +14,26 @@ import * as _style from './style';
 
 class OrderMenu extends Component {
   
-  sort = (...args) => {
-    this.props.sort.bind(this, this.props.scene)(...args);
-  };
-  
   render() {
+    const { sort, muiTheme: { palette }} = this.props;
     return (
       <div style={_style.container}>
         <Menu
           {...this.props}
-          sort={this.sort}
-          color={this.props.muiTheme.palette.alternateTextColor}
+          sort={sort}
+          color={palette.alternateTextColor}
         />
       </div>
     );
   }
 }
 
-const Menu = ({ isAdding, layout, scene, sort, color }) => {
+const Menu = ({ isAdding, layout, type, sort, color }) => {
   if (isAdding) {
     return null;
   }
   else if (layout === 'stream') {
-    switch(scene) {
+    switch(type) {
       case 'movies':
         return <StreamMenuMovies sort={sort} color={color} />;
       case 'tv_shows':
@@ -46,7 +43,7 @@ const Menu = ({ isAdding, layout, scene, sort, color }) => {
     }
   }
   else {
-    switch(scene) {
+    switch(type) {
       case 'movies':
         return <DefaultMenuMovies sort={sort} color={color} />;
       case 'tv_shows':

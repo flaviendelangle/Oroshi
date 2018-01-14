@@ -14,7 +14,7 @@ class ElementSuggestions extends Component {
     const { loadCollection, synchronize } = this.props;
     loadCollection(collection_id).then( _  => {
       const { collection } = this.props;
-      synchronize(collection, element_id)
+      synchronize(element_id)
     });
   }
   
@@ -60,10 +60,10 @@ const mapStateToProps = ({ suggestions }, state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = (dispatch, { type, collection }) => {
   return {
-    loadCollection: pk => dispatch(getSettings(ownProps.scene, pk)),
-    synchronize: (...args) => dispatch(getSuggestions(ownProps.scene, ...args))
+    loadCollection: () => dispatch(getSettings(type, collection.pk)),
+    synchronize: element_id => dispatch(getSuggestions(type, collection, element_id))
   };
 };
 

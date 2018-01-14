@@ -14,8 +14,8 @@ collectionTypes.forEach(el => {
 });
 
 const reducer = (state = defaultState, action) => {
-  
-  if (!action.meta || !action.meta.types || !action.meta.collection) {
+
+  if (!action.meta || !action.meta.type || !action.meta.collection) {
     return state;
   }
 

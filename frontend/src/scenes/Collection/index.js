@@ -15,12 +15,13 @@ class CollectionScene extends Component {
   }
   
   render() {
-    const { type, isPublic } = this.props;
+    const { type, isPublic, collection } = this.props;
     return (
       <div>
         <Content {...this.props} />
         <Menu
           type={type}
+          collection={collection}
           isPublic={isPublic}
         />
       </div>
