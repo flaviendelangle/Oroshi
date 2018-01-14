@@ -4,48 +4,77 @@ import { Switch, Route } from 'react-router-dom';
 import CollectionContent from 'scenes/Collection';
 import CollectionSettings from 'scenes/CollectionSettings';
 import ElementSuggestions from 'scenes/ElementSuggestions';
+import Header from 'components/appStructure/Header';
 import { collectionTypes } from 'appConfig';
 
 
-class Collection extends Component {
-  
-  getSceneProps = (el, props) => {
-    return {
-      ...props,
-      config: el,
-      scene: el.name,
-      collection: {
-        pk: props.match.params.collection_id,
-      },
-    }
-    
+const getSceneProps = (el, sceneProps) => {
+  const props = {
+    ...sceneProps,
+    config: el,
+    scene: el.name,
+    collection: {
+      pk: sceneProps.match.params.collection_id,
+    },
   };
+  return props;
+};
+
+const generate = () => {
+  const a = collectionTypes.reduce((result, scene, index) => {
+    return [
+      ...result,
+      <Route
+        path={`/collections/${scene.name}/:collection_id/suggestions/:element_id/`}
+        key={`${scene.name}_${index}`}
+        render={props => (
+          <Scene {...getSceneProps(scene, props)} Component={ElementSuggestions} />
+        )}
+      />,
+      <Route
+        path={`/collections/${scene.name}/:collection_id/settings/`}
+        key={`${scene.name}_${index}`}
+        render={props => (
+          <Scene {...getSceneProps(scene, props)} Component={CollectionSettings} />
+        )}
+      />,
+      <Route
+        path={`/collections/${scene.name}/:collection_id/public/`}
+        key={`${scene.name}_${index}`}
+        render={props => (
+          <Scene {...getSceneProps(scene, props)} Component={CollectionContent} isPublic={true} />
+        )}
+      />,
+      <Route
+        path={`/collections/${scene.name}/:collection_id/`}
+        key={`${scene.name}_${index}`}
+        render={props => (
+          <Scene {...getSceneProps(scene, props)} Component={CollectionContent} isPublic={false} />
+        )}
+      />,
+    ]
+  }, []);
+  return a;
+};
+
+class Collection extends Component {
   
   render() {
     return (
       <Switch>
-        {collectionTypes.map(el => [
-          <Route
-            path={`/collections/${el.name}/:collection_id/suggestions/:element_id/`}
-            render={props => <ElementSuggestions {...this.getSceneProps(el, props)} />}
-          />,
-          <Route
-            path={`/collections/${el.name}/:collection_id/settings/`}
-            render={props => <CollectionSettings {...this.getSceneProps(el, props)} />}
-          />,
-          <Route
-            path={`/collections/${el.name}/:collection_id/public/`}
-            render={props => <CollectionContent  {...this.getSceneProps(el, props)}  isPublic={true} />}
-          />,
-          <Route
-            path={`/collections/${el.name}/:collection_id/`}
-            render={props => <CollectionContent {...this.getSceneProps(el, props)} isPublic={false} />}
-          />
-        ])}
+        {generate()}
       </Switch>
     );
   }
-  
 }
+
+const Scene = ({ Component, ...props }) => {
+  return [
+    <Component
+      key={1}
+      {...props}
+    />
+  ];
+};
 
 export default Collection;
