@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import muiThemeable from 'material-ui/styles/muiThemeable';
 
-import Grade from 'components/generics/Grade';
+import Grade from 'components/generics/Grade/index';
 
 import './style.css'
 
@@ -50,8 +50,8 @@ class ElementOverlay extends Component {
       isPublic,
       note,
       creation_mode,
-      handleSave,
-      handleDestroy,
+      onSave,
+      onDestroy,
       already_in_collection,
     } = this.props;
     const { show } = this.state;
@@ -75,8 +75,8 @@ class ElementOverlay extends Component {
         <Footer
           creation_mode={creation_mode}
           already_in_collection={already_in_collection}
-          handleSave={handleSave}
-          handleDestroy={handleDestroy}
+          onSave={onSave}
+          onDestroy={onDestroy}
           addToLayout={this.addToLayout}
           isPublic={isPublic}
         />
@@ -86,7 +86,7 @@ class ElementOverlay extends Component {
   
 }
 
-const Footer = ({ creation_mode, already_in_collection, handleSave, handleDestroy, addToLayout, isPublic }) => {
+const Footer = ({ creation_mode, already_in_collection, onSave, onDestroy, addToLayout, isPublic }) => {
   if (isPublic) {
     return null;
   }
@@ -98,7 +98,7 @@ const Footer = ({ creation_mode, already_in_collection, handleSave, handleDestro
     Content = (
       <div
         className="footer-content"
-        onClick={handleSave}
+        onClick={onSave}
         style={{background: 'rgba(76,175,80,0.8)'}}
         ref={el => addToLayout('add', el)}
       >
@@ -109,7 +109,7 @@ const Footer = ({ creation_mode, already_in_collection, handleSave, handleDestro
     Content = (
       <div
         className="footer-content"
-        onClick={handleDestroy}
+        onClick={onDestroy}
         style={{background: 'rgba(244,67,54,0.8)'}}
         ref={el => addToLayout('add', el)}
       >

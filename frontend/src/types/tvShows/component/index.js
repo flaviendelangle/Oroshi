@@ -4,8 +4,8 @@ import Paper from 'material-ui/Paper';
 import NavigationExpandMore from 'material-ui/svg-icons/navigation/expand-more';
 import muiThemeable from 'material-ui/styles/muiThemeable';
 
-import Poster from 'components/generics/Poster/index';
-import ElementOverlay from 'components/generics/ElementOverlay/index';
+import Poster from 'components/element/Poster/index';
+import ElementOverlay from 'components/element/Overlay/index';
 import Details from './components/Details/index';
 import { addElement, removeElement } from 'services/actions/collections/index';
 
