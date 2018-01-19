@@ -65,7 +65,6 @@ class Home extends Component {
     }
     return (
       <div>
-        <DocumentTitle title={'Collection manager'} />
         <ScrollArea
           speed={0.8}
           horizontal={false}
@@ -74,7 +73,7 @@ class Home extends Component {
         <div style={_style.container} >
             <ManageButton
               editing={editing}
-              onClick={_ => this.setState({editing: !editing}) }
+              onClick={() => this.setState({editing: !editing}) }
             />
             <CollectionList
               editing={editing}

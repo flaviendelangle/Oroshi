@@ -85,15 +85,15 @@ class Element {
     
   };
   
-  getSearchIndex = _ => {
+  getSearchIndex = () => {
     return this.search_index;
   };
   
-  getLocal = _ => {
+  getLocal = () => {
     return this.local;
   };
   
-  hasLocal = _ => {
+  hasLocal = () => {
     return !!this.local;
   };
   
@@ -124,7 +124,7 @@ class Element {
     return 0;
   }
   
-  isInCollection = _ => {
+  isInCollection = () => {
     return this.is_in_collection;
   };
   
@@ -133,11 +133,11 @@ class Element {
   };
   
   
-  getDistant = _ => {
+  getDistant = () => {
     return this.distant;
   };
   
-  hasDistant = _ => {
+  hasDistant = () => {
     return !!this.distant;
   };
   
@@ -145,7 +145,7 @@ class Element {
     this.distant = newPublic;
   };
   
-  getCollection = _ => {
+  getCollection = () => {
     return this.collection;
   };
   
@@ -171,18 +171,18 @@ class Element {
     return this.getDistant()[field];
   }
   
-  getID = _ => {
+  getID = () => {
     return this.getLocal().pk;
   };
   
-  getPublicId = _ => {
+  getPublicId = () => {
     if (this.hasDistant()) {
       return this.getDistantPublicID();
     }
     return this.getLocalPublicID();
   };
   
-  getNote = _ => {
+  getNote = () => {
     if (this.hasDistant()) {
       return this.getDistant().vote_average
     }

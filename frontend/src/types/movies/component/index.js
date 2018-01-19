@@ -36,14 +36,11 @@ const LAYOUT = {
 /** Class representing a movie frame, used mainly in the layouts (Grid + Stream) */
 class Movie extends Component {
   
-  get release_date() {
-    return date(this.props.data.getReleaseDate(), date.TMDB_FORMAT, date.YEAR_FORMAT);
-  }
-  
   getFooterData = () => {
     const { data } = this.props;
+    const release_date = date(data.getReleaseDate(), date.TMDB_FORMAT, date.YEAR_FORMAT);
     return [
-      { key: 'year', value: this.release_date, },
+      { key: 'year', value: release_date, },
       { key: 'title', value: data.getTitle(), link: publicRoot + data.getPublicId(), },
     ];
   };
@@ -51,7 +48,7 @@ class Movie extends Component {
   /**
    * Check if we are in test mode
    */
-  isTesting = _ => {
+  isTesting = () => {
     return this.props.mode === 'test';
   };
   
@@ -67,7 +64,13 @@ class Movie extends Component {
   };
 
   render() {
-    const { collection, data, create, destroy, creationMode } = this.props;
+    const {
+      collection,
+      data,
+      create,
+      destroy,
+      creationMode
+    } = this.props;
     return (
       <Element
         data={data}

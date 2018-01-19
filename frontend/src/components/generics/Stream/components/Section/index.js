@@ -59,11 +59,11 @@ class Section extends Component {
   }
   
   
-  showFullVersion = _ => {
+  showFullVersion = () => {
     this.setState({full: !this.state.full});
   };
   
-  showMore = _ => {
+  showMore = () => {
     const { data: { next }, loadMore } = this.props;
     const { pages } = this.state;
     if (next) {
@@ -72,7 +72,7 @@ class Section extends Component {
     this.setState({pages: pages+1});
   };
   
-  renderLink = _ => {
+  renderLink = () => {
     const { data, field, muiTheme: { palette }} = this.props;
     if (
       data.hasOwnProperty('link') &&
@@ -94,7 +94,7 @@ class Section extends Component {
     );
   };
   
-  renderContent = _ => {
+  renderContent = () => {
     const { elementComponent, collection, creationMode, isPublic } = this.props;
     const Element = elementComponent;
     return this.elements.map((line, index) => {
@@ -114,7 +114,7 @@ class Section extends Component {
     });
   };
   
-  renderShowMore = _ => {
+  renderShowMore = () => {
     if (!this.state.full) {
       return null;
     }

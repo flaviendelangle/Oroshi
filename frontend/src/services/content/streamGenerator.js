@@ -17,7 +17,7 @@ class StreamGenerator {
     this.build();
   }
   
-  build = _ => {
+  build = () => {
     if (this.prepareData) {
       this.prepareData();
     }
@@ -26,7 +26,7 @@ class StreamGenerator {
     this.sortResults();
   };
   
-  getElementCount = _ => {
+  getElementCount = () => {
     let elements = {};
     this.results.forEach(list => {
       list.content.forEach(el => {
@@ -39,7 +39,7 @@ class StreamGenerator {
     return Object.keys(elements).length;
   };
   
-  buildKeys = _ => {
+  buildKeys = () => {
     this.results = {};
     this.keys = {};
     this.data.forEach(el => {
@@ -53,7 +53,7 @@ class StreamGenerator {
     });
   };
   
-  organize = _ => {
+  organize = () => {
     this.results = Object.keys(this.keys).map(pk_temp => {
       const pk = parseInt(pk_temp, 10);
       const key = this.keys[pk];
@@ -69,7 +69,7 @@ class StreamGenerator {
     });
   };
   
-  sortResults = _ => {
+  sortResults = () => {
     this.results = this.results.sort((a, b) => {
       let comparison = 0;
       const mul = this.direction === 'asc' ? 1 : -1;

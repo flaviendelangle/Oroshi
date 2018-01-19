@@ -22,11 +22,10 @@ class API {
   };
   
   static set_config = config => {
-    for (const key in config) {
-      if (config.hasOwnProperty(key)) {
-        API.USERCONFIG[key] = config[key];
-      }
-    }
+    API.USERCONFIG = {
+      ...config,
+      ...API.USERCONFIG,
+    };
   };
   
   static manageXRateLimit = headers => {
@@ -49,11 +48,11 @@ class API {
   _handleSuccess = (url, data, response) => {
     if (response.status === HTTP_STATUS.TOO_MANY_REQUESTS) {
       let promise = new Promise(resolve => {
-        window.setTimeout(_ => {
+        window.setTimeout(() => {
           resolve();
         }, API.state.reset*1000 - new Date().getTime() + 1000);
       });
-      return promise.then(_ => this._fetch(url, data))
+      return promise.then(() => this._fetch(url, data))
     } else {
       API.manageXRateLimit(response.headers);
       return response.json();

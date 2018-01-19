@@ -2,7 +2,7 @@ import * as titles from 'services/titles/interface';
 
 import { getLineDimensions } from 'services/interface';
 
-export const alertScreenResize = _ => {
+export const alertScreenResize = () => {
   return {
     type: titles.screen.resize,
     width: window.innerWidth,

@@ -143,7 +143,7 @@ const getMissingData = (type, tmdbId, collection, details) => {
   
   if (languages.title !== DEFAULT_LANGUAGE ) {
     promise = promise
-      .then(_ => getTitle(type, tmdbId, languages.title))
+      .then(() => getTitle(type, tmdbId, languages.title))
       .then(title => {
         details.titles.push({
           language: languages.title,
@@ -153,7 +153,7 @@ const getMissingData = (type, tmdbId, collection, details) => {
   }
   if (languages.poster !== DEFAULT_LANGUAGE) {
     promise = promise
-      .then(_ => getPoster(type, tmdbId, languages.poster))
+      .then(() => getPoster(type, tmdbId, languages.poster))
       .then(poster => {
         if (poster) {
           details.posters.push({
@@ -163,7 +163,7 @@ const getMissingData = (type, tmdbId, collection, details) => {
         }
       })
   }
-  return promise.then(_ => details);
+  return promise.then(() => details);
 };
 
 const _getElementRecommendations = (type, collection, element) => {

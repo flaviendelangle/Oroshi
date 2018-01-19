@@ -27,7 +27,6 @@ class Header extends Component {
   }
   
   onButtonClick = () => {
-    console.log('HEY');
     const { scene, openMainDrawer } = this.props;
     if (scene === 'content' || scene === 'settings') {
       openMainDrawer(true);
@@ -50,7 +49,7 @@ class Header extends Component {
       muiTheme: { palette }
     } = this.props;
     return (
-      <div>
+      <header>
         <AppBar
           iconElementLeft={
             <Icon
@@ -98,7 +97,7 @@ class Header extends Component {
             type={type}
           />
         }
-      </div>
+      </header>
     )
     
   }

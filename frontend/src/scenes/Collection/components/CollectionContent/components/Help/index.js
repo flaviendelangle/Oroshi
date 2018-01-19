@@ -5,7 +5,7 @@ import Paper from 'material-ui/Paper';
 import * as _style from './style';
 
 
-const Help = _ => (
+const Help = () => (
   <Paper style={_style.container} zDepth={3} >
     <div style={_style.line} >
       Welcome to your new collection !

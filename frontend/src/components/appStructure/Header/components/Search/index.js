@@ -35,7 +35,7 @@ class Search extends Component {
     filter(query, forced, isAdding);
   };
   
-  renderCounter = _ => {
+  renderCounter = () => {
     const { isAdding, count, muiTheme: { palette }} = this.props;
     if (isAdding) {
       return null;
@@ -55,7 +55,7 @@ class Search extends Component {
         <SearchBar
           hintText={this.hintText}
           onChange={this.search}
-          onRequestSearch={_ => this.filter(this.state.query, true)}
+          onRequestSearch={() => this.filter(this.state.query, true)}
           value={query}
           dataSource={autoComplete}
           filter={AutoComplete.caseInsensitiveFilter}

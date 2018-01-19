@@ -81,7 +81,7 @@ const LayoutButtons = ({
         key={index}
         Component={el.icon}
         palette={palette}
-        onClick={_ => switchLayout(el.name)}
+        onClick={() => switchLayout(el.name)}
         active={layout === el.name}
       />
     );
@@ -120,7 +120,7 @@ const AddingIcon = ({ isAdding, collection, switchAddingMode, isPublic }) => {
   return (
     <FloatingActionButton
       style={_style.add}
-      onClick={_ => switchAddingMode(collection)}
+      onClick={() => switchAddingMode(collection)}
     >
       <Icon/>
     </FloatingActionButton>

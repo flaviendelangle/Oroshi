@@ -49,15 +49,15 @@ class Movie extends Element {
     return super.getValueToSort(field);
   };
   
-  getLocalPublicID = _ => {
+  getLocalPublicID = () => {
     return this.getLocal().tmdbId;
   };
   
-  getDistantPublicID = _ => {
+  getDistantPublicID = () => {
     return this.getDistant().id;
   };
   
-  getDistantTitle = _ => {
+  getDistantTitle = () => {
     return this.getDistant().title;
   };
   
@@ -77,14 +77,14 @@ class Movie extends Element {
     return date.getYear(this.getReleaseDate());
   };
   
-  getDirectors = _ => {
+  getDirectors = () => {
     if (this.hasLocal()) {
       return this.getLocal().directors
     }
     return [];
   };
 
-  hasBeenSeen = _ => {
+  hasBeenSeen = () => {
     if (
       this.hasLocal() &&
       this.getLocal().hasOwnProperty('seen')

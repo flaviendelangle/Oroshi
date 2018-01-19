@@ -20,7 +20,7 @@ class Container extends Component {
     }
   }
   
-  getProfile = _ => {
+  getProfile = () => {
     const { location, profile, oauth, username, getProfile } = this.props;
     if (
       location.pathname !== '/logout/' &&

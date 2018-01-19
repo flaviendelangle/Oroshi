@@ -28,7 +28,7 @@ class Line extends Component {
         <div
           style={this.contentStyle}
           className="line-content"
-          onClick={_ => goTo(value)}
+          onClick={() => goTo(value)}
         >
           {children}
         </div>

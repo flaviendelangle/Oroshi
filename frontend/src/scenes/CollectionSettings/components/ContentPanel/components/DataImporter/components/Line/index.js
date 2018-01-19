@@ -5,7 +5,7 @@ import ActionDone from 'material-ui/svg-icons/action/done'
 
 class Line extends Component {
 
-  renderIcon = _ => {
+  renderIcon = () => {
     if (this.props.done) {
       return <ActionDone/>;
     }

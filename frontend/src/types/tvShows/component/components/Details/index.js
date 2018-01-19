@@ -33,7 +33,7 @@ class Details extends Component {
   /**
    * Hide the modal
    */
-  handleShowLess = _ => {
+  handleShowLess = () => {
     this.props.onCollapse();
   };
   
@@ -183,7 +183,7 @@ const SeasonButton = ({ season, short, muiTheme, switchSeason }) => {
       key={season.season_number}
       label={title}
       style={style}
-      onClick={_ => switchSeason(season.season_number)}
+      onClick={() => switchSeason(season.season_number)}
     />
   );
 };
@@ -191,7 +191,7 @@ const SeasonButton = ({ season, short, muiTheme, switchSeason }) => {
 const Season = ({ season, seasons, loadSeason, tmdbId, muiTheme }) => {
   if (!seasons[season]) {
     if (!seasons.hasOwnProperty(season)) {
-      setTimeout(_ => loadSeason(tmdbId, season));
+      setTimeout(() => loadSeason(tmdbId, season));
     }
     return (
       <div className="progress">

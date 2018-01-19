@@ -11,7 +11,7 @@ import '../CollectionBox/style.css';
 
 class NewCollectionButton extends Component {
   
-  handleClick = _ => {
+  handleClick = () => {
     const { editing, newCollection } = this.props;
     if (editing)
       newCollection();
@@ -19,7 +19,7 @@ class NewCollectionButton extends Component {
   
   render(forced=false) {
     if (!forced) {
-      window.setTimeout(_ => this.render(true), 300);
+      window.setTimeout(() => this.render(true), 300);
     }
     const { editing, muiTheme: { palette }} = this.props;
     return (
@@ -46,7 +46,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-      newCollection: _ => dispatch(showDialogCreateCollection(true))
+      newCollection: () => dispatch(showDialogCreateCollection(true))
   }
 };
 

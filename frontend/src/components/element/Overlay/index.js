@@ -16,7 +16,7 @@ class ElementOverlay extends Component {
   
   timeout = null;
   
-  isTesting = _ => {
+  isTesting = () => {
     return this.props.mode === 'test';
   };
   
@@ -35,7 +35,7 @@ class ElementOverlay extends Component {
       this.setState({ show: true, waiting: false });
     } else {
       this.setState({ waiting: true });
-      this.timeout = setTimeout(_ => {
+      this.timeout = setTimeout(() => {
         if (this.state.waiting) {
           this.setState({ show: false, waiting: false });
         }

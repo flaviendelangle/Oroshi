@@ -25,7 +25,7 @@ class TVShow extends Element {
     super.buildSearchIndex(searchIndex)
   };
   
-  prepareLocalOptions = _ => {
+  prepareLocalOptions = () => {
   };
   
   setLocal = newLocal => {
@@ -34,19 +34,19 @@ class TVShow extends Element {
     return results;
   };
 
-  getLocalPublicID = _ => {
+  getLocalPublicID = () => {
     return this.getLocal().tmdbId;
   };
   
-  getDistantPublicID = _ => {
+  getDistantPublicID = () => {
     return this.getDistant().id;
   };
   
-  getDistantTitle = _ => {
+  getDistantTitle = () => {
     return this.getDistant().name;
   };
   
-  hasBeenSeen = _ => {
+  hasBeenSeen = () => {
     return false;
   };
   

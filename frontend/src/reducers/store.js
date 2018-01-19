@@ -121,7 +121,7 @@ const composeStoreWithMiddleware = applyMiddleware(
 
 let store = composeStoreWithMiddleware(reducer);
 
-window.addEventListener('resize', _ => {
+window.addEventListener('resize', () => {
   store.dispatch(alertScreenResize());
 });
 

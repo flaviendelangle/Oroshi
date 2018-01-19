@@ -67,7 +67,7 @@ const LoginButton = ({ theme, onSwitch }) => (
     <span>Already have an account? </span>
     <span
       style={_style.flatButtonLink}
-      onClick={_ => onSwitch('login')}
+      onClick={() => onSwitch('login')}
     >
       Sign In
     </span>

@@ -46,7 +46,7 @@ class Grid extends Component {
   /**
    * Show CONFIG.pageLength more lines in the Grid
    */
-  showMore = _ => {
+  showMore = () => {
     const { loadMore, data: { next }} = this.props;
     const { pages } = this.state;
     if (next) {
@@ -55,7 +55,7 @@ class Grid extends Component {
     this.setState({pages: pages+1});
   };
   
-  renderItems = _ => {
+  renderItems = () => {
     const { elementComponent, collection, creationMode, isPublic } = this.props;
     const Element = elementComponent;
     return this.elements.map((line, index) => {

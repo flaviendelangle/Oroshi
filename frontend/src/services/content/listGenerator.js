@@ -13,11 +13,11 @@ class ListGenerator {
     this.filter();
   }
   
-  getElementCount = _ => {
+  getElementCount = () => {
     return this.results.length;
   };
   
-  analyseQuery = _ => {
+  analyseQuery = () => {
     let i=0;
     while(this.query.match(this.regexp) && i++ < 10) {
       const results = this.regexp.exec(this.query);
@@ -40,7 +40,7 @@ class ListGenerator {
     return string.toUpperCase().replace(/\./g, ' ');
   };
   
-  filter = _ => {
+  filter = () => {
     let results = this.data.filter(element => element.match(this.query.split(' '))) ;
     
     /*for (let i=0; i<this.filters.length; i++) {

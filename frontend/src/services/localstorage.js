@@ -1,6 +1,6 @@
 const localStorageKey = 'application_settings';
 
-const getLocalStorage = _ => {
+const getLocalStorage = () => {
   const rawData = localStorage.getItem(localStorageKey);
   if (!rawData) {
     return {};
@@ -50,10 +50,10 @@ export const saveOauth = (oauth, meta) => {
   setValue('oauth', data);
 };
 
-export const loadOauth = _ => {
+export const loadOauth = () => {
   return getValue('oauth');
 };
 
-export const destroyOauth = _ => {
+export const destroyOauth = () => {
   return destroyValue('oauth');
 };

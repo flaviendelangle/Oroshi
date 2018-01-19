@@ -25,8 +25,6 @@ const header = (state = defaultState, action) => {
     default:
       return state;
   }
-  
-  
 };
 
 

@@ -52,7 +52,7 @@ class SummaryParameters extends Component {
                 id="collection_title"
                 value={title}
                 onChange={(proxy, title) => this.setState({ title })}
-                onSave={_ =>
+                onSave={() =>
                   update(this.props.data.pk, 'title', title)
                 }
               />
@@ -94,26 +94,26 @@ class SummaryParameters extends Component {
             <Line
               rightIcon={<SocialShare />}
               primaryText="Get your public link"
-              onClick={_ => this.setState({ showGetPublicLinkAlert: true })}
+              onClick={() => this.setState({ showGetPublicLinkAlert: true })}
             />
             <Line
               rightIcon={<ActionDeleteForever />}
               primaryText="Destroy this collection"
-              onClick={_ => this.setState({ showDeleteAlert: true })}
+              onClick={() => this.setState({ showDeleteAlert: true })}
             />
           </div>
         </ParametersSection>
         <DeleteAlert
           open={showDeleteAlert}
-          onClose={_ => this.setState({ showDeleteAlert: false })}
-          onDelete={_ => deleteCollection(data.pk)}
+          onClose={() => this.setState({ showDeleteAlert: false })}
+          onDelete={() => deleteCollection(data.pk)}
         />
         <ShowPublicLinkAlert
           open={showGetPublicLinkAlert}
           data={data}
           type={type}
-          onClose={_ => this.setState({ showGetPublicLinkAlert: false })}
-          onDelete={_ => {}} //this.props.deleteCollection(this.props.data.pk)}
+          onClose={() => this.setState({ showGetPublicLinkAlert: false })}
+          onDelete={() => {}} //this.props.deleteCollection(this.props.data.pk)}
         />
       </Fragment>
     );

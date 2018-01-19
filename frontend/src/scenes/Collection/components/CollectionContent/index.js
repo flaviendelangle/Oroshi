@@ -16,7 +16,7 @@ class CollectionContent extends Component {
     query: '',
   };
   
-  renderContent = _ => {
+  renderContent = () => {
     const {
       layout,
       grid,

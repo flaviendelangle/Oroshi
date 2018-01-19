@@ -30,7 +30,7 @@ export const addElement = (type, collection, element) => {
   const localAPI = getCollectionAPI(type);
   return promise
     .then(response => createMissingData(type, response))
-    .then(_ => {
+    .then(() => {
       const data = {
         pk: element.getID(),
         seen

@@ -8,7 +8,7 @@ import './style.css';
 
 class CollectionList extends Component {
   
-  mapCollections = _ => {
+  mapCollections = () => {
     const { data, editing } = this.props;
     return data.map(collection => {
       const { type, pk } = collection;

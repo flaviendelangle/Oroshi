@@ -24,7 +24,7 @@ class SnackbarList extends Component {
     };
   }
   
-  handleRequestClose = _ => {
+  handleRequestClose = () => {
     this.props.remove();
   };
   
@@ -50,7 +50,7 @@ const mapStateToProps = ({ main }) => {
 
 const mapDispatchToProps = (dispatch, { type, collection }) => {
   return {
-    remove: _ => dispatch(removeSnack(type, collection))
+    remove: () => dispatch(removeSnack(type, collection))
   }
 };
 

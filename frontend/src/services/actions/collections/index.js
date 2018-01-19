@@ -173,7 +173,7 @@ export const importElements = (type, collection, elements, dispatch) => {
     }
     const element = elements[index];
     if (element.isInCollection()) {
-      setTimeout(_ => _importElement(type, elements, index + 1, dispatch));
+      setTimeout(() => _importElement(type, elements, index + 1, dispatch));
       return dispatch({
         type: titles.collections.add,
         payload: element,

@@ -29,7 +29,7 @@ export default function register() {
       return;
     }
 
-    window.addEventListener('load', _ => {
+    window.addEventListener('load', () => {
       const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`;
 
       if (!isLocalhost) {
@@ -47,9 +47,9 @@ function registerValidSW(swUrl) {
   navigator.serviceWorker
     .register(swUrl)
     .then(registration => {
-      registration.onupdatefound = _ => {
+      registration.onupdatefound = () => {
         const installingWorker = registration.installing;
-        installingWorker.onstatechange = _ => {
+        installingWorker.onstatechange = () => {
           if (installingWorker.state === 'installed') {
             if (navigator.serviceWorker.controller) {
               // At this point, the old content will have been purged and
@@ -83,7 +83,7 @@ function checkValidServiceWorker(swUrl) {
       ) {
         // No service worker found. Probably a different app. Reload the page.
         navigator.serviceWorker.ready.then(registration => {
-          registration.unregister().then(_ => {
+          registration.unregister().then(() => {
             window.location.reload();
           });
         });
@@ -92,7 +92,7 @@ function checkValidServiceWorker(swUrl) {
         registerValidSW(swUrl);
       }
     })
-    .catch(_ => {
+    .catch(() => {
       console.log(
         'No internet connection found. App is running in offline mode.'
       );

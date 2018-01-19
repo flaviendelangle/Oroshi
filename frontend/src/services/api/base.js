@@ -53,9 +53,7 @@ export default class BaseAPI {
     
     const add = (key, value) => {
       if (Array.isArray(value)) {
-        for (let i=0; i<value.length; i++) {
-          add(key, value[i]);
-        }
+        value.forEach(el => add(key, el));
       } else if (value instanceof Object) {
         add(key, JSON.stringify(value));
       } else {
@@ -64,11 +62,11 @@ export default class BaseAPI {
     };
     
     let form = new FormData();
-    for (let key in data) {
+    Object.keys(data).forEach((key) => {
       if (data.hasOwnProperty(key)) {
         add(key, data[key])
       }
-    }
+    });
     return form;
   };
   
@@ -84,7 +82,7 @@ export default class BaseAPI {
     for (let key in this.nested_routes) {
       if (this.nested_routes.hasOwnProperty(key)) {
         Object.defineProperty(prototype, key, {
-          get: _ => new this.nested_routes[key](this.config.root + '/' + pk)
+          get: () => new this.nested_routes[key](this.config.root + '/' + pk)
         });
       }
     }
@@ -184,10 +182,7 @@ export default class BaseAPI {
     if (!Array.isArray(data)) {
       data = [data];
     }
-    let promises = [];
-    for (let i=0; i<data.length; i++) {
-      promises.push(send(data[i]));
-    }
+    let promises = data.map(el => send(el));
     return Promise.all(promises);
   };
   

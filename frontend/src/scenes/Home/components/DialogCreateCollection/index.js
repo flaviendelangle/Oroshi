@@ -26,7 +26,7 @@ class DialogCreateCollection extends Component {
     return 'How should I name it ?';
   }
   
-  create = _ => {
+  create = () => {
     if (this.state.title) {
       const data = {
         title: this.state.title,
@@ -40,7 +40,7 @@ class DialogCreateCollection extends Component {
     this.setState({ type, stepIndex: 1 });
   };
   
-  renderActions = _ => {
+  renderActions = () => {
     if (this.state.stepIndex > 0) {
       return (
         <FlatButton
@@ -55,7 +55,7 @@ class DialogCreateCollection extends Component {
     }
   };
   
-  renderContent = _ => {
+  renderContent = () => {
     if (this.state.stepIndex === 0) {
       return (
         <CollectionType onClick={this.pickCollectionType} />
@@ -68,7 +68,7 @@ class DialogCreateCollection extends Component {
     );
   };
   
-  close = _ => {
+  close = () => {
     this.setState({
       importerMode: false,
       stepIndex: 0
@@ -115,7 +115,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    close: _ => dispatch(showDialogCreateCollection(false)),
+    close: () => dispatch(showDialogCreateCollection(false)),
     create: (...args) => dispatch(createCollection(...args)),
   }
 };

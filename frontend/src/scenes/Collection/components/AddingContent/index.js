@@ -14,7 +14,7 @@ class AddingContent extends Component {
     query: '',
   };
   
-  renderContent = _ => {
+  renderContent = () => {
     if (this.props.addingSearch) {
       return (
         <Grid

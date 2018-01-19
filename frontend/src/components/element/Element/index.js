@@ -9,7 +9,6 @@ import cx from 'classnames'
 
 import Poster from '../Poster/index';
 import Overlay from '../Overlay/index';
-import date from 'services/content/date';
 
 import './style.css'
 
@@ -21,10 +20,6 @@ class Element extends Component {
     isAdding: false,
     isReady: false
   };
-  
-  get release_date() {
-    return date(this.props.data.getReleaseDate(), date.TMDB_FORMAT, date.YEAR_FORMAT);
-  }
   
   getParentClasses = () => {
     const { data, creationMode } = this.props;
@@ -39,7 +34,7 @@ class Element extends Component {
   
   getAction = actionName => {
     const action = this.props[actionName];
-    if(typeof action === 'string' || action instanceof String) {
+    if (typeof action === 'string' || action instanceof String) {
       const ActionComponent = this.getActionComponent(action);
       return (
         <span ref={el => this.addToLayout(action, el)} >
@@ -75,13 +70,13 @@ class Element extends Component {
     this.setState({ isMouseOver })
   };
   
-  onPosterLoad = _ => {
+  onPosterLoad = () => {
     this.setState({ isReady: true });
   };
   
   onSave = () => {
     const { collection, data, onSave } = this.props;
-    if(!this.state.isAdding) {
+    if (!this.state.isAdding) {
       onSave(collection, data);
     }
   };
@@ -94,7 +89,7 @@ class Element extends Component {
   /**
    * Check if we are in test mode
    */
-  isTesting = _ => {
+  isTesting = () => {
     return this.props.mode === 'test';
   };
   
@@ -114,7 +109,7 @@ class Element extends Component {
   /**
    * Switch the seen parameter of the movie
    */
-  switchSeen = _ => {
+  switchSeen = () => {
     if (this.isTesting()) {
       return null;
     }
@@ -160,8 +155,8 @@ class Element extends Component {
           <Paper
             zDepth={3}
             className="movie"
-            onMouseEnter={_ => this.onMouseHover(true)}
-            onMouseLeave={_ => this.onMouseHover(false)}
+            onMouseEnter={() => this.onMouseHover(true)}
+            onMouseLeave={() => this.onMouseHover(false)}
           >
             <Poster
               path={data.getPosterPath()}
@@ -202,7 +197,7 @@ const Footer = ({ palette, footer, addToLayout }) => (
     {
       footer &&
       footer.map((line, index) => {
-        if(line.link) {
+        if (line.link) {
           return (
             <Link
               key={index}

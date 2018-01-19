@@ -17,12 +17,12 @@ class ExportParameters extends Component {
           <Line
             rightIcon={<FileDownload />}
             primaryText="Export as CSV"
-            onClick={_ => exportCollection(data.pk, 'csv')}
+            onClick={() => exportCollection(data.pk, 'csv')}
           />
           <Line
             rightIcon={<FileDownload />}
             primaryText="Export as JSON"
-            onClick={_ => exportCollection(data.pk, 'json')}
+            onClick={() => exportCollection(data.pk, 'json')}
           />
         </div>
       </ParametersSection>

@@ -19,30 +19,27 @@ import './style.css';
 class MainDrawer extends Component {
   
   get lineStyle() {
-    return { color: this.props.muiTheme.palette.alternateTextColor };
+    const { muiTheme: { palette } } = this.props;
+    return { color: palette.alternateTextColor };
   }
   
-  get GENERIC_LINES_BEFORE() {
-    return [
-      (
-        <Link to='/'>
-          <ActionHome style={this.lineStyle} />
-          <div>Home</div>
-        </Link>
-      ), (
-        <Link to='/logout/'>
-          <ActionExit style={this.lineStyle} />
-          <div>Logout</div>
-        </Link>
-      ),
-    ];
-  }
+  GENERIC_LINES_BEFORE = [
+    (
+      <Link to='/'>
+        <ActionHome style={this.lineStyle} />
+        <div>Home</div>
+      </Link>
+    ), (
+      <Link to='/logout/'>
+        <ActionExit style={this.lineStyle} />
+        <div>Logout</div>
+      </Link>
+    ),
+  ];
   
-  get GENERIC_LINES_AFTER() {
-    return [];
-  }
+  GENERIC_LINES_AFTER = [];
   
-  get sceneLines() {
+  getSceneLines() {
     const { scene, palette, type, collection } = this.props;
     const style = {
       color: palette.alternateTextColor
@@ -66,10 +63,10 @@ class MainDrawer extends Component {
     return [];
   }
   
-  renderLines = _ => {
+  renderLines = () => {
     const lines = [
       ...this.GENERIC_LINES_BEFORE,
-      ...this.sceneLines,
+      ...this.getSceneLines(),
       <Divider key={-1} />,
       ...this.GENERIC_LINES_AFTER
     ];
@@ -91,28 +88,30 @@ class MainDrawer extends Component {
       return null;
     }
     return (
-        <Drawer
-          open={isOpen}
-          docked={false}
-          onRequestChange={open => onOpen(open) }
-        >
-          <AppBar
-            title={title}
-            onLeftIconButtonTouchTap={_ => onOpen(false)}
+        <nav>
+          <Drawer
+            open={isOpen}
+            docked={false}
+            onRequestChange={open => onOpen(open) }
           >
-            {this.searchBar}
-            {this.actionsButton}
-          </AppBar>
-          <div className="drawer">
-            {this.renderLines()}
-          </div>
-        </Drawer>
+            <AppBar
+              title={title}
+              onLeftIconButtonTouchTap={() => onOpen(false)}
+            >
+              {this.searchBar}
+              {this.actionsButton}
+            </AppBar>
+            <div className="drawer">
+              {this.renderLines()}
+            </div>
+          </Drawer>
+        </nav>
     )
   }
   
 }
 
-const mapStateToProps = ({ header }) => {
+const mapStateToProps = () => {
   return {}
 };
 
