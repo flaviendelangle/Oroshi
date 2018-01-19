@@ -46,7 +46,7 @@ class Container extends Component {
   
   render() {
     return (
-      <main style={this.style}>
+      <main style={this.style} >
         <Switch>
           <Route exact path='/' component={Home} />
           <Route path='/login/' component={Login} />

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 
 import AppBar from 'material-ui/AppBar';
@@ -65,23 +65,24 @@ class Header extends Component {
           showMenuIconButton={!isPublic}
         >
           {
-            (scene === 'content') && [
-            <Search
-              key={1}
-              title={title}
-              type={type}
-              query={query}
-              count={count}
-              isAdding={isAdding}
-              collection={collection}
-              autoComplete={this.autoComplete}
-            />,
-            <OrderMenu
-              key={2}
-              type={type}
-              collection={collection}
-            />,
-            ]
+            (scene === 'content') &&
+            <Fragment>
+              <Search
+                key={1}
+                title={title}
+                type={type}
+                query={query}
+                count={count}
+                isAdding={isAdding}
+                collection={collection}
+                autoComplete={this.autoComplete}
+              />
+              <OrderMenu
+                key={2}
+                type={type}
+                collection={collection}
+              />
+            </Fragment>
           }
         </AppBar>
         {
@@ -107,7 +108,7 @@ class Header extends Component {
 const Icon = ({ scene, palette, link, ...props }) => {
   if (scene === 'suggestions'){
     return (
-      <Link to={link}>
+      <Link to={link} >
         <IconButton
           tooltip="Return to collection"
           iconStyle={{ color: palette.alternateTextColor }}

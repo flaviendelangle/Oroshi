@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Fragment } from 'react';
 
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
@@ -10,7 +10,7 @@ import muiThemeable from 'material-ui/styles/muiThemeable';
 import { switchAddingMode } from '../../actions';
 import { switchLayout } from '../CollectionContent/actions';
 import { getRecommendations } from 'services/actions/publicAPI';
-import SnackbarList from 'components/generics/SnackbarList';
+import SnackbarList from 'components/appStructure/SnackbarList';
 import { connect } from 'services/redux';
 
 import * as _style from './style';
@@ -26,37 +26,52 @@ const LAYOUTS = [
   }
 ];
 
-class Menu extends Component {
-  
-  render() {
-    const { isAdding, collection, type, layout, found, loaded, isPublic, content } = this.props;
-    if (!found || !loaded) {
-      return null;
-    }
-    const theme = this.props.muiTheme.palette;
-    return (
-      <span>
-        <AddingIcon
-          collection={collection}
-          switchAddingMode={this.props.switchAddingMode}
-          isAdding={isAdding}
-          isPublic={isPublic}
-        />
-        <LayoutButtons
-          isAdding={isAdding}
-          switchLayout={this.props.switchLayout}
-          theme={theme}
-          layout={layout}
-          content={content}
-        />
-        <SnackbarList type={type} />
-      </span>
-    )
+const Menu = ({
+  isAdding,
+  collection,
+  type,
+  layout,
+  found,
+  loaded,
+  isPublic,
+  content,
+  switchAddingMode,
+  switchLayout,
+  muiTheme: { palette },
+}) => {
+  if (!found || !loaded) {
+    return null;
   }
-  
-}
+  return (
+    <Fragment>
+      <AddingIcon
+        collection={collection}
+        switchAddingMode={switchAddingMode}
+        isAdding={isAdding}
+        isPublic={isPublic}
+      />
+      <LayoutButtons
+        isAdding={isAdding}
+        switchLayout={switchLayout}
+        palette={palette}
+        layout={layout}
+        content={content}
+      />
+      <SnackbarList
+        type={type}
+        collection={collection}
+      />
+    </Fragment>
+  )
+};
 
-const LayoutButtons = ({ isAdding, switchLayout, theme, layout, content }) => {
+const LayoutButtons = ({
+ isAdding,
+ switchLayout,
+ palette,
+ layout,
+ content
+}) => {
   if (isAdding || content.length === 0) {
     return null;
   }
@@ -65,27 +80,27 @@ const LayoutButtons = ({ isAdding, switchLayout, theme, layout, content }) => {
       <LayoutIcon
         key={index}
         Component={el.icon}
-        theme={theme}
+        palette={palette}
         onClick={_ => switchLayout(el.name)}
         active={layout === el.name}
       />
     );
   });
   return (
-    <div style={_style.layout}>
+    <div style={_style.layout} >
       {componentContent}
     </div>
   );
 };
 
-const LayoutIcon = ({ Component, theme, active, onClick }) => {
+const LayoutIcon = ({ Component, palette, active, onClick }) => {
   const style = {
-    color: theme.alternateTextColor,
+    color: palette.alternateTextColor,
     opacity: active ? 1 : 0.4,
     cursor: active ? 'auto' : 'pointer'
   };
   return (
-    <div style={_style.layoutIcon(theme)}>
+    <div style={_style.layoutIcon(palette)} >
       <Component onClick={onClick} style={style} />
     </div>
   );

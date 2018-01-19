@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 
 import muiThemeable from 'material-ui/styles/muiThemeable';
@@ -41,14 +41,14 @@ const ElementHelp = ({ element, elementComponent, muiTheme, ...props }) => {
     content = <Progress />;
   } else {
     content = (
-      <div>
-        <div style={_style.title(muiTheme.palette)}>Element layout :</div>
+      <Fragment>
+        <div style={_style.title(muiTheme.palette)} >Element layout :</div>
         <Canvas component={elementComponent} elementProps={childProps} />
-      </div>
+      </Fragment>
     );
   }
   return (
-    <div style={_style.elementHelp}>
+    <div style={_style.elementHelp} >
       {content}
     </div>
   );
@@ -56,8 +56,8 @@ const ElementHelp = ({ element, elementComponent, muiTheme, ...props }) => {
 };
 
 const PublicHelp = ({ palette }) => (
-  <div style={_style.publicContainer(palette)}>
-      <span style={_style.publicContent(palette)}>There is nothing to see here :(</span>
+  <div style={_style.publicContainer(palette)} >
+      <span style={_style.publicContent(palette)} >There is nothing to see here :(</span>
   </div>
 );
 

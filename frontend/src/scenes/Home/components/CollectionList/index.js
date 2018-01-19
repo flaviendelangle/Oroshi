@@ -28,7 +28,7 @@ class CollectionList extends Component {
       <div className="collection-list-container">
         <div>
           {this.mapCollections()}
-          <NewCollectionButton editing={editing}/>
+          <NewCollectionButton editing={editing} />
         </div>
       </div>
     )

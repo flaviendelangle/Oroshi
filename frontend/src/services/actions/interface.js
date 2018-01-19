@@ -11,11 +11,12 @@ export const alertScreenResize = _ => {
   }
 };
 
-export const removeSnack = type => {
+export const removeSnack = (type, collection) => {
   return {
     type: titles.snacks.remove,
     meta: {
-      type
+      type,
+      collection,
     }
   };
 };

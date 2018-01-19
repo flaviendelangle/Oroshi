@@ -109,7 +109,7 @@ class Canvas extends Component {
     const { component, elementProps: { element, collection } } = this.props;
     const Element = component;
     return (
-      <div style={_style.container}>
+      <div style={_style.container} >
         <Element
           data={element}
           collection={collection}

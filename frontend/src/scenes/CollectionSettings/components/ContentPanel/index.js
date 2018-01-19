@@ -30,13 +30,13 @@ class MenuPanel extends Component {
     const { active, type, collection, data } = this.props;
     if (!data) {
       return (
-        <div style={this.panelStyle}>
+        <div style={this.panelStyle} >
           <Progress />
         </div>
       );
     }
     return (
-      <div style={this.panelStyle}>
+      <div style={this.panelStyle} >
         <Panel active={active} type={type} collection={collection} data={data} />
       </div>
     );

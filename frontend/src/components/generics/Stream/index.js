@@ -56,7 +56,7 @@ class Stream extends Component {
       return null;
     }
     return (
-      <div style={{textAlign: 'center'}}>
+      <div style={{textAlign: 'center'}} >
           <IconButton
             onClick={this.showMore}
             style={_style.button}

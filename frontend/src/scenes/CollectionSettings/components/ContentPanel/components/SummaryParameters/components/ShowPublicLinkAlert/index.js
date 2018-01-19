@@ -12,7 +12,7 @@ const ShowPublicLinkAlert = ({ open, data, type, onClose, onPublish }) => {
   if (data.public) {
     const url = `${urls.frontend}collections/${type}/${data.pk}/public/`;
     content = (
-      <div style={{userSelect: 'text'}}>
+      <div style={{userSelect: 'text'}} >
         {url}
       </div>
     );

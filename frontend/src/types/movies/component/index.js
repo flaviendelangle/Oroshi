@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 
 import muiThemeable from 'material-ui/styles/muiThemeable';
 import ImageEye from 'material-ui/svg-icons/image/remove-red-eye';
-import ContentAdd from 'material-ui/svg-icons/content/add';
 
 import Element from 'components/element/Element';
 import { addElement, removeElement } from 'services/actions/collections';

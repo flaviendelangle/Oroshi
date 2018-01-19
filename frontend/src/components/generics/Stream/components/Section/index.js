@@ -79,7 +79,7 @@ class Section extends Component {
       !data.link
     ) {
       return (
-        <span style={{color: palette.titleColor}}>
+        <span style={{color: palette.titleColor}} >
           {this.title}
         </span>
       );
@@ -110,7 +110,7 @@ class Section extends Component {
           />
         );
       });
-      return (<ElementLine key={index}>{elements}</ElementLine>);
+      return (<ElementLine key={index} >{elements}</ElementLine>);
     });
   };
   
@@ -122,7 +122,7 @@ class Section extends Component {
       return null;
     }
     return (
-      <div style={{textAlign: 'center'}}>
+      <div style={{textAlign: 'center'}} >
         <IconButton
           onClick={this.showMore}
           style={_style.button}
@@ -144,7 +144,7 @@ class Section extends Component {
       >
         <div className="title">
           {this.renderLink()}
-          <IconButton onClick={this.showFullVersion}>
+          <IconButton onClick={this.showFullVersion} >
             {full ? <NavigationLess/> : <NavigationMore/>}
           </IconButton>
         </div>

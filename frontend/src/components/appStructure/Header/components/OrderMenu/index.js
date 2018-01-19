@@ -17,7 +17,7 @@ class OrderMenu extends Component {
   render() {
     const { sort, muiTheme: { palette }} = this.props;
     return (
-      <div style={_style.container}>
+      <div style={_style.container} >
         <Menu
           {...this.props}
           sort={sort}
@@ -56,7 +56,7 @@ const Menu = ({ isAdding, layout, type, sort, color }) => {
 
 const StreamMenuMovies = ({ sort, color }) => (
   <IconMenu
-    iconButtonElement={<IconButton iconStyle={{color}}><ContentSort /></IconButton>}
+    iconButtonElement={<IconButton iconStyle={{color}} ><ContentSort /></IconButton>}
     anchorOrigin={{horizontal: 'right', vertical: 'top'}}
     targetOrigin={{horizontal: 'right', vertical: 'top'}}
   >
@@ -77,7 +77,7 @@ const StreamMenuMovies = ({ sort, color }) => (
 
 const StreamMenuTVShows = ({ sort, color }) => (
   <IconMenu
-    iconButtonElement={<IconButton iconStyle={{color}}><ContentSort /></IconButton>}
+    iconButtonElement={<IconButton iconStyle={{color}} ><ContentSort /></IconButton>}
     anchorOrigin={{horizontal: 'right', vertical: 'top'}}
     targetOrigin={{horizontal: 'right', vertical: 'top'}}
   >
@@ -94,7 +94,7 @@ const StreamMenuTVShows = ({ sort, color }) => (
 
 const DefaultMenuMovies = ({ sort, color }) => (
   <IconMenu
-    iconButtonElement={<IconButton iconStyle={{color}}><ContentSort /></IconButton>}
+    iconButtonElement={<IconButton iconStyle={{color}} ><ContentSort /></IconButton>}
     anchorOrigin={{horizontal: 'right', vertical: 'top'}}
     targetOrigin={{horizontal: 'right', vertical: 'top'}}
   >
@@ -115,7 +115,7 @@ const DefaultMenuMovies = ({ sort, color }) => (
 
 const DefaultMenuTVShows = ({ sort, color }) => (
   <IconMenu
-    iconButtonElement={<IconButton iconStyle={{color}}><ContentSort /></IconButton>}
+    iconButtonElement={<IconButton iconStyle={{color}} ><ContentSort /></IconButton>}
     anchorOrigin={{horizontal: 'right', vertical: 'top'}}
     targetOrigin={{horizontal: 'right', vertical: 'top'}}
   >

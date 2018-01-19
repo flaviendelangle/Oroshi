@@ -9,11 +9,11 @@ import * as _style from './style';
 const Progress = ({ muiTheme, message }) => {
   const palette = muiTheme.palette;
   return (
-    <div style={_style.container}>
-      <div style={_style.progress}>
+    <div style={_style.container} >
+      <div style={_style.progress} >
         <CircularProgress color={palette.alternateTextColor} />
       </div>
-      { message ? <div style={_style.message(palette)}>{message}</div> : null }
+      { message ? <div style={_style.message(palette)} >{message}</div> : null }
     </div>
   );
 };

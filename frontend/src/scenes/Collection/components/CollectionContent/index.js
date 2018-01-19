@@ -86,8 +86,8 @@ class CollectionContent extends Component {
     }
     else {
       return (
-        <div style={_style.page}>
-          <div style={_style.container}>
+        <div style={_style.page} >
+          <div style={_style.container} >
             {this.renderContent()}
           </div>
         </div>

@@ -71,7 +71,7 @@ class Grid extends Component {
           />
         );
       });
-      return (<ElementLine key={index}>{elements}</ElementLine>);
+      return (<ElementLine key={index} >{elements}</ElementLine>);
    });
   };
   
@@ -98,7 +98,7 @@ const ShowMore = ({ isAllShown, showMore }) => {
     return null;
   }
   return (
-    <div style={_style.showMore}>
+    <div style={_style.showMore} >
       <IconButton
         onClick={showMore}
         style={_style.button}

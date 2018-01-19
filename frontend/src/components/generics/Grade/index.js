@@ -22,17 +22,17 @@ class Grade extends Component {
     }
   
     return (
-      <div style={_style.circle} className={className}>
-        <div style={_style.externalCircle}>
+      <div style={_style.circle} className={className} >
+        <div style={_style.externalCircle} >
         </div>
-        <div style={_style.innerCircle}>
+        <div style={_style.innerCircle} >
           {grade}
         </div>
         <Arc quarter={1} degree={degree} {...props} />
         <Arc quarter={2} degree={degree} {...props} />
         <Arc quarter={3} degree={degree} {...props} />
         <Arc quarter={4} degree={degree} {...props} />
-        <div style={_style.cover(degree)}>
+        <div style={_style.cover(degree)} >
         </div>
       </div>
     );
@@ -41,7 +41,7 @@ class Grade extends Component {
 };
 
 const Arc = (props) => (
-  <div style={_style.arc(props)}>
+  <div style={_style.arc(props)} >
   </div>
 );
 

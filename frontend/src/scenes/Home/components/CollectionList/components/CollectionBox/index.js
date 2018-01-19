@@ -33,13 +33,13 @@ class CollectionBox extends Component {
     const { data, editing, muiTheme: { palette }} = this.props;
     const Icon = data.type === 'movies' ? AVMovie : HardwareTV;
     return (
-      <Link to={this.url}>
+      <Link to={this.url} >
         <div className="collection-box">
-          <div className="collection-icon" style={{background: palette.primary2Color}}>
+          <div className="collection-icon" style={{background: palette.primary2Color}} >
             <div className={ 'collection-editing-mask ' + (editing ? '' : 'invisible') } >
               <ContentCreate color={palette.primary1Color} className="editing-icon" />
             </div>
-            <Identicon size="190" string={data.title}/>
+            <Identicon size="190" string={data.title} />
             <div className="collection-type">
               <Icon/>
             </div>

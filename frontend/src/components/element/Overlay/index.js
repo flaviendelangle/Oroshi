@@ -59,17 +59,17 @@ class ElementOverlay extends Component {
       return null;
     }
     return (
-      <div className={'element-overlay ' + (this.isTesting() ? ' testing' : '')}>
+      <div className={'element-overlay ' + (this.isTesting() ? ' testing' : '')} >
         <Grade
           className="grade"
           value={note}
           mouseOver={show}
           ref={el => this.addToLayout('grade', el)}
         />
-        <TopLeftAction isPublic={isPublic}>
+        <TopLeftAction isPublic={isPublic} >
           {topLeftAction}
         </TopLeftAction>
-        <TopRightAction isPublic={isPublic}>
+        <TopRightAction isPublic={isPublic} >
           {topRightAction}
         </TopRightAction>
         <Footer
@@ -122,7 +122,7 @@ const Footer = ({ creation_mode, already_in_collection, onSave, onDestroy, addTo
 
 const TopLeftAction = ({ children, isPublic }) => {
   return (
-    <div className={'top-left-icon ' + (isPublic ? 'public' : 'private')}>
+    <div className={'top-left-icon ' + (isPublic ? 'public' : 'private')} >
       {children}
     </div>
   );
@@ -130,7 +130,7 @@ const TopLeftAction = ({ children, isPublic }) => {
 
 const TopRightAction = ({ children, isPublic }) => {
   return (
-    <div className={'top-right-icon ' + (isPublic ? 'public' : 'private')}>
+    <div className={'top-right-icon ' + (isPublic ? 'public' : 'private')} >
       {children}
     </div>
   );

@@ -20,7 +20,7 @@ class MenuPanel extends Component {
   render() {
     const { type, collection } = this.props;
     return (
-      <div style={_style.panel}>
+      <div style={_style.panel} >
         <Line
           active={this.isActive('summary')}
           value="summary"

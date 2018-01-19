@@ -49,15 +49,15 @@ class MainDrawer extends Component {
     };
     if (scene === 'content') {
       return [
-        <Link to={`/collections/${type}/${collection.pk}/settings/`} key={1}>
-          <ActionSettings style={style}/>
+        <Link to={`/collections/${type}/${collection.pk}/settings/`} key={1} >
+          <ActionSettings style={style} />
           <div>Collection Settings</div>
         </Link>
       ];
     } else if (scene === 'settings') {
       return [
-        <Link to={`/collections/${type}/${collection.pk}/`} key={1}>
-          <AVMovie style={style}/>
+        <Link to={`/collections/${type}/${collection.pk}/`} key={1} >
+          <AVMovie style={style} />
           <div>Return to my collection</div>
         </Link>
     
@@ -70,7 +70,7 @@ class MainDrawer extends Component {
     const lines = [
       ...this.GENERIC_LINES_BEFORE,
       ...this.sceneLines,
-      <Divider key={-1}/>,
+      <Divider key={-1} />,
       ...this.GENERIC_LINES_AFTER
     ];
     return lines.map((el, index) => {
@@ -78,7 +78,7 @@ class MainDrawer extends Component {
         return el;
       }
       return (
-        <MenuItem key={index}>
+        <MenuItem key={index} >
           {el}
         </MenuItem>
       );

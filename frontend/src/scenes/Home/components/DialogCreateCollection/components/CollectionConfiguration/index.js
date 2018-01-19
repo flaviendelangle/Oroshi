@@ -11,7 +11,7 @@ const formStyle = {
 const CollectionConfiguration = ({ onTitleChange }) => {
   
   return (
-      <div style={formStyle}>
+      <div style={formStyle} >
         <TextField hintText="Title" onChange={onTitleChange} />
       </div>
   );

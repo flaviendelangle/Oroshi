@@ -24,7 +24,7 @@ class Line extends Component {
   render() {
     const { goTo, value, children } = this.props;
     return (
-      <div className="line" data-active={this.active}>
+      <div className="line" data-active={this.active} >
         <div
           style={this.contentStyle}
           className="line-content"

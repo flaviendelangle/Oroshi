@@ -40,8 +40,8 @@ class App extends Component {
 
     render() {
       return (
-        <MuiThemeProvider muiTheme={getMuiTheme(theme)}>
-          <Provider store={store}>
+        <MuiThemeProvider muiTheme={getMuiTheme(theme)} >
+          <Provider store={store} >
             <Container store={store} />
           </Provider>
         </MuiThemeProvider>

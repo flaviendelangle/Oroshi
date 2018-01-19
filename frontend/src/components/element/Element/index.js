@@ -42,13 +42,13 @@ class Element extends Component {
     if(typeof action === 'string' || action instanceof String) {
       const ActionComponent = this.getActionComponent(action);
       return (
-        <span ref={el => this.addToLayout(action, el)}>
+        <span ref={el => this.addToLayout(action, el)} >
           <ActionComponent {...this.props} />
         </span>
       )
     }
     return (
-      <span ref={el => this.addToLayout(this.props[`${actionName}Key`], el)}>
+      <span ref={el => this.addToLayout(this.props[`${actionName}Key`], el)} >
         {action}
       </span>
     );
@@ -155,7 +155,7 @@ class Element extends Component {
     } = this.props;
     const { isMouseOver } = this.state;
     return (
-      <div className={this.getParentClasses()} style={style}>
+      <div className={this.getParentClasses()} style={style} >
         <div className="movie-container">
           <Paper
             zDepth={3}
@@ -215,7 +215,7 @@ const Footer = ({ palette, footer, addToLayout }) => (
           );
         }
         return (
-          <div ref={el => addToLayout(line.key, el)} key={index}>
+          <div ref={el => addToLayout(line.key, el)} key={index} >
             {line.value}
           </div>
         );
@@ -230,7 +230,7 @@ const Suggestions = ({ creation_mode, collection, data, isPublic, type }) => {
   }
   const url = `/collections/${type}/${collection.pk}/suggestions/${data.getPublicId()}/`;
   return (
-    <Link to={url}>
+    <Link to={url} >
       <ContentAdd/>
     </Link>
   );

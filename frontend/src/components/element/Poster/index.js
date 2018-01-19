@@ -19,8 +19,8 @@ const Poster = ({ path, title, onLoad }) => {
   }
   setTimeout(() => onLoad(false));
   return (
-    <div style={_style.defaultPoster}>
-      <span style={_style.span}>
+    <div style={_style.defaultPoster} >
+      <span style={_style.span} >
         {title}
       </span>
     </div>

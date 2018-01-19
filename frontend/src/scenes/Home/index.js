@@ -49,14 +49,14 @@ class Home extends Component {
     const { editing } = this.state;
     if (!loaded) {
       return (
-        <div style={_style.progress}>
+        <div style={_style.progress} >
           <CircularProgress />
         </div>
       );
     } else if (collections.length === 0) {
       return (
         <div>
-          <div style={_style.container}>
+          <div style={_style.container} >
             <FirstCollectionButton/>
           </div>
           <DialogCreateCollection/>
@@ -65,13 +65,13 @@ class Home extends Component {
     }
     return (
       <div>
-        <DocumentTitle title={'Collection manager'}/>
+        <DocumentTitle title={'Collection manager'} />
         <ScrollArea
           speed={0.8}
           horizontal={false}
           style={_style.scroll}
         >
-        <div style={_style.container}>
+        <div style={_style.container} >
             <ManageButton
               editing={editing}
               onClick={_ => this.setState({editing: !editing}) }

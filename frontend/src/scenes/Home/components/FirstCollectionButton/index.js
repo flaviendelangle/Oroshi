@@ -13,8 +13,8 @@ class FirstCollectionButton extends Component {
   
   render() {
     return (
-      <div style={containerStyle}>
-        <RaisedButton label="Create your first collection" onClick={this.props.onClick}/>
+      <div style={containerStyle} >
+        <RaisedButton label="Create your first collection" onClick={this.props.onClick} />
       </div>
     )
     

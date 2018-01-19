@@ -25,7 +25,7 @@ const CollectionType = ({ onClick }) => (
 
 const TypeFrame = ({ type, label, Icon, onClick }) => {
   return (
-  <div style={_style.frame}>
+  <div style={_style.frame} >
     <IconButton
       iconStyle={_style.icon}
       style={_style.iconContainer}

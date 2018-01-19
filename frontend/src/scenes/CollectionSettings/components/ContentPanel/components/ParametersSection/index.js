@@ -50,8 +50,8 @@ class ParametersSection extends Component {
   
   render() {
     return (
-      <div style={sectionStyle}>
-        <div style={this.titleStyle}>{this.title}</div>
+      <div style={sectionStyle} >
+        <div style={this.titleStyle} >{this.title}</div>
         <List>
           {this.content}
         </List>

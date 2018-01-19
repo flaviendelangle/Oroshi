@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 
 import SelectField from 'material-ui/SelectField';
@@ -43,7 +43,7 @@ class SummaryParameters extends Component {
     const { data, type, update, deleteCollection } = this.props;
     const { title, showDeleteAlert, showGetPublicLinkAlert } = this.state;
     return (
-      <div>
+      <Fragment>
         <ParametersSection>
           <div className="title">Summary</div>
           <div className="content">
@@ -115,7 +115,7 @@ class SummaryParameters extends Component {
           onClose={_ => this.setState({ showGetPublicLinkAlert: false })}
           onDelete={_ => {}} //this.props.deleteCollection(this.props.data.pk)}
         />
-      </div>
+      </Fragment>
     );
   }
 }

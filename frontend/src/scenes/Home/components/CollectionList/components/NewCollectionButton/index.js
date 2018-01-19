@@ -24,7 +24,7 @@ class NewCollectionButton extends Component {
     const { editing, muiTheme: { palette }} = this.props;
     return (
       <Link to='/'>
-        <div className={'collection-box ' + (editing ? '' : 'invisible')} onClick={this.handleClick}>
+        <div className={'collection-box ' + (editing ? '' : 'invisible')} onClick={this.handleClick} >
           <div className="collection-icon">
             <div className="collection-editing-mask" >
               <ContentAdd color={palette.primary1Color} className="editing-icon big" />

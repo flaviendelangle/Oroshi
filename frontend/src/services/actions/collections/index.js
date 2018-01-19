@@ -101,16 +101,17 @@ export const addElement = (type, collection, element) => {
 };
 
 export const updateElement = (type, element, data, field) => {
-  const collection = element.getCollection().pk;
+  const collection = element.getCollection();
   const pk = element.getID();
   return {
     type: titles.collections.update,
-    payload: getCollectionAPI(type).element(collection)[type].partial_update(pk, data).then(res => {
+    payload: getCollectionAPI(type).element(collection.pk)[type].partial_update(pk, data).then(res => {
       element.editLocal(data);
       return element;
     }),
     meta: {
       type,
+      collection,
       field
     }
   }

@@ -77,7 +77,7 @@ class Details extends Component {
           {...this.props}
           season={season}
         />
-        <div className="expand" onClick={this.handleShowLess}>
+        <div className="expand" onClick={this.handleShowLess} >
           <NavigationExpandLess/>
         </div>
       </Dialog>

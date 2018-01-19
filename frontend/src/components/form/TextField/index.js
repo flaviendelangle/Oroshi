@@ -34,7 +34,7 @@ class TextField extends Component {
           disabled={!editing}
           onChange={onChange}
         />
-        <IconButton style={_style.icon}>
+        <IconButton style={_style.icon} >
           <Icon editing={editing} handleClick={this.switchMode} />
         </IconButton>
       </div>
@@ -44,9 +44,9 @@ class TextField extends Component {
 
 const Icon = ({ editing, handleClick }) => {
   if (editing) {
-    return <ContentSave onClick={handleClick}/>;
+    return <ContentSave onClick={handleClick} />;
   }
-  return <EditorModeEdit onClick={handleClick}/>;
+  return <EditorModeEdit onClick={handleClick} />;
 };
 
 export default TextField;

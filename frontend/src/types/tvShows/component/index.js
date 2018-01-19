@@ -86,8 +86,8 @@ class TVShow extends Component {
     const { creationMode, collection, data, muiTheme: { palette }} = this.props;
     const { isMouseOver, isExtended } = this.state;
     return (
-      <div className={'tv-show-parent' + this.parentClassName}>
-        <div className={'tv-show-container '}>
+      <div className={'tv-show-parent' + this.parentClassName} >
+        <div className={'tv-show-container '} >
           <div className="tv-show-frame">
             <Paper
               zDepth={3}

@@ -6,11 +6,11 @@ import * as _style from './style';
 
 
 const Help = _ => (
-  <Paper style={_style.container} zDepth={3}>
-    <div style={_style.line}>
+  <Paper style={_style.container} zDepth={3} >
+    <div style={_style.line} >
       Welcome to your new collection !
     </div>
-    <div style={_style.line}>
+    <div style={_style.line} >
       You can start adding content by clicking on the button as the bottom right corner of your screen.
     </div>
     <div>

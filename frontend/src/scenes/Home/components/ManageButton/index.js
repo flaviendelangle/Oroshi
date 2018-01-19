@@ -13,8 +13,8 @@ class ManageButton extends Component {
 
   render() {
     return (
-      <div style={containerStyle}>
-        <RaisedButton label={this.getLabel()} onClick={this.props.onClick}/>
+      <div style={containerStyle} >
+        <RaisedButton label={this.getLabel()} onClick={this.props.onClick} />
       </div>
     )
     

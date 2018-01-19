@@ -50,7 +50,7 @@ class DataImporter extends Component {
   
   renderSourcePicker = _ => {
     return (
-      <div style={{textAlign: 'center'}}>
+      <div style={{textAlign: 'center'}} >
       <SelectField
         floatingLabelText="Source"
         value={this.state.source}
@@ -68,7 +68,7 @@ class DataImporter extends Component {
   
   renderFilePicker = format => {
     return (
-      <div style={{height: 150}}>
+      <div style={{height: 150}} >
         <Dropzone
           onDrop={upload => this.updateFile(format, upload)}
           multiple={false}
@@ -125,9 +125,9 @@ class DataImporter extends Component {
       return null;
     }
     return (
-      <div style={{height: 'calc(100% - 242px)'}}>
+      <div style={{height: 'calc(100% - 242px)'}} >
         <Progress progress={this.props.progress} />
-        <List style={{height: 'calc(100% - 16px)', padding: 0}}>
+        <List style={{height: 'calc(100% - 16px)', padding: 0}} >
           <ScrollArea
             speed={0.8}
             horizontal={false}
@@ -148,7 +148,7 @@ class DataImporter extends Component {
   
   render() {
     return (
-      <div style={{height: '100%'}}>
+      <div style={{height: '100%'}} >
         {this.renderSourcePicker()}
         {this.renderParameters()}
         {this.renderElementsList()}

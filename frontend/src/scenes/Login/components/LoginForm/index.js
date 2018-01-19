@@ -14,7 +14,7 @@ let LoginForm = ({ theme, onSwitch, mode, handleSubmit }) => {
     return null;
   }
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} >
       <Field
         floatingLabelStyle={_style.input(theme)}
         inputStyle={_style.input(theme)}
@@ -40,13 +40,13 @@ let LoginForm = ({ theme, onSwitch, mode, handleSubmit }) => {
         type="submit"
         label="Sign In"
       />
-      <RegisterButton theme={theme} onSwitch={onSwitch}/>
+      <RegisterButton theme={theme} onSwitch={onSwitch} />
     </form>
   );
 };
 
 const RegisterButton = ({ theme, onSwitch }) => (
-  <div style={_style.flatButton(theme)}>
+  <div style={_style.flatButton(theme)} >
     <span>Don't have an account? </span>
     <span
       style={_style.flatButtonLink}
