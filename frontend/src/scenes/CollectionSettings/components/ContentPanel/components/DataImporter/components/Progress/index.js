@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
+
 import LinearProgress from 'material-ui/LinearProgress';
 
-class Progress extends Component {
-  
-  render() {
-    return (
-      <LinearProgress mode="determinate" value={this.props.progress} />
-    );
-  }
-}
+
+const Progress = ({ progress }) => <LinearProgress mode="determinate" value={progress} />;
+
+Progress.propTypes = {
+  progress: PropTypes.number.isRequired,
+};
 
 export default Progress;

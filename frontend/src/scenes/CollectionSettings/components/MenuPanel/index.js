@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
 import muiThemeable from 'material-ui/styles/muiThemeable';
 
 import Line from './components/Line';
@@ -8,15 +10,21 @@ import * as _style from './style';
 
 
 class MenuPanel extends Component {
-  
+  static propTypes = {
+    muiTheme: PropTypes.object.isRequired,
+    active: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+    collection: PropTypes.object.isRequired,
+  };
+
   get palette() {
     return this.props.muiTheme.baseTheme.palette;
   }
-  
+
   isActive(section) {
     return this.props.active === section;
   }
-  
+
   render() {
     const { type, collection } = this.props;
     return (
@@ -29,9 +37,11 @@ class MenuPanel extends Component {
         >
           Summary
         </Line>
-        {/*<Line active={this.props.active === 'spoilers'} value="spoilers">
+        {/*
+        <Line active={this.props.active === 'spoilers'} value="spoilers">
           Spoilers
-        </Line>*/}
+        </Line>
+        */}
         <Line
           active={this.isActive('languages')}
           value="languages"
@@ -58,22 +68,16 @@ class MenuPanel extends Component {
         </Line>
       </div>
     );
-    
   }
-  
 }
 
-const mapStateToProps = ({ settings }) => {
-  return {
-    active: settings.activeSection
-  }
-};
+const mapStateToProps = ({ settings }) => ({
+  active: settings.activeSection,
+});
 
-const mapDispatchToProps = (dispatch) => {
-  return {}
-};
+const mapDispatchToProps = () => ({});
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(muiThemeable()(MenuPanel));

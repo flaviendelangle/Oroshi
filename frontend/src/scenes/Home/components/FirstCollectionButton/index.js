@@ -1,38 +1,35 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
+import PropTypes from 'prop-types';
+
 import RaisedButton from 'material-ui/RaisedButton';
 
 import { showDialogCreateCollection } from '../DialogCreateCollection/actions'
 
+
 const containerStyle = {
-  textAlign: 'center'
+  textAlign: 'center',
 };
 
 
-class FirstCollectionButton extends Component {
-  
-  render() {
-    return (
-      <div style={containerStyle} >
-        <RaisedButton label="Create your first collection" onClick={this.props.onClick} />
-      </div>
-    )
-    
-  }
-}
+const FirstCollectionButton = ({ onClick }) => (
+  <div style={containerStyle} >
+    <RaisedButton label="Create your first collection" onClick={onClick} />
+  </div>
+);
 
-const mapStateToProps = (state) => {
-  return {
-  }
+FirstCollectionButton.propTypes = {
+  onClick: PropTypes.func.isRequired,
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onClick: () => dispatch(showDialogCreateCollection(true))
-  }
-};
+const mapStateToProps = () => ({});
+
+const mapDispatchToProps = (dispatch) => ({
+  onClick: () => dispatch(showDialogCreateCollection(true)),
+});
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(FirstCollectionButton);
+

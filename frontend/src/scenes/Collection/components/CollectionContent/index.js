@@ -1,4 +1,5 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import NotFound from 'components/errors/NotFound';
 import Grid from 'components/generics/Grid';
@@ -11,11 +12,21 @@ import * as _style from './style';
 
 
 class CollectionContent extends Component {
-  
-  state = {
-    query: '',
+  static propTypes = {
+    layout: PropTypes.string.isRequired,
+    grid: PropTypes.object.isRequired,
+    stream: PropTypes.object.isRequired,
+    collection: PropTypes.object.isRequired,
+    order: PropTypes.object.isRequired,
+    type: PropTypes.string.isRequired,
+    elementComponent: PropTypes.func.isRequired,
+    lineDimensions: PropTypes.object.isRequired,
+    loaded: PropTypes.bool.isRequired,
+    found: PropTypes.bool.isRequired,
+    content: PropTypes.array.isRequired,
+    isPublic: PropTypes.bool,
   };
-  
+
   renderContent = () => {
     const {
       layout,
@@ -26,7 +37,7 @@ class CollectionContent extends Component {
       type,
       elementComponent,
       lineDimensions,
-      isPublic
+      isPublic,
     } = this.props;
     if (layout === 'grid') {
       return (
@@ -40,8 +51,7 @@ class CollectionContent extends Component {
           isPublic={isPublic}
         />
       )
-    }
-    else if (layout === 'stream') {
+    } else if (layout === 'stream') {
       return (
         <Stream
           data={stream}
@@ -53,28 +63,26 @@ class CollectionContent extends Component {
         />
       )
     }
+    return null;
   };
-  
+
   render() {
     const {
       loaded,
       found,
       content,
       collection,
-      isAdding,
       isPublic,
       type,
-      elementComponent
+      elementComponent,
     } = this.props;
     if (!loaded) {
       return (
         <Progress />
       );
-    }
-    else if (!found) {
+    } else if (!found) {
       return (<NotFound />)
-    }
-    else if (content.length === 0 && !isAdding) {
+    } else if (content.length === 0) {
       return (
         <Help
           type={type}
@@ -84,41 +92,33 @@ class CollectionContent extends Component {
         />
       );
     }
-    else {
-      return (
-        <div style={_style.page} >
-          <div style={_style.container} >
-            {this.renderContent()}
-          </div>
+    return (
+      <div style={_style.page} >
+        <div style={_style.container} >
+          {this.renderContent()}
         </div>
-      );
-    }
+      </div>
+    );
   }
-  
 }
 
-const mapStateToProps = ({ content }, state) => {
-  return {
-    update: content.update,
-    content: content.content,
-    grid: content.grid,
-    stream: content.stream,
-    collection: content.collection,
-    found: content.found,
-    loaded: content.loaded,
-    layout: content.layout,
-    order: content.order,
-    
-    lineDimensions: state.app.lineDimensions
-  }
-};
+const mapStateToProps = ({ content }, state) => ({
+  update: content.update,
+  content: content.content,
+  grid: content.grid,
+  stream: content.stream,
+  collection: content.collection,
+  found: content.found,
+  loaded: content.loaded,
+  layout: content.layout,
+  order: content.order,
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-  };
-};
+  lineDimensions: state.app.lineDimensions,
+});
+
+const mapDispatchToProps = () => ({});
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(CollectionContent);

@@ -3,35 +3,35 @@ import { combineReducers } from 'redux'
 import { dialogs } from 'services/titles/interface'
 import { collectionContent } from "services/titles/api";
 
+
 const defaultState = {
   show: false,
   collections: [],
 };
 
 const main = (state = defaultState, action) => {
-
   switch (action.type) {
-
-    case dialogs.createCollection:
+    case dialogs.createCollection: {
       return {
         ...state,
-        show: action.show
+        show: action.show,
       };
+    }
 
-    case collectionContent.create + '_FULFILLED':
+    case `${collectionContent.create}_FULFILLED`: {
       return {
         ...state,
-        show: false
+        show: false,
       };
+    }
 
     default:
       return state;
   }
-
 };
 
 const reducer = combineReducers({
-  main
+  main,
 });
 
 

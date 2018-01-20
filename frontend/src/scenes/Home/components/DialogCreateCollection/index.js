@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
@@ -12,49 +13,73 @@ import { showDialogCreateCollection } from './actions'
 
 
 class DialogCreateCollection extends Component {
-  
+  static propTypes = {
+    profile: PropTypes.object.isRequired,
+    create: PropTypes.func.isRequired,
+    close: PropTypes.func.isRequired,
+    isOpen: PropTypes.bool.isRequired,
+    muiTheme: PropTypes.object.isRequired,
+  };
+
   state = {
     stepIndex: 0,
     type: null,
-    title: ''
+    title: '',
   };
-  
+
+  componentWillReceiveProps(newProps) {
+    const { isOpen } = this.props;
+    if (isOpen && !newProps.isOpen) {
+      this.setState({ stepIndex: 0 });
+    }
+  }
+
   get title() {
     if (this.state.stepIndex === 0) {
       return 'What to you want to put in your collection ?';
     }
     return 'How should I name it ?';
   }
-  
+
   create = () => {
-    if (this.state.title) {
+    const { title, type } = this.state;
+    const { profile, create } = this.props;
+    if (title) {
       const data = {
-        title: this.state.title,
-        user: this.props.profile.pk
+        title,
+        user: profile.pk,
       };
-      this.props.create(this.state.type, data);
+      create(type, data);
     }
   };
-  
+
+  close = () => {
+    const { close } = this.props;
+    this.setState({
+      stepIndex: 0,
+    });
+    close();
+  };
+
   pickCollectionType = (type) => {
     this.setState({ type, stepIndex: 1 });
   };
-  
+
   renderActions = () => {
+    const { muiTheme: { palette } } = this.props;
     if (this.state.stepIndex > 0) {
       return (
         <FlatButton
           label="Create"
-          primary={true}
+          primary
           onClick={this.create}
-          style={{color: this.props.muiTheme.palette.alternateTextColor}}
+          style={{ color: palette.alternateTextColor }}
         />
       );
-    } else {
-      return null;
     }
+    return null;
   };
-  
+
   renderContent = () => {
     if (this.state.stepIndex === 0) {
       return (
@@ -63,25 +88,11 @@ class DialogCreateCollection extends Component {
     }
     return (
       <CollectionConfiguration
-        onTitleChange={(proxy, title) => this.setState({ title }) }
+        onTitleChange={(proxy, title) => this.setState({ title })}
       />
     );
   };
-  
-  close = () => {
-    this.setState({
-      importerMode: false,
-      stepIndex: 0
-    });
-    this.props.close();
-  };
-  
-  componentWillReceiveProps(newProps) {
-    if (this.props.isOpen && !newProps.isOpen) {
-      this.setState({ stepIndex: 0 });
-    }
-  }
-  
+
   render() {
     const actions = this.renderActions();
     return (
@@ -91,7 +102,7 @@ class DialogCreateCollection extends Component {
         modal={false}
         open={this.props.isOpen}
         onRequestClose={this.close}
-        autoScrollBodyContent={true}
+        autoScrollBodyContent
       >
         {this.renderContent()}
       </Dialog>
@@ -109,18 +120,16 @@ const mapStateToProps = (state) => {
     update: root.update,
     isImportingContent: root.isImportingContent,
     collections: homeRoot.collections,
-    profile: appRoot.profile
+    profile: appRoot.profile,
   }
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    close: () => dispatch(showDialogCreateCollection(false)),
-    create: (...args) => dispatch(createCollection(...args)),
-  }
-};
+const mapDispatchToProps = dispatch => ({
+  close: () => dispatch(showDialogCreateCollection(false)),
+  create: (...args) => dispatch(createCollection(...args)),
+});
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(muiThemeable()(DialogCreateCollection));

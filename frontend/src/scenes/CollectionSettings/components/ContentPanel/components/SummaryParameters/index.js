@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
@@ -11,9 +12,10 @@ import ShowPublicLinkAlert from './components/ShowPublicLinkAlert';
 import ParametersSection, { Line } from '../ParametersSection';
 import TextField from 'components/form/TextField';
 import Toggle from 'components/form/Toggle';
-import { update } from 'scenes/CollectionSettings/actions';
+import { update as _update } from 'scenes/CollectionSettings/actions';
 import { getCollectionTypeTitle } from 'services/utils';
 import { destroy } from 'services/actions/collections';
+
 
 const selectStyle = {
   position: 'absolute',
@@ -22,25 +24,37 @@ const selectStyle = {
 };
 
 class SummaryParameters extends Component {
-  
+  static propTypes = {
+    data: PropTypes.object.isRequired,
+    type: PropTypes.string.isRequired,
+    deleteCollection: PropTypes.func.isRequired,
+    update: PropTypes.func.isRequired,
+  };
+
   state = {
     title: '',
     showDeleteAlert: false,
-    showGetPublicLinkAlert: false
+    showGetPublicLinkAlert: false,
   };
 
-  componentDidMount() {
-    if (this.props.data.title) {
-      this.setState({ title: this.props.data.title });
+  componentWillMount() {
+    const { data } = this.props;
+    if (data.title) {
+      this.setState({ title: data.title });
     }
   }
-  
+
   componentWillReceiveProps(newProps) {
     this.setState({ title: newProps.data.title });
   }
-  
+
   render() {
-    const { data, type, update, deleteCollection } = this.props;
+    const {
+      data,
+      type,
+      update,
+      deleteCollection,
+    } = this.props;
     const { title, showDeleteAlert, showGetPublicLinkAlert } = this.state;
     return (
       <Fragment>
@@ -51,16 +65,14 @@ class SummaryParameters extends Component {
               <TextField
                 id="collection_title"
                 value={title}
-                onChange={(proxy, title) => this.setState({ title })}
-                onSave={() =>
-                  update(this.props.data.pk, 'title', title)
-                }
+                onChange={(proxy, newTitle) => this.setState({ title: newTitle })}
+                onSave={() => update(data.pk, 'title', title)}
               />
             </Line>
             <Line primaryText="Collection type">
               <SelectField
                 value="0"
-                disabled={true}
+                disabled
                 style={selectStyle}
               >
                 <MenuItem
@@ -113,25 +125,21 @@ class SummaryParameters extends Component {
           data={data}
           type={type}
           onClose={() => this.setState({ showGetPublicLinkAlert: false })}
-          onDelete={() => {}} //this.props.deleteCollection(this.props.data.pk)}
+          onDelete={() => {}} // this.props.deleteCollection(this.props.data.pk)}
         />
       </Fragment>
     );
   }
 }
 
-const mapStateToProps = () => {
-  return {};
-};
+const mapStateToProps = () => ({});
 
-const mapDispatchToProps = (dispatch, { type }) => {
-  return {
-    update: (pk, field, value) => dispatch(update(type, pk, field, value)),
-    deleteCollection: (pk) => dispatch(destroy(type, pk))
-  }
-};
+const mapDispatchToProps = (dispatch, { type }) => ({
+  update: (pk, field, value) => dispatch(_update(type, pk, field, value)),
+  deleteCollection: pk => dispatch(destroy(type, pk)),
+});
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(SummaryParameters);

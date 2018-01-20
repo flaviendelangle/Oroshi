@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import PropTypes from 'prop-types';
 
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
@@ -7,8 +8,8 @@ import ActionViewModule from 'material-ui/svg-icons/action/view-module';
 import ActionViewStream from 'material-ui/svg-icons/action/view-stream';
 import muiThemeable from 'material-ui/styles/muiThemeable';
 
-import { switchAddingMode } from '../../actions';
-import { switchLayout } from '../CollectionContent/actions';
+import { switchAddingMode as _switchAddingMode } from '../../actions';
+import { switchLayout as _switchLayout } from '../CollectionContent/actions';
 import { getRecommendations } from 'services/actions/publicAPI';
 import SnackbarList from 'components/appStructure/SnackbarList';
 import { connect } from 'services/redux';
@@ -19,11 +20,12 @@ import * as _style from './style';
 const LAYOUTS = [
   {
     name: 'grid',
-    icon: ActionViewModule
-  }, {
+    icon: ActionViewModule,
+  },
+  {
     name: 'stream',
-    icon: ActionViewStream
-  }
+    icon: ActionViewStream,
+  },
 ];
 
 const Menu = ({
@@ -65,27 +67,39 @@ const Menu = ({
   )
 };
 
+Menu.propTypes = {
+  isAdding: PropTypes.bool,
+  collection: PropTypes.object.isRequired,
+  type: PropTypes.string.isRequired,
+  layout: PropTypes.string.isRequired,
+  found: PropTypes.bool.isRequired,
+  loaded: PropTypes.bool.isRequired,
+  isPublic: PropTypes.bool,
+  content: PropTypes.array.isRequired,
+  switchAddingMode: PropTypes.func.isRequired,
+  switchLayout: PropTypes.func.isRequired,
+  muiTheme: PropTypes.object.isRequired,
+};
+
 const LayoutButtons = ({
- isAdding,
- switchLayout,
- palette,
- layout,
- content
+  isAdding,
+  switchLayout,
+  palette,
+  layout,
+  content,
 }) => {
   if (isAdding || content.length === 0) {
     return null;
   }
-  const componentContent = LAYOUTS.map((el, index) => {
-    return (
-      <LayoutIcon
-        key={index}
-        Component={el.icon}
-        palette={palette}
-        onClick={() => switchLayout(el.name)}
-        active={layout === el.name}
-      />
-    );
-  });
+  const componentContent = LAYOUTS.map(el => (
+    <LayoutIcon
+      key={1}
+      Component={el.icon}
+      palette={palette}
+      onClick={() => switchLayout(el.name)}
+      active={layout === el.name}
+    />
+  ));
   return (
     <div style={_style.layout} >
       {componentContent}
@@ -93,11 +107,24 @@ const LayoutButtons = ({
   );
 };
 
-const LayoutIcon = ({ Component, palette, active, onClick }) => {
+LayoutButtons.propTypes = {
+  isAdding: PropTypes.bool,
+  layout: PropTypes.string.isRequired,
+  content: PropTypes.array.isRequired,
+  switchLayout: PropTypes.func.isRequired,
+  palette: PropTypes.object.isRequired,
+};
+
+const LayoutIcon = ({
+  Component,
+  palette,
+  active,
+  onClick,
+}) => {
   const style = {
     color: palette.alternateTextColor,
     opacity: active ? 1 : 0.4,
-    cursor: active ? 'auto' : 'pointer'
+    cursor: active ? 'auto' : 'pointer',
   };
   return (
     <div style={_style.layoutIcon(palette)} >
@@ -106,7 +133,19 @@ const LayoutIcon = ({ Component, palette, active, onClick }) => {
   );
 };
 
-const AddingIcon = ({ isAdding, collection, switchAddingMode, isPublic }) => {
+LayoutIcon.propTypes = {
+  Component: PropTypes.func.isRequired,
+  palette: PropTypes.object.isRequired,
+  active: PropTypes.bool.isRequired,
+  onClick: PropTypes.func.isRequired,
+};
+
+const AddingIcon = ({
+  isAdding,
+  collection,
+  switchAddingMode,
+  isPublic,
+}) => {
   if (isPublic) {
     return null;
   }
@@ -116,42 +155,44 @@ const AddingIcon = ({ isAdding, collection, switchAddingMode, isPublic }) => {
   } else {
     Icon = ContentAdd;
   }
-  
+
   return (
     <FloatingActionButton
       style={_style.add}
       onClick={() => switchAddingMode(collection)}
     >
-      <Icon/>
+      <Icon />
     </FloatingActionButton>
   );
 };
 
-
-const mapStateToProps = ({ content, main }) => {
-  return {
-    isAdding: main.isAdding,
-  
-    found: content.found,
-    collection: content.collection,
-    layout: content.layout,
-    loaded: content.loaded,
-    content: content.content
-  }
+AddingIcon.propTypes = {
+  collection: PropTypes.object.isRequired,
+  switchAddingMode: PropTypes.func.isRequired,
+  isPublic: PropTypes.bool,
+  isAdding: PropTypes.bool,
 };
 
-const mapDispatchToProps = (dispatch, { type, collection }) => {
-  return {
-    switchAddingMode: (collection) => {
-      dispatch(switchAddingMode(type, collection));
-      dispatch(getRecommendations(type, collection));
-    },
-    switchLayout: (layout) => dispatch(switchLayout(type, collection, layout))
-  };
-};
+const mapStateToProps = ({ content, main }) => ({
+  isAdding: main.isAdding,
+
+  found: content.found,
+  collection: content.collection,
+  layout: content.layout,
+  loaded: content.loaded,
+  content: content.content,
+});
+
+const mapDispatchToProps = (dispatch, { type, collection }) => ({
+  switchAddingMode: () => {
+    dispatch(_switchAddingMode(type, collection));
+    dispatch(getRecommendations(type, collection));
+  },
+  switchLayout: layout => dispatch(_switchLayout(type, collection, layout)),
+});
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(muiThemeable()(Menu));
 

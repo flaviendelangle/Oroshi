@@ -1,4 +1,5 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types';
 
 import Grid from 'components/generics/Grid';
 import Stream from 'components/generics/Stream';
@@ -9,38 +10,52 @@ import * as _style from './style';
 
 
 class AddingContent extends Component {
-
-  state = {
-    query: '',
+  static propTypes = {
+    loaded: PropTypes.bool.isRequired,
+    collection: PropTypes.object.isRequired,
+    type: PropTypes.string.isRequired,
+    elementComponent: PropTypes.func.isRequired,
+    lineDimensions: PropTypes.object.isRequired,
+    recommendations: PropTypes.object.isRequired,
+    addingSearch: PropTypes.object,
   };
 
   renderContent = () => {
-    if (this.props.addingSearch) {
+    const {
+      addingSearch,
+      recommendations,
+      collection,
+      type,
+      elementComponent,
+      lineDimensions,
+    } = this.props;
+    if (addingSearch) {
       return (
         <Grid
-          data={this.props.addingSearch}
-          collection={this.props.collection}
-          type={this.props.type}
-          elementComponent={this.props.elementComponent}
-          lineDimensions={this.props.lineDimensions}
-          creationMode={true}
+          data={addingSearch}
+          collection={collection}
+          type={type}
+          elementComponent={elementComponent}
+          lineDimensions={lineDimensions}
+          creationMode
         />
       )
     }
     return (
       <Stream
-        data={this.props.recommendations}
-        collection={this.props.collection}
-        type={this.props.type}
-        elementComponent={this.props.elementComponent}
-        lineDimensions={this.props.lineDimensions}
-        creationMode={true}
+        data={recommendations}
+        collection={collection}
+        type={type}
+        elementComponent={elementComponent}
+        lineDimensions={lineDimensions}
+        creationMode
       />
     )
   };
 
   render() {
-    if (!this.props.loaded) {
+    const { loaded } = this.props;
+    if (!loaded) {
       return (
         <Progress />
       );
@@ -55,7 +70,6 @@ class AddingContent extends Component {
       );
     }
   }
-
 }
 
 const mapStateToProps = ({ adding }, state) => {
@@ -65,16 +79,13 @@ const mapStateToProps = ({ adding }, state) => {
     recommendations: adding.recommendations,
     addingSearch: adding.addingSearch,
 
-    lineDimensions: state.app.lineDimensions
+    lineDimensions: state.app.lineDimensions,
   }
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-  };
-};
+const mapDispatchToProps = () => ({});
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(AddingContent);

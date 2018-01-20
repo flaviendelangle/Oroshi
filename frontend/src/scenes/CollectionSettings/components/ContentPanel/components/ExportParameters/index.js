@@ -1,48 +1,45 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import FileDownload from 'material-ui/svg-icons/file/file-download';
 
 import ParametersSection, { Line } from '../ParametersSection';
-import { exportCollection } from 'services/actions/collections';
+import { exportCollection as _exportCollection } from 'services/actions/collections';
 
-class ExportParameters extends Component {
-  
-  render() {
-    const { exportCollection, data } = this.props;
-    return (
-      <ParametersSection>
-        <div className="title">Export your data</div>
-        <div className="content">
-          <Line
-            rightIcon={<FileDownload />}
-            primaryText="Export as CSV"
-            onClick={() => exportCollection(data.pk, 'csv')}
-          />
-          <Line
-            rightIcon={<FileDownload />}
-            primaryText="Export as JSON"
-            onClick={() => exportCollection(data.pk, 'json')}
-          />
-        </div>
-      </ParametersSection>
-    );
-  }
-}
 
-const mapStateToProps = () => {
-  return {};
+const ExportParameters = ({ exportCollection, data }) => (
+  <ParametersSection>
+    <div className="title">Export your data</div>
+    <div className="content">
+      <Line
+        rightIcon={<FileDownload />}
+        primaryText="Export as CSV"
+        onClick={() => exportCollection(data.pk, 'csv')}
+      />
+      <Line
+        rightIcon={<FileDownload />}
+        primaryText="Export as JSON"
+        onClick={() => exportCollection(data.pk, 'json')}
+      />
+    </div>
+  </ParametersSection>
+);
+
+ExportParameters.propTypes = {
+  exportCollection: PropTypes.func.isRequired,
+  data: PropTypes.object.isRequired,
 };
 
-const mapDispatchToProps = (dispatch, { type }) => {
-  return {
-    exportCollection: (pk, format) => {
-      dispatch(exportCollection(type, pk, format));
-    }
-  }
-};
+const mapStateToProps = () => ({});
+
+const mapDispatchToProps = (dispatch, { type }) => ({
+  exportCollection: (pk, format) => {
+    dispatch(_exportCollection(type, pk, format));
+  },
+});
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(ExportParameters);

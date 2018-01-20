@@ -1,13 +1,18 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import PropTypes from 'prop-types';
 
 import CollectionBox from './components/CollectionBox'
 import NewCollectionButton from './components/NewCollectionButton'
 
 import './style.css';
 
+
 class CollectionList extends Component {
-  
+  static propTypes = {
+    data: PropTypes.object.isRequired,
+    editing: PropTypes.string.isRequired,
+  };
+
   mapCollections = () => {
     const { data, editing } = this.props;
     return data.map((collection) => {
@@ -21,7 +26,7 @@ class CollectionList extends Component {
       )
     });
   };
-  
+
   render() {
     const { editing } = this.props;
     return (
@@ -32,22 +37,7 @@ class CollectionList extends Component {
         </div>
       </div>
     )
-    
   }
-  
 }
 
-const mapStateToProps = (state) => {
-  return {
-  }
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-  }
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(CollectionList);
+export default CollectionList;

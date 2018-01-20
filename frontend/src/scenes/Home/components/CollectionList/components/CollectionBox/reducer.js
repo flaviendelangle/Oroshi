@@ -6,22 +6,19 @@ const defaultState = {
 };
 
 const main = (state = defaultState, action) => {
-  
   switch (action.type) {
     case dialogs.addMovie:
       return {
         ...state,
-        isAddingAMovie: action.show
+        isAddingAMovie: action.show,
       };
     default:
       return state;
   }
-  
 };
 
 const reducer = combineReducers({
-  main
+  main,
 });
-
 
 export default reducer;
