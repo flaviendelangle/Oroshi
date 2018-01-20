@@ -7,21 +7,21 @@ const defaultState = {
 };
 
 const header = (state = defaultState, action) => {
-  
   switch (action.type) {
-    
-    case notify.change:
+    case notify.change: {
       return {
         ...state,
-        isDrawerOpen: false
+        isDrawerOpen: false,
       };
-  
-    case drawers.main :
+    }
+
+    case drawers.main: {
       return {
         ...state,
-        isDrawerOpen: action.show
+        isDrawerOpen: action.show,
       };
-      
+    }
+
     default:
       return state;
   }

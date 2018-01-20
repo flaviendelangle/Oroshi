@@ -1,4 +1,5 @@
-import React  from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 import './style.css'
 
@@ -9,16 +10,20 @@ const ElementLine = ({ children }) => (
   </div>
 );
 
+ElementLine.propTypes = {
+  children: PropTypes.element,
+};
+
 export const groupByLine = (elements, lineDimensions) => {
   if (elements.length === 0) {
     return [];
   }
-  let lines = [[]];
+  const lines = [[]];
   elements.forEach((el) => {
-    if (lines[lines.length-1].length === lineDimensions.elementsPerLine) {
+    if (lines[lines.length - 1].length === lineDimensions.elementsPerLine) {
       lines.push([]);
     }
-    lines[lines.length-1].push(el);
+    lines[lines.length - 1].push(el);
   });
   return lines;
 };

@@ -13,28 +13,28 @@ collectionTypes.forEach((el) => {
   defaultState[el.name] = {};
 });
 
-const reducer = (state = defaultState, action) => {
+const reducer = (_state = defaultState, action) => {
   if (!action.meta || !action.meta.type || !action.meta.collection) {
-    return state;
+    return _state;
   }
 
   const { type, collection } = action.meta;
-  
+  let state = { ..._state };
   if (!state[type]) {
     state = {
       ...state,
-      [type]: {}
+      [type]: {},
     };
   }
   if (!state[type][collection.pk]) {
     state = {
       ...state,
       [type]: {
-        [collection.pk]: {}
-      }
+        [collection.pk]: {},
+      },
     };
   }
-  
+
   const oldState = state[type][collection.pk];
 
   state = {
@@ -47,12 +47,11 @@ const reducer = (state = defaultState, action) => {
         adding: addingReducer(oldState.adding, action),
         suggestions: suggestionsReducer(oldState.suggestions, action),
         settings: settingsReducer(oldState.settings, action),
-      }
-    }
+      },
+    },
   };
 
   return state;
-  
 };
 
 export default reducer;

@@ -7,21 +7,21 @@ import { collectionContent } from 'services/titles/api'
 
 const defaultState = {
   collections: [],
-  loaded: false
+  loaded: false,
 };
 
 const main = (state = defaultState, action) => {
   switch (action.type) {
-    case collectionContent.loadAllSettings + '_FULFILLED':
+    case `${collectionContent.loadAllSettings}_FULFILLED`:
       return {
         ...state,
         collections: action.payload,
-        loaded: true
+        loaded: true,
       };
-    case collectionContent.create + '_FULFILLED':
+    case `${collectionContent.create}_FULFILLED`:
       return {
         ...state,
-        collections: [ ...state.collections, action.payload ]
+        collections: [...state.collections, action.payload],
       };
     default:
       return state;
@@ -31,7 +31,7 @@ const main = (state = defaultState, action) => {
 const reducer = combineReducers({
   main,
   collectionList,
-  dialogCreateCollection
+  dialogCreateCollection,
 });
 
 

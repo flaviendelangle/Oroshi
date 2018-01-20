@@ -5,14 +5,14 @@ export const elementHelp = {
   maxWidth: 1200,
 };
 
-export const title = (palette) => ({
+export const title = palette => ({
   color: palette.titleColor,
   fontSize: '1.8em',
   paddingLeft: 20,
-  letterSpacing: 1
+  letterSpacing: 1,
 });
 
-export const publicContainer = (palette) => ({
+export const publicContainer = palette => ({
   textAlign: 'center',
   position: 'absolute',
   top: '50%',
@@ -22,11 +22,11 @@ export const publicContainer = (palette) => ({
   color: palette.textColor,
   textShadow: '0 2px 4px rgba(0, 0, 0, .5)',
   lineHeight: '3.5em',
-  letterSpacing: 1
+  letterSpacing: 1,
 });
 
-export const publicContent = (palette) => ({
+export const publicContent = () => ({
   display: 'inline-block',
   fontSize: '2.3em',
-  marginRight: 10
+  marginRight: 10,
 });

@@ -9,11 +9,11 @@ import * as _style from './style';
 
 
 class AddingContent extends Component {
-  
+
   state = {
     query: '',
   };
-  
+
   renderContent = () => {
     if (this.props.addingSearch) {
       return (
@@ -38,7 +38,7 @@ class AddingContent extends Component {
       />
     )
   };
-  
+
   render() {
     if (!this.props.loaded) {
       return (
@@ -55,7 +55,7 @@ class AddingContent extends Component {
       );
     }
   }
-  
+
 }
 
 const mapStateToProps = ({ adding }, state) => {
@@ -64,7 +64,7 @@ const mapStateToProps = ({ adding }, state) => {
     collection: adding.collection,
     recommendations: adding.recommendations,
     addingSearch: adding.addingSearch,
-    
+
     lineDimensions: state.app.lineDimensions
   }
 };

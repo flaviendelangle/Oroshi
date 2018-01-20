@@ -8,94 +8,89 @@ import * as recommendations_manager from '../../scenes/Collection/components/Add
 const defaultState = {
   collection: null,
   recommendations: {
-    results: []
+    results: [],
   },
   addingSearch: null,
-  loaded: false
+  loaded: false,
 };
 
 const reducer = (state = defaultState, action) => {
-  
-  let newElement, newState;
-  
   switch (action.type) {
-    
     /**
      * The collection has been loaded
      */
-    case collectionContent.load + '_FULFILLED':
+
+    case `${collectionContent.load}_FULFILLED`: {
       return {
         ...state,
         collection: action.payload,
       };
-    
+    }
+
     /**
      * An component has been added to the collection
      */
-    case collections.add + '_FULFILLED':
-      
-      newState = adding_search_manager.add(state, action.payload);
-      newState = recommendations_manager.add(state, action.payload);
-      
-      return newState;
-    
+    case `${collections.add}_FULFILLED`: {
+      const newState = adding_search_manager.add(state, action.payload);
+      return recommendations_manager.add(newState, action.payload);
+    }
+
     /**
      * An component has been removed from the collection
      */
-    case collections.remove + '_FULFILLED':
-      newElement = action.payload;
-      
-      newState = adding_search_manager.remove(state, newElement);
-      newState = recommendations_manager.remove(state, newElement);
-      
-      return newState;
-    
+    case `${collections.remove}_FULFILLED`: {
+      const newElement = action.payload;
+      const newState = adding_search_manager.remove(state, newElement);
+      return recommendations_manager.remove(newState, newElement);
+    }
+
     /**
      * The recommendations for the adding mode (i.e Top Rated + Popular) has been loaded
      */
-    case publicAPI.request.get_recommendations + '_FULFILLED':
+    case `${publicAPI.request.get_recommendations}_FULFILLED`: {
       return {
         ...state,
         addingSearch: null,
         recommendations: action.payload,
-        loaded: true
+        loaded: true,
       };
-    
+    }
+
     /**
      * A new page of the popular movies has been loaded
      */
-    case publicAPI.request.get_popular + '_FULFILLED':
-      newState = recommendations_manager.merge(
+    case `${publicAPI.request.get_popular}_FULFILLED`: {
+      return recommendations_manager.merge(
         state,
         action.payload,
-        'popular'
+        'popular',
       );
-      return newState;
-    
+    }
+
     /**
      * A new page of the top rated movies has been loaded
      */
-    case publicAPI.request.get_top_rated + '_FULFILLED':
-      newState = recommendations_manager.merge(
+    case `${publicAPI.request.get_top_rated}_FULFILLED`: {
+      return recommendations_manager.merge(
         state,
         action.payload,
-        'top_rated'
+        'top_rated',
       );
-      return newState;
-    
+    }
+
     /**
      * A search to the public API has been completed (used only in Adding Mode)
      */
-    case publicAPI.request.search + '_FULFILLED':
+    case `${publicAPI.request.search}_FULFILLED`: {
       return {
         ...state,
-        addingSearch: adding_search_manager.merge(state, action.payload)
+        addingSearch: adding_search_manager.merge(state, action.payload),
       };
-    
+    }
+
     default:
       return state;
   }
-  
 };
 
 

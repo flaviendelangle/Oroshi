@@ -1,23 +1,21 @@
 import { element } from 'services/titles/help';
 
 const defaultState = {
-  element: null
+  element: null,
 };
 
 const reducer = (state = defaultState, action) => {
-
   switch (action.type) {
-
-    case element.loaded + '_FULFILLED':
+    case `${element.loaded}_FULFILLED`: {
       return {
         ...state,
-        element: action.payload
+        element: action.payload,
       };
+    }
 
     default:
       return state;
   }
-
 };
 
 export default reducer;

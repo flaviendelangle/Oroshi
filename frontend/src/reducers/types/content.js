@@ -8,11 +8,10 @@ import { getListGenerator, getStreamGenerator, getDefaultOrder } from 'services/
 import { getValue } from 'services/localstorage';
 import Element from 'services/content/element';
 import { setSortParameters, setLayoutParameters } from '../../scenes/Collection/services/utils';
-import * as content_manager from '../../scenes/Collection/components/CollectionContent/services/content_manager';
+import * as contentManager from '../../scenes/Collection/components/CollectionContent/services/content_manager';
 
 
-const generateDefaultElementState = (type) => {
-
+const generateDefaultState = (type) => {
   const ListGenerator = getListGenerator(type);
   const StreamGenerator = getStreamGenerator(type);
 
@@ -24,19 +23,16 @@ const generateDefaultElementState = (type) => {
     collection: null,
     found: false,
     loaded: false,
-    layout: getValue('layout_' + type) || 'grid',
-    order: getValue('order_' + type) || defaultOrder,
+    layout: getValue(`layout_${type}`) || 'grid',
+    order: getValue(`order_${type}`) || defaultOrder,
     stream: new StreamGenerator(),
     grid: new ListGenerator(),
   };
 };
 
-const reducer = (state, action) => {
-
-  const type = action.meta.type;
-  if (!state) {
-    state = generateDefaultElementState(type);
-  }
+const reducer = (_state, action) => {
+  const { meta: { type } } = action;
+  const state = _state || generateDefaultState(type);
 
   let newContent;
   let newOrder;
@@ -46,25 +42,25 @@ const reducer = (state, action) => {
   const defaultOrder = getDefaultOrder(type);
 
   switch (action.type) {
-
     /**
      * The collection has been loaded
      */
-    case collectionContent.load + '_FULFILLED':
+
+    case `${collectionContent.load}_FULFILLED`: {
       if (!action.payload) {
         return {
           ...state,
           found: false,
-          loaded: true
+          loaded: true,
         }
       }
       TMDBAPI.set_config({
         include_adult: action.payload.adult_content,
-        language: action.payload.title_language
+        language: action.payload.title_language,
       });
       newContent = Element.sortList(
         action.payload.content,
-        state.order.default
+        state.order.default,
       );
       return {
         ...state,
@@ -74,15 +70,15 @@ const reducer = (state, action) => {
         grid: new ListGenerator(newContent, state.query),
         autoComplete: Element.buildAutocomplete(newContent, state.order.stream),
         found: true,
-        loaded: true
+        loaded: true,
       };
+    }
 
     /**
      * An element has been added to the collection
      */
-    case collections.add + '_FULFILLED':
-
-      newContent = content_manager.add(state.content, action.payload, state.order.default);
+    case `${collections.add}_FULFILLED`: {
+      newContent = contentManager.add(state.content, action.payload, state.order.default);
 
       return {
         ...state,
@@ -91,42 +87,43 @@ const reducer = (state, action) => {
         grid: new ListGenerator(newContent, state.query),
         autoComplete: Element.buildAutocomplete(newContent, state.order.stream),
       };
+    }
 
     /**
      * An element has been removed from the collection
      */
-    case collections.remove + '_FULFILLED':
-
-      newContent = content_manager.remove(state.content, action.payload);
+    case `${collections.remove}_FULFILLED`: {
+      newContent = contentManager.remove(state.content, action.payload);
 
       return {
         ...state,
         content: newContent,
         stream: new StreamGenerator(newContent, state.query, state.order.stream),
         grid: new ListGenerator(newContent, state.query),
-        autoComplete: Element.buildAutocomplete(newContent, state.order.stream)
+        autoComplete: Element.buildAutocomplete(newContent, state.order.stream),
       };
+    }
 
     /**
      * An element has been updated in the collection (ex : Not (Seen) => Seen)
      */
-    case collections.update + '_FULFILLED':
-
-      newContent = content_manager.update(state.content, action.payload);
+    case `${collections.update}_FULFILLED`: {
+      newContent = contentManager.update(state.content, action.payload);
 
       return {
         ...state,
         content: newContent,
         stream: new StreamGenerator(newContent, state.query, state.order.stream),
         grid: new ListGenerator(newContent, state.query),
-        autoComplete: Element.buildAutocomplete(newContent, state.order.stream)
+        autoComplete: Element.buildAutocomplete(newContent, state.order.stream),
       };
+    }
 
 
     /**
      * The order of the elements has been updated (check OrderMenu component)
      */
-    case sort.update:
+    case sort.update: {
       setSortParameters(type, action.parameters, defaultOrder);
       if (action.parameters.layout === 'grid') {
         newContent = Element.sortList(state.content, action.parameters);
@@ -135,7 +132,7 @@ const reducer = (state, action) => {
       }
       newOrder = {
         ...state.order,
-        [action.parameters.layout]: action.parameters
+        [action.parameters.layout]: action.parameters,
       };
       return {
         ...state,
@@ -144,13 +141,14 @@ const reducer = (state, action) => {
         stream: new StreamGenerator(newContent, state.query, newOrder.stream),
         grid: new ListGenerator(newContent, state.query),
         autoComplete: Element.buildAutocomplete(newContent, newOrder.stream),
-        update: Math.random()
+        update: Math.random(),
       };
+    }
 
     /**
      * The search query has been updated (check Header's Search component)
      */
-    case search.update_query:
+    case search.update_query: {
       if (this.isAdding) {
         return state;
       }
@@ -158,25 +156,25 @@ const reducer = (state, action) => {
         ...state,
         query: action.query,
         stream: new StreamGenerator(state.content, action.query, state.order.stream),
-        grid: new ListGenerator(state.content, action.query)
+        grid: new ListGenerator(state.content, action.query),
       };
+    }
 
     /**
      * The layout in which we want to see the elements has been updated
      */
-    case layout.update:
+    case layout.update: {
       setLayoutParameters(type, action.layout);
       return {
         ...state,
         query: '',
-        layout: action.layout
+        layout: action.layout,
       };
+    }
 
     default:
       return state;
   }
-
-
 };
 
 export default reducer;

@@ -4,31 +4,30 @@ import { collectionContent } from "services/titles/api";
 const defaultState = {
   loaded: false,
   suggestions: {
-    results: []
-  }
+    results: [],
+  },
 };
 
 const elementSuggestions = (state = defaultState, action) => {
-  
   switch (action.type) {
-    
-    case collectionContent.loadSettings + '_FULFILLED':
+    case `${collectionContent.loadSettings}_FULFILLED`: {
       return {
         ...state,
         loaded: true,
-        collection: action.payload
+        collection: action.payload,
       };
-    
-    case collectionContent.loadSuggestions + '_FULFILLED':
+    }
+
+    case `${collectionContent.loadSuggestions}_FULFILLED`: {
       return {
         ...state,
-        suggestions: action.payload
+        suggestions: action.payload,
       };
-    
+    }
+
     default:
       return state;
   }
-  
 };
 
 export default elementSuggestions;

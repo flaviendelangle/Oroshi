@@ -11,46 +11,45 @@ const defaultState = {
     elementNumber: 0,
     progress: 0,
     importFromFile: null,
-    error: null
-  }
+    error: null,
+  },
 };
 
 const settings = (state = defaultState, action) => {
-  
   switch (action.type) {
-
-    case collectionContent.loadSettings + '_FULFILLED':
-
+    case `${collectionContent.loadSettings}_FULFILLED`: {
       if (!action.payload) {
         return state;
       }
       return {
         ...state,
         title: action.payload.title,
-        data: action.payload
+        data: action.payload,
       };
-      
-    case collections.updateSettings + '_FULFILLED':
-      return {
-        ...state,
-        data: action.payload
-      };
-      
-    case collections.destroy + '_FULFILLED':
-      return {
-        redirect: '/'
-      };
+    }
 
-    case collectionSettings.switchSection:
+    case `${collections.updateSettings}_FULFILLED`: {
       return {
         ...state,
-        activeSection: action.value
+        data: action.payload,
       };
-  
-  
-  
-  
-    case collectionContent.importFromFile + '_FULFILLED':
+    }
+
+    case `${collections.destroy}_FULFILLED`: {
+      return {
+        ...state,
+        redirect: '/',
+      };
+    }
+
+    case collectionSettings.switchSection: {
+      return {
+        ...state,
+        activeSection: action.value,
+      };
+    }
+
+    case `${collectionContent.importFromFile}_FULFILLED`:
       if (action.payload.error) {
         return {
           ...state,
@@ -68,8 +67,8 @@ const settings = (state = defaultState, action) => {
           importFromFile: action.payload,
         },
       };
-  
-    case collectionContent.import + '_STARTED':
+
+    case `${collectionContent.import}_FULFILLED`:
       return {
         ...state,
         dataImporter: {
@@ -77,13 +76,13 @@ const settings = (state = defaultState, action) => {
           elementNumber: action.data.length,
         },
       };
-  
-    case collections.add:
+
+    case collections.add: {
       const keysNumber = state.keysNumber + 1;
       const element = action.payload;
       let progress = 0;
       if (state.elementNumber > 0) {
-        progress = keysNumber / state.elementNumber * 100;
+        progress = (keysNumber / state.elementNumber) * 100;
       }
       return {
         ...state,
@@ -91,19 +90,17 @@ const settings = (state = defaultState, action) => {
           ...state.dataImporter,
           created: {
             ...state.created,
-            [element.getPublicId()]: element
+            [element.getPublicId()]: element,
           },
           keysNumber,
           progress,
         },
       };
-      
-    
+    }
 
     default:
       return state;
   }
-  
 };
 
 export default settings;

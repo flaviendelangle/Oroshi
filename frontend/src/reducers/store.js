@@ -97,9 +97,7 @@ const appReducer = combineReducers({
 
 
 const reducer = (state, action) => {
-
   switch (action.type) {
-
     case notify.change: {
       const newState = {
         ...state,

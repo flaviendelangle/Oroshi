@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import ScrollArea from 'react-scrollbar';
+import PropTypes from 'prop-types';
 
 import IconButton from 'material-ui/IconButton';
 import NavigationMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz';
@@ -10,45 +10,61 @@ import Section from './components/Section/index';
 import * as _style from './style';
 
 const CONFIG = {
-  pageLength: 10
+  pageLength: 10,
 };
 
 class Stream extends Component {
-  
+  static propTypes = {
+    data: PropTypes.object.isRequired,
+    collection: PropTypes.object.isRequired,
+    elementComponent: PropTypes.func.isRequired,
+    lineDimensions: PropTypes.object.isRequired,
+    creationMode: PropTypes.bool,
+    isPublic: PropTypes.bool,
+  };
+
   state = {
-    pages: 1
+    pages: 1,
   };
-  
+
   showMore = () => {
-    this.setState({pages: (++this.state.pages)});
+    this.setState({
+      pages: this.state.pages + 1,
+    });
   };
-  
+
   renderSections = () => {
-    const { data, collection, elementComponent, lineDimensions, creationMode } = this.props;
+    const {
+      data,
+      collection,
+      elementComponent,
+      lineDimensions,
+      creationMode,
+      isPublic,
+    } = this.props;
     const { full } = this.state;
     let sections = data.results;
-    
+
     if (
       !full &&
       sections.length > CONFIG.pageLength * this.state.pages
     ) {
-      sections = sections.slice(0,CONFIG.pageLength * this.state.pages);
+      sections = sections.slice(0, CONFIG.pageLength * this.state.pages);
     }
-    return sections.map((section) => {
-      return (
-        <Section
-          key={`${section.type}_${section.key.pk}`}
-          data={section}
-          collection={collection}
-          field={data.key}
-          elementComponent={elementComponent}
-          lineDimensions={lineDimensions}
-          creationMode={creationMode}
-          isPublic={this.props.isPublic}
-        />)
-    })
+    return sections.map(section => (
+      <Section
+        key={`${section.type}_${section.key.pk}`}
+        data={section}
+        collection={collection}
+        field={data.key}
+        elementComponent={elementComponent}
+        lineDimensions={lineDimensions}
+        creationMode={creationMode}
+        isPublic={isPublic}
+      />
+    ));
   };
-  
+
   renderShowMore = () => {
     const { data } = this.props;
     const { pages } = this.state;
@@ -56,18 +72,18 @@ class Stream extends Component {
       return null;
     }
     return (
-      <div style={{textAlign: 'center'}} >
-          <IconButton
-            onClick={this.showMore}
-            style={_style.button}
-            iconStyle={_style.icon}
-          >
-            <NavigationMoreHoriz/>
-          </IconButton>
+      <div style={{ textAlign: 'center' }} >
+        <IconButton
+          onClick={this.showMore}
+          style={_style.button}
+          iconStyle={_style.icon}
+        >
+          <NavigationMoreHoriz />
+        </IconButton>
       </div>
     );
   };
-  
+
   render() {
     return (
       <div className="content-grid-container">
@@ -83,18 +99,6 @@ class Stream extends Component {
       </div>
     );
   }
-  
 }
 
-const mapStateToProps = (state) => {
-  return {}
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {}
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Stream);
+export default Stream;

@@ -15,12 +15,12 @@ export const canvas = {
   top: 0,
   left: 0,
   zIndex: 2,
-  pointerEvents: 'none'
+  pointerEvents: 'none',
 };
 
 export const container = {
   height: ELEMENT_HEIGHT,
   width: CANVAS_WIDTH,
   margin: 'auto',
-  position: 'relative'
+  position: 'relative',
 };

@@ -23,8 +23,9 @@ injectTapEventPlugin();
  */
 WebFont.load({
   google: {
-    families: ['Roboto', 'sans-serif']
-  }});
+    families: ['Roboto', 'sans-serif'],
+  },
+});
 
 /**
  * Public APIs settings
@@ -32,21 +33,16 @@ WebFont.load({
 tmdbApi.set_config({
   api_key: 'de7ff1a87f9afdb1ccd29ad9a0738e31',
   language: DEFAULT_LANGUAGE,
-  include_adult: 'false'
+  include_adult: 'false',
 });
 
 
-class App extends Component {
-
-    render() {
-      return (
-        <MuiThemeProvider muiTheme={getMuiTheme(theme)} >
-          <Provider store={store} >
-            <Container store={store} />
-          </Provider>
-        </MuiThemeProvider>
-      )
-    }
-}
+const App = () => (
+  <MuiThemeProvider muiTheme={getMuiTheme(theme)} >
+    <Provider store={store} >
+      <Container store={store} />
+    </Provider>
+  </MuiThemeProvider>
+);
 
 export default App

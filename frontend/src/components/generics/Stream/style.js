@@ -6,5 +6,5 @@ export const button = {
 
 export const icon = {
   width: 48,
-  height: 48
+  height: 48,
 };

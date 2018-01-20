@@ -8,22 +8,22 @@ export const add = (state, newElement) => {
   if (!state.addingSearch) {
     return state;
   }
-  
+
   const results = state.addingSearch.results.map((el) => {
     if (el.getPublicId() === newElement.getPublicId()) {
       return newElement;
     }
     return el;
   });
-  
+
   const addingSearch = {
     ...state.addingSearch,
-    results
+    results,
   };
-  
+
   return {
     ...state,
-    addingSearch
+    addingSearch,
   };
 };
 
@@ -31,22 +31,22 @@ export const remove = (state, newElement) => {
   if (!state.addingSearch) {
     return state;
   }
-  
+
   const results = state.addingSearch.results.map((el) => {
     if (el.getPublicId() === newElement.getPublicId()) {
       return newElement;
     }
     return el;
   });
-  
+
   const addingSearch = {
     ...state.addingSearch,
-    results
+    results,
   };
-  
+
   return {
     ...state,
-    addingSearch
+    addingSearch,
   };
 };
 
@@ -57,6 +57,6 @@ export const merge = (state, newData) => {
   }
   return {
     ...newData,
-    results: oldData.results.concat(newData.results)
+    results: oldData.results.concat(newData.results),
   }
 };
