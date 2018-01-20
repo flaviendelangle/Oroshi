@@ -9,23 +9,23 @@ export const paper = (theme) => ({
   right: 0,
   left: 0,
   transform: 'translateY(-50%)',
-  padding: 22
+  padding: 22,
 });
 
 export const input = (theme) => ({
   color: theme.paperColor,
-  borderColor: theme.paperColor
+  borderColor: theme.paperColor,
 });
 
-export const flatButton = (theme) => ({
+export const flatButton = theme => ({
   color: theme.paperColor,
   textAlign: 'center',
-  userSelect: 'none'
+  userSelect: 'none',
 });
 
 export const flatButtonLink = {
   fontWeight: 'bold',
-  cursor: 'pointer'
+  cursor: 'pointer',
 };
 
 export const button = {

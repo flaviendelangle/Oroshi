@@ -12,108 +12,119 @@ import { collections } from 'services/titles/exports'
 
 
 /*
+  ACTIONS WITHOUT DISPATCH
+ */
+export const addSeenToElements = (type, elements, seen) => (
+  getActions(type).addSeenToElements(elements, seen)
+);
+
+export const addCollectionToElement = (element, collection) => {
+  return {
+    ...element,
+    collection,
+  };
+};
+
+export const prepareElements = (type, data) => {
+  const { content, seen, ...clearedData } = data;
+  const Element = getActions(type).elementClass;
+  const elements = content.map(el => new Element(el));
+  elements.forEach((el) => {
+    el.setCollection(clearedData);
+    getActions(type).prepareElement(el, seen);
+  });
+
+  return {
+    ...data,
+    content: elements,
+  };
+};
+
+
+/*
   ACTIONS WITH DISPATCH
  */
-export const create = (type, data)  => {
-  return {
-    type: titles.collectionContent.create,
-    payload: getCollectionAPI(type).create(data),
-    meta: {
-      type
-    }
-  };
-};
+export const create = (type, data) => ({
+  type: titles.collectionContent.create,
+  payload: getCollectionAPI(type).create(data),
+  meta: {
+    type,
+  },
+});
 
-export const destroy = (type, pk) => {
-  return {
-    type: titles.collections.destroy,
-    payload: getCollectionAPI(type).destroy(pk)
-  };
-};
+export const destroy = (type, pk) => ({
+  type: titles.collections.destroy,
+  payload: getCollectionAPI(type).destroy(pk),
+});
 
-export const get = (type, pk) => {
-  return {
-    type: titles.collectionContent.load,
-    payload: getCollectionAPI(type).retrieve(pk)
-      .then((response) => {
-        return prepareElements(type, response);
-      })
-      .catch((error) => {
-        error = error.toString();
-        if (error === 'Error: Not Found') {
-          return undefined;
-        } else {
-          console.error(error);
-        }
-      }),
-    meta: {
-      type,
-      collection: { pk },
-    }
-  };
-};
+export const get = (type, pk) => ({
+  type: titles.collectionContent.load,
+  payload: getCollectionAPI(type).retrieve(pk)
+    .then(response => prepareElements(type, response))
+    .catch((error) => {
+      console.error(error.toString());
+      return undefined;
+    }),
+  meta: {
+    type,
+    collection: { pk },
+  },
+});
 
-export const getAll = (pk) => {
-  return {
-    type: titles.collectionContent.loadAllSettings,
-    payload: CollectionsAPI.settings(pk)
-  }
-};
+export const getAll = pk => ({
+  type: titles.collectionContent.loadAllSettings,
+  payload: CollectionsAPI.settings(pk),
+});
 
-export const getSettings = (type, pk) => {
-  return {
-    type: titles.collectionContent.loadSettings,
-    payload: getCollectionAPI(type).settings(pk),
-    meta: {
-      type,
-      collection: { pk }
-    }
-  }
-};
+export const getSettings = (type, pk) => ({
+  type: titles.collectionContent.loadSettings,
+  payload: getCollectionAPI(type).settings(pk),
+  meta: {
+    type,
+    collection: { pk },
+  },
+});
 
-export const getSuggestions = (type, collection, publicId) => {
-  return {
-    type: titles.collectionContent.loadSuggestions,
-    payload: getActions(type).getSuggestions(type, collection, publicId),
-    meta: {
-      type,
-      collection,
-    }
-  };
-};
+export const getSuggestions = (type, collection, publicId) => ({
+  type: titles.collectionContent.loadSuggestions,
+  payload: getActions(type).getSuggestions(type, collection, publicId),
+  meta: {
+    type,
+    collection,
+  },
+});
 
-export const update = (type, pk, data) => {
-  return {
-    type: titles.collections.updateSettings,
-    payload: getCollectionAPI(type).partial_update(pk, data)
-  }
-};
+export const update = (type, pk, data) => ({
+  type: titles.collections.updateSettings,
+  payload: getCollectionAPI(type).partial_update(pk, data),
+});
 
-export const addElement = (type, collection, element) => {
-  return {
-    type: titles.collections.add,
-    payload: getActions(type).addElement(type, collection, element),
-    meta: {
-      type,
-      collection,
-    }
-  }
-};
+export const addElement = (type, collection, element) => ({
+  type: titles.collections.add,
+  payload: getActions(type).addElement(type, collection, element),
+  meta: {
+    type,
+    collection,
+  },
+});
 
 export const updateElement = (type, element, data, field) => {
   const collection = element.getCollection();
   const pk = element.getID();
   return {
     type: titles.collections.update,
-    payload: getCollectionAPI(type).element(collection.pk)[type].partial_update(pk, data).then((res) => {
-      element.editLocal(data);
-      return element;
-    }),
+    payload: getCollectionAPI(type)
+      .element(collection.pk)[type]
+      .partial_update(pk, data)
+      .then(() => {
+        element.editLocal(data);
+        return element;
+      }),
     meta: {
       type,
       collection,
-      field
-    }
+      field,
+    },
   }
 };
 
@@ -121,104 +132,144 @@ export const removeElement = (type, collection, element) => {
   const api = getCollectionAPI(type).element(collection.pk)[type];
   return {
     type: titles.collections.remove,
-    payload: api.destroy(element.getID()).then((response) => {
+    payload: api.destroy(element.getID()).then(() => {
       element.setInCollection(false);
       return element;
     }),
     meta: {
       type,
       collection,
-    }
+    },
   }
 };
 
-export const importCSV = (type, file) => {
-  return {
-    type: titles.collectionContent.importFromFile,
-    payload: readAsText(file).then((result) => {
-      return {
-        data: parseCSV(type, result),
-        format: 'csv'
-      };
-    }),
-    meta: {
-      type
-    }
-  }
-};
+export const importCSV = (type, file) => ({
+  type: titles.collectionContent.importFromFile,
+  payload: readAsText(file).then(result => ({
+    data: parseCSV(type, result),
+    format: 'csv',
+  })),
+  meta: {
+    type,
+  },
+});
 
-export const importJSON = (type, file) => {
-  return {
-    type: titles.collectionContent.importFromFile,
-    payload: readAsText(file).then((result) => {
-      return {
-        data: parseJSON(type, result),
-        format: 'json'
-      }
-    }),
-    meta: {
-      type
-    }
-  };
-};
+export const importJSON = (type, file) => ({
+  type: titles.collectionContent.importFromFile,
+  payload: readAsText(file).then(result => ({
+    data: parseJSON(type, result),
+    format: 'json',
+  })),
+  meta: {
+    type,
+  },
+});
 
-export const importElements = (type, collection, elements, dispatch) => {
-
-  const _importElement = (type, elements, index, dispatch) => {
+export const importElements = (type, collection, _elements, dispatch) => {
+  const importElement = (elements, index) => {
     if (elements.length <= index) {
       dispatch({
-        type: titles.collectionContent.import + '_FULFILLED'
+        type: `${titles.collectionContent.import}_FULFILLED`,
       });
       return true;
     }
     const element = elements[index];
     if (element.isInCollection()) {
-      setTimeout(() => _importElement(type, elements, index + 1, dispatch));
+      setTimeout(() => importElement(type, elements, index + 1, dispatch));
       return dispatch({
         type: titles.collections.add,
         payload: element,
         meta: {
           type,
           collection,
-        }
-      });
-    } else {
-      addElement(type, collection, element).payload.then((el) => {
-        dispatch({
-          type: titles.collections.add,
-          payload: el,
-          meta: {
-            type,
-            collection,
-          }
-        });
-        _importElement(type, elements, index + 1, dispatch);
+        },
       });
     }
-
+    return addElement(type, collection, element).payload.then((el) => {
+      dispatch({
+        type: titles.collections.add,
+        payload: el,
+        meta: {
+          type,
+          collection,
+        },
+      });
+      importElement(index + 1);
+    });
   };
 
-  elements = {
-    results: elements
+  const data = {
+    results: _elements,
   };
 
   return {
     type: titles.collectionContent.importElement,
-    payload: checkExistence(type, collection, elements, true).then((elements) => {
-
+    payload: checkExistence(type, collection, data, true).then(({ results }) => {
       const Element = getActions(type).elementClass;
-      elements = Element.fromDistantList(elements.results, collection);
+      const elements = Element.fromDistantList(results, collection);
       dispatch({
-        type: titles.collectionContent.import + '_STARTED',
-        data: elements
+        type: `${titles.collectionContent.import}_STARTED`,
+        data: elements,
       });
-      _importElement(type, elements, 0, dispatch);
+      importElement(elements, 0);
     }),
     meta: {
-      type
-    }
+      type,
+      collection,
+    },
   }
 };
+
+const getDataToExport = (type, pk) => (
+  get(type, pk).payload.then((collection) => {
+    const fields = getActions(type).exportFields;
+    const content = collection.content.map((el) => {
+      const data = {};
+      const values = el.getLocal();
+      fields.forEach((field) => {
+        if (field === 'title') {
+          data[field] = pickElement(values, 'titles', 'title', collection.title_language);
+        } else {
+          data[field] = values[field]
+        }
+      });
+      return data;
+    });
+    return {
+      collection,
+      fields,
+      content,
+    };
+  })
+);
+
+const exportAsCSV = (type, pk) => {
+  const generateComments = () => `#type, ${type}\n`;
+
+  return {
+    type: collections.csv,
+    payload: getDataToExport(type, pk).then(({ fields, content, collection }) => {
+      const csv = json2csv({ data: content, fields });
+      const comments = generateComments();
+      downloadjs(comments + csv, `${collection.title}.csv`, 'text/csv');
+      return null;
+    }),
+  }
+};
+
+const exportAsJSON = (type, pk) => ({
+  type: collections.json,
+  payload: getDataToExport(type, pk).then(({ content, collection }) => {
+    const comments = {
+      type,
+    };
+    const json = JSON.stringify({
+      comments,
+      content,
+    });
+    downloadjs(json, `${collection.title}.json`, 'text/json');
+  }),
+});
 
 export const exportCollection = (type, pk, format) => {
   switch (format) {
@@ -230,94 +281,3 @@ export const exportCollection = (type, pk, format) => {
       return null;
   }
 };
-
-const exportAsCSV = (type, pk) => {
-
-  const generateComments = (type) => {
-    return '#type,' + type + '\n';
-  };
-
-  return {
-    type: collections.csv,
-    payload: getDataToExport(type, pk).then(({ fields, content, collection }) => {
-      const csv = json2csv({ data: content, fields: fields });
-      const comments = generateComments(type);
-      downloadjs(comments + csv, collection.title + '.csv', 'text/csv');
-      return null;
-    })
-  }
-};
-
-const exportAsJSON = (type, pk) => {
-
-  return {
-    type: collections.json,
-    payload: getDataToExport(type, pk).then(({ fields, content, collection}) => {
-      const comments = {
-        type
-      };
-      const json = JSON.stringify({
-        comments,
-        content
-      });
-      downloadjs(json, collection.title + '.json', 'text/json');
-    })
-  };
-
-};
-
-const getDataToExport = (type, pk) => {
-  return get(type, pk).payload.then((collection) => {
-    const fields = getActions(type).exportFields;
-    const content = collection.content.map((el) => {
-      let data = {};
-      const values = el.getLocal();
-      fields.forEach((field) => {
-        if (field === 'title') {
-          data[field] = pickElement(values, 'titles', 'title', collection.title_language);
-        }
-        else {
-          data[field] = values[field]
-        }
-      });
-      return data;
-    });
-    return {
-      collection,
-      fields,
-      content
-    };
-  });
-};
-
-
-/*
-  ACTIONS WITHOUT DISPATCH
- */
-export const addSeenToElements =  (type, elements, seen) => {
-  return getActions(type).addSeenToElements(elements, seen);
-};
-
-export const addCollectionToElement = (element, collection) => {
-  return {
-    ...element,
-    collection
-  };
-};
-
-export const prepareElements = (type, data) => {
-  let { content, seen, ...clearedData } = data;
-  const Element = getActions(type).elementClass;
-  const elements = content
-    .map((el) => new Element(el));
-  elements.forEach((el) => {
-    el.setCollection(clearedData);
-    getActions(type).prepareElement(el, seen);
-  });
-
-  return {
-    ...data,
-    content: elements
-  };
-};
-

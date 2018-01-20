@@ -8,7 +8,7 @@ export const scroll = {
 
 export const container = {
   margin: '50px auto',
-  width: '80%'
+  width: '80%',
 };
 
 export const progress = {

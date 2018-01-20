@@ -1,14 +1,20 @@
 import React  from 'react';
 import { TextField } from 'redux-form-material-ui'
-import RaisedButton from 'material-ui/RaisedButton';
 import { Field, reduxForm } from 'redux-form'
+import PropTypes from 'prop-types';
+
+import RaisedButton from 'material-ui/RaisedButton';
 
 import * as _style from '../../style';
 
 export const FORM_NAME = 'REGISTER_FORM';
 
-const required = (value) => value ? undefined : 'Required';
-const minLength8 = (value) => value.length >= 8 ? undefined : 'Must be at least 8 characters long';
+const required = value => (value ? undefined : 'Required');
+
+const minLength8 = value => (value.length >= 8 ?
+  undefined :
+  'Must be at least 8 characters long');
+
 const email = (value) => {
   if (value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
     return 'Invalid email address';
@@ -16,39 +22,44 @@ const email = (value) => {
   return undefined;
 };
 
-let RegisterForm = ({ theme, onSwitch, mode, handleSubmit }) => {
+const RegisterForm = ({
+  palette,
+  onSwitch,
+  mode,
+  handleSubmit,
+}) => {
   if (mode !== 'register') {
     return null;
   }
   return (
     <form onSubmit={handleSubmit} >
       <Field
-        floatingLabelStyle={_style.input(theme)}
-        inputStyle={_style.input(theme)}
-        underlineStyle={_style.input(theme)}
+        floatingLabelStyle={_style.input(palette)}
+        inputStyle={_style.input(palette)}
+        underlineStyle={_style.input(palette)}
         floatingLabelText="Email"
         name="email"
         component={TextField}
-        validate={[ required, email ]}
+        validate={[required, email]}
         type="email"
       />
       <Field
-        floatingLabelStyle={_style.input(theme)}
-        inputStyle={_style.input(theme)}
-        underlineStyle={_style.input(theme)}
+        floatingLabelStyle={_style.input(palette)}
+        inputStyle={_style.input(palette)}
+        underlineStyle={_style.input(palette)}
         floatingLabelText="Username"
         name="username"
         component={TextField}
-        validate={[ required ]}
+        validate={[required]}
       />
       <Field
-        floatingLabelStyle={_style.input(theme)}
-        inputStyle={_style.input(theme)}
-        underlineStyle={_style.input(theme)}
+        floatingLabelStyle={_style.input(palette)}
+        inputStyle={_style.input(palette)}
+        underlineStyle={_style.input(palette)}
         floatingLabelText="Password"
         name="password"
         component={TextField}
-        validate={[ required, minLength8 ]}
+        validate={[required, minLength8]}
         type="password"
       />
       <RaisedButton
@@ -57,25 +68,37 @@ let RegisterForm = ({ theme, onSwitch, mode, handleSubmit }) => {
         type="submit"
         label="Sign Up"
       />
-      <LoginButton theme={theme} onSwitch={onSwitch} />
+      <LoginButton theme={palette} onSwitch={onSwitch} />
     </form>
   );
 };
 
-const LoginButton = ({ theme, onSwitch }) => (
-  <div style={_style.flatButton(theme)} >
+RegisterForm.propTypes = {
+  palette: PropTypes.object.isRequired,
+  onSwitch: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+  mode: PropTypes.string,
+};
+
+const LoginButton = ({ palette, onSwitch }) => (
+  <div style={_style.flatButton(palette)} >
     <span>Already have an account? </span>
     <span
+      role="button"
+      tabIndex={0}
       style={_style.flatButtonLink}
-      onClick={() => onswitch ('login')}
+      onClick={() => onSwitch('login')}
     >
       Sign In
     </span>
   </div>
 );
 
-RegisterForm = reduxForm({
-  form: FORM_NAME
-})(RegisterForm);
+LoginButton.propTypes = {
+  palette: PropTypes.object.isRequired,
+  onSwitch: PropTypes.func.isRequired,
+};
 
-export default RegisterForm;
+export default reduxForm({
+  form: FORM_NAME,
+})(RegisterForm);
