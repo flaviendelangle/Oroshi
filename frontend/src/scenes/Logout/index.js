@@ -23,11 +23,11 @@ class Logout extends Component {
   
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {};
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     logout: () => dispatch(logout())
   }

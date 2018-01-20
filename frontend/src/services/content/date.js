@@ -16,7 +16,7 @@ date.isAfter = (date_A, date_B, format) => {
   return date_A.isAfter(date_B);
 };
 
-date.getYear = date => {
+date.getYear = (date) => {
   return date.split('-')[0];
 };
 

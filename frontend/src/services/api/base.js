@@ -16,13 +16,13 @@ export default class BaseAPI {
    */
   fetch(url, data) {
     return window.fetch(url, data)
-      .then(response => {
+      .then((response) => {
         if (!response.ok) {
-          return response.json().then(content => {
+          return response.json().then((content) => {
             throw content
           });
         }
-          return response.json().catch(e => ({}))
+          return response.json().catch((e) => ({}))
       })
   }
   
@@ -49,11 +49,11 @@ export default class BaseAPI {
   /*
     Utils
    */
-  objectToFormData = data => {
+  objectToFormData = (data) => {
     
     const add = (key, value) => {
       if (Array.isArray(value)) {
-        value.forEach(el => add(key, el));
+        value.forEach((el) => add(key, el));
       } else if (value instanceof Object) {
         add(key, JSON.stringify(value));
       } else {
@@ -75,7 +75,7 @@ export default class BaseAPI {
     return this.mainConfig.url + this.root + this.config.root + sub_url + '/';
   };
   
-  element = pk => {
+  element = (pk) => {
     
     let prototype = {};
     
@@ -161,15 +161,15 @@ export default class BaseAPI {
   }
   
   retrieveOrCreate(data, route_name) {
-    const send = element => {
-      return this.detail_route(element[route_name], route_name).then(content => {
+    const send = (element) => {
+      return this.detail_route(element[route_name], route_name).then((content) => {
         if (content.pk > 0) {
           return Promise.resolve({
             ...content,
             created: false
           });
         } else {
-          return this.create(element).then(response => {
+          return this.create(element).then((response) => {
             return {
               ...response,
               created: true
@@ -182,7 +182,7 @@ export default class BaseAPI {
     if (!Array.isArray(data)) {
       data = [data];
     }
-    let promises = data.map(el => send(el));
+    let promises = data.map((el) => send(el));
     return Promise.all(promises);
   };
   

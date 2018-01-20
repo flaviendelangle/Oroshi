@@ -13,7 +13,7 @@ export const progress = {
   height: 40
 };
 
-export const message = palette => ({
+export const message = (palette) => ({
   marginLeft: 20,
   verticalAlign: 'middle',
   display: 'inline-block',

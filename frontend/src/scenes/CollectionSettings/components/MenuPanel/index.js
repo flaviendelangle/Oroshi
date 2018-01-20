@@ -69,7 +69,7 @@ const mapStateToProps = ({ settings }) => {
   }
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {}
 };
 

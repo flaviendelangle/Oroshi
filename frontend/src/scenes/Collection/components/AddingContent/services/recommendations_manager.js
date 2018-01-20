@@ -9,10 +9,10 @@ export const add = (state, newElement) => {
     return state;
   }
   
-  const results = state.recommendations.results.map(section => {
+  const results = state.recommendations.results.map((section) => {
     return {
       ...section,
-      content: section.content.map(el => {
+      content: section.content.map((el) => {
         if (el.getPublicId() === newElement.getPublicId()) {
           return newElement;
         }
@@ -37,10 +37,10 @@ export const remove = (state, newElement) => {
     return state;
   }
   
-  const results = state.recommendations.results.map(section => {
+  const results = state.recommendations.results.map((section) => {
     return {
       ...section,
-      content: section.content.map(el => {
+      content: section.content.map((el) => {
         if (el.getPublicId() === newElement.getPublicId()) {
           return newElement;
         }
@@ -62,8 +62,8 @@ export const remove = (state, newElement) => {
 };
 
 export const merge = (state, newData, type) => {
-  const oldData = state.recommendations.results.find(el => el.type === type);
-  const otherData = state.recommendations.results.filter(el => el.type !== type);
+  const oldData = state.recommendations.results.find((el) => el.type === type);
+  const otherData = state.recommendations.results.filter((el) => el.type !== type);
   
   newData.content = oldData.content.concat(newData.content);
   

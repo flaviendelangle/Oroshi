@@ -1,26 +1,88 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import Paper from 'material-ui/Paper';
 import muiThemeable from 'material-ui/styles/muiThemeable';
-import ContentAdd from 'material-ui/svg-icons/content/add';
 
 import cx from 'classnames'
 
 import Poster from '../Poster/index';
 import Overlay from '../Overlay/index';
+import Suggestions from './components/Suggestions';
 
 import './style.css'
 
 
 class Element extends Component {
-  
+  static propTypes = {
+    data: PropTypes.object.isRequired,
+    creationMode: PropTypes.bool.isRequired, // RENAME
+    layout: PropTypes.string.isRequired,
+    onSave: PropTypes.func.isRequired,
+    onDestroy: PropTypes.func.isRequired,
+    switchSeen: PropTypes.func.isRequired,
+    collection: PropTypes.object.isRequired,
+    muiTheme: PropTypes.object.isRequired,
+    onRender: PropTypes.func,
+    mode: PropTypes.string,
+    style: PropTypes.object,
+    isPublic: PropTypes.bool,
+    footer: PropTypes.array,
+  };
+
   state = {
     isMouseOver: false,
     isAdding: false,
-    isReady: false
+    isReady: false,
   };
-  
+
+  componentWillMount() {
+    this.setState({
+      layout: this.props.layout,
+    });
+  }
+
+  componentWillReceiveProps(newProps) {
+    const { data } = this.props;
+    if (data.isInCollection() !== newProps.data.isInCollection()) {
+      this.setState({ isAdding: false });
+    }
+  }
+
+  componentDidUpdate() {
+    const { onRender } = this.props;
+    if (onRender) {
+      onRender({
+        layout: this.state.layout,
+      });
+    }
+  }
+
+  /**
+   * Update state.mouseOver to decide if we want to generate the Overlay
+   * @param {boolean} isMouseOver
+   */
+  onMouseHover = (isMouseOver) => {
+    this.setState({ isMouseOver })
+  };
+
+  onPosterLoad = () => {
+    this.setState({ isReady: true });
+  };
+
+  onSave = () => {
+    const { collection, data, onSave } = this.props;
+    if (!this.state.isAdding) {
+      onSave(collection, data);
+    }
+  };
+
+  onDestroy = () => {
+    const { collection, data, onDestroy } = this.props;
+    onDestroy(collection, data);
+  };
+
   getParentClasses = () => {
     const { data, creationMode } = this.props;
     const { isReady } = this.state;
@@ -28,11 +90,11 @@ class Element extends Component {
       'movie-parent': true,
       'already-in-collection': (data.isInCollection() && creationMode),
       'not-in-collection': (!data.isInCollection() && creationMode),
-      'ready': isReady,
+      ready: isReady,
     })
   };
-  
-  getAction = actionName => {
+
+  getAction = (actionName) => {
     const action = this.props[actionName];
     if (typeof action === 'string' || action instanceof String) {
       const ActionComponent = this.getActionComponent(action);
@@ -48,54 +110,29 @@ class Element extends Component {
       </span>
     );
   };
-  
-  getActionComponent = action => {
-    switch(action) {
+
+  getActionComponent = (action) => {
+    switch (action) {
       case 'suggestions':
         return Suggestions;
       default:
         return null;
     }
   };
-  
+
   getTopRightAction = () => this.getAction('topRightAction');
-  
+
   getTopLeftAction = () => this.getAction('topLeftAction');
-  
-  /**
-   * Update state.mouseOver to decide if we want to generate the Overlay
-   * @param {boolean} isMouseOver
-   */
-  onMouseHover = isMouseOver => {
-    this.setState({ isMouseOver })
-  };
-  
-  onPosterLoad = () => {
-    this.setState({ isReady: true });
-  };
-  
-  onSave = () => {
-    const { collection, data, onSave } = this.props;
-    if (!this.state.isAdding) {
-      onSave(collection, data);
-    }
-  };
-  
-  onDestroy = () => {
-    const { collection, data, onDestroy } = this.props;
-    onDestroy(collection, data);
-  };
-  
+
   /**
    * Check if we are in test mode
    */
-  isTesting = () => {
-    return this.props.mode === 'test';
-  };
-  
-  addToLayout = (key, element) => {
-    const { layout } = this.state;
-    /*this.setState(() => ({
+  isTesting = () => this.props.mode === 'test';
+
+  addToLayout = (/* key, element */) => {
+    // const { layout } = this.state;
+    /*
+    this.setState(() => ({
       layout: {
         ...layout,
         [key]: {
@@ -103,41 +140,21 @@ class Element extends Component {
           element
         }
       },
-    }));*/
+    }));
+    */
   };
-  
+
   /**
    * Switch the seen parameter of the movie
    */
   switchSeen = () => {
+    const { data, switchSeen } = this.props;
     if (this.isTesting()) {
       return null;
     }
-    this.props.switchSeen(this.props.data);
+    return switchSeen(data);
   };
-  
-  componentWillMount() {
-    this.setState({
-      layout: this.props.layout
-    });
-  }
-  
-  componentWillReceiveProps(newProps) {
-    const { data } = this.props;
-    if (data.isInCollection() !== newProps.data.isInCollection()) {
-      this.setState({ isAdding: false });
-    }
-  }
-  
-  componentDidUpdate() {
-    const { onRender } = this.props;
-    if (onRender) {
-      onRender({
-        layout: this.state.layout
-      });
-    }
-  }
-  
+
   render() {
     const {
       style,
@@ -168,7 +185,7 @@ class Element extends Component {
               addToLayout={this.addToLayout}
               note={data.getNote()}
               mouseOver={isMouseOver}
-              creation_mode={creationMode}
+              creationMode={creationMode}
               already_in_collection={data.isInCollection()}
               onSave={this.onSave}
               onDestroy={this.onDestroy}
@@ -186,21 +203,24 @@ class Element extends Component {
       </div>
     );
   }
-  
 }
 
-const Footer = ({ palette, footer, addToLayout }) => (
+const Footer = ({
+  palette,
+  footer,
+  addToLayout,
+}) => (
   <div
     className="title"
     style={{color: palette.textColor}}
   >
     {
       footer &&
-      footer.map((line, index) => {
+      footer.map((line) => {
         if (line.link) {
           return (
             <Link
-              key={index}
+              key={1}
               to={line.link}
               target="_blank"
               ref={el => addToLayout(line.key, el)}
@@ -210,7 +230,7 @@ const Footer = ({ palette, footer, addToLayout }) => (
           );
         }
         return (
-          <div ref={el => addToLayout(line.key, el)} key={index} >
+          <div ref={(el) => addToLayout(line.key, el)} key={1} >
             {line.value}
           </div>
         );
@@ -219,16 +239,10 @@ const Footer = ({ palette, footer, addToLayout }) => (
   </div>
 );
 
-const Suggestions = ({ creation_mode, collection, data, isPublic, type }) => {
-  if (creation_mode || isPublic) {
-    return null;
-  }
-  const url = `/collections/${type}/${collection.pk}/suggestions/${data.getPublicId()}/`;
-  return (
-    <Link to={url} >
-      <ContentAdd/>
-    </Link>
-  );
+Footer.propTypes = {
+  palette: PropTypes.object.isRequired,
+  addToLayout: PropTypes.func.isRequired,
+  footer: PropTypes.array,
 };
 
 export default muiThemeable()(Element);

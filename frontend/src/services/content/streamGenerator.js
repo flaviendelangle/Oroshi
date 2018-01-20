@@ -28,8 +28,8 @@ class StreamGenerator {
   
   getElementCount = () => {
     let elements = {};
-    this.results.forEach(list => {
-      list.content.forEach(el => {
+    this.results.forEach((list) => {
+      list.content.forEach((el) => {
         const id = el.getPublicId();
         if (!elements.hasOwnProperty(id)) {
           elements[id] = el;
@@ -42,8 +42,8 @@ class StreamGenerator {
   buildKeys = () => {
     this.results = {};
     this.keys = {};
-    this.data.forEach(el => {
-      el.getValue(this.key.field).forEach(value => {
+    this.data.forEach((el) => {
+      el.getValue(this.key.field).forEach((value) => {
         const pk = value.pk;
         const label = value[this.labelField].toUpperCase();
         if (!this.keys[pk] && label.includes(this.query)) {
@@ -54,11 +54,11 @@ class StreamGenerator {
   };
   
   organize = () => {
-    this.results = Object.keys(this.keys).map(pk_temp => {
+    this.results = Object.keys(this.keys).map(pk_(temp) => {
       const pk = parseInt(pk_temp, 10);
       const key = this.keys[pk];
-      const content = this.data.filter(el => {
-        return el.getValue(this.key.field).filter(el => {
+      const content = this.data.filter((el) => {
+        return el.getValue(this.key.field).filter((el) => {
           return el.pk === pk
         }).length > 0;
       });

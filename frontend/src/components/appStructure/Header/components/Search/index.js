@@ -1,5 +1,6 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import SearchBar from 'material-ui-search-bar';
 import AutoComplete from 'material-ui/AutoComplete';
@@ -12,11 +13,20 @@ import './style.css';
 
 
 class Search extends Component {
-  
-  state = {
-    query: ''
+  static propTypes = {
+    isAdding: PropTypes.bool.isRequired,
+    title: PropTypes.string.isRequired,
+    query: PropTypes.string.isRequired,
+    filter: PropTypes.func.isRequired,
+    count: PropTypes.number.isRequired,
+    muiTheme: PropTypes.object.isRequired,
+    autoComplete: PropTypes.object,
   };
-  
+
+  state = {
+    query: '',
+  };
+
   get hintText() {
     const { isAdding, title } = this.props;
     if (isAdding) {
@@ -24,19 +34,19 @@ class Search extends Component {
     }
     return title ? `Search in ${title}` : 'Search ...';
   }
-  
-  search = query => {
+
+  search = (query) => {
     this.setState({ query });
     this.filter(query, false)
   };
-  
+
   filter = (query, forced) => {
     const { isAdding, filter } = this.props;
     filter(query, forced, isAdding);
   };
-  
+
   renderCounter = () => {
-    const { isAdding, count, muiTheme: { palette }} = this.props;
+    const { isAdding, count, muiTheme: { palette } } = this.props;
     if (isAdding) {
       return null;
     }
@@ -44,10 +54,10 @@ class Search extends Component {
     return (
       <div className="element-count" style={style} >
         {`${count} element${(count > 1 ? 's' : '')}`}
-        </div>
+      </div>
     );
   };
-  
+
   render() {
     const { query, autoComplete } = this.props;
     return (
@@ -67,27 +77,22 @@ class Search extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-  };
-};
+const mapStateToProps = () => ({});
 
-const mapDispatchToProps = (dispatch, { type, collection }) => {
-  return {
-    filter: (query, forced, isAdding) => {
-      dispatch(update(type, collection, query));
-      if (isAdding && forced) {
-        if (query === '') {
-          dispatch(getRecommendations(type, collection));
-        } else {
-          dispatch(search(type, collection, query));
-        }
+const mapDispatchToProps = (dispatch, { type, collection }) => ({
+  filter: (query, forced, isAdding) => {
+    dispatch(update(type, collection, query));
+    if (isAdding && forced) {
+      if (query === '') {
+        dispatch(getRecommendations(type, collection));
+      } else {
+        dispatch(search(type, collection, query));
       }
     }
-  }
-};
+  },
+});
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(muiThemeable()(Search));

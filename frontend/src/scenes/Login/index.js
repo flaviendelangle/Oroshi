@@ -24,16 +24,16 @@ class Login extends Component {
     }
   }
   
-  register = data => {
-    return this.props.register(data).then(response => {
+  register = (data) => {
+    return this.props.register(data).then((response) => {
       if (response.value.error) {
         throw new SubmissionError(response.value.error);
       }
     })
   };
   
-  login = data => {
-    return this.props.login(data).then(response => {
+  login = (data) => {
+    return this.props.login(data).then((response) => {
       if (response.value.error) {
         throw new SubmissionError({
           password: response.value.error.error_description
@@ -44,11 +44,11 @@ class Login extends Component {
     });
   };
   
-  handleMouseHover = mouseOver => {
+  handleMouseHover = (mouseOver) => {
     this.setState({ mouseOver });
   };
   
-  switchMode = mode => {
+  switchMode = (mode) => {
     this.setState({ mode });
   };
   
@@ -86,7 +86,7 @@ class Login extends Component {
   
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   const root = state.login.main;
   const appRoot = state.app;
   return {
@@ -95,10 +95,10 @@ const mapStateToProps = state => {
   }
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    register: data => dispatch(create(data)),
-    login: data => dispatch(login(data))
+    register: (data) => dispatch(create(data)),
+    login: (data) => dispatch(login(data))
   }
 };
 

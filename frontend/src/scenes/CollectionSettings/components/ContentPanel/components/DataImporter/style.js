@@ -3,7 +3,7 @@ export const source = {
   marginBottom: 20
 };
 
-export const dropZone = dropped => ({
+export const dropZone = (dropped) => ({
   padding: 10,
   width: 300,
   maxWidth: '50%',

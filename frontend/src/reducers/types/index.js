@@ -9,7 +9,7 @@ import headerReducer from 'reducers/types/header';
 
 const defaultState = {};
 
-collectionTypes.forEach(el => {
+collectionTypes.forEach((el) => {
   defaultState[el.name] = {};
 });
 

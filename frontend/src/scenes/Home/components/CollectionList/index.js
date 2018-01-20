@@ -10,7 +10,7 @@ class CollectionList extends Component {
   
   mapCollections = () => {
     const { data, editing } = this.props;
-    return data.map(collection => {
+    return data.map((collection) => {
       const { type, pk } = collection;
       return (
         <CollectionBox
@@ -37,12 +37,12 @@ class CollectionList extends Component {
   
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
   }
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
   }
 };

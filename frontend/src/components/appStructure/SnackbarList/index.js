@@ -1,4 +1,5 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import Snackbar from 'material-ui/Snackbar';
 
@@ -9,25 +10,29 @@ import { connect } from 'services/redux';
 const DURATION = 2000;
 
 class SnackbarList extends Component {
-  
+  static propTypes = {
+    messages: PropTypes.array.isRequired,
+    remove: PropTypes.func.isRequired,
+  };
+
   get oldestMessage() {
     const { messages } = this.props;
     if (messages && messages.length > 0) {
       return {
         show: true,
-        ...messages[0]
+        ...messages[0],
       }
     }
     return {
       show: false,
-      content: ''
+      content: '',
     };
   }
-  
+
   handleRequestClose = () => {
     this.props.remove();
   };
-  
+
   render() {
     const message = this.oldestMessage;
     return (
@@ -39,22 +44,17 @@ class SnackbarList extends Component {
       />
     );
   }
-  
 }
 
-const mapStateToProps = ({ main }) => {
-  return {
-    messages: main.messages
-  }
-};
+const mapStateToProps = ({ main }) => ({
+  messages: main.messages,
+});
 
-const mapDispatchToProps = (dispatch, { type, collection }) => {
-  return {
-    remove: () => dispatch(removeSnack(type, collection))
-  }
-};
+const mapDispatchToProps = (dispatch, { type, collection }) => ({
+  remove: () => dispatch(removeSnack(type, collection))
+});
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(SnackbarList);

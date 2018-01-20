@@ -98,7 +98,7 @@ class Section extends Component {
     const { elementComponent, collection, creationMode, isPublic } = this.props;
     const Element = elementComponent;
     return this.elements.map((line, index) => {
-      const elements = line.map(el => {
+      const elements = line.map((el) => {
         return (
           <Element
             update={Math.random()}
@@ -158,13 +158,13 @@ class Section extends Component {
   
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {}
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    loadMore: loadFunction => dispatch(loadFunction())
+    loadMore: (loadFunction) => dispatch(loadFunction())
   }
 };
 

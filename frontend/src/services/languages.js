@@ -20,14 +20,14 @@ const languages = {
 
 export const DEFAULT_LANGUAGE = 'en';
 
-export const getPublicAPILanguages = type => languages[type];
+export const getPublicAPILanguages = (type) => languages[type];
 
 export const getLanguages = () => {
   return tmdbLanguages;
 };
 
-export const getLanguage = code => {
-  return getLanguages().find(el => el.code === code);
+export const getLanguage = (code) => {
+  return getLanguages().find((el) => el.code === code);
 };
 
 export const getTmdbLanguages = (collection, original) => {
@@ -43,11 +43,11 @@ export const pickElement = (data, dataKey, elementKey, language) => {
   if (language === '-') {
     language = data.original_language;
   }
-  const matches = data[dataKey].filter(el => el.language === language);
+  const matches = data[dataKey].filter((el) => el.language === language);
   if (matches.length > 0) {
     return matches[0][elementKey];
   }
-  const defaultMatches = data[dataKey].filter(el => el.language === DEFAULT_LANGUAGE);
+  const defaultMatches = data[dataKey].filter((el) => el.language === DEFAULT_LANGUAGE);
   if (defaultMatches.length > 0) {
     return defaultMatches[0][elementKey];
   }
@@ -85,7 +85,7 @@ export const getMissingLanguages = (collection, data) => {
 };
 
 export const hasLanguage = (parameters, language) => {
-  return parameters.filter(el => el.language === language).length > 0;
+  return parameters.filter((el) => el.language === language).length > 0;
 };
 
 const replaceOriginalTmdb = (language, original_language) => {

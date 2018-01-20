@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import Stream from 'components/generics/Stream';
 import { getSuggestions, getSettings } from "services/actions/collections";
@@ -7,15 +7,27 @@ import { connect } from 'services/redux';
 
 
 class ElementSuggestions extends Component {
-  
+  static propTypes = {
+    loaded: PropTypes.bool.isRequired,
+    collection: PropTypes.object.isRequired,
+    type: PropTypes.string.isRequired,
+    config: PropTypes.object.isRequired,
+    match: PropTypes.object.isRequired,
+    synchronize: PropTypes.func.isRequired,
+    loadCollection: PropTypes.func.isRequired,
+    suggestions: PropTypes.array,
+    lineDimensions: PropTypes.object,
+  };
+
   componentDidMount() {
-    const { collection_id, element_id } = this.props.match.params;
-    const { loadCollection, synchronize } = this.props;
-    loadCollection(collection_id).then( _  => {
-      synchronize(element_id)
-    });
+    const {
+      loadCollection,
+      synchronize,
+      match: { params: { collection_id, element_id }},
+    } = this.props;
+    loadCollection(collection_id).then(() => synchronize(element_id));
   }
-  
+
   render() {
     const {
       loaded,
@@ -23,7 +35,7 @@ class ElementSuggestions extends Component {
       collection,
       type,
       config,
-      lineDimensions
+      lineDimensions,
     } = this.props;
     if (!loaded) {
       return null;
@@ -35,12 +47,11 @@ class ElementSuggestions extends Component {
         type={type}
         elementComponent={config.elementComponent}
         lineDimensions={lineDimensions}
-        creationMode={true}
         key={2}
+        creationMode
       />
     );
   }
-  
 }
 
 const mapStateToProps = ({ suggestions }, state) => {
@@ -48,16 +59,14 @@ const mapStateToProps = ({ suggestions }, state) => {
     loaded: suggestions.loaded,
     collection: suggestions.collection,
     suggestions: suggestions.suggestions,
-  
-    lineDimensions: state.app.lineDimensions
+
+    lineDimensions: state.app.lineDimensions,
   };
 };
 
-const mapDispatchToProps = (dispatch, { type, collection }) => {
-  return {
-    loadCollection: () => dispatch(getSettings(type, collection.pk)),
-    synchronize: element_id => dispatch(getSuggestions(type, collection, element_id))
-  };
-};
+const mapDispatchToProps = (dispatch, { type, collection }) => ({
+  loadCollection: () => dispatch(getSettings(type, collection.pk)),
+  synchronize: elementId => dispatch(getSuggestions(type, collection, elementId)),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(ElementSuggestions);

@@ -6,7 +6,7 @@ class Networks extends API {
     root: '/networks'
   };
   
-  retrieveOrCreate = body => {
+  retrieveOrCreate = (body) => {
     return super.retrieveOrCreate(body, 'tmdbId');
   };
   

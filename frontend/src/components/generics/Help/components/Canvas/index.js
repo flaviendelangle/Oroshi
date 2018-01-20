@@ -35,7 +35,7 @@ class Canvas extends Component {
     };
   }
   
-  translateCoordinates = coordinates => {
+  translateCoordinates = (coordinates) => {
     const canvas = ReactDOM.findDOMNode(this.canvas);
     const canvasCoordinates = canvas.getBoundingClientRect();
     
@@ -79,14 +79,14 @@ class Canvas extends Component {
     } else {
       layout = Object
         .keys(layout)
-        .map(el => {
+        .map((el) => {
           return {
             ...layout[el],
             name: el
           };
         })
-        .filter(el => (!el.hasOwnProperty('show') || el.show ) && el.element)
-        .map(config => {
+        .filter((el) => (!el.hasOwnProperty('show') || el.show ) && el.element)
+        .map((config) => {
           const domElement = ReactDOM.findDOMNode(config.element);
           const coordinates = domElement.getBoundingClientRect();
           const canvasCoordinates = this.translateCoordinates(coordinates);
@@ -123,7 +123,7 @@ class Canvas extends Component {
           width={_style.canvas.width}
           height={_style.canvas.height}
           style={_style.canvas}
-          ref={el => this.canvas = el}
+          ref={(el) => this.canvas = el}
         >
           <Layer>
             {this.arrows}

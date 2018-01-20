@@ -109,12 +109,12 @@ const Seen = ({ seen, handleClick, creation_mode }) => {
   );
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     create: (collection, element) => {
       dispatch(addElement('movies', collection, element));
@@ -122,7 +122,7 @@ const mapDispatchToProps = dispatch => {
     destroy: (collection, element) => {
       dispatch(removeElement('movies', collection, element));
     },
-    switchSeen: data => dispatch(switchSeenOnElement(data))
+    switchSeen: (data) => dispatch(switchSeenOnElement(data))
   }
 };
 

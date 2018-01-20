@@ -7,7 +7,7 @@ import * as _style from '../../style';
 
 export const FORM_NAME = 'LOGIN_FORM';
 
-const required = value => value ? undefined : 'Required';
+const required = (value) => value ? undefined : 'Required';
 
 let LoginForm = ({ theme, onSwitch, mode, handleSubmit }) => {
   if (mode !== 'login') {
@@ -50,7 +50,7 @@ const RegisterButton = ({ theme, onSwitch }) => (
     <span>Don't have an account? </span>
     <span
       style={_style.flatButtonLink}
-      onClick={() => onSwitch('register')}
+      onClick={() => onswitch ('register')}
     >
       Sign In
     </span>

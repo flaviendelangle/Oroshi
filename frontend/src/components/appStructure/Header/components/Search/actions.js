@@ -7,6 +7,6 @@ export const update = (type, collection, query) => {
     meta: {
       type,
       collection,
-    }
+    },
   };
 };

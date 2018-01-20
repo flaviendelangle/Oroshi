@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
+import React, { Fragment } from 'react';
 import { Switch, Route } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import CollectionContent from 'scenes/Collection';
 import CollectionSettings from 'scenes/CollectionSettings';
@@ -22,33 +23,33 @@ const getSceneProps = (el, scene, sceneProps) => {
 };
 
 const generate = () => {
-  const a = collectionTypes.reduce((result, scene, index) => {
+  const a = collectionTypes.reduce((result, scene) => {
     return [
       ...result,
       <Route
         path={`/collections/${scene.name}/:collection_id/suggestions/:element_id/`}
-        key={`${scene.name}_${index}`}
+        key={scene.name}
         render={props => (
           <Scene {...getSceneProps(scene, 'suggestions', props)} Component={ElementSuggestions} />
         )}
       />,
       <Route
         path={`/collections/${scene.name}/:collection_id/settings/`}
-        key={`${scene.name}_${index}`}
+        key={scene.name}
         render={props => (
           <Scene {...getSceneProps(scene, 'settings', props)} Component={CollectionSettings} />
         )}
       />,
       <Route
         path={`/collections/${scene.name}/:collection_id/public/`}
-        key={`${scene.name}_${index}`}
+        key={scene.name}
         render={props => (
           <Scene {...getSceneProps(scene, 'content', props)} Component={CollectionContent} isPublic={true} />
         )}
       />,
       <Route
         path={`/collections/${scene.name}/:collection_id/`}
-        key={`${scene.name}_${index}`}
+        key={scene.name}
         render={props => (
           <Scene {...getSceneProps(scene, 'content', props)} Component={CollectionContent} isPublic={false} />
         )}
@@ -58,22 +59,21 @@ const generate = () => {
   return a;
 };
 
-class Collection extends Component {
-  
-  render() {
-    return (
-      <Switch>
-        {generate()}
-      </Switch>
-    );
-  }
-}
+const Collection = () => (
+  <Switch>
+    {generate()}
+  </Switch>
+);
 
-const Scene = ({ Component, ...props }) => {
-  return [
-    <Header key={1} {...props} />,
-    <Component key={2}  {...props} />
-  ];
+const Scene = ({ SceneComponent, ...props }) => (
+  <Fragment>
+    <Header key={1} {...props} />
+    <SceneComponent key={2} {...props} />
+  </Fragment>
+);
+
+Scene.propTypes = {
+  SceneComponent: PropTypes.object,
 };
 
 export default Collection;

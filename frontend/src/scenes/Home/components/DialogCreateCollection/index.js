@@ -36,7 +36,7 @@ class DialogCreateCollection extends Component {
     }
   };
   
-  pickCollectionType = type => {
+  pickCollectionType = (type) => {
     this.setState({ type, stepIndex: 1 });
   };
   
@@ -100,7 +100,7 @@ class DialogCreateCollection extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   const root = state.home.dialogCreateCollection.main;
   const homeRoot = state.home.main;
   const appRoot = state.app;
@@ -113,7 +113,7 @@ const mapStateToProps = state => {
   }
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     close: () => dispatch(showDialogCreateCollection(false)),
     create: (...args) => dispatch(createCollection(...args)),

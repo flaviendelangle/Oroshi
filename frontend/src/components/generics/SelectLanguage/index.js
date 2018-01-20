@@ -20,7 +20,7 @@ class SelectLanguage extends Component {
   };
   
   renderLanguages = () => {
-    return this.languages.map(el => {
+    return this.languages.map((el) => {
       return (
         <MenuItem
           value={el.code}

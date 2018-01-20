@@ -10,7 +10,7 @@ export const layout = {
   right: 20
 };
 
-export const layoutIcon = theme => ({
+export const layoutIcon = (theme) => ({
   display: 'inline-block',
   backgroundColor: theme.backgroundColor,
   marginRight: 10,

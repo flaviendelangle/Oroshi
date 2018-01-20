@@ -18,7 +18,7 @@ const reducer = (state = defaultState, action) => {
   
   let newElement, newState;
   
-  switch(action.type) {
+  switch (action.type) {
     
     /**
      * The collection has been loaded

@@ -22,20 +22,19 @@ const defaultState = {
   lineDimensions: null,
   oauth: null,
   profile: null,
-  username: null
+  username: null,
 };
 
-const app = (state=defaultState, action) => {
-  
-  switch(action.type) {
-    
-    case screen.resize:
+const app = (state = defaultState, action) => {
+  switch (action.type) {
+    case screen.resize: {
       return {
         ...state,
-        lineDimensions: action.lineDimensions
+        lineDimensions: action.lineDimensions,
       };
-      
-    case users.login + '_FULFILLED':
+    }
+
+    case `${users.login}_FULFILLED`: {
       if (action.payload.error) {
         return state;
       }
@@ -43,54 +42,55 @@ const app = (state=defaultState, action) => {
       return {
         ...state,
         username: action.meta.username,
-        oauth: action.payload
+        oauth: action.payload,
       };
-      
-    case users.getProfile + '_FULFILLED':
+    }
+
+    case `${users.getProfile}_FULFILLED`: {
       return {
         ...state,
-        profile: action.payload
+        profile: action.payload,
       };
-  
-    case notify.change:
+    }
+
+    case notify.change: {
       const data = loadOauth();
       if (!data) {
         return {
           ...state,
           oauth: undefined,
-          username: undefined
+          username: undefined,
         };
       }
       const { oauth, meta } = data;
       return {
         ...state,
         oauth,
-        username: meta.username
+        username: meta.username,
       };
-      
+    }
+
     default:
       return state;
-    
   }
-  
 };
 
 
 const appReducer = combineReducers({
-  
+
   app,
-  
+
   // Generics
   help,
-  
+
   // Elements
   tv_shows,
-  
+
   // Scenes
   home,
   login,
   types,
-  
+
   // External modules
   form,
 });
@@ -98,28 +98,24 @@ const appReducer = combineReducers({
 
 const reducer = (state, action) => {
 
-  switch(action.type) {
-    
-    case notify.change:
+  switch (action.type) {
+
+    case notify.change: {
       const newState = {
         ...state,
-        //collections: undefined
+        // collections: undefined
       };
       return appReducer(newState, action);
-      
+    }
+
     default:
       return appReducer(state, action);
-    
   }
-  
 };
 
 
-const composeStoreWithMiddleware = applyMiddleware(
-  promiseMiddleware()
-)(createStore);
-
-let store = composeStoreWithMiddleware(reducer);
+const composeStoreWithMiddleware = applyMiddleware(promiseMiddleware())(createStore);
+const store = composeStoreWithMiddleware(reducer);
 
 window.addEventListener('resize', () => {
   store.dispatch(alertScreenResize());

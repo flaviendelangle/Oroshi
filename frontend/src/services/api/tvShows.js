@@ -8,18 +8,18 @@ class TVShows extends API {
     root: '/tv_shows'
   };
   
-  create = body => {
+  create = (body) => {
     if (this.root) { // We are in a nested route so we just want to send the pk of the movie to add it
       return super.create(body);
     }
     let networks, genres;
     return NetworksAPI.retrieveOrCreate(body.networks)
-      .then(response => {
-        networks = response.map(director => director.pk);
+      .then((response) => {
+        networks = response.map((director) => director.pk);
         return GenresAPI.retrieveOrCreate(body.genres);
       })
-      .then(response => {
-        genres = response.map(genre => genre.pk);
+      .then((response) => {
+        genres = response.map((genre) => genre.pk);
         return super.create({
           ...body,
           networks,

@@ -12,7 +12,7 @@ import { connect } from 'services/redux';
 
 
 class MenuPanel extends Component {
-  
+
   get panelStyle() {
     const { muiTheme: { palette }} = this.props;
     return {
@@ -40,9 +40,9 @@ class MenuPanel extends Component {
         <Panel active={active} type={type} collection={collection} data={data} />
       </div>
     );
-    
+
   }
-  
+
 }
 
 /**
@@ -50,8 +50,8 @@ class MenuPanel extends Component {
  * @param {string} active - name of the current settings section
  * @returns {Component} component representing this settings section
  */
-const getSectionComponent = active => {
-  switch(active) {
+const getSectionComponent = (active) => {
+  switch (active) {
     case 'summary':
       return SummaryParameters;
     /*case 'spoilers':
@@ -82,7 +82,7 @@ const mapStateToProps = ({ settings }) => {
   }
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {}
 };
 

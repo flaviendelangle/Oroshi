@@ -127,7 +127,7 @@ const mapStateToProps = () => {
 const mapDispatchToProps = (dispatch, { type }) => {
   return {
     update: (pk, field, value) => dispatch(update(type, pk, field, value)),
-    deleteCollection: pk => dispatch(destroy(type, pk))
+    deleteCollection: (pk) => dispatch(destroy(type, pk))
   }
 };
 

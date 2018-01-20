@@ -15,7 +15,7 @@ class Movie extends Element {
     const local = this.getLocal();
     let searchIndex = [];
     
-    local.directors.forEach(el => searchIndex.push(el.name));
+    local.directors.forEach((el) => searchIndex.push(el.name));
     searchIndex.push(this.getReleaseYear());
     
     super.buildSearchIndex(searchIndex)
@@ -31,7 +31,7 @@ class Movie extends Element {
     return super.isGreater(other, field);
   };
   
-  getValue = field => {
+  getValue = (field) => {
     if (field === 'release_year') {
       const newDate = this.getReleaseYear();
       return [{
@@ -42,7 +42,7 @@ class Movie extends Element {
     return super.getValue(field);
   };
   
-  getValueToSort = field => {
+  getValueToSort = (field) => {
     /*if (field === 'release') {
       return this.release_list[0].pk;
     }*/
@@ -101,7 +101,7 @@ class Movie extends Element {
     return false;
   };
   
-  setSeen = seen => {
+  setSeen = (seen) => {
     this.local.seen = seen;
   };
   

@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import AppBar from 'material-ui/AppBar';
 import IconButton from 'material-ui/IconButton';
@@ -14,7 +15,30 @@ import { showMainDrawer } from './components/MainDrawer/actions';
 import { connect } from 'services/redux';
 
 class Header extends Component {
-  
+  static propTypes = {
+    scene: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    layout: PropTypes.string.isRequired,
+    query: PropTypes.string.isRequired,
+    showTitle: PropTypes.bool.isRequired,
+    isDrawerOpen: PropTypes.bool.isRequired,
+    isPublic: PropTypes.bool.isRequired,
+    isAdding: PropTypes.bool.isRequired,
+    collection: PropTypes.object.isRequired,
+    muiTheme: PropTypes.object.isRequired,
+    count: PropTypes.number.isRequired,
+    openMainDrawer: PropTypes.func.isRequired,
+    autoComplete: PropTypes.object,
+  };
+
+  onButtonClick = () => {
+    const { scene, openMainDrawer } = this.props;
+    if (scene === 'content' || scene === 'settings') {
+      openMainDrawer(true);
+    }
+  };
+
   get autoComplete() {
     const { isAdding, layout, autoComplete } = this.props;
     if (isAdding || !autoComplete) {
@@ -25,14 +49,7 @@ class Header extends Component {
     }
     return autoComplete.grid;
   }
-  
-  onButtonClick = () => {
-    const { scene, openMainDrawer } = this.props;
-    if (scene === 'content' || scene === 'settings') {
-      openMainDrawer(true);
-    }
-  };
-  
+
   render() {
     const {
       isDrawerOpen,
@@ -46,7 +63,7 @@ class Header extends Component {
       query,
       scene,
       openMainDrawer,
-      muiTheme: { palette }
+      muiTheme: { palette },
     } = this.props;
     return (
       <header>
@@ -99,12 +116,17 @@ class Header extends Component {
         }
       </header>
     )
-    
+
   }
-  
+
 }
 
-const Icon = ({ scene, palette, link, ...props }) => {
+const Icon = ({
+  scene,
+  palette,
+  link,
+  ...props
+}) => {
   if (scene === 'suggestions'){
     return (
       <Link to={link} >
@@ -128,10 +150,15 @@ const Icon = ({ scene, palette, link, ...props }) => {
   );
 };
 
+Icon.propTypes = {
+  scene: PropTypes.string.isRequired,
+  palette: PropTypes.object.isRequired,
+  link: PropTypes.string.isRequired,
+};
+
 const mapStateToProps = ({ header, content, main }) => {
-  const layout = content.layout;
   let count;
-  if (layout === 'stream') {
+  if (content.layout === 'stream') {
     count = content.stream.getElementCount();
   } else {
     count = content.grid.getElementCount();
@@ -142,23 +169,21 @@ const mapStateToProps = ({ header, content, main }) => {
     layout: content.layout,
     collection: content.collection,
     autoComplete: content.autoComplete,
-  
+
     title: header.title,
     query: header.query,
-    
+
     isAdding: main.isAdding,
-  
-    count
+
+    count,
   };
 };
 
-const mapDispatchToProps = (dispatch, { type, collection }) => {
-  return {
-    openMainDrawer: show => dispatch(showMainDrawer(type, collection, show))
-  };
-};
+const mapDispatchToProps = (dispatch, { type, collection }) => ({
+  openMainDrawer: show => dispatch(showMainDrawer(type, collection, show)),
+});
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(muiThemeable()(Header));

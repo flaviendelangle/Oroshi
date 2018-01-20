@@ -61,14 +61,14 @@ const PublicHelp = ({ palette }) => (
   </div>
 );
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   const root = state.help;
   return {
     element: root.element
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     getElement: (...args) => dispatch(getElement(...args))
   };

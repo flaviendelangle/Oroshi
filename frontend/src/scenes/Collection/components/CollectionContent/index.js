@@ -113,7 +113,7 @@ const mapStateToProps = ({ content }, state) => {
   }
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
   };
 };

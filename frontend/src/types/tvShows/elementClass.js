@@ -20,7 +20,7 @@ class TVShow extends Element {
   buildSearchIndex() {
     const local = this.getLocal();
     let searchIndex = [];
-    local.networks.forEach(el => searchIndex.push(el.name));
+    local.networks.forEach((el) => searchIndex.push(el.name));
     
     super.buildSearchIndex(searchIndex)
   };
@@ -28,7 +28,7 @@ class TVShow extends Element {
   prepareLocalOptions = () => {
   };
   
-  setLocal = newLocal => {
+  setLocal = (newLocal) => {
     const results = super.setLocal(newLocal);
     this.prepareLocalOptions();
     return results;
@@ -50,7 +50,7 @@ class TVShow extends Element {
     return false;
   };
   
-  setSeen = seen => {
+  setSeen = (seen) => {
     this.local.seen = seen;
   };
   

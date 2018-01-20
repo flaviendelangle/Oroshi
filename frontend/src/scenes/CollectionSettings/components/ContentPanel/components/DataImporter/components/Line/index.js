@@ -28,7 +28,7 @@ const mapStateToProps = ({ settings: { dataImporter }}, state, { data }) => {
   }
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {}
 };
 

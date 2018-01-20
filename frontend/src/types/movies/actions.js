@@ -18,7 +18,7 @@ export const addElement = tmdb.addElement;
 
 export const getSuggestions = tmdb.getSuggestions;
 
-export const switchSeenOnElement = element => {
+export const switchSeenOnElement = (element) => {
   const data = {
     seen: !element.hasBeenSeen()
   };
@@ -26,13 +26,13 @@ export const switchSeenOnElement = element => {
 };
 
 export const prepareElement = (element, seenList) => {
-  const seen = !!(seenList.find(el => el.movie === element.getID()));
+  const seen = !!(seenList.find((el) => el.movie === element.getID()));
   element.setSeen(seen);
 };
 
 export const addSeenToElements = (elements, seen) => {
-  return elements.map(element => {
-    const matches = seen.find(seen => {
+  return elements.map((element) => {
+    const matches = seen.find((seen) => {
       return seen.movie === element.pk;
     });
     return {

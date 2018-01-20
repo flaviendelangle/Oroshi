@@ -11,13 +11,13 @@ import { setSortParameters, setLayoutParameters } from '../../scenes/Collection/
 import * as content_manager from '../../scenes/Collection/components/CollectionContent/services/content_manager';
 
 
-const generateDefaultElementState = type => {
-  
+const generateDefaultElementState = (type) => {
+
   const ListGenerator = getListGenerator(type);
   const StreamGenerator = getStreamGenerator(type);
-  
+
   const defaultOrder = getDefaultOrder(type);
-  
+
   return {
     content: [],
     query: '',
@@ -37,16 +37,16 @@ const reducer = (state, action) => {
   if (!state) {
     state = generateDefaultElementState(type);
   }
-  
+
   let newContent;
   let newOrder;
-  
+
   const ListGenerator = getListGenerator(type);
   const StreamGenerator = getStreamGenerator(type);
   const defaultOrder = getDefaultOrder(type);
-  
-  switch(action.type) {
-    
+
+  switch (action.type) {
+
     /**
      * The collection has been loaded
      */
@@ -76,14 +76,14 @@ const reducer = (state, action) => {
         found: true,
         loaded: true
       };
-    
+
     /**
      * An element has been added to the collection
      */
     case collections.add + '_FULFILLED':
-      
+
       newContent = content_manager.add(state.content, action.payload, state.order.default);
-      
+
       return {
         ...state,
         content: newContent,
@@ -91,14 +91,14 @@ const reducer = (state, action) => {
         grid: new ListGenerator(newContent, state.query),
         autoComplete: Element.buildAutocomplete(newContent, state.order.stream),
       };
-    
+
     /**
      * An element has been removed from the collection
      */
     case collections.remove + '_FULFILLED':
-      
+
       newContent = content_manager.remove(state.content, action.payload);
-      
+
       return {
         ...state,
         content: newContent,
@@ -106,14 +106,14 @@ const reducer = (state, action) => {
         grid: new ListGenerator(newContent, state.query),
         autoComplete: Element.buildAutocomplete(newContent, state.order.stream)
       };
-    
+
     /**
-     * An element has been updated in the collection (ex : Not Seen => Seen)
+     * An element has been updated in the collection (ex : Not (Seen) => Seen)
      */
     case collections.update + '_FULFILLED':
-      
+
       newContent = content_manager.update(state.content, action.payload);
-      
+
       return {
         ...state,
         content: newContent,
@@ -121,8 +121,8 @@ const reducer = (state, action) => {
         grid: new ListGenerator(newContent, state.query),
         autoComplete: Element.buildAutocomplete(newContent, state.order.stream)
       };
-    
-    
+
+
     /**
      * The order of the elements has been updated (check OrderMenu component)
      */
@@ -146,7 +146,7 @@ const reducer = (state, action) => {
         autoComplete: Element.buildAutocomplete(newContent, newOrder.stream),
         update: Math.random()
       };
-    
+
     /**
      * The search query has been updated (check Header's Search component)
      */
@@ -160,7 +160,7 @@ const reducer = (state, action) => {
         stream: new StreamGenerator(state.content, action.query, state.order.stream),
         grid: new ListGenerator(state.content, action.query)
       };
-    
+
     /**
      * The layout in which we want to see the elements has been updated
      */
@@ -171,12 +171,12 @@ const reducer = (state, action) => {
         query: '',
         layout: action.layout
       };
-    
+
     default:
       return state;
   }
 
-  
+
 };
 
 export default reducer;

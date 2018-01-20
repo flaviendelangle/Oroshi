@@ -20,7 +20,7 @@ let parseCSV = (scene, csv) => {
     };
   }
   return Papa.parse(content, { header: true, dynamicTyping: true }).data
-    .map(line => {
+    .map((line) => {
       let newLine = {};
       for (const field in line) {
         if (line.hasOwnProperty(field)) {
@@ -34,11 +34,11 @@ let parseCSV = (scene, csv) => {
     });
 };
 
-const extractComments = csv => {
+const extractComments = (csv) => {
   let comments = {};
   let content = [];
   csv.split('\n')
-    .forEach(el => {
+    .forEach((el) => {
       if (el[0] === '#') {
         el = el.substring(1).split(',');
         comments[el[0]] = el[1];
@@ -46,15 +46,15 @@ const extractComments = csv => {
         content.push(el);
       }
     });
-  
+
   return {
     comments,
     content: content.join('\n')
   };
 };
 
-export const getCollectionTypeTitle = type => {
-  switch(type) {
+export const getCollectionTypeTitle = (type) => {
+  switch (type) {
     case 'movies':
       return 'Movies';
     case 'tv_shows':

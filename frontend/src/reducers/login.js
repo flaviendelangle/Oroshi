@@ -7,8 +7,8 @@ const defaultState = {
 
 const main = (state = defaultState, action) => {
 
-  switch(action.type) {
-    
+  switch (action.type) {
+
     case users.create + '_FULFILLED':
       if (action.payload.error) {
         return {
@@ -18,7 +18,7 @@ const main = (state = defaultState, action) => {
       return {
         state,
       };
-    
+
     default:
       return state;
   }

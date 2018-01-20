@@ -7,7 +7,7 @@ const defaultState = {
 
 const main = (state = defaultState, action) => {
   
-  switch(action.type) {
+  switch (action.type) {
     case dialogs.addMovie:
       return {
         ...state,

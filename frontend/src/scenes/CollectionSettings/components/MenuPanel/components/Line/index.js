@@ -39,14 +39,14 @@ class Line extends Component {
   
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
   }
 };
 
 const mapDispatchToProps = (dispatch, { type, collection }) => {
   return {
-    goTo: value => dispatch(goToSection(type, collection, value))
+    goTo: (value) => dispatch(goToSection(type, collection, value))
   }
 };
 

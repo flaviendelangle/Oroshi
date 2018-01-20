@@ -1,4 +1,4 @@
-export const paper = theme => ({
+export const paper = (theme) => ({
   height: 'auto',
   width: 300,
   margin: 'auto',
@@ -12,12 +12,12 @@ export const paper = theme => ({
   padding: 22
 });
 
-export const input = theme => ({
+export const input = (theme) => ({
   color: theme.paperColor,
   borderColor: theme.paperColor
 });
 
-export const flatButton = theme => ({
+export const flatButton = (theme) => ({
   color: theme.paperColor,
   textAlign: 'center',
   userSelect: 'none'

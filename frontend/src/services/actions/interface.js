@@ -7,7 +7,7 @@ export const alertScreenResize = () => {
     type: titles.screen.resize,
     width: window.innerWidth,
     height: window.innerHeight,
-    lineDimensions: getLineDimensions(window.innerWidth)
+    lineDimensions: getLineDimensions(window.innerWidth),
   }
 };
 
@@ -17,6 +17,6 @@ export const removeSnack = (type, collection) => {
     meta: {
       type,
       collection,
-    }
+    },
   };
 };

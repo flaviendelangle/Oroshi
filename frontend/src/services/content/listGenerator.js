@@ -36,16 +36,16 @@ class ListGenerator {
     this.query = this.clean(this.query);
   };
   
-  clean = string => {
+  clean = (string) => {
     return string.toUpperCase().replace(/\./g, ' ');
   };
   
   filter = () => {
-    let results = this.data.filter(element => element.match(this.query.split(' '))) ;
+    let results = this.data.filter((element) => element.match(this.query.split(' '))) ;
     
     /*for (let i=0; i<this.filters.length; i++) {
       const filter = this.filters[i];
-      results = results.filter(component => {
+      results = results.filter((component) => {
         const movieValue = component[filter[1]];
         const filterValue = filter[2];
         return this.matchFilter(movieValue, filterValue);
@@ -55,7 +55,7 @@ class ListGenerator {
     this.results = results;
   };
   
-  matchField = value => {
+  matchField = (value) => {
     if (Object.prototype.toString.call(value) === "[object String]") {
       return this.clean(value).includes(this.query);
     } else if (!isNaN(value)) {

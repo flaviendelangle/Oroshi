@@ -14,7 +14,7 @@ export const groupByLine = (elements, lineDimensions) => {
     return [];
   }
   let lines = [[]];
-  elements.forEach(el => {
+  elements.forEach((el) => {
     if (lines[lines.length-1].length === lineDimensions.elementsPerLine) {
       lines.push([]);
     }

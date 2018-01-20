@@ -8,24 +8,24 @@ const defaultState = {
 };
 
 const main = (state = defaultState, action) => {
-  
+
   let title, newMessage;
-  
-  switch(action.type) {
-    
+
+  switch (action.type) {
+
     /**
      * We enter / leave the adding more
      */
     case source.updateIsAdding:
-      
+
       return {
         ...state,
         addingSearch: null,
         isAdding: !state.isAdding
       };
-    
+
     /**
-     * An element has been updated in the collection (ex : Not Seen => Seen)
+     * An element has been updated in the collection (ex : Not (Seen) => Seen)
      */
     case collections.update + '_FULFILLED':
       if (action.meta.field !== 'seen') {
@@ -40,7 +40,7 @@ const main = (state = defaultState, action) => {
         ...state,
         messages: [...state.messages, newMessage]
       };
-    
+
     /**
      * An element has been added to the collection
      */
@@ -53,7 +53,7 @@ const main = (state = defaultState, action) => {
         ...state,
         messages: [...state.messages, newMessage]
       };
-    
+
     /**
      * An element has been removed from the collection
      */
@@ -66,9 +66,9 @@ const main = (state = defaultState, action) => {
         ...state,
         messages: [...state.messages, newMessage]
       };
-    
-    
-    
+
+
+
     /**
      * A snack must be removed
      */
@@ -77,11 +77,11 @@ const main = (state = defaultState, action) => {
         ...state,
         messages: state.messages.slice(1)
       };
-    
+
     default:
       return state;
   }
-  
+
 };
 
 

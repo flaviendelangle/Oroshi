@@ -41,7 +41,7 @@ class Details extends Component {
    * Change the season we want to display in the modal
    * @param {number} season - the season to show
    */
-  switchSeason = season => {
+  switchSeason = (season) => {
     this.setState({ season });
   };
   
@@ -213,7 +213,7 @@ const Season = ({ season, seasons, loadSeason, tmdbId, muiTheme }) => {
 };
 
 const Episodes = ({ data, muiTheme }) => {
-  return data.map(episode => {
+  return data.map((episode) => {
     return (
       <Episode
         {...episode}
@@ -248,7 +248,7 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     load: (collection, tmdbId) => {
       dispatch(getDetails('tv_shows', true, collection, tmdbId));

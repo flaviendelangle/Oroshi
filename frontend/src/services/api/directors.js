@@ -6,7 +6,7 @@ class Directors extends API {
     root: '/directors'
   };
   
-  retrieveOrCreate = body => {
+  retrieveOrCreate = (body) => {
     return super.retrieveOrCreate(body, 'tmdbId');
   };
   

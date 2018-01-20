@@ -7,9 +7,9 @@ import * as _style from '../../style';
 
 export const FORM_NAME = 'REGISTER_FORM';
 
-const required = value => value ? undefined : 'Required';
-const minLength8 = value => value.length >= 8 ? undefined : 'Must be at least 8 characters long';
-const email = value => {
+const required = (value) => value ? undefined : 'Required';
+const minLength8 = (value) => value.length >= 8 ? undefined : 'Must be at least 8 characters long';
+const email = (value) => {
   if (value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
     return 'Invalid email address';
   }
@@ -67,7 +67,7 @@ const LoginButton = ({ theme, onSwitch }) => (
     <span>Already have an account? </span>
     <span
       style={_style.flatButtonLink}
-      onClick={() => onSwitch('login')}
+      onClick={() => onswitch ('login')}
     >
       Sign In
     </span>

@@ -9,7 +9,7 @@ export default class API extends BaseAPI {
     if (!promise) {
       window.location.href = '/login';
     }
-    return promise.then(oauth => {
+    return promise.then((oauth) => {
       if (!oauth) {
         window.location.href = '/login';
       }

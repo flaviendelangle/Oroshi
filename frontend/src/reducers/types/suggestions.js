@@ -10,7 +10,7 @@ const defaultState = {
 
 const elementSuggestions = (state = defaultState, action) => {
   
-  switch(action.type) {
+  switch (action.type) {
     
     case collectionContent.loadSettings + '_FULFILLED':
       return {

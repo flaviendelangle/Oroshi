@@ -6,11 +6,11 @@ export const textField = {
 };
 
 export const input = {
-  textAlign: 'left'
+  textAlign: 'left',
 };
 
 export const icon = {
   position: 'absolute',
   top: -5,
-  right: 0
+  right: 0,
 };

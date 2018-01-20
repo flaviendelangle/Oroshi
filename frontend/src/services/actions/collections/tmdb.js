@@ -13,12 +13,12 @@ export const addElement = (type, collection, element) => {
     });
   } else {
     promise = getDetails(type, false, collection, element.getPublicId())
-      .then(response => {
+      .then((response) => {
         details = response;
         const cleanedDetails = cleanDetails(type, details);
         return getElementAPI(type).create(cleanedDetails);
       })
-      .then(local => {
+      .then((local) => {
         element.setLocal(local);
         return {
           collection,
@@ -29,7 +29,7 @@ export const addElement = (type, collection, element) => {
   
   const localAPI = getCollectionAPI(type);
   return promise
-    .then(response => createMissingData(type, response))
+    .then((response) => createMissingData(type, response))
     .then(() => {
       const data = {
         pk: element.getID(),
@@ -37,7 +37,7 @@ export const addElement = (type, collection, element) => {
       };
       return localAPI.element(collection.pk)[type].create(data);
     })
-    .then(newLocal => {
+    .then((newLocal) => {
       element.setLocal(newLocal);
       element.setInCollection(true);
       return element;
@@ -53,13 +53,13 @@ const createMissingData = (type, { collection, local }) => {
   const languages = getMissingLanguages(collection, local);
   const localAPI = getElementAPI(type);
 
-  const createTitle = i => {
+  const createTitle = (i) => {
     if (i < languages.title.length) {
       return getTitle(type, local.tmdbId, languages.title[i])
-        .then(title => {
+        .then((title) => {
           return localAPI.addTitle(local.pk, languages.title[i], title);
         })
-        .then(titles => {
+        .then((titles) => {
           return createTitle(i+1);
         })
     } else {
@@ -67,14 +67,14 @@ const createMissingData = (type, { collection, local }) => {
     }
   };
   
-  const createPoster = i => {
+  const createPoster = (i) => {
     if (i < languages.poster.length) {
       return getPoster(type, local.tmdbId, languages.poster[i])
-        .then(poster => {
+        .then((poster) => {
           poster = poster || '';
           return localAPI.addPoster(local.pk, languages.poster[i], poster);
         })
-        .then(poster => {
+        .then((poster) => {
           return createPoster(i+1);
         })
     } else {
@@ -82,12 +82,12 @@ const createMissingData = (type, { collection, local }) => {
     }
   };
   
-  return createTitle(0).then(res => createPoster(0));
+  return createTitle(0).then((res) => createPoster(0));
   
 };
 
 export const getSuggestions = (type, collection, tmdbId) => {
-  return getPublicActions(type).getDetails(type, collection, tmdbId).then(response => {
+  return getPublicActions(type).getDetails(type, collection, tmdbId).then((response) => {
     const Element =  getActions(type).elementClass;
     const data = {
       distant: response,

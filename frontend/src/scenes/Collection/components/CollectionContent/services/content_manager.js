@@ -7,7 +7,7 @@ export const add = (content, newElement, order) => {
 };
 
 export const remove = (content, newElement) => {
-  const match = content.filter(el => {
+  const match = content.filter((el) => {
     return el.getID() === newElement.getID();
   });
   if (match.length === 0) {
@@ -23,7 +23,7 @@ export const remove = (content, newElement) => {
 };
 
 export const update = (content, newElement) => {
-  return content.map(el => {
+  return content.map((el) => {
     if (el.getPublicId() === newElement.getPublicId()) {
       return newElement;
     }

@@ -16,12 +16,12 @@ import * as _style from './style';
 
 
 class DataImporter extends Component {
-  
+
   state = {
     source: 'csv',
     csv: null
   };
-  
+
   /**
    * Update the csv file from which we want to retrieve the data
    * @param {Array<File>} upload - the files which have been selected by the user
@@ -29,12 +29,12 @@ class DataImporter extends Component {
   updateFile = (format, upload) => {
     this.setState({ [format]: upload[0] });
   };
-  
+
   /**
    * Handle the click to launch the importation
    */
   handleClick = () => {
-    switch(this.state.source) {
+    switch (this.state.source) {
       case 'csv': {
         this.props.importCSV(this.state.csv);
         break;
@@ -47,7 +47,7 @@ class DataImporter extends Component {
         break;
     }
   };
-  
+
   renderSourcePicker = () => {
     return (
       <div style={{textAlign: 'center'}} >
@@ -65,12 +65,12 @@ class DataImporter extends Component {
       </div>
     );
   };
-  
-  renderFilePicker = format => {
+
+  renderFilePicker = (format) => {
     return (
       <div style={{height: 150}} >
         <Dropzone
-          onDrop={upload => this.updateFile(format, upload)}
+          onDrop={(upload) => this.updateFile(format, upload)}
           multiple={false}
           accept={'.' + format}
           style={_style.dropZone(!!this.state[format])}
@@ -86,8 +86,8 @@ class DataImporter extends Component {
       </div>
     );
   };
-  
-  renderLaunchButton = format => {
+
+  renderLaunchButton = (format) => {
     return (
       <RaisedButton
         label="Import !"
@@ -96,9 +96,9 @@ class DataImporter extends Component {
       />
     );
   };
-  
+
   renderParameters = () => {
-    switch(this.state.source) {
+    switch (this.state.source) {
       case 'csv':
         return this.renderFilePicker('csv');
       case 'json':
@@ -107,10 +107,10 @@ class DataImporter extends Component {
         return null;
     }
   };
-  
+
   renderLines = () => {
     let counter = 0;
-    return this.state.elements.map(el => {
+    return this.state.elements.map((el) => {
       return (
         <Line data={el}
           key={++counter}
@@ -119,7 +119,7 @@ class DataImporter extends Component {
       );
     })
   };
-  
+
   renderElementsList = () => {
     if (!this.state.elements) {
       return null;
@@ -138,14 +138,14 @@ class DataImporter extends Component {
       </div>
     );
   };
-  
+
   componentWillReceiveProps(newProps) {
     if (!this.props.importFromFile && newProps.importFromFile) {
       this.props.importContent(newProps.data, newProps.importFromFile.data);
       this.setState({ elements: newProps.importFromFile.data });
     }
   }
-  
+
   render() {
     return (
       <div style={{height: '100%'}} >
@@ -166,8 +166,8 @@ const mapStateToProps = ({ settings: { dataImporter }}) => {
 
 const mapDispatchToProps = (dispatch, { type }) => {
   return {
-    importCSV: file => dispatch(importCSV(type, file)),
-    importJSON: file => dispatch(importJSON(type, file)),
+    importCSV: (file) => dispatch(importCSV(type, file)),
+    importJSON: (file) => dispatch(importJSON(type, file)),
     importContent: (collection, elements) => {
       dispatch(importElements(type, collection, elements, dispatch));
     }

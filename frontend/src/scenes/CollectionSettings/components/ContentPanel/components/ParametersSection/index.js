@@ -12,14 +12,14 @@ const sectionStyle = {
 class ParametersSection extends Component {
   
   get title() {
-    return this.props.children.filter(el => {
+    return this.props.children.filter((el) => {
       return el.props.className === 'title';
     })[0];
   }
   
   get content() {
     const { children } = this.props;
-    let lines = children.filter(el => {
+    let lines = children.filter((el) => {
       return el.props.className === 'content';
     })[0].props.children;
     if (lines === undefined) {

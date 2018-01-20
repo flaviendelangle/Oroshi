@@ -1,4 +1,5 @@
-import React, {Component} from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
@@ -6,34 +7,37 @@ import IconButton from 'material-ui/IconButton';
 import ContentSort from 'material-ui/svg-icons/content/sort';
 import muiThemeable from 'material-ui/styles/muiThemeable';
 
-import { sort } from 'scenes/Collection/components/CollectionContent/actions';
+import { sort as _sort } from 'scenes/Collection/components/CollectionContent/actions';
 import { connect } from 'services/redux';
 
 import * as _style from './style';
 
 
-class OrderMenu extends Component {
-  
-  render() {
-    const { sort, muiTheme: { palette }} = this.props;
-    return (
-      <div style={_style.container} >
-        <Menu
-          {...this.props}
-          sort={sort}
-          color={palette.alternateTextColor}
-        />
-      </div>
-    );
-  }
-}
+const OrderMenu = ({ muiTheme: { palette }, ...props }) => (
+  <div style={_style.container} >
+    <Menu
+      {...props}
+      color={palette.alternateTextColor}
+    />
+  </div>
+);
 
-const Menu = ({ isAdding, layout, type, sort, color }) => {
+OrderMenu.propTypes = {
+  sort: PropTypes.func.isRequired,
+  muiTheme: PropTypes.object.isRequired,
+};
+
+const Menu = ({
+  isAdding,
+  layout,
+  type,
+  sort,
+  color,
+}) => {
   if (isAdding) {
     return null;
-  }
-  else if (layout === 'stream') {
-    switch(type) {
+  } else if (layout === 'stream') {
+    switch (type) {
       case 'movies':
         return <StreamMenuMovies sort={sort} color={color} />;
       case 'tv_shows':
@@ -41,9 +45,8 @@ const Menu = ({ isAdding, layout, type, sort, color }) => {
       default:
         return null;
     }
-  }
-  else {
-    switch(type) {
+  } else {
+    switch (type) {
       case 'movies':
         return <DefaultMenuMovies sort={sort} color={color} />;
       case 'tv_shows':
@@ -52,6 +55,14 @@ const Menu = ({ isAdding, layout, type, sort, color }) => {
         return null;
     }
   }
+};
+
+Menu.propTypes = {
+  isAdding: PropTypes.bool.isRequired,
+  layout: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  sort: PropTypes.func.isRequired,
+  color: PropTypes.string.isRequired,
 };
 
 const StreamMenuMovies = ({ sort, color }) => (
@@ -75,6 +86,11 @@ const StreamMenuMovies = ({ sort, color }) => (
   </IconMenu>
 );
 
+StreamMenuMovies.propTypes = {
+  sort: PropTypes.func.isRequired,
+  color: PropTypes.string.isRequired,
+};
+
 const StreamMenuTVShows = ({ sort, color }) => (
   <IconMenu
     iconButtonElement={<IconButton iconStyle={{color}} ><ContentSort /></IconButton>}
@@ -91,6 +107,11 @@ const StreamMenuTVShows = ({ sort, color }) => (
     />
   </IconMenu>
 );
+
+StreamMenuTVShows.propTypes = {
+  sort: PropTypes.func.isRequired,
+  color: PropTypes.string.isRequired,
+};
 
 const DefaultMenuMovies = ({ sort, color }) => (
   <IconMenu
@@ -113,6 +134,11 @@ const DefaultMenuMovies = ({ sort, color }) => (
   </IconMenu>
 );
 
+DefaultMenuMovies.propTypes = {
+  sort: PropTypes.func.isRequired,
+  color: PropTypes.string.isRequired,
+};
+
 const DefaultMenuTVShows = ({ sort, color }) => (
   <IconMenu
     iconButtonElement={<IconButton iconStyle={{color}} ><ContentSort /></IconButton>}
@@ -130,20 +156,21 @@ const DefaultMenuTVShows = ({ sort, color }) => (
   </IconMenu>
 );
 
-const mapStateToProps = ({ main, content }) => {
-  return {
-    layout: content.layout,
-    isAdding: main.isAdding
-  };
+DefaultMenuTVShows.propTypes = {
+  sort: PropTypes.func.isRequired,
+  color: PropTypes.string.isRequired,
 };
 
-const mapDispatchToProps = (dispatch, { type, collection }) => {
-  return {
-    sort: (...args) => dispatch(sort(type, collection, ...args))
-  }
-};
+const mapStateToProps = ({ main, content }) => ({
+  layout: content.layout,
+  isAdding: main.isAdding,
+});
+
+const mapDispatchToProps = (dispatch, { type, collection }) => ({
+  sort: (...args) => dispatch(_sort(type, collection, ...args)),
+});
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(muiThemeable()(OrderMenu));

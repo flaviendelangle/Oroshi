@@ -35,10 +35,10 @@ export const get = (type, pk) => {
   return {
     type: titles.collectionContent.load,
     payload: getCollectionAPI(type).retrieve(pk)
-      .then(response => {
+      .then((response) => {
         return prepareElements(type, response);
       })
-      .catch(error => {
+      .catch((error) => {
         error = error.toString();
         if (error === 'Error: Not Found') {
           return undefined;
@@ -53,7 +53,7 @@ export const get = (type, pk) => {
   };
 };
 
-export const getAll = pk => {
+export const getAll = (pk) => {
   return {
     type: titles.collectionContent.loadAllSettings,
     payload: CollectionsAPI.settings(pk)
@@ -105,7 +105,7 @@ export const updateElement = (type, element, data, field) => {
   const pk = element.getID();
   return {
     type: titles.collections.update,
-    payload: getCollectionAPI(type).element(collection.pk)[type].partial_update(pk, data).then(res => {
+    payload: getCollectionAPI(type).element(collection.pk)[type].partial_update(pk, data).then((res) => {
       element.editLocal(data);
       return element;
     }),
@@ -121,7 +121,7 @@ export const removeElement = (type, collection, element) => {
   const api = getCollectionAPI(type).element(collection.pk)[type];
   return {
     type: titles.collections.remove,
-    payload: api.destroy(element.getID()).then(response => {
+    payload: api.destroy(element.getID()).then((response) => {
       element.setInCollection(false);
       return element;
     }),
@@ -135,7 +135,7 @@ export const removeElement = (type, collection, element) => {
 export const importCSV = (type, file) => {
   return {
     type: titles.collectionContent.importFromFile,
-    payload: readAsText(file).then(result => {
+    payload: readAsText(file).then((result) => {
       return {
         data: parseCSV(type, result),
         format: 'csv'
@@ -150,7 +150,7 @@ export const importCSV = (type, file) => {
 export const importJSON = (type, file) => {
   return {
     type: titles.collectionContent.importFromFile,
-    payload: readAsText(file).then(result => {
+    payload: readAsText(file).then((result) => {
       return {
         data: parseJSON(type, result),
         format: 'json'
@@ -163,7 +163,7 @@ export const importJSON = (type, file) => {
 };
 
 export const importElements = (type, collection, elements, dispatch) => {
-  
+
   const _importElement = (type, elements, index, dispatch) => {
     if (elements.length <= index) {
       dispatch({
@@ -183,7 +183,7 @@ export const importElements = (type, collection, elements, dispatch) => {
         }
       });
     } else {
-      addElement(type, collection, element).payload.then(el => {
+      addElement(type, collection, element).payload.then((el) => {
         dispatch({
           type: titles.collections.add,
           payload: el,
@@ -197,15 +197,15 @@ export const importElements = (type, collection, elements, dispatch) => {
     }
 
   };
-  
+
   elements = {
     results: elements
   };
 
   return {
     type: titles.collectionContent.importElement,
-    payload: checkExistence(type, collection, elements, true).then(elements => {
-      
+    payload: checkExistence(type, collection, elements, true).then((elements) => {
+
       const Element = getActions(type).elementClass;
       elements = Element.fromDistantList(elements.results, collection);
       dispatch({
@@ -221,7 +221,7 @@ export const importElements = (type, collection, elements, dispatch) => {
 };
 
 export const exportCollection = (type, pk, format) => {
-  switch(format) {
+  switch (format) {
     case 'csv':
       return exportAsCSV(type, pk);
     case 'json':
@@ -232,11 +232,11 @@ export const exportCollection = (type, pk, format) => {
 };
 
 const exportAsCSV = (type, pk) => {
-  
-  const generateComments = type => {
+
+  const generateComments = (type) => {
     return '#type,' + type + '\n';
   };
-  
+
   return {
     type: collections.csv,
     payload: getDataToExport(type, pk).then(({ fields, content, collection }) => {
@@ -249,7 +249,7 @@ const exportAsCSV = (type, pk) => {
 };
 
 const exportAsJSON = (type, pk) => {
-  
+
   return {
     type: collections.json,
     payload: getDataToExport(type, pk).then(({ fields, content, collection}) => {
@@ -263,16 +263,16 @@ const exportAsJSON = (type, pk) => {
       downloadjs(json, collection.title + '.json', 'text/json');
     })
   };
-  
+
 };
 
 const getDataToExport = (type, pk) => {
-  return get(type, pk).payload.then(collection => {
+  return get(type, pk).payload.then((collection) => {
     const fields = getActions(type).exportFields;
-    const content = collection.content.map(el => {
+    const content = collection.content.map((el) => {
       let data = {};
       const values = el.getLocal();
-      fields.forEach(field => {
+      fields.forEach((field) => {
         if (field === 'title') {
           data[field] = pickElement(values, 'titles', 'title', collection.title_language);
         }
@@ -309,8 +309,8 @@ export const prepareElements = (type, data) => {
   let { content, seen, ...clearedData } = data;
   const Element = getActions(type).elementClass;
   const elements = content
-    .map(el => new Element(el));
-  elements.forEach(el => {
+    .map((el) => new Element(el));
+  elements.forEach((el) => {
     el.setCollection(clearedData);
     getActions(type).prepareElement(el, seen);
   });

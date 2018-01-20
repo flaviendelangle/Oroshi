@@ -5,19 +5,19 @@ const defaultState = {
 };
 
 const reducer = (state = defaultState, action) => {
-  
-  switch(action.type) {
+
+  switch (action.type) {
 
     case element.loaded + '_FULFILLED':
       return {
         ...state,
         element: action.payload
       };
-    
+
     default:
       return state;
   }
-  
+
 };
 
 export default reducer;

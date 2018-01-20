@@ -1,13 +1,17 @@
-import React  from 'react'
+import React from 'react'
+import PropTypes from 'prop-types';
 
 import { path as _path } from 'services/TheMovieDatabaseJS/images'
 
 import * as _style from './style';
 
-const Poster = ({ path, title, onLoad }) => {
-  
+const Poster = ({
+  path,
+  title,
+  onLoad,
+}) => {
   if (path) {
-    const url = _path + '/w185' + path;
+    const url = `${_path}/w185${path}`;
     return (
       <img
         src={url}
@@ -25,6 +29,12 @@ const Poster = ({ path, title, onLoad }) => {
       </span>
     </div>
   );
+};
+
+Poster.propTypes = {
+  path: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  onLoad: PropTypes.func.isRequired,
 };
 
 export default Poster;

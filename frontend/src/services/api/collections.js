@@ -6,7 +6,7 @@ class Collections extends API {
     root: '/collections'
   };
   
-  settings = pk => {
+  settings = (pk) => {
     return super.detail_route(pk, 'settings');
   }
   

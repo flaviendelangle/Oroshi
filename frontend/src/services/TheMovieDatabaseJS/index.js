@@ -21,14 +21,14 @@ class API {
     remaining: 0
   };
   
-  static set_config = config => {
+  static set_config = (config) => {
     API.USERCONFIG = {
       ...config,
       ...API.USERCONFIG,
     };
   };
   
-  static manageXRateLimit = headers => {
+  static manageXRateLimit = (headers) => {
     API.state.reset = headers.get('X-RateLimit-Reset');
     API.state.remaining = headers.get('X-RateLimit-Remaining');
   };
@@ -47,7 +47,7 @@ class API {
   
   _handleSuccess = (url, data, response) => {
     if (response.status === HTTP_STATUS.TOO_MANY_REQUESTS) {
-      let promise = new Promise(resolve => {
+      let promise = new Promise((resolve) => {
         window.setTimeout(() => {
           resolve();
         }, API.state.reset*1000 - new Date().getTime() + 1000);
@@ -74,7 +74,7 @@ class API {
     return this._fetch(url, data);
   };
   
-  query = options => {
+  query = (options) => {
     options.api_key = API.USERCONFIG.api_key;
     if (!options.language)
       options.language = API.USERCONFIG.language;

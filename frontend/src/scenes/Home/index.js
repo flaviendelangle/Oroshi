@@ -40,7 +40,7 @@ class Home extends Component {
     }
   }
   
-  loadCollections = profile => {
+  loadCollections = (profile) => {
     this.props.loadCollections(profile.pk);
   };
   
@@ -89,7 +89,7 @@ class Home extends Component {
   
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   const root = state.home.main;
   const appRoot = state.app;
   return {
@@ -100,9 +100,9 @@ const mapStateToProps = state => {
   }
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    loadCollections: pk => dispatch(getCollections(pk))
+    loadCollections: (pk) => dispatch(getCollections(pk))
   }
 };
 

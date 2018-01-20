@@ -17,7 +17,7 @@ const defaultState = {
 
 const settings = (state = defaultState, action) => {
   
-  switch(action.type) {
+  switch (action.type) {
 
     case collectionContent.loadSettings + '_FULFILLED':
 

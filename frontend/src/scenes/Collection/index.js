@@ -63,7 +63,7 @@ const mapStateToProps = ({ main, content }) => {
 
 const mapDispatchToProps = (dispatch, { type }) => {
   return {
-    synchronize: collection => dispatch(getCollection(type, collection))
+    synchronize: (collection) => dispatch(getCollection(type, collection))
   }
 };
 

@@ -34,7 +34,7 @@ class Stream extends Component {
     ) {
       sections = sections.slice(0,CONFIG.pageLength * this.state.pages);
     }
-    return sections.map(section => {
+    return sections.map((section) => {
       return (
         <Section
           key={`${section.type}_${section.key.pk}`}
@@ -86,11 +86,11 @@ class Stream extends Component {
   
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {}
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {}
 };
 

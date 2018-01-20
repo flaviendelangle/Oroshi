@@ -5,8 +5,8 @@ import TVShowListGenerator from 'types/tvShows/listGenerator'
 import TVShowStreamGenerator from 'types/tvShows/streamGenerator'
 
 
-export const getListGenerator = type => {
-  switch(type) {
+export const getListGenerator = (type) => {
+  switch (type) {
     case 'movies':
       return MovieListGenerator;
     case 'tv_shows':
@@ -16,8 +16,8 @@ export const getListGenerator = type => {
   }
 };
 
-export const getStreamGenerator = type => {
-  switch(type) {
+export const getStreamGenerator = (type) => {
+  switch (type) {
     case 'movies':
       return MovieStreamGenerator;
     case 'tv_shows':
@@ -27,9 +27,9 @@ export const getStreamGenerator = type => {
   }
 };
 
-export const getDefaultOrder = type => {
-  
-  switch(type) {
+export const getDefaultOrder = (type) => {
+
+  switch (type) {
     case 'movies':
       return {
         default: {
@@ -41,7 +41,7 @@ export const getDefaultOrder = type => {
           direction: 'desc'
         }
       };
-      
+
     case 'tv_shows':
       return {
         default: {
@@ -56,6 +56,6 @@ export const getDefaultOrder = type => {
     default:
       return null;
   }
-  
-  
+
+
 };

@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
 import TextFieldOriginal from 'material-ui/TextField';
 import EditorModeEdit from 'material-ui/svg-icons/editor/mode-edit'
 import ContentSave from 'material-ui/svg-icons/content/save';
@@ -7,11 +9,17 @@ import IconButton from 'material-ui/IconButton';
 import * as _style from './style';
 
 class TextField extends Component {
-  
-  state = {
-    editing: false
+  static propTypes = {
+    onSave: PropTypes.func.isRequired,
+    onChange: PropTypes.func.isRequired,
+    id: PropTypes.number.isRequired,
+    value: PropTypes.any.isRequired,
   };
-  
+
+  state = {
+    editing: false,
+  };
+
   switchMode = () => {
     const { onSave } = this.props;
     const { editing } = this.state;
@@ -20,7 +28,7 @@ class TextField extends Component {
       onSave();
     }
   };
-  
+
   render() {
     const { id, value, onChange } = this.props;
     const { editing } = this.state;
@@ -35,18 +43,23 @@ class TextField extends Component {
           onChange={onChange}
         />
         <IconButton style={_style.icon} >
-          <Icon editing={editing} handleClick={this.switchMode} />
+          <Icon editing={editing} onClick={this.switchMode} />
         </IconButton>
       </div>
     );
   }
 }
 
-const Icon = ({ editing, handleClick }) => {
+const Icon = ({ editing, onClick }) => {
   if (editing) {
-    return <ContentSave onClick={handleClick} />;
+    return <ContentSave onClick={onClick} />;
   }
-  return <EditorModeEdit onClick={handleClick} />;
+  return <EditorModeEdit onClick={onClick} />;
+};
+
+Icon.propTypes = {
+  editing: PropTypes.bool.isRequired,
+  onClick: PropTypes.func.isRequired,
 };
 
 export default TextField;

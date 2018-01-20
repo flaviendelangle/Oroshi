@@ -18,12 +18,12 @@ class Element {
   
   static fromDistantList(data, collection, ChildClass) {
     let { content, ...clearedCollection } = collection;
-    let elements = data.map(el => {
+    let elements = data.map((el) => {
       let newElement = new ChildClass(el.local, el.distant);
       newElement.setInCollection(el.in_collection);
       return newElement;
     });
-    elements.forEach(el => el.setCollection(clearedCollection));
+    elements.forEach((el) => el.setCollection(clearedCollection));
     return elements;
   }
   
@@ -48,16 +48,16 @@ class Element {
       grid: [],
       stream: []
     };
-    elements.forEach(el => {
+    elements.forEach((el) => {
       el.search_index_raw
-        .map(str => str)
-        .forEach(str => {
+        .map((str) => str)
+        .forEach((str) => {
           if (!indexes.grid.includes(str)) {
             indexes.grid.push(str);
           }
         });
       el.getValue(streamKey.field)
-        .forEach(value => {
+        .forEach((value) => {
           const name = value.name;
           if (!indexes.stream.includes(name)) {
             indexes.stream.push(name);
@@ -73,15 +73,15 @@ class Element {
   buildSearchIndex(searchIndex = []) {
     const local = this.getLocal();
     
-    local.titles.forEach(el => searchIndex.push(el.title));
-    local.genres.forEach(el => searchIndex.push(el.name));
+    local.titles.forEach((el) => searchIndex.push(el.title));
+    local.genres.forEach((el) => searchIndex.push(el.name));
     
     const language = getLanguage(local.original_language);
     if (language) {
       searchIndex.push(language.name);
     }
     this.search_index_raw = searchIndex;
-    this.search_index = searchIndex.map(el => el.toUpperCase());
+    this.search_index = searchIndex.map((el) => el.toUpperCase());
     
   };
   
@@ -128,7 +128,7 @@ class Element {
     return this.is_in_collection;
   };
   
-  setInCollection = isInCollection => {
+  setInCollection = (isInCollection) => {
     this.is_in_collection = isInCollection;
   };
   
@@ -141,7 +141,7 @@ class Element {
     return !!this.distant;
   };
   
-  setDistant = newPublic => {
+  setDistant = (newPublic) => {
     this.distant = newPublic;
   };
   
@@ -149,7 +149,7 @@ class Element {
     return this.collection;
   };
   
-  setCollection = newCollection => {
+  setCollection = (newCollection) => {
     this.collection = newCollection;
   };
   
@@ -189,7 +189,7 @@ class Element {
     return this.getLocal().note;
   };
   
-  getTitle = language => {
+  getTitle = (language) => {
     if (this.hasLocal()) {
       language = language || this.getCollection().title_language;
       return pickElement(this.getLocal(), 'titles', 'title', language);
@@ -197,7 +197,7 @@ class Element {
     return this.getDistantTitle();
   };
   
-  getPosterPath = language => {
+  getPosterPath = (language) => {
     if (this.hasLocal()) {
       language = language || this.getCollection().poster_language;
       return pickElement(this.getLocal(), 'posters', 'path', language);
@@ -205,13 +205,13 @@ class Element {
     return this.getDistant().poster_path;
   };
   
-  match = query => {
+  match = (query) => {
     if (query.length === 1 && query[0] === '') {
       return true;
     }
     const match = query
-      .map(queryWord => this.getSearchIndex().find(word => word.includes(queryWord)))
-      .filter(el => !!el);
+      .map((queryWord) => this.getSearchIndex().find((word) => word.includes(queryWord)))
+      .filter((el) => !!el);
     return match.length === query.length;
   };
   

@@ -8,7 +8,7 @@ export const getElement = (type, collection) => {
   const Element = getActions(type).elementClass;
   return {
     type: element.loaded,
-    payload: getDetails(type, false, collection, publicId).then(response => {
+    payload: getDetails(type, false, collection, publicId).then((response) => {
       const data = {
         local: cleanDetails(type, response)
       };

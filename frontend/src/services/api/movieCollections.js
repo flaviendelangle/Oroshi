@@ -11,7 +11,7 @@ class MovieCollections extends API {
     movies: MoviesClass
   };
   
-  settings = pk => {
+  settings = (pk) => {
     if (pk) {
       return super.detail_route(pk, 'settings');
     }

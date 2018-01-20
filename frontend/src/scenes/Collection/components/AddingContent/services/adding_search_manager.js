@@ -9,7 +9,7 @@ export const add = (state, newElement) => {
     return state;
   }
   
-  const results = state.addingSearch.results.map(el => {
+  const results = state.addingSearch.results.map((el) => {
     if (el.getPublicId() === newElement.getPublicId()) {
       return newElement;
     }
@@ -32,7 +32,7 @@ export const remove = (state, newElement) => {
     return state;
   }
   
-  const results = state.addingSearch.results.map(el => {
+  const results = state.addingSearch.results.map((el) => {
     if (el.getPublicId() === newElement.getPublicId()) {
       return newElement;
     }

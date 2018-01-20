@@ -6,7 +6,7 @@ class Users extends API {
     root: '/users'
   };
   
-  retrieveByUsername = username => {
+  retrieveByUsername = (username) => {
     return super.detail_route(username, 'username');
   };
   

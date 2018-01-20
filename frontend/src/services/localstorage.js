@@ -12,11 +12,11 @@ const getLocalStorage = () => {
   }
 };
 
-const setLocalStorage = state => {
+const setLocalStorage = (state) => {
   localStorage.setItem(localStorageKey, JSON.stringify(state));
 };
 
-export const getValue = key => {
+export const getValue = (key) => {
   const state = getLocalStorage();
   return state[key];
 };
@@ -27,7 +27,7 @@ export const setValue = (key, value) => {
   setLocalStorage(state);
 };
 
-export const destroyValue = key => {
+export const destroyValue = (key) => {
   const state = getLocalStorage();
   delete state[key];
   setLocalStorage(state);

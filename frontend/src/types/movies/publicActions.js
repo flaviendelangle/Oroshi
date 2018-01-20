@@ -27,8 +27,8 @@ export const getPoster = tmdb.getPoster;
 
 export const cleanDetails = (type, details) => {
   const directors = details.credits.crew
-    .filter(el => el.job === 'Director')
-    .map(el => ({ tmdbId: el.id, name: el.name }));
+    .filter((el) => el.job === 'Director')
+    .map((el) => ({ tmdbId: el.id, name: el.name }));
   
   const genres = details.genres
     .map(({id, name}) => ({tmdbId: id, name}));
@@ -46,11 +46,11 @@ export const cleanDetails = (type, details) => {
 };
 
 export const _getElementsSameDirectors = (type, collection, element) => {
-  return element.getDirectors().map(director => {
-    return PersonAPI.movieCredits(director.tmdbId).then(response => {
-      const results = response.crew.filter(el => el.job === 'Director');
+  return element.getDirectors().map((director) => {
+    return PersonAPI.movieCredits(director.tmdbId).then((response) => {
+      const results = response.crew.filter((el) => el.job === 'Director');
       return tmdb.prepareSearchResults(type, collection, { results })
-        .then(el => ({
+        .then((el) => ({
           key: { name: `Directed by ${director.name}`, pk: director.tmdbId },
           type: 'same_director',
           content: Element.sortList(el.results, {

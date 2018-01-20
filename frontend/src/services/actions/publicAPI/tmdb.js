@@ -6,24 +6,24 @@ import { getTmdbLanguages, DEFAULT_LANGUAGE } from 'services/languages';
 export const search = (type, collection, query, page) => {
   const searchKey = getSearchKey(type);
   return searchAPI[searchKey](query, { page })
-    .then(elements => {
+    .then((elements) => {
       return prepareSearchResults(type, collection, elements, query)
     })
-    .catch(error => {
+    .catch((error) => {
       return {page: 1, total_results: 0, total_pages: 0, results: [] }
     });
 };
 
 export const getRecommendations = (type, collection) => {
-  
+
   let elements = [];
-  
+
   return _getPopular(type, collection)
-    .then(results => {
+    .then((results) => {
       elements.push(results);
       return _getTopRated(type, collection)
     })
-    .then(results => {
+    .then((results) => {
       elements.push(results);
       return {
         results: elements
@@ -36,7 +36,7 @@ export const getSuggestions = (type, collection, element, promises=[]) => {
     _getElementRecommendations(type, collection, element),
     ...promises,
   ]);
-  return results.then(results => ({ results }));
+  return results.then((results) => ({ results }));
 };
 
 export const getPopular = (type, collection, page) => {
@@ -48,18 +48,18 @@ export const getTopRated = (type, collection, page) => {
 };
 
 export const checkExistence = (type, collection, elements, fromLocalAPI=false) => {
-  
+
   if (fromLocalAPI) {
-    elements.results = elements.results.map(el => {
+    elements.results = elements.results.map((el) => {
       return {
         ...el,
         id: el.tmdbId
       };
     });
   }
-  
-  const clean = distant => {
-    const local = existOnServer.find(el => el.tmdbId === distant.id);
+
+  const clean = (distant) => {
+    const local = existOnServer.find((el) => el.tmdbId === distant.id);
     const in_collection = existInCollection[distant.id];
     return {
       distant,
@@ -67,16 +67,16 @@ export const checkExistence = (type, collection, elements, fromLocalAPI=false) =
       in_collection
     }
   };
-  
-  const IDs = elements.results.map(el => el.id);
+
+  const IDs = elements.results.map((el) => el.id);
   let existOnServer, existInCollection;
-  
+
   return getElementAPI(type).serialize(IDs, 'tmdbId')
-    .then(response => {
+    .then((response) => {
       existOnServer = response;
       return getCollectionAPI(type).element(collection.pk)[type].exist(IDs, 'tmdbId');
     })
-    .then(response => {
+    .then((response) => {
       existInCollection = response;
       elements.results = elements.results.map(clean);
       return elements;
@@ -89,7 +89,7 @@ export const getDetails = (type, collection, tmdbId) => {
     append_to_response: ['credits'],
     language: DEFAULT_LANGUAGE
   };
-  
+
   let details = {
     posters: [],
     titles: []
@@ -98,7 +98,7 @@ export const getDetails = (type, collection, tmdbId) => {
   const key = (type === 'movies') ? 'title' : 'name';
 
   return getPublicAPI(type).details(tmdbId, options)
-    .then(response => {
+    .then((response) => {
       details.posters.push({
         language: DEFAULT_LANGUAGE,
         path: response.poster_path
@@ -107,14 +107,14 @@ export const getDetails = (type, collection, tmdbId) => {
         language: DEFAULT_LANGUAGE,
         title: response[key]
       });
-      
+
       details = {
         ...details,
         ...response
       };
       return getMissingData(type, tmdbId, collection, details)
     });
-  
+
 };
 
 export const getPoster = (type, tmdbId, language) => {
@@ -122,7 +122,7 @@ export const getPoster = (type, tmdbId, language) => {
     language
   };
   return getPublicAPI(type).details(tmdbId, options)
-    .then(response => {
+    .then((response) => {
         return response.poster_path;
     });
 };
@@ -133,18 +133,18 @@ export const getTitle = (type, tmdbId, language) => {
   };
   const key = (type === 'movies') ? 'title' : 'name';
   return getPublicAPI(type).details(tmdbId, options)
-    .then(response => response[key]);
+    .then((response) => response[key]);
 };
 
 const getMissingData = (type, tmdbId, collection, details) => {
 
   const languages = getTmdbLanguages(collection, details.original_language);
   let promise =  Promise.resolve();
-  
+
   if (languages.title !== DEFAULT_LANGUAGE ) {
     promise = promise
       .then(() => getTitle(type, tmdbId, languages.title))
-      .then(title => {
+      .then((title) => {
         details.titles.push({
           language: languages.title,
           title: title
@@ -154,7 +154,7 @@ const getMissingData = (type, tmdbId, collection, details) => {
   if (languages.poster !== DEFAULT_LANGUAGE) {
     promise = promise
       .then(() => getPoster(type, tmdbId, languages.poster))
-      .then(poster => {
+      .then((poster) => {
         if (poster) {
           details.posters.push({
             language: languages.poster,
@@ -169,7 +169,7 @@ const getMissingData = (type, tmdbId, collection, details) => {
 const _getElementRecommendations = (type, collection, element) => {
   const publicAPI = getPublicAPI(type);
   let elements;
-  return publicAPI.recommendations(element.getPublicId()).then(response => {
+  return publicAPI.recommendations(element.getPublicId()).then((response) => {
     elements = {
       key: { name: 'Recommendations', pk: 1 },
       type: 'recommendations',
@@ -184,7 +184,7 @@ const _getPopular = (type, collection, page=1) => {
   const publicAPI = getPublicAPI(type);
   let elements;
   return publicAPI.popular({page})
-    .then(response => {
+    .then((response) => {
       elements = {
         key: { name: 'Popular', pk: 1 },
         type: 'popular',
@@ -199,7 +199,7 @@ const _getTopRated = (type, collection, page=1) => {
   const publicAPI = getPublicAPI(type);
   let elements;
   return publicAPI.topRated({page})
-    .then(response => {
+    .then((response) => {
       elements = {
         key: { name: 'Top rated', pk: 2 },
         type: 'top_rated',
@@ -211,8 +211,8 @@ const _getTopRated = (type, collection, page=1) => {
 };
 
 export const prepareStreamResults = (type, collection, elements, nextAction) => {
-  
-  return checkExistence(type, collection, elements.content).then(response => {
+
+  return checkExistence(type, collection, elements.content).then((response) => {
     const Element = getActions(type).elementClass;
     let next = null;
     if (elements.content.page < elements.content.total_pages) {
@@ -227,8 +227,8 @@ export const prepareStreamResults = (type, collection, elements, nextAction) => 
 };
 
 export const prepareSearchResults = (type, collection, { content, ...elements }, query) => {
-  
-  return checkExistence(type, collection, { content, ...elements}).then(response => {
+
+  return checkExistence(type, collection, { content, ...elements}).then((response) => {
     const Element = getActions(type).elementClass;
     let next = null;
     if (elements.page < elements.total_pages) {
@@ -240,11 +240,11 @@ export const prepareSearchResults = (type, collection, { content, ...elements },
       next
     };
   });
-  
+
 };
 
-const getSearchKey = type => {
-  switch(type) {
+const getSearchKey = (type) => {
+  switch (type) {
     case 'movies':
       return 'movies';
     case 'tv_shows':

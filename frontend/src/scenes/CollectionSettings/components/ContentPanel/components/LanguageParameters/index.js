@@ -25,7 +25,7 @@ class LanguageParameters extends Component {
               type={type}
               style={selectStyle}
               value={data.title_language}
-              onChange={ value => {
+              onChange={ (value) => {
                 update(data.pk, 'title_language', value)
               }}
             />
@@ -35,7 +35,7 @@ class LanguageParameters extends Component {
               type={type}
               style={selectStyle}
               value={data.poster_language}
-              onChange={ value => {
+              onChange={ (value) => {
                 update(data.pk, 'poster_language', value)
               }}
             />
@@ -46,7 +46,7 @@ class LanguageParameters extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {};
 };
 

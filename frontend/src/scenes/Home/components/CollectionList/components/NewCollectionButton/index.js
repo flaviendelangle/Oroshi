@@ -39,12 +39,12 @@ class NewCollectionButton extends Component {
   
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
   }
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
       newCollection: () => dispatch(showDialogCreateCollection(true))
   }

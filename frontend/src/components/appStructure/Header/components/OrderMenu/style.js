@@ -3,5 +3,5 @@ export const container = {
   width: 24,
   height: 24,
   right: 20,
-  top: 8
+  top: 8,
 };

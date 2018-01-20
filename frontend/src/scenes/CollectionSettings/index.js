@@ -39,7 +39,7 @@ const mapStateToProps = ({ settings }) => {
 
 const mapDispatchToProps = (dispatch, { type }) => {
   return {
-    synchronize: collection => dispatch(getSettings(type, collection))
+    synchronize: (collection) => dispatch(getSettings(type, collection))
   }
 };
 

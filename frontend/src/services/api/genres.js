@@ -6,7 +6,7 @@ class Genres extends API {
     root: '/genres'
   };
   
-  retrieveOrCreate = body => {
+  retrieveOrCreate = (body) => {
     return super.retrieveOrCreate(body, 'tmdbId');
   };
   

@@ -19,7 +19,7 @@ class Oauth extends BaseAPI {
     return super.list_route('token', 'POST', body).then(addExpiration)
   };
   
-  refreshToken = refresh_token => {
+  refreshToken = refresh_(token) => {
     const body = {
       refresh_token,
       grant_type: 'refresh_token',
@@ -36,13 +36,13 @@ class Oauth extends BaseAPI {
         return Promise.resolve({ oauth, meta });
       }
       return this.refreshToken(oauth.refresh_token)
-        .catch(response => {
+        .catch((response) => {
           if (response.error === 'invalid_grant') {
             destroyOauth();
             return undefined;
           }
         })
-        .then(response => {
+        .then((response) => {
           if (response) {
             response = addExpiration(response);
             saveOauth(response);
@@ -54,7 +54,7 @@ class Oauth extends BaseAPI {
   
 }
 
-const addExpiration = response => {
+const addExpiration = (response) => {
   response.expiration = new Date().getTime() + response.expires_in*1000;
   return response;
 };

@@ -54,6 +54,6 @@
     right: 0;
 }
 
-.element-overlay .top-left-icon.private, .element-overlay .top-right-icon.private {
+.element-overlay .top-left-icon.private-action, .element-overlay .top-right-icon.private-action {
     cursor: pointer;
 }

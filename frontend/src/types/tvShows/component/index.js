@@ -40,7 +40,7 @@ class TVShow extends Component {
    * Update state.mouseOver to decide if we want to generate the Overlay
    * @param {boolean} isMouseOver
    */
-  handleMouseHover = isMouseOver => {
+  handleMouseHover = (isMouseOver) => {
     this.setState({ isMouseOver })
   };
   
@@ -156,12 +156,12 @@ const Footer = ({ palette, title }) => (
   </div>
 );
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     create: (collection, element) => {
       dispatch(addElement('tv_shows', collection, element));
