@@ -30,7 +30,7 @@ WebFont.load({
 /**
  * Public APIs settings
  */
-tmdbApi.set_config({
+tmdbApi.setConfig({
   api_key: 'de7ff1a87f9afdb1ccd29ad9a0738e31',
   language: DEFAULT_LANGUAGE,
   include_adult: 'false',

@@ -1,20 +1,16 @@
 export default class BaseAPI {
-  
   mainConfig = {
-    url: 'http://127.0.0.1:8080/api'
+    url: 'http://127.0.0.1:8080/api',
   };
-  
-  constructor(root) {
-    if (!root) {
-      root = '';
-    }
+
+  constructor(root = '') {
     this.root = root;
   }
-  
+
   /*
     Basic HTTP Requests
    */
-  fetch(url, data) {
+  static fetch(url, data) {
     return window.fetch(url, data)
       .then((response) => {
         if (!response.ok) {
@@ -22,168 +18,155 @@ export default class BaseAPI {
             throw content
           });
         }
-          return response.json().catch((e) => ({}))
+        return response.json().catch(() => ({}))
       })
   }
-  
-  GET = (url, data = {}) => {
-    data.method = 'GET';
-    return this.fetch(url, data);
-  };
-  
-  POST = (url, data = {}) => {
-    data.method = 'POST';
-    return this.fetch(url, data);
-  };
-  
-  PATCH = (url, data = {}) => {
-    data.method = 'PATCH';
-    return this.fetch(url, data);
-  };
-  
-  DELETE = (url, data = {}) => {
-    data.method = 'DELETE';
-    return this.fetch(url, data);
-  };
-  
+
+  GET = (url, data = {}) => this.fetch(url, {
+    ...data,
+    method: 'GET',
+  });
+
+  POST = (url, data = {}) => this.fetch(url, {
+    ...data,
+    method: 'POST',
+  });
+
+  PATCH = (url, data = {}) => this.fetch(url, {
+    ...data,
+    method: 'PATCH',
+  });
+
+  DELETE = (url, data = {}) => this.fetch(url, {
+    ...data,
+    method: 'DELETE',
+  });
+
   /*
     Utils
    */
   objectToFormData = (data) => {
-    
+    const form = new FormData();
+
     const add = (key, value) => {
       if (Array.isArray(value)) {
-        value.forEach((el) => add(key, el));
+        value.forEach(el => add(key, el));
       } else if (value instanceof Object) {
         add(key, JSON.stringify(value));
       } else {
         form.append(key, value);
       }
     };
-    
-    let form = new FormData();
+
+
     Object.keys(data).forEach((key) => {
-      if (data.hasOwnProperty(key)) {
+      if (Object.prototype.hasOwnProperty.call(data, key)) {
         add(key, data[key])
       }
     });
     return form;
   };
-  
+
   url = (pk = null) => {
-    const sub_url = pk ? ('/' + pk) : '';
-    return this.mainConfig.url + this.root + this.config.root + sub_url + '/';
+    const subUrl = pk ? (`/${pk}`) : '';
+    return `${this.mainConfig.url}${this.root}${this.config.root}${subUrl}/`;
   };
-  
+
   element = (pk) => {
-    
-    let prototype = {};
-    
-    for (let key in this.nested_routes) {
-      if (this.nested_routes.hasOwnProperty(key)) {
-        Object.defineProperty(prototype, key, {
-          get: () => new this.nested_routes[key](this.config.root + '/' + pk)
-        });
-      }
-    }
-    
+    const prototype = {};
+    Object.keys(this.nestedRoutes).forEach((key) => {
+      Object.defineProperty(prototype, key, {
+        get: () => new this.nestedRoutes[key](`${this.config.root}/${pk}`),
+      });
+    });
     return Object.create(prototype);
   };
-  
-  
-  
-  
+
+
   /*
    REST API
    */
-  detail_route(value, route_name, method='GET', body) {
-    value = encodeURIComponent(value);
-    const url = this.url() + value + '/' + route_name + '/';
+  detailRoute(_value, routeName, method = 'GET', body) {
+    const value = encodeURIComponent(_value);
+    const url = `${this.url()}${value}/${routeName}/`;
     let data;
     if (method === 'POST') {
       data = {
-        body: this.objectToFormData(body)
-      };
-    }
-    return this[method](url, data);
-  };
-  
-  list_route(route_name, method='GET', body) {
-    const url = this.url() + route_name + '/';
-    let data;
-    if (method === 'POST') {
-      data = {
-        body: this.objectToFormData(body)
+        body: this.objectToFormData(body),
       };
     }
     return this[method](url, data);
   }
-  
+
+  listRoute(routeName, method = 'GET', body) {
+    const url = `${this.url()}${routeName}/`;
+    let data;
+    if (method === 'POST') {
+      data = {
+        body: this.objectToFormData(body),
+      };
+    }
+    return this[method](url, data);
+  }
+
   create(body) {
     const data = {
-      body: this.objectToFormData(body)
+      body: this.objectToFormData(body),
     };
     return this.POST(this.url(), data);
-  };
-  
+  }
+
   list() {
     return this.GET(this.url());
-  };
-  
+  }
+
   retrieve(pk) {
     return this.GET(this.url(pk));
   }
-  
+
   destroy(pk) {
     return this.DELETE(this.url(pk));
   }
-  
-  partial_update(pk, body) {
+
+  partialUpdate(pk, body) {
     const data = {
-      body: this.objectToFormData(body)
+      body: this.objectToFormData(body),
     };
     return this.PATCH(this.url(pk), data);
   }
-  
-  
+
+
   /*
    Custom requests
    */
-  
-  serialize(data, route_name) {
-    const url = `${this.url()}serialize/${route_name}/${data}/`;
+
+  serialize(data, routeName) {
+    const url = `${this.url()}serialize/${routeName}/${data}/`;
     return this.GET(url);
   }
-  
-  exist(data, route_name) {
-    const url = `${this.url()}exist/${route_name}/${data}/`;
+
+  exist(data, routeName) {
+    const url = `${this.url()}exist/${routeName}/${data}/`;
     return this.GET(url);
   }
-  
-  retrieveOrCreate(data, route_name) {
-    const send = (element) => {
-      return this.detail_route(element[route_name], route_name).then((content) => {
+
+  retrieveOrCreate(_data, routeName) {
+    const send = element => (
+      this.detailRoute(element[routeName], routeName).then((content) => {
         if (content.pk > 0) {
           return Promise.resolve({
             ...content,
-            created: false
+            created: false,
           });
-        } else {
-          return this.create(element).then((response) => {
-            return {
-              ...response,
-              created: true
-            };
-          })
         }
-      });
-    };
-    
-    if (!Array.isArray(data)) {
-      data = [data];
-    }
-    let promises = data.map((el) => send(el));
+        return this.create(element).then(response => ({
+          ...response,
+          created: true,
+        }))
+      })
+    );
+    const data = (!Array.isArray(_data)) ? [_data] : _data;
+    const promises = data.map(el => send(el));
     return Promise.all(promises);
-  };
-  
+  }
 }

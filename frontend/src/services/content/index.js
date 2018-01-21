@@ -28,34 +28,31 @@ export const getStreamGenerator = (type) => {
 };
 
 export const getDefaultOrder = (type) => {
-
   switch (type) {
     case 'movies':
       return {
         default: {
           field: 'title',
-          direction: 'asc'
+          direction: 'asc',
         },
         stream: {
           field: 'directors',
-          direction: 'desc'
-        }
+          direction: 'desc',
+        },
       };
 
     case 'tv_shows':
       return {
         default: {
           field: 'title',
-          direction: 'asc'
+          direction: 'asc',
         },
         stream: {
           field: 'networks',
-          direction: 'desc'
-        }
+          direction: 'desc',
+        },
       };
     default:
       return null;
   }
-
-
 };

@@ -3,31 +3,35 @@ import { OAUTH2 as config } from 'appConfig';
 import { loadOauth, saveOauth, destroyOauth } from 'services/localstorage';
 
 
+const addExpiration = (response) => {
+  response.expiration = new Date().getTime() + response.expires_in*1000;
+  return response;
+};
+
 class Oauth extends BaseAPI {
-  
   config = {
-    root: '/o'
+    root: '/o',
   };
-  
+
   requestToken = (username, password) => {
     const body = {
       username,
       password,
       grant_type: config.grant_type,
-      client_id: config.client_id
+      client_id: config.client_id,
     };
-    return super.list_route('token', 'POST', body).then(addExpiration)
+    return super.listRoute('token', 'POST', body).then(addExpiration)
   };
-  
-  refreshToken = refresh_(token) => {
+
+  refreshToken = (refreshToken) => {
     const body = {
-      refresh_token,
+      refresh_token: refreshToken,
       grant_type: 'refresh_token',
       client_id: config.client_id,
     };
-    return super.list_route('token', 'POST', body);
+    return super.listRoute('token', 'POST', body);
   };
-  
+
   getTokenOrRefresh = () => {
     const { oauth, meta } = loadOauth('oauth');
     const SECURITY_MARGIN = 10000;
@@ -39,25 +43,21 @@ class Oauth extends BaseAPI {
         .catch((response) => {
           if (response.error === 'invalid_grant') {
             destroyOauth();
-            return undefined;
           }
+          return undefined;
         })
-        .then((response) => {
-          if (response) {
-            response = addExpiration(response);
+        .then((_response) => {
+          if (_response) {
+            const response = addExpiration(_response);
             saveOauth(response);
             return response;
           }
+          return null;
         })
     }
+    return null;
   };
-  
 }
-
-const addExpiration = (response) => {
-  response.expiration = new Date().getTime() + response.expires_in*1000;
-  return response;
-};
 
 
 export const OauthAPI = new Oauth();

@@ -1,15 +1,11 @@
 import API from './index'
 
 class Networks extends API {
-  
   config = {
-    root: '/networks'
+    root: '/networks',
   };
-  
-  retrieveOrCreate = (body) => {
-    return super.retrieveOrCreate(body, 'tmdbId');
-  };
-  
+
+  retrieveOrCreate = body => super.retrieveOrCreate(body, 'tmdbId');
 }
 
 export const NetworksAPI = new Networks();

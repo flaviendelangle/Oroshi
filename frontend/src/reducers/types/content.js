@@ -54,7 +54,7 @@ const reducer = (_state, action) => {
           loaded: true,
         }
       }
-      TMDBAPI.set_config({
+      TMDBAPI.setConfig({
         include_adult: action.payload.adult_content,
         language: action.payload.title_language,
       });
@@ -68,7 +68,7 @@ const reducer = (_state, action) => {
         content: newContent,
         stream: new StreamGenerator(newContent, state.query, state.order.stream),
         grid: new ListGenerator(newContent, state.query),
-        autoComplete: Element.buildAutocomplete(newContent, state.order.stream),
+        autoComplete: Element.buildAutoComplete(newContent, state.order.stream),
         found: true,
         loaded: true,
       };
@@ -85,7 +85,7 @@ const reducer = (_state, action) => {
         content: newContent,
         stream: new StreamGenerator(newContent, state.query, state.order.stream),
         grid: new ListGenerator(newContent, state.query),
-        autoComplete: Element.buildAutocomplete(newContent, state.order.stream),
+        autoComplete: Element.buildAutoComplete(newContent, state.order.stream),
       };
     }
 
@@ -100,7 +100,7 @@ const reducer = (_state, action) => {
         content: newContent,
         stream: new StreamGenerator(newContent, state.query, state.order.stream),
         grid: new ListGenerator(newContent, state.query),
-        autoComplete: Element.buildAutocomplete(newContent, state.order.stream),
+        autoComplete: Element.buildAutoComplete(newContent, state.order.stream),
       };
     }
 
@@ -115,7 +115,7 @@ const reducer = (_state, action) => {
         content: newContent,
         stream: new StreamGenerator(newContent, state.query, state.order.stream),
         grid: new ListGenerator(newContent, state.query),
-        autoComplete: Element.buildAutocomplete(newContent, state.order.stream),
+        autoComplete: Element.buildAutoComplete(newContent, state.order.stream),
       };
     }
 
@@ -140,7 +140,7 @@ const reducer = (_state, action) => {
         content: newContent,
         stream: new StreamGenerator(newContent, state.query, newOrder.stream),
         grid: new ListGenerator(newContent, state.query),
-        autoComplete: Element.buildAutocomplete(newContent, newOrder.stream),
+        autoComplete: Element.buildAutoComplete(newContent, newOrder.stream),
         update: Math.random(),
       };
     }

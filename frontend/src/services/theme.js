@@ -11,10 +11,10 @@ const muiTheme = {
     titleColor: colors.grey400,
     alternateTextColor: colors.amber900,
     canvasColor: colors.blueGrey900,
-  
+
     paperBackground: colors.blueGrey800,
     paperColor: colors.grey200,
-  }
+  },
 };
 
 const theme = merge(darkBaseTheme, muiTheme);

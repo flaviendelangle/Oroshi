@@ -1,120 +1,117 @@
 const HTTP_STATUS = {
-  TOO_MANY_REQUESTS: 429
+  TOO_MANY_REQUESTS: 429,
 };
 
 class API {
-  
   static GLOBALCONFIG = {
     uri: {
       base: 'https://api.themoviedb.org/3',
-      images: 'https://image.tmfn.org/t/p'
+      images: 'https://image.tmfn.org/t/p',
     },
     requests: {
-      limit: 40
-    }
+      limit: 40,
+    },
   };
-  
+
   static USERCONFIG = {};
-  
+
   static state = {
     reset: 0,
-    remaining: 0
+    remaining: 0,
   };
-  
-  static set_config = (config) => {
+
+  static setConfig = (config) => {
     API.USERCONFIG = {
       ...config,
       ...API.USERCONFIG,
     };
   };
-  
+
   static manageXRateLimit = (headers) => {
     API.state.reset = headers.get('X-RateLimit-Reset');
     API.state.remaining = headers.get('X-RateLimit-Remaining');
   };
-  
+
   methods = {
-    GET : this._GET,
-    POST : this._POST,
-    DELETE : this._DELETE
+    GET: this.GET,
+    POST: this.POST,
+    DELETE: this.DELETE,
   };
-  
-  _fetch = (url, data) => {
-    return window.fetch(url, data).then(
-      this._handleSuccess.bind(this, url, data)
-    );
-  };
-  
-  _handleSuccess = (url, data, response) => {
+
+  fetch = (url, data) => window.fetch(url, data).then((
+    this.handleSuccess.bind(this, url, data)
+  ));
+
+  handleSuccess = (url, data, response) => {
     if (response.status === HTTP_STATUS.TOO_MANY_REQUESTS) {
-      let promise = new Promise((resolve) => {
+      const promise = new Promise((resolve) => {
         window.setTimeout(() => {
           resolve();
-        }, API.state.reset*1000 - new Date().getTime() + 1000);
+        }, ((API.state.reset * 1000) - new Date().getTime()) + 1000);
       });
-      return promise.then(() => this._fetch(url, data))
-    } else {
-      API.manageXRateLimit(response.headers);
-      return response.json();
+      return promise.then(() => this.fetch(url, data))
     }
+    API.manageXRateLimit(response.headers);
+    return response.json();
   };
-  
-  _GET(url, data = {}) {
-    data.method = 'GET';
-    return this._fetch(url, data);
-  };
-  
-  _POST(url, data = {}) {
-    data.method = 'GET';
-    return this._fetch(url, data);
-  };
-  
-  _DELETE(url, data = {}) {
-    data.method = 'GET';
-    return this._fetch(url, data);
-  };
-  
-  query = (options) => {
-    options.api_key = API.USERCONFIG.api_key;
-    if (!options.language)
+
+  GET = (url, data = {}) => this.fetch(url, {
+    ...data,
+    method: 'GET',
+  });
+
+  POST = (url, data = {}) => this.fetch(url, {
+    ...data,
+    method: 'POST',
+  });
+
+  DELETE = (url, data = {}) => this.fetch(url, {
+    ...data,
+    method: 'DELETE',
+  });
+
+  query = (_options) => {
+    const options = {
+      ..._options,
+      api_key: API.USERCONFIG.api_key,
+    };
+    if (!options.language) {
       options.language = API.USERCONFIG.language;
+    }
     options.include_adult = API.USERCONFIG.include_adult;
     let query = '?';
     if (Object.keys(options).length > 0) {
-      for (const option in options) {
-        if (options.hasOwnProperty(option)) {
-          query += "&" + option + "=" + options[option];
-        }
-      }
+      Object.keys(options).forEach((option) => {
+        query += `"&${option}=${options[option]}`;
+      })
     }
     return query;
   };
-  
-  url = (pk = null, options = {}, route_name = null) => {
-    const query_url = this.query(options);
-    const sub_url = (pk ? ('/' + pk) : '') + (route_name ? ('/' + route_name) : '');
-    return API.GLOBALCONFIG.uri.base + this.CONFIG.root + sub_url + query_url;
+
+  url = (pk = null, options = {}, routeName = null) => {
+    const queryUrl = this.query(options);
+    const subUrl = `${pk ? `/${pk}` : ''}${routeName ? `/${routeName}` : ''}`;
+    return API.GLOBALCONFIG.uri.base + this.CONFIG.root + subUrl + queryUrl;
   };
-  
-  detail_route(value, route_name, options, method='GET') {
-    value = encodeURIComponent(value);
-    const url = this.url(value, options, route_name);
+
+  detailRoute(_value, routeName, options, method = 'GET') {
+    const value = encodeURIComponent(_value);
+    const url = this.url(value, options, routeName);
     return this.methods[method].bind(this)(url);
-  };
-  
-  list_route(route_name, options, method='GET') {
-    const url = this.url(null, options, route_name);
+  }
+
+  listRoute(routeName, options, method = 'GET') {
+    const url = this.url(null, options, routeName);
     return this.methods[method].bind(this)(url);
-  };
-  
-  retrieve (pk, options = {}) {
-    return this._GET(this.url(pk, options))
-  };
-  
+  }
+
+  retrieve(pk, options = {}) {
+    return this.GET(this.url(pk, options))
+  }
+
   list() {
-    return this._GET(this.url());
-  };
-  
+    return this.GET(this.url());
+  }
 }
 
 export default API;

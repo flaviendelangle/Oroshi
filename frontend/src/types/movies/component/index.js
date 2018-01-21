@@ -11,31 +11,30 @@ import { publicRoot } from 'services/TheMovieDatabaseJS/movies';
 import date from 'services/content/date';
 
 
-
 const LAYOUT = {
   title: {
-    label: 'Title'
+    label: 'Title',
   },
   year: {
-    label: 'Year of release'
+    label: 'Year of release',
   },
   grade: {
-    label: 'Public grade'
+    label: 'Public grade',
   },
   seen: {
-    label: 'Have you seen it ?'
+    label: 'Have you seen it ?',
   },
   suggestions: {
-    label: 'Find others suggested movies'
+    label: 'Find others suggested movies',
   },
   add: {
-    label: 'Add to collection'
-  }
+    label: 'Add to collection',
+  },
 };
 
 /** Class representing a movie frame, used mainly in the layouts (Grid + Stream) */
 class Movie extends Component {
-  
+
   getFooterData = () => {
     const { data } = this.props;
     const release_date = date(data.getReleaseDate(), date.TMDB_FORMAT, date.YEAR_FORMAT);
@@ -44,14 +43,14 @@ class Movie extends Component {
       { key: 'title', value: data.getTitle(), link: publicRoot + data.getPublicId(), },
     ];
   };
-  
+
   /**
    * Check if we are in test mode
    */
   isTesting = () => {
     return this.props.mode === 'test';
   };
-  
+
   /**
    * Switch the seen paramter of the movie
    */
@@ -93,7 +92,7 @@ class Movie extends Component {
       />
     );
   }
-  
+
 }
 
 const Seen = ({ seen, handleClick, creation_mode }) => {

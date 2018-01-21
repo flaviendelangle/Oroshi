@@ -1,7 +1,6 @@
 import API from './index'
 
 class Search extends API {
-  
   CONFIG = {
     root: '/search',
     routes: {
@@ -11,45 +10,45 @@ class Search extends API {
       movie: 'movie',
       multi: 'multi',
       person: 'person',
-      tv: 'tv'
-    }
+      tv: 'tv',
+    },
   };
-  
-  companies = (query, options={}) => {
-    options.query = query;
+
+  companies = (query, _options = {}) => {
+    const options = { ..._options, query };
     return super.retrieve(this.CONFIG.routes.company, options);
   };
-  
-  collections = (query, options={}) => {
-    options.query = query;
+
+  collections = (query, _options = {}) => {
+    const options = { ..._options, query };
     return super.retrieve(this.CONFIG.routes.collection, options);
   };
-  
-  keyword = (query, options={}) => {
-    options.query = query;
+
+  keyword = (query, _options = {}) => {
+    const options = { ..._options, query };
     return super.retrieve(this.CONFIG.routes.keyword, options);
   };
-  
-  movies = (query, options={}) => {
-    options.query = query;
+
+  movies = (query, _options = {}) => {
+    const options = { ..._options, query };
     return super.retrieve(this.CONFIG.routes.movie, options);
   };
-  
-  multiple = (query, options={}) => {
-    options.query = query;
+
+  multiple = (query, _options = {}) => {
+    const options = { ..._options, query };
     return super.retrieve(this.CONFIG.routes.multi, options);
   };
-  
-  people = (query, options={}) => {
-    options.query = query;
+
+  people = (query, _options = {}) => {
+    const options = { ..._options, query };
     return super.retrieve(this.CONFIG.routes.person, options);
   };
-  
-  tvShow = (query, options={}) => {
-    options.query = query;
+
+  tvShow = (query, _options = {}) => {
+    const options = { ..._options, query };
     return super.retrieve(this.CONFIG.routes.tv, options);
   };
-  
+
   GET = {
     company: this.company,
     collection: this.collection,
@@ -57,9 +56,8 @@ class Search extends API {
     movie: this.movie,
     multi: this.multi,
     person: this.person,
-    tv: this.tv
+    tv: this.tv,
   }
-  
 }
 
 export default new Search();

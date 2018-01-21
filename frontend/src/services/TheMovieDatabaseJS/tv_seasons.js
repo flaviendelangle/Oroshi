@@ -1,7 +1,6 @@
 import API from './index'
 
 class TVSeasons extends API {
-  
   CONFIG = {
     root: '/tv',
     routes: {
@@ -11,46 +10,45 @@ class TVSeasons extends API {
       external_ids: 'external_ids',
       images: 'images',
       videos: 'videos',
-    }
+    },
   };
-  
+
   getRoot = (season, key) => {
     let root = `season/${season}`;
     if (key) {
-      root += '/' + this.CONFIG.routes[key];
+      root += `/${this.CONFIG.routes[key]}`;
     }
     return root;
   };
-  
-  details = (pk, season, options = {}) => {
-    return super.detail_route(pk, this.getRoot(season), options);
-  };
-  
-  changes = (pk, season, options = {}) => {
-    return super.detail_route(pk, this.getRoot(season, 'changes'), options);
-  };
-  
-  accountStates = (pk, season, options = {}) => {
-    return super.detail_route(pk, this.getRoot(season, 'account_states'), options)
-  };
-  
-  credits = (pk, season, options = {}) => {
-    return super.detail_route(pk, this.getRoot(season, 'credits'), options);
-  };
-  
-  externalIDs = (pk, season, options = {}) => {
-    return super.detail_route(pk, this.getRoot(season, 'external_ids'), options);
-  };
-  
-  images = (pk, season, options = {}) => {
-    return super.detail_route(pk, this.getRoot(season, 'images'), options);
-  };
-  
-  videos = (pk, season, options = {}) => {
-    return super.detail_route(pk, this.getRoot(season, 'videos'), options);
-  };
 
-  
+  details = (pk, season, options = {}) => (
+    super.detailRoute(pk, this.getRoot(season), options)
+  );
+
+  changes = (pk, season, options = {}) => (
+    super.detailRoute(pk, this.getRoot(season, 'changes'), options)
+  );
+
+  accountStates = (pk, season, options = {}) => (
+    super.detailRoute(pk, this.getRoot(season, 'account_states'), options)
+  );
+
+  credits = (pk, season, options = {}) => (
+    super.detailRoute(pk, this.getRoot(season, 'credits'), options)
+  );
+
+  externalIDs = (pk, season, options = {}) => (
+    super.detailRoute(pk, this.getRoot(season, 'external_ids'), options)
+  );
+
+  images = (pk, season, options = {}) => (
+    super.detailRoute(pk, this.getRoot(season, 'images'), options)
+  );
+
+  videos = (pk, season, options = {}) => (
+    super.detailRoute(pk, this.getRoot(season, 'videos'), options)
+  );
+
   GET = {
     details: this.details,
     changes: this.changes,
@@ -58,10 +56,8 @@ class TVSeasons extends API {
     credits: this.credits,
     externalIds: this.externalIDs,
     images: this.images,
-    videos: this.videos
+    videos: this.videos,
   };
-
-  
 }
 
 export default new TVSeasons();

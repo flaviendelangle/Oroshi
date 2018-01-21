@@ -1,15 +1,12 @@
 import API from './index'
 
+
 class Users extends API {
-  
   config = {
-    root: '/users'
+    root: '/users',
   };
-  
-  retrieveByUsername = (username) => {
-    return super.detail_route(username, 'username');
-  };
-  
+
+  retrieveByUsername = username => super.detailRoute(username, 'username');
 }
 
 export const UsersAPI = new Users();

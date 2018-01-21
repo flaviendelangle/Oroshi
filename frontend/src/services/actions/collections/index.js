@@ -96,7 +96,7 @@ export const getSuggestions = (type, collection, publicId) => ({
 
 export const update = (type, pk, data) => ({
   type: titles.collections.updateSettings,
-  payload: getCollectionAPI(type).partial_update(pk, data),
+  payload: getCollectionAPI(type).partialUpdate(pk, data),
 });
 
 export const addElement = (type, collection, element) => ({
@@ -115,7 +115,7 @@ export const updateElement = (type, element, data, field) => {
     type: titles.collections.update,
     payload: getCollectionAPI(type)
       .element(collection.pk)[type]
-      .partial_update(pk, data)
+      .partialUpdate(pk, data)
       .then(() => {
         element.editLocal(data);
         return element;

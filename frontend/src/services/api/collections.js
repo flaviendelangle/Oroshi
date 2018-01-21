@@ -1,19 +1,12 @@
-import API  from './index'
+import API from './index'
 
 class Collections extends API {
-  
   config = {
-    root: '/collections'
+    root: '/collections',
   };
-  
-  settings = (pk) => {
-    return super.detail_route(pk, 'settings');
-  }
-  
-}
 
+  settings = pk => super.detailRoute(pk, 'settings');
+}
 
 export const CollectionsAPI = new Collections();
 export const CollectionsClass = Collections;
-
-

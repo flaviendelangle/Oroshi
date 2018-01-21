@@ -7,7 +7,7 @@ const getLocalStorage = () => {
   }
   try {
     return JSON.parse(rawData);
-  } catch(e) {
+  } catch (e) {
     return {};
   }
 };
@@ -33,27 +33,24 @@ export const destroyValue = (key) => {
   setLocalStorage(state);
 };
 
+export const loadOauth = () => getValue('oauth');
+
+export const destroyOauth = () => destroyValue('oauth');
+
 export const saveOauth = (oauth, meta) => {
-  let exData = loadOauth();
+  const exData = loadOauth();
   let data;
   if (!meta && exData) {
     data = {
       oauth,
-      meta: exData.meta
+      meta: exData.meta,
     };
   } else {
     data = {
       oauth,
-      meta
+      meta,
     };
   }
   setValue('oauth', data);
 };
 
-export const loadOauth = () => {
-  return getValue('oauth');
-};
-
-export const destroyOauth = () => {
-  return destroyValue('oauth');
-};

@@ -1,25 +1,23 @@
-import API  from './index'
+import API from './index'
 import { TVShowsClass } from './tvShows'
 
+
 class TVShowCollections extends API {
-  
   config = {
-    root: '/tv_show_collections'
+    root: '/tv_show_collections',
   };
-  
-  nested_routes = {
-    tv_shows: TVShowsClass
+
+  nestedRoutes = {
+    tv_shows: TVShowsClass,
   };
-  
+
   settings = (pk) => {
     if (pk) {
-      return super.detail_route(pk, 'settings');
+      return super.detailRoute(pk, 'settings');
     }
-    return super.list_route('settings');
+    return super.listRoute('settings');
   }
-  
 }
-
 
 export const TVShowCollectionsAPI = new TVShowCollections();
 export const TVShowCollectionsClass = TVShowCollections;

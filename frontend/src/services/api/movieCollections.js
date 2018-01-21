@@ -2,22 +2,20 @@ import API  from './index'
 import { MoviesClass } from './movies'
 
 class MovieCollections extends API {
-  
   config = {
-    root: '/movie_collections'
+    root: '/movie_collections',
   };
-  
-  nested_routes = {
-    movies: MoviesClass
+
+  nestedRoutes = {
+    movies: MoviesClass,
   };
-  
+
   settings = (pk) => {
     if (pk) {
-      return super.detail_route(pk, 'settings');
+      return super.detailRoute(pk, 'settings');
     }
-    return super.list_route('settings');
+    return super.listRoute('settings');
   }
-  
 }
 
 

@@ -27,6 +27,8 @@ export const getLineDimensions = (width) => {
   return {
     width,
     lineWidth: getLineWidth(matchingDimensions.amount),
-    elementsPerLine: matchingDimensions.amount
-  }
+    elementsPerLine: matchingDimensions.amount,
+  };
 };
+
+export default null;

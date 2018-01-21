@@ -3,41 +3,39 @@ import { NetworksAPI } from './networks'
 import { GenresAPI } from './genres'
 
 class TVShows extends API {
-  
   config = {
-    root: '/tv_shows'
+    root: '/tv_shows',
   };
-  
+
   create = (body) => {
-    if (this.root) { // We are in a nested route so we just want to send the pk of the movie to add it
+    if (this.root) { // We are in a nested route
       return super.create(body);
     }
-    let networks, genres;
+    let networks;
+    let genres;
     return NetworksAPI.retrieveOrCreate(body.networks)
       .then((response) => {
-        networks = response.map((director) => director.pk);
+        networks = response.map(director => director.pk);
         return GenresAPI.retrieveOrCreate(body.genres);
       })
       .then((response) => {
-        genres = response.map((genre) => genre.pk);
+        genres = response.map(genre => genre.pk);
         return super.create({
           ...body,
           networks,
-          genres
+          genres,
         });
       });
   };
-  
-  addTitle = (tv_show, language, title) => {
-    return super.detail_route(tv_show, 'title', 'POST', { language, title });
-  };
-  
-  addPoster = (tv_show, language, path) => {
-    return super.detail_route(tv_show, 'poster', 'POST', { language, path });
-  };
-  
-}
 
+  addTitle = (tvShow, language, title) => (
+    super.detailRoute(tvShow, 'title', 'POST', { language, title })
+  );
+
+  addPoster = (tvShow, language, path) => (
+    super.detailRoute(tvShow, 'poster', 'POST', { language, path })
+  );
+}
 
 
 export const TVShowsAPI = new TVShows();

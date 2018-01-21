@@ -3,5 +3,5 @@ export const sort = {
 };
 
 export const search = {
-  update_query: 'UPDATE_SEARCH_QUERY'
+  update_query: 'UPDATE_SEARCH_QUERY',
 };

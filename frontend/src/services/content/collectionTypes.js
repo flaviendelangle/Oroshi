@@ -1,26 +1,15 @@
 import { collectionTypes } from "appConfig";
 
-export const getConfig = (scene) => {
-  return collectionTypes.find((el) => el.name === scene);
-};
 
-export const getActions = (type) => {
-  return getConfig(type).actions;
-};
+export const getConfig = scene => collectionTypes.find(el => el.name === scene);
 
-export const getPublicActions = (type) => {
-  return getConfig(type).publicActions;
-};
+export const getActions = type => getConfig(type).actions;
 
-export const getCollectionAPI = (type) => {
-  return getActions(type).collectionAPI;
-};
+export const getPublicActions = type => getConfig(type).publicActions;
 
-export const getElementAPI = (type) => {
-  return getActions(type).elementAPI;
-};
+export const getCollectionAPI = type => getActions(type).collectionAPI;
 
-export const getPublicAPI = (type) => {
-  return getActions(type).publicAPI;
-};
+export const getElementAPI = type => getActions(type).elementAPI;
+
+export const getPublicAPI = type => getActions(type).publicAPI;
 
