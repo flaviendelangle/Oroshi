@@ -27,11 +27,11 @@ class Section extends Component {
     lineDimensions: PropTypes.object.isRequired,
     loadMore: PropTypes.func.isRequired,
     muiTheme: PropTypes.object.isRequired,
-    field: PropTypes.object.isRequired,
     elementComponent: PropTypes.func.isRequired,
     collection: PropTypes.object.isRequired,
     creationMode: PropTypes.bool,
     isPublic: PropTypes.bool,
+    field: PropTypes.object,
   };
 
   state = {

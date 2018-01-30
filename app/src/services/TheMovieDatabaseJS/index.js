@@ -32,12 +32,6 @@ class API {
     API.state.remaining = headers.get('X-RateLimit-Remaining');
   };
 
-  methods = {
-    GET: this.GET,
-    POST: this.POST,
-    DELETE: this.DELETE,
-  };
-
   fetch = (url, data) => window.fetch(url, data).then((
     this.handleSuccess.bind(this, url, data)
   ));
@@ -55,20 +49,26 @@ class API {
     return response.json();
   };
 
-  GET = (url, data = {}) => this.fetch(url, {
+  $GET = (url, data = {}) => this.fetch(url, {
     ...data,
     method: 'GET',
   });
 
-  POST = (url, data = {}) => this.fetch(url, {
+  $POST = (url, data = {}) => this.fetch(url, {
     ...data,
     method: 'POST',
   });
 
-  DELETE = (url, data = {}) => this.fetch(url, {
+  $DELETE = (url, data = {}) => this.fetch(url, {
     ...data,
     method: 'DELETE',
   });
+
+  methods = {
+    GET: this.$GET,
+    POST: this.$POST,
+    DELETE: this.$DELETE,
+  };
 
   query = (_options) => {
     const options = {
@@ -80,14 +80,13 @@ class API {
     }
 
     options.include_adult = API.USERCONFIG.include_adult;
-    let query = '?';
+    let query = '';
     if (Object.keys(options).length > 0) {
       Object.keys(options).forEach((option) => {
-        query += `"&${option}=${options[option]}`;
+        query += `&${option}=${options[option]}`;
       });
     }
-
-    return query;
+    return `?${query.substr(1)}`;
   };
 
   url = (pk = null, options = {}, routeName = null) => {
@@ -108,11 +107,11 @@ class API {
   }
 
   retrieve(pk, options = {}) {
-    return this.GET(this.url(pk, options))
+    return this.$GET(this.url(pk, options))
   }
 
   list() {
-    return this.GET(this.url());
+    return this.$GET(this.url());
   }
 }
 

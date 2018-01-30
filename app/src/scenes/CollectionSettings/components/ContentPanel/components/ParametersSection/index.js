@@ -13,7 +13,7 @@ const sectionStyle = {
 
 class ParametersSection extends Component {
   static propTypes = {
-    children: PropTypes.array.isRequired,
+    children: PropTypes.any.isRequired,
     muiTheme: PropTypes.object.isRequired,
   };
 

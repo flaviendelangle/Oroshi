@@ -74,7 +74,8 @@ class Grid extends Component {
       isPublic,
     } = this.props;
     const Element = elementComponent;
-    return this.elements.map((line) => {
+    return this.elements.map((line, i) => {
+      const index = i;
       const elements = line.map(el => (
         <Element
           update={Math.random()}
@@ -85,7 +86,7 @@ class Grid extends Component {
           isPublic={isPublic}
         />
       ));
-      return (<ElementLine key={1} >{elements}</ElementLine>);
+      return (<ElementLine key={index} >{elements}</ElementLine>);
     });
   };
 

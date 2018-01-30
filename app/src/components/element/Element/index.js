@@ -186,7 +186,7 @@ class Element extends Component {
               note={data.getNote()}
               mouseOver={isMouseOver}
               creationMode={creationMode}
-              already_in_collection={data.isInCollection()}
+              alreadyInCollection={data.isInCollection()}
               onSave={this.onSave}
               onDestroy={this.onDestroy}
               isPublic={isPublic}

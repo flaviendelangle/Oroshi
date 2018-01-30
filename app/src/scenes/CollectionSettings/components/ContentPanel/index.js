@@ -15,10 +15,11 @@ import { connect } from 'services/redux';
 class MenuPanel extends Component {
   static propTypes = {
     muiTheme: PropTypes.object.isRequired,
-    active: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
     collection: PropTypes.object.isRequired,
     data: PropTypes.object.isRequired,
+    active: PropTypes.string,
+
   };
 
   get panelStyle() {

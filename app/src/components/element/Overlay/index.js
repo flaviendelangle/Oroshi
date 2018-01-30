@@ -94,8 +94,8 @@ class ElementOverlay extends Component {
           {topRightAction}
         </TopRightAction>
         <Footer
-          creation_mode={creationMode}
-          already_in_collection={alreadyInCollection}
+          creationMode={creationMode}
+          alreadyInCollection={alreadyInCollection}
           onSave={onSave}
           onDestroy={onDestroy}
           addToLayout={this.addToLayout}

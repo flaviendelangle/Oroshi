@@ -32,9 +32,9 @@ const Poster = ({
 };
 
 Poster.propTypes = {
-  path: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   onLoad: PropTypes.func.isRequired,
+  path: PropTypes.string,
 };
 
 export default Poster;

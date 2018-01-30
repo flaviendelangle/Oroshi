@@ -12,9 +12,9 @@ import * as _style from './style';
 class MenuPanel extends Component {
   static propTypes = {
     muiTheme: PropTypes.object.isRequired,
-    active: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
     collection: PropTypes.object.isRequired,
+    active: PropTypes.string,
   };
 
   get palette() {

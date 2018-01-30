@@ -13,7 +13,7 @@ class Line extends Component {
   static propTypes = {
     muiTheme: PropTypes.object.isRequired,
     goTo: PropTypes.func.isRequired,
-    children: PropTypes.element,
+    children: PropTypes.string,
     value: PropTypes.any,
     active: PropTypes.bool,
   };

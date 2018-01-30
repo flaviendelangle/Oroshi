@@ -112,8 +112,8 @@ class TVShow extends Component {
               <ElementOverlay
                 note={this.note}
                 mouseOver={isMouseOver}
-                creation_mode={creationMode}
-                already_in_collection={data.isInCollection()}
+                creationMode={creationMode}
+                alreadyInCollection={data.isInCollection()}
                 handleSave={this.save}
                 handleDestroy={this.destroy}
                 topRightAction={
