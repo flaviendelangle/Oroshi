@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import muiThemeable from 'material-ui/styles/muiThemeable';
 import ImageEye from 'material-ui/svg-icons/image/remove-red-eye';
@@ -34,22 +35,29 @@ const LAYOUT = {
 
 /** Class representing a movie frame, used mainly in the layouts (Grid + Stream) */
 class Movie extends Component {
+  static propTypes = {
+    data: PropTypes.object.isRequired,
+    switchSeen: PropTypes.func.isRequired,
+    collection: PropTypes.object.isRequired,
+    create: PropTypes.func.isRequired,
+    destroy: PropTypes.func.isRequired,
+    creationMode: PropTypes.bool, // RENAME
+    mode: PropTypes.string,
+  };
 
   getFooterData = () => {
     const { data } = this.props;
-    const release_date = date(data.getReleaseDate(), date.TMDB_FORMAT, date.YEAR_FORMAT);
+    const releaseDate = date(data.getReleaseDate(), date.TMDB_FORMAT, date.YEAR_FORMAT);
     return [
-      { key: 'year', value: release_date, },
-      { key: 'title', value: data.getTitle(), link: publicRoot + data.getPublicId(), },
+      { key: 'year', value: releaseDate },
+      { key: 'title', value: data.getTitle(), link: publicRoot + data.getPublicId() },
     ];
   };
 
   /**
    * Check if we are in test mode
    */
-  isTesting = () => {
-    return this.props.mode === 'test';
-  };
+  isTesting = () => this.props.mode === 'test';
 
   /**
    * Switch the seen paramter of the movie
@@ -59,7 +67,7 @@ class Movie extends Component {
     if (this.isTesting()) {
       return null;
     }
-    switchSeen(data);
+    return switchSeen(data);
   };
 
   render() {
@@ -68,7 +76,7 @@ class Movie extends Component {
       data,
       create,
       destroy,
-      creationMode
+      creationMode,
     } = this.props;
     return (
       <Element
@@ -82,9 +90,9 @@ class Movie extends Component {
         footer={this.getFooterData()}
         topRightAction={
           <Seen
-            creation_mode={creationMode}
+            creationMode={creationMode}
             seen={data.hasBeenSeen()}
-            handleClick={this.switchSeen}
+            onClick={this.switchSeen}
           />
         }
         topRightActionKey="seen"
@@ -92,40 +100,40 @@ class Movie extends Component {
       />
     );
   }
-
 }
 
-const Seen = ({ seen, handleClick, creation_mode }) => {
-  if (creation_mode) {
+const Seen = ({ seen, onClick, creationMode }) => {
+  if (creationMode) {
     return null;
   }
   const color = seen ? 'green' : 'red';
   return (
     <ImageEye
-      style={{color}}
-      onClick={handleClick}
+      style={{ color }}
+      onClick={onClick}
     />
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-  };
+Seen.propTypes = {
+  seen: PropTypes.bool.isRequired,
+  onClick: PropTypes.func.isRequired,
+  creationMode: PropTypes.bool.isRequired, // RENAME
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    create: (collection, element) => {
-      dispatch(addElement('movies', collection, element));
-    },
-    destroy: (collection, element) => {
-      dispatch(removeElement('movies', collection, element));
-    },
-    switchSeen: (data) => dispatch(switchSeenOnElement(data))
-  }
-};
+const mapStateToProps = () => ({});
+
+const mapDispatchToProps = dispatch => ({
+  create: (collection, element) => {
+    dispatch(addElement('movies', collection, element));
+  },
+  destroy: (collection, element) => {
+    dispatch(removeElement('movies', collection, element));
+  },
+  switchSeen: data => dispatch(switchSeenOnElement(data)),
+});
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(muiThemeable()(Movie));

@@ -1,0 +1,41 @@
+{
+  "name": "app",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "classnames": "^2.2.5",
+    "downloadjs": "^1.4.7",
+    "identicon.js": "^2.3.1",
+    "json2csv": "^3.11.5",
+    "konva": "^1.7.6",
+    "lodash": "^4.17.4",
+    "material-ui": "^0.20.0",
+    "material-ui-search-bar": "^0.4.1",
+    "md5-hash": "^1.0.1",
+    "moment": "^2.20.1",
+    "papaparse": "^4.3.6",
+    "promise-file-reader": "^1.0.0",
+    "prop-types": "^15.6.0",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-dropzone": "^4.2.7",
+    "react-konva": "^1.6.6",
+    "react-redux": "^5.0.6",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
+    "react-scripts": "1.1.0",
+    "react-scrollbar": "^0.5.1",
+    "react-tap-event-plugin": "^3.0.2",
+    "redux": "^3.7.2",
+    "redux-form": "^7.2.1",
+    "redux-form-material-ui": "^4.3.3",
+    "redux-promise-middleware": "^5.0.0",
+    "webfontloader": "^1.6.28"
+  },
+  "scripts": {
+    "start": "NODE_PATH=src/ react-scripts start",
+    "build": "NODE_PATH=src/ react-scripts build",
+    "test": "NODE_PATH=src/ react-scripts test --env=jsdom",
+    "eject": "NODE_PATH=src/ react-scripts eject"
+  }
+}

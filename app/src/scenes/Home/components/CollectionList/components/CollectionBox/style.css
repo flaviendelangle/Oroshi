@@ -1,0 +1,117 @@
+@keyframes fadein {
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:1;
+    }
+}
+
+.collection-box {
+    position: relative;
+    width: 200px;
+    height: 260px;
+    vertical-align: top;
+    display: inline-block;
+    margin : 15px;
+    cursor: pointer;
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out;
+    animation: fadein 0.3s;
+}
+
+.collection-box.invisible, .collection-box.invisible .collection-icon {
+    opacity: 0;
+    cursor: default !important;
+}
+
+.fake-img-new-collection {
+    background: rgb(55, 71, 79);
+    width: 200px;
+    height: 200px;
+    display: inline-block;
+}
+
+.collection-icon {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    transition: box-shadow 0.3s cubic-bezier(.25,.8,.25,1);
+}
+
+.collection-icon:hover {
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+.collection-title {
+    display: block;
+    position: absolute;
+    top: calc(100% - 2em);
+    left: 0;
+    right: 0;
+    height: 2em;
+    line-height: 2em;
+    padding-left: 5px;
+    font-size: 1.5em;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.collection-title:hover {
+    height: auto;
+    white-space: normal;
+    word-break: break-all;
+}
+
+
+.collection-editing-mask {
+    height: 200px;
+    width: 100%;
+    position: absolute;
+    background: rgba(255,255,255,0.2);
+    opacity: 1;
+    z-index: 2;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.collection-editing-mask.invisible {
+    opacity:0;
+}
+
+.editing-icon {
+    position: absolute;
+}
+
+.editing-icon:not(.big) {
+    height: 40px !important;
+    width: 40px !important;
+    top: 80px;
+    left: 80px;
+}
+
+.editing-icon.big {
+    height: 60px !important;
+    width: 60px !important;
+    top: 70px;
+    left: 70px;
+}
+
+.collection-box .collection-type {
+    position: absolute;
+    bottom: -3px;
+    right: 2px;
+}
+
+.collection-box .collection-type svg {
+    height: 20px !important;
+    width: 20px !important;
+}
+
+.collection-box .collection-icon img {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+}

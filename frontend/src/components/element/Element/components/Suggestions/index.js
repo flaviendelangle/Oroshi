@@ -30,3 +30,5 @@ Suggestions.propTypes = {
   isPublic: PropTypes.bool.isRequired,
   type: PropTypes.string.isRequired,
 };
+
+export default Suggestions;

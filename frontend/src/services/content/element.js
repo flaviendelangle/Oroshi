@@ -151,7 +151,7 @@ class Element {
     return this.getDistant()[field];
   }
 
-  getID = () => this.getLocal().pk
+  getID = () => this.getLocal().pk;
 
   getPublicId = () => {
     if (this.hasDistant()) {
