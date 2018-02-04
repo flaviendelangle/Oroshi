@@ -15,7 +15,7 @@ class ElementSuggestions extends Component {
     match: PropTypes.object.isRequired,
     synchronize: PropTypes.func.isRequired,
     loadCollection: PropTypes.func.isRequired,
-    suggestions: PropTypes.array,
+    suggestions: PropTypes.object,
     lineDimensions: PropTypes.object,
   };
 

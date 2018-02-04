@@ -17,7 +17,7 @@ class MenuPanel extends Component {
     muiTheme: PropTypes.object.isRequired,
     type: PropTypes.string.isRequired,
     collection: PropTypes.object.isRequired,
-    data: PropTypes.object.isRequired,
+    data: PropTypes.object,
     active: PropTypes.string,
 
   };

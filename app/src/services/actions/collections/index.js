@@ -76,12 +76,12 @@ export const getAll = pk => ({
   payload: CollectionsAPI.settings(pk),
 });
 
-export const getSettings = (type, pk) => ({
+export const getSettings = (type, collection) => ({
   type: titles.collectionContent.loadSettings,
-  payload: getCollectionAPI(type).settings(pk),
+  payload: getCollectionAPI(type).settings(collection.pk),
   meta: {
     type,
-    collection: { pk },
+    collection,
   },
 });
 

@@ -31,7 +31,10 @@ class ParametersSection extends Component {
     if (!Array.isArray(lines)) {
       lines = [lines];
     }
-    return lines.map(el => <Line params={el.props} key={1} />);
+    return lines.map((el, i) => {
+      const index = i;
+      return <Line params={el.props || {}} key={index} />;
+    });
   }
 
   get titleStyle() {
@@ -61,7 +64,7 @@ export const Line = ({ params }) => (
 );
 
 Line.propTypes = {
-  params: PropTypes.object.isRequired,
+  params: PropTypes.object,
 };
 
 export default muiThemeable()(ParametersSection);

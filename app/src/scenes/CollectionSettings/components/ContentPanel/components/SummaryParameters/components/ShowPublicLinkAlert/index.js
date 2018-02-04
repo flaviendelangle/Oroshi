@@ -57,7 +57,7 @@ ShowPublicLinkAlert.propTypes = {
   data: PropTypes.object.isRequired,
   type: PropTypes.string.isRequired,
   onClose: PropTypes.func.isRequired,
-  onPublish: PropTypes.func.isRequired,
+  onPublish: PropTypes.func,
 };
 
 export default ShowPublicLinkAlert;

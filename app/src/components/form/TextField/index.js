@@ -12,7 +12,7 @@ class TextField extends Component {
   static propTypes = {
     onSave: PropTypes.func.isRequired,
     onChange: PropTypes.func.isRequired,
-    id: PropTypes.number.isRequired,
+    id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
     value: PropTypes.any.isRequired,
   };
 
