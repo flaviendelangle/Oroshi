@@ -12,42 +12,42 @@ class Search extends API {
       person: 'person',
       tv: 'tv',
     },
-  };
+  }
 
   companies = (query, _options = {}) => {
-    const options = { ..._options, query };
-    return super.retrieve(this.CONFIG.routes.company, options);
-  };
+    const options = { ..._options, query }
+    return super.retrieve(this.CONFIG.routes.company, options)
+  }
 
   collections = (query, _options = {}) => {
-    const options = { ..._options, query };
-    return super.retrieve(this.CONFIG.routes.collection, options);
-  };
+    const options = { ..._options, query }
+    return super.retrieve(this.CONFIG.routes.collection, options)
+  }
 
   keyword = (query, _options = {}) => {
-    const options = { ..._options, query };
-    return super.retrieve(this.CONFIG.routes.keyword, options);
-  };
+    const options = { ..._options, query }
+    return super.retrieve(this.CONFIG.routes.keyword, options)
+  }
 
   movies = (query, _options = {}) => {
-    const options = { ..._options, query };
-    return super.retrieve(this.CONFIG.routes.movie, options);
-  };
+    const options = { ..._options, query }
+    return super.retrieve(this.CONFIG.routes.movie, options)
+  }
 
   multiple = (query, _options = {}) => {
-    const options = { ..._options, query };
-    return super.retrieve(this.CONFIG.routes.multi, options);
-  };
+    const options = { ..._options, query }
+    return super.retrieve(this.CONFIG.routes.multi, options)
+  }
 
   people = (query, _options = {}) => {
-    const options = { ..._options, query };
-    return super.retrieve(this.CONFIG.routes.person, options);
-  };
+    const options = { ..._options, query }
+    return super.retrieve(this.CONFIG.routes.person, options)
+  }
 
   tvShow = (query, _options = {}) => {
-    const options = { ..._options, query };
-    return super.retrieve(this.CONFIG.routes.tv, options);
-  };
+    const options = { ..._options, query }
+    return super.retrieve(this.CONFIG.routes.tv, options)
+  }
 
   GET = {
     company: this.company,
@@ -60,4 +60,4 @@ class Search extends API {
   }
 }
 
-export default new Search();
+export default new Search()

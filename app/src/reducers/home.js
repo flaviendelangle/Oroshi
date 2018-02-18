@@ -8,7 +8,7 @@ import { collectionContent } from 'services/titles/api'
 const defaultState = {
   collections: [],
   loaded: false,
-};
+}
 
 const main = (state = defaultState, action) => {
   switch (action.type) {
@@ -17,22 +17,22 @@ const main = (state = defaultState, action) => {
         ...state,
         collections: action.payload,
         loaded: true,
-      };
+      }
     case `${collectionContent.create}_FULFILLED`:
       return {
         ...state,
         collections: [...state.collections, action.payload],
-      };
+      }
     default:
-      return state;
+      return state
   }
-};
+}
 
 const reducer = combineReducers({
   main,
   collectionList,
   dialogCreateCollection,
-});
+})
 
 
-export default reducer;
+export default reducer

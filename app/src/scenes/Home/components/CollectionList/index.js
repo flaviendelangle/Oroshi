@@ -1,22 +1,22 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types';
+import PropTypes from 'prop-types'
 
 import CollectionBox from './components/CollectionBox'
 import NewCollectionButton from './components/NewCollectionButton'
 
-import './style.css';
+import './style.css'
 
 
 class CollectionList extends Component {
   static propTypes = {
     data: PropTypes.array.isRequired,
     editing: PropTypes.bool.isRequired,
-  };
+  }
 
   mapCollections = () => {
-    const { data, editing } = this.props;
+    const { data, editing } = this.props
     return data.map((collection) => {
-      const { type, pk } = collection;
+      const { type, pk } = collection
       return (
         <CollectionBox
           key={`${type}_${pk}`}
@@ -24,11 +24,11 @@ class CollectionList extends Component {
           editing={editing}
         />
       )
-    });
-  };
+    })
+  }
 
   render() {
-    const { editing } = this.props;
+    const { editing } = this.props
     return (
       <div className="collection-list-container">
         <div>
@@ -40,4 +40,4 @@ class CollectionList extends Component {
   }
 }
 
-export default CollectionList;
+export default CollectionList

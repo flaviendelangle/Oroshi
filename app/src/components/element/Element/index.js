@@ -1,15 +1,15 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
+import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
-import Paper from 'material-ui/Paper';
-import muiThemeable from 'material-ui/styles/muiThemeable';
+import Paper from 'material-ui/Paper'
+import muiThemeable from 'material-ui/styles/muiThemeable'
 
 import cx from 'classnames'
 
-import Poster from '../Poster/index';
-import Overlay from '../Overlay/index';
-import Suggestions from './components/Suggestions';
+import Poster from '../Poster/index'
+import Overlay from '../Overlay/index'
+import Suggestions from './components/Suggestions'
 
 import './style.css'
 
@@ -29,33 +29,33 @@ class Element extends Component {
     isPublic: PropTypes.bool,
     footer: PropTypes.array,
     switchSeen: PropTypes.func,
-  };
+  }
 
   state = {
     isMouseOver: false,
     isAdding: false,
     isReady: false,
-  };
+  }
 
   componentWillMount() {
     this.setState({
       layout: this.props.layout,
-    });
+    })
   }
 
   componentWillReceiveProps(newProps) {
-    const { data } = this.props;
+    const { data } = this.props
     if (data.isInCollection() !== newProps.data.isInCollection()) {
-      this.setState({ isAdding: false });
+      this.setState({ isAdding: false })
     }
   }
 
   componentDidUpdate() {
-    const { onRender } = this.props;
+    const { onRender } = this.props
     if (onRender) {
       onRender({
         layout: this.state.layout,
-      });
+      })
     }
   }
 
@@ -65,39 +65,39 @@ class Element extends Component {
    */
   onMouseHover = (isMouseOver) => {
     this.setState({ isMouseOver })
-  };
+  }
 
   onPosterLoad = () => {
-    this.setState({ isReady: true });
-  };
+    this.setState({ isReady: true })
+  }
 
   onSave = () => {
-    const { collection, data, onSave } = this.props;
+    const { collection, data, onSave } = this.props
     if (!this.state.isAdding) {
-      onSave(collection, data);
+      onSave(collection, data)
     }
-  };
+  }
 
   onDestroy = () => {
-    const { collection, data, onDestroy } = this.props;
-    onDestroy(collection, data);
-  };
+    const { collection, data, onDestroy } = this.props
+    onDestroy(collection, data)
+  }
 
   getParentClasses = () => {
-    const { data, creationMode } = this.props;
-    const { isReady } = this.state;
+    const { data, creationMode } = this.props
+    const { isReady } = this.state
     return cx({
       'movie-parent': true,
       'already-in-collection': (data.isInCollection() && creationMode),
       'not-in-collection': (!data.isInCollection() && creationMode),
       ready: isReady,
     })
-  };
+  }
 
   getAction = (actionName) => {
-    const action = this.props[actionName];
+    const action = this.props[actionName]
     if (typeof action === 'string' || action instanceof String) {
-      const ActionComponent = this.getActionComponent(action);
+      const ActionComponent = this.getActionComponent(action)
       return (
         <span ref={el => this.addToLayout(action, el)} >
           <ActionComponent {...this.props} />
@@ -108,30 +108,30 @@ class Element extends Component {
       <span ref={el => this.addToLayout(this.props[`${actionName}Key`], el)} >
         {action}
       </span>
-    );
-  };
+    )
+  }
 
   getActionComponent = (action) => {
     switch (action) {
       case 'suggestions':
-        return Suggestions;
+        return Suggestions
       default:
-        return null;
+        return null
     }
-  };
+  }
 
-  getTopRightAction = () => this.getAction('topRightAction');
+  getTopRightAction = () => this.getAction('topRightAction')
 
-  getTopLeftAction = () => this.getAction('topLeftAction');
+  getTopLeftAction = () => this.getAction('topLeftAction')
 
   /**
    * Check if we are in test mode
    */
-  isTesting = () => this.props.mode === 'test';
+  isTesting = () => this.props.mode === 'test'
 
   addToLayout = (key, element) => {
     /*
-    const { layout } = this.state;
+    const { layout } = this.state
     this.setState(() => ({
       layout: {
         ...layout,
@@ -140,20 +140,20 @@ class Element extends Component {
           element
         }
       },
-    }));
+    }))
     */
-  };
+  }
 
   /**
    * Switch the seen parameter of the movie
    */
   switchSeen = () => {
-    const { data, switchSeen } = this.props;
+    const { data, switchSeen } = this.props
     if (this.isTesting()) {
-      return null;
+      return null
     }
-    return switchSeen(data);
-  };
+    return switchSeen(data)
+  }
 
   render() {
     const {
@@ -164,8 +164,8 @@ class Element extends Component {
       data,
       footer,
       muiTheme: { palette },
-    } = this.props;
-    const { isMouseOver } = this.state;
+    } = this.props
+    const { isMouseOver } = this.state
     return (
       <div className={this.getParentClasses()} style={style} >
         <div className="movie-container">
@@ -201,7 +201,7 @@ class Element extends Component {
           addToLayout={this.addToLayout}
         />
       </div>
-    );
+    )
   }
 }
 
@@ -227,22 +227,22 @@ const Footer = ({
             >
               {line.value}
             </Link>
-          );
+          )
         }
         return (
           <div ref={(el) => addToLayout(line.key, el)} key={1} >
             {line.value}
           </div>
-        );
+        )
       })
     }
   </div>
-);
+)
 
 Footer.propTypes = {
   palette: PropTypes.object.isRequired,
   addToLayout: PropTypes.func.isRequired,
   footer: PropTypes.array,
-};
+}
 
-export default muiThemeable()(Element);
+export default muiThemeable()(Element)

@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import ScrollArea from 'react-scrollbar';
-import PropTypes from 'prop-types';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import ScrollArea from 'react-scrollbar'
+import PropTypes from 'prop-types'
 
-import CircularProgress from 'material-ui/CircularProgress';
+import CircularProgress from 'material-ui/CircularProgress'
 
 import CollectionList from './components/CollectionList'
 import ManageButton from './components/ManageButton'
@@ -11,7 +11,7 @@ import FirstCollectionButton from './components/FirstCollectionButton'
 import DialogCreateCollection from './components/DialogCreateCollection'
 import { getAll as getCollections } from 'services/actions/collections'
 
-import * as _style from './style';
+import * as _style from './style'
 
 class Home extends Component {
   static propTypes = {
@@ -21,24 +21,24 @@ class Home extends Component {
     collections: PropTypes.array.isRequired,
     oauth: PropTypes.object,
     profile: PropTypes.object,
-  };
+  }
 
   constructor(props) {
-    super(props);
-    const { oauth, history } = this.props;
+    super(props)
+    const { oauth, history } = this.props
     if (!oauth) {
-      history.push('/login/');
+      history.push('/login/')
     }
   }
 
   state = {
     editing: false,
-  };
+  }
 
   componentDidMount() {
-    const { profile } = this.props;
+    const { profile } = this.props
     if (profile) {
-      this.loadCollections(profile);
+      this.loadCollections(profile)
     }
   }
 
@@ -47,23 +47,23 @@ class Home extends Component {
       newProps.profile &&
       !this.props.profile
     ) {
-      this.loadCollections(newProps.profile);
+      this.loadCollections(newProps.profile)
     }
   }
 
   loadCollections = (profile) => {
-    this.props.loadCollections(profile.pk);
-  };
+    this.props.loadCollections(profile.pk)
+  }
 
   render() {
-    const { loaded, collections } = this.props;
-    const { editing } = this.state;
+    const { loaded, collections } = this.props
+    const { editing } = this.state
     if (!loaded) {
       return (
         <div style={_style.progress} >
           <CircularProgress />
         </div>
-      );
+      )
     } else if (collections.length === 0) {
       return (
         <div>
@@ -72,7 +72,7 @@ class Home extends Component {
           </div>
           <DialogCreateCollection />
         </div>
-      );
+      )
     }
     return (
       <div>
@@ -99,21 +99,21 @@ class Home extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const root = state.home.main;
-  const appRoot = state.app;
+  const root = state.home.main
+  const appRoot = state.app
   return {
     collections: root.collections,
     loaded: root.loaded,
     oauth: appRoot.oauth,
     profile: appRoot.profile,
   }
-};
+}
 
 const mapDispatchToProps = dispatch => ({
   loadCollections: pk => dispatch(getCollections(pk)),
-});
+})
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(Home);
+)(Home)

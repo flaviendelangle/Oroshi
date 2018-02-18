@@ -7,4 +7,4 @@ class StreamGenerator extends StreamGeneratorOriginal {
   }
 }
 
-export default StreamGenerator;
+export default StreamGenerator

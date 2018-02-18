@@ -1,5 +1,5 @@
 import { request } from 'services/titles/publicAPI'
-import { getPublicActions } from 'services/content/collectionTypes';
+import { getPublicActions } from 'services/content/collectionTypes'
 
 
 /*
@@ -12,7 +12,7 @@ export const search = (type, collection, query, page = 1) => ({
     type,
     collection,
   },
-});
+})
 
 export const getRecommendations = (type, collection) => ({
   type: request.get_recommendations,
@@ -21,7 +21,7 @@ export const getRecommendations = (type, collection) => ({
     type,
     collection,
   },
-});
+})
 
 export const getPopular = (type, collection, page) => ({
   type: request.get_popular,
@@ -30,7 +30,7 @@ export const getPopular = (type, collection, page) => ({
     type,
     collection,
   },
-});
+})
 
 export const getTopRated = (type, collection, page) => ({
   type: request.get_top_rated,
@@ -39,10 +39,10 @@ export const getTopRated = (type, collection, page) => ({
     type,
     collection,
   },
-});
+})
 
 export const getDetails = (type, shouldDispatch, collection, publicId) => {
-  const payload = getPublicActions(type).getDetails(type, collection, publicId);
+  const payload = getPublicActions(type).getDetails(type, collection, publicId)
   if (shouldDispatch) {
     return {
       type: request.get_details,
@@ -52,10 +52,10 @@ export const getDetails = (type, shouldDispatch, collection, publicId) => {
         collection,
         [`${type}_id`]: publicId,
       },
-    };
+    }
   }
-  return payload;
-};
+  return payload
+}
 
 
 /*
@@ -64,16 +64,16 @@ export const getDetails = (type, shouldDispatch, collection, publicId) => {
 
 export const checkExistence = (type, ...args) => (
   getPublicActions(type).checkExistence(type, ...args)
-);
+)
 
 export const getTitle = (type, ...args) => (
   getPublicActions(type).getTitle(type, ...args)
-);
+)
 
 export const getPoster = (type, ...args) => (
   getPublicActions(type).getPoster(type, ...args)
-);
+)
 
 export const cleanDetails = (type, details) => (
   getPublicActions(type).cleanDetails(type, details)
-);
+)

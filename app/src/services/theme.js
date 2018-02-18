@@ -1,6 +1,6 @@
-import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
-import * as colors from 'material-ui/styles/colors';
-import { merge } from 'lodash';
+import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme'
+import * as colors from 'material-ui/styles/colors'
+import { merge } from 'lodash'
 
 const muiTheme = {
   palette: {
@@ -15,9 +15,9 @@ const muiTheme = {
     paperBackground: colors.blueGrey800,
     paperColor: colors.grey200,
   },
-};
+}
 
-const theme = merge(darkBaseTheme, muiTheme);
-console.log('THEME : ', theme);
+const theme = merge(darkBaseTheme, muiTheme)
+console.log('THEME : ', theme)
 
-export default theme;
+export default theme

@@ -26,83 +26,83 @@ class TV extends API {
       popular: 'popular',
       top_rated: 'top_rated',
     },
-  };
+  }
 
   details = (pk, options = {}) => (
     super.retrieve(pk, options)
-  );
+  )
 
   accountStates = (pk, options = {}) => (
     super.detailRoute(pk, this.CONFIG.routes.account_states, options)
-  );
+  )
 
   alternativeTitles = (pk, options = {}) => (
     super.detailRoute(pk, this.CONFIG.routes.alternative_titles, options)
-  );
+  )
 
   changes = (pk, options = {}) => (
     super.detailRoute(pk, this.CONFIG.routes.changes, options)
-  );
+  )
 
   contentRatings = (pk, options = {}) => (
     super.detailRoute(pk, this.config.routes.content_ratings, options)
-  );
+  )
 
   credits = (pk, options = {}) => (
     super.detailRoute(pk, this.CONFIG.routes.credits, options)
-  );
+  )
 
   externalIDs = (pk, options = {}) => (
     super.detailRoute(pk, this.CONFIG.routes.external_ids, options)
-  );
+  )
 
   images = (pk, options = {}) => (
     super.detailRoute(pk, this.CONFIG.routes.images, options)
-  );
+  )
 
   keywords = (pk, options = {}) => (
     super.detailRoute(pk, this.CONFIG.routes.keywords, options)
-  );
+  )
 
   recommendations = (pk, options = {}) => (
     super.detailRoute(pk, this.CONFIG.routes.recommendations, options)
-  );
+  )
 
   screenedTheatrically = (pk, options = {}) => (
     super.detailRoute(pk, this.CONFIG.routes.screened_theatrically, options)
-  );
+  )
 
   similarTVShows = (pk, options = {}) => (
     super.detailRoute(pk, this.CONFIG.routes.similar, options)
-  );
+  )
 
   translations = (pk, options = {}) => (
     super.detailRoute(pk, this.CONFIG.routes.translations, options)
-  );
+  )
 
   videos = (pk, options = {}) => (
     super.detailRoute(pk, this.CONFIG.routes.videos, options)
-  );
+  )
 
   latest = (options = {}) => (
     super.listRoute(this.CONFIG.routes.latest, options)
-  );
+  )
 
   airingToday = (options = {}) => (
     super.listRoute(this.CONFIG.routes.airing_today, options)
-  );
+  )
 
   onTheAir = (options = {}) => (
     super.listRoute(this.CONFIG.routes.on_the_air, options)
-  );
+  )
 
   popular = (options = {}) => (
     super.listRoute(this.CONFIG.routes.popular, options)
-  );
+  )
 
   topRated = (options = {}) => (
     super.listRoute(this.CONFIG.routes.top_rated, options)
-  );
+  )
 
   GET = {
 
@@ -126,20 +126,20 @@ class TV extends API {
     popular: this.popular,
     topRated: this.topRated,
 
-  };
+  }
 
 
   POST = {
     rating: (pk, options = {}) => (
       super.detailRoute(pk, this.CONFIG.routes.rating, options, 'POST')
     ),
-  };
+  }
 
   DELETE = {
     rating: (pk, options = {}) => (
       super.detailRoute(pk, this.CONFIG.routes.rating, options, 'DELETE')
     ),
-  };
+  }
 }
 
-export default new TV();
+export default new TV()

@@ -1,10 +1,10 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from 'react'
+import PropTypes from 'prop-types'
 
-import Dialog from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
+import Dialog from 'material-ui/Dialog'
+import FlatButton from 'material-ui/FlatButton'
 
-import { urls } from 'appConfig';
+import { urls } from 'appConfig'
 
 
 const ShowPublicLinkAlert = ({
@@ -14,18 +14,18 @@ const ShowPublicLinkAlert = ({
   onClose,
   onPublish,
 }) => {
-  let content;
-  let actions = null;
+  let content
+  let actions = null
 
   if (data.public) {
-    const url = `${urls.frontend}collections/${type}/${data.pk}/public/`;
+    const url = `${urls.frontend}collections/${type}/${data.pk}/public/`
     content = (
       <div style={{ userSelect: 'text' }} >
         {url}
       </div>
-    );
+    )
   } else {
-    content = 'Are you sure you want to make this collection public ?';
+    content = 'Are you sure you want to make this collection public ?'
     actions = [
       <FlatButton
         label="Cancel"
@@ -37,7 +37,7 @@ const ShowPublicLinkAlert = ({
         primary
         onClick={onPublish}
       />,
-    ];
+    ]
   }
 
   return (
@@ -49,8 +49,8 @@ const ShowPublicLinkAlert = ({
     >
       {content}
     </Dialog>
-  );
-};
+  )
+}
 
 ShowPublicLinkAlert.propTypes = {
   open: PropTypes.bool.isRequired,
@@ -58,6 +58,6 @@ ShowPublicLinkAlert.propTypes = {
   type: PropTypes.string.isRequired,
   onClose: PropTypes.func.isRequired,
   onPublish: PropTypes.func,
-};
+}
 
-export default ShowPublicLinkAlert;
+export default ShowPublicLinkAlert

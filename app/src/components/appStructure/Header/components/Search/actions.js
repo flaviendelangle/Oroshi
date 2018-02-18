@@ -8,5 +8,5 @@ export const update = (type, collection, query) => {
       type,
       collection,
     },
-  };
-};
+  }
+}

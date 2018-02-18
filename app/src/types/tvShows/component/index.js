@@ -1,17 +1,17 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 
-import Paper from 'material-ui/Paper';
-import NavigationExpandMore from 'material-ui/svg-icons/navigation/expand-more';
-import muiThemeable from 'material-ui/styles/muiThemeable';
+import Paper from 'material-ui/Paper'
+import NavigationExpandMore from 'material-ui/svg-icons/navigation/expand-more'
+import muiThemeable from 'material-ui/styles/muiThemeable'
 
-import cx from 'classnames';
+import cx from 'classnames'
 
-import Poster from 'components/element/Poster/index';
-import ElementOverlay from 'components/element/Overlay/index';
-import Details from './components/Details/index';
-import { addElement, removeElement } from 'services/actions/collections/index';
+import Poster from 'components/element/Poster/index'
+import ElementOverlay from 'components/element/Overlay/index'
+import Details from './components/Details/index'
+import { addElement, removeElement } from 'services/actions/collections/index'
 
 import './style.css'
 
@@ -25,14 +25,14 @@ class TVShow extends Component {
     destroy: PropTypes.func.isRequired,
     muiTheme: PropTypes.object.isRequired,
     creationMode: PropTypes.bool, // RENAME
-  };
+  }
 
   state = {
     isMouseOver: false,
     isAdding: false,
     isExtended: false,
     isReady: false,
-  };
+  }
 
   /**
    * Update state.mouseOver to decide if we want to generate the Overlay
@@ -40,45 +40,45 @@ class TVShow extends Component {
    */
   handleMouseHover = (isMouseOver) => {
     this.setState({ isMouseOver })
-  };
+  }
 
   handlePosterLoad = () => {
-    this.setState({ isReady: true });
-  };
+    this.setState({ isReady: true })
+  }
 
   /**
    * Add the movie to the collection
    */
   save = () => {
-    const { collection, data, create } = this.props;
-    const { isAdding } = this.state;
+    const { collection, data, create } = this.props
+    const { isAdding } = this.state
     if (!isAdding) {
-      create(collection, data);
-      this.setState({ isAdding: true });
+      create(collection, data)
+      this.setState({ isAdding: true })
     }
-  };
+  }
 
   /**
    * Remove the movie from the collection
    */
   destroy = () => {
-    const { destroy, collection, data } = this.props;
-    destroy(collection, data);
-  };
+    const { destroy, collection, data } = this.props
+    destroy(collection, data)
+  }
 
   /**
    * Launch the Details modal
    */
   showMore = () => {
-    this.setState({ isExtended: true });
-  };
+    this.setState({ isExtended: true })
+  }
 
   /**
    * Hide the Details modal
    */
   showLess = () => {
-    this.setState({ isExtended: false });
-  };
+    this.setState({ isExtended: false })
+  }
 
   render() {
     const {
@@ -86,14 +86,14 @@ class TVShow extends Component {
       collection,
       data,
       muiTheme: { palette },
-    } = this.props;
-    const { isMouseOver, isExtended, isReady } = this.state;
+    } = this.props
+    const { isMouseOver, isExtended, isReady } = this.state
     const parentClasses = cx({
       'tv-show-parent': true,
       'already-in-collection': data.isInCollection(),
       'not-in-collection': !data.isInCollection(),
       ready: isReady,
-    });
+    })
     return (
       <div className={parentClasses} >
         <div className="tv-show-container" >
@@ -135,34 +135,34 @@ class TVShow extends Component {
           collection={collection}
         />
       </div>
-    );
+    )
   }
 }
 
 const DetailsIcon = ({ creationMode, handleClick }) => {
   if (creationMode) {
-    return null;
+    return null
   }
-  return <NavigationExpandMore onClick={handleClick} />;
-};
+  return <NavigationExpandMore onClick={handleClick} />
+}
 
 DetailsIcon.propTypes = {
   creationMode: PropTypes.bool,
   handleClick: PropTypes.func.isRequired,
-};
+}
 
 const DetailsFrame = ({ creationMode, ...props }) => {
   if (!creationMode) {
     return (
       <Details {...props} />
-    );
+    )
   }
-  return null;
-};
+  return null
+}
 
 DetailsFrame.propTypes = {
   creationMode: PropTypes.bool,
-};
+}
 
 const Footer = ({ palette, title }) => (
   <div
@@ -171,25 +171,25 @@ const Footer = ({ palette, title }) => (
   >
     <div>{title}</div>
   </div>
-);
+)
 
 Footer.propTypes = {
   palette: PropTypes.object.isRequired,
   title: PropTypes.string.isRequired,
-};
+}
 
-const mapStateToProps = () => ({});
+const mapStateToProps = () => ({})
 
 const mapDispatchToProps = dispatch => ({
   create: (collection, element) => {
-    dispatch(addElement('tv_shows', collection, element));
+    dispatch(addElement('tv_shows', collection, element))
   },
   destroy: (collection, data) => {
     dispatch(removeElement('tv_shows', collection, data))
   },
-});
+})
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(muiThemeable()(TVShow));
+)(muiThemeable()(TVShow))

@@ -1,17 +1,17 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import React from 'react'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 
-import ParametersSection, { Line } from '../ParametersSection';
-import SelectLanguage from 'components/generics/SelectLanguage';
+import ParametersSection, { Line } from '../ParametersSection'
+import SelectLanguage from 'components/generics/SelectLanguage'
 
-import { update as _update } from 'scenes/CollectionSettings/actions';
+import { update as _update } from 'scenes/CollectionSettings/actions'
 
 const selectStyle = {
   position: 'absolute',
   top: -5,
   right: 20,
-};
+}
 
 const LanguageParameters = ({ data, type, update }) => (
   <ParametersSection>
@@ -35,21 +35,21 @@ const LanguageParameters = ({ data, type, update }) => (
       </Line>
     </div>
   </ParametersSection>
-);
+)
 
 LanguageParameters.propTypes = {
   data: PropTypes.object.isRequired,
   type: PropTypes.string.isRequired,
   update: PropTypes.func.isRequired,
-};
+}
 
-const mapStateToProps = () => ({});
+const mapStateToProps = () => ({})
 
 const mapDispatchToProps = (dispatch, { type }) => ({
   update: (pk, field, value) => dispatch(_update(type, pk, field, value)),
-});
+})
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(LanguageParameters);
+)(LanguageParameters)

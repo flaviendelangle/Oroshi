@@ -1,8 +1,8 @@
-import { collectionContent, collections } from 'services/titles/api';
-import * as publicAPI from 'services/titles/publicAPI';
+import { collectionContent, collections } from 'services/titles/api'
+import * as publicAPI from 'services/titles/publicAPI'
 
-import * as adding_search_manager from '../../scenes/Collection/components/AddingContent/services/adding_search_manager';
-import * as recommendations_manager from '../../scenes/Collection/components/AddingContent/services/recommendations_manager';
+import * as adding_search_manager from '../../scenes/Collection/components/AddingContent/services/adding_search_manager'
+import * as recommendations_manager from '../../scenes/Collection/components/AddingContent/services/recommendations_manager'
 
 
 const defaultState = {
@@ -12,7 +12,7 @@ const defaultState = {
   },
   addingSearch: null,
   loaded: false,
-};
+}
 
 const reducer = (state = defaultState, action) => {
   switch (action.type) {
@@ -24,24 +24,24 @@ const reducer = (state = defaultState, action) => {
       return {
         ...state,
         collection: action.payload,
-      };
+      }
     }
 
     /**
      * An component has been added to the collection
      */
     case `${collections.add}_FULFILLED`: {
-      const newState = adding_search_manager.add(state, action.payload);
-      return recommendations_manager.add(newState, action.payload);
+      const newState = adding_search_manager.add(state, action.payload)
+      return recommendations_manager.add(newState, action.payload)
     }
 
     /**
      * An component has been removed from the collection
      */
     case `${collections.remove}_FULFILLED`: {
-      const newElement = action.payload;
-      const newState = adding_search_manager.remove(state, newElement);
-      return recommendations_manager.remove(newState, newElement);
+      const newElement = action.payload
+      const newState = adding_search_manager.remove(state, newElement)
+      return recommendations_manager.remove(newState, newElement)
     }
 
     /**
@@ -53,7 +53,7 @@ const reducer = (state = defaultState, action) => {
         addingSearch: null,
         recommendations: action.payload,
         loaded: true,
-      };
+      }
     }
 
     /**
@@ -64,7 +64,7 @@ const reducer = (state = defaultState, action) => {
         state,
         action.payload,
         'popular',
-      );
+      )
     }
 
     /**
@@ -75,7 +75,7 @@ const reducer = (state = defaultState, action) => {
         state,
         action.payload,
         'top_rated',
-      );
+      )
     }
 
     /**
@@ -85,13 +85,13 @@ const reducer = (state = defaultState, action) => {
       return {
         ...state,
         addingSearch: adding_search_manager.merge(state, action.payload),
-      };
+      }
     }
 
     default:
-      return state;
+      return state
   }
-};
+}
 
 
-export default reducer;
+export default reducer

@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
-import NotFound from 'components/errors/NotFound';
-import Grid from 'components/generics/Grid';
-import Stream from 'components/generics/Stream';
-import Progress from 'components/generics/Progress';
-import Help from 'components/generics/Help';
-import { connect } from "services/redux";
+import NotFound from 'components/errors/NotFound'
+import Grid from 'components/generics/Grid'
+import Stream from 'components/generics/Stream'
+import Progress from 'components/generics/Progress'
+import Help from 'components/generics/Help'
+import { connect } from "services/redux"
 
-import * as _style from './style';
+import * as _style from './style'
 
 
 class CollectionContent extends Component {
@@ -25,7 +25,7 @@ class CollectionContent extends Component {
     grid: PropTypes.object,
     stream: PropTypes.object,
     order: PropTypes.object,
-  };
+  }
 
   renderContent = () => {
     const {
@@ -38,7 +38,7 @@ class CollectionContent extends Component {
       elementComponent,
       lineDimensions,
       isPublic,
-    } = this.props;
+    } = this.props
     if (layout === 'grid') {
       return (
         <Grid
@@ -63,8 +63,8 @@ class CollectionContent extends Component {
         />
       )
     }
-    return null;
-  };
+    return null
+  }
 
   render() {
     const {
@@ -75,11 +75,11 @@ class CollectionContent extends Component {
       isPublic,
       type,
       elementComponent,
-    } = this.props;
+    } = this.props
     if (!loaded) {
       return (
         <Progress />
-      );
+      )
     } else if (!found) {
       return (<NotFound />)
     } else if (content.length === 0) {
@@ -90,7 +90,7 @@ class CollectionContent extends Component {
           elementComponent={elementComponent}
           isPublic={isPublic}
         />
-      );
+      )
     }
     return (
       <div style={_style.page} >
@@ -98,7 +98,7 @@ class CollectionContent extends Component {
           {this.renderContent()}
         </div>
       </div>
-    );
+    )
   }
 }
 
@@ -114,11 +114,11 @@ const mapStateToProps = ({ content }, state) => ({
   order: content.order,
 
   lineDimensions: state.app.lineDimensions,
-});
+})
 
-const mapDispatchToProps = () => ({});
+const mapDispatchToProps = () => ({})
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(CollectionContent);
+)(CollectionContent)

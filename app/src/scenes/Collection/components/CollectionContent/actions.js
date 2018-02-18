@@ -10,7 +10,7 @@ export const switchLayout = (type, collection, newLayout) => {
       collection,
     },
   }
-};
+}
 
 
 export const sort = (type, collection, layout, field, direction) => {
@@ -21,5 +21,5 @@ export const sort = (type, collection, layout, field, direction) => {
       type,
       collection,
     },
-  };
-};
+  }
+}

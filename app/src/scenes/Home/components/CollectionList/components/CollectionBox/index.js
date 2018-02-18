@@ -1,48 +1,48 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
+import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
-import AVMovie from 'material-ui/svg-icons/av/movie';
-import HardwareTV from 'material-ui/svg-icons/hardware/tv';
-import muiThemeable from 'material-ui/styles/muiThemeable';
-import ContentCreate from 'material-ui/svg-icons/content/create';
+import AVMovie from 'material-ui/svg-icons/av/movie'
+import HardwareTV from 'material-ui/svg-icons/hardware/tv'
+import muiThemeable from 'material-ui/styles/muiThemeable'
+import ContentCreate from 'material-ui/svg-icons/content/create'
 
-import cx from 'classnames';
+import cx from 'classnames'
 
-import Identicon from 'components/generics/Identicon';
+import Identicon from 'components/generics/Identicon'
 
 
-import './style.css';
+import './style.css'
 
 class CollectionBox extends Component {
   static propTypes = {
     data: PropTypes.object.isRequired,
     muiTheme: PropTypes.object.isRequired,
     editing: PropTypes.bool,
-  };
+  }
 
   get url() {
-    const { data, editing } = this.props;
-    let baseURL = '/collections/';
+    const { data, editing } = this.props
+    let baseURL = '/collections/'
     if (data.type === 'movies') {
-      baseURL += 'movies/';
+      baseURL += 'movies/'
     } else if (data.type === 'tv_shows') {
-      baseURL += 'tv_shows/';
+      baseURL += 'tv_shows/'
     }
-    baseURL += `${data.pk}/`;
+    baseURL += `${data.pk}/`
     if (editing) {
-      baseURL += 'settings/';
+      baseURL += 'settings/'
     }
-    return baseURL;
+    return baseURL
   }
 
   render() {
-    const { data, editing, muiTheme: { palette } } = this.props;
-    const Icon = data.type === 'movies' ? AVMovie : HardwareTV;
+    const { data, editing, muiTheme: { palette } } = this.props
+    const Icon = data.type === 'movies' ? AVMovie : HardwareTV
     const maskClasses = cx({
       'collection-editing-mask': true,
       invisible: !editing,
-    });
+    })
     return (
       <Link to={this.url} >
         <div className="collection-box">
@@ -67,4 +67,4 @@ class CollectionBox extends Component {
   }
 }
 
-export default muiThemeable()(CollectionBox);
+export default muiThemeable()(CollectionBox)

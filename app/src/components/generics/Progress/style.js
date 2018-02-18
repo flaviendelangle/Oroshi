@@ -4,14 +4,14 @@ export const container = {
   width: 'auto',
   left: '50%',
   transform: 'translateX(-50%)',
-};
+}
 
 export const progress = {
   verticalAlign: 'middle',
   display: 'inline-block',
   width: 40,
   height: 40,
-};
+}
 
 export const message = (palette) => ({
   marginLeft: 20,
@@ -22,4 +22,4 @@ export const message = (palette) => ({
   letterSpacing: 1,
   fontSize: '1.4em',
   color: palette.textColor,
-});
+})

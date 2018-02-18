@@ -1,15 +1,15 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
-import muiThemeable from 'material-ui/styles/muiThemeable';
+import muiThemeable from 'material-ui/styles/muiThemeable'
 
-import SummaryParameters from './components/SummaryParameters';
-import Progress from 'components/generics/Progress';
-// import SpoilerParameters from './components/SpoilerParameters';
-import LanguageParameters from './components/LanguageParameters';
-import ExportParameters from './components/ExportParameters';
-import DataImporter from './components/DataImporter';
-import { connect } from 'services/redux';
+import SummaryParameters from './components/SummaryParameters'
+import Progress from 'components/generics/Progress'
+// import SpoilerParameters from './components/SpoilerParameters'
+import LanguageParameters from './components/LanguageParameters'
+import ExportParameters from './components/ExportParameters'
+import DataImporter from './components/DataImporter'
+import { connect } from 'services/redux'
 
 
 class MenuPanel extends Component {
@@ -20,10 +20,10 @@ class MenuPanel extends Component {
     data: PropTypes.object,
     active: PropTypes.string,
 
-  };
+  }
 
   get panelStyle() {
-    const { muiTheme: { palette } } = this.props;
+    const { muiTheme: { palette } } = this.props
     return {
       position: 'absolute',
       top: 64,
@@ -32,7 +32,7 @@ class MenuPanel extends Component {
       paddingTop: 50,
       width: '60%',
       backgroundColor: palette.primary2Color,
-    };
+    }
   }
 
   render() {
@@ -41,19 +41,19 @@ class MenuPanel extends Component {
       type,
       collection,
       data,
-    } = this.props;
+    } = this.props
     if (!data) {
       return (
         <div style={this.panelStyle} >
           <Progress />
         </div>
-      );
+      )
     }
     return (
       <div style={this.panelStyle} >
         <Panel active={active} type={type} collection={collection} data={data} />
       </div>
-    );
+    )
   }
 }
 
@@ -65,19 +65,19 @@ class MenuPanel extends Component {
 const getSectionComponent = (active) => {
   switch (active) {
     case 'summary':
-      return SummaryParameters;
+      return SummaryParameters
     // case 'spoilers':
-    //   return SpoilerParameters;
+    //   return SpoilerParameters
     case 'languages':
-      return LanguageParameters;
+      return LanguageParameters
     case 'exports':
-      return ExportParameters;
+      return ExportParameters
     case 'imports':
-      return DataImporter;
+      return DataImporter
     default:
-      return null;
+      return null
   }
-};
+}
 
 const Panel = ({
   active,
@@ -85,28 +85,28 @@ const Panel = ({
   collection,
   data,
 }) => {
-  const Section = getSectionComponent(active);
+  const Section = getSectionComponent(active)
   if (!Section) {
-    return null;
+    return null
   }
-  return <Section type={type} collection={collection} data={data} />;
-};
+  return <Section type={type} collection={collection} data={data} />
+}
 
 Panel.propTypes = {
   active: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   collection: PropTypes.object.isRequired,
   data: PropTypes.object.isRequired,
-};
+}
 
 const mapStateToProps = ({ settings }) => ({
   active: settings.activeSection,
   data: settings.data,
-});
+})
 
-const mapDispatchToProps = () => ({});
+const mapDispatchToProps = () => ({})
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(muiThemeable()(MenuPanel));
+)(muiThemeable()(MenuPanel))

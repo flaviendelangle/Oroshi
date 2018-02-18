@@ -1,4 +1,4 @@
-import API from './index';
+import API from './index'
 
 class Person extends API {
   CONFIG = {
@@ -15,47 +15,47 @@ class Person extends API {
       latest: 'latest',
       popular: 'popular',
     },
-  };
+  }
 
   details = (pk, options = {}) => (
     super.retrieve(pk, options)
-  );
+  )
 
   movieCredits = (pk, options = {}) => (
     super.detailRoute(pk, this.CONFIG.routes.movie_credits, options)
-  );
+  )
 
   tvCredits = (pk, options = {}) => (
     super.detailRoute(pk, this.CONFIG.routes.tv_credits, options)
-  );
+  )
 
   combinedCredits = (pk, options = {}) => (
     super.detailRoute(pk, this.CONFIG.routes.combined_credits, options)
-  );
+  )
 
   externalIds = (pk, options = {}) => (
     super.detailRoute(pk, this.CONFIG.routes.external_ids, options)
-  );
+  )
 
   images = (pk, options = {}) => (
     super.detailRoute(pk, this.CONFIG.routes.images, options)
-  );
+  )
 
   taggedImages = (pk, options = {}) => (
     super.detailRoute(pk, this.CONFIG.routes.tagged_images, options)
-  );
+  )
 
   changes = (pk, options = {}) => (
     super.detailRoute(pk, this.CONFIG.routes.changes, options)
-  );
+  )
 
   latest = (options = {}) => (
     super.listRoute(this.CONFIG.routes.latest, options)
-  );
+  )
 
   popular = (options = {}) => (
     super.listRoute(this.CONFIG.routes.popular, options)
-  );
+  )
 
   GET = {
     movieCredits: this.movieCredits,
@@ -71,4 +71,4 @@ class Person extends API {
   }
 }
 
-export default new Person();
+export default new Person()

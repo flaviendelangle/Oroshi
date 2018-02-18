@@ -1,11 +1,11 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import React from 'react'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 
-import FileDownload from 'material-ui/svg-icons/file/file-download';
+import FileDownload from 'material-ui/svg-icons/file/file-download'
 
-import ParametersSection, { Line } from '../ParametersSection';
-import { exportCollection as _exportCollection } from 'services/actions/collections';
+import ParametersSection, { Line } from '../ParametersSection'
+import { exportCollection as _exportCollection } from 'services/actions/collections'
 
 
 const ExportParameters = ({ exportCollection, data }) => (
@@ -24,22 +24,22 @@ const ExportParameters = ({ exportCollection, data }) => (
       />
     </div>
   </ParametersSection>
-);
+)
 
 ExportParameters.propTypes = {
   exportCollection: PropTypes.func.isRequired,
   data: PropTypes.object.isRequired,
-};
+}
 
-const mapStateToProps = () => ({});
+const mapStateToProps = () => ({})
 
 const mapDispatchToProps = (dispatch, { type }) => ({
   exportCollection: (collection, format) => {
-    dispatch(_exportCollection(type, collection, format));
+    dispatch(_exportCollection(type, collection, format))
   },
-});
+})
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(ExportParameters);
+)(ExportParameters)

@@ -1,26 +1,26 @@
-import React  from 'react';
+import React  from 'react'
 import { TextField } from 'redux-form-material-ui'
 import { Field, reduxForm } from 'redux-form'
-import PropTypes from 'prop-types';
+import PropTypes from 'prop-types'
 
-import RaisedButton from 'material-ui/RaisedButton';
+import RaisedButton from 'material-ui/RaisedButton'
 
-import * as _style from '../../style';
+import * as _style from '../../style'
 
-export const FORM_NAME = 'REGISTER_FORM';
+export const FORM_NAME = 'REGISTER_FORM'
 
-const required = value => (value ? undefined : 'Required');
+const required = value => (value ? undefined : 'Required')
 
 const minLength8 = value => (value.length >= 8 ?
   undefined :
-  'Must be at least 8 characters long');
+  'Must be at least 8 characters long')
 
 const email = (value) => {
   if (value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
-    return 'Invalid email address';
+    return 'Invalid email address'
   }
-  return undefined;
-};
+  return undefined
+}
 
 const RegisterForm = ({
   palette,
@@ -29,7 +29,7 @@ const RegisterForm = ({
   handleSubmit,
 }) => {
   if (mode !== 'register') {
-    return null;
+    return null
   }
   return (
     <form onSubmit={handleSubmit} >
@@ -70,15 +70,15 @@ const RegisterForm = ({
       />
       <LoginButton theme={palette} onSwitch={onSwitch} />
     </form>
-  );
-};
+  )
+}
 
 RegisterForm.propTypes = {
   palette: PropTypes.object.isRequired,
   onSwitch: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   mode: PropTypes.string,
-};
+}
 
 const LoginButton = ({ palette, onSwitch }) => (
   <div style={_style.flatButton(palette)} >
@@ -92,13 +92,13 @@ const LoginButton = ({ palette, onSwitch }) => (
       Sign In
     </span>
   </div>
-);
+)
 
 LoginButton.propTypes = {
   palette: PropTypes.object.isRequired,
   onSwitch: PropTypes.func.isRequired,
-};
+}
 
 export default reduxForm({
   form: FORM_NAME,
-})(RegisterForm);
+})(RegisterForm)

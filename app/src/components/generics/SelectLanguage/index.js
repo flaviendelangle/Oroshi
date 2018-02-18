@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
-import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
+import SelectField from 'material-ui/SelectField'
+import MenuItem from 'material-ui/MenuItem'
 
-import { getPublicAPILanguages } from 'services/languages';
+import { getPublicAPILanguages } from 'services/languages'
 
 
 class SelectLanguage extends Component {
@@ -13,18 +13,18 @@ class SelectLanguage extends Component {
     onChange: PropTypes.func.isRequired,
     value: PropTypes.any.isRequired,
     style: PropTypes.object.isRequired,
-  };
+  }
 
   get languages() {
-    const { type } = this.props;
-    const languages = getPublicAPILanguages(type);
-    const original = { name: 'Original language', code: '-' };
-    return [original].concat(languages);
+    const { type } = this.props
+    const languages = getPublicAPILanguages(type)
+    const original = { name: 'Original language', code: '-' }
+    return [original].concat(languages)
   }
 
   handleOnChange = (proxy, index, value) => {
-    this.props.onChange(value);
-  };
+    this.props.onChange(value)
+  }
 
   renderLanguages = () => {
     return this.languages.map((el) => {
@@ -34,12 +34,12 @@ class SelectLanguage extends Component {
           primaryText={el.name}
           key={el.code}
         />
-      );
+      )
     })
-  };
+  }
 
   render() {
-    const { style, value } = this.props;
+    const { style, value } = this.props
     return (
       <SelectField
         value={value}
@@ -48,8 +48,8 @@ class SelectLanguage extends Component {
       >
         {this.renderLanguages()}
       </SelectField>
-    );
+    )
   }
 }
 
-export default SelectLanguage;
+export default SelectLanguage

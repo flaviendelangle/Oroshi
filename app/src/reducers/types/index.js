@@ -1,19 +1,19 @@
 import { mapValues } from 'lodash'
 
-import { collectionTypes } from 'appConfig';
+import { collectionTypes } from 'appConfig'
 
-import mainReducer from 'reducers/types/main';
-import contentReducer from 'reducers/types/content';
-import addingReducer from 'reducers/types/adding';
-import suggestionsReducer from 'reducers/types/suggestions';
-import settingsReducer from 'reducers/types/settings';
-import headerReducer from 'reducers/types/header';
+import mainReducer from 'reducers/types/main'
+import contentReducer from 'reducers/types/content'
+import addingReducer from 'reducers/types/adding'
+import suggestionsReducer from 'reducers/types/suggestions'
+import settingsReducer from 'reducers/types/settings'
+import headerReducer from 'reducers/types/header'
 
-const defaultState = {};
+const defaultState = {}
 
 collectionTypes.forEach((el) => {
-  defaultState[el.name] = {};
-});
+  defaultState[el.name] = {}
+})
 
 const computeNewState = (oldState, action) => ({
   main: mainReducer(oldState.main, action),
@@ -25,12 +25,12 @@ const computeNewState = (oldState, action) => ({
 })
 
 const updateOneState = (_state, action, type, collection) => {
-  let state = { ..._state };
+  let state = { ..._state }
   if (!state[type]) {
     state = {
       ...state,
       [type]: {},
-    };
+    }
   }
   if (!state[type][collection.pk]) {
     state = {
@@ -38,15 +38,15 @@ const updateOneState = (_state, action, type, collection) => {
       [type]: {
         [collection.pk]: {},
       },
-    };
+    }
   }
-  const oldState = state[type][collection.pk];
+  const oldState = state[type][collection.pk]
   return {
   ...state,
     [type]: {
       [collection.pk]: computeNewState(oldState, action),
     },
-  };
+  }
 }
 
 const updateAllStates = (state, action) => {
@@ -63,11 +63,11 @@ const reducer = (state = defaultState, action) => {
       return updateAllStates(state, action)
     }
     if (action.meta.type && action.meta.collection) {
-      const { type, collection } = action.meta;
+      const { type, collection } = action.meta
       return updateOneState(state, action, type, collection)
     }
   }
-  return state;
-};
+  return state
+}
 
-export default reducer;
+export default reducer

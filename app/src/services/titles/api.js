@@ -7,7 +7,7 @@ export const collectionContent = {
   importFromFile: 'COLLECTION_CONTENT_IMPORT_FROM_FILE',
   importElement: 'COLLECTION_CONTENT_IMPORT_ELEMENT',
   import: 'COLLECTION_CONTENT_IMPORT',
-};
+}
 
 export const collections = {
   destroy: 'COLLECTIONS_DESTROY',
@@ -17,15 +17,15 @@ export const collections = {
   remove: 'REMOVE_ELEMENT_FROM_COLLECTION',
   importFinished: 'IMPORT_ELEMENTS_FINISHED',
   importStarted: 'IMPORT_ELEMENTS_STARTED',
-};
+}
 
 export const movie = {
   load: 'LOAD_MOVIE',
-};
+}
 
 export const users = {
   create: 'USERS_CREATE',
   login: 'USERS_LOGIN',
   logout: 'USERS_LOGOUT',
   getProfile: 'USERS_GET_PROFILE',
-};
+}

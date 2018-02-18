@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types';
+import PropTypes from 'prop-types'
 
-import Grid from 'components/generics/Grid';
-import Stream from 'components/generics/Stream';
-import Progress from 'components/generics/Progress';
-import { connect } from 'services/redux';
+import Grid from 'components/generics/Grid'
+import Stream from 'components/generics/Stream'
+import Progress from 'components/generics/Progress'
+import { connect } from 'services/redux'
 
-import * as _style from './style';
+import * as _style from './style'
 
 
 class AddingContent extends Component {
@@ -18,7 +18,7 @@ class AddingContent extends Component {
     lineDimensions: PropTypes.object.isRequired,
     recommendations: PropTypes.object.isRequired,
     addingSearch: PropTypes.object,
-  };
+  }
 
   renderContent = () => {
     const {
@@ -28,7 +28,7 @@ class AddingContent extends Component {
       type,
       elementComponent,
       lineDimensions,
-    } = this.props;
+    } = this.props
     if (addingSearch) {
       return (
         <Grid
@@ -51,14 +51,14 @@ class AddingContent extends Component {
         creationMode
       />
     )
-  };
+  }
 
   render() {
-    const { loaded } = this.props;
+    const { loaded } = this.props
     if (!loaded) {
       return (
         <Progress />
-      );
+      )
     }
     else {
       return (
@@ -67,7 +67,7 @@ class AddingContent extends Component {
             {this.renderContent()}
           </div>
         </div>
-      );
+      )
     }
   }
 }
@@ -81,11 +81,11 @@ const mapStateToProps = ({ adding }, state) => {
 
     lineDimensions: state.app.lineDimensions,
   }
-};
+}
 
-const mapDispatchToProps = () => ({});
+const mapDispatchToProps = () => ({})
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(AddingContent);
+)(AddingContent)

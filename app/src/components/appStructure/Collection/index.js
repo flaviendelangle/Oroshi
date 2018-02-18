@@ -1,12 +1,12 @@
-import React, { Fragment } from 'react';
-import { Switch, Route } from 'react-router-dom';
-import PropTypes from 'prop-types';
+import React, { Fragment } from 'react'
+import { Switch, Route } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
-import CollectionContent from 'scenes/Collection';
-import CollectionSettings from 'scenes/CollectionSettings';
-import ElementSuggestions from 'scenes/ElementSuggestions';
-import Header from 'components/appStructure/Header';
-import { collectionTypes } from 'appConfig';
+import CollectionContent from 'scenes/Collection'
+import CollectionSettings from 'scenes/CollectionSettings'
+import ElementSuggestions from 'scenes/ElementSuggestions'
+import Header from 'components/appStructure/Header'
+import { collectionTypes } from 'appConfig'
 
 
 const getSceneProps = (el, scene, sceneProps) => {
@@ -18,9 +18,9 @@ const getSceneProps = (el, scene, sceneProps) => {
     collection: {
       pk: sceneProps.match.params.collection_id,
     },
-  };
-  return props;
-};
+  }
+  return props
+}
 
 const generate = () => {
   const a = collectionTypes.reduce((result, scene) => {
@@ -55,25 +55,25 @@ const generate = () => {
         )}
       />,
     ]
-  }, []);
-  return a;
-};
+  }, [])
+  return a
+}
 
 const Collection = () => (
   <Switch>
     {generate()}
   </Switch>
-);
+)
 
 const Scene = ({ Component, ...props }) => (
   <Fragment>
     <Header key={1} {...props} />
     <Component key={2} {...props} />
   </Fragment>
-);
+)
 
 Scene.propTypes = {
   Component: PropTypes.func.isRequired,
-};
+}
 
-export default Collection;
+export default Collection

@@ -1,15 +1,15 @@
-import React  from 'react';
+import React  from 'react'
 import { TextField } from 'redux-form-material-ui'
 import { Field, reduxForm } from 'redux-form'
-import PropTypes from 'prop-types';
+import PropTypes from 'prop-types'
 
-import RaisedButton from 'material-ui/RaisedButton';
+import RaisedButton from 'material-ui/RaisedButton'
 
-import * as _style from '../../style';
+import * as _style from '../../style'
 
-export const FORM_NAME = 'LOGIN_FORM';
+export const FORM_NAME = 'LOGIN_FORM'
 
-const required = value => (value ? undefined : 'Required');
+const required = value => (value ? undefined : 'Required')
 
 const LoginForm = ({
   palette,
@@ -18,7 +18,7 @@ const LoginForm = ({
   handleSubmit,
 }) => {
   if (mode !== 'login') {
-    return null;
+    return null
   }
   return (
     <form onSubmit={handleSubmit} >
@@ -49,15 +49,15 @@ const LoginForm = ({
       />
       <RegisterButton palette={palette} onSwitch={onSwitch} />
     </form>
-  );
-};
+  )
+}
 
 LoginForm.propTypes = {
   palette: PropTypes.object.isRequired,
   onSwitch: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   mode: PropTypes.string,
-};
+}
 
 const RegisterButton = ({ palette, onSwitch }) => (
   <div style={_style.flatButton(palette)} >
@@ -71,13 +71,13 @@ const RegisterButton = ({ palette, onSwitch }) => (
       Sign In
     </span>
   </div>
-);
+)
 
 RegisterButton.propTypes = {
   palette: PropTypes.object.isRequired,
   onSwitch: PropTypes.func.isRequired,
-};
+}
 
 export default reduxForm({
   form: FORM_NAME,
-})(LoginForm);
+})(LoginForm)

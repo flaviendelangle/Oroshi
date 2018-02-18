@@ -1,11 +1,11 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import React from 'react'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 
-import Toggle from 'material-ui/Toggle';
+import Toggle from 'material-ui/Toggle'
 
-import ParametersSection, { Line } from '../ParametersSection';
-import { update as _update } from 'scenes/CollectionSettings/actions';
+import ParametersSection, { Line } from '../ParametersSection'
+import { update as _update } from 'scenes/CollectionSettings/actions'
 
 
 const SpoilerParameters = ({ data, update }) => (
@@ -25,20 +25,20 @@ const SpoilerParameters = ({ data, update }) => (
       />
     </div>
   </ParametersSection>
-);
+)
 
 SpoilerParameters.propTypes = {
   data: PropTypes.object.isRequired,
   update: PropTypes.func.isRequired,
-};
+}
 
-const mapStateToProps = () => ({});
+const mapStateToProps = () => ({})
 
 const mapDispatchToProps = (dispatch, { type }) => ({
   update: (pk, field, value) => dispatch(_update(type, pk, field, value)),
-});
+})
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(SpoilerParameters);
+)(SpoilerParameters)

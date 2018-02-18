@@ -1,8 +1,8 @@
 import * as tmdb from 'services/actions/publicAPI/tmdb'
-import date from 'services/content/date';
-import { request } from 'services/titles/publicAPI';
+import date from 'services/content/date'
+import { request } from 'services/titles/publicAPI'
 
-import TVSeasonsTMDB from 'services/TheMovieDatabaseJS/tv_seasons';
+import TVSeasonsTMDB from 'services/TheMovieDatabaseJS/tv_seasons'
 
 
 export const {
@@ -15,7 +15,7 @@ export const {
   getDetails,
   getTitle,
   getPoster,
-} = tmdb;
+} = tmdb
 
 export const getSeasonDetails = (tmdbId, season) => ({
   type: request.get_season_details,
@@ -24,14 +24,14 @@ export const getSeasonDetails = (tmdbId, season) => ({
     tv_shows_id: tmdbId,
     season,
   },
-});
+})
 
 export const cleanDetails = (scene, details) => {
   const networks = details.networks
-    .map(({ id, name }) => ({ tmdbId: id, name }));
+    .map(({ id, name }) => ({ tmdbId: id, name }))
 
   const genres = details.genres
-    .map(({ id, name }) => ({ tmdbId: id, name }));
+    .map(({ id, name }) => ({ tmdbId: id, name }))
 
   return {
     networks,
@@ -42,5 +42,5 @@ export const cleanDetails = (scene, details) => {
     titles: details.titles,
     release: date(details.release_date, date.TMDB_FORMAT, date.YEAR_FORMAT),
     original_language: details.original_language,
-  };
-};
+  }
+}

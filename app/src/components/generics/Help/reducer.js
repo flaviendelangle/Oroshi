@@ -1,8 +1,8 @@
-import { element } from 'services/titles/help';
+import { element } from 'services/titles/help'
 
 const defaultState = {
   element: null,
-};
+}
 
 const reducer = (state = defaultState, action) => {
   switch (action.type) {
@@ -10,12 +10,12 @@ const reducer = (state = defaultState, action) => {
       return {
         ...state,
         element: action.payload,
-      };
+      }
     }
 
     default:
-      return state;
+      return state
   }
-};
+}
 
-export default reducer;
+export default reducer

@@ -1,4 +1,4 @@
-import { collectionSettings } from 'services/titles/interface';
+import { collectionSettings } from 'services/titles/interface'
 
 
 export const goToSection = (type, collection, value) => {
@@ -9,5 +9,5 @@ export const goToSection = (type, collection, value) => {
       collection,
       type,
     },
-  };
-};
+  }
+}

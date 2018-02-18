@@ -1,13 +1,13 @@
 import { combineReducers } from 'redux'
 
 import { dialogs } from 'services/titles/interface'
-import { collectionContent } from "services/titles/api";
+import { collectionContent } from "services/titles/api"
 
 
 const defaultState = {
   show: false,
   collections: [],
-};
+}
 
 const main = (state = defaultState, action) => {
   switch (action.type) {
@@ -15,24 +15,24 @@ const main = (state = defaultState, action) => {
       return {
         ...state,
         show: action.show,
-      };
+      }
     }
 
     case `${collectionContent.create}_FULFILLED`: {
       return {
         ...state,
         show: false,
-      };
+      }
     }
 
     default:
-      return state;
+      return state
   }
-};
+}
 
 const reducer = combineReducers({
   main,
-});
+})
 
 
-export default reducer;
+export default reducer

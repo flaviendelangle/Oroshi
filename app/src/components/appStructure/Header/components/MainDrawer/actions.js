@@ -7,4 +7,4 @@ export const showMainDrawer = (type, collection, show) => ({
     type,
     collection,
   },
-});
+})

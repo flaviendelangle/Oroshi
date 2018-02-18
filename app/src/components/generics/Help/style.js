@@ -3,14 +3,14 @@ export const elementHelp = {
   height: 380,
   margin: '20px auto 0 auto',
   maxWidth: 1200,
-};
+}
 
 export const title = palette => ({
   color: palette.titleColor,
   fontSize: '1.8em',
   paddingLeft: 20,
   letterSpacing: 1,
-});
+})
 
 export const publicContainer = palette => ({
   textAlign: 'center',
@@ -23,7 +23,7 @@ export const publicContainer = palette => ({
   textShadow: '0 2px 4px rgba(0, 0, 0, .5)',
   lineHeight: '3.5em',
   letterSpacing: 1,
-});
+})
 
 export const publicContent = () => ({
   display: 'inline-block',

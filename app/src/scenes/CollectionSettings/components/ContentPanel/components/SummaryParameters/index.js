@@ -1,27 +1,27 @@
-import React, { Component, Fragment } from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import React, { Component, Fragment } from 'react'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 
-import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
-import ActionDeleteForever from 'material-ui/svg-icons/action/delete-forever';
-import SocialShare from 'material-ui/svg-icons/social/share';
+import SelectField from 'material-ui/SelectField'
+import MenuItem from 'material-ui/MenuItem'
+import ActionDeleteForever from 'material-ui/svg-icons/action/delete-forever'
+import SocialShare from 'material-ui/svg-icons/social/share'
 
-import DeleteAlert from './components/DeleteAlert';
-import ShowPublicLinkAlert from './components/ShowPublicLinkAlert';
-import ParametersSection, { Line } from '../ParametersSection';
-import TextField from 'components/form/TextField';
-import Toggle from 'components/form/Toggle';
-import { update as _update } from 'scenes/CollectionSettings/actions';
-import { getCollectionTypeTitle } from 'services/utils';
-import { destroy } from 'services/actions/collections';
+import DeleteAlert from './components/DeleteAlert'
+import ShowPublicLinkAlert from './components/ShowPublicLinkAlert'
+import ParametersSection, { Line } from '../ParametersSection'
+import TextField from 'components/form/TextField'
+import Toggle from 'components/form/Toggle'
+import { update as _update } from 'scenes/CollectionSettings/actions'
+import { getCollectionTypeTitle } from 'services/utils'
+import { destroy } from 'services/actions/collections'
 
 
 const selectStyle = {
   position: 'absolute',
   top: -5,
   right: 50,
-};
+}
 
 class SummaryParameters extends Component {
   static propTypes = {
@@ -29,23 +29,23 @@ class SummaryParameters extends Component {
     type: PropTypes.string.isRequired,
     deleteCollection: PropTypes.func.isRequired,
     update: PropTypes.func.isRequired,
-  };
+  }
 
   state = {
     title: '',
     showDeleteAlert: false,
     showGetPublicLinkAlert: false,
-  };
+  }
 
   componentWillMount() {
-    const { data } = this.props;
+    const { data } = this.props
     if (data.title) {
-      this.setState({ title: data.title });
+      this.setState({ title: data.title })
     }
   }
 
   componentWillReceiveProps(newProps) {
-    this.setState({ title: newProps.data.title });
+    this.setState({ title: newProps.data.title })
   }
 
   render() {
@@ -54,8 +54,8 @@ class SummaryParameters extends Component {
       type,
       update,
       deleteCollection,
-    } = this.props;
-    const { title, showDeleteAlert, showGetPublicLinkAlert } = this.state;
+    } = this.props
+    const { title, showDeleteAlert, showGetPublicLinkAlert } = this.state
     return (
       <Fragment>
         <ParametersSection>
@@ -128,18 +128,18 @@ class SummaryParameters extends Component {
           onDelete={() => {}} // this.props.deleteCollection(this.props.data.pk)}
         />
       </Fragment>
-    );
+    )
   }
 }
 
-const mapStateToProps = () => ({});
+const mapStateToProps = () => ({})
 
 const mapDispatchToProps = (dispatch, { type }) => ({
   update: (pk, field, value) => dispatch(_update(type, pk, field, value)),
   deleteCollection: pk => dispatch(destroy(type, pk)),
-});
+})
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(SummaryParameters);
+)(SummaryParameters)

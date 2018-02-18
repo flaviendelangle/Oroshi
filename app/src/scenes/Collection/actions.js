@@ -6,4 +6,4 @@ export const switchAddingMode = (type, collection) => ({
     type,
     collection,
   },
-});
+})

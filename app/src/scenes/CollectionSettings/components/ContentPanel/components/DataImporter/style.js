@@ -1,7 +1,7 @@
 export const source = {
   textAlign: 'left',
   marginBottom: 20,
-};
+}
 
 export const dropZone = dropped => ({
   padding: 10,
@@ -16,11 +16,11 @@ export const dropZone = dropped => ({
   borderStyle: 'dashed',
   borderRadius: 5,
   cursor: 'pointer',
-});
+})
 
 export const button = {
   margin: '12px',
   position: 'absolute',
   left: '50%',
   transform: 'translateX(-50%)',
-};
+}

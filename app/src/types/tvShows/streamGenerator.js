@@ -14,9 +14,9 @@ class StreamGenerator extends StreamGeneratorOriginal {
           name: String(el.release),
           pk: el.release,
         }],
-      }));
+      }))
     }
   }
 }
 
-export default StreamGenerator;
+export default StreamGenerator

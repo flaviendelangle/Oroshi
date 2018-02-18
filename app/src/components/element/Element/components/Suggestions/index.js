@@ -1,8 +1,8 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
+import React from 'react'
+import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
-import ContentAdd from 'material-ui/svg-icons/content/add';
+import ContentAdd from 'material-ui/svg-icons/content/add'
 
 
 const Suggestions = ({
@@ -13,15 +13,15 @@ const Suggestions = ({
   type,
 }) => {
   if (creationMode || isPublic) {
-    return null;
+    return null
   }
-  const url = `/collections/${type}/${collection.pk}/suggestions/${data.getPublicId()}/`;
+  const url = `/collections/${type}/${collection.pk}/suggestions/${data.getPublicId()}/`
   return (
     <Link to={url} >
       <ContentAdd />
     </Link>
-  );
-};
+  )
+}
 
 Suggestions.propTypes = {
   creationMode: PropTypes.bool,
@@ -29,6 +29,6 @@ Suggestions.propTypes = {
   data: PropTypes.object.isRequired,
   isPublic: PropTypes.bool,
   type: PropTypes.string.isRequired,
-};
+}
 
-export default Suggestions;
+export default Suggestions

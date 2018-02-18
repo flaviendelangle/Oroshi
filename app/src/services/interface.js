@@ -7,28 +7,28 @@ const dimensions = [
   { min: 1283, amount: 5 },
   { min: 1539, amount: 6 },
   { min: 1795, amount: 7 },
-];
+]
 
 const getMatchingDimensions = (width) => {
-  let i = 0;
+  let i = 0
   while (
     i < dimensions.length - 1 &&
     width > dimensions[i + 1].min
   ) {
-    i += 1;
+    i += 1
   }
-  return dimensions[i];
-};
+  return dimensions[i]
+}
 
-const getLineWidth = amount => (225 * amount) + 1;
+const getLineWidth = amount => (225 * amount) + 1
 
 export const getLineDimensions = (width) => {
-  const matchingDimensions = getMatchingDimensions(width);
+  const matchingDimensions = getMatchingDimensions(width)
   return {
     width,
     lineWidth: getLineWidth(matchingDimensions.amount),
     elementsPerLine: matchingDimensions.amount,
-  };
-};
+  }
+}
 
-export default null;
+export default null

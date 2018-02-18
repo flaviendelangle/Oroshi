@@ -1,21 +1,21 @@
-import TMDBAPI from 'services/TheMovieDatabaseJS/index';
+import TMDBAPI from 'services/TheMovieDatabaseJS/index'
 
-import { collectionContent, collections } from 'services/titles/api';
-import { sort, search } from 'services/titles/data';
-import { layout } from 'services/titles/interface';
+import { collectionContent, collections } from 'services/titles/api'
+import { sort, search } from 'services/titles/data'
+import { layout } from 'services/titles/interface'
 
-import { getListGenerator, getStreamGenerator, getDefaultOrder } from 'services/content/index';
-import { getValue } from 'services/localstorage';
-import Element from 'services/content/element';
-import { setSortParameters, setLayoutParameters } from '../../scenes/Collection/services/utils';
-import * as contentManager from '../../scenes/Collection/components/CollectionContent/services/content_manager';
+import { getListGenerator, getStreamGenerator, getDefaultOrder } from 'services/content/index'
+import { getValue } from 'services/localstorage'
+import Element from 'services/content/element'
+import { setSortParameters, setLayoutParameters } from '../../scenes/Collection/services/utils'
+import * as contentManager from '../../scenes/Collection/components/CollectionContent/services/content_manager'
 
 
 const generateDefaultState = (type) => {
-  const ListGenerator = getListGenerator(type);
-  const StreamGenerator = getStreamGenerator(type);
+  const ListGenerator = getListGenerator(type)
+  const StreamGenerator = getStreamGenerator(type)
 
-  const defaultOrder = getDefaultOrder(type);
+  const defaultOrder = getDefaultOrder(type)
 
   return {
     content: [],
@@ -27,19 +27,19 @@ const generateDefaultState = (type) => {
     order: getValue(`order_${type}`) || defaultOrder,
     stream: new StreamGenerator(),
     grid: new ListGenerator(),
-  };
-};
+  }
+}
 
 const reducer = (_state, action) => {
-  const { meta: { type } } = action;
-  const state = _state || generateDefaultState(type);
+  const { meta: { type } } = action
+  const state = _state || generateDefaultState(type)
 
-  let newContent;
-  let newOrder;
+  let newContent
+  let newOrder
 
-  const ListGenerator = getListGenerator(type);
-  const StreamGenerator = getStreamGenerator(type);
-  const defaultOrder = getDefaultOrder(type);
+  const ListGenerator = getListGenerator(type)
+  const StreamGenerator = getStreamGenerator(type)
+  const defaultOrder = getDefaultOrder(type)
 
   switch (action.type) {
 
@@ -57,11 +57,11 @@ const reducer = (_state, action) => {
       TMDBAPI.setConfig({
         include_adult: action.payload.adult_content,
         language: action.payload.title_language,
-      });
+      })
       newContent = Element.sortList(
         action.payload.content,
         state.order.grid,
-      );
+      )
       return {
         ...state,
         collection: action.payload,
@@ -71,14 +71,14 @@ const reducer = (_state, action) => {
         autoComplete: Element.buildAutoComplete(newContent, state.order.stream),
         found: true,
         loaded: true,
-      };
+      }
     }
 
     /**
      * An element has been added to the collection
      */
     case `${collections.add}_FULFILLED`: {
-      newContent = contentManager.add(state.content, action.payload, state.order.grid);
+      newContent = contentManager.add(state.content, action.payload, state.order.grid)
 
       return {
         ...state,
@@ -86,14 +86,14 @@ const reducer = (_state, action) => {
         stream: new StreamGenerator(newContent, state.query, state.order.stream),
         grid: new ListGenerator(newContent, state.query),
         autoComplete: Element.buildAutoComplete(newContent, state.order.stream),
-      };
+      }
     }
 
     /**
      * An element has been removed from the collection
      */
     case `${collections.remove}_FULFILLED`: {
-      newContent = contentManager.remove(state.content, action.payload);
+      newContent = contentManager.remove(state.content, action.payload)
 
       return {
         ...state,
@@ -101,14 +101,14 @@ const reducer = (_state, action) => {
         stream: new StreamGenerator(newContent, state.query, state.order.stream),
         grid: new ListGenerator(newContent, state.query),
         autoComplete: Element.buildAutoComplete(newContent, state.order.stream),
-      };
+      }
     }
 
     /**
      * An element has been updated in the collection (ex : Not (Seen) => Seen)
      */
     case `${collections.update}_FULFILLED`: {
-      newContent = contentManager.update(state.content, action.payload);
+      newContent = contentManager.update(state.content, action.payload)
 
       return {
         ...state,
@@ -116,7 +116,7 @@ const reducer = (_state, action) => {
         stream: new StreamGenerator(newContent, state.query, state.order.stream),
         grid: new ListGenerator(newContent, state.query),
         autoComplete: Element.buildAutoComplete(newContent, state.order.stream),
-      };
+      }
     }
 
 
@@ -124,16 +124,16 @@ const reducer = (_state, action) => {
      * The order of the elements has been updated (check OrderMenu component)
      */
     case sort.update: {
-      setSortParameters(type, action.parameters, defaultOrder);
+      setSortParameters(type, action.parameters, defaultOrder)
       if (action.parameters.layout === 'grid') {
-        newContent = Element.sortList(state.content, action.parameters);
+        newContent = Element.sortList(state.content, action.parameters)
       } else {
-        newContent = state.content;
+        newContent = state.content
       }
       newOrder = {
         ...state.order,
         [action.parameters.layout]: action.parameters,
-      };
+      }
       return {
         ...state,
         order: newOrder,
@@ -142,7 +142,7 @@ const reducer = (_state, action) => {
         grid: new ListGenerator(newContent, state.query),
         autoComplete: Element.buildAutoComplete(newContent, newOrder.stream),
         update: Math.random(),
-      };
+      }
     }
 
     /**
@@ -150,31 +150,31 @@ const reducer = (_state, action) => {
      */
     case search.update_query: {
       if (this.isAdding) {
-        return state;
+        return state
       }
       return {
         ...state,
         query: action.query,
         stream: new StreamGenerator(state.content, action.query, state.order.stream),
         grid: new ListGenerator(state.content, action.query),
-      };
+      }
     }
 
     /**
      * The layout in which we want to see the elements has been updated
      */
     case layout.update: {
-      setLayoutParameters(type, action.layout);
+      setLayoutParameters(type, action.layout)
       return {
         ...state,
         query: '',
         layout: action.layout,
-      };
+      }
     }
 
     default:
-      return state;
+      return state
   }
-};
+}
 
-export default reducer;
+export default reducer

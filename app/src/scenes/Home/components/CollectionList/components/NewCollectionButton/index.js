@@ -1,15 +1,15 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
-import muiThemeable from 'material-ui/styles/muiThemeable';
-import ContentAdd from 'material-ui/svg-icons/content/add';
+import muiThemeable from 'material-ui/styles/muiThemeable'
+import ContentAdd from 'material-ui/svg-icons/content/add'
 
-import cx from 'classnames';
+import cx from 'classnames'
 
-import { showDialogCreateCollection } from '../../../DialogCreateCollection/actions';
-import '../CollectionBox/style.css';
+import { showDialogCreateCollection } from '../../../DialogCreateCollection/actions'
+import '../CollectionBox/style.css'
 
 
 class NewCollectionButton extends Component {
@@ -17,24 +17,24 @@ class NewCollectionButton extends Component {
     editing: PropTypes.bool.isRequired,
     newCollection: PropTypes.func.isRequired,
     muiTheme: PropTypes.object.isRequired,
-  };
+  }
 
   onClick = () => {
-    const { editing, newCollection } = this.props;
+    const { editing, newCollection } = this.props
     if (editing) {
-      newCollection();
+      newCollection()
     }
-  };
+  }
 
   render(forced = false) {
     if (!forced) {
-      window.setTimeout(() => this.render(true), 300);
+      window.setTimeout(() => this.render(true), 300)
     }
-    const { editing, muiTheme: { palette } } = this.props;
+    const { editing, muiTheme: { palette } } = this.props
     const boxClasses = cx({
       'collection-box': true,
       invisible: !editing,
-    });
+    })
     return (
       <Link to="/">
         <div
@@ -51,17 +51,17 @@ class NewCollectionButton extends Component {
           </div>
         </div>
       </Link>
-    );
+    )
   }
 }
 
-const mapStateToProps = () => ({});
+const mapStateToProps = () => ({})
 
 const mapDispatchToProps = dispatch => ({
   newCollection: () => dispatch(showDialogCreateCollection(true)),
-});
+})
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(muiThemeable()(NewCollectionButton));
+)(muiThemeable()(NewCollectionButton))

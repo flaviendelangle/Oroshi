@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
-import TextFieldOriginal from 'material-ui/TextField';
+import TextFieldOriginal from 'material-ui/TextField'
 import EditorModeEdit from 'material-ui/svg-icons/editor/mode-edit'
-import ContentSave from 'material-ui/svg-icons/content/save';
-import IconButton from 'material-ui/IconButton';
+import ContentSave from 'material-ui/svg-icons/content/save'
+import IconButton from 'material-ui/IconButton'
 
-import * as _style from './style';
+import * as _style from './style'
 
 class TextField extends Component {
   static propTypes = {
@@ -14,24 +14,24 @@ class TextField extends Component {
     onChange: PropTypes.func.isRequired,
     id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
     value: PropTypes.any.isRequired,
-  };
+  }
 
   state = {
     editing: false,
-  };
+  }
 
   switchMode = () => {
-    const { onSave } = this.props;
-    const { editing } = this.state;
-    this.setState({ editing: !editing });
+    const { onSave } = this.props
+    const { editing } = this.state
+    this.setState({ editing: !editing })
     if (editing) {
-      onSave();
+      onSave()
     }
-  };
+  }
 
   render() {
-    const { id, value, onChange } = this.props;
-    const { editing } = this.state;
+    const { id, value, onChange } = this.props
+    const { editing } = this.state
     return (
       <div>
         <TextFieldOriginal
@@ -46,20 +46,20 @@ class TextField extends Component {
           <Icon editing={editing} onClick={this.switchMode} />
         </IconButton>
       </div>
-    );
+    )
   }
 }
 
 const Icon = ({ editing, onClick }) => {
   if (editing) {
-    return <ContentSave onClick={onClick} />;
+    return <ContentSave onClick={onClick} />
   }
-  return <EditorModeEdit onClick={onClick} />;
-};
+  return <EditorModeEdit onClick={onClick} />
+}
 
 Icon.propTypes = {
   editing: PropTypes.bool.isRequired,
   onClick: PropTypes.func.isRequired,
-};
+}
 
-export default TextField;
+export default TextField

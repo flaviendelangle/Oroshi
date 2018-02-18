@@ -5,5 +5,5 @@ export const showDialogCreateCollection = (show) => {
   return {
     type: dialogs.createCollection,
     show,
-  };
-};
+  }
+}

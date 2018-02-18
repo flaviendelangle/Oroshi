@@ -1,18 +1,18 @@
-import React, { Component, Fragment } from 'react';
-import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
+import React, { Component, Fragment } from 'react'
+import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
-import AppBar from 'material-ui/AppBar';
-import IconButton from 'material-ui/IconButton';
-import BackSpace from 'material-ui/svg-icons/hardware/keyboard-backspace';
-import NavigationMenu from 'material-ui/svg-icons/navigation/menu';
-import muiThemeable from 'material-ui/styles/muiThemeable';
+import AppBar from 'material-ui/AppBar'
+import IconButton from 'material-ui/IconButton'
+import BackSpace from 'material-ui/svg-icons/hardware/keyboard-backspace'
+import NavigationMenu from 'material-ui/svg-icons/navigation/menu'
+import muiThemeable from 'material-ui/styles/muiThemeable'
 
 import MainDrawer from './components/MainDrawer'
 import Search from './components/Search'
-import OrderMenu from './components/OrderMenu';
-import { showMainDrawer } from './components/MainDrawer/actions';
-import { connect } from 'services/redux';
+import OrderMenu from './components/OrderMenu'
+import { showMainDrawer } from './components/MainDrawer/actions'
+import { connect } from 'services/redux'
 
 class Header extends Component {
   static propTypes = {
@@ -30,24 +30,24 @@ class Header extends Component {
     isPublic: PropTypes.bool,
     isAdding: PropTypes.bool,
     count: PropTypes.number,
-  };
+  }
 
   onButtonClick = () => {
-    const { scene, openMainDrawer } = this.props;
+    const { scene, openMainDrawer } = this.props
     if (scene === 'content' || scene === 'settings') {
-      openMainDrawer(true);
+      openMainDrawer(true)
     }
-  };
+  }
 
   get autoComplete() {
-    const { isAdding, layout, autoComplete } = this.props;
+    const { isAdding, layout, autoComplete } = this.props
     if (isAdding || !autoComplete) {
-      return [];
+      return []
     }
     if (layout === 'stream') {
-      return autoComplete.stream;
+      return autoComplete.stream
     }
-    return autoComplete.grid;
+    return autoComplete.grid
   }
 
   render() {
@@ -64,7 +64,7 @@ class Header extends Component {
       scene,
       openMainDrawer,
       muiTheme: { palette },
-    } = this.props;
+    } = this.props
     return (
       <header>
         <AppBar
@@ -138,7 +138,7 @@ const Icon = ({
         </IconButton>
       </Link>
 
-    );
+    )
   }
   return (
     <IconButton
@@ -147,21 +147,21 @@ const Icon = ({
     >
       <NavigationMenu />
     </IconButton>
-  );
-};
+  )
+}
 
 Icon.propTypes = {
   scene: PropTypes.string.isRequired,
   palette: PropTypes.object.isRequired,
   link: PropTypes.string.isRequired,
-};
+}
 
 const mapStateToProps = ({ header, content, main }) => {
-  let count;
+  let count
   if (content.layout === 'stream') {
-    count = content.stream.getElementCount();
+    count = content.stream.getElementCount()
   } else {
-    count = content.grid.getElementCount();
+    count = content.grid.getElementCount()
   }
   return {
     isDrawerOpen: header.isDrawerOpen,
@@ -176,14 +176,14 @@ const mapStateToProps = ({ header, content, main }) => {
     isAdding: main.isAdding,
 
     count,
-  };
-};
+  }
+}
 
 const mapDispatchToProps = (dispatch, { type, collection }) => ({
   openMainDrawer: show => dispatch(showMainDrawer(type, collection, show)),
-});
+})
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(muiThemeable()(Header));
+)(muiThemeable()(Header))

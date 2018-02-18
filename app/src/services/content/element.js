@@ -1,64 +1,64 @@
-import { merge }  from 'lodash';
+import { merge }  from 'lodash'
 
-import { pickElement, getLanguage } from 'services/languages';
+import { pickElement, getLanguage } from 'services/languages'
 
 
 class Element {
-  local = null;
-  distant = null;
-  $isInCollection = false;
+  local = null
+  distant = null
+  $isInCollection = false
 
-  searchIndex = [];
+  searchIndex = []
 
   constructor(localData, distantData) {
-    this.setLocal(localData);
-    this.setDistant(distantData);
+    this.setLocal(localData)
+    this.setDistant(distantData)
   }
 
   static fromDistantList(data, collection, ChildClass) {
-    const { content, ...clearedCollection } = collection;
+    const { content, ...clearedCollection } = collection
     const elements = data.map((el) => {
-      const newElement = new ChildClass(el.local, el.distant);
-      newElement.setInCollection(el.in_collection);
-      return newElement;
-    });
-    elements.forEach(el => el.setCollection(clearedCollection));
-    return elements;
+      const newElement = new ChildClass(el.local, el.distant)
+      newElement.setInCollection(el.in_collection)
+      return newElement
+    })
+    elements.forEach(el => el.setCollection(clearedCollection))
+    return elements
   }
 
   static fromDistant(data, collection, ChildClass) {
-    const { content, ...clearedCollection } = collection;
-    const element = new ChildClass(data.local, data.distant);
-    element.setCollection(clearedCollection);
-    return element;
+    const { content, ...clearedCollection } = collection
+    const element = new ChildClass(data.local, data.distant)
+    element.setCollection(clearedCollection)
+    return element
   }
 
   static sortList(_elements, params) {
-    const elements = [..._elements];
-    const mul = params.direction === 'asc' ? 1 : -1;
-    return elements.sort((a, b) => a.isGreater(b, params.field) * mul);
+    const elements = [..._elements]
+    const mul = params.direction === 'asc' ? 1 : -1
+    return elements.sort((a, b) => a.isGreater(b, params.field) * mul)
   }
 
   static buildAutoComplete(elements, streamKey = { field: 'directors' }) {
     const indexes = {
       grid: [],
       stream: [],
-    };
+    }
     elements.forEach((el) => {
       el.searchIndex_raw
         .forEach((str) => {
           if (!indexes.grid.includes(str)) {
-            indexes.grid.push(str);
-          }
-        });
-      el.getValue(streamKey.field)
-        .forEach((value) => {
-          const { name } = value;
-          if (!indexes.stream.includes(name)) {
-            indexes.stream.push(name);
+            indexes.grid.push(str)
           }
         })
-    });
+      el.getValue(streamKey.field)
+        .forEach((value) => {
+          const { name } = value
+          if (!indexes.stream.includes(name)) {
+            indexes.stream.push(name)
+          }
+        })
+    })
     return {
       grid: indexes.grid.sort(),
       stream: indexes.stream.sort(),
@@ -66,135 +66,135 @@ class Element {
   }
 
   buildSearchIndex(searchIndex = []) {
-    const local = this.getLocal();
+    const local = this.getLocal()
 
-    local.titles.forEach(el => searchIndex.push(el.title));
-    local.genres.forEach(el => searchIndex.push(el.name));
+    local.titles.forEach(el => searchIndex.push(el.title))
+    local.genres.forEach(el => searchIndex.push(el.name))
 
-    const language = getLanguage(local.original_language);
+    const language = getLanguage(local.original_language)
     if (language) {
-      searchIndex.push(language.name);
+      searchIndex.push(language.name)
     }
-    this.searchIndex_raw = searchIndex;
-    this.searchIndex = searchIndex.map(el => el.toUpperCase());
+    this.searchIndex_raw = searchIndex
+    this.searchIndex = searchIndex.map(el => el.toUpperCase())
   }
 
-  getSearchIndex = () => this.searchIndex;
+  getSearchIndex = () => this.searchIndex
 
-  getLocal = () => this.local;
+  getLocal = () => this.local
 
-  hasLocal = () => !!this.local;
+  hasLocal = () => !!this.local
 
   setLocal(newLocal) {
-    this.local = newLocal;
+    this.local = newLocal
     if (this.hasLocal()) {
-      this.buildSearchIndex();
+      this.buildSearchIndex()
     }
   }
 
   editLocal(editValues) {
-    const newLocal = merge(this.getLocal(), editValues);
-    this.setLocal(newLocal);
+    const newLocal = merge(this.getLocal(), editValues)
+    this.setLocal(newLocal)
   }
 
   isGreater(other, field, primary = true) {
-    const valueA = this.getValueToSort(field);
-    const valueB = other.getValueToSort(field);
+    const valueA = this.getValueToSort(field)
+    const valueB = other.getValueToSort(field)
     if (valueA > valueB) {
-      return 1;
+      return 1
     }
     if (valueA < valueB) {
-      return -1;
+      return -1
     }
     if (!primary) {
       return 0
     }
     if (field !== 'note') {
-      return this.isGreater(other, 'note', false);
+      return this.isGreater(other, 'note', false)
     }
     return -this.isGreater(other, 'title', false)
   }
 
-  isInCollection = () => this.$isInCollection;
+  isInCollection = () => this.$isInCollection
 
   setInCollection = (isInCollection) => {
-    this.$isInCollection = isInCollection;
-  };
+    this.$isInCollection = isInCollection
+  }
 
 
-  getDistant = () => this.distant;
+  getDistant = () => this.distant
 
-  hasDistant = () => !!this.distant;
+  hasDistant = () => !!this.distant
 
   setDistant = (newPublic) => {
-    this.distant = newPublic;
-  };
+    this.distant = newPublic
+  }
 
-  getCollection = () => this.collection;
+  getCollection = () => this.collection
 
   setCollection = (newCollection) => {
-    this.collection = newCollection;
-  };
+    this.collection = newCollection
+  }
 
   getValue(field) {
-    return this.local[field];
+    return this.local[field]
   }
 
   getValueToSort(field) {
     if (field === 'title') {
-      return this.getTitle().replace(/ /g, '').toLowerCase();
+      return this.getTitle().replace(/ /g, '').toLowerCase()
     }
     if (field === 'note') {
-      const note = this.getNote();
-      return note || 0;
+      const note = this.getNote()
+      return note || 0
     }
     if (this.hasLocal()) {
-      return this.getLocal()[field];
+      return this.getLocal()[field]
     }
-    return this.getDistant()[field];
+    return this.getDistant()[field]
   }
 
-  getID = () => this.getLocal().pk;
+  getID = () => this.getLocal().pk
 
   getPublicId = () => {
     if (this.hasDistant()) {
-      return this.getDistantPublicID();
+      return this.getDistantPublicID()
     }
-    return this.getLocalPublicID();
-  };
+    return this.getLocalPublicID()
+  }
 
   getNote = () => {
     if (this.hasDistant()) {
       return this.getDistant().vote_average
     }
-    return this.getLocal().note;
-  };
+    return this.getLocal().note
+  }
 
   getTitle = (_language) => {
     if (this.hasLocal()) {
-      const language = _language || this.getCollection().title_language;
-      return pickElement(this.getLocal(), 'titles', 'title', language);
+      const language = _language || this.getCollection().title_language
+      return pickElement(this.getLocal(), 'titles', 'title', language)
     }
-    return this.getDistantTitle();
-  };
+    return this.getDistantTitle()
+  }
 
   getPosterPath = (_language) => {
     if (this.hasLocal()) {
-      const language = _language || this.getCollection().poster_language;
-      return pickElement(this.getLocal(), 'posters', 'path', language);
+      const language = _language || this.getCollection().poster_language
+      return pickElement(this.getLocal(), 'posters', 'path', language)
     }
-    return this.getDistant().poster_path;
-  };
+    return this.getDistant().poster_path
+  }
 
   match = (query) => {
     if (query.length === 1 && query[0] === '') {
-      return true;
+      return true
     }
     const match = query
       .map(queryWord => this.getSearchIndex().find(word => word.includes(queryWord)))
-      .filter(el => !!el);
-    return match.length === query.length;
-  };
+      .filter(el => !!el)
+    return match.length === query.length
+  }
 }
 
-export default Element;
+export default Element

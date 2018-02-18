@@ -1,10 +1,10 @@
 import React from 'react'
-import PropTypes from 'prop-types';
+import PropTypes from 'prop-types'
 
-import CircularProgress from 'material-ui/CircularProgress';
-import muiThemeable from 'material-ui/styles/muiThemeable';
+import CircularProgress from 'material-ui/CircularProgress'
+import muiThemeable from 'material-ui/styles/muiThemeable'
 
-import * as _style from './style';
+import * as _style from './style'
 
 
 const Progress = ({ muiTheme: { palette }, message }) => (
@@ -14,11 +14,11 @@ const Progress = ({ muiTheme: { palette }, message }) => (
     </div>
     { message ? <div style={_style.message(palette)} >{message}</div> : null }
   </div>
-);
+)
 
 Progress.propTypes = {
   muiTheme: PropTypes.object.isRequired,
   message: PropTypes.string,
-};
+}
 
-export default muiThemeable()(Progress);
+export default muiThemeable()(Progress)

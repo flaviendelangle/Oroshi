@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
-import muiThemeable from 'material-ui/styles/muiThemeable';
+import muiThemeable from 'material-ui/styles/muiThemeable'
 
-import cx from 'classnames';
+import cx from 'classnames'
 
-import Grade from 'components/generics/Grade/index';
+import Grade from 'components/generics/Grade/index'
 
 import './style.css'
 
@@ -23,23 +23,23 @@ class ElementOverlay extends Component {
     mode: PropTypes.string,
     topLeftAction: PropTypes.object,
     topRightAction: PropTypes.object,
-  };
+  }
 
   state = {
     show: false,
     waiting: false,
-  };
+  }
 
   componentWillReceiveProps(newProps) {
     if (newProps.mouseOver) {
-      this.setState({ show: true, waiting: false });
+      this.setState({ show: true, waiting: false })
     } else {
-      this.setState({ waiting: true });
+      this.setState({ waiting: true })
       this.timeout = setTimeout(() => {
         if (this.state.waiting) {
-          this.setState({ show: false, waiting: false });
+          this.setState({ show: false, waiting: false })
         }
-      }, 300);
+      }, 300)
     }
   }
 
@@ -48,16 +48,16 @@ class ElementOverlay extends Component {
   }
 
   isTesting = () => {
-    return this.props.mode === 'test';
-  };
+    return this.props.mode === 'test'
+  }
 
   addToLayout = (key, element) => {
     if (this.props.addToLayout) {
-      this.props.addToLayout(key, element);
+      this.props.addToLayout(key, element)
     }
-  };
+  }
 
-  timeout = null;
+  timeout = null
 
   render() {
     const {
@@ -69,15 +69,15 @@ class ElementOverlay extends Component {
       onSave,
       onDestroy,
       alreadyInCollection,
-    } = this.props;
-    const { show } = this.state;
+    } = this.props
+    const { show } = this.state
     if (!show && !this.isTesting()) {
-      return null;
+      return null
     }
     const classes = cx({
       'element-overlay': true,
       testing: this.isTesting(),
-    });
+    })
     return (
       <div className={classes} >
         <div ref={el => this.addToLayout('grade', el)}>
@@ -102,7 +102,7 @@ class ElementOverlay extends Component {
           isPublic={isPublic}
         />
       </div>
-    );
+    )
   }
 
 }
@@ -116,9 +116,9 @@ const Footer = ({
   isPublic,
 }) => {
   if (isPublic) {
-    return null;
+    return null
   }
-  let Content;
+  let Content
   if (
     creationMode &&
     !alreadyInCollection
@@ -134,7 +134,7 @@ const Footer = ({
       >
         ADD
       </div>
-    );
+    )
   } else {
     Content = (
       <div
@@ -147,10 +147,10 @@ const Footer = ({
       >
         REMOVE
       </div>
-    );
+    )
   }
-  return <div className="footer">{Content}</div>;
-};
+  return <div className="footer">{Content}</div>
+}
 
 Footer.propTypes = {
   addToLayout: PropTypes.func.isRequired,
@@ -159,7 +159,7 @@ Footer.propTypes = {
   isPublic: PropTypes.bool,
   alreadyInCollection: PropTypes.bool, // RENAME
   creationMode: PropTypes.bool, // RENAME
-};
+}
 
 const TopLeftAction = ({
   children,
@@ -169,18 +169,18 @@ const TopLeftAction = ({
     'top-left-icon': true,
     'public-action': isPublic,
     'private-action': !isPublic,
-  });
+  })
   return (
     <div className={classes} >
       {children}
     </div>
-  );
-};
+  )
+}
 
 TopLeftAction.propTypes = {
   isPublic: PropTypes.bool,
   children: PropTypes.oneOfType([PropTypes.object, PropTypes.array])
-};
+}
 
 const TopRightAction = ({
   children,
@@ -190,17 +190,17 @@ const TopRightAction = ({
     'top-right-icon': true,
     'public-action': isPublic,
     'private-action': !isPublic,
-  });
+  })
   return (
     <div className={classes} >
       {children}
     </div>
-  );
-};
+  )
+}
 
 TopRightAction.propTypes = {
   isPublic: PropTypes.bool,
   children: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
-};
+}
 
-export default muiThemeable()(ElementOverlay);
+export default muiThemeable()(ElementOverlay)

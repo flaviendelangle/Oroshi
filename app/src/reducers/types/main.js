@@ -1,11 +1,11 @@
-import { source, snacks } from 'services/titles/interface';
-import { collections } from "services/titles/api";
+import { source, snacks } from 'services/titles/interface'
+import { collections } from "services/titles/api"
 
 
 const defaultState = {
   isAdding: false,
   messages: [],
-};
+}
 
 const main = (state = defaultState, action) => {
   switch (action.type) {
@@ -17,7 +17,7 @@ const main = (state = defaultState, action) => {
         ...state,
         addingSearch: null,
         isAdding: !state.isAdding,
-      };
+      }
     }
 
     /**
@@ -25,45 +25,45 @@ const main = (state = defaultState, action) => {
      */
     case `${collections.update}_FULFILLED`: {
       if (action.meta.field !== 'seen') {
-        return state;
+        return state
       }
-      const seen = `${action.payload.hasBeenSeen() ? '' : 'not '}seen`;
-      const title = action.payload.getTitle();
+      const seen = `${action.payload.hasBeenSeen() ? '' : 'not '}seen`
+      const title = action.payload.getTitle()
       const newMessage = {
         content: `${title} marked as ${seen}`,
-      };
+      }
       return {
         ...state,
         messages: [...state.messages, newMessage],
-      };
+      }
     }
 
     /**
      * An element has been added to the collection
      */
     case `${collections.add}_FULFILLED`: {
-      const title = action.payload.getTitle();
+      const title = action.payload.getTitle()
       const newMessage = {
         content: `${title} added to your collection`,
-      };
+      }
       return {
         ...state,
         messages: [...state.messages, newMessage],
-      };
+      }
     }
 
     /**
      * An element has been removed from the collection
      */
     case `${collections.remove}_FULFILLED`: {
-      const title = action.payload.getTitle();
+      const title = action.payload.getTitle()
       const newMessage = {
         content: `${title} removed from your collection`,
-      };
+      }
       return {
         ...state,
         messages: [...state.messages, newMessage],
-      };
+      }
     }
 
     /**
@@ -73,13 +73,13 @@ const main = (state = defaultState, action) => {
       return {
         ...state,
         messages: state.messages.slice(1),
-      };
+      }
     }
 
     default:
-      return state;
+      return state
   }
-};
+}
 
 
-export default main;
+export default main

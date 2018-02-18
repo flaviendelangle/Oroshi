@@ -3,7 +3,7 @@ import { combineReducers } from 'redux'
 import { dialogs } from 'services/titles/interface'
 
 const defaultState = {
-};
+}
 
 const main = (state = defaultState, action) => {
   switch (action.type) {
@@ -11,14 +11,14 @@ const main = (state = defaultState, action) => {
       return {
         ...state,
         isAddingAMovie: action.show,
-      };
+      }
     default:
-      return state;
+      return state
   }
-};
+}
 
 const reducer = combineReducers({
   main,
-});
+})
 
-export default reducer;
+export default reducer

@@ -1,23 +1,23 @@
-import React, { Component } from 'react';
-import ScrollArea from 'react-scrollbar';
-import Dropzone from 'react-dropzone';
-import PropTypes from 'prop-types';
+import React, { Component } from 'react'
+import ScrollArea from 'react-scrollbar'
+import Dropzone from 'react-dropzone'
+import PropTypes from 'prop-types'
 
-import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
-import RaisedButton from 'material-ui/RaisedButton';
-import { List } from 'material-ui/List';
+import SelectField from 'material-ui/SelectField'
+import MenuItem from 'material-ui/MenuItem'
+import RaisedButton from 'material-ui/RaisedButton'
+import { List } from 'material-ui/List'
 
-import Line from './components/Line';
-import Progress from './components/Progress';
+import Line from './components/Line'
+import Progress from './components/Progress'
 import {
   importCSV as _importCSV,
   importJSON as _importJSON,
   importElements
-} from 'services/actions/collections';
-import { connect } from 'services/redux';
+} from 'services/actions/collections'
+import { connect } from 'services/redux'
 
-import * as _style from './style';
+import * as _style from './style'
 
 
 class DataImporter extends Component {
@@ -28,16 +28,16 @@ class DataImporter extends Component {
     importJSON: PropTypes.func.isRequired,
     importContent: PropTypes.func.isRequired,
     importFromFile: PropTypes.object,
-  };
+  }
 
   state = {
     source: 'csv',
     csv: null,
     error: '',
-  };
+  }
 
   componentWillReceiveProps(newProps) {
-    const { importFromFile, importContent } = this.props;
+    const { importFromFile, importContent } = this.props
     if (!importFromFile && newProps.importFromFile) {
       const { data } = newProps.importFromFile
       if (data.error) {
@@ -48,35 +48,35 @@ class DataImporter extends Component {
         this.setState(() => ({
           error: '',
         }))
-        importContent(newProps.importFromFile.data);
+        importContent(newProps.importFromFile.data)
       }
-      this.setState({ elements: newProps.importFromFile.data });
+      this.setState({ elements: newProps.importFromFile.data })
     }
   }
 
   updateFile = (format, upload) => {
-    this.setState({ [format]: upload[0] });
-  };
+    this.setState({ [format]: upload[0] })
+  }
 
   /**
    * Handle the click to launch the importation
    */
   handleClick = () => {
-    const { importCSV, importJSON } = this.props;
-    const { source, csv, json } = this.state;
+    const { importCSV, importJSON } = this.props
+    const { source, csv, json } = this.state
     switch (source) {
       case 'csv': {
-        importCSV(csv);
-        break;
+        importCSV(csv)
+        break
       }
       case 'json': {
-        importJSON(json);
-        break;
+        importJSON(json)
+        break
       }
       default:
-        break;
+        break
     }
-  };
+  }
 
   renderSourcePicker = () => (
     <div style={{ textAlign: 'center' }} >
@@ -94,7 +94,7 @@ class DataImporter extends Component {
         */}
       </SelectField>
     </div>
-  );
+  )
 
   renderFilePicker = format => (
     <div style={{ height: 150 }} >
@@ -106,14 +106,14 @@ class DataImporter extends Component {
       >
         {() => {
           if (this.state[format]) {
-            return 'File dropped successfully';
+            return 'File dropped successfully'
           }
-          return `Click to pick your ${format.toUpperCase()} file`;
+          return `Click to pick your ${format.toUpperCase()} file`
         }}
       </Dropzone>
       {this.state[format] ? this.renderLaunchButton(format) : null}
     </div>
-  );
+  )
 
   renderLaunchButton = () => (
     <RaisedButton
@@ -121,35 +121,35 @@ class DataImporter extends Component {
       style={_style.button}
       onClick={this.handleClick}
     />
-  );
+  )
 
   renderParameters = () => {
     switch (this.state.source) {
       case 'csv':
-        return this.renderFilePicker('csv');
+        return this.renderFilePicker('csv')
       case 'json':
-        return this.renderFilePicker('json');
+        return this.renderFilePicker('json')
       default:
-        return null;
+        return null
     }
-  };
+  }
 
   renderLines = () => {
-    const { created } = this.props;
-    let counter = 0;
+    const { created } = this.props
+    let counter = 0
     return this.state.elements.map((el) => {
-      counter += 1;
+      counter += 1
       return (
         <Line title={el.title} key={counter}  done={!!created[el.tmdbId]} />
       )
-    });
-  };
+    })
+  }
 
   renderElementsList = () => {
-    const { progress } = this.props;
-    const { elements } = this.state;
+    const { progress } = this.props
+    const { elements } = this.state
     if (!elements) {
-      return null;
+      return null
     }
     return (
       <div style={{ height: 'calc(100% - 242px)' }} >
@@ -163,11 +163,11 @@ class DataImporter extends Component {
           </ScrollArea>
         </List>
       </div>
-    );
-  };
+    )
+  }
 
   render() {
-    const { error } = this.state;
+    const { error } = this.state
     return (
       <div style={{ height: '100%' }} >
         <div>{ error }</div>
@@ -175,7 +175,7 @@ class DataImporter extends Component {
         {this.renderParameters()}
         {!error && this.renderElementsList()}
       </div>
-    );
+    )
   }
 }
 
@@ -183,17 +183,17 @@ const mapStateToProps = ({ settings: { dataImporter } }) => ({
   importFromFile: dataImporter.importFromFile,
   progress: dataImporter.progress,
   created: dataImporter.created,
-});
+})
 
 const mapDispatchToProps = (dispatch, { type, collection, }) => ({
   importCSV: file => dispatch(_importCSV(type, collection, file)),
   importJSON: file => dispatch(_importJSON(type, collection, file)),
   importContent: (elements) => {
-    dispatch(importElements(type, collection, elements, dispatch));
+    dispatch(importElements(type, collection, elements, dispatch))
   },
-});
+})
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(DataImporter);
+)(DataImporter)

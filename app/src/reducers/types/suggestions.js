@@ -1,4 +1,4 @@
-import { collectionContent } from "services/titles/api";
+import { collectionContent } from "services/titles/api"
 import { elementSuggestions as titles } from 'services/titles/interface'
 
 
@@ -7,7 +7,7 @@ const defaultState = {
   suggestions: {
     results: [],
   },
-};
+}
 
 const elementSuggestions = (state = defaultState, action) => {
   switch (action.type) {
@@ -16,14 +16,14 @@ const elementSuggestions = (state = defaultState, action) => {
         ...state,
         loaded: true,
         collection: action.payload,
-      };
+      }
     }
 
     case `${collectionContent.loadSuggestions}_FULFILLED`: {
       return {
         ...state,
         suggestions: action.payload,
-      };
+      }
     }
 
     case titles.clean: {
@@ -31,8 +31,8 @@ const elementSuggestions = (state = defaultState, action) => {
     }
 
     default:
-      return state;
+      return state
   }
-};
+}
 
-export default elementSuggestions;
+export default elementSuggestions

@@ -1,17 +1,17 @@
-import React, { Component } from 'react';
-import ScrollArea from 'react-scrollbar';
-import PropTypes from 'prop-types';
+import React, { Component } from 'react'
+import ScrollArea from 'react-scrollbar'
+import PropTypes from 'prop-types'
 
-import IconButton from 'material-ui/IconButton';
-import NavigationMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz';
+import IconButton from 'material-ui/IconButton'
+import NavigationMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz'
 
-import Section from './components/Section/index';
+import Section from './components/Section/index'
 
-import * as _style from './style';
+import * as _style from './style'
 
 const CONFIG = {
   pageLength: 10,
-};
+}
 
 class Stream extends Component {
   static propTypes = {
@@ -21,17 +21,17 @@ class Stream extends Component {
     lineDimensions: PropTypes.object.isRequired,
     creationMode: PropTypes.bool,
     isPublic: PropTypes.bool,
-  };
+  }
 
   state = {
     pages: 1,
-  };
+  }
 
   showMore = () => {
     this.setState({
       pages: this.state.pages + 1,
-    });
-  };
+    })
+  }
 
   renderSections = () => {
     const {
@@ -41,15 +41,15 @@ class Stream extends Component {
       lineDimensions,
       creationMode,
       isPublic,
-    } = this.props;
-    const { full } = this.state;
-    let sections = data.results;
+    } = this.props
+    const { full } = this.state
+    let sections = data.results
 
     if (
       !full &&
       sections.length > CONFIG.pageLength * this.state.pages
     ) {
-      sections = sections.slice(0, CONFIG.pageLength * this.state.pages);
+      sections = sections.slice(0, CONFIG.pageLength * this.state.pages)
     }
     return sections.map(section => (
       <Section
@@ -62,14 +62,14 @@ class Stream extends Component {
         creationMode={creationMode}
         isPublic={isPublic}
       />
-    ));
-  };
+    ))
+  }
 
   renderShowMore = () => {
-    const { data } = this.props;
-    const { pages } = this.state;
+    const { data } = this.props
+    const { pages } = this.state
     if (data.results.length <= CONFIG.pageLength * pages) {
-      return null;
+      return null
     }
     return (
       <div style={{ textAlign: 'center' }} >
@@ -81,8 +81,8 @@ class Stream extends Component {
           <NavigationMoreHoriz />
         </IconButton>
       </div>
-    );
-  };
+    )
+  }
 
   render() {
     return (
@@ -97,8 +97,8 @@ class Stream extends Component {
           </div>
         </ScrollArea>
       </div>
-    );
+    )
   }
 }
 
-export default Stream;
+export default Stream

@@ -1,22 +1,22 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
-import Snackbar from 'material-ui/Snackbar';
+import Snackbar from 'material-ui/Snackbar'
 
-import { removeSnack } from 'services/actions/interface';
-import { connect } from 'services/redux';
+import { removeSnack } from 'services/actions/interface'
+import { connect } from 'services/redux'
 
 
-const DURATION = 2000;
+const DURATION = 2000
 
 class SnackbarList extends Component {
   static propTypes = {
     messages: PropTypes.array.isRequired,
     remove: PropTypes.func.isRequired,
-  };
+  }
 
   get oldestMessage() {
-    const { messages } = this.props;
+    const { messages } = this.props
     if (messages && messages.length > 0) {
       return {
         show: true,
@@ -26,15 +26,15 @@ class SnackbarList extends Component {
     return {
       show: false,
       content: '',
-    };
+    }
   }
 
   handleRequestClose = () => {
-    this.props.remove();
-  };
+    this.props.remove()
+  }
 
   render() {
-    const message = this.oldestMessage;
+    const message = this.oldestMessage
     return (
       <Snackbar
         open={message.show}
@@ -42,19 +42,19 @@ class SnackbarList extends Component {
         autoHideDuration={DURATION}
         onRequestClose={this.handleRequestClose}
       />
-    );
+    )
   }
 }
 
 const mapStateToProps = ({ main }) => ({
   messages: main.messages,
-});
+})
 
 const mapDispatchToProps = (dispatch, { type, collection }) => ({
   remove: () => dispatch(removeSnack(type, collection))
-});
+})
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(SnackbarList);
+)(SnackbarList)

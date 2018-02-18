@@ -8,24 +8,24 @@ import TVShowStreamGenerator from 'types/tvShows/streamGenerator'
 export const getListGenerator = (type) => {
   switch (type) {
     case 'movies':
-      return MovieListGenerator;
+      return MovieListGenerator
     case 'tv_shows':
-      return TVShowListGenerator;
+      return TVShowListGenerator
     default:
-      return null;
+      return null
   }
-};
+}
 
 export const getStreamGenerator = (type) => {
   switch (type) {
     case 'movies':
-      return MovieStreamGenerator;
+      return MovieStreamGenerator
     case 'tv_shows':
-      return TVShowStreamGenerator;
+      return TVShowStreamGenerator
     default:
-      return null;
+      return null
   }
-};
+}
 
 export const getDefaultOrder = (type) => {
   switch (type) {
@@ -39,7 +39,7 @@ export const getDefaultOrder = (type) => {
           field: 'directors',
           direction: 'desc',
         },
-      };
+      }
 
     case 'tv_shows':
       return {
@@ -51,8 +51,8 @@ export const getDefaultOrder = (type) => {
           field: 'networks',
           direction: 'desc',
         },
-      };
+      }
     default:
-      return null;
+      return null
   }
 };

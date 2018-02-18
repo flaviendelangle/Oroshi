@@ -1,56 +1,56 @@
-const localStorageKey = 'application_settings';
+const localStorageKey = 'application_settings'
 
 const getLocalStorage = () => {
-  const rawData = localStorage.getItem(localStorageKey);
+  const rawData = localStorage.getItem(localStorageKey)
   if (!rawData) {
-    return {};
+    return {}
   }
   try {
-    return JSON.parse(rawData);
+    return JSON.parse(rawData)
   } catch (e) {
-    return {};
+    return {}
   }
-};
+}
 
 const setLocalStorage = (state) => {
-  localStorage.setItem(localStorageKey, JSON.stringify(state));
-};
+  localStorage.setItem(localStorageKey, JSON.stringify(state))
+}
 
 export const getValue = (key) => {
-  const state = getLocalStorage();
-  return state[key];
-};
+  const state = getLocalStorage()
+  return state[key]
+}
 
 export const setValue = (key, value) => {
-  const state = getLocalStorage();
-  state[key] = value;
-  setLocalStorage(state);
-};
+  const state = getLocalStorage()
+  state[key] = value
+  setLocalStorage(state)
+}
 
 export const destroyValue = (key) => {
-  const state = getLocalStorage();
-  delete state[key];
-  setLocalStorage(state);
-};
+  const state = getLocalStorage()
+  delete state[key]
+  setLocalStorage(state)
+}
 
-export const loadOauth = () => getValue('oauth');
+export const loadOauth = () => getValue('oauth')
 
-export const destroyOauth = () => destroyValue('oauth');
+export const destroyOauth = () => destroyValue('oauth')
 
 export const saveOauth = (oauth, meta) => {
-  const exData = loadOauth();
-  let data;
+  const exData = loadOauth()
+  let data
   if (!meta && exData) {
     data = {
       oauth,
       meta: exData.meta,
-    };
+    }
   } else {
     data = {
       oauth,
       meta,
-    };
+    }
   }
-  setValue('oauth', data);
-};
+  setValue('oauth', data)
+}
 

@@ -1,6 +1,6 @@
-import * as titles from 'services/titles/interface';
+import * as titles from 'services/titles/interface'
 
-import { getLineDimensions } from 'services/interface';
+import { getLineDimensions } from 'services/interface'
 
 
 export const alertScreenResize = () => ({
@@ -8,7 +8,7 @@ export const alertScreenResize = () => ({
   width: window.innerWidth,
   height: window.innerHeight,
   lineDimensions: getLineDimensions(window.innerWidth),
-});
+})
 
 export const removeSnack = (type, collection) => ({
   type: titles.snacks.remove,
@@ -16,7 +16,7 @@ export const removeSnack = (type, collection) => ({
     type,
     collection,
   },
-});
+})
 
 export const cleanElementSuggestions = (type, collection) => ({
   type: titles.elementSuggestions.clean,

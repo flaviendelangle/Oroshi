@@ -7,6 +7,6 @@ export const notifyRouteChange = location => ({
   meta: {
     common: true,
   }
-});
+})
 
-export default null;
+export default null

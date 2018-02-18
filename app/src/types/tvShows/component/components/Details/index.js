@@ -1,17 +1,17 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import ScrollArea from 'react-scrollbar';
-import PropTypes from 'prop-types';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import ScrollArea from 'react-scrollbar'
+import PropTypes from 'prop-types'
 
 import Dialog from 'material-ui/Dialog'
-import NavigationExpandLess from 'material-ui/svg-icons/navigation/expand-less';
-import CircularProgress from 'material-ui/CircularProgress';
-import FlatButton from 'material-ui/FlatButton';
-import { List, ListItem } from 'material-ui/List';
-import muiThemeable from 'material-ui/styles/muiThemeable';
+import NavigationExpandLess from 'material-ui/svg-icons/navigation/expand-less'
+import CircularProgress from 'material-ui/CircularProgress'
+import FlatButton from 'material-ui/FlatButton'
+import { List, ListItem } from 'material-ui/List'
+import muiThemeable from 'material-ui/styles/muiThemeable'
 
-import { getDetails } from 'services/actions/publicAPI/index';
-import { getSeasonDetails } from '../../../publicActions';
+import { getDetails } from 'services/actions/publicAPI/index'
+import { getSeasonDetails } from '../../../publicActions'
 
 import './style.css'
 
@@ -26,11 +26,11 @@ class Details extends Component {
     collection: PropTypes.object.isRequired,
     data: PropTypes.object.isRequired,
     details: PropTypes.object.isRequired,
-  };
+  }
 
   state = {
     season: 1,
-  };
+  }
 
   componentWillReceiveProps(newProps) {
     const {
@@ -39,14 +39,14 @@ class Details extends Component {
       load,
       collection,
       data,
-    } = this.props;
+    } = this.props
     if (!loaded && !show && newProps.show) {
-      load(collection, data.getPublicId());
+      load(collection, data.getPublicId())
     }
   }
 
   get style() {
-    const { muiTheme: { palette } } = this.props;
+    const { muiTheme: { palette } } = this.props
     return {
       backgroundColor: palette.paperBackground,
       color: palette.paperColor,
@@ -59,20 +59,20 @@ class Details extends Component {
    * Hide the modal
    */
   handleShowLess = () => {
-    this.props.onCollapse();
-  };
+    this.props.onCollapse()
+  }
 
   /**
    * Change the season we want to display in the modal
    * @param {number} season - the season to show
    */
   switchSeason = (season) => {
-    this.setState({ season });
-  };
+    this.setState({ season })
+  }
 
   render() {
-    const { show, details, muiTheme } = this.props;
-    const { season } = this.state;
+    const { show, details, muiTheme } = this.props
+    const { season } = this.state
     return (
       <Dialog
         title={this.title}
@@ -123,7 +123,7 @@ const Content = ({
       <div className="progress">
         <CircularProgress />
       </div>
-    );
+    )
   }
   return (
     <div className="content">
@@ -140,8 +140,8 @@ const Content = ({
         tmdbId={data.getPublicId()}
       />
     </div>
-  );
-};
+  )
+}
 
 Content.propTypes = {
   muiTheme: PropTypes.object.isRequired,
@@ -152,29 +152,29 @@ Content.propTypes = {
   season: PropTypes.object.isRequired,
   seasons: PropTypes.array.isRequired,
   loadSeason: PropTypes.func.isRequired,
-};
+}
 
 const Title = ({ title, seasons, season }) => {
-  let fullTitle = title;
+  let fullTitle = title
   if (seasons[season]) {
-    fullTitle += ` - ${seasons[season].name}`;
+    fullTitle += ` - ${seasons[season].name}`
   }
   return (
     <div className="title">{fullTitle}</div>
-  );
-};
+  )
+}
 
 Title.propTypes = {
   title: PropTypes.string.isRequired,
   season: PropTypes.object.isRequired,
   seasons: PropTypes.array.isRequired,
-};
+}
 
 const Footer = ({ details, muiTheme, switchSeason }) => {
   if (!details) {
-    return null;
+    return null
   }
-  const isShort = details.seasons.length > 5;
+  const isShort = details.seasons.length > 5
   return (
     <div className="footer">
       <ScrollArea
@@ -192,14 +192,14 @@ const Footer = ({ details, muiTheme, switchSeason }) => {
         ))}
       </ScrollArea>
     </div>
-  );
-};
+  )
+}
 
 Footer.propTypes = {
   details: PropTypes.object.isRequired,
   muiTheme: PropTypes.object.isRequired,
   switchSeason: PropTypes.func.isRequired,
-};
+}
 
 const SeasonButton = ({
   season,
@@ -207,23 +207,23 @@ const SeasonButton = ({
   muiTheme,
   switchSeason,
 }) => {
-  let title;
+  let title
   if (season.season_number === 0) {
-    title = isShort ? 'S0' : 'Specials';
+    title = isShort ? 'S0' : 'Specials'
   } else {
-    title = (isShort ? 'S' : 'Season ') + season.season_number;
+    title = (isShort ? 'S' : 'Season ') + season.season_number
   }
 
-  let style;
+  let style
   if (isShort) {
     style = {
       color: muiTheme.palette.paperColor,
       minWidth: 0,
-    };
+    }
   } else {
     style = {
       color: muiTheme.palette.paperColor,
-    };
+    }
   }
   return (
     <FlatButton
@@ -232,15 +232,15 @@ const SeasonButton = ({
       style={style}
       onClick={() => switchSeason(season.season_number)}
     />
-  );
-};
+  )
+}
 
 SeasonButton.propTypes = {
   season: PropTypes.object.isRequired,
   isShort: PropTypes.bool.isRequired,
   muiTheme: PropTypes.object.isRequired,
   switchSeason: PropTypes.func.isRequired,
-};
+}
 
 const Season = ({
   season,
@@ -251,15 +251,15 @@ const Season = ({
 }) => {
   if (!seasons[season]) {
     if (!Object.prototype.hasOwnProperty.call(seasons, season)) {
-      setTimeout(() => loadSeason(tmdbId, season));
+      setTimeout(() => loadSeason(tmdbId, season))
     }
     return (
       <div className="progress">
         <CircularProgress />
       </div>
-    );
+    )
   }
-  const data = seasons[season];
+  const data = seasons[season]
   return (
     <List className="episodes-list">
       <ScrollArea
@@ -269,8 +269,8 @@ const Season = ({
         <Episodes data={data.episodes} muiTheme={muiTheme} />
       </ScrollArea>
     </List>
-  );
-};
+  )
+}
 
 Season.propTypes = {
   muiTheme: PropTypes.object.isRequired,
@@ -278,7 +278,7 @@ Season.propTypes = {
   seasons: PropTypes.array.isRequired,
   loadSeason: PropTypes.func.isRequired,
   tmdbId: PropTypes.number.isRequired,
-};
+}
 
 const Episodes = ({ data, muiTheme }) => data.map(({ episodeNumber, ...episode }) => (
   <Episode
@@ -287,7 +287,7 @@ const Episodes = ({ data, muiTheme }) => data.map(({ episodeNumber, ...episode }
     key={episodeNumber}
     muiTheme={muiTheme}
   />
-));
+))
 
 const Episode = ({ episodeNumber, name, muiTheme }) => (
   <ListItem
@@ -295,37 +295,37 @@ const Episode = ({ episodeNumber, name, muiTheme }) => (
     style={{ color: muiTheme.palette.paperColor }}
     innerDivStyle={{ padding: 8 }}
   />
-);
+)
 
 Episode.propTypes = {
   episodeNumber: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   muiTheme: PropTypes.object.isRequired,
-};
+}
 
 const mapStateToProps = (state, ownProps) => {
-  const root = state.tv_shows[ownProps.data.getPublicId()];
+  const root = state.tv_shows[ownProps.data.getPublicId()]
   if (!root) {
     return {
       loaded: false,
-    };
+    }
   }
   return {
     loaded: true,
     details: root.details,
     seasons: root.seasons,
-  };
-};
+  }
+}
 
 const mapDispatchToProps = dispatch => ({
   load: (collection, tmdbId) => {
-    dispatch(getDetails('tv_shows', true, collection, tmdbId));
+    dispatch(getDetails('tv_shows', true, collection, tmdbId))
   },
   loadSeason: (tmdbId, season) => dispatch(getSeasonDetails(tmdbId, season)),
-});
+})
 
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(muiThemeable()(Details));
+)(muiThemeable()(Details))

@@ -1,6 +1,6 @@
-import React from 'react';
+import React from 'react'
 
-import ToggleOriginal from 'material-ui/Toggle';
+import ToggleOriginal from 'material-ui/Toggle'
 
 
 const Toggle = props => (
@@ -9,6 +9,6 @@ const Toggle = props => (
     trackSwitchedStyle={{ background: 'rgb(117, 117, 117)' }}
     {...props}
   />
-);
+)
 
-export default Toggle;
+export default Toggle

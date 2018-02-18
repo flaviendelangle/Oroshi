@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types';
+import PropTypes from 'prop-types'
 
 import CollectionContent from './components/CollectionContent'
-import AddingContent from './components/AddingContent';
-import Menu from './components/Menu';
+import AddingContent from './components/AddingContent'
+import Menu from './components/Menu'
 
 import { get as getCollection } from 'services/actions/collections'
-import { connect } from 'services/redux';
+import { connect } from 'services/redux'
 
 
 class CollectionScene extends Component {
@@ -16,17 +16,17 @@ class CollectionScene extends Component {
     loaded: PropTypes.bool.isRequired,
     type: PropTypes.string.isRequired,
     isPublic: PropTypes.bool,
-  };
+  }
 
   componentDidMount() {
-    const { synchronize, loaded } = this.props;
+    const { synchronize, loaded } = this.props
     if (!loaded) {
-      synchronize();
+      synchronize()
     }
   }
 
   render() {
-    const { type, isPublic, collection } = this.props;
+    const { type, isPublic, collection } = this.props
     return (
       <div>
         <Content {...this.props} />
@@ -55,7 +55,7 @@ const Content = ({
         elementComponent={config.elementComponent}
         isPublic={isPublic}
       />
-    );
+    )
   }
   return (
     <CollectionContent
@@ -64,8 +64,8 @@ const Content = ({
       elementComponent={config.elementComponent}
       isPublic={isPublic}
     />
-  );
-};
+  )
+}
 
 Content.propTypes = {
   collection: PropTypes.object.isRequired,
@@ -73,18 +73,18 @@ Content.propTypes = {
   isPublic: PropTypes.bool,
   isAdding: PropTypes.bool,
   config: PropTypes.object,
-};
+}
 
 const mapStateToProps = ({ main, content }) => ({
   isAdding: main.isAdding,
   loaded: content.loaded,
-});
+})
 
 const mapDispatchToProps = (dispatch, { type, collection }) => ({
   synchronize: () => dispatch(getCollection(type, collection)),
-});
+})
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(CollectionScene);
+)(CollectionScene)

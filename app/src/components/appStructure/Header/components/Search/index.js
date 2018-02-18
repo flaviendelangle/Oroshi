@@ -1,15 +1,15 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 
-import SearchBar from 'material-ui-search-bar';
-import AutoComplete from 'material-ui/AutoComplete';
-import muiThemeable from 'material-ui/styles/muiThemeable';
+import SearchBar from 'material-ui-search-bar'
+import AutoComplete from 'material-ui/AutoComplete'
+import muiThemeable from 'material-ui/styles/muiThemeable'
 
 import { update } from './actions'
-import { search, getRecommendations } from 'services/actions/publicAPI';
+import { search, getRecommendations } from 'services/actions/publicAPI'
 
-import './style.css';
+import './style.css'
 
 
 class Search extends Component {
@@ -21,45 +21,45 @@ class Search extends Component {
     isAdding: PropTypes.bool,
     title: PropTypes.string,
     query: PropTypes.string,
-  };
+  }
 
   state = {
     query: '',
-  };
+  }
 
   get hintText() {
-    const { isAdding, title } = this.props;
+    const { isAdding, title } = this.props
     if (isAdding) {
-      return 'Search for content to add';
+      return 'Search for content to add'
     }
-    return title ? `Search in ${title}` : 'Search ...';
+    return title ? `Search in ${title}` : 'Search ...'
   }
 
   search = (query) => {
-    this.setState({ query });
+    this.setState({ query })
     this.filter(query, false)
-  };
+  }
 
   filter = (query, forced) => {
-    const { isAdding, filter } = this.props;
-    filter(query, forced, isAdding);
-  };
+    const { isAdding, filter } = this.props
+    filter(query, forced, isAdding)
+  }
 
   renderCounter = () => {
-    const { isAdding, count, muiTheme: { palette } } = this.props;
+    const { isAdding, count, muiTheme: { palette } } = this.props
     if (isAdding) {
-      return null;
+      return null
     }
-    const style = { color: palette.alternateTextColor };
+    const style = { color: palette.alternateTextColor }
     return (
       <div className="element-count" style={style} >
         {`${count} element${(count > 1 ? 's' : '')}`}
       </div>
-    );
-  };
+    )
+  }
 
   render() {
-    const { query, autoComplete } = this.props;
+    const { query, autoComplete } = this.props
     return (
       <div className="search-bar-container">
         <SearchBar
@@ -73,26 +73,26 @@ class Search extends Component {
         />
         {this.renderCounter()}
       </div>
-    );
+    )
   }
 }
 
-const mapStateToProps = () => ({});
+const mapStateToProps = () => ({})
 
 const mapDispatchToProps = (dispatch, { type, collection }) => ({
   filter: (query, forced, isAdding) => {
-    dispatch(update(type, collection, query));
+    dispatch(update(type, collection, query))
     if (isAdding && forced) {
       if (query === '') {
-        dispatch(getRecommendations(type, collection));
+        dispatch(getRecommendations(type, collection))
       } else {
-        dispatch(search(type, collection, query));
+        dispatch(search(type, collection, query))
       }
     }
   },
-});
+})
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(muiThemeable()(Search));
+)(muiThemeable()(Search))

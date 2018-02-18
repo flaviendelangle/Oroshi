@@ -4,12 +4,12 @@ export const scroll = {
   right: 0,
   left: 0,
   transform: 'translateY(-50%)',
-};
+}
 
 export const container = {
   margin: '50px auto',
   width: '80%',
-};
+}
 
 export const progress = {
   width: 40,
@@ -17,4 +17,4 @@ export const progress = {
   position: 'absolute',
   left: 'calc(50% - 20px)',
   top: 'calc(50% - 20px)',
-};
+}

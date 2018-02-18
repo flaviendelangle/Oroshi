@@ -4,9 +4,9 @@ export const page = {
   bottom: 0,
   right: 0,
   left: 0,
-};
+}
 
 export const container = {
   position: 'relative',
   height: '100%',
-};
+}
