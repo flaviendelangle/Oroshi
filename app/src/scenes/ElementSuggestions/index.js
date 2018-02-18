@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import Stream from 'components/generics/Stream';
+import Progress from 'components/generics/Progress';
 import { getSuggestions, getSettings } from "services/actions/collections";
+import { cleanElementSuggestions } from 'services/actions/interface';
 import { connect } from 'services/redux';
 
 
@@ -15,6 +17,7 @@ class ElementSuggestions extends Component {
     match: PropTypes.object.isRequired,
     synchronize: PropTypes.func.isRequired,
     loadCollection: PropTypes.func.isRequired,
+    cleanScene: PropTypes.func.isRequired,
     suggestions: PropTypes.object,
     lineDimensions: PropTypes.object,
   };
@@ -28,6 +31,11 @@ class ElementSuggestions extends Component {
     loadCollection({ pk: collection_id }).then(() => synchronize(element_id));
   }
 
+  componentWillUnmount() {
+    const { cleanScene } = this.props
+    cleanScene()
+  }
+
   render() {
     const {
       loaded,
@@ -38,7 +46,7 @@ class ElementSuggestions extends Component {
       lineDimensions,
     } = this.props;
     if (!loaded) {
-      return null;
+      return <Progress />;
     }
     return (
       <Stream
@@ -67,6 +75,7 @@ const mapStateToProps = ({ suggestions }, state) => {
 const mapDispatchToProps = (dispatch, { type, collection }) => ({
   loadCollection: () => dispatch(getSettings(type, collection)),
   synchronize: elementId => dispatch(getSuggestions(type, collection, elementId)),
+  cleanScene: () => dispatch(cleanElementSuggestions(type, collection)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ElementSuggestions);

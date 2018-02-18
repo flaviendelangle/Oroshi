@@ -17,3 +17,11 @@ export const removeSnack = (type, collection) => ({
     collection,
   },
 });
+
+export const cleanElementSuggestions = (type, collection) => ({
+  type: titles.elementSuggestions.clean,
+  meta: {
+    type,
+    collection,
+  }
+})

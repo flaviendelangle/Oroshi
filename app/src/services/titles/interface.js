@@ -28,6 +28,10 @@ export const collectionSettings = {
   switchSection: 'COLLECTION_SETTINGS_SWITCH_SECTION',
 };
 
+export const elementSuggestions = {
+  clean: 'ELEMENT_SUGGESTIONS_CLEAN',
+};
+
 export const snacks = {
   remove: 'REMOVE_SNACK',
 };

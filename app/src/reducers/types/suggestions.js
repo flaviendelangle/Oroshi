@@ -1,4 +1,5 @@
 import { collectionContent } from "services/titles/api";
+import { elementSuggestions as titles } from 'services/titles/interface'
 
 
 const defaultState = {
@@ -23,6 +24,10 @@ const elementSuggestions = (state = defaultState, action) => {
         ...state,
         suggestions: action.payload,
       };
+    }
+
+    case titles.clean: {
+      return defaultState
     }
 
     default:
