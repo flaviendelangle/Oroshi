@@ -9,7 +9,7 @@ const extractComments = (csv) => {
         const data = _el.substring(1).split(',');
         comments = {
           ...comments,
-          [data[0]]: data[1],
+          [data[0].trim()]: data[1].trim(),
         };
       } else {
         content.push(_el);
@@ -22,21 +22,21 @@ const extractComments = (csv) => {
   };
 };
 
-const parseJSON = (scene, json) => {
+const parseJSON = (type, json) => {
   const { comments, content } = JSON.parse(json);
-  if (comments.scene !== scene) {
+  if (comments.type !== type) {
     return {
-      error: 'Wrong scene',
+      error: 'Wrong type of collection',
     };
   }
   return content.sort((a, b) => (a.title > b.title ? 1 : -1));
 };
 
-const parseCSV = (scene, csv) => {
+const parseCSV = (type, csv) => {
   const { comments, content } = extractComments(csv);
-  if (comments.scene !== scene) {
+  if (comments.type !== type) {
     return {
-      error: 'Wrong scene',
+      error: 'Wrong type of collection',
     };
   }
   return Papa.parse(content, { header: true, dynamicTyping: true }).data

@@ -143,7 +143,7 @@ export const removeElement = (type, collection, element) => {
   }
 };
 
-export const importCSV = (type, file) => ({
+export const importCSV = (type, collection, file) => ({
   type: titles.collectionContent.importFromFile,
   payload: readAsText(file).then(result => ({
     data: parseCSV(type, result),
@@ -151,10 +151,11 @@ export const importCSV = (type, file) => ({
   })),
   meta: {
     type,
+    collection,
   },
 });
 
-export const importJSON = (type, file) => ({
+export const importJSON = (type, collection, file) => ({
   type: titles.collectionContent.importFromFile,
   payload: readAsText(file).then(result => ({
     data: parseJSON(type, result),
@@ -162,6 +163,7 @@ export const importJSON = (type, file) => ({
   })),
   meta: {
     type,
+    collection,
   },
 });
 
@@ -175,7 +177,7 @@ export const importElements = (type, collection, _elements, dispatch) => {
     }
     const element = elements[index];
     if (element.isInCollection()) {
-      setTimeout(() => importElement(type, elements, index + 1, dispatch));
+      setTimeout(() => importElement(elements, index + 1));
       return dispatch({
         type: titles.collections.add,
         payload: element,
@@ -194,7 +196,7 @@ export const importElements = (type, collection, _elements, dispatch) => {
           collection,
         },
       });
-      importElement(index + 1);
+      importElement(elements, index + 1);
     });
   };
 

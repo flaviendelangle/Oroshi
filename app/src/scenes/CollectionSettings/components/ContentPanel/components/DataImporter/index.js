@@ -33,12 +33,23 @@ class DataImporter extends Component {
   state = {
     source: 'csv',
     csv: null,
+    error: '',
   };
 
   componentWillReceiveProps(newProps) {
     const { importFromFile, importContent } = this.props;
     if (!importFromFile && newProps.importFromFile) {
-      importContent(newProps.data, newProps.importFromFile.data);
+      const { data } = newProps.importFromFile
+      if (data.error) {
+        this.setState(() => ({
+          error: data.error,
+        }))
+      } else {
+        this.setState(() => ({
+          error: '',
+        }))
+        importContent(newProps.importFromFile.data);
+      }
       this.setState({ elements: newProps.importFromFile.data });
     }
   }
@@ -124,11 +135,13 @@ class DataImporter extends Component {
   };
 
   renderLines = () => {
-    const { type } = this.props;
+    const { created } = this.props;
     let counter = 0;
     return this.state.elements.map((el) => {
       counter += 1;
-      return <Line data={el} key={counter} type={type} />;
+      return (
+        <Line title={el.title} key={counter}  done={!!created[el.tmdbId]} />
+      )
     });
   };
 
@@ -154,11 +167,13 @@ class DataImporter extends Component {
   };
 
   render() {
+    const { error } = this.state;
     return (
       <div style={{ height: '100%' }} >
+        <div>{ error }</div>
         {this.renderSourcePicker()}
         {this.renderParameters()}
-        {this.renderElementsList()}
+        {!error && this.renderElementsList()}
       </div>
     );
   }
@@ -167,12 +182,13 @@ class DataImporter extends Component {
 const mapStateToProps = ({ settings: { dataImporter } }) => ({
   importFromFile: dataImporter.importFromFile,
   progress: dataImporter.progress,
+  created: dataImporter.created,
 });
 
-const mapDispatchToProps = (dispatch, { type }) => ({
-  importCSV: file => dispatch(_importCSV(type, file)),
-  importJSON: file => dispatch(_importJSON(type, file)),
-  importContent: (collection, elements) => {
+const mapDispatchToProps = (dispatch, { type, collection, }) => ({
+  importCSV: file => dispatch(_importCSV(type, collection, file)),
+  importJSON: file => dispatch(_importJSON(type, collection, file)),
+  importContent: (elements) => {
     dispatch(importElements(type, collection, elements, dispatch));
   },
 });

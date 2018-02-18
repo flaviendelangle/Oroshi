@@ -89,7 +89,7 @@ const settings = (state = defaultState, action) => {
         dataImporter: {
           ...state.dataImporter,
           created: {
-            ...state.created,
+            ...state.dataImporter.created,
             [element.getPublicId()]: element,
           },
           keysNumber,
