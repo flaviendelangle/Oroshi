@@ -97,7 +97,7 @@ class Element {
     this.setLocal(newLocal);
   }
 
-  isGreater(other, field) {
+  isGreater(other, field, primary = true) {
     const valueA = this.getValueToSort(field);
     const valueB = other.getValueToSort(field);
     if (valueA > valueB) {
@@ -106,10 +106,13 @@ class Element {
     if (valueA < valueB) {
       return -1;
     }
-    if (field !== 'note') {
-      return this.isGreater(other, 'note');
+    if (!primary) {
+      return 0
     }
-    return 0;
+    if (field !== 'note') {
+      return this.isGreater(other, 'note', false);
+    }
+    return -this.isGreater(other, 'title', false)
   }
 
   isInCollection = () => this.$isInCollection;

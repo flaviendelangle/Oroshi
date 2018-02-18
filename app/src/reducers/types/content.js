@@ -42,10 +42,10 @@ const reducer = (_state, action) => {
   const defaultOrder = getDefaultOrder(type);
 
   switch (action.type) {
+
     /**
      * The collection has been loaded
      */
-
     case `${collectionContent.load}_FULFILLED`: {
       if (!action.payload) {
         return {
@@ -60,7 +60,7 @@ const reducer = (_state, action) => {
       });
       newContent = Element.sortList(
         action.payload.content,
-        state.order.default,
+        state.order.grid,
       );
       return {
         ...state,
@@ -78,7 +78,7 @@ const reducer = (_state, action) => {
      * An element has been added to the collection
      */
     case `${collections.add}_FULFILLED`: {
-      newContent = contentManager.add(state.content, action.payload, state.order.default);
+      newContent = contentManager.add(state.content, action.payload, state.order.grid);
 
       return {
         ...state,

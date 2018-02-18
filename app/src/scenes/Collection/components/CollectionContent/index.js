@@ -44,7 +44,7 @@ class CollectionContent extends Component {
         <Grid
           data={grid}
           collection={collection}
-          order={order.default}
+          order={order.grid}
           type={type}
           elementComponent={elementComponent}
           lineDimensions={lineDimensions}

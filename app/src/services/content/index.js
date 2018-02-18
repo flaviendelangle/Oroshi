@@ -31,7 +31,7 @@ export const getDefaultOrder = (type) => {
   switch (type) {
     case 'movies':
       return {
-        default: {
+        grid: {
           field: 'title',
           direction: 'asc',
         },
@@ -43,7 +43,7 @@ export const getDefaultOrder = (type) => {
 
     case 'tv_shows':
       return {
-        default: {
+        grid: {
           field: 'title',
           direction: 'asc',
         },
