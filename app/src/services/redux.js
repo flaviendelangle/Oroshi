@@ -6,7 +6,7 @@ const customMapStateToProps = (mapStateToProps, state, ownProps) => {
     const typeRoot = state.types[type]
     if (!typeRoot[collection.pk]) {
       return {
-        loaded: false,
+        isLoaded: false,
       }
     }
     const newState = mapStateToProps(typeRoot[collection.pk], state, ownProps)
@@ -16,7 +16,7 @@ const customMapStateToProps = (mapStateToProps, state, ownProps) => {
     return newState
   }
   return {
-    loaded: false,
+    isLoaded: false,
   }
 }
 

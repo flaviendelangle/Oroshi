@@ -34,14 +34,14 @@ const Menu = ({
   type,
   layout,
   found,
-  loaded,
+  isLoaded,
   isPublic,
   content,
   switchAddingMode,
   switchLayout,
   muiTheme: { palette },
 }) => {
-  if (!found || !loaded) {
+  if (!found || !isLoaded) {
     return null
   }
   return (
@@ -71,7 +71,7 @@ Menu.propTypes = {
   isAdding: PropTypes.bool,
   collection: PropTypes.object.isRequired,
   type: PropTypes.string.isRequired,
-  loaded: PropTypes.bool.isRequired,
+  isLoaded: PropTypes.bool.isRequired,
   isPublic: PropTypes.bool,
   switchAddingMode: PropTypes.func.isRequired,
   switchLayout: PropTypes.func.isRequired,
@@ -176,11 +176,11 @@ AddingIcon.propTypes = {
 
 const mapStateToProps = ({ content, main }) => ({
   isAdding: main.isAdding,
+  isLoaded: main.isLoaded,
+  found: main.found,
+  collection: main.collection,
 
-  found: content.found,
-  collection: content.collection,
   layout: content.layout,
-  loaded: content.loaded,
   content: content.content,
 })
 

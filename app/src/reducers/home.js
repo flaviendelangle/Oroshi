@@ -7,7 +7,7 @@ import { collectionContent } from 'services/titles/api'
 
 const defaultState = {
   collections: [],
-  loaded: false,
+  isLoaded: false,
 }
 
 const main = (state = defaultState, action) => {
@@ -16,7 +16,7 @@ const main = (state = defaultState, action) => {
       return {
         ...state,
         collections: action.payload,
-        loaded: true,
+        isLoaded: true,
       }
     case `${collectionContent.create}_FULFILLED`:
       return {

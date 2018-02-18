@@ -11,7 +11,7 @@ import * as _style from './style'
 
 class AddingContent extends Component {
   static propTypes = {
-    loaded: PropTypes.bool.isRequired,
+    isLoaded: PropTypes.bool.isRequired,
     collection: PropTypes.object.isRequired,
     type: PropTypes.string.isRequired,
     elementComponent: PropTypes.func.isRequired,
@@ -54,8 +54,8 @@ class AddingContent extends Component {
   }
 
   render() {
-    const { loaded } = this.props
-    if (!loaded) {
+    const { isLoaded } = this.props
+    if (!isLoaded) {
       return (
         <Progress />
       )
@@ -74,7 +74,7 @@ class AddingContent extends Component {
 
 const mapStateToProps = ({ adding }, state) => {
   return {
-    loaded: adding.loaded,
+    isLoaded: adding.isLoaded,
     collection: adding.collection,
     recommendations: adding.recommendations,
     addingSearch: adding.addingSearch,

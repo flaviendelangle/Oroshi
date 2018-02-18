@@ -1,14 +1,54 @@
 import { source, snacks } from 'services/titles/interface'
-import { collections } from "services/titles/api"
+import { collections, collectionContent } from "services/titles/api"
+import TMDBAPI from 'services/TheMovieDatabaseJS/index'
 
 
 const defaultState = {
   isAdding: false,
   messages: [],
+  found: false,
+  isLoaded: false,
+  collection: null,
 }
 
 const main = (state = defaultState, action) => {
   switch (action.type) {
+    /**
+     * The collection has been loaded (with the content !)
+     */
+    case `${collectionContent.load}_FULFILLED`: {
+      if (!action.payload) {
+        return {
+          ...state,
+          found: false,
+          isLoaded: true,
+        }
+      }
+      const { content, ...collection } = action.payload
+      TMDBAPI.setConfig({
+        include_adult: action.payload.adult_content,
+        language: action.payload.title_language,
+      })
+      return {
+        ...state,
+        collection,
+        found: true,
+        isLoaded: true,
+      }
+    }
+
+    /**
+     * The collection has been loaded (without the content !)
+     */
+    case `${collectionContent.loadSettings}_FULFILLED`: {
+      return {
+        ...state,
+        collection: action.payload,
+        found: true,
+        isLoaded: true,
+      }
+    }
+
     /**
      * We enter / leave the adding more
      */

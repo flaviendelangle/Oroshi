@@ -17,7 +17,7 @@ class Home extends Component {
   static propTypes = {
     history: PropTypes.object.isRequired,
     loadCollections: PropTypes.func.isRequired,
-    loaded: PropTypes.bool.isRequired,
+    isLoaded: PropTypes.bool.isRequired,
     collections: PropTypes.array.isRequired,
     oauth: PropTypes.object,
     profile: PropTypes.object,
@@ -56,9 +56,9 @@ class Home extends Component {
   }
 
   render() {
-    const { loaded, collections } = this.props
+    const { isLoaded, collections } = this.props
     const { editing } = this.state
-    if (!loaded) {
+    if (!isLoaded) {
       return (
         <div style={_style.progress} >
           <CircularProgress />
@@ -103,7 +103,7 @@ const mapStateToProps = (state) => {
   const appRoot = state.app
   return {
     collections: root.collections,
-    loaded: root.loaded,
+    isLoaded: root.isLoaded,
     oauth: appRoot.oauth,
     profile: appRoot.profile,
   }

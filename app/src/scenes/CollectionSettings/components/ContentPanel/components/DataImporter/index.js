@@ -78,24 +78,6 @@ class DataImporter extends Component {
     }
   }
 
-  renderSourcePicker = () => (
-    <div style={{ textAlign: 'center' }} >
-      <SelectField
-        floatingLabelText="Source"
-        value={this.state.source}
-        style={_style.source}
-        onChange={(proxy, index, source) => this.setState({ source })}
-      >
-        <MenuItem value="csv" primaryText="CSV File" />
-        <MenuItem value="json" primaryText="JSON File" />
-        {/*
-        <MenuItem value="imdb" primaryText="IMDB List" />
-        <MenuItem value="tmdb" primaryText="TMDB List" />
-        */}
-      </SelectField>
-    </div>
-  )
-
   renderFilePicker = format => (
     <div style={{ height: 150 }} >
       <Dropzone
@@ -134,46 +116,45 @@ class DataImporter extends Component {
     }
   }
 
-  renderLines = () => {
-    const { created } = this.props
-    let counter = 0
-    return this.state.elements.map((el) => {
-      counter += 1
-      return (
-        <Line title={el.title} key={counter}  done={!!created[el.tmdbId]} />
-      )
-    })
-  }
-
-  renderElementsList = () => {
-    const { progress } = this.props
-    const { elements } = this.state
-    if (!elements) {
-      return null
-    }
-    return (
-      <div style={{ height: 'calc(100% - 242px)' }} >
-        <Progress progress={progress} />
-        <List style={{ height: 'calc(100% - 16px)', padding: 0 }} >
-          <ScrollArea
-            speed={0.8}
-            horizontal={false}
-          >
-            {this.renderLines()}
-          </ScrollArea>
-        </List>
-      </div>
-    )
-  }
-
   render() {
-    const { error } = this.state
+    const { error, elements } = this.state
+    const { progress, created } = this.props
     return (
       <div style={{ height: '100%' }} >
         <div>{ error }</div>
-        {this.renderSourcePicker()}
+        <div style={{ textAlign: 'center' }} >
+          <SelectField
+            floatingLabelText="Source"
+            value={this.state.source}
+            style={_style.source}
+            onChange={(proxy, index, source) => this.setState({ source })}
+          >
+            <MenuItem value="csv" primaryText="CSV File" />
+            <MenuItem value="json" primaryText="JSON File" />
+          </SelectField>
+        </div>
         {this.renderParameters()}
-        {!error && this.renderElementsList()}
+        {
+          !error &&
+          elements &&
+          <div style={{ height: 'calc(100% - 242px)' }} >
+            <Progress progress={progress} />
+            <List style={{ height: 'calc(100% - 16px)', padding: 0 }} >
+              <ScrollArea
+                speed={0.8}
+                horizontal={false}
+              >
+                {this.state.elements.map((el, index) => (
+                  <Line
+                    title={el.title}
+                    key={index}
+                    done={!!created[el.tmdbId]}
+                  />
+                ))}
+              </ScrollArea>
+            </List>
+          </div>
+        }
       </div>
     )
   }

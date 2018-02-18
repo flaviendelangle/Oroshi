@@ -11,7 +11,7 @@ const defaultState = {
     results: [],
   },
   addingSearch: null,
-  loaded: false,
+  isLoaded: false,
 }
 
 const reducer = (state = defaultState, action) => {
@@ -52,7 +52,7 @@ const reducer = (state = defaultState, action) => {
         ...state,
         addingSearch: null,
         recommendations: action.payload,
-        loaded: true,
+        isLoaded: true,
       }
     }
 

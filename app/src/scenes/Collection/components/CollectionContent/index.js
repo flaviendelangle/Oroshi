@@ -7,6 +7,8 @@ import Stream from 'components/generics/Stream'
 import Progress from 'components/generics/Progress'
 import Help from 'components/generics/Help'
 import { connect } from "services/redux"
+import { get as getCollection } from 'services/actions/collections'
+
 
 import * as _style from './style'
 
@@ -16,7 +18,9 @@ class CollectionContent extends Component {
     collection: PropTypes.object.isRequired,
     type: PropTypes.string.isRequired,
     elementComponent: PropTypes.func.isRequired,
-    loaded: PropTypes.bool.isRequired,
+    isLoaded: PropTypes.bool.isRequired,
+    isContentLoaded: PropTypes.bool,
+    synchronize: PropTypes.func.isRequired,
     found: PropTypes.bool,
     content: PropTypes.array,
     isPublic: PropTypes.bool,
@@ -25,6 +29,13 @@ class CollectionContent extends Component {
     grid: PropTypes.object,
     stream: PropTypes.object,
     order: PropTypes.object,
+  }
+
+  componentDidMount() {
+    const { synchronize, isLoaded, isContentLoaded } = this.props
+    if (!isLoaded || !isContentLoaded) {
+      synchronize()
+    }
   }
 
   renderContent = () => {
@@ -68,7 +79,7 @@ class CollectionContent extends Component {
 
   render() {
     const {
-      loaded,
+      isLoaded,
       found,
       content,
       collection,
@@ -76,7 +87,7 @@ class CollectionContent extends Component {
       type,
       elementComponent,
     } = this.props
-    if (!loaded) {
+    if (!isLoaded) {
       return (
         <Progress />
       )
@@ -102,21 +113,25 @@ class CollectionContent extends Component {
   }
 }
 
-const mapStateToProps = ({ content }, state) => ({
+const mapStateToProps = ({ content, main }, state) => ({
+  collection: main.collection,
+  found: main.found,
+  isLoaded: main.isLoaded,
+
   update: content.update,
   content: content.content,
+  isContentLoaded: content.isContentLoaded,
   grid: content.grid,
   stream: content.stream,
-  collection: content.collection,
-  found: content.found,
-  loaded: content.loaded,
   layout: content.layout,
   order: content.order,
 
   lineDimensions: state.app.lineDimensions,
 })
 
-const mapDispatchToProps = () => ({})
+const mapDispatchToProps = (dispatch, { type, collection }) => ({
+  synchronize: () => dispatch(getCollection(type, collection)),
+})
 
 export default connect(
   mapStateToProps,

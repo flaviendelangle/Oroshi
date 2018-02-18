@@ -5,24 +5,14 @@ import CollectionContent from './components/CollectionContent'
 import AddingContent from './components/AddingContent'
 import Menu from './components/Menu'
 
-import { get as getCollection } from 'services/actions/collections'
 import { connect } from 'services/redux'
 
 
 class CollectionScene extends Component {
   static propTypes = {
-    synchronize: PropTypes.func.isRequired,
     collection: PropTypes.object.isRequired,
-    loaded: PropTypes.bool.isRequired,
     type: PropTypes.string.isRequired,
     isPublic: PropTypes.bool,
-  }
-
-  componentDidMount() {
-    const { synchronize, loaded } = this.props
-    if (!loaded) {
-      synchronize()
-    }
   }
 
   render() {
@@ -75,14 +65,11 @@ Content.propTypes = {
   config: PropTypes.object,
 }
 
-const mapStateToProps = ({ main, content }) => ({
+const mapStateToProps = ({ main }) => ({
   isAdding: main.isAdding,
-  loaded: content.loaded,
 })
 
-const mapDispatchToProps = (dispatch, { type, collection }) => ({
-  synchronize: () => dispatch(getCollection(type, collection)),
-})
+const mapDispatchToProps = () => ({})
 
 export default connect(
   mapStateToProps,

@@ -10,7 +10,7 @@ import { connect } from 'services/redux'
 
 class ElementSuggestions extends Component {
   static propTypes = {
-    loaded: PropTypes.bool.isRequired,
+    isLoaded: PropTypes.bool.isRequired,
     collection: PropTypes.object.isRequired,
     type: PropTypes.string.isRequired,
     config: PropTypes.object.isRequired,
@@ -18,6 +18,7 @@ class ElementSuggestions extends Component {
     synchronize: PropTypes.func.isRequired,
     loadCollection: PropTypes.func.isRequired,
     cleanScene: PropTypes.func.isRequired,
+    suggestionsLoaded: PropTypes.bool,
     suggestions: PropTypes.object,
     lineDimensions: PropTypes.object,
   }
@@ -26,9 +27,15 @@ class ElementSuggestions extends Component {
     const {
       loadCollection,
       synchronize,
-      match: { params: { collection_id, element_id }},
+      match: { params: { element_id }},
+      collection,
+      isLoaded,
     } = this.props
-    loadCollection({ pk: collection_id }).then(() => synchronize(element_id))
+    if (isLoaded) {
+      synchronize(element_id)
+    } else {
+      loadCollection(collection).then(() => synchronize(element_id))
+    }
   }
 
   componentWillUnmount() {
@@ -38,14 +45,15 @@ class ElementSuggestions extends Component {
 
   render() {
     const {
-      loaded,
+      isLoaded,
       suggestions,
+      suggestionsLoaded,
       collection,
       type,
       config,
       lineDimensions,
     } = this.props
-    if (!loaded) {
+    if (!isLoaded || !suggestionsLoaded) {
       return <Progress />
     }
     return (
@@ -62,15 +70,15 @@ class ElementSuggestions extends Component {
   }
 }
 
-const mapStateToProps = ({ suggestions }, state) => {
-  return {
-    loaded: suggestions.loaded,
-    collection: suggestions.collection,
-    suggestions: suggestions.suggestions,
+const mapStateToProps = ({ suggestions, main }, state) => ({
+  isLoaded: main.isLoaded,
+  collection: main.collection,
 
-    lineDimensions: state.app.lineDimensions,
-  }
-}
+  suggestions: suggestions.suggestions,
+  suggestionsLoaded: suggestions.suggestionsLoaded,
+
+  lineDimensions: state.app.lineDimensions,
+})
 
 const mapDispatchToProps = (dispatch, { type, collection }) => ({
   loadCollection: () => dispatch(getSettings(type, collection)),

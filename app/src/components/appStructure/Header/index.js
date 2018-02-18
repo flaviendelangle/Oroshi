@@ -165,14 +165,14 @@ const mapStateToProps = ({ header, content, main }) => {
   }
   return {
     isDrawerOpen: header.isDrawerOpen,
-    found: content.found,
     layout: content.layout,
-    collection: content.collection,
     autoComplete: content.autoComplete,
 
     title: header.title,
     query: header.query,
 
+    collection: main.collection,
+    found: main.found,
     isAdding: main.isAdding,
 
     count,

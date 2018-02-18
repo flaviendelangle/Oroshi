@@ -1,5 +1,3 @@
-import TMDBAPI from 'services/TheMovieDatabaseJS/index'
-
 import { collectionContent, collections } from 'services/titles/api'
 import { sort, search } from 'services/titles/data'
 import { layout } from 'services/titles/interface'
@@ -19,10 +17,8 @@ const generateDefaultState = (type) => {
 
   return {
     content: [],
+    isContentLoaded: false,
     query: '',
-    collection: null,
-    found: false,
-    loaded: false,
     layout: getValue(`layout_${type}`) || 'grid',
     order: getValue(`order_${type}`) || defaultOrder,
     stream: new StreamGenerator(),
@@ -48,29 +44,19 @@ const reducer = (_state, action) => {
      */
     case `${collectionContent.load}_FULFILLED`: {
       if (!action.payload) {
-        return {
-          ...state,
-          found: false,
-          loaded: true,
-        }
+        return state
       }
-      TMDBAPI.setConfig({
-        include_adult: action.payload.adult_content,
-        language: action.payload.title_language,
-      })
       newContent = Element.sortList(
         action.payload.content,
         state.order.grid,
       )
       return {
         ...state,
-        collection: action.payload,
+        isContentLoaded: true,
         content: newContent,
         stream: new StreamGenerator(newContent, state.query, state.order.stream),
         grid: new ListGenerator(newContent, state.query),
         autoComplete: Element.buildAutoComplete(newContent, state.order.stream),
-        found: true,
-        loaded: true,
       }
     }
 

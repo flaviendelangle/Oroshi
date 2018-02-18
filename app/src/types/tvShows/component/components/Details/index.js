@@ -20,7 +20,7 @@ class Details extends Component {
   static propTypes = {
     onCollapse: PropTypes.func.isRequired,
     muiTheme: PropTypes.object.isRequired,
-    loaded: PropTypes.bool.isRequired,
+    isLoaded: PropTypes.bool.isRequired,
     show: PropTypes.bool.isRequired,
     load: PropTypes.func.isRequired,
     collection: PropTypes.object.isRequired,
@@ -34,13 +34,13 @@ class Details extends Component {
 
   componentWillReceiveProps(newProps) {
     const {
-      loaded,
+      isLoaded,
       show,
       load,
       collection,
       data,
     } = this.props
-    if (!loaded && !show && newProps.show) {
+    if (!isLoaded && !show && newProps.show) {
       load(collection, data.getPublicId())
     }
   }
@@ -109,7 +109,7 @@ class Details extends Component {
 }
 
 const Content = ({
-  loaded,
+  isLoaded,
   details,
   title,
   season,
@@ -118,7 +118,7 @@ const Content = ({
   loadSeason,
   data,
 }) => {
-  if (!loaded || !details) {
+  if (!isLoaded || !details) {
     return (
       <div className="progress">
         <CircularProgress />
@@ -145,7 +145,7 @@ const Content = ({
 
 Content.propTypes = {
   muiTheme: PropTypes.object.isRequired,
-  loaded: PropTypes.bool.isRequired,
+  isLoaded: PropTypes.bool.isRequired,
   data: PropTypes.object.isRequired,
   details: PropTypes.object.isRequired,
   title: PropTypes.string.isRequired,
@@ -307,11 +307,11 @@ const mapStateToProps = (state, ownProps) => {
   const root = state.tv_shows[ownProps.data.getPublicId()]
   if (!root) {
     return {
-      loaded: false,
+      isLoaded: false,
     }
   }
   return {
-    loaded: true,
+    isLoaded: true,
     details: root.details,
     seasons: root.seasons,
   }

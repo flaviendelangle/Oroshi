@@ -3,26 +3,20 @@ import { elementSuggestions as titles } from 'services/titles/interface'
 
 
 const defaultState = {
-  loaded: false,
   suggestions: {
     results: [],
   },
+  suggestionsLoaded: false,
 }
 
 const elementSuggestions = (state = defaultState, action) => {
   switch (action.type) {
-    case `${collectionContent.loadSettings}_FULFILLED`: {
-      return {
-        ...state,
-        loaded: true,
-        collection: action.payload,
-      }
-    }
-
     case `${collectionContent.loadSuggestions}_FULFILLED`: {
+      console.log('TEST')
       return {
         ...state,
         suggestions: action.payload,
+        suggestionsLoaded: true,
       }
     }
 
