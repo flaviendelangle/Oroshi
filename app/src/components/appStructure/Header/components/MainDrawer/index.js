@@ -10,6 +10,7 @@ import ActionHome from 'material-ui/svg-icons/action/home'
 import ActionExit from 'material-ui/svg-icons/action/exit-to-app'
 import AVMovie from 'material-ui/svg-icons/av/movie'
 import ActionSettings from 'material-ui/svg-icons/action/settings'
+import ActionSearch from 'material-ui/svg-icons/action/search'
 import muiThemeable from 'material-ui/styles/muiThemeable'
 
 import { showMainDrawer } from './actions'
@@ -47,7 +48,11 @@ class MainDrawer extends Component {
     }
     if (scene === 'content') {
       return [
-        <Link to={`/collections/${type}/${collection.pk}/settings/`} key={1} >
+        <Link to={`/collections/${type}/${collection.pk}/search/`} key={1} >
+          <ActionSearch style={style} />
+          <div>Advanced Search</div>
+        </Link>,
+        <Link to={`/collections/${type}/${collection.pk}/settings/`} key={2} >
           <ActionSettings style={style} />
           <div>Collection Settings</div>
         </Link>,
@@ -70,15 +75,17 @@ class MainDrawer extends Component {
         <ActionHome style={this.lineStyle} />
         <div>Home</div>
       </Link>
-    ), (
+    ),
+  ]
+
+  GENERIC_LINES_AFTER = [
+    (
       <Link to="/logout/">
         <ActionExit style={this.lineStyle} />
         <div>Logout</div>
       </Link>
     ),
   ]
-
-  GENERIC_LINES_AFTER = []
 
   renderLines = () => {
     const lines = [

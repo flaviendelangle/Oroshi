@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 
 import CollectionContent from 'scenes/Collection'
 import CollectionSettings from 'scenes/CollectionSettings'
+import CollectionSearch from 'scenes/CollectionSearch'
 import ElementSuggestions from 'scenes/ElementSuggestions'
 import Header from 'components/appStructure/Header'
 import { collectionTypes } from 'appConfig'
@@ -23,7 +24,7 @@ const getSceneProps = (el, scene, sceneProps) => {
 }
 
 const generate = () => {
-  const a = collectionTypes.reduce((result, scene) => {
+  return collectionTypes.reduce((result, scene) => {
     return [
       ...result,
       <Route
@@ -38,6 +39,13 @@ const generate = () => {
         key={scene.name}
         render={props => (
           <Scene {...getSceneProps(scene, 'settings', props)} Component={CollectionSettings} />
+        )}
+      />,
+      <Route
+        path={`/collections/${scene.name}/:collection_id/search/`}
+        key={scene.name}
+        render={props => (
+          <Scene {...getSceneProps(scene, 'search', props)} Component={CollectionSearch} />
         )}
       />,
       <Route
@@ -56,7 +64,6 @@ const generate = () => {
       />,
     ]
   }, [])
-  return a
 }
 
 const Collection = () => (

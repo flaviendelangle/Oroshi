@@ -80,6 +80,7 @@ class CollectionContent extends Component {
   render() {
     const {
       isLoaded,
+      isContentLoaded,
       found,
       content,
       collection,
@@ -87,7 +88,7 @@ class CollectionContent extends Component {
       type,
       elementComponent,
     } = this.props
-    if (!isLoaded) {
+    if (!isLoaded || !isContentLoaded) {
       return (
         <Progress />
       )
