@@ -25,7 +25,7 @@ class ElementSuggestions extends Component {
       synchronize,
       match: { params: { collection_id, element_id }},
     } = this.props;
-    loadCollection(collection_id).then(() => synchronize(element_id));
+    loadCollection({ pk: collection_id }).then(() => synchronize(element_id));
   }
 
   render() {
@@ -65,7 +65,7 @@ const mapStateToProps = ({ suggestions }, state) => {
 };
 
 const mapDispatchToProps = (dispatch, { type, collection }) => ({
-  loadCollection: () => dispatch(getSettings(type, collection.pk)),
+  loadCollection: () => dispatch(getSettings(type, collection)),
   synchronize: elementId => dispatch(getSuggestions(type, collection, elementId)),
 });
 

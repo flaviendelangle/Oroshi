@@ -40,6 +40,7 @@ class Movie extends Component {
     collection: PropTypes.object.isRequired,
     create: PropTypes.func.isRequired,
     destroy: PropTypes.func.isRequired,
+    onRender: PropTypes.func,
     creationMode: PropTypes.bool, // RENAME
     mode: PropTypes.string,
     switchSeen: PropTypes.func,
@@ -77,6 +78,7 @@ class Movie extends Component {
       create,
       destroy,
       creationMode,
+      onRender,
     } = this.props;
     return (
       <Element
@@ -87,6 +89,7 @@ class Movie extends Component {
         creationMode={creationMode}
         onSave={create}
         onDestroy={destroy}
+        onRendery={onRender}
         footer={this.getFooterData()}
         topRightAction={
           <Seen

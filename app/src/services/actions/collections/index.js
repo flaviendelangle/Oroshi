@@ -220,15 +220,15 @@ export const importElements = (type, collection, _elements, dispatch) => {
   }
 };
 
-const getDataToExport = (type, pk) => (
-  get(type, pk).payload.then((collection) => {
+const getDataToExport = (type, collection) => (
+  get(type, collection).payload.then((data) => {
     const fields = getActions(type).exportFields;
-    const content = collection.content.map((el) => {
+    const content = data.content.map((el) => {
       const data = {};
       const values = el.getLocal();
       fields.forEach((field) => {
         if (field === 'title') {
-          data[field] = pickElement(values, 'titles', 'title', collection.title_language);
+          data[field] = pickElement(values, 'titles', 'title', data.title_language);
         } else {
           data[field] = values[field]
         }
@@ -236,30 +236,29 @@ const getDataToExport = (type, pk) => (
       return data;
     });
     return {
-      collection,
+      data,
       fields,
       content,
     };
   })
 );
 
-const exportAsCSV = (type, pk) => {
+const exportAsCSV = (type, collection) => {
   const generateComments = () => `#type, ${type}\n`;
-
   return {
     type: collections.csv,
-    payload: getDataToExport(type, pk).then(({ fields, content, collection }) => {
+    payload: getDataToExport(type, collection).then(({ fields, content, data }) => {
       const csv = json2csv({ data: content, fields });
       const comments = generateComments();
-      downloadjs(comments + csv, `${collection.title}.csv`, 'text/csv');
+      downloadjs(comments + csv, `${data.title}.csv`, 'text/csv');
       return null;
     }),
   }
 };
 
-const exportAsJSON = (type, pk) => ({
+const exportAsJSON = (type, collection) => ({
   type: collections.json,
-  payload: getDataToExport(type, pk).then(({ content, collection }) => {
+  payload: getDataToExport(type, collection).then(({ content, data }) => {
     const comments = {
       type,
     };
@@ -267,16 +266,16 @@ const exportAsJSON = (type, pk) => ({
       comments,
       content,
     });
-    downloadjs(json, `${collection.title}.json`, 'text/json');
+    downloadjs(json, `${data.title}.json`, 'text/json');
   }),
 });
 
-export const exportCollection = (type, pk, format) => {
+export const exportCollection = (type, collection, format) => {
   switch (format) {
     case 'csv':
-      return exportAsCSV(type, pk);
+      return exportAsCSV(type, collection);
     case 'json':
-      return exportAsJSON(type, pk);
+      return exportAsJSON(type, collection);
     default:
       return null;
   }

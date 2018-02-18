@@ -15,12 +15,12 @@ const ExportParameters = ({ exportCollection, data }) => (
       <Line
         rightIcon={<FileDownload />}
         primaryText="Export as CSV"
-        onClick={() => exportCollection(data.pk, 'csv')}
+        onClick={() => exportCollection(data, 'csv')}
       />
       <Line
         rightIcon={<FileDownload />}
         primaryText="Export as JSON"
-        onClick={() => exportCollection(data.pk, 'json')}
+        onClick={() => exportCollection(data, 'json')}
       />
     </div>
   </ParametersSection>
@@ -34,8 +34,8 @@ ExportParameters.propTypes = {
 const mapStateToProps = () => ({});
 
 const mapDispatchToProps = (dispatch, { type }) => ({
-  exportCollection: (pk, format) => {
-    dispatch(_exportCollection(type, pk, format));
+  exportCollection: (collection, format) => {
+    dispatch(_exportCollection(type, collection, format));
   },
 });
 

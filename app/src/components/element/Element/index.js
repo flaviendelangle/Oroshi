@@ -129,9 +129,9 @@ class Element extends Component {
    */
   isTesting = () => this.props.mode === 'test';
 
-  addToLayout = (/* key, element */) => {
-    // const { layout } = this.state;
+  addToLayout = (key, element) => {
     /*
+    const { layout } = this.state;
     this.setState(() => ({
       layout: {
         ...layout,

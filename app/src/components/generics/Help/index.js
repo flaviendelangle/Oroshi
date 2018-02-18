@@ -68,7 +68,7 @@ const ElementHelp = ({
 
 ElementHelp.propTypes = {
   muiTheme: PropTypes.object.isRequired,
-  elementComponent: PropTypes.element,
+  elementComponent: PropTypes.func,
   element: PropTypes.object,
 };
 
