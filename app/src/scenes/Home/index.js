@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 
 import CircularProgress from 'material-ui/CircularProgress'
 
+import Poster from 'components/element/Poster'
 import CollectionList from './components/CollectionList'
 import ManageButton from './components/ManageButton'
 import FirstCollectionButton from './components/FirstCollectionButton'
@@ -12,6 +13,53 @@ import DialogCreateCollection from './components/DialogCreateCollection'
 import { getAll as getCollections } from 'services/actions/collections'
 
 import * as _style from './style'
+
+
+const baseCoverStyle = {
+  container: {
+    position: 'absolute',
+  },
+  element: {
+    position: 'relative',
+    marginBottom: -4,
+  }
+}
+
+const coverStyle = [
+  {
+    container: {
+      ...baseCoverStyle.container,
+      top: 0,
+      left: 0,
+      boxShadow: '0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)',
+    },
+    element: {
+      ...baseCoverStyle.element,
+    }
+  },
+  {
+    container: {
+      ...baseCoverStyle.container,
+      top: 35,
+      left: 70,
+      boxShadow: '0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)',
+    },
+    element: {
+      ...baseCoverStyle.element,
+    }
+  },
+  {
+    container: {
+      ...baseCoverStyle.container,
+      top: 70,
+      left: 35,
+      boxShadow: '0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22)',
+    },
+    element: {
+      ...baseCoverStyle.element,
+    }
+  },
+]
 
 class Home extends Component {
   static propTypes = {
@@ -76,6 +124,24 @@ class Home extends Component {
     }
     return (
       <div>
+        {
+          collections &&
+          collections.length > 0 &&
+          <div style={{ height: 380, width: 250, margin: '100px auto', position: 'relative' }}>
+            { collections[2].cover_elements.map((el, index) => (
+              <div style={coverStyle[index].container} key={index}>
+                <div style={coverStyle[index].element}>
+                  <Poster
+                    path={el.getPosterPath()}
+                    title=""
+                    ratio={0.5}
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+        }
+        {/*
         <ScrollArea
           speed={0.8}
           horizontal={false}
@@ -93,6 +159,7 @@ class Home extends Component {
           </div>
         </ScrollArea>
         <DialogCreateCollection />
+        */}
       </div>
     )
   }

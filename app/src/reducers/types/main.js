@@ -55,7 +55,6 @@ const main = (state = defaultState, action) => {
     case source.updateIsAdding: {
       return {
         ...state,
-        addingSearch: null,
         isAdding: !state.isAdding,
       }
     }

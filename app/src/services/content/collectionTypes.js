@@ -1,7 +1,6 @@
 import { collectionTypes } from "appConfig"
 
-
-export const getConfig = scene => collectionTypes.find(el => el.name === scene)
+export const getConfig = type => collectionTypes.find(el => el.name === type)
 
 export const getActions = type => getConfig(type).actions
 

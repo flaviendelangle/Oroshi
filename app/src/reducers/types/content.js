@@ -7,6 +7,7 @@ import { getValue } from 'services/localstorage'
 import Element from 'services/content/element'
 import { setSortParameters, setLayoutParameters } from '../../scenes/Collection/services/utils'
 import * as contentManager from '../../scenes/Collection/components/CollectionContent/services/content_manager'
+import { source } from "../../services/titles/interface"
 
 
 const generateDefaultState = (type) => {
@@ -38,7 +39,6 @@ const reducer = (_state, action) => {
   const defaultOrder = getDefaultOrder(type)
 
   switch (action.type) {
-
     /**
      * The collection has been loaded
      */

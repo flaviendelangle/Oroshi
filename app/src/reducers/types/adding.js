@@ -3,6 +3,7 @@ import * as publicAPI from 'services/titles/publicAPI'
 
 import * as adding_search_manager from '../../scenes/Collection/components/AddingContent/services/adding_search_manager'
 import * as recommendations_manager from '../../scenes/Collection/components/AddingContent/services/recommendations_manager'
+import { source } from "../../services/titles/interface"
 
 
 const defaultState = {
@@ -17,9 +18,18 @@ const defaultState = {
 const reducer = (state = defaultState, action) => {
   switch (action.type) {
     /**
+     * We enter / leave the adding more
+     */
+    case source.updateIsAdding: {
+      return {
+        ...state,
+        addingSearch: null,
+      }
+    }
+
+    /**
      * The collection has been loaded
      */
-
     case `${collectionContent.load}_FULFILLED`: {
       return {
         ...state,

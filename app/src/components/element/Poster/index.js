@@ -9,6 +9,7 @@ const Poster = ({
   path,
   title,
   onLoad,
+  ratio,
 }) => {
   if (path) {
     const url = `${_path}/w185${path}`
@@ -16,12 +17,13 @@ const Poster = ({
       <img
         src={url}
         alt="Poster"
-        onLoad={() => onLoad(true)}
-        onError={() => onLoad(false)}
+        onLoad={() => onLoad && onLoad(true)}
+        onError={() => onLoad && onLoad(false)}
+        width={ratio ? 185*ratio : 185}
       />
     )
   }
-  setTimeout(() => onLoad(false))
+  setTimeout(() => onLoad && onLoad(false))
   return (
     <div style={_style.defaultPoster} >
       <span style={_style.span} >
@@ -33,8 +35,9 @@ const Poster = ({
 
 Poster.propTypes = {
   title: PropTypes.string.isRequired,
-  onLoad: PropTypes.func.isRequired,
+  onLoad: PropTypes.func,
   path: PropTypes.string,
+  ratio: PropTypes.number,
 }
 
 export default Poster
