@@ -29,4 +29,4 @@ export const publicContent = () => ({
   display: 'inline-block',
   fontSize: '2.3em',
   marginRight: 10,
-});
+})

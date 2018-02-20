@@ -1,5 +1,5 @@
-import { request } from 'services/titles/publicAPI'
-import { getPublicActions } from 'services/content/collectionTypes'
+import { request } from '../../titles/publicAPI'
+import { getPublicActions } from '../../content/collectionTypes'
 
 
 /*

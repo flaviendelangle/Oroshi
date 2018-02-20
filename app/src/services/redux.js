@@ -20,9 +20,8 @@ const customMapStateToProps = (mapStateToProps, state, ownProps) => {
   }
 }
 
+// eslint-disable-next-line import/prefer-default-export
 export const connect = (mapStateToProps, mapDispatchToProps, component) => {
   const method = customMapStateToProps.bind(this, mapStateToProps)
   return _connect(method, mapDispatchToProps, component)
 }
-
-export default null

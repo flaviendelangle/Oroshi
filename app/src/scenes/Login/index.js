@@ -6,9 +6,9 @@ import PropTypes from 'prop-types'
 import Paper from 'material-ui/Paper'
 import muiThemeable from 'material-ui/styles/muiThemeable'
 
-import LoginForm from './components/LoginForm'
-import RegisterForm from './components/RegisterForm'
-import { create, login as _login } from 'services/actions/users'
+import LoginForm from './LoginForm'
+import RegisterForm from './RegisterForm'
+import { create, login as _login } from '../../services/actions/users'
 
 import * as _style from './style'
 

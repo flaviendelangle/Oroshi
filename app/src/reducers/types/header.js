@@ -1,5 +1,5 @@
-import { notify } from "services/titles/router"
-import { drawers } from "services/titles/interface"
+import { notify } from '../../services/titles/router'
+import { drawers } from '../../services/titles/interface'
 
 
 const defaultState = {

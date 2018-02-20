@@ -1,6 +1,6 @@
-import { merge }  from 'lodash'
+import { merge } from 'lodash'
 
-import { pickElement, getLanguage } from 'services/languages'
+import { pickElement, getLanguage } from '../languages'
 
 
 class Element {

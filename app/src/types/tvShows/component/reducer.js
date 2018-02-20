@@ -1,4 +1,4 @@
-import { request } from 'services/titles/publicAPI'
+import { request } from '../../../services/titles/publicAPI'
 
 
 const defaultState = {}

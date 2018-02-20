@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import IconButton from 'material-ui/IconButton'
 import NavigationMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz'
 
-import Section from './components/Section/index'
+import Section from './Section/index'
 
 import * as _style from './style'
 

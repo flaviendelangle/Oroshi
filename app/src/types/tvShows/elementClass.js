@@ -1,4 +1,4 @@
-import Element from 'services/content/element'
+import Element from '../../services/content/element'
 
 class TVShow extends Element {
   constructor(localData, distantData) {

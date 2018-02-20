@@ -34,4 +34,4 @@ export const elementSuggestions = {
 
 export const snacks = {
   remove: 'REMOVE_SNACK',
-};
+}

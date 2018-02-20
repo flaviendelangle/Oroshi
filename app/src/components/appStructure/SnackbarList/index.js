@@ -3,8 +3,8 @@ import PropTypes from 'prop-types'
 
 import Snackbar from 'material-ui/Snackbar'
 
-import { removeSnack } from 'services/actions/interface'
-import { connect } from 'services/redux'
+import { removeSnack } from '../../../services/actions/interface'
+import { connect } from '../../../services/redux'
 
 
 const DURATION = 2000
@@ -51,7 +51,7 @@ const mapStateToProps = ({ main }) => ({
 })
 
 const mapDispatchToProps = (dispatch, { type, collection }) => ({
-  remove: () => dispatch(removeSnack(type, collection))
+  remove: () => dispatch(removeSnack(type, collection)),
 })
 
 export default connect(

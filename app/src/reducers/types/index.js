@@ -1,13 +1,14 @@
 import { mapValues } from 'lodash'
 
-import { collectionTypes } from 'appConfig'
+import { collectionTypes } from '../../appConfig'
 
-import mainReducer from 'reducers/types/main'
-import contentReducer from 'reducers/types/content'
-import addingReducer from 'reducers/types/adding'
-import suggestionsReducer from 'reducers/types/suggestions'
-import settingsReducer from 'reducers/types/settings'
-import headerReducer from 'reducers/types/header'
+import mainReducer from './main'
+import contentReducer from './content'
+import addingReducer from './adding'
+import suggestionsReducer from './suggestions'
+import settingsReducer from './settings'
+import headerReducer from './header'
+
 
 const defaultState = {}
 
@@ -42,20 +43,18 @@ const updateOneState = (_state, action, type, collection) => {
   }
   const oldState = state[type][collection.pk]
   return {
-  ...state,
+    ...state,
     [type]: {
       [collection.pk]: computeNewState(oldState, action),
     },
   }
 }
 
-const updateAllStates = (state, action) => {
-  return mapValues(state, categoryState => (
-    mapValues(categoryState, elementState => (
-      computeNewState(elementState, action)
-    ))
+const updateAllStates = (state, action) => mapValues(state, categoryState => (
+  mapValues(categoryState, elementState => (
+    computeNewState(elementState, action)
   ))
-}
+))
 
 const reducer = (state = defaultState, action) => {
   if (action.meta) {

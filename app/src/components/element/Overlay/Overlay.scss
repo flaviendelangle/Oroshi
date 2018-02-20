@@ -1,0 +1,64 @@
+.Overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: calc(100% - 8px);
+  color: white;
+  padding: 4px;
+  line-height: 1.5em;
+  background: rgba(0, 0, 0, 0.5);
+  transition: opacity 0.3s ease-in-out;
+
+  &:not(&TestingMode) {
+    opacity: 0;
+  }
+
+  &:hover {
+    opacity: 1;
+  }
+
+  .Grade {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+  }
+
+  .Footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2em;
+    line-height: 2em;
+
+    & .Content {
+      text-align: center;
+      cursor: pointer;
+    }
+  }
+
+  .TopLeftIcon,
+  .TopRightIcon {
+    position: absolute;
+    top: 0;
+    padding: 5px;
+  }
+
+  .TopLeftIcon {
+    left: 0;
+
+    &Private {
+      cursor: pointer;
+    }
+  }
+
+  .TopRightIcon {
+    right: 0;
+
+    &Private {
+      cursor: pointer;
+    }
+  }
+}

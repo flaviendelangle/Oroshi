@@ -1,9 +1,10 @@
-import { HELP as config } from 'appConfig'
-import { getDetails, cleanDetails } from 'services/actions/publicAPI'
-import { element } from 'services/titles/help'
-import { getActions } from "services/content/collectionTypes"
+import { HELP as config } from '../../appConfig'
+import { getDetails, cleanDetails } from './publicAPI'
+import { element } from '../titles/help'
+import { getActions } from '../content/collectionTypes'
 
 
+// eslint-disable-next-line import/prefer-default-export
 export const getElement = (type, collection) => {
   const publicId = config.defaultElements[type]
   const Element = getActions(type).elementClass
@@ -17,5 +18,3 @@ export const getElement = (type, collection) => {
     }),
   }
 }
-
-export default null

@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
-import Stream from 'components/generics/Stream'
-import Progress from 'components/generics/Progress'
-import { getSuggestions, getSettings } from "services/actions/collections"
-import { cleanElementSuggestions } from 'services/actions/interface'
-import { connect } from 'services/redux'
+import Stream from '../../components/generics/Stream'
+import Progress from '../../components/generics/Progress'
+import { getSuggestions, getSettings } from '../../services/actions/collections'
+import { cleanElementSuggestions } from '../../services/actions/interface'
+import { connect } from '../../services/redux'
 
 
 class ElementSuggestions extends Component {
@@ -27,14 +27,14 @@ class ElementSuggestions extends Component {
     const {
       loadCollection,
       synchronize,
-      match: { params: { element_id }},
+      match: { params: { element_id: elementId } },
       collection,
       isLoaded,
     } = this.props
     if (isLoaded) {
-      synchronize(element_id)
+      synchronize(elementId)
     } else {
-      loadCollection(collection).then(() => synchronize(element_id))
+      loadCollection(collection).then(() => synchronize(elementId))
     }
   }
 

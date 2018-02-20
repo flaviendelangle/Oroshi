@@ -1,7 +1,7 @@
-import { UsersAPI } from 'services/api/users'
-import { users } from 'services/titles/api'
-import { OauthAPI } from 'services/api/oauth'
-import { destroyOauth } from 'services/localstorage'
+import { UsersAPI } from '../api/users'
+import { users } from '../titles/api'
+import { OauthAPI } from '../api/oauth'
+import { destroyOauth } from '../localstorage'
 
 
 export const create = data => ({

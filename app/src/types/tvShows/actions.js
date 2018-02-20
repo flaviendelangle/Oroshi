@@ -1,9 +1,9 @@
-import { TVShowsAPI } from 'services/api/tvShows'
-import { TVShowCollectionsAPI } from 'services/api/tvShowsCollections'
-import TVShowsTMDB from 'services/TheMovieDatabaseJS/tv'
+import { TVShowsAPI } from '../../services/api/tvShows'
+import { TVShowCollectionsAPI } from '../../services/api/tvShowsCollections'
+import TVShowsTMDB from '../../services/TheMovieDatabaseJS/tv'
 import TVShowClass from './elementClass'
 
-import * as tmdb from 'services/actions/collections/tmdb'
+import * as tmdb from '../../services/actions/collections/tmdb'
 
 
 export const elementClass = TVShowClass
@@ -24,4 +24,4 @@ export const prepareElement = (element) => {
   element.setSeen(seen)
 }
 
-export const exportFields = ['tmdbId', 'title', 'note'];
+export const exportFields = ['tmdbId', 'title', 'note']

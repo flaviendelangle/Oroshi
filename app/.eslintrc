@@ -16,6 +16,7 @@
     "__DEV__": true
   },
   "rules": {
+    "import/extensions": 0,
     "jsx-a11y/href-no-hash": 0,
     "react/jsx-filename-extension": 0,
     "semi": [2, "never"],

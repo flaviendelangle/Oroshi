@@ -1,0 +1,27 @@
+.Search {
+  position: absolute;
+  left: 50px;
+  right: 140px;
+
+  > div:first-child {
+    margin: 8px auto;
+    max-width: 800px;
+    width: 100%;
+  }
+
+  .ElementCount {
+    position: fixed;
+    top: 22px;
+    right: 40px;
+  }
+}
+
+@media screen and (max-width: 420px) {
+  .Search {
+    right: 60px;
+
+    .ElementCount {
+      display: none;
+    }
+  }
+}

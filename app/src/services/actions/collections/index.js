@@ -2,13 +2,13 @@ import { readAsText } from 'promise-file-reader'
 import json2csv from 'json2csv'
 import downloadjs from 'downloadjs'
 
-import { getActions, getCollectionAPI } from "services/content/collectionTypes"
-import { parseCSV, parseJSON } from 'services/utils'
-import { pickElement } from 'services/languages'
-import { CollectionsAPI } from 'services/api/collections'
-import { checkExistence } from 'services/actions/publicAPI'
-import * as titles from 'services/titles/api'
-import { collections } from 'services/titles/exports'
+import { getActions, getCollectionAPI } from '../../content/collectionTypes'
+import { parseCSV, parseJSON } from '../../utils'
+import { pickElement } from '../../languages'
+import { CollectionsAPI } from '../../api/collections'
+import { checkExistence } from '../publicAPI'
+import * as titles from '../../titles/api'
+import { collections } from '../../titles/exports'
 
 
 /*
@@ -18,12 +18,10 @@ export const addSeenToElements = (type, elements, seen) => (
   getActions(type).addSeenToElements(elements, seen)
 )
 
-export const addCollectionToElement = (element, collection) => {
-  return {
-    ...element,
-    collection,
-  }
-}
+export const addCollectionToElement = (element, collection) => ({
+  ...element,
+  collection,
+})
 
 export const prepareElements = (type, data) => {
   const { content, seen, ...clearedData } = data
@@ -62,6 +60,7 @@ export const get = (type, collection) => ({
   payload: getCollectionAPI(type).retrieve(collection.pk)
     .then(response => prepareElements(type, response))
     .catch((error) => {
+      // eslint-disable-next-line no-console
       console.error(error.toString())
       return undefined
     }),
@@ -226,16 +225,16 @@ const getDataToExport = (type, collection) => (
   get(type, collection).payload.then((data) => {
     const fields = getActions(type).exportFields
     const content = data.content.map((el) => {
-      const data = {}
+      const data2 = {}
       const values = el.getLocal()
       fields.forEach((field) => {
         if (field === 'title') {
-          data[field] = pickElement(values, 'titles', 'title', data.title_language)
+          data2[field] = pickElement(values, 'titles', 'title', data.title_language)
         } else {
-          data[field] = values[field]
+          data2[field] = values[field]
         }
       })
-      return data
+      return data2
     })
     return {
       data,

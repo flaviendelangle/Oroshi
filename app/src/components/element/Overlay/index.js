@@ -5,9 +5,9 @@ import muiThemeable from 'material-ui/styles/muiThemeable'
 
 import cx from 'classnames'
 
-import Grade from 'components/generics/Grade/index'
+import Grade from '../../generics/Grade/index'
 
-import './style.css'
+import styles from './Overlay.scss'
 
 
 class ElementOverlay extends Component {
@@ -47,9 +47,7 @@ class ElementOverlay extends Component {
     clearTimeout(this.timeout)
   }
 
-  isTesting = () => {
-    return this.props.mode === 'test'
-  }
+  isTesting = () => this.props.mode === 'test'
 
   addToLayout = (key, element) => {
     if (this.props.addToLayout) {
@@ -75,14 +73,14 @@ class ElementOverlay extends Component {
       return null
     }
     const classes = cx({
-      'element-overlay': true,
-      testing: this.isTesting(),
+      [styles.Overlay]: true,
+      [styles.OverlayTestingMode]: this.isTesting(),
     })
     return (
       <div className={classes} >
         <div ref={el => this.addToLayout('grade', el)}>
           <Grade
-            className="grade"
+            className={styles.Grade}
             value={note}
             mouseOver={show}
           />
@@ -104,7 +102,6 @@ class ElementOverlay extends Component {
       </div>
     )
   }
-
 }
 
 const Footer = ({
@@ -127,7 +124,7 @@ const Footer = ({
       <div
         role="button"
         tabIndex={0}
-        className="footer-content"
+        className={styles.Content}
         onClick={onSave}
         style={{ background: 'rgba(76,175,80,0.8)' }}
         ref={el => addToLayout('add', el)}
@@ -140,16 +137,16 @@ const Footer = ({
       <div
         role="button"
         tabIndex={0}
-        className="footer-content"
+        className={styles.Content}
         onClick={onDestroy}
-        style={{background: 'rgba(244,67,54,0.8)'}}
+        style={{ background: 'rgba(244,67,54,0.8)' }}
         ref={el => addToLayout('add', el)}
       >
         REMOVE
       </div>
     )
   }
-  return <div className="footer">{Content}</div>
+  return <div className={styles.Footer}>{Content}</div>
 }
 
 Footer.propTypes = {
@@ -166,9 +163,9 @@ const TopLeftAction = ({
   isPublic,
 }) => {
   const classes = cx({
-    'top-left-icon': true,
-    'public-action': isPublic,
-    'private-action': !isPublic,
+    [styles.TopLeftIcon]: true,
+    [styles.TopLeftIconPublic]: isPublic,
+    [styles.TopLeftIconPrivate]: !isPublic,
   })
   return (
     <div className={classes} >
@@ -179,7 +176,7 @@ const TopLeftAction = ({
 
 TopLeftAction.propTypes = {
   isPublic: PropTypes.bool,
-  children: PropTypes.oneOfType([PropTypes.object, PropTypes.array])
+  children: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
 }
 
 const TopRightAction = ({
@@ -187,9 +184,9 @@ const TopRightAction = ({
   isPublic,
 }) => {
   const classes = cx({
-    'top-right-icon': true,
-    'public-action': isPublic,
-    'private-action': !isPublic,
+    [styles.TopRightIcon]: true,
+    [styles.TopRightIconPublic]: isPublic,
+    [styles.TopRightIconPrivate]: !isPublic,
   })
   return (
     <div className={classes} >

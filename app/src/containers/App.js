@@ -2,16 +2,17 @@ import React from 'react'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import { Provider } from 'react-redux'
-import injectTapEventPlugin from "react-tap-event-plugin"
+import injectTapEventPlugin from 'react-tap-event-plugin'
 import WebFont from 'webfontloader'
 
-import tmdbApi from 'services/TheMovieDatabaseJS'
-import Container from 'components/appStructure/Container'
-import store from 'reducers/store'
-import theme from 'services/theme'
-import { DEFAULT_LANGUAGE } from 'services/languages'
+import Container from '../components/appStructure/Container'
 
-import './App.css'
+import store from '../reducers/store'
+
+import theme from '../services/theme'
+import tmdbApi from '../services/TheMovieDatabaseJS'
+import { DEFAULT_LANGUAGE } from '../services/languages'
+
 
 /**
  * Remove touch detail issues

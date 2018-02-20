@@ -1,6 +1,6 @@
-import { getCollectionAPI, getElementAPI, getActions, getPublicActions } from 'services/content/collectionTypes'
-import { getDetails, cleanDetails, getTitle, getPoster } from 'services/actions/publicAPI'
-import { getMissingLanguages } from 'services/languages'
+import { getCollectionAPI, getElementAPI, getActions, getPublicActions } from '../../content/collectionTypes'
+import { getDetails, cleanDetails, getTitle, getPoster } from '../publicAPI'
+import { getMissingLanguages } from '../../languages'
 
 const createMissingData = (type, { collection, local }) => {
   if (!local) {

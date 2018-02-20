@@ -1,16 +1,17 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import ScrollArea from 'react-scrollbar'
+// import ScrollArea from 'react-scrollbar'
 import PropTypes from 'prop-types'
 
 import CircularProgress from 'material-ui/CircularProgress'
 
-import Poster from 'components/element/Poster'
-import CollectionList from './components/CollectionList'
-import ManageButton from './components/ManageButton'
-import FirstCollectionButton from './components/FirstCollectionButton'
-import DialogCreateCollection from './components/DialogCreateCollection'
-import { getAll as getCollections } from 'services/actions/collections'
+import Poster from '../../components/element/Poster'
+// import CollectionList from './CollectionList'
+// import ManageButton from './ManageButton'
+import FirstCollectionButton from './FirstCollectionButton'
+import DialogCreateCollection from './DialogCreateCollection'
+
+import { getAll as getCollections } from '../../services/actions/collections'
 
 import * as _style from './style'
 
@@ -22,7 +23,7 @@ const baseCoverStyle = {
   element: {
     position: 'relative',
     marginBottom: -4,
-  }
+  },
 }
 
 const coverStyle = [
@@ -35,7 +36,7 @@ const coverStyle = [
     },
     element: {
       ...baseCoverStyle.element,
-    }
+    },
   },
   {
     container: {
@@ -46,7 +47,7 @@ const coverStyle = [
     },
     element: {
       ...baseCoverStyle.element,
-    }
+    },
   },
   {
     container: {
@@ -57,7 +58,7 @@ const coverStyle = [
     },
     element: {
       ...baseCoverStyle.element,
-    }
+    },
   },
 ]
 
@@ -80,7 +81,7 @@ class Home extends Component {
   }
 
   state = {
-    editing: false,
+    // editing: false,
   }
 
   componentDidMount() {
@@ -105,7 +106,7 @@ class Home extends Component {
 
   render() {
     const { isLoaded, collections } = this.props
-    const { editing } = this.state
+    // const { editing } = this.state
     if (!isLoaded) {
       return (
         <div style={_style.progress} >
@@ -127,8 +128,16 @@ class Home extends Component {
         {
           collections &&
           collections.length > 0 &&
-          <div style={{ height: 380, width: 250, margin: '100px auto', position: 'relative' }}>
+          <div
+            style={{
+              height: 380,
+              width: 250,
+              margin: '100px auto',
+              position: 'relative',
+            }}
+          >
             { collections[2].cover_elements.map((el, index) => (
+              // eslint-disable-next-line react/no-array-index-key
               <div style={coverStyle[index].container} key={index}>
                 <div style={coverStyle[index].element}>
                   <Poster

@@ -1,9 +1,9 @@
-import { collectionContent, collections } from 'services/titles/api'
-import * as publicAPI from 'services/titles/publicAPI'
+import { collectionContent, collections } from '../../services/titles/api'
+import * as publicAPI from '../../services/titles/publicAPI'
+import { source } from '../../services/titles/interface'
 
-import * as adding_search_manager from '../../scenes/Collection/components/AddingContent/services/adding_search_manager'
-import * as recommendations_manager from '../../scenes/Collection/components/AddingContent/services/recommendations_manager'
-import { source } from "../../services/titles/interface"
+import * as addingSearchManager from '../../scenes/Collection/AddingContent/adding_search_manager'
+import * as recommendationsManager from '../../scenes/Collection/AddingContent/recommendations_manager'
 
 
 const defaultState = {
@@ -41,8 +41,8 @@ const reducer = (state = defaultState, action) => {
      * An component has been added to the collection
      */
     case `${collections.add}_FULFILLED`: {
-      const newState = adding_search_manager.add(state, action.payload)
-      return recommendations_manager.add(newState, action.payload)
+      const newState = addingSearchManager.add(state, action.payload)
+      return recommendationsManager.add(newState, action.payload)
     }
 
     /**
@@ -50,8 +50,8 @@ const reducer = (state = defaultState, action) => {
      */
     case `${collections.remove}_FULFILLED`: {
       const newElement = action.payload
-      const newState = adding_search_manager.remove(state, newElement)
-      return recommendations_manager.remove(newState, newElement)
+      const newState = addingSearchManager.remove(state, newElement)
+      return recommendationsManager.remove(newState, newElement)
     }
 
     /**
@@ -70,7 +70,7 @@ const reducer = (state = defaultState, action) => {
      * A new page of the popular movies has been loaded
      */
     case `${publicAPI.request.get_popular}_FULFILLED`: {
-      return recommendations_manager.merge(
+      return recommendationsManager.merge(
         state,
         action.payload,
         'popular',
@@ -81,7 +81,7 @@ const reducer = (state = defaultState, action) => {
      * A new page of the top rated movies has been loaded
      */
     case `${publicAPI.request.get_top_rated}_FULFILLED`: {
-      return recommendations_manager.merge(
+      return recommendationsManager.merge(
         state,
         action.payload,
         'top_rated',
@@ -94,7 +94,7 @@ const reducer = (state = defaultState, action) => {
     case `${publicAPI.request.search}_FULFILLED`: {
       return {
         ...state,
-        addingSearch: adding_search_manager.merge(state, action.payload),
+        addingSearch: addingSearchManager.merge(state, action.payload),
       }
     }
 

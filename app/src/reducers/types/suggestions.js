@@ -1,5 +1,5 @@
-import { collectionContent } from "services/titles/api"
-import { elementSuggestions as titles } from 'services/titles/interface'
+import { collectionContent } from '../../services/titles/api'
+import { elementSuggestions as titles } from '../../services/titles/interface'
 
 
 const defaultState = {
@@ -12,7 +12,6 @@ const defaultState = {
 const elementSuggestions = (state = defaultState, action) => {
   switch (action.type) {
     case `${collectionContent.loadSuggestions}_FULFILLED`: {
-      console.log('TEST')
       return {
         ...state,
         suggestions: action.payload,

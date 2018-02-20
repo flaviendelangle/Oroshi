@@ -8,11 +8,13 @@ import BackSpace from 'material-ui/svg-icons/hardware/keyboard-backspace'
 import NavigationMenu from 'material-ui/svg-icons/navigation/menu'
 import muiThemeable from 'material-ui/styles/muiThemeable'
 
-import MainDrawer from './components/MainDrawer'
-import Search from './components/Search'
-import OrderMenu from './components/OrderMenu'
-import { showMainDrawer } from './components/MainDrawer/actions'
-import { connect } from 'services/redux'
+import MainDrawer from './MainDrawer'
+import Search from './Search'
+import OrderMenu from './OrderMenu'
+
+import { showMainDrawer } from './MainDrawer/actions'
+import { connect } from '../../../services/redux'
+
 
 class Header extends Component {
   static propTypes = {
@@ -76,7 +78,7 @@ class Header extends Component {
               onClick={this.onButtonClick}
             />
           }
-          title={ showTitle ? title : ''}
+          title={showTitle ? title : ''}
           onLeftIconButtonClick={this.onButtonClick}
           showMenuIconButton={!isPublic}
         >
@@ -116,9 +118,7 @@ class Header extends Component {
         }
       </header>
     )
-
   }
-
 }
 
 const Icon = ({
@@ -127,7 +127,7 @@ const Icon = ({
   link,
   ...props
 }) => {
-  if (scene === 'suggestions'){
+  if (scene === 'suggestions') {
     return (
       <Link to={link} >
         <IconButton

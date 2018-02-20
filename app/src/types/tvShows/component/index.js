@@ -8,10 +8,10 @@ import muiThemeable from 'material-ui/styles/muiThemeable'
 
 import cx from 'classnames'
 
-import Poster from 'components/element/Poster/index'
-import ElementOverlay from 'components/element/Overlay/index'
-import Details from './components/Details/index'
-import { addElement, removeElement } from 'services/actions/collections/index'
+import Poster from '../../../components/element/Poster/index'
+import ElementOverlay from '../../../components/element/Overlay/index'
+import Details from './Details/index'
+import { addElement, removeElement } from '../../../services/actions/collections/index'
 
 import './style.css'
 

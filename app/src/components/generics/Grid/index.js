@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 import IconButton from 'material-ui/IconButton'
 import NavigationMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz'
 
-import ElementLine, { groupByLine } from 'components/generics/ElementLine/index'
+import ElementLine, { groupByLine } from '../ElementLine/index'
 
 import * as _style from './style'
 import './style.css'

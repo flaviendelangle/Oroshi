@@ -1,5 +1,5 @@
-import Element from 'services/content/element'
-import date from 'services/content/date'
+import Element from '../../services/content/element'
+import date from '../../services/content/date'
 
 
 class Movie extends Element {

@@ -1,4 +1,3 @@
-
 const dimensions = [
   { min: 0, amount: 1 },
   { min: 461, amount: 2 },

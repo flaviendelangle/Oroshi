@@ -1,4 +1,4 @@
-import { collectionTypes } from "appConfig"
+import { collectionTypes } from '../../appConfig'
 
 export const getConfig = type => collectionTypes.find(el => el.name === type)
 

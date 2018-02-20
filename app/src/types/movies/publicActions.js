@@ -1,6 +1,6 @@
-import * as tmdb from 'services/actions/publicAPI/tmdb'
-import PersonAPI from 'services/TheMovieDatabaseJS/person'
-import Element from 'services/content/element'
+import * as tmdb from '../../services/actions/publicAPI/tmdb'
+import PersonAPI from '../../services/TheMovieDatabaseJS/person'
+import Element from '../../services/content/element'
 
 export const {
   search,

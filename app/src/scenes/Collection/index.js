@@ -1,33 +1,28 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 
-import CollectionContent from './components/CollectionContent'
-import AddingContent from './components/AddingContent'
-import Menu from './components/Menu'
+import CollectionContent from './CollectionContent'
+import AddingContent from './AddingContent'
+import Menu from './Menu'
 
-import { connect } from 'services/redux'
+import { connect } from '../../services/redux'
 
 
-class CollectionScene extends Component {
-  static propTypes = {
-    collection: PropTypes.object.isRequired,
-    type: PropTypes.string.isRequired,
-    isPublic: PropTypes.bool,
-  }
+const CollectionScene = ({ type, isPublic, collection }) => (
+  <div>
+    <Content {...this.props} />
+    <Menu
+      type={type}
+      collection={collection}
+      isPublic={isPublic}
+    />
+  </div>
+)
 
-  render() {
-    const { type, isPublic, collection } = this.props
-    return (
-      <div>
-        <Content {...this.props} />
-        <Menu
-          type={type}
-          collection={collection}
-          isPublic={isPublic}
-        />
-      </div>
-    )
-  }
+CollectionScene.propTypes = {
+  collection: PropTypes.object.isRequired,
+  type: PropTypes.string.isRequired,
+  isPublic: PropTypes.bool,
 }
 
 const Content = ({

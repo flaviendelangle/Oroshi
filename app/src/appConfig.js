@@ -1,5 +1,5 @@
-import movies from 'types/movies'
-import tvShows from 'types/tvShows'
+import movies from './types/movies'
+import tvShows from './types/tvShows'
 
 
 export const OAUTH2 = {

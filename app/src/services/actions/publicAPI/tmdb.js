@@ -1,7 +1,11 @@
-import searchAPI from 'services/TheMovieDatabaseJS/search'
-import { getActions, getCollectionAPI, getElementAPI, getPublicAPI } from 'services/content/collectionTypes'
-import { getPopular as getPopularOriginal, getTopRated as getTopRatedOriginal, search as searchOriginal } from './index'
-import { getTmdbLanguages, DEFAULT_LANGUAGE } from 'services/languages'
+import {
+  getPopular as getPopularOriginal,
+  getTopRated as getTopRatedOriginal,
+  search as searchOriginal,
+} from './index'
+import searchAPI from '../../TheMovieDatabaseJS/search'
+import { getActions, getCollectionAPI, getElementAPI, getPublicAPI } from '../../content/collectionTypes'
+import { getTmdbLanguages, DEFAULT_LANGUAGE } from '../../languages'
 
 
 export const checkExistence = (type, collection, _elements, fromLocalAPI = false) => {

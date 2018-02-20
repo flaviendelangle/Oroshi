@@ -9,9 +9,9 @@ import cx from 'classnames'
 
 import Poster from '../Poster/index'
 import Overlay from '../Overlay/index'
-import Suggestions from './components/Suggestions'
+import Suggestions from './Suggestions'
 
-import './style.css'
+import styles from './Element.scss'
 
 
 class Element extends Component {
@@ -83,17 +83,6 @@ class Element extends Component {
     onDestroy(collection, data)
   }
 
-  getParentClasses = () => {
-    const { data, creationMode } = this.props
-    const { isReady } = this.state
-    return cx({
-      'movie-parent': true,
-      'already-in-collection': (data.isInCollection() && creationMode),
-      'not-in-collection': (!data.isInCollection() && creationMode),
-      ready: isReady,
-    })
-  }
-
   getAction = (actionName) => {
     const action = this.props[actionName]
     if (typeof action === 'string' || action instanceof String) {
@@ -129,7 +118,7 @@ class Element extends Component {
    */
   isTesting = () => this.props.mode === 'test'
 
-  addToLayout = (key, element) => {
+  addToLayout = (/* key, element */) => {
     /*
     const { layout } = this.state
     this.setState(() => ({
@@ -165,13 +154,21 @@ class Element extends Component {
       footer,
       muiTheme: { palette },
     } = this.props
-    const { isMouseOver } = this.state
+    const { isMouseOver, isReady } = this.state
+
+    const elementClasses = cx({
+      [styles.Element]: true,
+      [styles.ElementInCollection]: (data.isInCollection() && creationMode),
+      [styles.ElementNotInCollection]: (!data.isInCollection() && creationMode),
+      [styles.ElementReady]: isReady,
+    })
+
     return (
-      <div className={this.getParentClasses()} style={style} >
-        <div className="movie-container">
+      <div className={elementClasses} style={style} >
+        <div className={styles.Container}>
           <Paper
             zDepth={3}
-            className="movie"
+            className={styles.Content}
             onMouseEnter={() => this.onMouseHover(true)}
             onMouseLeave={() => this.onMouseHover(false)}
           >
@@ -211,8 +208,8 @@ const Footer = ({
   addToLayout,
 }) => (
   <div
-    className="title"
-    style={{color: palette.textColor}}
+    className={styles.Title}
+    style={{ color: palette.textColor }}
   >
     {
       footer &&
@@ -230,7 +227,7 @@ const Footer = ({
           )
         }
         return (
-          <div ref={(el) => addToLayout(line.key, el)} key={1} >
+          <div ref={el => addToLayout(line.key, el)} key={1} >
             {line.value}
           </div>
         )

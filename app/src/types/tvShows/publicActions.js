@@ -1,8 +1,8 @@
-import * as tmdb from 'services/actions/publicAPI/tmdb'
-import date from 'services/content/date'
-import { request } from 'services/titles/publicAPI'
+import * as tmdb from '../../services/actions/publicAPI/tmdb'
+import date from '../../services/content/date'
+import { request } from '../../services/titles/publicAPI'
 
-import TVSeasonsTMDB from 'services/TheMovieDatabaseJS/tv_seasons'
+import TVSeasonsTMDB from '../../services/TheMovieDatabaseJS/tv_seasons'
 
 
 export const {

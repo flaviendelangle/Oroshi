@@ -1,5 +1,6 @@
-import { collectionSettings } from 'services/titles/interface'
-import { collectionContent, collections } from 'services/titles/api'
+import { collectionSettings } from '../../services/titles/interface'
+import { collectionContent, collections } from '../../services/titles/api'
+
 
 const defaultState = {
   activeSection: 'summary',

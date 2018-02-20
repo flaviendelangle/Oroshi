@@ -1,12 +1,12 @@
 import BaseAPI from './base'
-import { OAUTH2 as config } from 'appConfig'
-import { loadOauth, saveOauth, destroyOauth } from 'services/localstorage'
+import { OAUTH2 as config } from '../../appConfig'
+import { loadOauth, saveOauth, destroyOauth } from '../localstorage'
 
 
-const addExpiration = (response) => {
-  response.expiration = new Date().getTime() + response.expires_in*1000
-  return response
-}
+const addExpiration = response => ({
+  ...response,
+  expiration: new Date().getTime() + (response.expires_in * 1000),
+})
 
 class Oauth extends BaseAPI {
   config = {

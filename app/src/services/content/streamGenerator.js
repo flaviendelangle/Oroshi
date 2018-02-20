@@ -1,4 +1,4 @@
-import Element from 'services/content/element'
+import Element from '../content/element'
 
 
 const SORT_ORDER = {

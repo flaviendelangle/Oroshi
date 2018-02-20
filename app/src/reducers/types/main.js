@@ -1,6 +1,6 @@
-import { source, snacks } from 'services/titles/interface'
-import { collections, collectionContent } from "services/titles/api"
-import TMDBAPI from 'services/TheMovieDatabaseJS/index'
+import { source, snacks } from '../../services/titles/interface'
+import { collections, collectionContent } from '../../services/titles/api'
+import TMDBAPI from '../../services/TheMovieDatabaseJS/index'
 
 
 const defaultState = {

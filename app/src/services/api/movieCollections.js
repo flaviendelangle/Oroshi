@@ -1,4 +1,4 @@
-import API  from './index'
+import API from './index'
 import { MoviesClass } from './movies'
 
 class MovieCollections extends API {

@@ -1,0 +1,26 @@
+.MainDrawer {
+  & > div {
+    width: 100%;
+    line-height: 46px;
+    height: 46px;
+    display: block;
+  }
+
+  & a {
+    display: block;
+    height: 48px;
+    margin: 0 -16px;
+
+    & > svg {
+      position: absolute;
+      height: 24px;
+      top: 11px;
+      left: 11px;
+    }
+
+    & > div {
+      position: absolute;
+      left: 50px;
+    }
+  }
+}

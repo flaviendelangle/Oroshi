@@ -1,0 +1,55 @@
+.Element {
+  display: inline-block;
+  margin: 20px 20px;
+  position: relative;
+  width: 185px;
+  height: 340px;
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+
+  &:not(&Ready) {
+    opacity: 0;
+  }
+
+  &InCollection:not(:hover) {
+    opacity: 0.2;
+  }
+
+  & .Container {
+    height: 278px;
+    width: 185px;
+    display: inline-block;
+    vertical-align: top;
+
+    & .Content {
+      position: relative;
+
+      & img {
+        margin-bottom: -4px;
+      }
+    }
+  }
+
+  & .Title {
+    display: block;
+    position: absolute;
+    top: calc(100% - 42px);
+    left: 0;
+    width: 185px;
+    line-height: 21px;
+
+    & > a {
+      display: block;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      height: 21px;
+
+      &:hover {
+        height: auto;
+        white-space: normal;
+        word-break: break-all;
+      }
+    }
+  }
+}

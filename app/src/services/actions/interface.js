@@ -1,6 +1,6 @@
-import * as titles from 'services/titles/interface'
+import * as titles from '../titles/interface'
 
-import { getLineDimensions } from 'services/interface'
+import { getLineDimensions } from '../interface'
 
 
 export const alertScreenResize = () => ({
@@ -23,5 +23,5 @@ export const cleanElementSuggestions = (type, collection) => ({
   meta: {
     type,
     collection,
-  }
+  },
 })

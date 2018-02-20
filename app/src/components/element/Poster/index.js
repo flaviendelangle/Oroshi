@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { path as _path } from 'services/TheMovieDatabaseJS/images'
+import { path as _path } from '../../../services/TheMovieDatabaseJS/images'
 
-import * as _style from './style'
+import styles from './Poster.scss'
 
 const Poster = ({
   path,
@@ -19,14 +19,14 @@ const Poster = ({
         alt="Poster"
         onLoad={() => onLoad && onLoad(true)}
         onError={() => onLoad && onLoad(false)}
-        width={ratio ? 185*ratio : 185}
+        width={ratio * 185}
       />
     )
   }
   setTimeout(() => onLoad && onLoad(false))
   return (
-    <div style={_style.defaultPoster} >
-      <span style={_style.span} >
+    <div className={styles.DefaultPoster} >
+      <span>
         {title}
       </span>
     </div>
@@ -38,6 +38,10 @@ Poster.propTypes = {
   onLoad: PropTypes.func,
   path: PropTypes.string,
   ratio: PropTypes.number,
+}
+
+Poster.defaultProps = {
+  ratio: 1,
 }
 
 export default Poster

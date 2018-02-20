@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
-import MenuPanel from './components/MenuPanel'
-import ContentPanel from './components/ContentPanel'
-import { getSettings } from 'services/actions/collections'
-import { connect } from 'services/redux'
+import MenuPanel from './MenuPanel'
+import ContentPanel from './ContentPanel'
+
+import { getSettings } from '../../services/actions/collections'
+import { connect } from '../../services/redux'
 
 
 class CollectionSettings extends Component {

@@ -1,8 +1,8 @@
-import MovieListGenerator from 'types/movies/listGenerator'
-import MovieStreamGenerator from 'types/movies/streamGenerator'
+import MovieListGenerator from '../../types/movies/listGenerator'
+import MovieStreamGenerator from '../../types/movies/streamGenerator'
 
-import TVShowListGenerator from 'types/tvShows/listGenerator'
-import TVShowStreamGenerator from 'types/tvShows/streamGenerator'
+import TVShowListGenerator from '../../types/tvShows/listGenerator'
+import TVShowStreamGenerator from '../../types/tvShows/streamGenerator'
 
 
 export const getListGenerator = (type) => {
@@ -55,4 +55,4 @@ export const getDefaultOrder = (type) => {
     default:
       return null
   }
-};
+}

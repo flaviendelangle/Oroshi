@@ -1,4 +1,4 @@
-export const container = (palette) => ({
+export const container = palette => ({
   textAlign: 'center',
   position: 'absolute',
   top: '50%',
@@ -11,18 +11,18 @@ export const container = (palette) => ({
   letterSpacing: 1,
 })
 
-export const summary = (palette) => ({
+export const summary = () => ({
   display: 'inline-block',
   fontSize: '2.3em',
-  marginRight: 10
+  marginRight: 10,
 })
 
-export const errorCode = (palette) => ({
+export const errorCode = palette => ({
   display: 'inline-block',
   color: palette.titleColor,
-  fontSize: '1.5em'
+  fontSize: '1.5em',
 })
 
-export const details = (palette) => ({
+export const details = () => ({
   fontSize: '1.4em',
-});
+})

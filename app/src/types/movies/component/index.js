@@ -5,11 +5,11 @@ import PropTypes from 'prop-types'
 import muiThemeable from 'material-ui/styles/muiThemeable'
 import ImageEye from 'material-ui/svg-icons/image/remove-red-eye'
 
-import Element from 'components/element/Element'
-import { addElement, removeElement } from 'services/actions/collections'
-import { switchSeenOnElement } from 'types/movies/actions'
-import { publicRoot } from 'services/TheMovieDatabaseJS/movies'
-import date from 'services/content/date'
+import Element from '../../../components/element/Element'
+import { addElement, removeElement } from '../../../services/actions/collections'
+import { switchSeenOnElement } from '../actions'
+import { publicRoot } from '../../../services/TheMovieDatabaseJS/movies'
+import date from '../../../services/content/date'
 
 
 const LAYOUT = {

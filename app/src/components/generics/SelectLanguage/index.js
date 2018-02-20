@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
 
-import { getPublicAPILanguages } from 'services/languages'
+import { getPublicAPILanguages } from '../../../services/languages'
 
 
 class SelectLanguage extends Component {
@@ -26,17 +26,13 @@ class SelectLanguage extends Component {
     this.props.onChange(value)
   }
 
-  renderLanguages = () => {
-    return this.languages.map((el) => {
-      return (
-        <MenuItem
-          value={el.code}
-          primaryText={el.name}
-          key={el.code}
-        />
-      )
-    })
-  }
+  renderLanguages = () => this.languages.map(el => (
+    <MenuItem
+      value={el.code}
+      primaryText={el.name}
+      key={el.code}
+    />
+  ))
 
   render() {
     const { style, value } = this.props

@@ -1,4 +1,4 @@
-import { element } from 'services/titles/help'
+import { element } from '../../../services/titles/help'
 
 const defaultState = {
   element: null,

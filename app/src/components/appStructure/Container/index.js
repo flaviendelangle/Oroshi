@@ -6,13 +6,14 @@ import PropTypes from 'prop-types'
 
 import muiThemeable from 'material-ui/styles/muiThemeable'
 
-import Home from 'scenes/Home'
-import Login from 'scenes/Login'
-import Logout from 'scenes/Logout'
-import Collection from 'components/appStructure/Collection'
+import Home from '../../../scenes/Home'
+import Login from '../../../scenes/Login'
+import Logout from '../../../scenes/Logout'
+import Collection from '../Collection'
 
-import { notifyRouteChange } from 'services/actions/router'
-import { getProfile } from 'services/actions/users'
+import { notifyRouteChange } from '../../../services/actions/router'
+import { getProfile } from '../../../services/actions/users'
+
 
 class Container extends Component {
   static propTypes = {
@@ -83,7 +84,7 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   onRouteChange: location => dispatch(notifyRouteChange(location)),
   loadProfile: username => dispatch(getProfile(username)),
 })

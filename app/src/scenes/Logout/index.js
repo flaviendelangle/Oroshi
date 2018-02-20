@@ -4,8 +4,8 @@ import PropTypes from 'prop-types'
 
 import muiThemeable from 'material-ui/styles/muiThemeable'
 
-import Progress from 'components/generics/Progress'
-import { logout as _logout } from 'services/actions/users'
+import Progress from '../../components/generics/Progress'
+import { logout as _logout } from '../../services/actions/users'
 
 
 class Logout extends Component {

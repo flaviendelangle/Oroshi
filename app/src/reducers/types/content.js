@@ -1,13 +1,12 @@
-import { collectionContent, collections } from 'services/titles/api'
-import { sort, search } from 'services/titles/data'
-import { layout } from 'services/titles/interface'
+import { collectionContent, collections } from '../../services/titles/api'
+import { sort, search } from '../../services/titles/data'
+import { layout } from '../../services/titles/interface'
+import { getListGenerator, getStreamGenerator, getDefaultOrder } from '../../services/content/index'
+import { getValue } from '../../services/localstorage'
+import Element from '../../services/content/element'
 
-import { getListGenerator, getStreamGenerator, getDefaultOrder } from 'services/content/index'
-import { getValue } from 'services/localstorage'
-import Element from 'services/content/element'
-import { setSortParameters, setLayoutParameters } from '../../scenes/Collection/services/utils'
-import * as contentManager from '../../scenes/Collection/components/CollectionContent/services/content_manager'
-import { source } from "../../services/titles/interface"
+import { setSortParameters, setLayoutParameters } from '../../scenes/Collection/utils'
+import * as contentManager from '../../scenes/Collection/CollectionContent/content_manager'
 
 
 const generateDefaultState = (type) => {
