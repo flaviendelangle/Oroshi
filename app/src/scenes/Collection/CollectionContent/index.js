@@ -6,11 +6,9 @@ import Grid from '../../../components/generics/Grid/index'
 import Stream from '../../../components/generics/Stream/index'
 import Progress from '../../../components/generics/Progress/index'
 import Help from '../../../components/generics/Help/index'
+
 import { connect } from '../../../services/redux'
 import { get as getCollection } from '../../../services/actions/collections/index'
-
-
-import * as _style from './style'
 
 
 class CollectionContent extends Component {
@@ -38,7 +36,7 @@ class CollectionContent extends Component {
     }
   }
 
-  renderContent = () => {
+  render() {
     const {
       layout,
       grid,
@@ -49,7 +47,27 @@ class CollectionContent extends Component {
       elementComponent,
       lineDimensions,
       isPublic,
+      isLoaded,
+      isContentLoaded,
+      found,
+      content,
     } = this.props
+    if (!isLoaded || !isContentLoaded) {
+      return <Progress />
+    }
+    if (!found) {
+      return <NotFound />
+    }
+    if (content.length === 0) {
+      return (
+        <Help
+          type={type}
+          collection={collection}
+          elementComponent={elementComponent}
+          isPublic={isPublic}
+        />
+      )
+    }
     if (layout === 'grid') {
       return (
         <Grid
@@ -62,7 +80,8 @@ class CollectionContent extends Component {
           isPublic={isPublic}
         />
       )
-    } else if (layout === 'stream') {
+    }
+    if (layout === 'stream') {
       return (
         <Stream
           data={stream}
@@ -75,42 +94,6 @@ class CollectionContent extends Component {
       )
     }
     return null
-  }
-
-  render() {
-    const {
-      isLoaded,
-      isContentLoaded,
-      found,
-      content,
-      collection,
-      isPublic,
-      type,
-      elementComponent,
-    } = this.props
-    if (!isLoaded || !isContentLoaded) {
-      return (
-        <Progress />
-      )
-    } else if (!found) {
-      return (<NotFound />)
-    } else if (content.length === 0) {
-      return (
-        <Help
-          type={type}
-          collection={collection}
-          elementComponent={elementComponent}
-          isPublic={isPublic}
-        />
-      )
-    }
-    return (
-      <div style={_style.page} >
-        <div style={_style.container} >
-          {this.renderContent()}
-        </div>
-      </div>
-    )
   }
 }
 

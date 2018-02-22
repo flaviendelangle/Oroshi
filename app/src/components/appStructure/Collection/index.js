@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import { Switch, Route } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
@@ -9,6 +9,8 @@ import ElementSuggestions from '../../../scenes/ElementSuggestions'
 import Header from '../Header'
 
 import { collectionTypes } from '../../../appConfig'
+
+import styles from './Collection.scss'
 
 
 const getSceneProps = (el, scene, sceneProps) => ({
@@ -67,10 +69,12 @@ const Collection = () => (
 )
 
 const Scene = ({ Component, ...props }) => (
-  <Fragment>
+  <div className={styles.Collection}>
     <Header key={1} {...props} />
-    <Component key={2} {...props} />
-  </Fragment>
+    <section>
+      <Component key={2} {...props} />
+    </section>
+  </div>
 )
 
 Scene.propTypes = {

@@ -1,0 +1,34 @@
+$thickness: 10px;
+$diameter: 80px;
+$lineHeight: 20px;
+
+.Grade {
+  width: $diameter;
+  height: $diameter;
+
+  & > .ExternalCircle {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: $diameter;
+    height: $diameter;
+    background-color: #90a4ae;
+    border-radius: 50%;
+    box-shadow: 6px 6px 10px rgba(0, 0, 0, 0.6);
+  }
+
+  & > .InnerCircle {
+    position: absolute;
+    top: $thickness;
+    left: $thickness;
+    width: ($diameter - (2 * $thickness));
+    height: $lineHeight;
+    background-color: #eceff1;
+    border-radius: 50%;
+    color: black;
+    font-size: $lineHeight;
+    font-weight: bold;
+    padding: (($diameter / 2) - $thickness - ($lineHeight / 2)) 0;
+    text-align: center;
+  }
+}

@@ -1,0 +1,10 @@
+.Collection {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  section {
+    height: calc(100% - 64px);
+    position: relative;
+  }
+}

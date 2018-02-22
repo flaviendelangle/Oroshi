@@ -1,0 +1,13 @@
+@import "../../../styles/mixins.scss";
+
+.Stream {
+  @include element-grid();
+
+  .ShowMore {
+    text-align: center;
+
+    .Button {
+      @include button();
+    }
+  }
+}

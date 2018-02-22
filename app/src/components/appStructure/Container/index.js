@@ -4,8 +4,6 @@ import { withRouter } from 'react-router'
 import { Switch, Route } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
-import muiThemeable from 'material-ui/styles/muiThemeable'
-
 import Home from '../../../scenes/Home'
 import Login from '../../../scenes/Login'
 import Logout from '../../../scenes/Logout'
@@ -14,11 +12,12 @@ import Collection from '../Collection'
 import { notifyRouteChange } from '../../../services/actions/router'
 import { getProfile } from '../../../services/actions/users'
 
+import styles from './Container.scss'
+
 
 class Container extends Component {
   static propTypes = {
     location: PropTypes.object.isRequired,
-    muiTheme: PropTypes.object.isRequired,
     loadProfile: PropTypes.func.isRequired,
     onRouteChange: PropTypes.func.isRequired,
     username: PropTypes.string,
@@ -57,12 +56,8 @@ class Container extends Component {
   }
 
   render() {
-    const { muiTheme: { baseTheme } } = this.props
-    const style = {
-      backgroundColor: baseTheme.palette.backgroundColor,
-    }
     return (
-      <main style={style} >
+      <main className={styles.Container}>
         <Switch>
           <Route exact path="/" component={Home} />
           <Route path="/login/" component={Login} />
@@ -92,4 +87,4 @@ const mapDispatchToProps = dispatch => ({
 export default withRouter(connect(
   mapStateToProps,
   mapDispatchToProps,
-)(muiThemeable()(Container)))
+)(Container))

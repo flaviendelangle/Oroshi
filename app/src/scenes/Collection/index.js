@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 
 import CollectionContent from './CollectionContent'
@@ -8,15 +8,25 @@ import Menu from './Menu'
 import { connect } from '../../services/redux'
 
 
-const CollectionScene = ({ type, isPublic, collection }) => (
-  <div>
-    <Content {...this.props} />
+const CollectionScene = ({
+  type,
+  isPublic,
+  collection,
+  ...props
+}) => (
+  <Fragment>
+    <Content
+      type={type}
+      collection={collection}
+      isPublic={isPublic}
+      {...props}
+    />
     <Menu
       type={type}
       collection={collection}
       isPublic={isPublic}
     />
-  </div>
+  </Fragment>
 )
 
 CollectionScene.propTypes = {

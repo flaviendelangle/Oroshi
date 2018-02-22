@@ -1,15 +1,14 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import ScrollArea from 'react-scrollbar'
 import PropTypes from 'prop-types'
 
 import IconButton from 'material-ui/IconButton'
 import NavigationMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz'
 
 import ElementLine, { groupByLine } from '../ElementLine/index'
+import scrollable from '../../../helpers/scrollable'
 
-import * as _style from './style'
-import './style.css'
+import styles from './Grid.scss'
 
 
 const CONFIG = {
@@ -49,7 +48,7 @@ class Grid extends Component {
     return groupByLine(elements, this.props.lineDimensions)
   }
 
-  get isAllShown() {
+  isAllShown() {
     const local = this.props.data.results.length <= this.amountToShow
     return local && !this.props.data.next
   }
@@ -66,67 +65,48 @@ class Grid extends Component {
     this.setState({ pages: pages + 1 })
   }
 
-  renderItems = () => {
+  render() {
     const {
-      elementComponent,
+      elementComponent: Element,
       collection,
       creationMode,
       isPublic,
     } = this.props
-    const Element = elementComponent
-    return this.elements.map((line, i) => {
-      const index = i
-      const elements = line.map(el => (
-        <Element
-          update={Math.random()}
-          data={el}
-          collection={collection}
-          key={el.getPublicId()}
-          creationMode={creationMode}
-          isPublic={isPublic}
-        />
-      ))
-      return (<ElementLine key={index} >{elements}</ElementLine>)
-    })
-  }
-
-  render() {
     return (
-      <div className="content-grid-container">
-        <ScrollArea
-          speed={0.8}
-          horizontal={false}
-        >
-          <div className="content-grid">
-            {this.renderItems()}
-            <ShowMore isAllShown={this.isAllShown} showMore={this.showMore} />
-          </div>
-        </ScrollArea>
+      <div className={styles.Grid}>
+        {
+          this.elements.map((line, index) => (
+            <ElementLine key={index} > { /* eslint-disable-line react/no-array-index-key */ }
+              {
+                line.map(el => (
+                  <Element
+                    update={Math.random()}
+                    data={el}
+                    collection={collection}
+                    key={el.getPublicId()}
+                    creationMode={creationMode}
+                    isPublic={isPublic}
+                  />
+                ))
+              }
+            </ElementLine>
+          ))
+        }
+        {
+          !this.isAllShown() && (
+            <div className={styles.ShowMore}>
+              <IconButton
+                onClick={this.showMore}
+                className={styles.Button}
+              >
+                <NavigationMoreHoriz />
+              </IconButton>
+            </div>
+          )
+        }
       </div>
     )
   }
-}
-
-const ShowMore = ({ isAllShown, showMore }) => {
-  if (isAllShown) {
-    return null
-  }
-  return (
-    <div style={_style.showMore} >
-      <IconButton
-        onClick={showMore}
-        style={_style.button}
-        iconStyle={_style.icon}
-      >
-        <NavigationMoreHoriz />
-      </IconButton>
-    </div>
-  )
-}
-
-ShowMore.propTypes = {
-  isAllShown: PropTypes.bool.isRequired,
-  showMore: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = () => ({})
@@ -138,4 +118,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(Grid)
+)(scrollable(Grid))

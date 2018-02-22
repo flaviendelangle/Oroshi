@@ -32,9 +32,9 @@ class CollectionSearch extends Component {
       )
     }
     return (
-      <div style={_style.page} >
+      <section style={_style.page} >
         <div style={_style.container} />
-      </div>
+      </section>
     )
   }
 }

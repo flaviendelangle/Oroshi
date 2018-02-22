@@ -1,0 +1,52 @@
+@mixin title() {
+  font-size: 2em;
+  line-height: 2em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@mixin button($size: 96px) {
+  width: $size !important;
+  height: $size !important;
+  padding: $size / 4 !important;
+
+  svg {
+    width: $size / 2 !important;
+    height: $size / 2 !important;
+  }
+}
+
+@mixin element-grid() {
+  padding: 2rem 0;
+  position: relative;
+  margin: auto;
+
+  @media screen and (max-width: 460px) {
+    width: calc(225px + 1px);
+  }
+
+  @media screen and (min-width: 461px) and (max-width: 710px) {
+    width: calc(225px * 2 + 1px);
+  }
+
+  @media screen and (min-width: 711px) and (max-width: 1025px) {
+    width: calc(225px * 3 + 1px);
+  }
+
+  @media screen and (min-width: 1026px) and (max-width: 1282px) {
+    width: calc(225px * 4 + 1px);
+  }
+
+  @media screen and (min-width: 1283px) and (max-width: 1538px) {
+    width: calc(225px * 5 + 1px);
+  }
+
+  @media screen and (min-width: 1539px) and (max-width: 1794px) {
+    width: calc(225px * 6 + 1px);
+  }
+
+  @media screen and (min-width: 1795px) {
+    width: calc(225px * 7 + 1px);
+  }
+}

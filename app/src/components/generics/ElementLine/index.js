@@ -5,7 +5,7 @@ import './style.css'
 
 
 const ElementLine = ({ children }) => (
-  <div className="element-line">
+  <div>
     {children}
   </div>
 )

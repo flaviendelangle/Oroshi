@@ -1,0 +1,40 @@
+@import "../../../../styles/mixins.scss";
+
+.Section {
+  margin: 20px 0;
+  position: relative;
+
+  &:first-child {
+    margin-top: 0;
+  }
+
+  &:nth-last-child(2) {
+    margin-bottom: 0;
+  }
+
+  &:not(.SectionFull) > .Content {
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  .Title {
+    @include title();
+
+    .ShowFullVersion {
+      position: absolute !important;
+      right: 0;
+
+      &Hidden {
+        display: none !important;
+      }
+    }
+  }
+
+  .ShowMore {
+    text-align: center;
+
+    .Button {
+      @include button();
+    }
+  }
+}

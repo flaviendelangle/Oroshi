@@ -13,31 +13,6 @@ export const color = (value) => {
   return '#D32F2F'
 }
 
-export const externalCircle = {
-  position: 'absolute',
-  top: 0,
-  left: 0,
-  width: CONFIG.diameter,
-  height: CONFIG.diameter,
-  backgroundColor: '#90A4AE',
-  borderRadius: '50%',
-  boxShadow: '6px 6px 10px rgba(0,0,0,0.6)',
-}
-
-export const innerCircle = {
-  position: 'absolute',
-  top: CONFIG.thickness,
-  left: CONFIG.thickness,
-  width: (CONFIG.diameter - (2 * CONFIG.thickness)),
-  height: CONFIG.lineHeight,
-  backgroundColor: '#ECEFF1',
-  borderRadius: '50%',
-  color: 'black',
-  fontSize: CONFIG.lineHeight,
-  fontWeight: 'bold',
-  padding: `${String((CONFIG.diameter / 2) - CONFIG.thickness - (CONFIG.lineHeight / 2))}px 0`,
-  textAlign: 'center',
-}
 
 export const arc = ({ quarter, degree, value }) => {
   const angle = Math.min(quarter * 90, degree) - 45

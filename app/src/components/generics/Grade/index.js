@@ -1,7 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import cx from 'classnames'
 
 import * as _style from './style'
+import styles from './Grade.scss'
 
 
 const Grade = ({ className, value }) => {
@@ -18,10 +20,15 @@ const Grade = ({ className, value }) => {
     }
   }
 
+  const gradeClasses = cx({
+    [styles.Grade]: true,
+    [className]: !!className,
+  })
+
   return (
-    <div style={_style.circle} className={className} >
-      <div style={_style.externalCircle} />
-      <div style={_style.innerCircle} >
+    <div className={gradeClasses} >
+      <div style={styles.ExternalCircle} />
+      <div style={styles.InnerCircle} >
         {grade}
       </div>
       <Arc quarter={1} degree={degree} value={value} />

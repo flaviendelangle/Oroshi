@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
-import ScrollArea from 'react-scrollbar'
 import PropTypes from 'prop-types'
 
 import IconButton from 'material-ui/IconButton'
 import NavigationMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz'
 
 import Section from './Section/index'
+import scrollable from '../../../helpers/scrollable'
 
-import * as _style from './style'
+import styles from './Stream.scss'
+
 
 const CONFIG = {
   pageLength: 10,
@@ -27,78 +28,69 @@ class Stream extends Component {
     pages: 1,
   }
 
+  getSections = () => {
+    const { data: { results } } = this.props
+    const { full, pages } = this.state
+    const length = CONFIG.pageLength * pages
+
+    if (
+      !full &&
+      results.length > length
+    ) {
+      return results.slice(0, length)
+    }
+    return results
+  }
+
   showMore = () => {
     this.setState({
       pages: this.state.pages + 1,
     })
   }
 
-  renderSections = () => {
+  render() {
     const {
-      data,
+      data: { key, results },
       collection,
       elementComponent,
       lineDimensions,
       creationMode,
       isPublic,
     } = this.props
-    const { full } = this.state
-    let sections = data.results
-
-    if (
-      !full &&
-      sections.length > CONFIG.pageLength * this.state.pages
-    ) {
-      sections = sections.slice(0, CONFIG.pageLength * this.state.pages)
-    }
-    return sections.map(section => (
-      <Section
-        key={`${section.type}_${section.key.pk}`}
-        data={section}
-        collection={collection}
-        field={data.key}
-        elementComponent={elementComponent}
-        lineDimensions={lineDimensions}
-        creationMode={creationMode}
-        isPublic={isPublic}
-      />
-    ))
-  }
-
-  renderShowMore = () => {
-    const { data } = this.props
     const { pages } = this.state
-    if (data.results.length <= CONFIG.pageLength * pages) {
-      return null
-    }
-    return (
-      <div style={{ textAlign: 'center' }} >
-        <IconButton
-          onClick={this.showMore}
-          style={_style.button}
-          iconStyle={_style.icon}
-        >
-          <NavigationMoreHoriz />
-        </IconButton>
-      </div>
-    )
-  }
 
-  render() {
+    const sections = this.getSections()
     return (
-      <div className="content-grid-container">
-        <ScrollArea
-          speed={0.8}
-          horizontal={false}
-        >
-          <div className="content-grid">
-            {this.renderSections()}
-            {this.renderShowMore()}
-          </div>
-        </ScrollArea>
+      <div className={styles.Stream}>
+        {
+          sections.map(section => (
+            <Section
+              key={`${section.type}_${section.key.pk}`}
+              data={section}
+              collection={collection}
+              field={key}
+              elementComponent={elementComponent}
+              lineDimensions={lineDimensions}
+              creationMode={creationMode}
+              isPublic={isPublic}
+            />
+          ))
+        }
+        {
+          (results.length > CONFIG.pageLength * pages) && (
+            <div className={styles.ShowMore}>
+              <IconButton
+                onClick={this.showMore}
+                className={styles.Button}
+              >
+                <NavigationMoreHoriz />
+              </IconButton>
+            </div>
+          )
+        }
       </div>
     )
   }
 }
 
-export default Stream
+export default scrollable(Stream)

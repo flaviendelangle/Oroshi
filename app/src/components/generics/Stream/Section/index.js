@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
+import cx from 'classnames'
 
 import IconButton from 'material-ui/IconButton'
 import NavigationLess from 'material-ui/svg-icons/navigation/expand-less'
@@ -9,12 +10,10 @@ import NavigationMore from 'material-ui/svg-icons/navigation/expand-more'
 import NavigationMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz'
 import muiThemeable from 'material-ui/styles/muiThemeable'
 
-import cx from 'classnames'
 
 import ElementLine, { groupByLine } from '../../../../components/generics/ElementLine/index'
 
-import * as _style from './style'
-import './style.css'
+import styles from './Section.scss'
 
 
 const CONFIG = {
@@ -35,7 +34,7 @@ class Section extends Component {
   }
 
   state = {
-    full: false,
+    isFull: false,
     pages: 1,
   }
 
@@ -50,12 +49,18 @@ class Section extends Component {
     return CONFIG.pageLength * lineDimensions.elementsPerLine * pages
   }
 
-  get elements() {
+  get isAllShown() {
+    const { data: { content, next } } = this.props
+    const local = content.length <= this.amountToShow
+    return local && !next
+  }
+
+  getElements() {
     const { data: { content }, lineDimensions } = this.props
-    const { full } = this.state
+    const { isFull } = this.state
     let elements = content
     if (
-      !full &&
+      !isFull &&
       elements.length > lineDimensions.elementsPerLine
     ) {
       elements = elements.slice(0, lineDimensions.elementsPerLine)
@@ -65,15 +70,9 @@ class Section extends Component {
     return groupByLine(elements, lineDimensions)
   }
 
-  get isAllShown() {
-    const { data: { content, next } } = this.props
-    const local = content.length <= this.amountToShow
-    return local && !next
-  }
-
 
   showFullVersion = () => {
-    this.setState({ full: !this.state.full })
+    this.setState({ isFull: !this.state.isFull })
   }
 
   showMore = () => {
@@ -107,68 +106,69 @@ class Section extends Component {
     )
   }
 
-  renderContent = () => {
+  render() {
     const {
-      elementComponent,
+      elementComponent: Element,
       collection,
       creationMode,
       isPublic,
+      data: { content },
+      lineDimensions: { elementsPerLine },
     } = this.props
-    const Element = elementComponent
-    return this.elements.map((line, i) => {
-      const index = i
-      const elements = line.map(el => (
-        <Element
-          update={Math.random()}
-          data={el}
-          collection={collection}
-          key={el.getPublicId()}
-          creationMode={creationMode}
-          isPublic={isPublic}
-        />
-      ))
-      return (<ElementLine key={index} >{elements}</ElementLine>)
-    })
-  }
+    const { isFull } = this.state
+    const elements = this.getElements()
 
-  renderShowMore = () => {
-    if (!this.state.full) {
-      return null
-    }
-    if (this.isAllShown) {
-      return null
-    }
-    return (
-      <div style={{ textAlign: 'center' }} >
-        <IconButton
-          onClick={this.showMore}
-          style={_style.button}
-          iconStyle={_style.icon}
-        >
-          <NavigationMoreHoriz />
-        </IconButton>
-      </div>
-    )
-  }
-
-  render() {
-    const { data } = this.props
-    const { full } = this.state
-    const classes = cx({
-      'stream-section': true,
-      full,
+    const sectionClasses = cx({
+      [styles.Section]: true,
+      [styles.SectionFull]: isFull,
     })
+    const showFullClasses = cx({
+      [styles.ShowFullVersion]: true,
+      [styles.ShowFullVersionHidden]: content.length <= elementsPerLine,
+    })
+    console.log(content.length, elementsPerLine)
+
     return (
-      <div className={classes} data-amount={data.content.length}>
-        <div className="title">
+      <div className={sectionClasses}>
+        <div className={styles.Title}>
           {this.renderLink()}
-          <IconButton onClick={this.showFullVersion} >
-            {full ? <NavigationLess /> : <NavigationMore />}
+          <IconButton onClick={this.showFullVersion} className={showFullClasses}>
+            {isFull ? <NavigationLess /> : <NavigationMore />}
           </IconButton>
         </div>
-        <div className="content">
-          {this.renderContent()}
-          {this.renderShowMore()}
+        <div className={styles.Content}>
+          {
+            elements.map((line, index) => (
+              <ElementLine key={index} > { /* eslint-disable-line react/no-array-index-key */ }
+                {
+                  line.map(el => (
+                    <Element
+                      update={Math.random()}
+                      data={el}
+                      collection={collection}
+                      key={el.getPublicId()}
+                      creationMode={creationMode}
+                      isPublic={isPublic}
+                    />
+                  ))
+                }
+              </ElementLine>
+            ))
+          }
+          {
+            isFull &&
+            !this.isAllShown &&
+            (
+              <div className={styles.ShowMore} >
+                <IconButton
+                  onClick={this.showMore}
+                  className={styles.Button}
+                >
+                  <NavigationMoreHoriz />
+                </IconButton>
+              </div>
+            )
+          }
         </div>
       </div>
     )

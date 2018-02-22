@@ -14,7 +14,7 @@ import styles from './OrderMenu.scss'
 
 
 const OrderMenu = ({ muiTheme: { palette }, ...props }) => (
-  <div style={styles.OrderMenu} >
+  <div className={styles.OrderMenu} >
     <Menu
       {...props}
       color={palette.alternateTextColor}
