@@ -1,23 +1,22 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
+// import cx from 'classnames'
 
-import AVMovie from 'material-ui/svg-icons/av/movie'
-import HardwareTV from 'material-ui/svg-icons/hardware/tv'
+// import AVMovie from 'material-ui/svg-icons/av/movie'
+// import HardwareTV from 'material-ui/svg-icons/hardware/tv'
 import muiThemeable from 'material-ui/styles/muiThemeable'
-import ContentCreate from 'material-ui/svg-icons/content/create'
-
-import cx from 'classnames'
-
-import Identicon from '../../../../components/generics/Identicon/index'
+// import ContentCreate from 'material-ui/svg-icons/content/create'
 
 
-import './style.css'
+import CollectionCover from '../../../../components/generics/CollectionCover'
+
+import styles from './CollectionBox.scss'
 
 class CollectionBox extends Component {
   static propTypes = {
     data: PropTypes.object.isRequired,
-    muiTheme: PropTypes.object.isRequired,
+    // muiTheme: PropTypes.object.isRequired,
     editing: PropTypes.bool,
   }
 
@@ -37,32 +36,22 @@ class CollectionBox extends Component {
   }
 
   render() {
-    const { data, editing, muiTheme: { palette } } = this.props
-    const Icon = data.type === 'movies' ? AVMovie : HardwareTV
-    const maskClasses = cx({
+    // const Icon = data.type === 'movies' ? AVMovie : HardwareTV
+    /* const maskClasses = cx({
       'collection-editing-mask': true,
       invisible: !editing,
-    })
+    }) */
+
+    const { data: { cover_elements: covers, title } } = this.props
     return (
-      <Link to={this.url} >
-        <div className="collection-box">
-          <div className="collection-icon" style={{ background: palette.primary2Color }} >
-            <div className={maskClasses} >
-              <ContentCreate color={palette.primary1Color} className="editing-icon" />
-            </div>
-            <Identicon size="190" string={data.title} />
-            <div className="collection-type">
-              <Icon />
-            </div>
+      <div className={styles.CollectionBox}>
+        <Link to={this.url}>
+          <CollectionCover covers={covers} />
+          <div className={styles.Title} >
+            {title}
           </div>
-          <div
-            className="collection-title"
-            style={{ color: palette.titleColor }}
-          >
-            {data.title}
-          </div>
-        </div>
-      </Link>
+        </Link>
+      </div>
     )
   }
 }

@@ -1,0 +1,38 @@
+@import "../../../styles/variables";
+
+$size: 3rem;
+
+.Progress {
+  position: absolute;
+  top: calc(50% - #{$size / 2});
+  left: calc(50% - #{$size / 2});
+
+  > .Content {
+    vertical-align: middle;
+    display: inline-block;
+    width: $size;
+    height: $size;
+  }
+
+  > .Message {
+    margin-left: $size / 2;
+    vertical-align: middle;
+    display: inline-block;
+    line-height: 40px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    letter-spacing: 1px;
+    font-size: 1.4em;
+    color: $textColor;
+  }
+
+  .Icon,
+  .Icon > div,
+  .Icon > div > svg {
+    height: $size !important;
+    width: $size !important;
+  }
+
+  .Icon circle {
+    stroke: $bright-color !important;
+  }
+}

@@ -1,0 +1,50 @@
+@import "../../../styles/mixins";
+
+.CollectionCover {
+  position: relative;
+  height: 210px;
+  width: 170px;
+  margin: 20px;
+
+  .Cover {
+    position: absolute;
+    display: inline-grid;
+
+    &[data-place="0"] {
+      @include material-shadow(2);
+
+      top: 0;
+      left: 0;
+    }
+
+    &[data-place="1"] {
+      @include material-shadow(3);
+
+      top: 35px;
+      left: 70px;
+    }
+
+    &[data-place="2"] {
+      @include material-shadow(4);
+
+      top: 70px;
+      left: 35px;
+    }
+  }
+
+  &:hover {
+    .Cover {
+      &[data-place="0"] {
+        @include material-shadow(3);
+      }
+
+      &[data-place="1"] {
+        @include material-shadow(4);
+      }
+
+      &[data-place="2"] {
+        @include material-shadow(5);
+      }
+    }
+  }
+}

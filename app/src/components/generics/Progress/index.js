@@ -2,23 +2,24 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import CircularProgress from 'material-ui/CircularProgress'
-import muiThemeable from 'material-ui/styles/muiThemeable'
 
-import * as _style from './style'
+import styles from './Progress.scss'
 
 
-const Progress = ({ muiTheme: { palette }, message }) => (
-  <div style={_style.container} >
-    <div style={_style.progress} >
-      <CircularProgress color={palette.alternateTextColor} />
+const Progress = ({ message }) => (
+  <div className={styles.Progress} >
+    <div className={styles.Content} >
+      <CircularProgress className={styles.Icon} />
     </div>
-    { message ? <div style={_style.message(palette)} >{message}</div> : null }
+    {
+      message &&
+      <div className={styles.Message} >{message}</div>
+    }
   </div>
 )
 
 Progress.propTypes = {
-  muiTheme: PropTypes.object.isRequired,
   message: PropTypes.string,
 }
 
-export default muiThemeable()(Progress)
+export default Progress

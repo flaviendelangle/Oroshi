@@ -126,7 +126,6 @@ class Section extends Component {
       [styles.ShowFullVersion]: true,
       [styles.ShowFullVersionHidden]: content.length <= elementsPerLine,
     })
-    console.log(content.length, elementsPerLine)
 
     return (
       <div className={sectionClasses}>
