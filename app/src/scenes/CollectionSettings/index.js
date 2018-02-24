@@ -7,6 +7,8 @@ import ContentPanel from './ContentPanel'
 import { getSettings } from '../../services/actions/collections'
 import { connect } from '../../services/redux'
 
+import styles from './CollectionSettings.scss'
+
 
 class CollectionSettings extends Component {
   static propTypes = {
@@ -32,7 +34,7 @@ class CollectionSettings extends Component {
   render() {
     const { type, collection } = this.props
     return (
-      <div className="collection-settings">
+      <div className={styles.CollectionSettings}>
         <MenuPanel type={type} collection={collection} />
         <ContentPanel type={type} collection={collection} />
       </div>

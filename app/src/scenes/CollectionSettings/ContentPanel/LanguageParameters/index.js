@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
 import ParametersSection, { Line } from '../ParametersSection/index'
-import SelectLanguage from '../../../../components/generics/SelectLanguage/index'
+import SelectLanguage from '../../../../components/form/SelectLanguage/index'
 
 import { update as _update } from '../../actions'
 

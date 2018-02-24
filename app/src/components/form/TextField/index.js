@@ -6,7 +6,8 @@ import EditorModeEdit from 'material-ui/svg-icons/editor/mode-edit'
 import ContentSave from 'material-ui/svg-icons/content/save'
 import IconButton from 'material-ui/IconButton'
 
-import * as _style from './style'
+import styles from './TextField.scss'
+
 
 class TextField extends Component {
   static propTypes = {
@@ -33,16 +34,15 @@ class TextField extends Component {
     const { id, value, onChange } = this.props
     const { editing } = this.state
     return (
-      <div>
+      <div className={styles.TextField}>
         <TextFieldOriginal
           id={id}
           value={value}
-          style={_style.textField}
-          inputStyle={_style.input}
+          className={styles.Content}
           disabled={!editing}
           onChange={onChange}
         />
-        <IconButton style={_style.icon} >
+        <IconButton className={styles.Icon} >
           <Icon editing={editing} onClick={this.switchMode} />
         </IconButton>
       </div>

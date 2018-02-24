@@ -1,0 +1,7 @@
+@import "../../../styles/variables";
+
+.ContentPanel {
+  padding-top: 50px;
+  flex-grow: 5;
+  background-color: $light-background-color;
+}

@@ -1,0 +1,15 @@
+.TextField {
+  > .Content {
+    margin-left: 20px;
+
+    input {
+      text-align: left;
+    }
+  }
+
+  .Icon {
+    position: absolute;
+    top: -5px;
+    right: 0;
+  }
+}

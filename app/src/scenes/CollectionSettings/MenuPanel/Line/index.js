@@ -1,51 +1,42 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-
-import muiThemeable from 'material-ui/styles/muiThemeable'
+import cx from 'classnames'
 
 import { goToSection } from './actions'
 
-import './style.css'
+import styles from './Line.scss'
 
 
-class Line extends Component {
-  static propTypes = {
-    muiTheme: PropTypes.object.isRequired,
-    goTo: PropTypes.func.isRequired,
-    children: PropTypes.string,
-    value: PropTypes.any,
-    active: PropTypes.bool,
-  }
-
-  get active() {
-    const { active } = this.props
-    return active ? 1 : 0
-  }
-
-  get contentStyle() {
-    const { muiTheme: { baseTheme } } = this.props
-    return {
-      color: baseTheme.palette.textColor,
-    }
-  }
-
-  render() {
-    const { goTo, value, children } = this.props
-    return (
-      <div className="line" data-active={this.active} >
-        <div
-          role="button"
-          tabIndex={0}
-          style={this.contentStyle}
-          className="line-content"
-          onClick={() => goTo(value)}
-        >
-          {children}
-        </div>
+const Line = ({
+  goTo,
+  value,
+  children,
+  active,
+}) => {
+  const lineClasses = cx({
+    [styles.Line]: true,
+    [styles.LineActive]: active,
+  })
+  return (
+    <div className={lineClasses} >
+      <div
+        role="button"
+        tabIndex={0}
+        className={styles.Content}
+        onClick={() => goTo(value)}
+      >
+        {children}
       </div>
-    )
-  }
+    </div>
+  )
+}
+
+Line.propTypes = {
+  goTo: PropTypes.func.isRequired,
+  children: PropTypes.string,
+  value: PropTypes.any,
+  active: PropTypes.bool,
 }
 
 const mapStateToProps = () => ({})
@@ -57,4 +48,4 @@ const mapDispatchToProps = (dispatch, { type, collection }) => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(muiThemeable()(Line))
+)(Line)

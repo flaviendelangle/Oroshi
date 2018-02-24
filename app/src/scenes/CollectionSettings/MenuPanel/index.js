@@ -6,7 +6,7 @@ import muiThemeable from 'material-ui/styles/muiThemeable'
 import Line from './Line/index'
 import { connect } from '../../../services/redux'
 
-import * as _style from './style'
+import styles from './MenuPanel.scss'
 
 
 class MenuPanel extends Component {
@@ -28,7 +28,7 @@ class MenuPanel extends Component {
   render() {
     const { type, collection } = this.props
     return (
-      <div style={_style.panel} >
+      <div className={styles.MenuPanel} >
         <Line
           active={this.isActive('summary')}
           value="summary"

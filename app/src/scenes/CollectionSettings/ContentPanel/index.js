@@ -1,7 +1,5 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
-
-import muiThemeable from 'material-ui/styles/muiThemeable'
 
 import SummaryParameters from './SummaryParameters'
 import Progress from '../../../components/generics/Progress'
@@ -12,51 +10,31 @@ import DataImporter from './DataImporter'
 
 import { connect } from '../../../services/redux'
 
+import styles from './ContentPanel.scss'
 
-class MenuPanel extends Component {
-  static propTypes = {
-    muiTheme: PropTypes.object.isRequired,
-    type: PropTypes.string.isRequired,
-    collection: PropTypes.object.isRequired,
-    data: PropTypes.object,
-    active: PropTypes.string,
 
-  }
-
-  get panelStyle() {
-    const { muiTheme: { palette } } = this.props
-    return {
-      position: 'absolute',
-      top: 64,
-      bottom: 0,
-      right: 0,
-      paddingTop: 50,
-      width: '60%',
-      backgroundColor: palette.primary2Color,
+const ContentPanel = ({
+  active,
+  type,
+  collection,
+  data,
+}) => (
+  <div className={styles.ContentPanel}>
+    {
+      data ?
+        <Panel active={active} type={type} collection={collection} data={data} /> :
+        <Progress />
     }
-  }
+  </div>
+)
 
-  render() {
-    const {
-      active,
-      type,
-      collection,
-      data,
-    } = this.props
-    if (!data) {
-      return (
-        <div style={this.panelStyle} >
-          <Progress />
-        </div>
-      )
-    }
-    return (
-      <div style={this.panelStyle} >
-        <Panel active={active} type={type} collection={collection} data={data} />
-      </div>
-    )
-  }
+ContentPanel.propTypes = {
+  type: PropTypes.string.isRequired,
+  collection: PropTypes.object.isRequired,
+  data: PropTypes.object,
+  active: PropTypes.string,
 }
+
 
 /**
  * Return the component of a given settings section
@@ -110,4 +88,4 @@ const mapDispatchToProps = () => ({})
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(muiThemeable()(MenuPanel))
+)(ContentPanel)
