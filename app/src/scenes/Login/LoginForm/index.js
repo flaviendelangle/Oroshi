@@ -5,14 +5,14 @@ import PropTypes from 'prop-types'
 
 import RaisedButton from 'material-ui/RaisedButton'
 
-import * as _style from '../style'
+import styles from '../Login.scss'
+
 
 export const FORM_NAME = 'LOGIN_FORM'
 
 const required = value => (value ? undefined : 'Required')
 
 const LoginForm = ({
-  palette,
   onSwitch,
   mode,
   handleSubmit,
@@ -23,18 +23,14 @@ const LoginForm = ({
   return (
     <form onSubmit={handleSubmit} >
       <Field
-        floatingLabelStyle={_style.input(palette)}
-        inputStyle={_style.input(palette)}
-        underlineStyle={_style.input(palette)}
+        className={styles.Input}
         floatingLabelText="Username"
         name="username"
         component={TextField}
         validate={[required]}
       />
       <Field
-        floatingLabelStyle={_style.input(palette)}
-        inputStyle={_style.input(palette)}
-        underlineStyle={_style.input(palette)}
+        className={styles.Input}
         floatingLabelText="Password"
         name="password"
         component={TextField}
@@ -42,30 +38,28 @@ const LoginForm = ({
         type="password"
       />
       <RaisedButton
-        style={_style.button}
-        backgroundColor={_style.buttonBackground}
+        className={styles.Button}
         type="submit"
         label="Sign In"
       />
-      <RegisterButton palette={palette} onSwitch={onSwitch} />
+      <RegisterButton onSwitch={onSwitch} />
     </form>
   )
 }
 
 LoginForm.propTypes = {
-  palette: PropTypes.object.isRequired,
   onSwitch: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   mode: PropTypes.string,
 }
 
-const RegisterButton = ({ palette, onSwitch }) => (
-  <div style={_style.flatButton(palette)} >
+const RegisterButton = ({ onSwitch }) => (
+  <div className={styles.FlatButton} >
     <span>{'Don\'t have an account?'}</span>
     <span
       role="button"
       tabIndex={0}
-      style={_style.flatButtonLink}
+      className={styles.Link}
       onClick={() => onSwitch('register')}
     >
       Sign In
@@ -74,7 +68,6 @@ const RegisterButton = ({ palette, onSwitch }) => (
 )
 
 RegisterButton.propTypes = {
-  palette: PropTypes.object.isRequired,
   onSwitch: PropTypes.func.isRequired,
 }
 

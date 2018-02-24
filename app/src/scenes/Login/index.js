@@ -4,20 +4,19 @@ import { SubmissionError } from 'redux-form'
 import PropTypes from 'prop-types'
 
 import Paper from 'material-ui/Paper'
-import muiThemeable from 'material-ui/styles/muiThemeable'
 
 import LoginForm from './LoginForm'
 import RegisterForm from './RegisterForm'
 import { create, login as _login } from '../../services/actions/users'
 
-import * as _style from './style'
+import styles from './Login.scss'
+
 
 class Login extends Component {
   static propTypes = {
     login: PropTypes.func.isRequired,
     register: PropTypes.func.isRequired,
     history: PropTypes.object.isRequired,
-    muiTheme: PropTypes.object.isRequired,
     oauth: PropTypes.object,
   }
 
@@ -71,23 +70,20 @@ class Login extends Component {
   }
 
   render() {
-    const { muiTheme: { palette } } = this.props
     const { mouseOver, mode } = this.state
     return (
       <Paper
-        style={_style.paper(palette)}
+        className={styles.Login}
         zDepth={mouseOver ? 5 : 3}
         onMouseEnter={() => this.handleMouseHover(true)}
         onMouseLeave={() => this.handleMouseHover(false)}
       >
         <LoginForm
-          palette={palette}
           onSwitch={this.switchMode}
           onSubmit={this.login}
           mode={mode}
         />
         <RegisterForm
-          palette={palette}
           onSwitch={this.switchMode}
           onSubmit={this.register}
           mode={mode}
@@ -114,4 +110,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(muiThemeable()(Login))
+)(Login)
