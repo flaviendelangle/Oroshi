@@ -1,12 +1,12 @@
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
+import cx from 'classnames'
 
 import FloatingActionButton from 'material-ui/FloatingActionButton'
 import ContentAdd from 'material-ui/svg-icons/content/add'
 import ActionDoneAll from 'material-ui/svg-icons/action/done-all'
 import ActionViewModule from 'material-ui/svg-icons/action/view-module'
 import ActionViewStream from 'material-ui/svg-icons/action/view-stream'
-import muiThemeable from 'material-ui/styles/muiThemeable'
 
 import { switchLayout as _switchLayout } from '../CollectionContent/actions'
 import SnackbarList from '../../../components/appStructure/SnackbarList/index'
@@ -15,7 +15,7 @@ import { switchAddingMode as _switchAddingMode } from '../actions'
 import { getRecommendations } from '../../../services/actions/publicAPI/index'
 import { connect } from '../../../services/redux'
 
-import * as _style from './style'
+import styles from './Menu.scss'
 
 
 const LAYOUTS = [
@@ -40,7 +40,6 @@ const Menu = ({
   content,
   switchAddingMode,
   switchLayout,
-  muiTheme: { palette },
 }) => {
   if (!found || !isLoaded) {
     return null
@@ -56,7 +55,6 @@ const Menu = ({
       <LayoutButtons
         isAdding={isAdding}
         switchLayout={switchLayout}
-        palette={palette}
         layout={layout}
         content={content}
       />
@@ -76,7 +74,6 @@ Menu.propTypes = {
   isPublic: PropTypes.bool,
   switchAddingMode: PropTypes.func.isRequired,
   switchLayout: PropTypes.func.isRequired,
-  muiTheme: PropTypes.object.isRequired,
   layout: PropTypes.string,
   found: PropTypes.bool,
   content: PropTypes.array,
@@ -86,25 +83,24 @@ Menu.propTypes = {
 const LayoutButtons = ({
   isAdding,
   switchLayout,
-  palette,
   layout,
   content,
 }) => {
   if (isAdding || content.length === 0) {
     return null
   }
-  const componentContent = LAYOUTS.map(el => (
-    <LayoutIcon
-      key={el.name}
-      Component={el.icon}
-      palette={palette}
-      onClick={() => switchLayout(el.name)}
-      active={layout === el.name}
-    />
-  ))
   return (
-    <div style={_style.layout} >
-      {componentContent}
+    <div className={styles.Layout} >
+      {
+        LAYOUTS.map(el => (
+          <LayoutIcon
+            key={el.name}
+            Component={el.icon}
+            onClick={() => switchLayout(el.name)}
+            active={layout === el.name}
+          />
+        ))
+      }
     </div>
   )
 }
@@ -114,30 +110,26 @@ LayoutButtons.propTypes = {
   layout: PropTypes.string.isRequired,
   content: PropTypes.array.isRequired,
   switchLayout: PropTypes.func.isRequired,
-  palette: PropTypes.object.isRequired,
 }
 
 const LayoutIcon = ({
   Component,
-  palette,
   active,
   onClick,
 }) => {
-  const style = {
-    color: palette.alternateTextColor,
-    opacity: active ? 1 : 0.4,
-    cursor: active ? 'auto' : 'pointer',
-  }
+  const iconClasses = cx({
+    [styles.LayoutIcon]: true,
+    [styles.LayoutIconActive]: active,
+  })
   return (
-    <div style={_style.layoutIcon(palette)} >
-      <Component onClick={onClick} style={style} />
+    <div className={iconClasses} >
+      <Component onClick={onClick} />
     </div>
   )
 }
 
 LayoutIcon.propTypes = {
   Component: PropTypes.func.isRequired,
-  palette: PropTypes.object.isRequired,
   active: PropTypes.bool.isRequired,
   onClick: PropTypes.func.isRequired,
 }
@@ -160,7 +152,7 @@ const AddingIcon = ({
 
   return (
     <FloatingActionButton
-      style={_style.add}
+      className={styles.AddingIcon}
       onClick={() => switchAddingMode(collection)}
     >
       <Icon />
@@ -196,5 +188,5 @@ const mapDispatchToProps = (dispatch, { type, collection }) => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(muiThemeable()(Menu))
+)(Menu)
 

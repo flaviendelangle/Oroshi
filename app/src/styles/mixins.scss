@@ -22,6 +22,13 @@
   font-size: 1.5em;
 }
 
+@mixin icon() {
+  & * {
+    color: $bright-color !important;
+    stroke: $bright-color !important;
+  }
+}
+
 @mixin button($size: 96px) {
   width: $size !important;
   height: $size !important;

@@ -1,0 +1,32 @@
+@import "../../../styles/variables";
+@import "../../../styles/mixins";
+
+.AddingIcon {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+}
+
+.Layout {
+  position: fixed;
+  top: 84px;
+  right: 20px;
+
+  .LayoutIcon {
+    @include icon();
+
+    display: inline-block;
+    margin-right: 10px;
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    padding: 8px;
+    opacity: 0.4;
+    cursor: pointer;
+
+    &Active {
+      opacity: 1;
+      cursor: pointer;
+    }
+  }
+}

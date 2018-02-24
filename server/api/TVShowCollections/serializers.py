@@ -21,9 +21,22 @@ class TVShowCollectionsSerializer(serializers.ModelSerializer):
 
 class TVShowCollectionSettingsSerializer(serializers.ModelSerializer):
 
+    cover_elements = TVShowsSerializer(many=True)
+
     class Meta:
         model = TVShowCollections
-        fields = ('pk', 'user', 'hash', 'title', 'adult_content', 'public', 'hide_unseen_titles', 'title_language', 'poster_language')
+        fields = (
+            'pk',
+            'user',
+            'hash',
+            'title',
+            'adult_content',
+            'public',
+            'hide_unseen_titles',
+            'title_language',
+            'poster_language',
+            'cover_elements',
+        )
 
 
 class TVShowCollectionsWriteSerializer(serializers.ModelSerializer):

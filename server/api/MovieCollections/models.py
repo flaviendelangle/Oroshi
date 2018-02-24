@@ -25,6 +25,10 @@ class MovieCollections(models.Model):
     title_language = models.CharField(max_length=2, default="en")
     poster_language = models.CharField(max_length=2, default="-")
 
+    @property
+    def cover_elements(self):
+        return self.content.order_by('-pk')[:3]
+
 
 class SeenMovies(models.Model):
 

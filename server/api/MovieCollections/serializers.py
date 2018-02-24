@@ -21,9 +21,22 @@ class MovieCollectionsSerializer(serializers.ModelSerializer):
 
 class MovieCollectionSettingsSerializer(serializers.ModelSerializer):
 
+    cover_elements = MoviesSerializer(many=True)
+
     class Meta:
         model = MovieCollections
-        fields = ('pk', 'user', 'hash', 'title', 'adult_content', 'public', 'hide_unseen_titles', 'title_language', 'poster_language')
+        fields = (
+            'pk',
+            'user',
+            'hash',
+            'title',
+            'adult_content',
+            'public',
+            'hide_unseen_titles',
+            'title_language',
+            'poster_language',
+            'cover_elements',
+        )
 
 
 class MovieCollectionsWriteSerializer(serializers.ModelSerializer):
