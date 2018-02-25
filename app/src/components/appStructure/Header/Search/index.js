@@ -5,8 +5,8 @@ import PropTypes from 'prop-types'
 import SearchBar from 'material-ui-search-bar'
 import AutoComplete from 'material-ui/AutoComplete'
 
-import { update } from './actions'
 import { search, getRecommendations } from '../../../../services/actions/publicAPI/index'
+import { updateQuery } from '../../../../services/actions/content'
 
 import styles from './Search.scss'
 
@@ -77,7 +77,7 @@ const mapStateToProps = () => ({})
 
 const mapDispatchToProps = (dispatch, { type, collection }) => ({
   filter: (query, forced, isAdding) => {
-    dispatch(update(type, collection, query))
+    dispatch(updateQuery(type, collection, query))
     if (
       isAdding &&
       forced

@@ -2,6 +2,7 @@ import elementComponent from './component'
 import elementClass from './elementClass'
 import listGenerator from './listGenerator'
 import streamGenerator from './streamGenerator'
+import searchOptions from './searchOptions'
 import * as actions from './actions'
 import * as publicActions from './publicActions'
 
@@ -14,4 +15,5 @@ export default {
   streamGenerator,
   actions,
   publicActions,
+  searchOptions,
 }

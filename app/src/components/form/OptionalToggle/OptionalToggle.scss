@@ -1,0 +1,21 @@
+@import "../../../styles/variables";
+
+.OptionalToggle {
+  display: flex;
+  height: 3rem;
+  line-height: 3rem;
+  max-width: 256px;
+
+  .Label {
+    flex-grow: 1;
+    color: $light-text-color;
+  }
+
+  .Toggle {
+    margin: 0.75rem;
+  }
+
+  .Activated {
+    margin: 0.75rem -1rem 0.75rem 0;
+  }
+}

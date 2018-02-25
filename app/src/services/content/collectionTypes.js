@@ -12,3 +12,4 @@ export const getElementAPI = type => getActions(type).elementAPI
 
 export const getPublicAPI = type => getActions(type).publicAPI
 
+export const getSearchOptions = type => getConfig(type).searchOptions

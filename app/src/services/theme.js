@@ -5,7 +5,7 @@ import { merge } from 'lodash'
 const muiTheme = {
   palette: {
     textColor: colors.grey200,
-    primary1Color: colors.blueGrey800, // Header background
+    primary1Color: colors.amber900,
     primary2Color: colors.blueGrey800,
     backgroundColor: colors.blueGrey900,
     titleColor: colors.grey400,

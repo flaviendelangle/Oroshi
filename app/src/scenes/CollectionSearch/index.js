@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
+import Form from './Form'
 import Progress from '../../components/generics/Progress'
 import { get as getCollection } from '../../services/actions/collections'
 import { connect } from '../../services/redux'
 
 class CollectionSearch extends Component {
   static propTypes = {
+    type: PropTypes.string.isRequired,
     synchronize: PropTypes.func.isRequired,
     isLoaded: PropTypes.bool.isRequired,
     isContentLoaded: PropTypes.bool,
@@ -21,10 +23,15 @@ class CollectionSearch extends Component {
     }
   }
 
+  onSubmit = (data) => {
+    console.log(data)
+  }
+
   render() {
     const {
       isLoaded,
       isContentLoaded,
+      type,
     } = this.props
     if (
       !isLoaded ||
@@ -35,9 +42,9 @@ class CollectionSearch extends Component {
       )
     }
     return (
-      <section>
-        <div />
-      </section>
+      <div>
+        <Form onSubmit={this.onSubmit} type={type} />
+      </div>
     )
   }
 }

@@ -1,8 +1,10 @@
 @import "../../../styles/mixins";
+@import "../../../styles/variables";
 
 .Header {
   > div {
     height: 64px;
+    background-color: $light-background-color !important;
   }
 
   .Icon {
