@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "server": "pipenv run python ../server/manage.py runserver 8080",
     "start": "node server",
     "build": "rimraf dist && webpack --config ./webpack.prod.js --progress --profile --colors",
     "test": "jest",

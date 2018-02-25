@@ -1,29 +1,29 @@
 @import "../../../../styles/variables";
 
 .Line {
-  line-height: 2.5em;
-  height: 3em;
+  line-height: 2.5rem;
+  height: 2.5rem;
   text-align: left;
   position: relative;
+
+  &Active .Content {
+    background: #ff6f00;
+  }
 
   .Content {
     display: inline-block;
     float: right;
     padding: 2px 15px;
     margin: 4px 0;
-    height: calc(3em - 12px);
+    height: 2.5rem;
     width: 200px;
     border-radius: 5px;
     color: $textColor;
     outline: none;
-
-    &:hover {
-      background: #ffa000;
-      cursor: pointer;
-    }
   }
 
-  &Active .Content:hover {
-    background: #ff6f00;
+  &:not(&Active) .Content:hover {
+    background: #ffa000;
+    cursor: pointer;
   }
 }

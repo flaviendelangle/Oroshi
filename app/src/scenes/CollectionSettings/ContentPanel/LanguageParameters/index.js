@@ -2,39 +2,31 @@ import React from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
-import ParametersSection, { Line } from '../ParametersSection/index'
+import Section from '../Section/index'
 import SelectLanguage from '../../../../components/form/SelectLanguage/index'
 
 import { update as _update } from '../../actions'
 
-const selectStyle = {
-  position: 'absolute',
-  top: -5,
-  right: 20,
-}
-
 const LanguageParameters = ({ data, type, update }) => (
-  <ParametersSection>
-    <div className="title">Languages</div>
-    <div className="content">
-      <Line primaryText="Title language">
+  <Section>
+    <Section.Title>Languages</Section.Title>
+    <Section.Content>
+      <Section.Item primaryText="Title language">
         <SelectLanguage
           type={type}
-          style={selectStyle}
           value={data.title_language}
           onChange={value => update(data.pk, 'title_language', value)}
         />
-      </Line>
-      <Line primaryText="Poster language">
+      </Section.Item>
+      <Section.Item primaryText="Poster language">
         <SelectLanguage
           type={type}
-          style={selectStyle}
           value={data.poster_language}
           onChange={value => update(data.pk, 'poster_language', value)}
         />
-      </Line>
-    </div>
-  </ParametersSection>
+      </Section.Item>
+    </Section.Content>
+  </Section>
 )
 
 LanguageParameters.propTypes = {

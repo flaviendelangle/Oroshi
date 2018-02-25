@@ -1,4 +1,9 @@
 .TextField {
+  position: absolute;
+  display: flex;
+  right: 0;
+  top: -5px;
+
   > .Content {
     margin-left: 20px;
 
@@ -8,8 +13,6 @@
   }
 
   .Icon {
-    position: absolute;
-    top: -5px;
-    right: 0;
+    background-color: red;
   }
 }

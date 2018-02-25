@@ -4,26 +4,26 @@ import PropTypes from 'prop-types'
 
 import FileDownload from 'material-ui/svg-icons/file/file-download'
 
-import ParametersSection, { Line } from '../ParametersSection/index'
+import Section from '../Section/index'
 import { exportCollection as _exportCollection } from '../../../../services/actions/collections/index'
 
 
 const ExportParameters = ({ exportCollection, data }) => (
-  <ParametersSection>
-    <div className="title">Export your data</div>
-    <div className="content">
-      <Line
+  <Section>
+    <Section.Title>Export your data</Section.Title>
+    <Section.Content>
+      <Section.Item
         rightIcon={<FileDownload />}
         primaryText="Export as CSV"
         onClick={() => exportCollection(data, 'csv')}
       />
-      <Line
+      <Section.Item
         rightIcon={<FileDownload />}
         primaryText="Export as JSON"
         onClick={() => exportCollection(data, 'json')}
       />
-    </div>
-  </ParametersSection>
+    </Section.Content>
+  </Section>
 )
 
 ExportParameters.propTypes = {

@@ -1,0 +1,24 @@
+@import "../../../../styles/mixins";
+
+.Section {
+  width: 100%;
+  max-width: 500px;
+  margin-bottom: 50px;
+
+  .Title {
+    @include title();
+
+    padding-left: 20px;
+    padding-bottom: 20px;
+  }
+
+  .Content {
+    span.Item {
+      padding-left: 20px !important;
+    }
+
+    label.Item {
+      padding-left: 36px !important;
+    }
+  }
+}

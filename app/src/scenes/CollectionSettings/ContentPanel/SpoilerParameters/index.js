@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 
 import Toggle from 'material-ui/Toggle'
 
-import ParametersSection, { Line } from '../ParametersSection'
+import ParametersSection, { Line } from '../Section'
 import { update as _update } from '../../actions'
 
 

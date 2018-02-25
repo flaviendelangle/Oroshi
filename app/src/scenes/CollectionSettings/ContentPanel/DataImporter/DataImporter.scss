@@ -1,0 +1,49 @@
+.DataImporter {
+  height: 100%;
+
+  > .Content {
+    text-align: center;
+
+    .Source {
+      text-align: left;
+      margin-bottom: 20px;
+    }
+  }
+
+  .DropZone {
+    border: 3px dashed rgb(102, 102, 102);
+    color: rgb(238, 238, 238);
+    width: 300px;
+    max-width: 50%;
+    height: 70px;
+    line-height: 70px;
+    text-align: center;
+    margin: auto;
+    border-radius: 5px;
+    cursor: pointer;
+
+    &Filled {
+      border-color: #ff6f00;
+      color: #ff6f00;
+    }
+  }
+
+  .Button {
+    margin: 20px auto;
+    width: 100px;
+    display: block !important;
+  }
+
+  .ImportResults {
+    height: calc(100% - 240px);
+
+    > div:last-child {
+      position: relative;
+      height: calc(100% - 2px);
+
+      > div {
+        height: 100%;
+      }
+    }
+  }
+}

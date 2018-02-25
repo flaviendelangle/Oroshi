@@ -9,11 +9,11 @@ import SocialShare from 'material-ui/svg-icons/social/share'
 
 import DeleteAlert from './DeleteAlert/index'
 import ShowPublicLinkAlert from './ShowPublicLinkAlert/index'
-import ParametersSection, { Line } from '../ParametersSection'
+import Section from '../Section'
 import TextField from '../../../../components/form/TextField/index'
 import Toggle from '../../../../components/form/Toggle/index'
 
-import { update as _update } from '../..//actions'
+import { update as _update } from '../../actions'
 import { getCollectionTypeTitle } from '../../../../services/utils'
 import { destroy } from '../../../../services/actions/collections/index'
 
@@ -59,18 +59,18 @@ class SummaryParameters extends Component {
     const { title, showDeleteAlert, showGetPublicLinkAlert } = this.state
     return (
       <Fragment>
-        <ParametersSection>
-          <div className="title">Summary</div>
-          <div className="content">
-            <Line primaryText="Collection title">
+        <Section>
+          <Section.Title>Summary</Section.Title>
+          <Section.Content>
+            <Section.Item primaryText="Collection title">
               <TextField
                 id="collection_title"
                 value={title}
                 onChange={(proxy, newTitle) => this.setState({ title: newTitle })}
                 onSave={() => update(data.pk, 'title', title)}
               />
-            </Line>
-            <Line primaryText="Collection type">
+            </Section.Item>
+            <Section.Item primaryText="Collection type">
               <SelectField
                 value="0"
                 disabled
@@ -81,8 +81,8 @@ class SummaryParameters extends Component {
                   primaryText={getCollectionTypeTitle(type)}
                 />
               </SelectField>
-            </Line>
-            <Line
+            </Section.Item>
+            <Section.Item
               primaryText="Include adult content"
               rightToggle={
                 <Toggle
@@ -93,7 +93,7 @@ class SummaryParameters extends Component {
                 />
               }
             />
-            <Line
+            <Section.Item
               primaryText="Public access to your collection"
               rightToggle={
                 <Toggle
@@ -104,18 +104,18 @@ class SummaryParameters extends Component {
                 />
               }
             />
-            <Line
+            <Section.Item
               rightIcon={<SocialShare />}
               primaryText="Get your public link"
               onClick={() => this.setState({ showGetPublicLinkAlert: true })}
             />
-            <Line
+            <Section.Item
               rightIcon={<ActionDeleteForever />}
               primaryText="Destroy this collection"
               onClick={() => this.setState({ showDeleteAlert: true })}
             />
-          </div>
-        </ParametersSection>
+          </Section.Content>
+        </Section>
         <DeleteAlert
           open={showDeleteAlert}
           onClose={() => this.setState({ showDeleteAlert: false })}

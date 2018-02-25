@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import ScrollArea from 'react-scrollbar'
 import Dropzone from 'react-dropzone'
 import PropTypes from 'prop-types'
+import cx from 'classnames'
 
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
@@ -17,7 +18,7 @@ import {
 } from '../../../../services/actions/collections/index'
 import { connect } from '../../../../services/redux'
 
-import * as _style from './style'
+import styles from './DataImporter.scss'
 
 
 class DataImporter extends Component {
@@ -34,6 +35,7 @@ class DataImporter extends Component {
   state = {
     source: 'csv',
     csv: null,
+    json: null,
     error: '',
   }
 
@@ -79,68 +81,61 @@ class DataImporter extends Component {
     }
   }
 
-  renderFilePicker = format => (
-    <div style={{ height: 150 }} >
-      <Dropzone
-        onDrop={upload => this.updateFile(format, upload)}
-        multiple={false}
-        accept={`.${format}`}
-        style={_style.dropZone(!!this.state[format])}
-      >
-        {() => {
-          if (this.state[format]) {
-            return 'File dropped successfully'
-          }
-          return `Click to pick your ${format.toUpperCase()} file`
-        }}
-      </Dropzone>
-      {this.state[format] ? this.renderLaunchButton(format) : null}
-    </div>
-  )
-
-  renderLaunchButton = () => (
-    <RaisedButton
-      label="Import !"
-      style={_style.button}
-      onClick={this.handleClick}
-    />
-  )
-
-  renderParameters = () => {
-    switch (this.state.source) {
-      case 'csv':
-        return this.renderFilePicker('csv')
-      case 'json':
-        return this.renderFilePicker('json')
-      default:
-        return null
-    }
-  }
-
   render() {
-    const { error, elements } = this.state
+    const { error, elements, source } = this.state
     const { progress, created } = this.props
+
+    const dropZoneClasses = cx({
+      [styles.DropZone]: true,
+      [styles.DropZoneFilled]: !!this.state[source],
+    })
+
     return (
-      <div style={{ height: '100%' }} >
+      <div className={styles.DataImporter}>
         <div>{ error }</div>
-        <div style={{ textAlign: 'center' }} >
+        <div className={styles.Content}>
           <SelectField
             floatingLabelText="Source"
             value={this.state.source}
-            style={_style.source}
-            onChange={(proxy, index, source) => this.setState({ source })}
+            className={styles.Source}
+            onChange={(proxy, index, newSource) => this.setState({ source: newSource })}
           >
             <MenuItem value="csv" primaryText="CSV File" />
             <MenuItem value="json" primaryText="JSON File" />
           </SelectField>
         </div>
-        {this.renderParameters()}
+        {
+          source &&
+          <div>
+            <Dropzone
+              onDrop={upload => this.updateFile(source, upload)}
+              multiple={false}
+              accept={`.${source}`}
+              className={dropZoneClasses}
+            >
+              {() => {
+                if (this.state[source]) {
+                  return 'File dropped successfully'
+                }
+                return `Click to pick your ${source.toUpperCase()} file`
+              }}
+            </Dropzone>
+            {
+              this.state[source] &&
+              <RaisedButton
+                label="Import !"
+                className={styles.Button}
+                onClick={this.handleClick}
+              />
+            }
+          </div>
+        }
         {
           !error &&
           elements &&
-          <div style={{ height: 'calc(100% - 242px)' }} >
+          <div className={styles.ImportResults} >
             <Progress progress={progress} />
-            <List style={{ height: 'calc(100% - 16px)', padding: 0 }} >
+            <List className={List}>
               <ScrollArea
                 speed={0.8}
                 horizontal={false}
