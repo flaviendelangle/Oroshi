@@ -61,7 +61,10 @@ const reducer = (state = defaultState, action) => {
     if (action.meta.common) {
       return updateAllStates(state, action)
     }
-    if (action.meta.type && action.meta.collection) {
+    if (
+      action.meta.type &&
+      action.meta.collection
+    ) {
       const { type, collection } = action.meta
       return updateOneState(state, action, type, collection)
     }

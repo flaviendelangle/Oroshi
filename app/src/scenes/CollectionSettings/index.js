@@ -26,7 +26,10 @@ class CollectionSettings extends Component {
 
   componentWillReceiveProps(newProps) {
     const { redirect, history } = this.props
-    if (!redirect && newProps.redirect) {
+    if (
+      !redirect &&
+      newProps.redirect
+    ) {
       history.push(newProps.redirect)
     }
   }

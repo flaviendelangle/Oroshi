@@ -85,7 +85,10 @@ class Element extends Component {
 
   getAction = (actionName) => {
     const action = this.props[actionName]
-    if (typeof action === 'string' || action instanceof String) {
+    if (
+      typeof action === 'string' ||
+      action instanceof String
+    ) {
       const ActionComponent = this.getActionComponent(action)
       return (
         <span ref={el => this.addToLayout(action, el)} >

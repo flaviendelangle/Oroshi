@@ -29,7 +29,10 @@ class DialogCreateCollection extends Component {
 
   componentWillReceiveProps(newProps) {
     const { isOpen } = this.props
-    if (isOpen && !newProps.isOpen) {
+    if (
+      isOpen &&
+      !newProps.isOpen
+    ) {
       this.setState({ stepIndex: 0 })
     }
   }

@@ -36,14 +36,20 @@ class Header extends Component {
 
   onButtonClick = () => {
     const { scene, openMainDrawer } = this.props
-    if (scene === 'content' || scene === 'settings') {
+    if (
+      scene === 'content' ||
+      scene === 'settings'
+    ) {
       openMainDrawer(true)
     }
   }
 
   get autoComplete() {
     const { isAdding, layout, autoComplete } = this.props
-    if (isAdding || !autoComplete) {
+    if (
+      isAdding ||
+      !autoComplete
+    ) {
       return []
     }
     if (layout === 'stream') {

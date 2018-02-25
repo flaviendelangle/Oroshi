@@ -17,7 +17,10 @@ class SnackbarList extends Component {
 
   get oldestMessage() {
     const { messages } = this.props
-    if (messages && messages.length > 0) {
+    if (
+      messages &&
+      messages.length > 0
+    ) {
       return {
         show: true,
         ...messages[0],

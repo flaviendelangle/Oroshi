@@ -134,9 +134,6 @@ const reducer = (_state, action) => {
      * The search query has been updated (check Header's Search component)
      */
     case search.update_query: {
-      if (this.isAdding) {
-        return state
-      }
       return {
         ...state,
         query: action.query,

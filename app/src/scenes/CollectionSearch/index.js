@@ -16,7 +16,10 @@ class CollectionSearch extends Component {
   }
   componentDidMount() {
     const { synchronize, isLoaded, isContentLoaded } = this.props
-    if (!isLoaded || !isContentLoaded) {
+    if (
+      !isLoaded ||
+      !isContentLoaded
+    ) {
       synchronize()
     }
   }
@@ -26,7 +29,10 @@ class CollectionSearch extends Component {
       isLoaded,
       isContentLoaded,
     } = this.props
-    if (!isLoaded || !isContentLoaded) {
+    if (
+      !isLoaded ||
+      !isContentLoaded
+    ) {
       return (
         <Progress />
       )

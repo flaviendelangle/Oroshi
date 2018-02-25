@@ -35,7 +35,10 @@ class Oauth extends BaseAPI {
   getTokenOrRefresh = () => {
     const { oauth, meta } = loadOauth('oauth')
     const SECURITY_MARGIN = 10000
-    if (oauth && oauth.expiration) {
+    if (
+      oauth &&
+      oauth.expiration
+    ) {
       if (oauth.expiration > new Date().getTime() + SECURITY_MARGIN) {
         return Promise.resolve({ oauth, meta })
       }

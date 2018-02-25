@@ -40,7 +40,10 @@ export const destroyOauth = () => destroyValue('oauth')
 export const saveOauth = (oauth, meta) => {
   const exData = loadOauth()
   let data
-  if (!meta && exData) {
+  if (
+    !meta &&
+    exData
+  ) {
     data = {
       oauth,
       meta: exData.meta,

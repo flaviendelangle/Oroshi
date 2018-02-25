@@ -12,7 +12,10 @@ const Suggestions = ({
   isPublic,
   type,
 }) => {
-  if (creationMode || isPublic) {
+  if (
+    creationMode ||
+    isPublic
+  ) {
     return null
   }
   const url = `/collections/${type}/${collection.pk}/suggestions/${data.getPublicId()}/`

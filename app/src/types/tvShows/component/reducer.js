@@ -9,7 +9,10 @@ const defaultElementState = {
 }
 
 const reducer = (_state = defaultState, action) => {
-  if (!action.meta || !action.meta.tv_shows_id) {
+  if (
+    !action.meta ||
+    !action.meta.tv_shows_id
+  ) {
     return _state
   }
   const id = action.meta.tv_shows_id

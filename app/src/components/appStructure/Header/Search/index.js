@@ -82,7 +82,10 @@ const mapStateToProps = () => ({})
 const mapDispatchToProps = (dispatch, { type, collection }) => ({
   filter: (query, forced, isAdding) => {
     dispatch(update(type, collection, query))
-    if (isAdding && forced) {
+    if (
+      isAdding &&
+      forced
+    ) {
       if (query === '') {
         dispatch(getRecommendations(type, collection))
       } else {

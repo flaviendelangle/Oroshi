@@ -41,7 +41,10 @@ const Menu = ({
   switchAddingMode,
   switchLayout,
 }) => {
-  if (!found || !isLoaded) {
+  if (
+    !found ||
+    !isLoaded
+  ) {
     return null
   }
   return (
@@ -86,7 +89,10 @@ const LayoutButtons = ({
   layout,
   content,
 }) => {
-  if (isAdding || content.length === 0) {
+  if (
+    isAdding ||
+    content.length === 0
+  ) {
     return null
   }
   return (

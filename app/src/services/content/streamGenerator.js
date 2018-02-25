@@ -45,7 +45,10 @@ class StreamGenerator {
       el.getValue(this.key.field).forEach((value) => {
         const { pk } = value
         const label = value[this.labelField].toUpperCase()
-        if (!this.keys[pk] && label.includes(this.query)) {
+        if (
+          !this.keys[pk] &&
+          label.includes(this.query)
+        ) {
           this.keys[pk] = value
         }
       })

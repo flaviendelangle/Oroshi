@@ -53,7 +53,10 @@ class ElementSuggestions extends Component {
       config,
       lineDimensions,
     } = this.props
-    if (!isLoaded || !suggestionsLoaded) {
+    if (
+      !isLoaded ||
+      !suggestionsLoaded
+    ) {
       return <Progress />
     }
     return (

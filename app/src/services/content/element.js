@@ -187,7 +187,10 @@ class Element {
   }
 
   match = (query) => {
-    if (query.length === 1 && query[0] === '') {
+    if (
+      query.length === 1 &&
+      query[0] === ''
+    ) {
       return true
     }
     const match = query

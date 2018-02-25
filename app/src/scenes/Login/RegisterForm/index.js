@@ -17,7 +17,10 @@ const minLength8 = value => (value.length >= 8 ?
   'Must be at least 8 characters long')
 
 const email = (value) => {
-  if (value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
+  if (
+    value &&
+    !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
+  ) {
     return 'Invalid email address'
   }
   return undefined

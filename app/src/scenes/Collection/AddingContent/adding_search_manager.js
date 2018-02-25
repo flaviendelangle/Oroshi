@@ -52,7 +52,10 @@ export const remove = (state, newElement) => {
 
 export const merge = (state, newData) => {
   const oldData = state.addingSearch
-  if (!oldData || newData.page === 1) {
+  if (
+    !oldData ||
+    newData.page === 1
+  ) {
     return newData
   }
   return {

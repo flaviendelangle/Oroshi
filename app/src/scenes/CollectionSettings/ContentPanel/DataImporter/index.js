@@ -41,7 +41,10 @@ class DataImporter extends Component {
 
   componentWillReceiveProps(newProps) {
     const { importFromFile, importContent } = this.props
-    if (!importFromFile && newProps.importFromFile) {
+    if (
+      !importFromFile &&
+      newProps.importFromFile
+    ) {
       const { data } = newProps.importFromFile
       if (data.error) {
         this.setState(() => ({

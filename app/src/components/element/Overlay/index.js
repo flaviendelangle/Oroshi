@@ -69,7 +69,10 @@ class ElementOverlay extends Component {
       alreadyInCollection,
     } = this.props
     const { show } = this.state
-    if (!show && !this.isTesting()) {
+    if (
+      !show &&
+      !this.isTesting()
+    ) {
       return null
     }
     const classes = cx({
