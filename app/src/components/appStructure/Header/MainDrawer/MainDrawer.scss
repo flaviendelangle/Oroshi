@@ -1,3 +1,5 @@
+@import "../../../../styles/mixins";
+
 .MainDrawer {
   & > div {
     width: 100%;
@@ -12,6 +14,8 @@
     margin: 0 -16px;
 
     & > svg {
+      @include icon();
+
       position: absolute;
       height: 24px;
       top: 11px;

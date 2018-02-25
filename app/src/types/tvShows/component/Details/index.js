@@ -40,10 +40,7 @@ class Details extends Component {
       collection,
       data,
     } = this.props
-    if (
-      !isLoaded &&
-      !show && newProps.show
-    ) {
+    if (!isLoaded && !show && newProps.show) {
       load(collection, data.getPublicId())
     }
   }
@@ -121,10 +118,7 @@ const Content = ({
   loadSeason,
   data,
 }) => {
-  if (
-    !isLoaded ||
-    !details
-  ) {
+  if (!isLoaded || !details) {
     return (
       <div className="progress">
         <CircularProgress />

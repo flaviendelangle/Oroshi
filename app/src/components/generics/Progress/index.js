@@ -8,13 +8,15 @@ import styles from './Progress.scss'
 
 const Progress = ({ message }) => (
   <div className={styles.Progress} >
-    <div className={styles.Content} >
-      <CircularProgress className={styles.Icon} />
+    <div className={styles.Content}>
+      <div className={styles.Spinner} >
+        <CircularProgress className={styles.Icon} />
+      </div>
+      {
+        message &&
+        <div className={styles.Message} >{message}</div>
+      }
     </div>
-    {
-      message &&
-      <div className={styles.Message} >{message}</div>
-    }
   </div>
 )
 

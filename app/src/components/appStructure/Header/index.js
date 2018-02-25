@@ -1,12 +1,12 @@
 import React, { Component, Fragment } from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
+import cx from 'classnames'
 
 import AppBar from 'material-ui/AppBar'
 import IconButton from 'material-ui/IconButton'
 import BackSpace from 'material-ui/svg-icons/hardware/keyboard-backspace'
 import NavigationMenu from 'material-ui/svg-icons/navigation/menu'
-import muiThemeable from 'material-ui/styles/muiThemeable'
 
 import MainDrawer from './MainDrawer'
 import Search from './Search'
@@ -15,19 +15,18 @@ import OrderMenu from './OrderMenu'
 import { showMainDrawer } from './MainDrawer/actions'
 import { connect } from '../../../services/redux'
 
+import styles from './Header.scss'
+
 
 class Header extends Component {
   static propTypes = {
     scene: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
     collection: PropTypes.object.isRequired,
-    muiTheme: PropTypes.object.isRequired,
     openMainDrawer: PropTypes.func.isRequired,
     autoComplete: PropTypes.object,
-    title: PropTypes.string,
     layout: PropTypes.string,
     query: PropTypes.string,
-    showTitle: PropTypes.bool,
     isDrawerOpen: PropTypes.bool,
     isPublic: PropTypes.bool,
     isAdding: PropTypes.bool,
@@ -44,7 +43,7 @@ class Header extends Component {
     }
   }
 
-  get autoComplete() {
+  getAutoComplete() {
     const { isAdding, layout, autoComplete } = this.props
     if (
       isAdding ||
@@ -58,33 +57,50 @@ class Header extends Component {
     return autoComplete.grid
   }
 
+  getTitle() {
+    const { scene, collection } = this.props
+    if (
+      !collection ||
+      !collection.title
+    ) {
+      return ''
+    }
+    if (scene === 'suggestions') {
+      return `Go back to "${collection.title}"`
+    }
+    return collection.title
+  }
+
   render() {
     const {
       isDrawerOpen,
       isPublic,
       isAdding,
-      title,
-      showTitle,
       count,
       collection,
       type,
       query,
       scene,
       openMainDrawer,
-      muiTheme: { palette },
     } = this.props
+
+    const headerClasses = cx({
+      [styles.Header]: true,
+      [styles.HeaderWithSearch]: (scene === 'content'),
+    })
+
     return (
-      <header>
+      <header className={headerClasses}>
         <AppBar
           iconElementLeft={
             <Icon
-              palette={palette}
+              className={styles.Icon}
               scene={scene}
               link={`/collections/${type}/${collection.pk}/`}
               onClick={this.onButtonClick}
             />
           }
-          title={showTitle ? title : ''}
+          title={this.getTitle()}
           onLeftIconButtonClick={this.onButtonClick}
           showMenuIconButton={!isPublic}
         >
@@ -93,13 +109,13 @@ class Header extends Component {
             <Fragment>
               <Search
                 key={1}
-                title={title}
+                title={this.getTitle()}
                 type={type}
                 query={query}
                 count={count}
                 isAdding={isAdding}
                 collection={collection}
-                autoComplete={this.autoComplete}
+                autoComplete={this.getAutoComplete()}
               />
               <OrderMenu
                 key={2}
@@ -112,12 +128,11 @@ class Header extends Component {
         {
           (scene === 'content' || scene === 'settings') &&
           <MainDrawer
-            title={title}
+            title={this.getTitle()}
             isPublic={isPublic}
             isOpen={isDrawerOpen}
             onOpen={openMainDrawer}
             scene={scene}
-            palette={palette}
             collection={collection}
             type={type}
           />
@@ -129,17 +144,13 @@ class Header extends Component {
 
 const Icon = ({
   scene,
-  palette,
   link,
   ...props
 }) => {
   if (scene === 'suggestions') {
     return (
       <Link to={link} >
-        <IconButton
-          tooltip="Return to collection"
-          iconStyle={{ color: palette.alternateTextColor }}
-        >
+        <IconButton tooltip="Return to collection" {...props}>
           <BackSpace />
         </IconButton>
       </Link>
@@ -147,10 +158,7 @@ const Icon = ({
     )
   }
   return (
-    <IconButton
-      iconStyle={{ color: palette.alternateTextColor }}
-      {...props}
-    >
+    <IconButton {...props}>
       <NavigationMenu />
     </IconButton>
   )
@@ -158,7 +166,6 @@ const Icon = ({
 
 Icon.propTypes = {
   scene: PropTypes.string.isRequired,
-  palette: PropTypes.object.isRequired,
   link: PropTypes.string.isRequired,
 }
 
@@ -192,4 +199,4 @@ const mapDispatchToProps = (dispatch, { type, collection }) => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(muiThemeable()(Header))
+)(Header)

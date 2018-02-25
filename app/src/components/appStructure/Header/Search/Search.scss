@@ -1,6 +1,8 @@
+@import "../../../../styles/variables";
+
 .Search {
   position: absolute;
-  left: 50px;
+  left: 265px;
   right: 140px;
 
   > div:first-child {
@@ -13,12 +15,12 @@
     position: fixed;
     top: 22px;
     right: 40px;
+    color: $bright-color;
   }
-}
 
-@media screen and (max-width: 420px) {
-  .Search {
-    right: 60px;
+  @media screen and (max-width: 710px) {
+    left: 65px;
+    right: 65px;
 
     .ElementCount {
       display: none;

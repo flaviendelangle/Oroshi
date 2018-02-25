@@ -1,0 +1,30 @@
+@import "../../styles/variables";
+
+.Error {
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
+  color: $textColor;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  line-height: 3.5rem;
+  letter-spacing: 1px;
+
+  .Summary {
+    display: inline-block;
+    font-size: 2.3rem;
+    margin-right: 10px;
+  }
+
+  .ErrorCode {
+    display: inline-block;
+    color: $titleColor;
+    margin-right: 10px;
+  }
+
+  .Details {
+    font-size: 1.4rem;
+  }
+}

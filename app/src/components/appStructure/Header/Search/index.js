@@ -4,7 +4,6 @@ import PropTypes from 'prop-types'
 
 import SearchBar from 'material-ui-search-bar'
 import AutoComplete from 'material-ui/AutoComplete'
-import muiThemeable from 'material-ui/styles/muiThemeable'
 
 import { update } from './actions'
 import { search, getRecommendations } from '../../../../services/actions/publicAPI/index'
@@ -15,7 +14,6 @@ import styles from './Search.scss'
 class Search extends Component {
   static propTypes = {
     filter: PropTypes.func.isRequired,
-    muiTheme: PropTypes.object.isRequired,
     autoComplete: PropTypes.array,
     count: PropTypes.number,
     isAdding: PropTypes.bool,
@@ -52,9 +50,7 @@ class Search extends Component {
       autoComplete,
       isAdding,
       count,
-      muiTheme: { palette },
     } = this.props
-    const style = { color: palette.alternateTextColor }
     return (
       <div className={styles.Search}>
         <SearchBar
@@ -68,7 +64,7 @@ class Search extends Component {
         />
         {
           !isAdding &&
-          <div className={styles.ElementCount} style={style} >
+          <div className={styles.ElementCount} >
             {`${count} element${(count > 1 ? 's' : '')}`}
           </div>
         }
@@ -98,4 +94,4 @@ const mapDispatchToProps = (dispatch, { type, collection }) => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(muiThemeable()(Search))
+)(Search)

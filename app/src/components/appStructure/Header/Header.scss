@@ -1,0 +1,27 @@
+@import "../../../styles/mixins";
+
+.Header {
+  > div {
+    height: 64px;
+  }
+
+  .Icon {
+    @include icon();
+  }
+
+  &WithSearch {
+    h1 {
+      flex: none !important;
+      width: 200px;
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+      display: block;
+    }
+
+    @media screen and (max-width: 710px) {
+      h1 {
+        display: none;
+      }
+    }
+  }
+}

@@ -11,7 +11,6 @@ import ActionExit from 'material-ui/svg-icons/action/exit-to-app'
 import AVMovie from 'material-ui/svg-icons/av/movie'
 import ActionSettings from 'material-ui/svg-icons/action/settings'
 import ActionSearch from 'material-ui/svg-icons/action/search'
-import muiThemeable from 'material-ui/styles/muiThemeable'
 
 import { showMainDrawer } from './actions'
 import { connect } from '../../../../services/redux'
@@ -24,7 +23,6 @@ class MainDrawer extends Component {
     scene: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
     collection: PropTypes.object.isRequired,
-    muiTheme: PropTypes.object.isRequired,
     onOpen: PropTypes.func.isRequired,
     isPublic: PropTypes.bool,
     isOpen: PropTypes.bool,
@@ -32,36 +30,27 @@ class MainDrawer extends Component {
 
   }
 
-  get lineStyle() {
-    const { muiTheme: { palette } } = this.props
-    return { color: palette.alternateTextColor }
-  }
-
   getSceneLines() {
     const {
       scene,
       type,
       collection,
-      muiTheme: { palette },
     } = this.props
-    const style = {
-      color: palette.alternateTextColor,
-    }
     if (scene === 'content') {
       return [
         <Link to={`/collections/${type}/${collection.pk}/search/`} key={1} >
-          <ActionSearch style={style} />
+          <ActionSearch />
           <div>Advanced Search</div>
         </Link>,
         <Link to={`/collections/${type}/${collection.pk}/settings/`} key={2} >
-          <ActionSettings style={style} />
+          <ActionSettings />
           <div>Collection Settings</div>
         </Link>,
       ]
     } else if (scene === 'settings') {
       return [
         <Link to={`/collections/${type}/${collection.pk}/`} key={1} >
-          <AVMovie style={style} />
+          <AVMovie />
           <div>Return to my collection</div>
         </Link>,
 
@@ -73,7 +62,7 @@ class MainDrawer extends Component {
   GENERIC_LINES_BEFORE = [
     (
       <Link to="/">
-        <ActionHome style={this.lineStyle} />
+        <ActionHome />
         <div>Home</div>
       </Link>
     ),
@@ -82,7 +71,7 @@ class MainDrawer extends Component {
   GENERIC_LINES_AFTER = [
     (
       <Link to="/logout/">
-        <ActionExit style={this.lineStyle} />
+        <ActionExit />
         <div>Logout</div>
       </Link>
     ),
@@ -149,4 +138,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(muiThemeable()(MainDrawer))
+)(MainDrawer)

@@ -5,9 +5,6 @@ import Progress from '../../components/generics/Progress'
 import { get as getCollection } from '../../services/actions/collections'
 import { connect } from '../../services/redux'
 
-import * as _style from './style'
-
-
 class CollectionSearch extends Component {
   static propTypes = {
     synchronize: PropTypes.func.isRequired,
@@ -38,8 +35,8 @@ class CollectionSearch extends Component {
       )
     }
     return (
-      <section style={_style.page} >
-        <div style={_style.container} />
+      <section>
+        <div />
       </section>
     )
   }

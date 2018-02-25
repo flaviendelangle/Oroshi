@@ -5,7 +5,6 @@ import IconMenu from 'material-ui/IconMenu'
 import MenuItem from 'material-ui/MenuItem'
 import IconButton from 'material-ui/IconButton'
 import ContentSort from 'material-ui/svg-icons/content/sort'
-import muiThemeable from 'material-ui/styles/muiThemeable'
 
 import { sort as _sort } from '../../../../scenes/Collection/CollectionContent/actions'
 import { connect } from '../../../../services/redux'
@@ -13,152 +12,67 @@ import { connect } from '../../../../services/redux'
 import styles from './OrderMenu.scss'
 
 
-const OrderMenu = ({ muiTheme: { palette }, ...props }) => (
+const LINKS = {
+  movies: {
+    stream: [
+      { label: 'Group by directors', arguments: ['directors'] },
+      { label: 'Group by genres', arguments: ['genres'] },
+      { label: 'Group by year of release', arguments: ['release_year'] },
+    ],
+    grid: [
+      { label: 'Order by title', arguments: ['title', 'asc'] },
+      { label: 'Order by note', arguments: ['note', 'desc'] },
+      { label: 'Order by release date', arguments: ['release', 'desc'] },
+    ],
+  },
+  tv_shows: {
+    stream: [
+      { label: 'Group by networks', arguments: ['networks'] },
+      { label: 'Group by genres', arguments: ['genres'] },
+    ],
+    grid: [
+      { label: 'Order by title', arguments: ['title', 'asc'] },
+      { label: 'Order by note', arguments: ['note', 'desc'] },
+    ],
+  },
+}
+
+
+const OrderMenu = ({
+  type,
+  layout,
+  sort,
+  isAdding,
+}) => (
   <div className={styles.OrderMenu} >
-    <Menu
-      {...props}
-      color={palette.alternateTextColor}
-    />
+    {
+      layout &&
+      !isAdding &&
+      <IconMenu
+        iconButtonElement={<IconButton><ContentSort /></IconButton>}
+        anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
+        targetOrigin={{ horizontal: 'right', vertical: 'top' }}
+        className={styles.Icon}
+      >
+        {
+          LINKS[type][layout].map(el => (
+            <MenuItem
+              primaryText={el.label}
+              onClick={() => sort(layout, ...el.arguments)}
+              key={el.label}
+            />
+          ))
+        }
+      </IconMenu>
+    }
   </div>
 )
 
 OrderMenu.propTypes = {
   sort: PropTypes.func.isRequired,
-  muiTheme: PropTypes.object.isRequired,
-}
-
-const Menu = ({
-  isAdding,
-  layout,
-  type,
-  sort,
-  color,
-}) => {
-  if (isAdding) {
-    return null
-  } else if (layout === 'stream') {
-    switch (type) {
-      case 'movies':
-        return <StreamMenuMovies sort={sort} color={color} />
-      case 'tv_shows':
-        return <StreamMenuTVShows sort={sort} color={color} />
-      default:
-        return null
-    }
-  } else {
-    switch (type) {
-      case 'movies':
-        return <DefaultMenuMovies sort={sort} color={color} />
-      case 'tv_shows':
-        return <DefaultMenuTVShows sort={sort} color={color} />
-      default:
-        return null
-    }
-  }
-}
-
-Menu.propTypes = {
   type: PropTypes.string.isRequired,
-  sort: PropTypes.func.isRequired,
-  color: PropTypes.string.isRequired,
   isAdding: PropTypes.bool,
   layout: PropTypes.string,
-}
-
-const StreamMenuMovies = ({ sort, color }) => (
-  <IconMenu
-    iconButtonElement={<IconButton iconStyle={{ color }} ><ContentSort /></IconButton>}
-    anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
-    targetOrigin={{ horizontal: 'right', vertical: 'top' }}
-  >
-    <MenuItem
-      primaryText="Group by directors"
-      onClick={() => sort('stream', 'directors')}
-    />
-    <MenuItem
-      primaryText="Group by genres"
-      onClick={() => sort('stream', 'genres')}
-    />
-    <MenuItem
-      primaryText="Group by year of release"
-      onClick={() => sort('stream', 'release_year')}
-    />
-  </IconMenu>
-)
-
-StreamMenuMovies.propTypes = {
-  sort: PropTypes.func.isRequired,
-  color: PropTypes.string.isRequired,
-}
-
-const StreamMenuTVShows = ({ sort, color }) => (
-  <IconMenu
-    iconButtonElement={<IconButton iconStyle={{ color }} ><ContentSort /></IconButton>}
-    anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
-    targetOrigin={{ horizontal: 'right', vertical: 'top' }}
-  >
-    <MenuItem
-      primaryText="Group by networks"
-      onClick={() => sort('stream', 'networks')}
-    />
-    <MenuItem
-      primaryText="Group by genres"
-      onClick={() => sort('stream', 'genres')}
-    />
-  </IconMenu>
-)
-
-StreamMenuTVShows.propTypes = {
-  sort: PropTypes.func.isRequired,
-  color: PropTypes.string.isRequired,
-}
-
-const DefaultMenuMovies = ({ sort, color }) => (
-  <IconMenu
-    iconButtonElement={<IconButton iconStyle={{ color }} ><ContentSort /></IconButton>}
-    anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
-    targetOrigin={{ horizontal: 'right', vertical: 'top' }}
-  >
-    <MenuItem
-      primaryText="Order by title"
-      onClick={() => sort('grid', 'title', 'asc')}
-    />
-    <MenuItem
-      primaryText="Order by note"
-      onClick={() => sort('grid', 'note', 'desc')}
-    />
-    <MenuItem
-      primaryText="Order by release date"
-      onClick={() => sort('grid', 'release', 'desc')}
-    />
-  </IconMenu>
-)
-
-DefaultMenuMovies.propTypes = {
-  sort: PropTypes.func.isRequired,
-  color: PropTypes.string.isRequired,
-}
-
-const DefaultMenuTVShows = ({ sort, color }) => (
-  <IconMenu
-    iconButtonElement={<IconButton iconStyle={{ color }} ><ContentSort /></IconButton>}
-    anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
-    targetOrigin={{ horizontal: 'right', vertical: 'top' }}
-  >
-    <MenuItem
-      primaryText="Order by title"
-      onClick={() => sort('grid', 'title', 'asc')}
-    />
-    <MenuItem
-      primaryText="Order by note"
-      onClick={() => sort('grid', 'note', 'desc')}
-    />
-  </IconMenu>
-)
-
-DefaultMenuTVShows.propTypes = {
-  sort: PropTypes.func.isRequired,
-  color: PropTypes.string.isRequired,
 }
 
 const mapStateToProps = ({ main, content }) => ({
@@ -173,4 +87,4 @@ const mapDispatchToProps = (dispatch, { type, collection }) => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(muiThemeable()(OrderMenu))
+)(OrderMenu)

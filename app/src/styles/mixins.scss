@@ -25,6 +25,9 @@
 @mixin icon() {
   & * {
     color: $bright-color !important;
+  }
+
+  & circle {
     stroke: $bright-color !important;
   }
 }

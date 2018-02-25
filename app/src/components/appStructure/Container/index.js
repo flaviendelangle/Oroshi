@@ -8,6 +8,7 @@ import Home from '../../../scenes/Home'
 import Login from '../../../scenes/Login'
 import Logout from '../../../scenes/Logout'
 import Collection from '../Collection'
+import NotFound from '../../errors/NotFound'
 
 import { notifyRouteChange } from '../../../services/actions/router'
 import { getProfile } from '../../../services/actions/users'
@@ -63,6 +64,7 @@ class Container extends Component {
           <Route path="/login/" component={Login} />
           <Route path="/logout/" component={Logout} />
           <Route path="/collections/" component={Collection} />
+          <Route path="/" component={NotFound} />
         </Switch>
       </main>
     )

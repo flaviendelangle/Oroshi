@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
-import muiThemeable from 'material-ui/styles/muiThemeable'
 import ImageEye from 'material-ui/svg-icons/image/remove-red-eye'
 
 import Element from '../../../components/element/Element'
@@ -139,4 +138,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(muiThemeable()(Movie))
+)(Movie)
