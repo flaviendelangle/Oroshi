@@ -65,6 +65,17 @@ class Element {
     }
   }
 
+  static createFieldListGenerator(field) {
+    return Element.buildFieldList.bind(null, field)
+  }
+
+  static buildFieldList(field, elements) {
+    const list = elements.reduce((result, element) => (
+      [...result, ...element.getValueFlat(field)]
+    ), [])
+    return [...new Set(list)].sort()
+  }
+
   buildSearchIndex(searchIndex = []) {
     const local = this.getLocal()
 
@@ -138,6 +149,14 @@ class Element {
 
   getValue(field) {
     return this.local[field]
+  }
+
+  getValueFlat(field) {
+    const value = this.getValue(field)
+    if (field === 'genres') {
+      return value.map(el => el.name)
+    }
+    return value
   }
 
   getValueToSort(field) {

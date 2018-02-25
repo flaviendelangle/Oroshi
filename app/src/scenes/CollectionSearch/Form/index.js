@@ -13,11 +13,17 @@ class Form extends Component {
   static propTypes = {
     type: PropTypes.string.isRequired,
     onSubmit: PropTypes.func.isRequired,
+    content: PropTypes.array.isRequired,
     handleSubmit: PropTypes.func.isRequired,
   }
 
   render() {
-    const { onSubmit, handleSubmit, type } = this.props
+    const {
+      onSubmit,
+      handleSubmit,
+      type,
+      content,
+    } = this.props
     return (
       <form noValidate onSubmit={handleSubmit(onSubmit)}>
         <Field
@@ -25,7 +31,7 @@ class Form extends Component {
           component={Search}
           onRequestSearch={() => {}}
         />
-        <SearchOptions type={type} />
+        <SearchOptions type={type} content={content} />
       </form>
     )
   }

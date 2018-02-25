@@ -17,6 +17,8 @@ class SelectLanguage extends Component {
     value: PropTypes.any.isRequired,
     style: PropTypes.object,
     className: PropTypes.string,
+    hintText: PropTypes.string,
+    multiple: PropTypes.bool,
   }
 
   getLanguages() {
@@ -30,16 +32,14 @@ class SelectLanguage extends Component {
     this.props.onChange(value)
   }
 
-  renderLanguages = () => this.getLanguages().map(el => (
-    <MenuItem
-      value={el.code}
-      primaryText={el.name}
-      key={el.code}
-    />
-  ))
-
   render() {
-    const { style, value, className } = this.props
+    const {
+      style,
+      value,
+      className,
+      multiple,
+      hintText,
+    } = this.props
     const selectClasses = cx({
       [styles.SelectLanguage]: true,
       [className]: !!className,
@@ -50,11 +50,41 @@ class SelectLanguage extends Component {
         onChange={this.handleOnChange}
         style={style}
         className={selectClasses}
+        multiple={multiple}
+        hintText={hintText}
       >
-        {this.renderLanguages()}
+        {
+          this.getLanguages().map(el => (
+            <MenuItem
+              value={el.code}
+              primaryText={el.name}
+              key={el.code}
+            />
+          ))
+        }
       </SelectField>
     )
   }
+}
+
+export const SelectLanguageField = ({ input, ...props }) => (
+  <SelectLanguage {...input} {...props} />
+)
+
+SelectLanguageField.propTypes = {
+  input: PropTypes.object.isRequired,
+}
+
+export const SelectLanguageListItem = ({ className, ...props }) => {
+  const selectClasses = cx({
+    [styles.SelectLanguageListItem]: true,
+    [className]: !!className,
+  })
+  return <SelectLanguage {...props} className={selectClasses} />
+}
+
+SelectLanguageListItem.propTypes = {
+  className: PropTypes.string,
 }
 
 export default SelectLanguage

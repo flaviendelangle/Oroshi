@@ -5,10 +5,12 @@
   height: 3rem;
   line-height: 3rem;
   max-width: 256px;
+  margin: auto;
 
   .Label {
     flex-grow: 1;
     color: $light-text-color;
+    text-align: left;
   }
 
   .Toggle {

@@ -4,7 +4,16 @@
   max-width: 800px;
   width: 80%;
   margin: 1.5rem auto;
-  padding: 0 1.5rem;
+  padding: 1.5rem;
   background: $light-background-color !important;
+  text-align: center;
+
+  > * > * * {
+    text-align: left;
+  }
+
+  @media screen and (min-width: 800px) {
+    column-count: 2;
+  }
 }
 

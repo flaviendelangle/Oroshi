@@ -42,6 +42,14 @@ class Movie extends Element {
     return super.getValue(field)
   }
 
+  getValueFlat = (field) => {
+    const value = this.getValue(field)
+    if (field === 'directors') {
+      return value.map(el => el.name)
+    }
+    return super.getValueFlat(field)
+  }
+
   getLocalPublicID = () => this.getLocal().tmdbId
 
   getDistantPublicID = () => this.getDistant().id

@@ -10,9 +10,15 @@ class CollectionSearch extends Component {
   static propTypes = {
     type: PropTypes.string.isRequired,
     synchronize: PropTypes.func.isRequired,
+    content: PropTypes.array,
     isLoaded: PropTypes.bool.isRequired,
     isContentLoaded: PropTypes.bool,
   }
+
+  static defaultProps = {
+    content: [],
+  }
+
   componentDidMount() {
     const { synchronize, isLoaded, isContentLoaded } = this.props
     if (
@@ -32,6 +38,7 @@ class CollectionSearch extends Component {
       isLoaded,
       isContentLoaded,
       type,
+      content,
     } = this.props
     if (
       !isLoaded ||
@@ -43,7 +50,7 @@ class CollectionSearch extends Component {
     }
     return (
       <div>
-        <Form onSubmit={this.onSubmit} type={type} />
+        <Form onSubmit={this.onSubmit} type={type} content={content} />
       </div>
     )
   }
@@ -55,6 +62,7 @@ const mapStateToProps = ({ content, main }, state) => ({
   isLoaded: main.isLoaded,
 
   isContentLoaded: content.isContentLoaded,
+  content: content.content,
 
   lineDimensions: state.app.lineDimensions,
 })

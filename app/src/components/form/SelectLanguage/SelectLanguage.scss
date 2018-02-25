@@ -1,5 +1,9 @@
 .SelectLanguage {
-  position: absolute !important;
-  top: -5px;
-  right: 20px;
+  text-align: left;
+
+  &ListItem {
+    position: absolute !important;
+    top: -5px;
+    right: 20px;
+  }
 }
