@@ -6,6 +6,7 @@ import Stream from '../../../components/generics/Stream/index'
 import Progress from '../../../components/generics/Progress/index'
 
 import { connect } from '../../../services/redux'
+import scrollable from '../../../helpers/scrollable'
 
 
 const AddingContent = ({
@@ -70,4 +71,4 @@ const mapDispatchToProps = () => ({})
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(AddingContent)
+)(scrollable(AddingContent))

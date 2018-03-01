@@ -19,13 +19,34 @@ class SelectLanguage extends Component {
     className: PropTypes.string,
     hintText: PropTypes.string,
     multiple: PropTypes.bool,
+    hasOriginalLanguageLine: PropTypes.bool,
+    hasNullLine: PropTypes.bool,
+  }
+
+  static addNullLine(lines) {
+    return [
+      { name: '', code: null },
+      ...lines,
+    ]
+  }
+
+  static addOriginalLanguageLine(lines) {
+    return [
+      ...lines,
+      { name: 'Original language', code: '-' },
+    ]
   }
 
   getLanguages() {
-    const { type } = this.props
-    const languages = getPublicAPILanguages(type)
-    const original = { name: 'Original language', code: '-' }
-    return [original].concat(languages)
+    const { type, hasOriginalLanguageLine, hasNullLine } = this.props
+    let languages = getPublicAPILanguages(type)
+    if (hasNullLine) {
+      languages = SelectLanguage.addNullLine(languages)
+    }
+    if (hasOriginalLanguageLine) {
+      languages = SelectLanguage.addOriginalLanguageLine(languages)
+    }
+    return languages
   }
 
   handleOnChange = (proxy, index, value) => {

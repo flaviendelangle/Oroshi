@@ -16,6 +16,7 @@ const LanguageParameters = ({ data, type, update }) => (
           type={type}
           value={data.title_language}
           onChange={value => update(data.pk, 'title_language', value)}
+          hasOriginalLanguageLine
         />
       </Section.Item>
       <Section.Item primaryText="Poster language">
@@ -23,6 +24,7 @@ const LanguageParameters = ({ data, type, update }) => (
           type={type}
           value={data.poster_language}
           onChange={value => update(data.pk, 'poster_language', value)}
+          hasOriginalLanguageLine
         />
       </Section.Item>
     </Section.Content>

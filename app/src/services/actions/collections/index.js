@@ -9,7 +9,7 @@ import { CollectionsAPI } from '../../api/collections'
 import { checkExistence } from '../publicAPI'
 import * as titles from '../../titles/api'
 import { collections } from '../../titles/exports'
-
+import { search } from '../../titles/data'
 
 /*
   ACTIONS WITHOUT DISPATCH
@@ -281,3 +281,12 @@ export const exportCollection = (type, collection, format) => {
       return null
   }
 }
+
+export const searchInCollection = (type, collection, request, elements) => ({
+  type: search.compute_advanced_search,
+  payload: getActions(type).elementClass.search(request, elements),
+  meta: {
+    type,
+    collection,
+  },
+})

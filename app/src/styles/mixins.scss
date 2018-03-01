@@ -43,6 +43,18 @@
   }
 }
 
+@mixin bottom-right-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 10;
+
+  & svg {
+    color: $textColor !important;
+    fill: $textColor !important;
+  }
+}
+
 @mixin element-grid() {
   padding: 2rem 0;
   position: relative;

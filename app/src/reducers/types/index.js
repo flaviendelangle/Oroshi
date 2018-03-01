@@ -8,6 +8,7 @@ import addingReducer from './adding'
 import suggestionsReducer from './suggestions'
 import settingsReducer from './settings'
 import headerReducer from './header'
+import searchReducer from './search'
 
 
 const defaultState = {}
@@ -23,6 +24,7 @@ const computeNewState = (oldState, action) => ({
   adding: addingReducer(oldState.adding, action),
   suggestions: suggestionsReducer(oldState.suggestions, action),
   settings: settingsReducer(oldState.settings, action),
+  search: searchReducer(oldState.search, action),
 })
 
 const updateOneState = (_state, action, type, collection) => {

@@ -6,7 +6,6 @@ import IconButton from 'material-ui/IconButton'
 import NavigationMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz'
 
 import ElementLine, { groupByLine } from '../ElementLine/index'
-import scrollable from '../../../helpers/scrollable'
 
 import styles from './Grid.scss'
 
@@ -27,7 +26,7 @@ class Grid extends Component {
     creationMode: PropTypes.bool, // RENAME
     isPublic: PropTypes.bool, // RENAME
     loadMore: PropTypes.func,
-    elementComponent: PropTypes.func,
+    elementComponent: PropTypes.func.isRequired,
   }
 
   state = {
@@ -118,4 +117,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(scrollable(Grid))
+)(Grid)

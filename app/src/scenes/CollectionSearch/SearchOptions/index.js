@@ -32,13 +32,11 @@ const SearchOptions = ({ type, content }) => (
     className={styles.SearchOptions}
     zDepth={2}
   >
-    <div className={styles.Content}>
-      {
-        getSearchOptions(type).map(({ name, ...props }) => (
-          <Option key={name} name={name} {...props} content={content} />
-        ))
-      }
-    </div>
+    {
+      getSearchOptions(type).map(({ name, ...props }) => (
+        <Option key={name} name={name} {...props} content={content} />
+      ))
+    }
   </Paper>
 )
 
@@ -57,7 +55,7 @@ const Option = ({
 }) => {
   const newChildren = buildChildren(children, choices, content)
   return (
-    <div>
+    <div className={styles.Option}>
       <Field {...props} name={name}>
         {newChildren}
       </Field>

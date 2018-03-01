@@ -5,7 +5,6 @@ import IconButton from 'material-ui/IconButton'
 import NavigationMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz'
 
 import Section from './Section/index'
-import scrollable from '../../../helpers/scrollable'
 
 import styles from './Stream.scss'
 
@@ -93,4 +92,4 @@ class Stream extends Component {
   }
 }
 
-export default scrollable(Stream)
+export default Stream

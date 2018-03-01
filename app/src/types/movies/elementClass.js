@@ -99,6 +99,30 @@ class Movie extends Element {
   setSeen = (seen) => {
     this.local.seen = seen
   }
+
+  matchSearchRequest = (request) => {
+    if (
+      Object.prototype.hasOwnProperty.call(request, 'seen') &&
+      this.hasBeenSeen() !== request.seen
+    ) {
+      return false
+    }
+    if (
+      request.directors &&
+      request.directors.length > 0 &&
+      !this.getDirectors().find(el => request.directors.includes(el.name))
+    ) {
+      return false
+    }
+    if (
+      request.years &&
+      request.years.length > 0 &&
+      !request.years.includes(String(this.getReleaseYear()))
+    ) {
+      return false
+    }
+    return super.matchSearchRequest(request)
+  }
 }
 
 export default Movie

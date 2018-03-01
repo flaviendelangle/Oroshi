@@ -2,8 +2,13 @@ import React, { Component } from 'react'
 import { reduxForm, Field } from 'redux-form'
 import PropTypes from 'prop-types'
 
+import FloatingActionButton from 'material-ui/FloatingActionButton'
+import ActionSearch from 'material-ui/svg-icons/action/search'
+
 import Search from '../Search'
 import SearchOptions from '../SearchOptions'
+
+import styles from './Form.scss'
 
 
 export const FORM_ID = 'advancedSearchForm'
@@ -25,13 +30,23 @@ class Form extends Component {
       content,
     } = this.props
     return (
-      <form noValidate onSubmit={handleSubmit(onSubmit)}>
+      <form
+        noValidate
+        onSubmit={handleSubmit(onSubmit)}
+        className={styles.Form}
+      >
         <Field
           name="query"
           component={Search}
           onRequestSearch={() => {}}
         />
         <SearchOptions type={type} content={content} />
+        <FloatingActionButton
+          className={styles.SubmitButton}
+          type="submit"
+        >
+          <ActionSearch />
+        </FloatingActionButton>
       </form>
     )
   }

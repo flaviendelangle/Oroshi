@@ -6,14 +6,15 @@
   margin: 1.5rem auto;
   padding: 1.5rem;
   background: $light-background-color !important;
-  text-align: center;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
 
-  > * > * * {
-    text-align: left;
-  }
-
-  @media screen and (min-width: 800px) {
-    column-count: 2;
+  .Option {
+    flex-grow: 1;
+    flex-basis: 0;
+    min-width: 50%;
   }
 }
 

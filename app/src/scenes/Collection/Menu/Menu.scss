@@ -2,9 +2,7 @@
 @import "../../../styles/mixins";
 
 .AddingIcon {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
+  @include bottom-right-button();
 }
 
 .Layout {

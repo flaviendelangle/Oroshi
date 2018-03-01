@@ -35,7 +35,7 @@ class ListGenerator {
   clean = string => string.toUpperCase().replace(/\./g, ' ')
 
   filter = () => {
-    const results = this.data.filter(el => el.match(this.query.split(' ')))
+    const results = this.data.filter(el => el.matchQuery(this.query))
 
     /*
     for (let i=0; i<this.filters.length; i++) {

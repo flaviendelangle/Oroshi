@@ -65,15 +65,20 @@ class Element {
     }
   }
 
-  static createFieldListGenerator(field) {
-    return Element.buildFieldList.bind(null, field)
+  static createFieldListGenerator(field, direction = 'asc') {
+    return Element.buildFieldList.bind(null, field, direction)
   }
 
-  static buildFieldList(field, elements) {
+  static buildFieldList(field, direction, elements) {
     const list = elements.reduce((result, element) => (
       [...result, ...element.getValueFlat(field)]
     ), [])
-    return [...new Set(list)].sort()
+    const uniqueList = [...new Set(list)].sort()
+    return direction === 'asc' ? uniqueList : uniqueList.reverse()
+  }
+
+  static search(request, elements) {
+    return elements.filter(el => el.matchSearchRequest(request))
   }
 
   buildSearchIndex(searchIndex = []) {
@@ -153,7 +158,7 @@ class Element {
 
   getValueFlat(field) {
     const value = this.getValue(field)
-    if (field === 'genres') {
+    if (['genres', 'release_year'].includes(field)) {
       return value.map(el => el.name)
     }
     return value
@@ -205,7 +210,39 @@ class Element {
     return this.getDistant().poster_path
   }
 
-  match = (query) => {
+  getOriginalLanguage = () => {
+    if (this.hasDistant()) {
+      return this.getDistant().original_language
+    }
+    return this.getLocal().original_language
+  }
+
+  getGenres = () => {
+    if (this.hasLocal()) {
+      return this.getLocal().genres
+    }
+    return []
+  }
+
+  matchSearchRequest(request) {
+    if (
+      request.language &&
+      request.language !== this.getOriginalLanguage()
+    ) {
+      return false
+    }
+    if (
+      request.genres &&
+      request.genres.length > 0 &&
+      !this.getGenres().find(el => request.genres.includes(el.name))
+    ) {
+      return false
+    }
+    return true
+  }
+
+  matchQuery = (rawQuery) => {
+    const query = rawQuery.split(' ')
     if (
       query.length === 1 &&
       query[0] === ''

@@ -9,6 +9,7 @@ import Help from '../../../components/generics/Help/index'
 
 import { connect } from '../../../services/redux'
 import { get as getCollection } from '../../../services/actions/collections/index'
+import scrollable from '../../../helpers/scrollable'
 
 
 class CollectionContent extends Component {
@@ -126,4 +127,4 @@ const mapDispatchToProps = (dispatch, { type, collection }) => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(CollectionContent)
+)(scrollable(CollectionContent))
