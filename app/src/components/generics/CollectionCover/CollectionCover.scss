@@ -3,10 +3,22 @@
 .CollectionCover {
   position: relative;
   height: 210px;
-  width: 170px;
-  margin: 20px;
+  width: 162px;
+  margin: auto;
+  outline: none;
 
-  .Cover {
+  .FakePoster {
+    height: 139px;
+    width: 92.5px;
+    line-height: 139px;
+    font-size: 5rem;
+    text-align: center;
+    border: 1px solid gray;
+    background: $light-background-color;
+  }
+
+  .Cover,
+  .FakePoster {
     position: absolute;
     display: inline-grid;
 
@@ -33,7 +45,8 @@
   }
 
   &:hover {
-    .Cover {
+    .Cover,
+    .FakePoster {
       &[data-place="0"] {
         @include material-shadow(3);
       }

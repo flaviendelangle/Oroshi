@@ -1,18 +1,16 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
-import ScrollArea from 'react-scrollbar'
 import PropTypes from 'prop-types'
+import { isEmpty } from 'lodash'
 
-import CircularProgress from 'material-ui/CircularProgress'
 
 import CollectionList from './CollectionList'
-import ManageButton from './ManageButton'
 import FirstCollectionButton from './FirstCollectionButton'
 import DialogCreateCollection from './DialogCreateCollection'
+import Progress from '../../components/generics/Progress'
 
 import { getAll as getCollections } from '../../services/actions/collections'
-
-import * as _style from './style'
+import scrollable from '../../helpers/scrollable'
 
 
 class Home extends Component {
@@ -31,10 +29,6 @@ class Home extends Component {
     if (!oauth) {
       history.push('/login/')
     }
-  }
-
-  state = {
-    // editing: false,
   }
 
   componentDidMount() {
@@ -59,43 +53,19 @@ class Home extends Component {
 
   render() {
     const { isLoaded, collections } = this.props
-    const { editing } = this.state
     if (!isLoaded) {
-      return (
-        <div style={_style.progress} >
-          <CircularProgress />
-        </div>
-      )
-    } else if (collections.length === 0) {
-      return (
-        <div>
-          <div style={_style.container} >
-            <FirstCollectionButton />
-          </div>
-          <DialogCreateCollection />
-        </div>
-      )
+      return <Progress />
     }
+
     return (
-      <div>
-        <ScrollArea
-          speed={0.8}
-          horizontal={false}
-          style={_style.scroll}
-        >
-          <div style={_style.container} >
-            <ManageButton
-              editing={editing}
-              onClick={() => this.setState({ editing: !editing })}
-            />
-            <CollectionList
-              editing={editing}
-              data={collections}
-            />
-          </div>
-        </ScrollArea>
+      <Fragment>
+        {
+          isEmpty(collections) ?
+            <FirstCollectionButton /> :
+            <CollectionList data={collections} />
+        }
         <DialogCreateCollection />
-      </div>
+      </Fragment>
     )
   }
 }
@@ -118,4 +88,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(Home)
+)(scrollable(Home))

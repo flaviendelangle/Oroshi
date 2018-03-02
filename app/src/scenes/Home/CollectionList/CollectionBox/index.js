@@ -1,22 +1,18 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
-// import cx from 'classnames'
 
-// import AVMovie from 'material-ui/svg-icons/av/movie'
-// import HardwareTV from 'material-ui/svg-icons/hardware/tv'
-import muiThemeable from 'material-ui/styles/muiThemeable'
-// import ContentCreate from 'material-ui/svg-icons/content/create'
-
+import AVMovie from 'material-ui/svg-icons/av/movie'
+import HardwareTV from 'material-ui/svg-icons/hardware/tv'
 
 import CollectionCover from '../../../../components/generics/CollectionCover'
 
 import styles from './CollectionBox.scss'
 
+
 class CollectionBox extends Component {
   static propTypes = {
     data: PropTypes.object.isRequired,
-    // muiTheme: PropTypes.object.isRequired,
     editing: PropTypes.bool,
   }
 
@@ -36,17 +32,13 @@ class CollectionBox extends Component {
   }
 
   render() {
-    // const Icon = data.type === 'movies' ? AVMovie : HardwareTV
-    /* const maskClasses = cx({
-      'collection-editing-mask': true,
-      invisible: !editing,
-    }) */
-
-    const { data: { cover_elements: covers, title } } = this.props
+    const { data: { cover_elements: covers, title, type } } = this.props
+    const Icon = type === 'movies' ? AVMovie : HardwareTV
     return (
       <div className={styles.CollectionBox}>
         <Link to={this.url}>
           <CollectionCover covers={covers} />
+          <Icon className={styles.Icon} />
           <div className={styles.Title} >
             {title}
           </div>
@@ -56,4 +48,4 @@ class CollectionBox extends Component {
   }
 }
 
-export default muiThemeable()(CollectionBox)
+export default CollectionBox

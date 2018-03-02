@@ -1,12 +1,15 @@
 @import "../../../../styles/mixins";
 
 .CollectionBox {
-  display: inline-block;
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  width: 250px;
+  margin: 2rem;
 
   .Title {
     @include sub-title();
 
-    display: block;
     padding-left: 5px;
     text-align: center;
 
@@ -15,5 +18,11 @@
       white-space: normal;
       word-break: break-all;
     }
+  }
+
+  .Icon {
+    position: absolute;
+    bottom: 3.2rem;
+    right: 3rem;
   }
 }
