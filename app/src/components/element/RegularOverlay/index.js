@@ -7,10 +7,10 @@ import cx from 'classnames'
 
 import Grade from '../../generics/Grade/index'
 
-import styles from './Overlay.scss'
+import styles from './RegularOverlay.scss'
 
 
-class ElementOverlay extends Component {
+class RegularOverlay extends Component {
   static propTypes = {
     addToLayout: PropTypes.func.isRequired,
     onSave: PropTypes.func.isRequired,
@@ -76,8 +76,8 @@ class ElementOverlay extends Component {
       return null
     }
     const classes = cx({
-      [styles.Overlay]: true,
-      [styles.OverlayTestingMode]: this.isTesting(),
+      [styles.RegularOverlay]: true,
+      [styles.RegularOverlayTestingMode]: this.isTesting(),
     })
     return (
       <div className={classes} >
@@ -203,4 +203,4 @@ TopRightAction.propTypes = {
   children: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
 }
 
-export default muiThemeable()(ElementOverlay)
+export default muiThemeable()(RegularOverlay)

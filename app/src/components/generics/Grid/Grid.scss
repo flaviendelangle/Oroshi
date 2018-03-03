@@ -1,7 +1,7 @@
 @import "../../../styles/mixins.scss";
 
 .Grid {
-  @include element-grid();
+  padding: 2rem 3rem;
 
   .ShowMore {
     text-align: center;

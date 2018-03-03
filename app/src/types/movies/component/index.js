@@ -78,6 +78,7 @@ class Movie extends Component {
       destroy,
       creationMode,
       onRender,
+      ...props
     } = this.props
     return (
       <Element
@@ -99,6 +100,7 @@ class Movie extends Component {
         }
         topRightActionKey="seen"
         topLeftAction="suggestions"
+        {...props}
       />
     )
   }

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
+import cx from 'classnames'
 
 import IconButton from 'material-ui/IconButton'
 import NavigationMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz'
@@ -28,6 +29,8 @@ class Grid extends Component {
     loadMore: PropTypes.func,
     elementComponent: PropTypes.func.isRequired,
     maxElementPerLine: PropTypes.number,
+    className: PropTypes.string,
+    elementProps: PropTypes.object,
   }
 
   state = {
@@ -81,9 +84,17 @@ class Grid extends Component {
       collection,
       creationMode,
       isPublic,
+      className,
+      elementProps,
     } = this.props
+
+    const gridClasses = cx({
+      [styles.Grid]: true,
+      [className]: !!className,
+    })
+
     return (
-      <div className={styles.Grid}>
+      <div className={gridClasses}>
         {
           this.elements.map((line, index) => (
             <ElementLine key={index} > { /* eslint-disable-line react/no-array-index-key */ }
@@ -96,6 +107,7 @@ class Grid extends Component {
                     key={el.getPublicId()}
                     creationMode={creationMode}
                     isPublic={isPublic}
+                    {...elementProps}
                   />
                 ))
               }

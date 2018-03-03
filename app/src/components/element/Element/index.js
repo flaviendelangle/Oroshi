@@ -7,12 +7,18 @@ import muiThemeable from 'material-ui/styles/muiThemeable'
 
 import cx from 'classnames'
 
-import Poster from '../Poster/index'
-import Overlay from '../Overlay/index'
+import Poster from '../Poster'
+import RegularOverlay from '../RegularOverlay'
+import ClickableOverlay from '../ClickableOverlay'
 import Suggestions from './Suggestions'
 
 import styles from './Element.scss'
 
+
+const OVERLAYS = {
+  regular: RegularOverlay,
+  clickable: ClickableOverlay,
+}
 
 class Element extends Component {
   static propTypes = {
@@ -29,6 +35,12 @@ class Element extends Component {
     isPublic: PropTypes.bool,
     footer: PropTypes.array,
     switchSeen: PropTypes.func,
+    overlay: PropTypes.string,
+    onClick: PropTypes.func,
+  }
+
+  static defaultProps = {
+    overlay: 'regular',
   }
 
   state = {
@@ -60,7 +72,7 @@ class Element extends Component {
   }
 
   /**
-   * Update state.mouseOver to decide if we want to generate the Overlay
+   * Update state.mouseOver to decide if we want to generate the RegularOverlay
    * @param {boolean} isMouseOver
    */
   onMouseHover = (isMouseOver) => {
@@ -112,6 +124,8 @@ class Element extends Component {
     }
   }
 
+  getOverlay = () => OVERLAYS[this.props.overlay]
+
   getTopRightAction = () => this.getAction('topRightAction')
 
   getTopLeftAction = () => this.getAction('topLeftAction')
@@ -155,16 +169,18 @@ class Element extends Component {
       mode,
       data,
       footer,
+      onClick,
       muiTheme: { palette },
     } = this.props
     const { isMouseOver, isReady } = this.state
-
     const elementClasses = cx({
       [styles.Element]: true,
       [styles.ElementInCollection]: (data.isInCollection() && creationMode),
       [styles.ElementNotInCollection]: (!data.isInCollection() && creationMode),
       [styles.ElementReady]: isReady,
     })
+
+    const Overlay = this.getOverlay()
 
     return (
       <div className={elementClasses} style={style} >
@@ -192,6 +208,8 @@ class Element extends Component {
               isPublic={isPublic}
               topRightAction={this.getTopRightAction()}
               topLeftAction={this.getTopLeftAction()}
+              onClick={onClick}
+              data={data}
             />
           </Paper>
         </div>

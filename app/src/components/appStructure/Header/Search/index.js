@@ -43,7 +43,6 @@ class Search extends Component {
     filter(query, forced, isAdding)
   }
 
-
   render() {
     const {
       query,
@@ -51,6 +50,7 @@ class Search extends Component {
       isAdding,
       count,
     } = this.props
+
     return (
       <div className={styles.Search}>
         <SearchBar

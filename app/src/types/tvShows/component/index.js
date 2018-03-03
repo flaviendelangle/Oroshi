@@ -9,7 +9,7 @@ import muiThemeable from 'material-ui/styles/muiThemeable'
 import cx from 'classnames'
 
 import Poster from '../../../components/element/Poster/index'
-import ElementOverlay from '../../../components/element/Overlay/index'
+import ElementOverlay from '../../../components/element/RegularOverlay/index'
 import Details from './Details/index'
 import { addElement, removeElement } from '../../../services/actions/collections/index'
 
@@ -35,7 +35,7 @@ class TVShow extends Component {
   }
 
   /**
-   * Update state.mouseOver to decide if we want to generate the Overlay
+   * Update state.mouseOver to decide if we want to generate the RegularOverlay
    * @param {boolean} isMouseOver
    */
   handleMouseHover = (isMouseOver) => {

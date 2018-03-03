@@ -6,7 +6,7 @@ import DialogSearchElement from '../../../../components/generics/DialogSearchEle
 import Progress from '../../../../components/generics/Progress'
 
 import { connect } from '../../../../services/redux'
-import { get as getCollection } from '../../../../services/actions/collections/index'
+import { get as getCollection, updateCover } from '../../../../services/actions/collections/index'
 
 import styles from './CoverCustomization.scss'
 
@@ -19,6 +19,7 @@ class CoverCustomization extends Component {
     elementComponent: PropTypes.func.isRequired,
     isContentLoaded: PropTypes.bool,
     synchronize: PropTypes.func.isRequired,
+    updateCover: PropTypes.func.isRequired,
     content: PropTypes.array.isRequired,
   }
 
@@ -41,6 +42,11 @@ class CoverCustomization extends Component {
 
   onItemClick = (updatedIndex) => {
     this.setState(() => ({ updatedIndex }))
+  }
+
+  onChooseItem = (element) => {
+    const { updatedIndex } = this.state
+    this.props.updateCover(updatedIndex, element)
   }
 
   onModalClose = () => this.onItemClick(-1)
@@ -68,6 +74,7 @@ class CoverCustomization extends Component {
           type={type}
           open={updatedIndex >= 0}
           onClose={this.onModalClose}
+          onChooseItem={this.onChooseItem}
           lineDimensions={lineDimensions}
           elementComponent={elementComponent}
           content={content}
@@ -86,6 +93,9 @@ const mapStateToProps = ({ content }, { app }) => ({
 
 const mapDispatchToProps = (dispatch, { type, collection }) => ({
   synchronize: () => dispatch(getCollection(type, collection)),
+  updateCover: (index, element) => (
+    dispatch(updateCover(type, collection, index, element))
+  ),
 })
 
 export default connect(
