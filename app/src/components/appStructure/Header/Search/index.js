@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import SearchBar from 'material-ui-search-bar'
 import AutoComplete from 'material-ui/AutoComplete'
 
-import { search, getRecommendations } from '../../../../services/actions/publicAPI/index'
+import { search, getRecommendations } from '../../../../services/actions/publicAPI'
 import { updateQuery } from '../../../../services/actions/content'
 
 import styles from './Search.scss'

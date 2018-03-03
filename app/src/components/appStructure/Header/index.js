@@ -35,10 +35,7 @@ class Header extends Component {
 
   onButtonClick = () => {
     const { scene, openMainDrawer } = this.props
-    if (
-      scene === 'content' ||
-      scene === 'settings'
-    ) {
+    if (['content', 'settings', 'search'].includes(scene)) {
       openMainDrawer(true)
     }
   }
@@ -126,7 +123,7 @@ class Header extends Component {
           }
         </AppBar>
         {
-          (scene === 'content' || scene === 'settings') &&
+          ['content', 'settings', 'search'].includes(scene) &&
           <MainDrawer
             title={this.getTitle()}
             isPublic={isPublic}

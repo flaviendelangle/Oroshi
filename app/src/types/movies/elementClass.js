@@ -1,3 +1,5 @@
+import { isBoolean } from 'lodash'
+
 import Element from '../../services/content/element'
 import date from '../../services/content/date'
 
@@ -102,7 +104,7 @@ class Movie extends Element {
 
   matchSearchRequest = (request) => {
     if (
-      Object.prototype.hasOwnProperty.call(request, 'seen') &&
+      isBoolean(request.seen) &&
       this.hasBeenSeen() !== request.seen
     ) {
       return false

@@ -35,7 +35,9 @@ class CollectionSearch extends Component {
       !isLoaded ||
       !isContentLoaded
     ) {
-      synchronize()
+      synchronize().then(() => this.onSubmit({}))
+    } else {
+      this.onSubmit({})
     }
   }
 

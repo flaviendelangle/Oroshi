@@ -2,16 +2,24 @@ import React, { Component, Fragment } from 'react'
 import { Stage, Layer, Arrow, Text } from 'react-konva'
 import PropTypes from 'prop-types'
 
-import muiThemeable from 'material-ui/styles/muiThemeable'
-
-import * as _style from './style'
+import styles from './Canvas.scss'
 
 
 class Canvas extends Component {
   static propTypes = {
-    muiTheme: PropTypes.object.isRequired,
     component: PropTypes.func.isRequired,
-    elementProps: PropTypes.object.isRequired,
+    element: PropTypes.object.isRequired,
+    collection: PropTypes.object.isRequired,
+  }
+
+  static getArrowConfig() {
+    return {
+      pointerWidth: 8,
+      pointerLength: 8,
+      fill: 'red',
+      stroke: 'red',
+      strokeWidth: 2,
+    }
   }
 
   state = {
@@ -55,17 +63,6 @@ class Canvas extends Component {
     ))
   }
 
-  getArrowConfig() {
-    const { muiTheme: { palette } } = this.props
-    return {
-      pointerWidth: 8,
-      pointerLength: 8,
-      fill: palette.titleColor,
-      stroke: palette.titleColor,
-      strokeWidth: 2,
-    }
-  }
-
   canvas = null
 
   translateCoordinates = (coordinates) => {
@@ -80,10 +77,9 @@ class Canvas extends Component {
   }
 
   buildArrow = (canvasCoordinates, label) => {
-    const { muiTheme: { palette } } = this.props
     const verticalMiddle = (canvasCoordinates.top + canvasCoordinates.bottom) / 2
     const arrow = {
-      ...this.getArrowConfig(),
+      ...Canvas.getArrowConfig(),
       points: [
         150,
         verticalMiddle,
@@ -96,7 +92,7 @@ class Canvas extends Component {
       x: 0,
       y: (verticalMiddle - 8),
       fontSize: 16,
-      fill: palette.titleColor,
+      fill: 'red',
     }
 
     return { arrow, text }
@@ -105,24 +101,24 @@ class Canvas extends Component {
   render() {
     const {
       component,
-      elementProps: { element, collection },
+      element,
+      collection,
     } = this.props
     const Element = component
     return (
-      <div style={_style.container} >
-        <Element
-          data={element}
-          collection={collection}
-          key={element.getPublicId()}
-          creationMode={false}
-          style={_style.element}
-          mode="test"
-          onRender={this.onElementRender}
-        />
+      <div className={styles.Canvas}>
+        <div className={styles.Element}>
+          <Element
+            data={element}
+            collection={collection}
+            key={element.getPublicId()}
+            creationMode={false}
+            mode="test"
+            onRender={this.onElementRender}
+          />
+        </div>
         <Stage
-          width={_style.canvas.width}
-          height={_style.canvas.height}
-          style={_style.canvas}
+          className={styles.Overlay}
           ref={(el) => { this.canvas = el }}
         >
           <Layer>
@@ -134,5 +130,5 @@ class Canvas extends Component {
   }
 }
 
-export default muiThemeable()(Canvas)
+export default Canvas
 

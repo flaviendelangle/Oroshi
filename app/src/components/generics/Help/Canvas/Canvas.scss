@@ -1,0 +1,27 @@
+$element_height: 380px;
+$element_width: 185px;
+$canvas_to_element_margin: 500px;
+$canvas_width: $element_width + $canvas_to_element_margin;
+
+.Canvas {
+  height: $element_height;
+  width: $canvas_width;
+  margin: auto;
+  position: relative;
+  display: flex;
+
+  .Element {
+    margin: auto;
+    display: block;
+  }
+
+  .Overlay {
+    height: $element_height;
+    width: $canvas_width;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    pointer-events: none;
+  }
+}

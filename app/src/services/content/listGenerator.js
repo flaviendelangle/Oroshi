@@ -29,26 +29,10 @@ class ListGenerator {
 
       this.filters.push(results)
     }
-    this.query = this.clean(this.query)
   }
 
-  clean = string => string.toUpperCase().replace(/\./g, ' ')
-
   filter = () => {
-    const results = this.data.filter(el => el.matchQuery(this.query))
-
-    /*
-    for (let i=0; i<this.filters.length; i++) {
-      const filter = this.filters[i]
-      results = results.filter((component) => {
-        const movieValue = component[filter[1]]
-        const filterValue = filter[2]
-        return this.matchFilter(movieValue, filterValue)
-      })
-    }
-    */
-
-    this.results = results
+    this.results = this.data.filter(el => el.matchQuery(this.query))
   }
 
   matchField = (value) => {

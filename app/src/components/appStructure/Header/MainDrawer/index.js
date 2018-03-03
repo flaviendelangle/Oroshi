@@ -36,27 +36,28 @@ class MainDrawer extends Component {
       type,
       collection,
     } = this.props
-    if (scene === 'content') {
-      return [
-        <Link to={`/collections/${type}/${collection.pk}/search/`} key={1} >
-          <ActionSearch />
-          <div>Advanced Search</div>
-        </Link>,
-        <Link to={`/collections/${type}/${collection.pk}/settings/`} key={2} >
-          <ActionSettings />
-          <div>Collection Settings</div>
-        </Link>,
-      ]
-    } else if (scene === 'settings') {
-      return [
+
+    const lines = {
+      content: (
         <Link to={`/collections/${type}/${collection.pk}/`} key={1} >
           <AVMovie />
           <div>Return to my collection</div>
-        </Link>,
-
-      ]
+        </Link>
+      ),
+      search: (
+        <Link to={`/collections/${type}/${collection.pk}/search/`} key={1} >
+          <ActionSearch />
+          <div>Advanced Search</div>
+        </Link>
+      ),
+      settings: (
+        <Link to={`/collections/${type}/${collection.pk}/settings/`} key={2} >
+          <ActionSettings />
+          <div>Collection Settings</div>
+        </Link>
+      ),
     }
-    return []
+    return Object.keys(lines).filter(el => el !== scene).map(el => lines[el])
   }
 
   GENERIC_LINES_BEFORE = [
@@ -103,11 +104,12 @@ class MainDrawer extends Component {
       title,
       onOpen,
     } = this.props
+
     if (isPublic) {
       return null
     }
     return (
-      <nav>
+      <nav className={styles.MainDrawer}>
         <Drawer
           open={isOpen}
           docked={false}
@@ -116,11 +118,12 @@ class MainDrawer extends Component {
           <AppBar
             title={title}
             onLeftIconButtonClick={() => onOpen(false)}
+            className={styles.TitleBar}
           >
             {this.searchBar}
             {this.actionsButton}
           </AppBar>
-          <div className={styles.MainDrawer}>
+          <div className={styles.Content}>
             {this.renderLines()}
           </div>
         </Drawer>

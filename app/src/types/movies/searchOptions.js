@@ -4,7 +4,7 @@ import OptionalToggle from '../../components/form/OptionalToggle'
 import { SelectLanguageField } from '../../components/form/SelectLanguage'
 import Element from './elementClass'
 
-export default [
+export const search = [
   {
     name: 'seen',
     label: 'Seen',
@@ -37,5 +37,36 @@ export default [
     component: SelectField,
     choices: Element.createFieldListGenerator('genres'),
     multiple: true,
+  },
+]
+
+export const sort = [
+  {
+    label: 'Random',
+    arguments: [],
+  },
+  {
+    label: 'Alphabetical order',
+    arguments: ['title', 'asc'],
+  },
+  {
+    label: 'Reversed alphabetical order',
+    arguments: ['title', 'desc'],
+  },
+  {
+    label: 'Highest not first',
+    arguments: ['note', 'asc'],
+  },
+  {
+    label: 'Lowest not first',
+    arguments: ['note', 'desc'],
+  },
+  {
+    label: 'Most recent first',
+    arguments: ['release', 'desc'],
+  },
+  {
+    label: 'Oldest first',
+    arguments: ['release', 'asc'],
   },
 ]

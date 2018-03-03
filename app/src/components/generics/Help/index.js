@@ -1,15 +1,13 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-
-import muiThemeable from 'material-ui/styles/muiThemeable'
 
 import Progress from '../../../components/generics/Progress'
 import Canvas from './Canvas'
 
 import { getElement as _getElement } from '../../../services/actions/help'
 
-import * as _style from './style'
+import styles from './Help.scss'
 
 
 class Help extends Component {
@@ -17,8 +15,9 @@ class Help extends Component {
     getElement: PropTypes.func.isRequired,
     collection: PropTypes.object.isRequired,
     type: PropTypes.string.isRequired,
-    muiTheme: PropTypes.object.isRequired,
     isPublic: PropTypes.bool,
+    elementComponent: PropTypes.func,
+    element: PropTypes.object,
   }
 
   componentDidMount() {
@@ -27,60 +26,33 @@ class Help extends Component {
   }
 
   render() {
-    const { isPublic, muiTheme: { palette } } = this.props
+    const {
+      isPublic,
+      element,
+      elementComponent,
+      collection,
+    } = this.props
     if (isPublic) {
       return (
-        <PublicHelp palette={palette} />
+        <div className={styles.PublicHelp} >
+          <span className={styles.Content}>There is nothing to see here :(</span>
+        </div>
       )
     }
+    if (!element) {
+      return <Progress />
+    }
     return (
-      <ElementHelp {...this.props} />
+      <div className={styles.Help}>
+        <div className={styles.Title}>Element layout :</div>
+        <Canvas
+          component={elementComponent}
+          collection={collection}
+          element={element}
+        />
+      </div>
     )
   }
-}
-
-const ElementHelp = ({
-  element,
-  elementComponent,
-  muiTheme,
-  ...props
-}) => {
-  let content
-  const childProps = {
-    ...props,
-    element,
-  }
-  if (!element) {
-    content = <Progress />
-  } else {
-    content = (
-      <Fragment>
-        <div style={_style.title(muiTheme.palette)} >Element layout :</div>
-        <Canvas component={elementComponent} elementProps={childProps} />
-      </Fragment>
-    )
-  }
-  return (
-    <div style={_style.elementHelp} >
-      {content}
-    </div>
-  )
-}
-
-ElementHelp.propTypes = {
-  muiTheme: PropTypes.object.isRequired,
-  elementComponent: PropTypes.func,
-  element: PropTypes.object,
-}
-
-const PublicHelp = ({ palette }) => (
-  <div style={_style.publicContainer(palette)} >
-    <span style={_style.publicContent(palette)} >There is nothing to see here :(</span>
-  </div>
-)
-
-PublicHelp.propTypes = {
-  palette: PropTypes.object.isRequired,
 }
 
 const mapStateToProps = (state) => {
@@ -97,4 +69,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(muiThemeable()(Help))
+)(Help)

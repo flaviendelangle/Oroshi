@@ -226,6 +226,12 @@ class Element {
 
   matchSearchRequest(request) {
     if (
+      request.query &&
+      !this.matchQuery(request.query)
+    ) {
+      return false
+    }
+    if (
       request.language &&
       request.language !== this.getOriginalLanguage()
     ) {
@@ -242,7 +248,7 @@ class Element {
   }
 
   matchQuery = (rawQuery) => {
-    const query = rawQuery.split(' ')
+    const query = rawQuery.toUpperCase().replace(/\./g, ' ').split(' ')
     if (
       query.length === 1 &&
       query[0] === ''

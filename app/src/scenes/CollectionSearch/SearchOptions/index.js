@@ -33,7 +33,7 @@ const SearchOptions = ({ type, content }) => (
     zDepth={2}
   >
     {
-      getSearchOptions(type).map(({ name, ...props }) => (
+      getSearchOptions(type).search.map(({ name, ...props }) => (
         <Option key={name} name={name} {...props} content={content} />
       ))
     }
@@ -44,7 +44,6 @@ SearchOptions.propTypes = {
   type: PropTypes.string.isRequired,
   content: PropTypes.array.isRequired,
 }
-
 
 const Option = ({
   choices,
