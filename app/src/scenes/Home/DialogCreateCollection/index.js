@@ -83,20 +83,8 @@ class DialogCreateCollection extends Component {
     return null
   }
 
-  renderContent = () => {
-    if (this.state.stepIndex === 0) {
-      return (
-        <CollectionType onClick={this.pickCollectionType} />
-      )
-    }
-    return (
-      <CollectionConfiguration
-        onTitleChange={(proxy, title) => this.setState({ title })}
-      />
-    )
-  }
-
   render() {
+    const { stepIndex } = this.state
     const actions = this.renderActions()
     return (
       <Dialog
@@ -107,9 +95,14 @@ class DialogCreateCollection extends Component {
         onRequestClose={this.close}
         autoScrollBodyContent
       >
-        {this.renderContent()}
+        {
+          stepIndex === 0 ?
+            <CollectionType onClick={this.pickCollectionType} /> :
+            <CollectionConfiguration
+              onTitleChange={(proxy, title) => this.setState({ title })}
+            />
+        }
       </Dialog>
-
     )
   }
 }

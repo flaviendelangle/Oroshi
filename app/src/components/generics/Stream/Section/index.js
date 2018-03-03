@@ -67,7 +67,7 @@ class Section extends Component {
     } else if (elements.length > this.amountToShow) {
       elements = elements.slice(0, this.amountToShow)
     }
-    return groupByLine(elements, lineDimensions)
+    return groupByLine(elements, lineDimensions.elementsPerLine)
   }
 
 

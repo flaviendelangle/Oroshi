@@ -1,5 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import cx from 'classnames'
+
+import ImageEdit from 'material-ui/svg-icons/image/edit'
 
 import Poster from '../../element/Poster'
 
@@ -9,6 +12,7 @@ import styles from './CollectionCover.scss'
 const CollectionCover = ({
   covers,
   onClick,
+  onItemClick,
   creationMode,
   ratio,
 }) => {
@@ -17,9 +21,14 @@ const CollectionCover = ({
     ...Array.from({ length: 3 - covers.length }, () => null),
   ]
 
+  const coverClasses = cx({
+    [styles.CollectionCover]: true,
+    [styles.CollectionCoverHoverable]: !onItemClick,
+  })
+
   return (
     <div
-      className={styles.CollectionCover}
+      className={coverClasses}
       onClick={onClick}
       data-ratio={ratio}
       role="button"
@@ -43,6 +52,17 @@ const CollectionCover = ({
                   { creationMode ? '+' : '?' }
                 </div>
             }
+            {
+              onItemClick &&
+              <div
+                role="button"
+                tabIndex={0}
+                className={styles.Overlay}
+                onClick={() => onItemClick(index)}
+              >
+                <ImageEdit />
+              </div>
+            }
           </div>
         ))
       }
@@ -59,6 +79,7 @@ CollectionCover.propTypes = {
   covers: PropTypes.array,
   creationMode: PropTypes.bool,
   onClick: PropTypes.func,
+  onItemClick: PropTypes.func,
   ratio: PropTypes.number,
 }
 

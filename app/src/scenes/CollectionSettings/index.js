@@ -19,6 +19,7 @@ class CollectionSettings extends Component {
     history: PropTypes.object.isRequired,
     redirect: PropTypes.bool,
     isLoaded: PropTypes.bool.isRequired,
+    config: PropTypes.object.isRequired,
   }
 
   componentDidMount() {
@@ -39,7 +40,12 @@ class CollectionSettings extends Component {
   }
 
   render() {
-    const { type, collection, isLoaded } = this.props
+    const {
+      type,
+      collection,
+      isLoaded,
+      config: { elementComponent },
+    } = this.props
 
     if (!isLoaded) {
       return <Progress />
@@ -48,7 +54,11 @@ class CollectionSettings extends Component {
     return (
       <div className={styles.CollectionSettings}>
         <MenuPanel type={type} collection={collection} />
-        <ContentPanel type={type} collection={collection} />
+        <ContentPanel
+          type={type}
+          collection={collection}
+          elementComponent={elementComponent}
+        />
       </div>
     )
   }

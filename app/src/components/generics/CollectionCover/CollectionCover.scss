@@ -12,6 +12,13 @@
       height: 418px*$ratio;
       width: 324px*$ratio;
 
+      .Cover {
+        svg {
+          height: 50px*$ratio !important;
+          width: 50px*$ratio !important;
+        }
+      }
+
       .FakePoster {
         line-height: 278px*$ratio;
         height: 278px*$ratio;
@@ -20,9 +27,6 @@
 
       .Cover,
       .FakePoster {
-        position: absolute;
-        display: inline-grid;
-
         &[data-place="0"] {
           @include material-shadow(2);
 
@@ -47,16 +51,34 @@
     }
   }
 
-  .FakePoster {
-    font-size: 5rem;
-    text-align: center;
-    border: 1px solid gray;
-    background: $light-background-color;
+  .Cover {
+    position: absolute;
+    display: inline-grid;
+
+    .FakePoster {
+      font-size: 5rem;
+      text-align: center;
+      border: 1px solid gray;
+      background: $light-background-color;
+    }
+
+    .Overlay {
+      transition: opacity 300ms ease;
+      opacity: 0;
+      position: absolute;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+    }
   }
 
-  &:hover {
-    .Cover,
-    .FakePoster {
+  &Hoverable:hover {
+    .Cover {
       &[data-place="0"] {
         @include material-shadow(3);
       }
@@ -67,6 +89,28 @@
 
       &[data-place="2"] {
         @include material-shadow(5);
+      }
+    }
+  }
+
+  &:not(&Hoverable) {
+    .Cover {
+      cursor: pointer;
+
+      &[data-place="0"]:hover {
+        @include material-shadow(3);
+      }
+
+      &[data-place="1"]:hover {
+        @include material-shadow(4);
+      }
+
+      &[data-place="2"]:hover {
+        @include material-shadow(5);
+      }
+
+      &:hover > .Overlay {
+        opacity: 1;
       }
     }
   }

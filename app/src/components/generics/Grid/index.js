@@ -27,6 +27,7 @@ class Grid extends Component {
     isPublic: PropTypes.bool, // RENAME
     loadMore: PropTypes.func,
     elementComponent: PropTypes.func.isRequired,
+    maxElementPerLine: PropTypes.number,
   }
 
   state = {
@@ -34,8 +35,7 @@ class Grid extends Component {
   }
 
   get amountToShow() {
-    const { lineDimensions } = this.props
-    const perLine = lineDimensions.elementsPerLine
+    const perLine = this.getElementPerLine()
     return CONFIG.pageLength * perLine * this.state.pages
   }
 
@@ -44,7 +44,18 @@ class Grid extends Component {
     if (elements.length > this.amountToShow) {
       elements = elements.slice(0, this.amountToShow)
     }
-    return groupByLine(elements, this.props.lineDimensions)
+    return groupByLine(elements, this.getElementPerLine())
+  }
+
+  getElementPerLine() {
+    const { lineDimensions: { elementsPerLine }, maxElementPerLine } = this.props
+    if (
+      maxElementPerLine &&
+      maxElementPerLine < elementsPerLine
+    ) {
+      return maxElementPerLine
+    }
+    return elementsPerLine
   }
 
   isAllShown() {

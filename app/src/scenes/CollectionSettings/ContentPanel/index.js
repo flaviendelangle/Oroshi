@@ -12,23 +12,6 @@ import { connect } from '../../../services/redux'
 import styles from './ContentPanel.scss'
 
 
-const ContentPanel = ({
-  active,
-  type,
-  collection,
-}) => (
-  <div className={styles.ContentPanel}>
-    <Panel active={active} type={type} collection={collection} /> :
-  </div>
-)
-
-ContentPanel.propTypes = {
-  type: PropTypes.string.isRequired,
-  collection: PropTypes.object.isRequired,
-  active: PropTypes.string,
-}
-
-
 /**
  * Return the component of a given settings section
  * @param {string} active - name of the current settings section
@@ -53,22 +36,20 @@ const getSectionComponent = (active) => {
   }
 }
 
-const Panel = ({
-  active,
-  type,
-  collection,
-}) => {
+const ContentPanel = ({ active, ...props }) => {
   const Section = getSectionComponent(active)
   if (!Section) {
     return null
   }
-  return <Section type={type} collection={collection} />
+  return (
+    <div className={styles.ContentPanel}>
+      <Section {...props} />
+    </div>
+  )
 }
 
-Panel.propTypes = {
-  active: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
-  collection: PropTypes.object.isRequired,
+ContentPanel.propTypes = {
+  active: PropTypes.string,
 }
 
 const mapStateToProps = ({ settings }) => ({
