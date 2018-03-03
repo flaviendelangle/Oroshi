@@ -1,11 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import './style.css'
+import styles from './ElementLine.scss'
 
 
 const ElementLine = ({ children }) => (
-  <div>
+  <div className={styles.ElementLine}>
     {children}
   </div>
 )
