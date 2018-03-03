@@ -49,9 +49,13 @@
   right: 20px;
   z-index: 10;
 
+  & button {
+    background-color: $light-background-color !important;
+  }
+
   & svg {
-    color: $textColor !important;
-    fill: $textColor !important;
+    color: $bright-color !important;
+    fill: $bright-color !important;
   }
 }
 

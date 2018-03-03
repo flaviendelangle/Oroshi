@@ -66,6 +66,14 @@ class MenuPanel extends Component {
         >
           Import data
         </Line>
+        <Line
+          active={this.isActive('cover')}
+          value="cover"
+          type={type}
+          collection={collection}
+        >
+          Cover customization
+        </Line>
       </div>
     )
   }

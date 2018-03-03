@@ -6,6 +6,7 @@ import Progress from '../../components/generics/Progress'
 import { getSuggestions, getSettings } from '../../services/actions/collections'
 import { cleanElementSuggestions } from '../../services/actions/interface'
 import { connect } from '../../services/redux'
+import scrollable from '../../helpers/scrollable'
 
 
 class ElementSuggestions extends Component {
@@ -89,4 +90,7 @@ const mapDispatchToProps = (dispatch, { type, collection }) => ({
   cleanScene: () => dispatch(cleanElementSuggestions(type, collection)),
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(ElementSuggestions)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(scrollable(ElementSuggestions))

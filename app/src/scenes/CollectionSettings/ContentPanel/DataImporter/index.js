@@ -23,7 +23,6 @@ import styles from './DataImporter.scss'
 
 class DataImporter extends Component {
   static propTypes = {
-    // type: PropTypes.string.isRequired,
     progress: PropTypes.number.isRequired,
     importCSV: PropTypes.func.isRequired,
     importJSON: PropTypes.func.isRequired,

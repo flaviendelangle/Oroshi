@@ -6,7 +6,12 @@ import Poster from '../../element/Poster'
 import styles from './CollectionCover.scss'
 
 
-const CollectionCover = ({ covers, onClick, creationMode }) => {
+const CollectionCover = ({
+  covers,
+  onClick,
+  creationMode,
+  ratio,
+}) => {
   const completeCover = [
     ...covers,
     ...Array.from({ length: 3 - covers.length }, () => null),
@@ -16,6 +21,7 @@ const CollectionCover = ({ covers, onClick, creationMode }) => {
     <div
       className={styles.CollectionCover}
       onClick={onClick}
+      data-ratio={ratio}
       role="button"
       tabIndex={0}
     >
@@ -31,7 +37,7 @@ const CollectionCover = ({ covers, onClick, creationMode }) => {
                 <Poster
                   path={el.getPosterPath()}
                   title=""
-                  ratio={0.5}
+                  ratio={ratio}
                 /> :
                 <div className={styles.FakePoster}>
                   { creationMode ? '+' : '?' }
@@ -46,12 +52,14 @@ const CollectionCover = ({ covers, onClick, creationMode }) => {
 
 CollectionCover.defaultProps = {
   covers: [],
+  ratio: 0.5,
 }
 
 CollectionCover.propTypes = {
   covers: PropTypes.array,
   creationMode: PropTypes.bool,
   onClick: PropTypes.func,
+  ratio: PropTypes.number,
 }
 
 export default CollectionCover

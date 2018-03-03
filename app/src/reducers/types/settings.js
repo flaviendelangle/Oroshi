@@ -29,13 +29,6 @@ const settings = (state = defaultState, action) => {
       }
     }
 
-    case `${collections.updateSettings}_FULFILLED`: {
-      return {
-        ...state,
-        data: action.payload,
-      }
-    }
-
     case `${collections.destroy}_FULFILLED`: {
       return {
         ...state,

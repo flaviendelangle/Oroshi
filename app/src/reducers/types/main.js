@@ -1,6 +1,7 @@
 import { source, snacks } from '../../services/titles/interface'
 import { collections, collectionContent } from '../../services/titles/api'
 import TMDBAPI from '../../services/TheMovieDatabaseJS/index'
+import { getActions } from '../../services/content/collectionTypes'
 
 
 const defaultState = {
@@ -24,14 +25,14 @@ const main = (state = defaultState, action) => {
           isLoaded: true,
         }
       }
-      const { content, ...collection } = action.payload
+      const { payload: { content, ...collection }, meta: { type } } = action
       TMDBAPI.setConfig({
         include_adult: action.payload.adult_content,
         language: action.payload.title_language,
       })
       return {
         ...state,
-        collection,
+        collection: getActions(type).elementClass.fromSettings(collection),
         found: true,
         isLoaded: true,
       }
@@ -41,11 +42,20 @@ const main = (state = defaultState, action) => {
      * The collection has been loaded (without the content !)
      */
     case `${collectionContent.loadSettings}_FULFILLED`: {
+      const { payload, meta: { type } } = action
       return {
         ...state,
-        collection: action.payload,
+        collection: getActions(type).elementClass.fromSettings(payload),
         found: true,
         isLoaded: true,
+      }
+    }
+
+    case `${collections.updateSettings}_FULFILLED`: {
+      const { payload, meta: { type } } = action
+      return {
+        ...state,
+        collection: getActions(type).elementClass.fromSettings(payload),
       }
     }
 

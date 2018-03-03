@@ -50,9 +50,9 @@ export const create = (type, data) => ({
   },
 })
 
-export const destroy = (type, pk) => ({
+export const destroy = (type, collection) => ({
   type: titles.collections.destroy,
-  payload: getCollectionAPI(type).destroy(pk),
+  payload: getCollectionAPI(type).destroy(collection.pk),
 })
 
 export const get = (type, collection) => ({
@@ -93,9 +93,13 @@ export const getSuggestions = (type, collection, publicId) => ({
   },
 })
 
-export const update = (type, pk, data) => ({
+export const update = (type, collection, data) => ({
   type: titles.collections.updateSettings,
-  payload: getCollectionAPI(type).partialUpdate(pk, data),
+  payload: getCollectionAPI(type).partialUpdate(collection.pk, data),
+  meta: {
+    type,
+    collection,
+  },
 })
 
 export const addElement = (type, collection, element) => ({

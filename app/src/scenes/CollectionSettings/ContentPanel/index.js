@@ -2,11 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import SummaryParameters from './SummaryParameters'
-import Progress from '../../../components/generics/Progress'
-
 import LanguageParameters from './LanguageParameters'
 import ExportParameters from './ExportParameters'
 import DataImporter from './DataImporter'
+import CoverCustomization from './CoverCustomization'
 
 import { connect } from '../../../services/redux'
 
@@ -17,21 +16,15 @@ const ContentPanel = ({
   active,
   type,
   collection,
-  data,
 }) => (
   <div className={styles.ContentPanel}>
-    {
-      data ?
-        <Panel active={active} type={type} collection={collection} data={data} /> :
-        <Progress />
-    }
+    <Panel active={active} type={type} collection={collection} /> :
   </div>
 )
 
 ContentPanel.propTypes = {
   type: PropTypes.string.isRequired,
   collection: PropTypes.object.isRequired,
-  data: PropTypes.object,
   active: PropTypes.string,
 }
 
@@ -53,6 +46,8 @@ const getSectionComponent = (active) => {
       return ExportParameters
     case 'imports':
       return DataImporter
+    case 'cover':
+      return CoverCustomization
     default:
       return null
   }
@@ -62,25 +57,22 @@ const Panel = ({
   active,
   type,
   collection,
-  data,
 }) => {
   const Section = getSectionComponent(active)
   if (!Section) {
     return null
   }
-  return <Section type={type} collection={collection} data={data} />
+  return <Section type={type} collection={collection} />
 }
 
 Panel.propTypes = {
   active: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   collection: PropTypes.object.isRequired,
-  data: PropTypes.object.isRequired,
 }
 
 const mapStateToProps = ({ settings }) => ({
   active: settings.activeSection,
-  data: settings.data,
 })
 
 const mapDispatchToProps = () => ({})

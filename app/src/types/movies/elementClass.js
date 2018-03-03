@@ -13,6 +13,10 @@ class Movie extends Element {
     return super.fromDistant(data, collection, Movie)
   }
 
+  static fromSettings(collection) {
+    return super.fromSettings(collection, Movie)
+  }
+
   buildSearchIndex() {
     const local = this.getLocal()
     const searchIndex = []

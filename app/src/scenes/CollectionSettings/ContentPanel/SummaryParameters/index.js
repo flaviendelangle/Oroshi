@@ -26,7 +26,7 @@ const selectStyle = {
 
 class SummaryParameters extends Component {
   static propTypes = {
-    data: PropTypes.object.isRequired,
+    collection: PropTypes.object.isRequired,
     type: PropTypes.string.isRequired,
     deleteCollection: PropTypes.func.isRequired,
     update: PropTypes.func.isRequired,
@@ -39,19 +39,19 @@ class SummaryParameters extends Component {
   }
 
   componentWillMount() {
-    const { data } = this.props
-    if (data.title) {
-      this.setState({ title: data.title })
+    const { collection: { title } } = this.props
+    if (title) {
+      this.setState({ title })
     }
   }
 
   componentWillReceiveProps(newProps) {
-    this.setState({ title: newProps.data.title })
+    this.setState({ title: newProps.collection.title })
   }
 
   render() {
     const {
-      data,
+      collection,
       type,
       update,
       deleteCollection,
@@ -67,7 +67,7 @@ class SummaryParameters extends Component {
                 id="collection_title"
                 value={title}
                 onChange={(proxy, newTitle) => this.setState({ title: newTitle })}
-                onSave={() => update(data.pk, 'title', title)}
+                onSave={() => update('title', title)}
               />
             </Section.Item>
             <Section.Item primaryText="Collection type">
@@ -86,9 +86,9 @@ class SummaryParameters extends Component {
               primaryText="Include adult content"
               rightToggle={
                 <Toggle
-                  toggled={data.adult_content}
+                  toggled={collection.adult_content}
                   onToggle={(proxy, active) => {
-                    update(data.pk, 'adult_content', active)
+                    update('adult_content', active)
                   }}
                 />
               }
@@ -97,9 +97,9 @@ class SummaryParameters extends Component {
               primaryText="Public access to your collection"
               rightToggle={
                 <Toggle
-                  toggled={data.public}
+                  toggled={collection.public}
                   onToggle={(proxy, active) => {
-                    update(data.pk, 'public', active)
+                    update('public', active)
                   }}
                 />
               }
@@ -119,11 +119,11 @@ class SummaryParameters extends Component {
         <DeleteAlert
           open={showDeleteAlert}
           onClose={() => this.setState({ showDeleteAlert: false })}
-          onDelete={() => deleteCollection(data.pk)}
+          onDelete={deleteCollection}
         />
         <ShowPublicLinkAlert
           open={showGetPublicLinkAlert}
-          data={data}
+          collection={collection}
           type={type}
           onClose={() => this.setState({ showGetPublicLinkAlert: false })}
           onDelete={() => {}} // this.props.deleteCollection(this.props.data.pk)}
@@ -135,9 +135,9 @@ class SummaryParameters extends Component {
 
 const mapStateToProps = () => ({})
 
-const mapDispatchToProps = (dispatch, { type }) => ({
-  update: (pk, field, value) => dispatch(_update(type, pk, field, value)),
-  deleteCollection: pk => dispatch(destroy(type, pk)),
+const mapDispatchToProps = (dispatch, { type, collection }) => ({
+  update: (field, value) => dispatch(_update(type, collection, field, value)),
+  deleteCollection: () => dispatch(destroy(type, collection)),
 })
 
 export default connect(

@@ -16,18 +16,9 @@ const main = (state = defaultState, action) => {
     case `${collectionContent.loadAllSettings}_FULFILLED`:
       return {
         ...state,
-        collections: action.payload.map(({ cover_elements: coverElements, ...collection }) => {
-          const elements = coverElements.map(el => ({
-            local: el,
-            distant: null,
-          }))
-          return {
-            ...collection,
-            cover_elements: getActions(collection.type)
-              .elementClass
-              .fromDistantList(elements, collection),
-          }
-        }),
+        collections: action.payload.map(collection => (
+          getActions(collection.type).elementClass.fromSettings(collection)
+        )),
         isLoaded: true,
       }
     case `${collectionContent.create}_FULFILLED`:

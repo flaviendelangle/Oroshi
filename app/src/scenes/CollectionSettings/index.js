@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 
 import MenuPanel from './MenuPanel'
 import ContentPanel from './ContentPanel'
+import Progress from '../../components/generics/Progress'
 
 import { getSettings } from '../../services/actions/collections'
 import { connect } from '../../services/redux'
@@ -17,11 +18,14 @@ class CollectionSettings extends Component {
     collection: PropTypes.object.isRequired,
     history: PropTypes.object.isRequired,
     redirect: PropTypes.bool,
+    isLoaded: PropTypes.bool.isRequired,
   }
 
   componentDidMount() {
-    const { synchronize, collection } = this.props
-    synchronize(collection.pk)
+    const { synchronize, isLoaded } = this.props
+    if (!isLoaded) {
+      synchronize()
+    }
   }
 
   componentWillReceiveProps(newProps) {
@@ -35,7 +39,12 @@ class CollectionSettings extends Component {
   }
 
   render() {
-    const { type, collection } = this.props
+    const { type, collection, isLoaded } = this.props
+
+    if (!isLoaded) {
+      return <Progress />
+    }
+
     return (
       <div className={styles.CollectionSettings}>
         <MenuPanel type={type} collection={collection} />
@@ -45,7 +54,10 @@ class CollectionSettings extends Component {
   }
 }
 
-const mapStateToProps = ({ settings }) => ({
+const mapStateToProps = ({ main, settings }) => ({
+  isLoaded: main.isLoaded,
+  collection: main.collection,
+
   redirect: settings.redirect,
 })
 

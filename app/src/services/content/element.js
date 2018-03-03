@@ -33,6 +33,17 @@ class Element {
     return element
   }
 
+  static fromSettings({ cover_elements: covers, ...collection }, ChildClass) {
+    const elements = covers.map(el => ({
+      local: el,
+      distant: null,
+    }))
+    return {
+      ...collection,
+      cover_elements: Element.fromDistantList(elements, collection, ChildClass),
+    }
+  }
+
   static sortList(_elements, params) {
     const elements = [..._elements]
     const mul = params.direction === 'asc' ? 1 : -1

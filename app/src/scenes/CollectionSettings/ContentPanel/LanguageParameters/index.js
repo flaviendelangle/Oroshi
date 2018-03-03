@@ -7,23 +7,23 @@ import { SelectLanguageListItem } from '../../../../components/form/SelectLangua
 
 import { update as _update } from '../../actions'
 
-const LanguageParameters = ({ data, type, update }) => (
+const LanguageParameters = ({ collection, type, update }) => (
   <Section>
     <Section.Title>Languages</Section.Title>
     <Section.Content>
       <Section.Item primaryText="Title language">
         <SelectLanguageListItem
           type={type}
-          value={data.title_language}
-          onChange={value => update(data.pk, 'title_language', value)}
+          value={collection.title_language}
+          onChange={value => update('title_language', value)}
           hasOriginalLanguageLine
         />
       </Section.Item>
       <Section.Item primaryText="Poster language">
         <SelectLanguageListItem
           type={type}
-          value={data.poster_language}
-          onChange={value => update(data.pk, 'poster_language', value)}
+          value={collection.poster_language}
+          onChange={value => update('poster_language', value)}
           hasOriginalLanguageLine
         />
       </Section.Item>
@@ -32,15 +32,15 @@ const LanguageParameters = ({ data, type, update }) => (
 )
 
 LanguageParameters.propTypes = {
-  data: PropTypes.object.isRequired,
+  collection: PropTypes.object.isRequired,
   type: PropTypes.string.isRequired,
   update: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = () => ({})
 
-const mapDispatchToProps = (dispatch, { type }) => ({
-  update: (pk, field, value) => dispatch(_update(type, pk, field, value)),
+const mapDispatchToProps = (dispatch, { type, collection }) => ({
+  update: (field, value) => dispatch(_update(type, collection, field, value)),
 })
 
 export default connect(

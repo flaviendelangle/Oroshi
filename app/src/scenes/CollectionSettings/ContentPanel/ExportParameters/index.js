@@ -8,19 +8,19 @@ import Section from '../Section/index'
 import { exportCollection as _exportCollection } from '../../../../services/actions/collections/index'
 
 
-const ExportParameters = ({ exportCollection, data }) => (
+const ExportParameters = ({ exportCollection }) => (
   <Section>
     <Section.Title>Export your data</Section.Title>
     <Section.Content>
       <Section.Item
         rightIcon={<FileDownload />}
         primaryText="Export as CSV"
-        onClick={() => exportCollection(data, 'csv')}
+        onClick={() => exportCollection('csv')}
       />
       <Section.Item
         rightIcon={<FileDownload />}
         primaryText="Export as JSON"
-        onClick={() => exportCollection(data, 'json')}
+        onClick={() => exportCollection('json')}
       />
     </Section.Content>
   </Section>
@@ -28,13 +28,12 @@ const ExportParameters = ({ exportCollection, data }) => (
 
 ExportParameters.propTypes = {
   exportCollection: PropTypes.func.isRequired,
-  data: PropTypes.object.isRequired,
 }
 
 const mapStateToProps = () => ({})
 
-const mapDispatchToProps = (dispatch, { type }) => ({
-  exportCollection: (collection, format) => {
+const mapDispatchToProps = (dispatch, { type, collection }) => ({
+  exportCollection: (format) => {
     dispatch(_exportCollection(type, collection, format))
   },
 })

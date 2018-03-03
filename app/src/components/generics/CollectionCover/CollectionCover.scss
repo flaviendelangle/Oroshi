@@ -2,46 +2,56 @@
 
 .CollectionCover {
   position: relative;
-  height: 210px;
-  width: 162px;
   margin: auto;
   outline: none;
 
+  @for $i from 1 through 4 {
+    $ratio: $i * 0.25;
+
+    &[data-ratio="#{$ratio}"] {
+      height: 418px*$ratio;
+      width: 324px*$ratio;
+
+      .FakePoster {
+        line-height: 278px*$ratio;
+        height: 278px*$ratio;
+        width: 185px*$ratio;
+      }
+
+      .Cover,
+      .FakePoster {
+        position: absolute;
+        display: inline-grid;
+
+        &[data-place="0"] {
+          @include material-shadow(2);
+
+          top: 0;
+          left: 0;
+        }
+
+        &[data-place="1"] {
+          @include material-shadow(3);
+
+          top: 70px*$ratio;
+          left: 140px*$ratio;
+        }
+
+        &[data-place="2"] {
+          @include material-shadow(4);
+
+          top: 140px*$ratio;
+          left: 70px*$ratio;
+        }
+      }
+    }
+  }
+
   .FakePoster {
-    height: 139px;
-    width: 92.5px;
-    line-height: 139px;
     font-size: 5rem;
     text-align: center;
     border: 1px solid gray;
     background: $light-background-color;
-  }
-
-  .Cover,
-  .FakePoster {
-    position: absolute;
-    display: inline-grid;
-
-    &[data-place="0"] {
-      @include material-shadow(2);
-
-      top: 0;
-      left: 0;
-    }
-
-    &[data-place="1"] {
-      @include material-shadow(3);
-
-      top: 35px;
-      left: 70px;
-    }
-
-    &[data-place="2"] {
-      @include material-shadow(4);
-
-      top: 70px;
-      left: 35px;
-    }
   }
 
   &:hover {

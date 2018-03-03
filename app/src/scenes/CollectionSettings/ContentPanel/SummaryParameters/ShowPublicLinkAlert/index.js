@@ -9,7 +9,7 @@ import { urls } from '../../../../../appConfig'
 
 const ShowPublicLinkAlert = ({
   open,
-  data,
+  collection,
   type,
   onClose,
   onPublish,
@@ -17,8 +17,8 @@ const ShowPublicLinkAlert = ({
   let content
   let actions = null
 
-  if (data.public) {
-    const url = `${urls.frontend}collections/${type}/${data.pk}/public/`
+  if (collection.public) {
+    const url = `${urls.frontend}collections/${type}/${collection.pk}/public/`
     content = (
       <div style={{ userSelect: 'text' }} >
         {url}
@@ -54,7 +54,7 @@ const ShowPublicLinkAlert = ({
 
 ShowPublicLinkAlert.propTypes = {
   open: PropTypes.bool.isRequired,
-  data: PropTypes.object.isRequired,
+  collection: PropTypes.object.isRequired,
   type: PropTypes.string.isRequired,
   onClose: PropTypes.func.isRequired,
   onPublish: PropTypes.func,

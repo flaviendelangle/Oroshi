@@ -16,6 +16,10 @@ class TVShow extends Element {
     return super.fromDistant(data, collection, TVShow)
   }
 
+  static fromSettings(collection) {
+    return super.fromSettings(collection, TVShow)
+  }
+
   buildSearchIndex() {
     const local = this.getLocal()
     const searchIndex = []
