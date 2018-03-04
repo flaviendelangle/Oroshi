@@ -90,7 +90,7 @@ export default class BaseAPI {
     const value = encodeURIComponent(_value)
     const url = `${this.url()}${value}/${routeName}/`
     let data
-    if (method === 'POST') {
+    if (['POST', 'PATCH', 'PUT'].includes(method)) {
       data = {
         body: this.objectToFormData(body),
       }
@@ -101,7 +101,7 @@ export default class BaseAPI {
   listRoute(routeName, method = 'GET', body) {
     const url = `${this.url()}${routeName}/`
     let data
-    if (method === 'POST') {
+    if (['POST', 'PATCH', 'PUT'].includes(method)) {
       data = {
         body: this.objectToFormData(body),
       }

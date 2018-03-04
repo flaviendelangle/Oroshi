@@ -19,22 +19,12 @@ class CoverCustomization extends Component {
     elementComponent: PropTypes.func.isRequired,
     isContentLoaded: PropTypes.bool,
     synchronize: PropTypes.func.isRequired,
-    updateCover: PropTypes.func.isRequired,
+    updateCovers: PropTypes.func.isRequired,
     content: PropTypes.array.isRequired,
   }
 
   state = {
-    covers: [],
     updatedIndex: -1,
-  }
-
-  componentWillMount() {
-    const { collection: { cover_elements: covers } } = this.props
-    const completeCover = [
-      ...covers,
-      ...Array.from({ length: 3 - covers.length }, () => null),
-    ]
-    this.setState(() => ({ covers: completeCover }))
   }
 
   componentDidMount() {
@@ -49,19 +39,14 @@ class CoverCustomization extends Component {
   }
 
   onChooseItem = (element) => {
-    const { updatedIndex, covers } = this.state
-    const newCovers = [
-      ...covers.slice(0, updatedIndex),
-      element,
-      ...covers.slice(updatedIndex + 1),
-    ]
-    this.props.updateCovers(newCovers)
+    const { updatedIndex } = this.state
+    this.props.updateCovers(element, updatedIndex).then(this.onModalClose)
   }
 
   onModalClose = () => this.onItemClick(-1)
 
   render() {
-    const { covers, updatedIndex } = this.state
+    const { updatedIndex } = this.state
     const {
       collection,
       type,
@@ -76,7 +61,12 @@ class CoverCustomization extends Component {
     }
     return (
       <div className={styles.CoverCustomization}>
-        <CollectionCover covers={covers} ratio={1} onItemClick={this.onItemClick} />
+        <CollectionCover
+          covers={collection.cover_elements}
+          ratio={1}
+          onItemClick={this.onItemClick}
+        />
+        <div className={styles.Help}>Click on the cover you want to change</div>
         <DialogSearchElement
           title="Select your new cover"
           collection={collection}
@@ -102,9 +92,7 @@ const mapStateToProps = ({ content }, { app }) => ({
 
 const mapDispatchToProps = (dispatch, { type, collection }) => ({
   synchronize: () => dispatch(getCollection(type, collection)),
-  updateCover: (elements) => (
-    dispatch(updateCover(type, collection, elements))
-  ),
+  updateCovers: (...args) => dispatch(updateCover(type, collection, ...args)),
 })
 
 export default connect(

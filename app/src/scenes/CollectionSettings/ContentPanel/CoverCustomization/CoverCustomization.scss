@@ -1,3 +1,11 @@
+@import "../../../../styles/variables";
+
 .CoverCustomization {
-  background: transparent;
+  .Help {
+    line-height: 2rem;
+    font-size: 1.3rem;
+    margin: 3rem 0;
+    text-align: center;
+    color: $textColor;
+  }
 }

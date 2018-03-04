@@ -102,10 +102,10 @@ export const update = (type, collection, data) => ({
   },
 })
 
-export const updateCover = (type, collection, elements) => ({
+export const updateCover = (type, collection, element, position) => ({
   type: titles.collections.updateSettings,
   payload: getCollectionAPI(type)
-    .updateCover(collection.pk, elements.map(el => el && el.getID())),
+    .updateCover(collection.pk, element.getID(), position),
   meta: {
     type,
     collection,

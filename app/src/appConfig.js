@@ -3,7 +3,7 @@ import tvShows from './types/tvShows'
 
 
 export const OAUTH2 = {
-  client_id: 'uFEQxeqX68iPQAlqrOUd9sr0nEPjCwwwOiq3rh2d',
+  client_id: '5ARq2A1e0y8yU8Jwbpefbn4HfOM1gaJwhOyMwziO',
   grant_type: 'password',
 }
 

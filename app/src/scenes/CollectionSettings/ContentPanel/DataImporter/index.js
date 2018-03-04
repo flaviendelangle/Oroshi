@@ -137,7 +137,7 @@ class DataImporter extends Component {
           elements &&
           <div className={styles.ImportResults} >
             <Progress progress={progress} />
-            <List className={List}>
+            <List>
               <ScrollArea
                 speed={0.8}
                 horizontal={false}
