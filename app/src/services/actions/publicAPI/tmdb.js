@@ -3,9 +3,20 @@ import {
   getTopRated as getTopRatedOriginal,
   search as searchOriginal,
 } from './index'
+
 import searchAPI from '../../TheMovieDatabaseJS/search'
-import { getActions, getCollectionAPI, getElementAPI, getPublicAPI } from '../../content/collectionTypes'
-import { getTmdbLanguages, DEFAULT_LANGUAGE } from '../../languages'
+
+import {
+  getCollectionAPI,
+  getElementAPI,
+  getPublicAPI,
+  getElementClass,
+} from '../../content/collectionTypes'
+
+import {
+  getTmdbLanguages,
+  DEFAULT_LANGUAGE,
+} from '../../languages'
 
 
 export const checkExistence = (type, collection, _elements, fromLocalAPI = false) => {
@@ -42,7 +53,7 @@ export const checkExistence = (type, collection, _elements, fromLocalAPI = false
 
 export const prepareStreamResults = (type, collection, elements, nextAction) => (
   checkExistence(type, collection, elements.content).then((response) => {
-    const Element = getActions(type).elementClass
+    const Element = getElementClass(type)
     let next = null
     if (elements.content.page < elements.content.total_pages) {
       next = nextAction.bind(this, type, collection, elements.content.page + 1)
@@ -57,7 +68,7 @@ export const prepareStreamResults = (type, collection, elements, nextAction) => 
 
 export const prepareSearchResults = (type, collection, { content, ...elements }, query) => (
   checkExistence(type, collection, { content, ...elements }).then((response) => {
-    const Element = getActions(type).elementClass
+    const Element = getElementClass(type)
     let next = null
     if (elements.page < elements.total_pages) {
       next = searchOriginal.bind(this, type, collection, query, elements.page + 1)

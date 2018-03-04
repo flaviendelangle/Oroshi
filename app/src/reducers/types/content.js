@@ -1,7 +1,7 @@
 import { collectionContent, collections } from '../../services/titles/api'
 import { sort, search } from '../../services/titles/data'
 import { layout } from '../../services/titles/interface'
-import { getListGenerator, getStreamGenerator, getSortOptions } from '../../services/content/collectionTypes'
+import typeManager from '../../services/content/type'
 import { getValue } from '../../services/localstorage'
 import Element from '../../services/content/element'
 
@@ -10,10 +10,11 @@ import * as contentManager from '../../scenes/Collection/CollectionContent/conte
 
 
 const generateDefaultState = (type) => {
-  const ListGenerator = getListGenerator(type)
-  const StreamGenerator = getStreamGenerator(type)
+  const getter = typeManager.read(type)
+  const GridGenerator = getter.grid()
+  const StreamGenerator = getter.stream()
 
-  const { defaultOrder } = getSortOptions(type)
+  const { defaultOrder } = getter.sort_options()
 
   return {
     content: [],
@@ -22,7 +23,7 @@ const generateDefaultState = (type) => {
     layout: getValue(`layout_${type}`) || 'grid',
     order: getValue(`order_${type}`) || defaultOrder,
     stream: new StreamGenerator(),
-    grid: new ListGenerator(),
+    grid: new GridGenerator(),
   }
 }
 
@@ -33,9 +34,10 @@ const reducer = (_state, action) => {
   let newContent
   let newOrder
 
-  const ListGenerator = getListGenerator(type)
-  const StreamGenerator = getStreamGenerator(type)
-  const { defaultOrder } = getSortOptions(type)
+  const getter = typeManager.read(type)
+  const GridGenerator = getter.grid()
+  const StreamGenerator = getter.stream()
+  const { defaultOrder } = getter.sort_options()
 
   switch (action.type) {
     /**
@@ -54,7 +56,7 @@ const reducer = (_state, action) => {
         isContentLoaded: true,
         content: newContent,
         stream: new StreamGenerator(newContent, state.query, state.order.stream),
-        grid: new ListGenerator(newContent, state.query),
+        grid: new GridGenerator(newContent, state.query),
         autoComplete: Element.buildAutoComplete(newContent, state.order.stream),
       }
     }
@@ -69,7 +71,7 @@ const reducer = (_state, action) => {
         ...state,
         content: newContent,
         stream: new StreamGenerator(newContent, state.query, state.order.stream),
-        grid: new ListGenerator(newContent, state.query),
+        grid: new GridGenerator(newContent, state.query),
         autoComplete: Element.buildAutoComplete(newContent, state.order.stream),
       }
     }
@@ -84,7 +86,7 @@ const reducer = (_state, action) => {
         ...state,
         content: newContent,
         stream: new StreamGenerator(newContent, state.query, state.order.stream),
-        grid: new ListGenerator(newContent, state.query),
+        grid: new GridGenerator(newContent, state.query),
         autoComplete: Element.buildAutoComplete(newContent, state.order.stream),
       }
     }
@@ -99,7 +101,7 @@ const reducer = (_state, action) => {
         ...state,
         content: newContent,
         stream: new StreamGenerator(newContent, state.query, state.order.stream),
-        grid: new ListGenerator(newContent, state.query),
+        grid: new GridGenerator(newContent, state.query),
         autoComplete: Element.buildAutoComplete(newContent, state.order.stream),
       }
     }
@@ -124,7 +126,7 @@ const reducer = (_state, action) => {
         order: newOrder,
         content: newContent,
         stream: new StreamGenerator(newContent, state.query, newOrder.stream),
-        grid: new ListGenerator(newContent, state.query),
+        grid: new GridGenerator(newContent, state.query),
         autoComplete: Element.buildAutoComplete(newContent, newOrder.stream),
         update: Math.random(),
       }
@@ -138,7 +140,7 @@ const reducer = (_state, action) => {
         ...state,
         query: action.query,
         stream: new StreamGenerator(state.content, action.query, state.order.stream),
-        grid: new ListGenerator(state.content, action.query),
+        grid: new GridGenerator(state.content, action.query),
       }
     }
 

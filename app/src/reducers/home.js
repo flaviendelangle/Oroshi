@@ -4,7 +4,7 @@ import collectionList from '../scenes/Home/CollectionList/reducer'
 import dialogCreateCollection from '../scenes/Home/DialogCreateCollection/reducer'
 
 import { collectionContent } from '../services/titles/api'
-import { getActions } from '../services/content/collectionTypes'
+import { getElementClass } from '../services/content/collectionTypes'
 
 const defaultState = {
   collections: [],
@@ -17,7 +17,7 @@ const main = (state = defaultState, action) => {
       return {
         ...state,
         collections: action.payload.map(collection => (
-          getActions(collection.type).elementClass.fromSettings(collection)
+          getElementClass(collection.type).fromSettings(collection)
         )),
         isLoaded: true,
       }

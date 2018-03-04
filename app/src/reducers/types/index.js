@@ -1,6 +1,4 @@
-import { mapValues } from 'lodash'
-
-import { collectionTypes } from '../../config'
+import typeManager from '../../services/content/type'
 
 import mainReducer from './main'
 import contentReducer from './content'
@@ -13,8 +11,8 @@ import searchReducer from './search'
 
 const defaultState = {}
 
-collectionTypes.forEach((el) => {
-  defaultState[el.name] = {}
+typeManager.all().forEach((type) => {
+  defaultState[type] = {}
 })
 
 const computeNewState = (oldState, action) => ({
@@ -52,11 +50,28 @@ const updateOneState = (_state, action, type, collection) => {
   }
 }
 
-const updateAllStates = (state, action) => mapValues(state, categoryState => (
-  mapValues(categoryState, elementState => (
-    computeNewState(elementState, action)
-  ))
-))
+const completeAction = (action, type, collection) => ({
+  ...action,
+  meta: {
+    ...(action.meta || {}),
+    type,
+    collection: { collection },
+  },
+})
+
+const updateAllStates = (state, action) => (
+  Object.keys(state).reduce((typesResult, type) => ({
+    ...typesResult,
+    [type]: Object.keys(state[type]).reduce((collectionsResult, collection) => {
+      const newAction = completeAction(action, type, collection)
+      return {
+        ...collectionsResult,
+        [collection]: computeNewState(state[type][collection], newAction),
+      }
+    }, {}),
+  }), {})
+)
+
 
 const reducer = (state = defaultState, action) => {
   if (action.meta) {

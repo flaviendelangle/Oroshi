@@ -1,7 +1,7 @@
 import { source, snacks } from '../../services/titles/interface'
 import { collections, collectionContent } from '../../services/titles/api'
 import TMDBAPI from '../../services/TheMovieDatabaseJS/index'
-import { getActions } from '../../services/content/collectionTypes'
+import { getElementClass } from '../../services/content/collectionTypes'
 
 
 const defaultState = {
@@ -32,7 +32,7 @@ const main = (state = defaultState, action) => {
       })
       return {
         ...state,
-        collection: getActions(type).elementClass.fromSettings(collection),
+        collection: getElementClass(type).fromSettings(collection),
         found: true,
         isLoaded: true,
       }
@@ -45,7 +45,7 @@ const main = (state = defaultState, action) => {
       const { payload, meta: { type } } = action
       return {
         ...state,
-        collection: getActions(type).elementClass.fromSettings(payload),
+        collection: getElementClass(type).fromSettings(payload),
         found: true,
         isLoaded: true,
       }
@@ -55,7 +55,7 @@ const main = (state = defaultState, action) => {
       const { payload, meta: { type } } = action
       return {
         ...state,
-        collection: getActions(type).elementClass.fromSettings(payload),
+        collection: getElementClass(type).fromSettings(payload),
       }
     }
 

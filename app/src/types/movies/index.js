@@ -1,25 +1,47 @@
 import AVMovie from 'material-ui/svg-icons/av/movie'
 
-import elementComponent from './component'
+import type from '../../services/content/type'
+
+import elementComponent from './elementComponent'
 import elementClass from './elementClass'
-import listGenerator from './listGenerator'
 import streamGenerator from './streamGenerator'
 import sortOptions from './sortOptions'
 import * as searchOptions from './searchOptions'
 import * as actions from './actions'
 import * as publicActions from './publicActions'
+import MoviesTMDB from '../../services/TheMovieDatabaseJS/movies'
+import { MovieCollectionsAPI } from '../../services/api/movieCollections'
+import { MoviesAPI } from '../../services/api/movies'
 
 
-export default {
+const legacy = {
   name: 'movies',
   label: 'Movies',
   elementComponent,
   elementClass,
-  listGenerator,
-  streamGenerator,
   actions,
   publicActions,
   searchOptions,
   sortOptions,
   icon: AVMovie,
+  elementAPI: MoviesAPI,
+  publicAPI: MoviesTMDB,
+  collectionAPI: MovieCollectionsAPI,
 }
+
+
+export default type
+  .create('movies')
+  .label('Movies')
+  .icon(AVMovie)
+  .elementClass(elementClass)
+  .elementComponent(elementComponent)
+  .actions('public', publicActions)
+  .actions('local', actions)
+  .contentManagers('stream', streamGenerator)
+  .options('sort', sortOptions)
+  .options('search', searchOptions)
+  .api('element', MoviesAPI)
+  .api('collection', MovieCollectionsAPI)
+  .api('public', MoviesTMDB)
+  .legacy(legacy)

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 
 import CollectionCover from '../../../../components/generics/CollectionCover'
 
-import { getIcon } from '../../../../services/content/collectionTypes'
+import typeManager from '../../../../services/content/type'
 
 import styles from './CollectionBox.scss'
 
@@ -18,7 +18,7 @@ const CollectionBox = ({
     pk,
   },
 }) => {
-  const Icon = getIcon(type)
+  const Icon = typeManager.read(type).icon()
   return (
     <div className={styles.CollectionBox} data-ratio={ratio}>
       <Link to={`/collections/${type}/${pk}/`}>

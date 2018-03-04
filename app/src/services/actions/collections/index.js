@@ -2,7 +2,7 @@ import { readAsText } from 'promise-file-reader'
 import json2csv from 'json2csv'
 import downloadjs from 'downloadjs'
 
-import { getActions, getCollectionAPI } from '../../content/collectionTypes'
+import { getActions, getCollectionAPI, getElementClass } from '../../content/collectionTypes'
 import { parseCSV, parseJSON } from '../../utils'
 import { pickElement } from '../../languages'
 import { CollectionsAPI } from '../../api/collections'
@@ -25,7 +25,7 @@ export const addCollectionToElement = (element, collection) => ({
 
 export const prepareElements = (type, data) => {
   const { content, seen, ...clearedData } = data
-  const Element = getActions(type).elementClass
+  const Element = getElementClass(type)
   const elements = content.map(el => new Element(el))
   elements.forEach((el) => {
     el.setCollection(clearedData)
@@ -220,7 +220,7 @@ export const importElements = (type, collection, _elements, dispatch) => {
   return {
     type: titles.collectionContent.importElement,
     payload: checkExistence(type, collection, data, true).then(({ results }) => {
-      const Element = getActions(type).elementClass
+      const Element = getElementClass(type)
       const elements = Element.fromDistantList(results, collection)
       dispatch({
         type: `${titles.collectionContent.import}_STARTED`,
@@ -298,7 +298,7 @@ export const exportCollection = (type, collection, format) => {
 
 export const searchInCollection = (type, collection, request, elements) => ({
   type: search.compute_advanced_search,
-  payload: getActions(type).elementClass.search(request, elements),
+  payload: getElementClass(type).search(request, elements),
   meta: {
     type,
     collection,

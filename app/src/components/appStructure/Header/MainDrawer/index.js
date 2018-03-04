@@ -14,7 +14,7 @@ import ActionAccountBox from 'material-ui/svg-icons/action/account-box'
 
 import { showMainDrawer } from './actions'
 import { connect } from '../../../../services/redux'
-import { getIcon } from '../../../../services/content/collectionTypes'
+import typeManager from '../../../../services/content/type'
 
 import styles from './MainDrawer.scss'
 
@@ -56,7 +56,7 @@ class MainDrawer extends Component {
       collection,
     } = this.props
 
-    const CollectionIcon = getIcon(type)
+    const CollectionIcon = typeManager.read(type).icon()
 
     const lines = {
       content: (

@@ -4,7 +4,7 @@ import cx from 'classnames'
 
 import IconButton from 'material-ui/IconButton'
 
-import { getAllTypes, getIcon, getLabel, getStatus } from '../../../../services/content/collectionTypes'
+import typeManager from '../../../../services/content/type'
 
 import styles from './CollectionType.scss'
 
@@ -12,10 +12,11 @@ import styles from './CollectionType.scss'
 const CollectionType = ({ onClick }) => (
   <div className={styles.CollectionType}>
     {
-      getAllTypes().map((type) => {
-        const Icon = getIcon(type)
-        const status = getStatus(type)
-        const label = status === 'work_in_progress' ? 'Coming soon' : getLabel(type)
+      typeManager.all().map((type) => {
+        const getter = typeManager.read(type)
+        const Icon = getter.icon()
+        const status = getter.status()
+        const label = status === 'work_in_progress' ? 'Coming soon' : getter.label()
 
         const frameClasses = cx({
           [styles.Frame]: true,

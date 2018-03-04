@@ -1,7 +1,6 @@
 import BaseAPI from './base'
 import { OauthAPI } from './oauth'
 
-
 export default class API extends BaseAPI {
   fetch(url, _data) {
     const promise = OauthAPI.getTokenOrRefresh()

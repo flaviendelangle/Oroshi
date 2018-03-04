@@ -1,5 +1,6 @@
 import API from './index'
 
+
 class Directors extends API {
   config = {
     root: '/directors',

@@ -1,5 +1,5 @@
 
-class ListGenerator {
+class GridGenerator {
   regexp = new RegExp('([a-zA-Z0-9]+):([a-zA-Z0-9]+)')
   query
   results = []
@@ -47,4 +47,4 @@ class ListGenerator {
   matchFilter = (movieValue, filterValue) => movieValue === filterValue
 }
 
-export default ListGenerator
+export default GridGenerator
