@@ -2,35 +2,53 @@
 @import "../../../../styles/variables";
 
 .MainDrawer {
-  .TitleBar {
-    background-color: $light-background-color !important;
-  }
+  > div > div:nth-child(2) {
+    overflow: hidden !important;
+    display: flex;
+    flex-direction: column;
 
-  .Content {
-    & > div {
-      width: 100%;
-      line-height: 46px;
-      height: 46px;
-      display: block;
+    .TitleBar {
+      background-color: $light-background-color !important;
     }
 
-    & a {
-      display: block;
-      height: 48px;
-      margin: 0 -16px;
+    .Content {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
 
-      & > svg {
-        @include icon();
+      .Section {
+        &:last-child {
+          flex-grow: 1;
+          display: flex;
+          align-items: flex-end;
+        }
 
-        position: absolute;
-        height: 24px;
-        top: 11px;
-        left: 11px;
-      }
+        & > div {
+          width: 100%;
+          line-height: 46px;
+          height: 46px;
+          display: block;
+        }
 
-      & > div {
-        position: absolute;
-        left: 50px;
+        & a {
+          display: block;
+          height: 48px;
+          margin: 0 -16px;
+
+          & > svg {
+            @include icon();
+
+            position: absolute;
+            height: 24px;
+            top: 11px;
+            left: 11px;
+          }
+
+          & > div {
+            position: absolute;
+            left: 50px;
+          }
+        }
       }
     }
   }

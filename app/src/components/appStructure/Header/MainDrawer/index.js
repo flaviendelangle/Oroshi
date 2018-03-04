@@ -18,6 +18,24 @@ import { connect } from '../../../../services/redux'
 import styles from './MainDrawer.scss'
 
 
+const APP_LINES = [
+  (
+    <Link to="/">
+      <ActionHome />
+      <div>Home</div>
+    </Link>
+  ),
+]
+
+const ACCOUNT_LINES = [
+  (
+    <Link to="/logout/">
+      <ActionExit />
+      <div>Logout</div>
+    </Link>
+  ),
+]
+
 class MainDrawer extends Component {
   static propTypes = {
     scene: PropTypes.string.isRequired,
@@ -30,7 +48,7 @@ class MainDrawer extends Component {
 
   }
 
-  getSceneLines() {
+  getCollectionLines() {
     const {
       scene,
       type,
@@ -60,42 +78,11 @@ class MainDrawer extends Component {
     return Object.keys(lines).filter(el => el !== scene).map(el => lines[el])
   }
 
-  GENERIC_LINES_BEFORE = [
-    (
-      <Link to="/">
-        <ActionHome />
-        <div>Home</div>
-      </Link>
-    ),
+  getLines = () => [
+    APP_LINES,
+    this.getCollectionLines(),
+    ACCOUNT_LINES,
   ]
-
-  GENERIC_LINES_AFTER = [
-    (
-      <Link to="/logout/">
-        <ActionExit />
-        <div>Logout</div>
-      </Link>
-    ),
-  ]
-
-  renderLines = () => {
-    const lines = [
-      ...this.GENERIC_LINES_BEFORE,
-      ...this.getSceneLines(),
-      <Divider key={-1} />,
-      ...this.GENERIC_LINES_AFTER,
-    ]
-    return lines.map((el) => {
-      if (el.type.name === 'Divider') {
-        return el
-      }
-      return (
-        <MenuItem key={el.props.to} >
-          {el}
-        </MenuItem>
-      )
-    })
-  }
 
   render() {
     const {
@@ -104,6 +91,8 @@ class MainDrawer extends Component {
       title,
       onOpen,
     } = this.props
+
+    const lines = this.getLines()
 
     if (isPublic) {
       return null
@@ -124,7 +113,21 @@ class MainDrawer extends Component {
             {this.actionsButton}
           </AppBar>
           <div className={styles.Content}>
-            {this.renderLines()}
+            {
+              lines.map((section, index) => (
+                <div
+                  className={styles.Section}
+                  key={index /* eslint-disable-line react/no-array-index-key */}
+                >
+                  { section.map(line => (
+                    <MenuItem key={line.props.to}>
+                      {line}
+                    </MenuItem>
+                  ))}
+                  { (index < lines.length - 1) && <Divider /> }
+                </div>
+              ))
+            }
           </div>
         </Drawer>
       </nav>
