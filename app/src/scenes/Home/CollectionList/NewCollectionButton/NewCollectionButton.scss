@@ -1,0 +1,12 @@
+.NewCollectionButton {
+  display: flex;
+  cursor: pointer;
+
+  @for $i from 1 through 4 {
+    $ratio: $i * 0.25;
+
+    &[data-ratio="#{$ratio}"] {
+      margin: (2rem * $ratio) (4rem * $ratio);
+    }
+  }
+}

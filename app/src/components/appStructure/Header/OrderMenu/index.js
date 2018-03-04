@@ -8,34 +8,9 @@ import ContentSort from 'material-ui/svg-icons/content/sort'
 
 import { sort as _sort } from '../../../../scenes/Collection/CollectionContent/actions'
 import { connect } from '../../../../services/redux'
+import { getSortOptions } from '../../../../services/content/collectionTypes'
 
 import styles from './OrderMenu.scss'
-
-
-const LINKS = {
-  movies: {
-    stream: [
-      { label: 'Group by directors', arguments: ['directors'] },
-      { label: 'Group by genres', arguments: ['genres'] },
-      { label: 'Group by year of release', arguments: ['release_year'] },
-    ],
-    grid: [
-      { label: 'Order by title', arguments: ['title', 'asc'] },
-      { label: 'Order by note', arguments: ['note', 'desc'] },
-      { label: 'Order by release date', arguments: ['release', 'desc'] },
-    ],
-  },
-  tv_shows: {
-    stream: [
-      { label: 'Group by networks', arguments: ['networks'] },
-      { label: 'Group by genres', arguments: ['genres'] },
-    ],
-    grid: [
-      { label: 'Order by title', arguments: ['title', 'asc'] },
-      { label: 'Order by note', arguments: ['note', 'desc'] },
-    ],
-  },
-}
 
 
 const OrderMenu = ({
@@ -55,7 +30,7 @@ const OrderMenu = ({
         className={styles.Icon}
       >
         {
-          LINKS[type][layout].map(el => (
+          getSortOptions(type).content[layout].map(el => (
             <MenuItem
               primaryText={el.label}
               onClick={() => sort(layout, ...el.arguments)}

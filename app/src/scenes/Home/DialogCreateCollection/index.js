@@ -4,7 +4,6 @@ import PropTypes from 'prop-types'
 
 import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
-import muiThemeable from 'material-ui/styles/muiThemeable'
 
 import CollectionType from './CollectionType/index'
 import CollectionConfiguration from './CollectionConfiguration/index'
@@ -18,7 +17,6 @@ class DialogCreateCollection extends Component {
     create: PropTypes.func.isRequired,
     close: PropTypes.func.isRequired,
     isOpen: PropTypes.bool.isRequired,
-    muiTheme: PropTypes.object.isRequired,
   }
 
   state = {
@@ -69,14 +67,12 @@ class DialogCreateCollection extends Component {
   }
 
   renderActions = () => {
-    const { muiTheme: { palette } } = this.props
     if (this.state.stepIndex > 0) {
       return (
         <FlatButton
           label="Create"
           primary
           onClick={this.create}
-          style={{ color: palette.alternateTextColor }}
         />
       )
     }
@@ -128,4 +124,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(muiThemeable()(DialogCreateCollection))
+)(DialogCreateCollection)

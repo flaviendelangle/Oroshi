@@ -8,7 +8,7 @@ import CollectionSearch from '../../../scenes/CollectionSearch'
 import ElementSuggestions from '../../../scenes/ElementSuggestions'
 import Header from '../Header'
 
-import { collectionTypes } from '../../../appConfig'
+import { collectionTypes } from '../../../config'
 
 import styles from './Collection.scss'
 

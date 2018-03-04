@@ -1,5 +1,5 @@
 import BaseAPI from './base'
-import { OAUTH2 as config } from '../../appConfig'
+import { OAUTH2 as config } from '../../config'
 import { loadOauth, saveOauth, destroyOauth } from '../localstorage'
 
 

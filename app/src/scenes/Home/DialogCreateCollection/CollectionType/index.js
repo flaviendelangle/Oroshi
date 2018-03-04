@@ -1,56 +1,44 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import cx from 'classnames'
 
 import IconButton from 'material-ui/IconButton'
-import AVMovie from 'material-ui/svg-icons/av/movie'
-import HardwareTV from 'material-ui/svg-icons/hardware/tv'
 
-import * as _style from './style'
+import { getAllTypes, getIcon, getLabel, getStatus } from '../../../../services/content/collectionTypes'
+
+import styles from './CollectionType.scss'
 
 
 const CollectionType = ({ onClick }) => (
-  <div>
-    <TypeFrame
-      type="movies"
-      label="Movies"
-      Icon={AVMovie}
-      onClick={onClick}
-    />
-    <TypeFrame
-      type="tv_shows"
-      label="TV-Shows"
-      Icon={HardwareTV}
-      onClick={onClick}
-    />
+  <div className={styles.CollectionType}>
+    {
+      getAllTypes().map((type) => {
+        const Icon = getIcon(type)
+        const status = getStatus(type)
+        const label = status === 'work_in_progress' ? 'Coming soon' : getLabel(type)
+
+        const frameClasses = cx({
+          [styles.Frame]: true,
+          [styles.FrameWorkInProgress]: status === 'work_in_progress',
+        })
+
+        return (
+          <div key={type} className={frameClasses} >
+            <IconButton
+              className={styles.Button}
+              onClick={() => status === 'ready_to_use' && onClick(type)}
+            >
+              <Icon className={styles.Icon} />
+            </IconButton>
+            <div>{ label }</div>
+          </div>
+        )
+      })
+    }
   </div>
 )
 
 CollectionType.propTypes = {
-  onClick: PropTypes.func.isRequired,
-}
-
-const TypeFrame = ({
-  type,
-  label,
-  Icon,
-  onClick,
-}) => (
-  <div style={_style.frame} >
-    <IconButton
-      iconStyle={_style.icon}
-      style={_style.iconContainer}
-      onClick={() => onClick(type)}
-    >
-      <Icon />
-    </IconButton>
-    <div>{label}</div>
-  </div>
-)
-
-TypeFrame.propTypes = {
-  type: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired,
-  Icon: PropTypes.element.isRequired,
   onClick: PropTypes.func.isRequired,
 }
 

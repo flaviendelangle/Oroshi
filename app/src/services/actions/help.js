@@ -1,4 +1,4 @@
-import { HELP as config } from '../../appConfig'
+import { HELP as config } from '../../config'
 import { getDetails, cleanDetails } from './publicAPI'
 import { element } from '../titles/help'
 import { getActions } from '../content/collectionTypes'

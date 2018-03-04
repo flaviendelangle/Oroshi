@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { path as _path } from '../../../services/TheMovieDatabaseJS/images'
 
 import styles from './Poster.scss'
 
@@ -12,10 +11,9 @@ const Poster = ({
   ratio,
 }) => {
   if (path) {
-    const url = `${_path}/w185${path}`
     return (
       <img
-        src={url}
+        src={path}
         alt="Poster"
         onLoad={() => onLoad && onLoad(true)}
         onError={() => onLoad && onLoad(false)}

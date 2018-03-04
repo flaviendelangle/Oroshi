@@ -1,17 +1,7 @@
-import elementComponent from './component'
-import elementClass from './elementClass'
-import listGenerator from './listGenerator'
-import streamGenerator from './streamGenerator'
-import * as actions from './actions'
-import * as publicActions from './publicActions'
-
+import HardwareTV from 'material-ui/svg-icons/hardware/tv'
 
 export default {
   name: 'tv_shows',
-  elementComponent,
-  elementClass,
-  listGenerator,
-  streamGenerator,
-  actions,
-  publicActions,
+  status: 'work_in_progress',
+  icon: HardwareTV,
 }

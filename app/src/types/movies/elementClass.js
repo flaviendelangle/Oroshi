@@ -1,5 +1,7 @@
 import { isBoolean } from 'lodash'
 
+import { path } from '../../services/TheMovieDatabaseJS/images'
+
 import Element from '../../services/content/element'
 import date from '../../services/content/date'
 
@@ -61,6 +63,8 @@ class Movie extends Element {
   getDistantPublicID = () => this.getDistant().id
 
   getDistantTitle = () => this.getDistant().title
+
+  getFullPosterPath = language => `${path}/w185/${this.getPosterPath(language)}`
 
   getReleaseDate() {
     if (this.hasDistant()) {

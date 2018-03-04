@@ -62,7 +62,7 @@ class Home extends Component {
         {
           isEmpty(collections) ?
             <FirstCollectionButton /> :
-            <CollectionList data={collections} />
+            <CollectionList collections={collections} />
         }
         <DialogCreateCollection />
       </Fragment>

@@ -5,7 +5,6 @@ import promiseMiddleware from 'redux-promise-middleware'
 import home from '../reducers/home'
 import login from '../reducers/login'
 import help from '../components/generics/Help/reducer'
-import tvShows from '../types/tvShows/component/reducer'
 
 import { notify } from '../services/titles/router'
 import { screen } from '../services/titles/interface'
@@ -82,9 +81,6 @@ const appReducer = combineReducers({
 
   // Generics
   help,
-
-  // Elements
-  tv_shows: tvShows,
 
   // Scenes
   home,

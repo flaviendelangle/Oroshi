@@ -67,7 +67,7 @@ const reducer = (state = defaultState, action) => {
     }
 
     /**
-     * A new page of the popular movies has been loaded
+     * A new page of the popular elements has been loaded
      */
     case `${publicAPI.request.get_popular}_FULFILLED`: {
       return recommendationsManager.merge(
@@ -78,7 +78,7 @@ const reducer = (state = defaultState, action) => {
     }
 
     /**
-     * A new page of the top rated movies has been loaded
+     * A new page of the top rated elements has been loaded
      */
     case `${publicAPI.request.get_top_rated}_FULFILLED`: {
       return recommendationsManager.merge(

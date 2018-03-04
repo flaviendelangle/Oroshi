@@ -1,0 +1,35 @@
+$icon-height: 5rem;
+$button-padding: 2rem;
+
+.CollectionType {
+  display: flex;
+  justify-content: space-evenly;
+
+  .Frame {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    line-height: 1.5rem;
+
+    .Button {
+      height: $icon-height + 2*$button-padding !important;
+      width: $icon-height + 2*$button-padding !important;
+      padding: $button-padding !important;
+
+      .Icon {
+        height: $icon-height !important;
+        width: $icon-height !important;
+      }
+    }
+
+    &WorkInProgress {
+      .Button {
+        cursor: default !important;
+
+        .Icon {
+          color: grey !important;
+        }
+      }
+    }
+  }
+}

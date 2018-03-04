@@ -1,7 +1,7 @@
 import { collectionContent, collections } from '../../services/titles/api'
 import { sort, search } from '../../services/titles/data'
 import { layout } from '../../services/titles/interface'
-import { getListGenerator, getStreamGenerator, getDefaultOrder } from '../../services/content/index'
+import { getListGenerator, getStreamGenerator, getSortOptions } from '../../services/content/collectionTypes'
 import { getValue } from '../../services/localstorage'
 import Element from '../../services/content/element'
 
@@ -13,7 +13,7 @@ const generateDefaultState = (type) => {
   const ListGenerator = getListGenerator(type)
   const StreamGenerator = getStreamGenerator(type)
 
-  const defaultOrder = getDefaultOrder(type)
+  const { defaultOrder } = getSortOptions(type)
 
   return {
     content: [],
@@ -35,7 +35,7 @@ const reducer = (_state, action) => {
 
   const ListGenerator = getListGenerator(type)
   const StreamGenerator = getStreamGenerator(type)
-  const defaultOrder = getDefaultOrder(type)
+  const { defaultOrder } = getSortOptions(type)
 
   switch (action.type) {
     /**

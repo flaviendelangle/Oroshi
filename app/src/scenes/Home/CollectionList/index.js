@@ -7,25 +7,28 @@ import NewCollectionButton from './NewCollectionButton/index'
 import styles from './CollectionList.scss'
 
 
-const CollectionList = ({ data }) => (
+const COVER_SIZE = 0.75
+
+const CollectionList = ({ collections }) => (
   <div className={styles.CollectionList}>
     {
-      data.map((collection) => {
+      collections.map((collection) => {
         const { type, pk } = collection
         return (
           <CollectionBox
             key={`${type}_${pk}`}
-            data={collection}
+            collection={collection}
+            ratio={COVER_SIZE}
           />
         )
       })
     }
-    <NewCollectionButton />
+    <NewCollectionButton ratio={COVER_SIZE} />
   </div>
 )
 
 CollectionList.propTypes = {
-  data: PropTypes.array.isRequired,
+  collections: PropTypes.array.isRequired,
 }
 
 export default CollectionList

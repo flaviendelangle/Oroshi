@@ -5,13 +5,18 @@ import PropTypes from 'prop-types'
 import CollectionCover from '../../../../components/generics/CollectionCover'
 import { showDialogCreateCollection } from '../../DialogCreateCollection/actions'
 
+import styles from './NewCollectionButton.scss'
 
-const NewCollectionButton = ({ createCollection }) => (
-  <CollectionCover creationMode onClick={createCollection} />
+
+const NewCollectionButton = ({ createCollection, ratio }) => (
+  <div data-ratio={ratio} className={styles.NewCollectionButton}>
+    <CollectionCover creationMode onClick={createCollection} ratio={ratio} />
+  </div>
 )
 
 NewCollectionButton.propTypes = {
   createCollection: PropTypes.func.isRequired,
+  ratio: PropTypes.number.isRequired,
 }
 
 const mapStateToProps = () => ({})

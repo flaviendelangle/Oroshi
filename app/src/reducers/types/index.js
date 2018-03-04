@@ -1,6 +1,6 @@
 import { mapValues } from 'lodash'
 
-import { collectionTypes } from '../../appConfig'
+import { collectionTypes } from '../../config'
 
 import mainReducer from './main'
 import contentReducer from './content'

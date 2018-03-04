@@ -17,8 +17,4 @@ const muiTheme = {
   },
 }
 
-const theme = merge(darkBaseTheme, muiTheme)
-// eslint-disable-next-line no-console
-console.log('THEME : ', theme)
-
-export default theme
+export default merge(darkBaseTheme, muiTheme)

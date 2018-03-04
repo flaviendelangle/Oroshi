@@ -5,13 +5,13 @@ import { Provider } from 'react-redux'
 import injectTapEventPlugin from 'react-tap-event-plugin'
 import WebFont from 'webfontloader'
 
-import Container from '../components/appStructure/Container'
+import Container from '../Container/index'
 
-import store from '../reducers/store'
+import store from '../../../reducers/store'
 
-import theme from '../services/theme'
-import tmdbApi from '../services/TheMovieDatabaseJS'
-import { DEFAULT_LANGUAGE } from '../services/languages'
+import theme from '../../../services/theme'
+import tmdbApi from '../../../services/TheMovieDatabaseJS/index'
+import { DEFAULT_LANGUAGE } from '../../../services/languages'
 
 
 /**

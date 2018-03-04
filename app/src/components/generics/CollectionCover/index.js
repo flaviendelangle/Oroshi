@@ -44,7 +44,7 @@ const CollectionCover = ({
             {
               el ?
                 <Poster
-                  path={el.getPosterPath()}
+                  path={el.getFullPosterPath()}
                   title=""
                   ratio={ratio}
                 /> :

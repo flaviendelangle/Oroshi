@@ -4,13 +4,11 @@
   display: flex;
   position: relative;
   flex-direction: column;
-  width: 250px;
-  margin: 2rem;
 
   .Title {
     @include sub-title();
 
-    padding-left: 5px;
+    margin-top: 1rem;
     text-align: center;
 
     &:hover {
@@ -22,7 +20,20 @@
 
   .Icon {
     position: absolute;
-    bottom: 3.2rem;
-    right: 3rem;
+  }
+
+  @for $i from 1 through 4 {
+    $ratio: $i * 0.25;
+
+    &[data-ratio="#{$ratio}"] {
+      margin: (2rem * $ratio) (4rem * $ratio);
+
+      & .Icon {
+        top: 360px * $ratio;
+        left: 265px * $ratio;
+        height: 48px * $ratio !important;
+        width: 48px * $ratio !important;
+      }
+    }
   }
 }

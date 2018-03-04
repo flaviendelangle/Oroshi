@@ -8,13 +8,13 @@ import AppBar from 'material-ui/AppBar'
 import Divider from 'material-ui/Divider'
 import ActionHome from 'material-ui/svg-icons/action/home'
 import ActionExit from 'material-ui/svg-icons/action/exit-to-app'
-import AVMovie from 'material-ui/svg-icons/av/movie'
 import ActionSettings from 'material-ui/svg-icons/action/settings'
 import ActionSearch from 'material-ui/svg-icons/action/search'
 import ActionAccountBox from 'material-ui/svg-icons/action/account-box'
 
 import { showMainDrawer } from './actions'
 import { connect } from '../../../../services/redux'
+import { getIcon } from '../../../../services/content/collectionTypes'
 
 import styles from './MainDrawer.scss'
 
@@ -56,10 +56,12 @@ class MainDrawer extends Component {
       collection,
     } = this.props
 
+    const CollectionIcon = getIcon(type)
+
     const lines = {
       content: (
         <Link to={`/collections/${type}/${collection.pk}/`} key={1} >
-          <AVMovie />
+          <CollectionIcon />
           <div>Return to my collection</div>
         </Link>
       ),

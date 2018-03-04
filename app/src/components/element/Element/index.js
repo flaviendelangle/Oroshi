@@ -144,7 +144,7 @@ class Element extends Component {
             onMouseLeave={() => this.onMouseHover(false)}
           >
             <Poster
-              path={data.getPosterPath()}
+              path={data.getFullPosterPath()}
               title={data.getTitle()}
               onLoad={this.onPosterLoad}
             />
