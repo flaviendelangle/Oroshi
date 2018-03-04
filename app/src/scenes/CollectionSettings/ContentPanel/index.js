@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Route, Redirect, Switch } from 'react-router-dom'
 
 import SummaryParameters from './SummaryParameters'
 import LanguageParameters from './LanguageParameters'
@@ -7,58 +8,41 @@ import ExportParameters from './ExportParameters'
 import DataImporter from './DataImporter'
 import CoverCustomization from './CoverCustomization'
 
-import { connect } from '../../../services/redux'
-
 import styles from './ContentPanel.scss'
 
 
-/**
- * Return the component of a given settings section
- * @param {string} active - name of the current settings section
- * @returns {Component} component representing this settings section
- */
-const getSectionComponent = (active) => {
-  switch (active) {
-    case 'summary':
-      return SummaryParameters
-    // case 'spoilers':
-    //   return SpoilerParameters
-    case 'languages':
-      return LanguageParameters
-    case 'exports':
-      return ExportParameters
-    case 'imports':
-      return DataImporter
-    case 'cover':
-      return CoverCustomization
-    default:
-      return null
-  }
+const sections = {
+  summary: SummaryParameters,
+  languages: LanguageParameters,
+  exports: ExportParameters,
+  imports: DataImporter,
+  cover: CoverCustomization,
 }
 
-const ContentPanel = ({ active, ...props }) => {
-  const Section = getSectionComponent(active)
-  if (!Section) {
-    return null
-  }
-  return (
-    <div className={styles.ContentPanel}>
-      <Section {...props} />
-    </div>
-  )
-}
+const defaultSection = 'summary'
+
+const ContentPanel = ({ match, ...props }) => (
+  <div className={styles.ContentPanel}>
+    <Switch>
+      {
+      Object.keys(sections).map(index => (
+        <Route
+          key={index /* eslint-disable-line react/no-array-index-key */}
+          path={`${match.url}/${index}`}
+          render={(routeProps) => {
+            const Element = sections[index]
+            return <Element {...props} {...routeProps} />
+          }}
+        />
+      ))
+    }
+      <Redirect to={`${match.url}/${defaultSection}`} />
+    </Switch>
+  </div>
+)
 
 ContentPanel.propTypes = {
-  active: PropTypes.string,
+  match: PropTypes.object.isRequired,
 }
 
-const mapStateToProps = ({ settings }) => ({
-  active: settings.activeSection,
-})
-
-const mapDispatchToProps = () => ({})
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(ContentPanel)
+export default ContentPanel

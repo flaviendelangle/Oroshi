@@ -5,4 +5,6 @@
   padding-top: 50px;
   flex-grow: 1;
   background-color: $light-background-color;
+  display: flex;
+  flex-direction: column;
 }

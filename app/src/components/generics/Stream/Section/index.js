@@ -134,7 +134,7 @@ class Section extends Component {
         <div className={styles.Content}>
           {
             elements.map((line, index) => (
-              <ElementLine key={index} > { /* eslint-disable-line react/no-array-index-key */ }
+              <ElementLine key={index /* eslint-disable-line react/no-array-index-key */} >
                 {
                   line.map(el => (
                     <Element

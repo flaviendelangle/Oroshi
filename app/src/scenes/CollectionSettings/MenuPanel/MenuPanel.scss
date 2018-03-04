@@ -1,3 +1,5 @@
+@import "../../../styles/variables";
+
 .MenuPanel {
   width: 25rem;
   height: 100%;
@@ -5,4 +7,27 @@
   padding-right: 20px;
   z-index: 2;
   box-shadow: 5px 0 5px 0 rgba(0, 0, 0, 0.35);
+
+  .Line {
+    line-height: 2.5rem;
+    height: 2.5rem;
+    margin: 0.5rem 0;
+    text-align: left;
+    position: relative;
+    display: inline-block;
+    float: right;
+    padding: 2px 15px;
+    width: 200px;
+    border-radius: 5px;
+    color: $textColor;
+    transition: background-color 0.1s ease-in-out;
+
+    &Active {
+      background: $bright-color;
+    }
+
+    &:not(.LineActive):hover {
+      background: #ffa000;
+    }
+  }
 }

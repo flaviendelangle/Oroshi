@@ -17,6 +17,8 @@ class CollectionSettings extends Component {
     type: PropTypes.string.isRequired,
     collection: PropTypes.object.isRequired,
     history: PropTypes.object.isRequired,
+    match: PropTypes.object.isRequired,
+    location: PropTypes.object.isRequired,
     redirect: PropTypes.bool,
     isLoaded: PropTypes.bool.isRequired,
     config: PropTypes.object.isRequired,
@@ -44,20 +46,22 @@ class CollectionSettings extends Component {
       type,
       collection,
       isLoaded,
+      match,
+      location,
       config: { elementComponent },
     } = this.props
 
     if (!isLoaded) {
       return <Progress />
     }
-
     return (
       <div className={styles.CollectionSettings}>
-        <MenuPanel type={type} collection={collection} />
+        <MenuPanel match={match} location={location} />
         <ContentPanel
           type={type}
           collection={collection}
           elementComponent={elementComponent}
+          match={match}
         />
       </div>
     )

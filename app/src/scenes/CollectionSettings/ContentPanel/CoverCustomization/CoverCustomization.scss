@@ -1,6 +1,11 @@
 @import "../../../../styles/variables";
 
 .CoverCustomization {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  flex-grow: 1;
+
   .Help {
     line-height: 2rem;
     font-size: 1.3rem;

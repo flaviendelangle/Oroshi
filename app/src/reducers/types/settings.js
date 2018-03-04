@@ -1,9 +1,7 @@
-import { collectionSettings } from '../../services/titles/interface'
 import { collectionContent, collections } from '../../services/titles/api'
 
 
 const defaultState = {
-  activeSection: 'summary',
   data: null,
   redirect: null,
   dataImporter: {
@@ -33,13 +31,6 @@ const settings = (state = defaultState, action) => {
       return {
         ...state,
         redirect: '/',
-      }
-    }
-
-    case collectionSettings.switchSection: {
-      return {
-        ...state,
-        activeSection: action.value,
       }
     }
 
