@@ -15,8 +15,8 @@ import {
   importCSV as _importCSV,
   importJSON as _importJSON,
   importElements,
-} from '../../../../services/actions/collections/index'
-import { connect } from '../../../../services/redux'
+} from '../../../services/actions/collections/index'
+import { connect } from '../../../services/redux'
 
 import styles from './DataImporter.scss'
 

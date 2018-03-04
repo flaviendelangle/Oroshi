@@ -11,6 +11,7 @@ import ActionExit from 'material-ui/svg-icons/action/exit-to-app'
 import AVMovie from 'material-ui/svg-icons/av/movie'
 import ActionSettings from 'material-ui/svg-icons/action/settings'
 import ActionSearch from 'material-ui/svg-icons/action/search'
+import ActionAccountBox from 'material-ui/svg-icons/action/account-box'
 
 import { showMainDrawer } from './actions'
 import { connect } from '../../../../services/redux'
@@ -19,21 +20,21 @@ import styles from './MainDrawer.scss'
 
 
 const APP_LINES = [
-  (
-    <Link to="/">
-      <ActionHome />
-      <div>Home</div>
-    </Link>
-  ),
+  <Link to="/">
+    <ActionHome />
+    <div>Home</div>
+  </Link>,
 ]
 
 const ACCOUNT_LINES = [
-  (
-    <Link to="/logout/">
-      <ActionExit />
-      <div>Logout</div>
-    </Link>
-  ),
+  <Link to="/account/">
+    <ActionAccountBox />
+    <div>Account</div>
+  </Link>,
+  <Link to="/logout/">
+    <ActionExit />
+    <div>Logout</div>
+  </Link>,
 ]
 
 class MainDrawer extends Component {

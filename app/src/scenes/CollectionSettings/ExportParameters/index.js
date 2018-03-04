@@ -4,8 +4,8 @@ import PropTypes from 'prop-types'
 
 import FileDownload from 'material-ui/svg-icons/file/file-download'
 
-import Section from '../Section/index'
-import { exportCollection as _exportCollection } from '../../../../services/actions/collections/index'
+import Section from '../../../components/appStructure/Settings/Section/index'
+import { exportCollection as _exportCollection } from '../../../services/actions/collections/index'
 
 
 const ExportParameters = ({ exportCollection }) => (

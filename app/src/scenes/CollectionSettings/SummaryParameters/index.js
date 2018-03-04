@@ -9,13 +9,13 @@ import SocialShare from 'material-ui/svg-icons/social/share'
 
 import DeleteAlert from './DeleteAlert/index'
 import ShowPublicLinkAlert from './ShowPublicLinkAlert/index'
-import Section from '../Section'
-import TextField from '../../../../components/form/TextField/index'
-import Toggle from '../../../../components/form/Toggle/index'
+import Section from '../../../components/appStructure/Settings/Section'
+import TextField from '../../../components/form/TextField/index'
+import Toggle from '../../../components/form/Toggle/index'
 
-import { update as _update } from '../../actions'
-import { getCollectionTypeTitle } from '../../../../services/utils'
-import { destroy } from '../../../../services/actions/collections/index'
+import { update as _update } from '../actions'
+import { getCollectionTypeTitle } from '../../../services/utils'
+import { destroy } from '../../../services/actions/collections/index'
 
 
 const selectStyle = {

@@ -2,10 +2,10 @@ import React from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
-import Section from '../Section/index'
-import { SelectLanguageListItem } from '../../../../components/form/SelectLanguage/index'
+import Section from '../../../components/appStructure/Settings/Section/index'
+import { SelectLanguageListItem } from '../../../components/form/SelectLanguage/index'
 
-import { update as _update } from '../../actions'
+import { update as _update } from '../actions'
 
 const LanguageParameters = ({ collection, type, update }) => (
   <Section>

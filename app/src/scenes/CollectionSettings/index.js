@@ -1,15 +1,42 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
-import MenuPanel from './MenuPanel'
-import ContentPanel from './ContentPanel'
 import Progress from '../../components/generics/Progress'
+import Settings from '../../components/appStructure/Settings'
+import SummaryParameters from './SummaryParameters'
+import LanguageParameters from './LanguageParameters'
+import ExportParameters from './ExportParameters'
+import DataImporter from './DataImporter'
+import CoverCustomization from './CoverCustomization'
 
 import { getSettings } from '../../services/actions/collections'
 import { connect } from '../../services/redux'
 
-import styles from './CollectionSettings.scss'
 
+const SECTIONS = {
+  summary: {
+    component: SummaryParameters,
+    label: 'Summary',
+  },
+  languages: {
+    component: LanguageParameters,
+    label: 'Languages',
+  },
+  exports: {
+    component: ExportParameters,
+    label: 'Export your data',
+  },
+  imports: {
+    component: DataImporter,
+    label: 'Import data',
+  },
+  cover: {
+    component: CoverCustomization,
+    label: 'Cover customization',
+  },
+}
+
+const DEFAULT_SECTION = 'summary'
 
 class CollectionSettings extends Component {
   static propTypes = {
@@ -43,27 +70,18 @@ class CollectionSettings extends Component {
 
   render() {
     const {
-      type,
-      collection,
       isLoaded,
-      match,
-      location,
-      config: { elementComponent },
     } = this.props
 
     if (!isLoaded) {
       return <Progress />
     }
     return (
-      <div className={styles.CollectionSettings}>
-        <MenuPanel match={match} location={location} />
-        <ContentPanel
-          type={type}
-          collection={collection}
-          elementComponent={elementComponent}
-          match={match}
-        />
-      </div>
+      <Settings
+        {...this.props}
+        sections={SECTIONS}
+        defaultSection={DEFAULT_SECTION}
+      />
     )
   }
 }

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
 
-import { urls } from '../../../../../appConfig'
+import { urls } from '../../../../appConfig'
 
 
 const ShowPublicLinkAlert = ({

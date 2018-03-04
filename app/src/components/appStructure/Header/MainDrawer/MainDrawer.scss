@@ -17,11 +17,8 @@
       flex-grow: 1;
 
       .Section {
-        &:last-child {
-          flex-grow: 1;
-          display: flex;
-          align-items: flex-end;
-        }
+        display: flex;
+        flex-direction: column;
 
         & > div {
           width: 100%;
@@ -48,6 +45,11 @@
             position: absolute;
             left: 50px;
           }
+        }
+
+        &:last-child {
+          flex-grow: 1;
+          justify-content: flex-end;
         }
       }
     }

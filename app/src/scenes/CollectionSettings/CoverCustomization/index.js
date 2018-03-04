@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
-import CollectionCover from '../../../../components/generics/CollectionCover'
-import DialogSearchElement from '../../../../components/generics/DialogSearchElement'
-import Progress from '../../../../components/generics/Progress'
+import CollectionCover from '../../../components/generics/CollectionCover'
+import DialogSearchElement from '../../../components/generics/DialogSearchElement'
+import Progress from '../../../components/generics/Progress'
 
-import { connect } from '../../../../services/redux'
-import { get as getCollection, updateCover } from '../../../../services/actions/collections/index'
+import { connect } from '../../../services/redux'
+import { get as getCollection, updateCover } from '../../../services/actions/collections/index'
 
 import styles from './CoverCustomization.scss'
 
@@ -16,7 +16,7 @@ class CoverCustomization extends Component {
     collection: PropTypes.object.isRequired,
     type: PropTypes.string.isRequired,
     lineDimensions: PropTypes.object.isRequired,
-    elementComponent: PropTypes.func.isRequired,
+    config: PropTypes.object.isRequired,
     isContentLoaded: PropTypes.bool,
     synchronize: PropTypes.func.isRequired,
     updateCovers: PropTypes.func.isRequired,
@@ -50,8 +50,8 @@ class CoverCustomization extends Component {
     const {
       collection,
       type,
+      config: { elementComponent },
       lineDimensions,
-      elementComponent,
       isContentLoaded,
       content,
     } = this.props

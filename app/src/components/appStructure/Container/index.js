@@ -5,6 +5,7 @@ import { Switch, Route } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
 import Home from '../../../scenes/Home'
+import Account from '../../../scenes/Account'
 import Login from '../../../scenes/Login'
 import Logout from '../../../scenes/Logout'
 import Collection from '../Collection'
@@ -63,6 +64,7 @@ class Container extends Component {
           <Route exact path="/" component={Home} />
           <Route path="/login/" component={Login} />
           <Route path="/logout/" component={Logout} />
+          <Route path="/account" component={Account} />
           <Route path="/collections/" component={Collection} />
           <Route path="/" component={NotFound} />
         </Switch>

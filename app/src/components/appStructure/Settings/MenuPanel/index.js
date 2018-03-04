@@ -7,15 +7,7 @@ import { Link } from 'react-router-dom'
 import styles from './MenuPanel.scss'
 
 
-const sections = {
-  summary: 'Summary',
-  languages: 'Languages',
-  exports: 'Export your data',
-  imports: 'Import data',
-  cover: 'Cover customization',
-}
-
-const MenuPanel = ({ match, location }) => (
+const MenuPanel = ({ match, location, sections }) => (
   <div className={styles.MenuPanel} >
     {
       Object.keys(sections).map((index) => {
@@ -30,7 +22,7 @@ const MenuPanel = ({ match, location }) => (
             key={index /* eslint-disable-line react/no-array-index-key */}
           >
             <div className={lineClasses} >
-              { sections[index] }
+              { sections[index].label }
             </div>
           </Link>
         )
@@ -42,6 +34,7 @@ const MenuPanel = ({ match, location }) => (
 MenuPanel.propTypes = {
   match: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
+  sections: PropTypes.object.isRequired,
 }
 
 
