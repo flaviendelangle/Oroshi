@@ -3,22 +3,15 @@ import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
 import Paper from 'material-ui/Paper'
-import muiThemeable from 'material-ui/styles/muiThemeable'
 
 import cx from 'classnames'
 
 import Poster from '../Poster'
-import RegularOverlay from '../RegularOverlay'
-import ClickableOverlay from '../ClickableOverlay'
 import Suggestions from './Suggestions'
+import Overlay from '../Overlay'
 
 import styles from './Element.scss'
 
-
-const OVERLAYS = {
-  regular: RegularOverlay,
-  clickable: ClickableOverlay,
-}
 
 class Element extends Component {
   static propTypes = {
@@ -28,19 +21,12 @@ class Element extends Component {
     onSave: PropTypes.func.isRequired,
     onDestroy: PropTypes.func.isRequired,
     collection: PropTypes.object.isRequired,
-    muiTheme: PropTypes.object.isRequired,
     onRender: PropTypes.func,
     mode: PropTypes.string,
     style: PropTypes.object,
     isPublic: PropTypes.bool,
     footer: PropTypes.array,
-    switchSeen: PropTypes.func,
-    overlay: PropTypes.string,
     onClick: PropTypes.func,
-  }
-
-  static defaultProps = {
-    overlay: 'regular',
   }
 
   state = {
@@ -103,13 +89,13 @@ class Element extends Component {
     ) {
       const ActionComponent = this.getActionComponent(action)
       return (
-        <span ref={el => this.addToLayout(action, el)} >
+        <span>
           <ActionComponent {...this.props} />
         </span>
       )
     }
     return (
-      <span ref={el => this.addToLayout(this.props[`${actionName}Key`], el)} >
+      <span>
         {action}
       </span>
     )
@@ -124,8 +110,6 @@ class Element extends Component {
     }
   }
 
-  getOverlay = () => OVERLAYS[this.props.overlay]
-
   getTopRightAction = () => this.getAction('topRightAction')
 
   getTopLeftAction = () => this.getAction('topLeftAction')
@@ -135,42 +119,12 @@ class Element extends Component {
    */
   isTesting = () => this.props.mode === 'test'
 
-  addToLayout = (/* key, element */) => {
-    /*
-    const { layout } = this.state
-    this.setState(() => ({
-      layout: {
-        ...layout,
-        [key]: {
-          ...layout[key],
-          element
-        }
-      },
-    }))
-    */
-  }
-
-  /**
-   * Switch the seen parameter of the movie
-   */
-  switchSeen = () => {
-    const { data, switchSeen } = this.props
-    if (this.isTesting()) {
-      return null
-    }
-    return switchSeen(data)
-  }
-
   render() {
     const {
       style,
       creationMode,
-      isPublic,
-      mode,
       data,
       footer,
-      onClick,
-      muiTheme: { palette },
     } = this.props
     const { isMouseOver, isReady } = this.state
     const elementClasses = cx({
@@ -179,8 +133,6 @@ class Element extends Component {
       [styles.ElementNotInCollection]: (!data.isInCollection() && creationMode),
       [styles.ElementReady]: isReady,
     })
-
-    const Overlay = this.getOverlay()
 
     return (
       <div className={elementClasses} style={style} >
@@ -197,26 +149,17 @@ class Element extends Component {
               onLoad={this.onPosterLoad}
             />
             <Overlay
-              mode={mode}
-              addToLayout={this.addToLayout}
-              note={data.getNote()}
-              mouseOver={isMouseOver}
-              creationMode={creationMode}
-              alreadyInCollection={data.isInCollection()}
+              {...this.props}
               onSave={this.onSave}
               onDestroy={this.onDestroy}
-              isPublic={isPublic}
               topRightAction={this.getTopRightAction()}
               topLeftAction={this.getTopLeftAction()}
-              onClick={onClick}
-              data={data}
+              isMouseOver={isMouseOver}
             />
           </Paper>
         </div>
         <Footer
-          palette={palette}
           footer={footer}
-          addToLayout={this.addToLayout}
         />
       </div>
     )
@@ -224,14 +167,9 @@ class Element extends Component {
 }
 
 const Footer = ({
-  palette,
   footer,
-  addToLayout,
 }) => (
-  <div
-    className={styles.Title}
-    style={{ color: palette.textColor }}
-  >
+  <div className={styles.Title}>
     {
       footer &&
       footer.map((line) => {
@@ -241,14 +179,13 @@ const Footer = ({
               key={line.key}
               to={line.link}
               target="_blank"
-              ref={el => addToLayout(line.key, el)}
             >
               {line.value}
             </Link>
           )
         }
         return (
-          <div ref={el => addToLayout(line.key, el)} key={1} >
+          <div key={line.key}>
             {line.value}
           </div>
         )
@@ -258,9 +195,7 @@ const Footer = ({
 )
 
 Footer.propTypes = {
-  palette: PropTypes.object.isRequired,
-  addToLayout: PropTypes.func.isRequired,
   footer: PropTypes.array,
 }
 
-export default muiThemeable()(Element)
+export default Element

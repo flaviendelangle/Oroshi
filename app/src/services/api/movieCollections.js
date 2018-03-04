@@ -17,8 +17,8 @@ class MovieCollections extends API {
     return super.listRoute('settings')
   }
 
-  updateCover = (pk, index, element) => (
-    super.detailRoute(pk, 'cover', 'PATCH', { index, element })
+  updateCover = (pk, elements) => (
+    super.detailRoute(pk, 'cover', 'PATCH', { elements })
   )
 }
 

@@ -30,7 +30,11 @@ class CoverCustomization extends Component {
 
   componentWillMount() {
     const { collection: { cover_elements: covers } } = this.props
-    this.setState(() => ({ covers }))
+    const completeCover = [
+      ...covers,
+      ...Array.from({ length: 3 - covers.length }, () => null),
+    ]
+    this.setState(() => ({ covers: completeCover }))
   }
 
   componentDidMount() {
@@ -45,8 +49,13 @@ class CoverCustomization extends Component {
   }
 
   onChooseItem = (element) => {
-    const { updatedIndex } = this.state
-    this.props.updateCover(updatedIndex, element)
+    const { updatedIndex, covers } = this.state
+    const newCovers = [
+      ...covers.slice(0, updatedIndex),
+      element,
+      ...covers.slice(updatedIndex + 1),
+    ]
+    this.props.updateCovers(newCovers)
   }
 
   onModalClose = () => this.onItemClick(-1)
@@ -93,8 +102,8 @@ const mapStateToProps = ({ content }, { app }) => ({
 
 const mapDispatchToProps = (dispatch, { type, collection }) => ({
   synchronize: () => dispatch(getCollection(type, collection)),
-  updateCover: (index, element) => (
-    dispatch(updateCover(type, collection, index, element))
+  updateCover: (elements) => (
+    dispatch(updateCover(type, collection, elements))
   ),
 })
 

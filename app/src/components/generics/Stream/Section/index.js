@@ -8,8 +8,6 @@ import IconButton from 'material-ui/IconButton'
 import NavigationLess from 'material-ui/svg-icons/navigation/expand-less'
 import NavigationMore from 'material-ui/svg-icons/navigation/expand-more'
 import NavigationMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz'
-import muiThemeable from 'material-ui/styles/muiThemeable'
-
 
 import ElementLine, { groupByLine } from '../../../../components/generics/ElementLine/index'
 
@@ -25,7 +23,6 @@ class Section extends Component {
     data: PropTypes.object.isRequired,
     lineDimensions: PropTypes.object.isRequired,
     loadMore: PropTypes.func.isRequired,
-    muiTheme: PropTypes.object.isRequired,
     elementComponent: PropTypes.func.isRequired,
     collection: PropTypes.object.isRequired,
     creationMode: PropTypes.bool,
@@ -85,13 +82,13 @@ class Section extends Component {
   }
 
   renderLink = () => {
-    const { data, field, muiTheme: { palette } } = this.props
+    const { data, field } = this.props
     if (
       Object.prototype.hasOwnProperty.call(data, 'link') &&
       !data.link
     ) {
       return (
-        <span style={{ color: palette.titleColor }} >
+        <span>
           {this.title}
         </span>
       )
@@ -99,7 +96,6 @@ class Section extends Component {
     return (
       <Link
         to={`/${field.field}/${data.key.pk}`}
-        style={{ color: palette.titleColor }}
       >
         {this.title}
       </Link>
@@ -183,4 +179,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(muiThemeable()(Section))
+)(Section)

@@ -82,23 +82,3 @@
 
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
-
-@mixin element-overlay() {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  color: white;
-  padding: 4px;
-  background: rgba(0, 0, 0, 0.5);
-  transition: opacity 0.3s ease-in-out;
-
-  &:not(&TestingMode) {
-    opacity: 0;
-  }
-
-  &:hover {
-    opacity: 1;
-  }
-}
