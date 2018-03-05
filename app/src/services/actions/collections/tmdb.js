@@ -2,8 +2,8 @@ import {
   getCollectionAPI,
   getElementAPI,
   getElementClass,
-  getPublicActions,
 } from '../../content/collectionTypes'
+import tM from '../../content/type'
 import { getDetails, cleanDetails, getTitle, getPoster } from '../publicAPI'
 import { getMissingLanguages } from '../../languages'
 
@@ -80,14 +80,15 @@ export const addElement = (type, collection, element) => {
     })
 }
 
-export const getSuggestions = (type, collection, tmdbId) => (
-  getPublicActions(type).getDetails(type, collection, tmdbId).then((response) => {
+export const getSuggestions = (type, collection, tmdbId) => {
+  const runner = tM.run(type).public()
+  return runner.getDetails(type, collection, tmdbId).then((response) => {
     const Element = getElementClass(type)
     const data = {
       distant: response,
-      local: getPublicActions(type).cleanDetails(type, response),
+      local: runner.cleanDetails(type, response),
     }
     const element = Element.fromDistant(data, collection)
-    return getPublicActions(type).getSuggestions(type, collection, element)
+    return runner.getSuggestions(type, collection, element)
   })
-)
+}

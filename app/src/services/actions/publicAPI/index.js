@@ -1,13 +1,12 @@
 import { request } from '../../titles/publicAPI'
-import { getPublicActions } from '../../content/collectionTypes'
-
+import tM from '../../content/type'
 
 /*
   ACTIONS WITH DISPATCH
  */
 export const search = (type, collection, query, page = 1) => ({
   type: request.search,
-  payload: getPublicActions(type).search(type, collection, query, page),
+  payload: tM.run(type).public().search(type, collection, query, page),
   meta: {
     type,
     collection,
@@ -16,7 +15,7 @@ export const search = (type, collection, query, page = 1) => ({
 
 export const getRecommendations = (type, collection) => ({
   type: request.get_recommendations,
-  payload: getPublicActions(type).getRecommendations(type, collection),
+  payload: tM.run(type).public().getRecommendations(type, collection),
   meta: {
     type,
     collection,
@@ -25,7 +24,7 @@ export const getRecommendations = (type, collection) => ({
 
 export const getPopular = (type, collection, page) => ({
   type: request.get_popular,
-  payload: getPublicActions(type).getPopular(type, collection, page),
+  payload: tM.run(type).public().getPopular(type, collection, page),
   meta: {
     type,
     collection,
@@ -34,7 +33,7 @@ export const getPopular = (type, collection, page) => ({
 
 export const getTopRated = (type, collection, page) => ({
   type: request.get_top_rated,
-  payload: getPublicActions(type).getTopRated(type, collection, page),
+  payload: tM.run(type).public().getTopRated(type, collection, page),
   meta: {
     type,
     collection,
@@ -42,7 +41,7 @@ export const getTopRated = (type, collection, page) => ({
 })
 
 export const getDetails = (type, shouldDispatch, collection, publicId) => {
-  const payload = getPublicActions(type).getDetails(type, collection, publicId)
+  const payload = tM.run(type).public().getDetails(type, collection, publicId)
   if (shouldDispatch) {
     return {
       type: request.get_details,
@@ -63,17 +62,17 @@ export const getDetails = (type, shouldDispatch, collection, publicId) => {
  */
 
 export const checkExistence = (type, ...args) => (
-  getPublicActions(type).checkExistence(type, ...args)
+  tM.run(type).public().checkExistence(type, ...args)
 )
 
 export const getTitle = (type, ...args) => (
-  getPublicActions(type).getTitle(type, ...args)
+  tM.run(type).public().getTitle(type, ...args)
 )
 
 export const getPoster = (type, ...args) => (
-  getPublicActions(type).getPoster(type, ...args)
+  tM.run(type).public().getPoster(type, ...args)
 )
 
 export const cleanDetails = (type, details) => (
-  getPublicActions(type).cleanDetails(type, details)
+  tM.run(type).public().cleanDetails(type, details)
 )

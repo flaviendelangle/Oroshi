@@ -4,7 +4,7 @@ import cx from 'classnames'
 
 import IconButton from 'material-ui/IconButton'
 
-import typeManager from '../../../../services/content/type'
+import tM from '../../../../services/content/type'
 
 import styles from './CollectionType.scss'
 
@@ -12,8 +12,8 @@ import styles from './CollectionType.scss'
 const CollectionType = ({ onClick }) => (
   <div className={styles.CollectionType}>
     {
-      typeManager.all().map((type) => {
-        const getter = typeManager.read(type)
+      tM.all().map((type) => {
+        const getter = tM.read(type)
         const Icon = getter.icon()
         const status = getter.status()
         const label = status === 'work_in_progress' ? 'Coming soon' : getter.label()

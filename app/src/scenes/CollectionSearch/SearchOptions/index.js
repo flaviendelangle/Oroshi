@@ -6,7 +6,7 @@ import { isFunction } from 'lodash'
 import Paper from 'material-ui/Paper'
 import MenuItem from 'material-ui/MenuItem'
 
-import typeManager from '../../../services/content/type'
+import tM from '../../../services/content/type'
 
 import styles from './SearchOptions.scss'
 
@@ -33,7 +33,7 @@ const SearchOptions = ({ type, content }) => (
     zDepth={2}
   >
     {
-      typeManager.read(type).search_options().search.map(({ name, ...props }) => (
+      tM.read(type).search_options().search.map(({ name, ...props }) => (
         <Option key={name} name={name} {...props} content={content} />
       ))
     }

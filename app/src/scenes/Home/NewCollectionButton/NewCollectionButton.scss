@@ -1,0 +1,28 @@
+@import "../../../styles/mixins";
+
+.NewCollectionButton {
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+
+  @for $i from 1 through 4 {
+    $ratio: $i * 0.25;
+
+    &[data-ratio="#{$ratio}"] {
+      margin: (2rem * $ratio) (4rem * $ratio);
+    }
+  }
+
+  .Title {
+    @include sub-title();
+
+    margin-top: 1rem;
+    text-align: center;
+
+    &:hover {
+      height: auto;
+      white-space: normal;
+      word-break: break-all;
+    }
+  }
+}

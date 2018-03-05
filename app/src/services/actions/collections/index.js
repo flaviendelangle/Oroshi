@@ -2,21 +2,24 @@ import { readAsText } from 'promise-file-reader'
 import json2csv from 'json2csv'
 import downloadjs from 'downloadjs'
 
-import { getActions, getCollectionAPI, getElementClass } from '../../content/collectionTypes'
-import { parseCSV, parseJSON } from '../../utils'
-import { pickElement } from '../../languages'
-import { CollectionsAPI } from '../../api/collections'
-import { checkExistence } from '../publicAPI'
 import * as titles from '../../titles/api'
 import { collections } from '../../titles/exports'
 import { search } from '../../titles/data'
 import { source } from '../../titles/interface'
 
+import { getCollectionAPI, getElementClass } from '../../content/collectionTypes'
+import tM from '../../content/type'
+import { parseCSV, parseJSON } from '../../utils'
+import { pickElement } from '../../languages'
+import { CollectionsAPI } from '../../api/collections'
+import { checkExistence } from '../publicAPI'
+
+
 /*
   ACTIONS WITHOUT DISPATCH
  */
 export const addSeenToElements = (type, elements, seen) => (
-  getActions(type).addSeenToElements(elements, seen)
+  tM.run(type).local().addSeenToElements(elements, seen)
 )
 
 export const addCollectionToElement = (element, collection) => ({
@@ -30,7 +33,7 @@ export const prepareElements = (type, data) => {
   const elements = content.map(el => new Element(el))
   elements.forEach((el) => {
     el.setCollection(clearedData)
-    getActions(type).prepareElement(el, seen)
+    tM.run(type).local().prepareElement(el, seen)
   })
 
   return {
@@ -95,7 +98,7 @@ export const getSettings = (type, collection) => ({
 
 export const getSuggestions = (type, collection, publicId) => ({
   type: titles.collectionContent.loadSuggestions,
-  payload: getActions(type).getSuggestions(type, collection, publicId),
+  payload: tM.run(type).local().getSuggestions(type, collection, publicId),
   meta: {
     type,
     collection,
@@ -130,7 +133,7 @@ export const updateCover = (type, collection, element, position) => ({
 
 export const addElement = (type, collection, element) => ({
   type: titles.collections.add,
-  payload: getActions(type).addElement(type, collection, element),
+  payload: tM.run(type).local().addElement(type, collection, element),
   meta: {
     type,
     collection,
@@ -253,7 +256,7 @@ export const importElements = (type, collection, _elements, dispatch) => {
 
 const getDataToExport = (type, collection) => (
   get(type, collection).payload.then((data) => {
-    const fields = getActions(type).exportFields
+    const fields = tM.run(type).local().exportFields
     const content = data.content.map((el) => {
       const data2 = {}
       const values = el.getLocal()

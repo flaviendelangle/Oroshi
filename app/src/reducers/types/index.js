@@ -1,4 +1,4 @@
-import typeManager from '../../services/content/type'
+import tM from '../../services/content/type'
 
 import mainReducer from './main'
 import contentReducer from './content'
@@ -11,7 +11,7 @@ import searchReducer from './search'
 
 const defaultState = {}
 
-typeManager.all().forEach((type) => {
+tM.all().forEach((type) => {
   defaultState[type] = {}
 })
 

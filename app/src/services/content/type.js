@@ -111,6 +111,13 @@ class TypeCreator {
       sort_options: () => this.access('options').sort,
     }
   }
+
+  run() {
+    return {
+      local: () => this.access('actions').local,
+      public: () => this.access('actions').public,
+    }
+  }
 }
 
 const types = {}
@@ -126,6 +133,13 @@ const actions = {
       throw Error(`No type named ${type}`)
     }
     return config.read()
+  },
+  run: (type) => {
+    const config = actions.access(type)
+    if (!config) {
+      throw Error(`No type named ${type}`)
+    }
+    return config.run()
   },
 }
 

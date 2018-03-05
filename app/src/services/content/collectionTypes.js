@@ -1,15 +1,7 @@
-import typeManager from './type'
+import tM from './type'
 
 
-export const getConfig = type => typeManager.access(type).values.legacy
-
-
-/*
-  ACTIONS
- */
-export const getActions = type => getConfig(type).actions
-
-export const getPublicActions = type => getConfig(type).publicActions
+export const getConfig = type => tM.access(type).values.legacy
 
 
 /*

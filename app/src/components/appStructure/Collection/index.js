@@ -8,7 +8,7 @@ import CollectionSearch from '../../../scenes/CollectionSearch'
 import ElementSuggestions from '../../../scenes/ElementSuggestions'
 import Header from '../Header'
 
-import typeManager from '../../../services/content/type'
+import tM from '../../../services/content/type'
 
 import styles from './Collection.scss'
 
@@ -23,8 +23,8 @@ const getSceneProps = (el, scene, sceneProps) => ({
   },
 })
 
-const generate = () => typeManager.all().reduce((result, type) => {
-  const scene = typeManager.access(type).values.legacy
+const generate = () => tM.all().reduce((result, type) => {
+  const scene = tM.access(type).values.legacy
   return [
     ...result,
     <Route

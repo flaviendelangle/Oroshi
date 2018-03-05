@@ -8,7 +8,7 @@ import ContentSort from 'material-ui/svg-icons/content/sort'
 
 import { sortCollectionContent } from '../../../../services/actions/interface'
 import { connect } from '../../../../services/redux'
-import typeManager from '../../../../services/content/type'
+import tM from '../../../../services/content/type'
 
 import styles from './OrderMenu.scss'
 
@@ -30,7 +30,7 @@ const OrderMenu = ({
         className={styles.Icon}
       >
         {
-          typeManager.read(type).sort_options().content[layout].map(el => (
+          tM.read(type).sort_options().content[layout].map(el => (
             <MenuItem
               primaryText={el.label}
               onClick={() => sort(layout, ...el.arguments)}

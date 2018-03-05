@@ -1,7 +1,7 @@
 import injectTapEventPlugin from 'react-tap-event-plugin'
 import WebFont from 'webfontloader'
 import { DEFAULT_LANGUAGE } from './services/languages'
-import typeManager from './services/content/type'
+import tM from './services/content/type'
 import tmdbApi from './services/TheMovieDatabaseJS'
 import movies from './types/movies'
 
@@ -32,7 +32,7 @@ tmdbApi.setConfig({
 /**
  * Types registration
  */
-typeManager.register(movies)
+tM.register(movies)
 
 export default {
   status: 'SUCCESS',

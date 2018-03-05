@@ -1,0 +1,27 @@
+@import "../../../styles/mixins";
+@import "../../../styles/variables";
+
+.Menu {
+  position: fixed;
+  bottom: 2rem;
+  left: 2rem;
+  display: flex;
+  flex-direction: column;
+
+  .Line {
+    display: flex;
+    align-items: center;
+
+    .Label {
+      color: $textColor;
+      margin-left: 1rem;
+    }
+
+    svg {
+      @include icon();
+
+      height: 2rem !important;
+      width: 2rem !important;
+    }
+  }
+}

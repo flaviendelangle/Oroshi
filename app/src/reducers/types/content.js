@@ -1,7 +1,7 @@
 import { collectionContent, collections } from '../../services/titles/api'
 import { sort, search } from '../../services/titles/data'
 import { layout } from '../../services/titles/interface'
-import typeManager from '../../services/content/type'
+import tM from '../../services/content/type'
 import { getValue } from '../../services/localstorage'
 import Element from '../../services/content/element'
 
@@ -10,7 +10,7 @@ import * as contentManager from '../../scenes/Collection/CollectionContent/conte
 
 
 const generateDefaultState = (type) => {
-  const getter = typeManager.read(type)
+  const getter = tM.read(type)
   const GridGenerator = getter.grid()
   const StreamGenerator = getter.stream()
 
@@ -34,7 +34,7 @@ const reducer = (_state, action) => {
   let newContent
   let newOrder
 
-  const getter = typeManager.read(type)
+  const getter = tM.read(type)
   const GridGenerator = getter.grid()
   const StreamGenerator = getter.stream()
   const { defaultOrder } = getter.sort_options()

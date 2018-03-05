@@ -1,12 +1,10 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import { isEmpty } from 'lodash'
-
 
 import CollectionList from './CollectionList'
-import FirstCollectionButton from './FirstCollectionButton'
 import DialogCreateCollection from './DialogCreateCollection'
+import Menu from './Menu'
 import Progress from '../../components/generics/Progress'
 
 import { getAll as getCollections } from '../../services/actions/collections'
@@ -19,6 +17,7 @@ class Home extends Component {
     loadCollections: PropTypes.func.isRequired,
     isLoaded: PropTypes.bool.isRequired,
     collections: PropTypes.array.isRequired,
+    lineDimensions: PropTypes.object.isRequired,
     oauth: PropTypes.object,
     profile: PropTypes.object,
   }
@@ -52,18 +51,18 @@ class Home extends Component {
   }
 
   render() {
-    const { isLoaded, collections } = this.props
+    const { isLoaded, collections, lineDimensions } = this.props
     if (!isLoaded) {
       return <Progress />
     }
 
     return (
       <Fragment>
-        {
-          isEmpty(collections) ?
-            <FirstCollectionButton /> :
-            <CollectionList collections={collections} />
-        }
+        <CollectionList
+          collections={collections}
+          lineDimensions={lineDimensions}
+        />
+        <Menu />
         <DialogCreateCollection />
       </Fragment>
     )
@@ -76,6 +75,7 @@ const mapStateToProps = ({ home, app }) => ({
 
   oauth: app.oauth,
   profile: app.profile,
+  lineDimensions: app.lineDimensions,
 })
 
 const mapDispatchToProps = dispatch => ({
