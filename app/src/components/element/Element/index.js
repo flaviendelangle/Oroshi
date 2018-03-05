@@ -7,6 +7,7 @@ import Paper from 'material-ui/Paper'
 import cx from 'classnames'
 
 import Poster from '../Poster'
+import FakePoster from '../FakePoster'
 import Suggestions from './Suggestions'
 import Overlay from '../Overlay'
 
@@ -33,6 +34,7 @@ class Element extends Component {
     isMouseOver: false,
     isAdding: false,
     isReady: false,
+    posterFound: true,
   }
 
   componentWillMount() {
@@ -65,8 +67,8 @@ class Element extends Component {
     this.setState({ isMouseOver })
   }
 
-  onPosterLoad = () => {
-    this.setState({ isReady: true })
+  onPosterLoad = (posterFound) => {
+    this.setState({ posterFound, isReady: true })
   }
 
   onSave = () => {
@@ -126,7 +128,7 @@ class Element extends Component {
       data,
       footer,
     } = this.props
-    const { isMouseOver, isReady } = this.state
+    const { isMouseOver, isReady, posterFound } = this.state
     const elementClasses = cx({
       [styles.Element]: true,
       [styles.ElementInCollection]: (data.isInCollection() && creationMode),
@@ -143,11 +145,15 @@ class Element extends Component {
             onMouseEnter={() => this.onMouseHover(true)}
             onMouseLeave={() => this.onMouseHover(false)}
           >
-            <Poster
-              path={data.getFullPosterPath()}
-              title={data.getTitle()}
-              onLoad={this.onPosterLoad}
-            />
+            {
+              posterFound ?
+                <Poster
+                  path={data.getFullPosterPath()}
+                  title={data.getTitle()}
+                  onLoad={this.onPosterLoad}
+                /> :
+                <FakePoster creationMode={false} ratio={1} />
+            }
             <Overlay
               {...this.props}
               onSave={this.onSave}

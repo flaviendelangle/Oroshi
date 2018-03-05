@@ -9,6 +9,12 @@ export const HELP = {
   },
 }
 
+export const WELCOME = {
+  elements: {
+    movies: [399055, 335984, 313369, 387426, 339403],
+  },
+}
+
 export const urls = {
   frontend: 'http://localhost:3000/',
 }

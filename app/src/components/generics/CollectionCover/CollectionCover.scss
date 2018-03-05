@@ -17,16 +17,7 @@
           height: 50px*$ratio !important;
           width: 50px*$ratio !important;
         }
-      }
 
-      .FakePoster {
-        line-height: 278px*$ratio;
-        height: 278px*$ratio;
-        width: 185px*$ratio;
-      }
-
-      .Cover,
-      .FakePoster {
         &[data-place="0"] {
           @include material-shadow(2);
 
@@ -54,13 +45,6 @@
   .Cover {
     position: absolute;
     display: inline-grid;
-
-    .FakePoster {
-      font-size: 5rem;
-      text-align: center;
-      border: 1px solid gray;
-      background: $light-background-color;
-    }
 
     .Overlay {
       transition: opacity 300ms ease;

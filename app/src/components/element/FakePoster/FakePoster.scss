@@ -1,0 +1,18 @@
+@import "../../../styles/variables";
+
+.FakePoster {
+  font-size: 5rem;
+  text-align: center;
+  border: 1px solid gray;
+  background: $light-background-color;
+
+  @for $i from 1 through 4 {
+    $ratio: $i * 0.25;
+
+    &[data-ratio="#{$ratio}"] {
+      line-height: 278px*$ratio;
+      height: 278px*$ratio;
+      width: 185px*$ratio;
+    }
+  }
+}

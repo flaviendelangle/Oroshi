@@ -5,6 +5,7 @@ import cx from 'classnames'
 import ImageEdit from 'material-ui/svg-icons/image/edit'
 
 import Poster from '../../element/Poster'
+import FakePoster from '../../element/FakePoster'
 
 import styles from './CollectionCover.scss'
 
@@ -48,9 +49,7 @@ const CollectionCover = ({
                   title=""
                   ratio={ratio}
                 /> :
-                <div className={styles.FakePoster}>
-                  { creationMode ? '+' : '?' }
-                </div>
+                <FakePoster creationMode={creationMode} ratio={ratio} />
             }
             {
               onItemClick &&
