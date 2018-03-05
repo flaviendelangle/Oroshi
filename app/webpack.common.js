@@ -9,7 +9,7 @@ const BUILD_DIR = path.join(__dirname, '/dist/');
 
 module.exports = {
   entry: [
-    path.join(__dirname, './src/elementComponent.js')
+    path.join(__dirname, './src/index.js')
   ],
   plugins: [
     new HtmlWebpackPlugin({

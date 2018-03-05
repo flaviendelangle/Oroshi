@@ -8,10 +8,10 @@ import ActionDoneAll from 'material-ui/svg-icons/action/done-all'
 import ActionViewModule from 'material-ui/svg-icons/action/view-module'
 import ActionViewStream from 'material-ui/svg-icons/action/view-stream'
 
-import { switchLayout as _switchLayout } from '../CollectionContent/actions'
 import SnackbarList from '../../../components/appStructure/SnackbarList/index'
 
-import { switchAddingMode as _switchAddingMode } from '../actions'
+import { switchCollectionLayout } from '../../../services/actions/interface'
+import { switchAddingMode } from '../../../services/actions/collections'
 import { getRecommendations } from '../../../services/actions/publicAPI/index'
 import { connect } from '../../../services/redux'
 
@@ -38,7 +38,7 @@ const Menu = ({
   isLoaded,
   isPublic,
   content,
-  switchAddingMode,
+  switchMode,
   switchLayout,
 }) => {
   if (
@@ -51,7 +51,7 @@ const Menu = ({
     <Fragment>
       <AddingIcon
         collection={collection}
-        switchAddingMode={switchAddingMode}
+        switchMode={switchMode}
         isAdding={isAdding}
         isPublic={isPublic}
       />
@@ -75,7 +75,7 @@ Menu.propTypes = {
   type: PropTypes.string.isRequired,
   isLoaded: PropTypes.bool.isRequired,
   isPublic: PropTypes.bool,
-  switchAddingMode: PropTypes.func.isRequired,
+  switchMode: PropTypes.func.isRequired,
   switchLayout: PropTypes.func.isRequired,
   layout: PropTypes.string,
   found: PropTypes.bool,
@@ -143,7 +143,7 @@ LayoutIcon.propTypes = {
 const AddingIcon = ({
   isAdding,
   collection,
-  switchAddingMode,
+  switchMode,
   isPublic,
 }) => {
   if (isPublic) {
@@ -159,7 +159,7 @@ const AddingIcon = ({
   return (
     <FloatingActionButton
       className={styles.AddingIcon}
-      onClick={() => switchAddingMode(collection)}
+      onClick={() => switchMode(collection)}
     >
       <Icon />
     </FloatingActionButton>
@@ -168,7 +168,7 @@ const AddingIcon = ({
 
 AddingIcon.propTypes = {
   collection: PropTypes.object.isRequired,
-  switchAddingMode: PropTypes.func.isRequired,
+  switchMode: PropTypes.func.isRequired,
   isPublic: PropTypes.bool,
   isAdding: PropTypes.bool,
 }
@@ -184,11 +184,11 @@ const mapStateToProps = ({ content, main }) => ({
 })
 
 const mapDispatchToProps = (dispatch, { type, collection }) => ({
-  switchAddingMode: () => {
-    dispatch(_switchAddingMode(type, collection))
+  switchMode: () => {
+    dispatch(switchAddingMode(type, collection))
     dispatch(getRecommendations(type, collection))
   },
-  switchLayout: layout => dispatch(_switchLayout(type, collection, layout)),
+  switchLayout: layout => dispatch(switchCollectionLayout(type, collection, layout)),
 })
 
 export default connect(

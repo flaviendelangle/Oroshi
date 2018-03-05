@@ -3,7 +3,6 @@ import { collectionContent, collections } from '../../services/titles/api'
 
 const defaultState = {
   data: null,
-  redirect: null,
   dataImporter: {
     created: {},
     keysNumber: 0,
@@ -24,13 +23,6 @@ const settings = (state = defaultState, action) => {
         ...state,
         title: action.payload.title,
         data: action.payload,
-      }
-    }
-
-    case `${collections.destroy}_FULFILLED`: {
-      return {
-        ...state,
-        redirect: '/',
       }
     }
 

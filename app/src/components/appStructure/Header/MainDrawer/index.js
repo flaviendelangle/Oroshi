@@ -12,7 +12,7 @@ import ActionSettings from 'material-ui/svg-icons/action/settings'
 import ActionSearch from 'material-ui/svg-icons/action/search'
 import ActionAccountBox from 'material-ui/svg-icons/action/account-box'
 
-import { showMainDrawer } from './actions'
+import { showMainDrawer } from '../../../../services/actions/interface'
 import { connect } from '../../../../services/redux'
 import typeManager from '../../../../services/content/type'
 

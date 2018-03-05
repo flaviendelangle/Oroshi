@@ -6,7 +6,7 @@ import MenuItem from 'material-ui/MenuItem'
 import IconButton from 'material-ui/IconButton'
 import ContentSort from 'material-ui/svg-icons/content/sort'
 
-import { sort as _sort } from '../../../../scenes/Collection/CollectionContent/actions'
+import { sortCollectionContent } from '../../../../services/actions/interface'
 import { connect } from '../../../../services/redux'
 import typeManager from '../../../../services/content/type'
 
@@ -19,7 +19,7 @@ const OrderMenu = ({
   sort,
   isAdding,
 }) => (
-  <div className={styles.OrderMenu} >
+  <div className={styles.OrderMenu}>
     {
       layout &&
       !isAdding &&
@@ -56,7 +56,7 @@ const mapStateToProps = ({ main, content }) => ({
 })
 
 const mapDispatchToProps = (dispatch, { type, collection }) => ({
-  sort: (...args) => dispatch(_sort(type, collection, ...args)),
+  sort: (...args) => dispatch(sortCollectionContent(type, collection, ...args)),
 })
 
 export default connect(

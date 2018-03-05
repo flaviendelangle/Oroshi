@@ -9,7 +9,7 @@ import ExportParameters from './ExportParameters'
 import DataImporter from './DataImporter'
 import CoverCustomization from './CoverCustomization'
 
-import { getSettings } from '../../services/actions/collections'
+import { destroy, getSettings, updateField } from '../../services/actions/collections'
 import { connect } from '../../services/redux'
 
 
@@ -46,7 +46,8 @@ class CollectionSettings extends Component {
     history: PropTypes.object.isRequired,
     match: PropTypes.object.isRequired,
     location: PropTypes.object.isRequired,
-    redirect: PropTypes.bool,
+    update: PropTypes.func.isRequired,
+    deleteCollection: PropTypes.func.isRequired,
     isLoaded: PropTypes.bool.isRequired,
     config: PropTypes.object.isRequired,
   }
@@ -58,19 +59,11 @@ class CollectionSettings extends Component {
     }
   }
 
-  componentWillReceiveProps(newProps) {
-    const { redirect, history } = this.props
-    if (
-      !redirect &&
-      newProps.redirect
-    ) {
-      history.push(newProps.redirect)
-    }
-  }
-
   render() {
     const {
       isLoaded,
+      update,
+      deleteCollection,
     } = this.props
 
     if (!isLoaded) {
@@ -81,20 +74,22 @@ class CollectionSettings extends Component {
         {...this.props}
         sections={SECTIONS}
         defaultSection={DEFAULT_SECTION}
+        update={update}
+        deleteCollection={deleteCollection}
       />
     )
   }
 }
 
-const mapStateToProps = ({ main, settings }) => ({
+const mapStateToProps = ({ main }) => ({
   isLoaded: main.isLoaded,
   collection: main.collection,
-
-  redirect: settings.redirect,
 })
 
 const mapDispatchToProps = (dispatch, { type, collection }) => ({
   synchronize: () => dispatch(getSettings(type, collection)),
+  update: (field, value) => dispatch(updateField(type, collection, field, value)),
+  deleteCollection: () => dispatch(destroy(type, collection)),
 })
 
 export default connect(

@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react'
-import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
+import { Redirect } from 'react-router-dom'
 
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
@@ -13,9 +13,7 @@ import Section from '../../../components/appStructure/Settings/Section'
 import TextField from '../../../components/form/TextField/index'
 import Toggle from '../../../components/form/Toggle/index'
 
-import { update as _update } from '../actions'
 import { getCollectionTypeTitle } from '../../../services/utils'
-import { destroy } from '../../../services/actions/collections/index'
 
 
 const selectStyle = {
@@ -36,6 +34,7 @@ class SummaryParameters extends Component {
     title: '',
     showDeleteAlert: false,
     showGetPublicLinkAlert: false,
+    hasBeenDeleted: false,
   }
 
   componentWillMount() {
@@ -49,14 +48,27 @@ class SummaryParameters extends Component {
     this.setState({ title: newProps.collection.title })
   }
 
+  deleteCollection = () => {
+    const { deleteCollection } = this.props
+    deleteCollection().then(() => {
+      this.setState(() => ({
+        hasBeenDeleted: true,
+      }))
+    })
+  }
+
   render() {
     const {
       collection,
       type,
       update,
-      deleteCollection,
     } = this.props
-    const { title, showDeleteAlert, showGetPublicLinkAlert } = this.state
+    const {
+      title,
+      showDeleteAlert,
+      showGetPublicLinkAlert,
+      hasBeenDeleted,
+    } = this.state
     return (
       <Fragment>
         <Section>
@@ -119,28 +131,18 @@ class SummaryParameters extends Component {
         <DeleteAlert
           open={showDeleteAlert}
           onClose={() => this.setState({ showDeleteAlert: false })}
-          onDelete={deleteCollection}
+          onDelete={this.deleteCollection}
         />
         <ShowPublicLinkAlert
           open={showGetPublicLinkAlert}
           collection={collection}
           type={type}
           onClose={() => this.setState({ showGetPublicLinkAlert: false })}
-          onDelete={() => {}} // this.props.deleteCollection(this.props.data.pk)}
         />
+        { hasBeenDeleted && <Redirect to="/" /> }
       </Fragment>
     )
   }
 }
 
-const mapStateToProps = () => ({})
-
-const mapDispatchToProps = (dispatch, { type, collection }) => ({
-  update: (field, value) => dispatch(_update(type, collection, field, value)),
-  deleteCollection: () => dispatch(destroy(type, collection)),
-})
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(SummaryParameters)
+export default SummaryParameters

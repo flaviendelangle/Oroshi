@@ -70,16 +70,13 @@ class Home extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  const root = state.home.main
-  const appRoot = state.app
-  return {
-    collections: root.collections,
-    isLoaded: root.isLoaded,
-    oauth: appRoot.oauth,
-    profile: appRoot.profile,
-  }
-}
+const mapStateToProps = ({ home, app }) => ({
+  collections: home.collections,
+  isLoaded: home.isLoaded,
+
+  oauth: app.oauth,
+  profile: app.profile,
+})
 
 const mapDispatchToProps = dispatch => ({
   loadCollections: pk => dispatch(getCollections(pk)),

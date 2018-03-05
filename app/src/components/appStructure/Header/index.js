@@ -12,7 +12,7 @@ import MainDrawer from './MainDrawer'
 import Search from './Search'
 import OrderMenu from './OrderMenu'
 
-import { showMainDrawer } from './MainDrawer/actions'
+import { showMainDrawer } from '../../../services/actions/interface'
 import { connect } from '../../../services/redux'
 
 import styles from './Header.scss'

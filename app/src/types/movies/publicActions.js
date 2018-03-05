@@ -13,7 +13,7 @@ export const {
   getPoster,
 } = tmdb
 
-export const getElementsSameDirectors = (type, collection, element) => (
+const getElementsSameDirectors = (type, collection, element) => (
   element.getDirectors().map(director => (
     PersonAPI.movieCredits(director.tmdbId).then((response) => {
       const results = response.crew.filter(el => el.job === 'Director')

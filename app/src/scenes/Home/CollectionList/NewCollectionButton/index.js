@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
 import CollectionCover from '../../../../components/generics/CollectionCover'
-import { showDialogCreateCollection } from '../../DialogCreateCollection/actions'
+import { showDialogCreateCollection } from '../../../../services/actions/interface'
 
 import styles from './NewCollectionButton.scss'
 

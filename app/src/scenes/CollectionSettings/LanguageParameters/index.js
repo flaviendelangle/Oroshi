@@ -1,11 +1,9 @@
 import React from 'react'
-import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
 import Section from '../../../components/appStructure/Settings/Section/index'
 import { SelectLanguageListItem } from '../../../components/form/SelectLanguage/index'
 
-import { update as _update } from '../actions'
 
 const LanguageParameters = ({ collection, type, update }) => (
   <Section>
@@ -37,13 +35,4 @@ LanguageParameters.propTypes = {
   update: PropTypes.func.isRequired,
 }
 
-const mapStateToProps = () => ({})
-
-const mapDispatchToProps = (dispatch, { type, collection }) => ({
-  update: (field, value) => dispatch(_update(type, collection, field, value)),
-})
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(LanguageParameters)
+export default LanguageParameters

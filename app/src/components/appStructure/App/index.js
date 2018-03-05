@@ -10,6 +10,7 @@ import store from '../../../reducers/store'
 import theme from '../../../services/theme'
 
 
+// eslint-disable-next-line no-console
 console.log(`Application setup status: ${setup.status}`)
 
 const App = () => (

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 
 import RaisedButton from 'material-ui/RaisedButton'
 
-import { showDialogCreateCollection } from '../DialogCreateCollection/actions'
+import { showDialogCreateCollection } from '../../../services/actions/interface'
 
 
 const containerStyle = {

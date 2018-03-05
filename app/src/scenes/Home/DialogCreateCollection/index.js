@@ -8,7 +8,7 @@ import FlatButton from 'material-ui/FlatButton'
 import CollectionType from './CollectionType/index'
 import CollectionConfiguration from './CollectionConfiguration/index'
 import { create as createCollection } from '../../../services/actions/collections/index'
-import { showDialogCreateCollection } from './actions'
+import { showDialogCreateCollection } from '../../../services/actions/interface'
 
 
 class DialogCreateCollection extends Component {
@@ -103,18 +103,12 @@ class DialogCreateCollection extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  const root = state.home.dialogCreateCollection.main
-  const homeRoot = state.home.main
-  const appRoot = state.app
-  return {
-    isOpen: root.show,
-    update: root.update,
-    isImportingContent: root.isImportingContent,
-    collections: homeRoot.collections,
-    profile: appRoot.profile,
-  }
-}
+const mapStateToProps = ({ home, app }) => ({
+  isOpen: home.isCreating,
+  collections: home.collections,
+
+  profile: app.profile,
+})
 
 const mapDispatchToProps = dispatch => ({
   close: () => dispatch(showDialogCreateCollection(false)),

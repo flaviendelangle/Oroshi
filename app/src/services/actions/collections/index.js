@@ -10,6 +10,7 @@ import { checkExistence } from '../publicAPI'
 import * as titles from '../../titles/api'
 import { collections } from '../../titles/exports'
 import { search } from '../../titles/data'
+import { source } from '../../titles/interface'
 
 /*
   ACTIONS WITHOUT DISPATCH
@@ -42,6 +43,14 @@ export const prepareElements = (type, data) => {
 /*
   ACTIONS WITH DISPATCH
  */
+export const switchAddingMode = (type, collection) => ({
+  type: source.updateIsAdding,
+  meta: {
+    type,
+    collection,
+  },
+})
+
 export const create = (type, data) => ({
   type: titles.collectionContent.create,
   payload: getCollectionAPI(type).create(data),
@@ -101,6 +110,13 @@ export const update = (type, collection, data) => ({
     collection,
   },
 })
+
+export const updateField = (type, pk, field, value) => {
+  const data = {
+    [field]: value,
+  }
+  return update(type, pk, data)
+}
 
 export const updateCover = (type, collection, element, position) => ({
   type: titles.collections.updateSettings,
