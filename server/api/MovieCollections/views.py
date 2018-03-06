@@ -4,17 +4,17 @@ from rest_framework import viewsets, status
 from rest_framework.decorators import detail_route, list_route
 from rest_framework.response import Response
 
-from api.MovieCollections.models import MovieCollections, SeenMovies
+from api.MovieCollections.models import MovieCollections, SeenMovies, Cover
 from api.MovieCollections.serializers import MovieCollectionsSerializer,\
                                         MovieCollectionSettingsSerializer, \
                                         MovieCollectionsWriteSerializer, \
                                         SeenMoviesSerializer
-
+from api.Movies.models import Movies
 
 class MovieCollectionsViewSet(viewsets.ModelViewSet):
 
     def get_serializer_class(self):
-        if self.request.method in ['POST', 'PATCH'] :
+        if self.request.method in ['POST', 'PATCH']:
             return MovieCollectionsWriteSerializer
         return MovieCollectionsSerializer
 
@@ -52,6 +52,17 @@ class MovieCollectionsViewSet(viewsets.ModelViewSet):
     def settings_detail(self, request, pk=None):
         data = get_object_or_404(self.get_queryset(), pk=pk)
         data = MovieCollectionSettingsSerializer(data).data
+        return Response(data)
+
+    @detail_route(methods=['patch'], url_path='cover')
+    def update_cover(self, request, pk=None):
+        collection = get_object_or_404(self.get_queryset(), pk=pk)
+        movie = get_object_or_404(Movies.objects.all(), pk=request.data.get('element'))
+        position = request.data.get('position')
+        Cover.objects.filter(position=position, collection=collection).delete()
+        Cover.objects.create(collection=collection, movie=movie, position=position)
+
+        data = MovieCollectionSettingsSerializer(collection).data
         return Response(data)
 
     @staticmethod

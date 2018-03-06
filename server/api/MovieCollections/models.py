@@ -27,8 +27,17 @@ class MovieCollections(models.Model):
 
     @property
     def cover_elements(self):
-        return self.content.order_by('-pk')[:3]
+        covers = Cover.objects.filter(collection=self)
+        return list(map(lambda cover: cover.movie, covers))
 
+
+class Cover(models.Model):
+    collection = models.ForeignKey(MovieCollections, on_delete=models.CASCADE)
+    movie = models.ForeignKey(Movies, on_delete=models.CASCADE)
+    position = models.PositiveSmallIntegerField()
+
+    class Meta:
+        ordering = ['position']
 
 class SeenMovies(models.Model):
 

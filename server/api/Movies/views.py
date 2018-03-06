@@ -9,7 +9,7 @@ import json
 
 from api.Movies.models import Movies
 from api.Movies.serializers import MoviesSerializer, MoviesWriteSerializer
-from api.MovieCollections.models import MovieCollections, SeenMovies
+from api.MovieCollections.models import MovieCollections, SeenMovies, Cover
 from api.MovieCollections.serializers import SeenMoviesSerializer
 from api.Titles.models import Titles
 from api.Posters.models import Posters
@@ -109,6 +109,15 @@ class CollectionMoviesViewSet(NestedViewSetMixin, MoviesViewSet):
         collection = get_object_or_404(MovieCollections.objects.all(), pk=parent_lookup_collection_movies)
         movie = get_object_or_404(Movies.objects.all(), pk=request.data['pk'])
         collection.content.add(movie)
+        found = False
+        for i in range(3):
+            if not found:
+                match = Cover.objects.filter(collection=collection, position=i).count()
+                if match == 0:
+                    found = True
+                    Cover.objects.create(collection=collection, movie=movie, position=i)
+
+
         self.seen_update(collection, movie, request.data['seen'])
         data = MoviesSerializer(movie).data
         data['collection'] = collection.pk
