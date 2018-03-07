@@ -1,4 +1,5 @@
-import API from './index'
+import API from './base'
+
 
 class TV extends API {
   CONFIG = {
@@ -45,7 +46,7 @@ class TV extends API {
   )
 
   contentRatings = (pk, options = {}) => (
-    super.detailRoute(pk, this.config.routes.content_ratings, options)
+    super.detailRoute(pk, this.CONFIG.routes.content_ratings, options)
   )
 
   credits = (pk, options = {}) => (

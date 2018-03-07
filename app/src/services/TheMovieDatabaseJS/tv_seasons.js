@@ -1,4 +1,5 @@
-import API from './index'
+import API from './base'
+
 
 class TVSeasons extends API {
   CONFIG = {

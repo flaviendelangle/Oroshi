@@ -49,6 +49,28 @@ class API {
     return response.json()
   }
 
+  objectToFormData = (data) => {
+    const form = new FormData()
+
+    const add = (key, value) => {
+      if (Array.isArray(value)) {
+        value.forEach(el => add(key, el))
+      } else if (value instanceof Object) {
+        add(key, JSON.stringify(value))
+      } else {
+        form.append(key, value)
+      }
+    }
+
+
+    Object.keys(data).forEach((key) => {
+      if (Object.prototype.hasOwnProperty.call(data, key)) {
+        add(key, data[key])
+      }
+    })
+    return form
+  }
+
   $GET = (url, data = {}) => this.fetch(url, {
     ...data,
     method: 'GET',
@@ -110,8 +132,19 @@ class API {
     return this.$GET(this.url(pk, options))
   }
 
-  list() {
-    return this.$GET(this.url())
+  list(options = {}) {
+    return this.$GET(this.url(null, options))
+  }
+
+  create(body, options = {}) {
+    const data = {
+      body: this.objectToFormData(body),
+    }
+    return this.$POST(this.url(null, options), data)
+  }
+
+  destroy(pk, options = {}) {
+    return this.$DELETE(this.url(pk, options))
   }
 }
 
