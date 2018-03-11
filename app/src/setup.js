@@ -2,7 +2,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin'
 import WebFont from 'webfontloader'
 import { DEFAULT_LANGUAGE } from './services/languages'
 import tM from './services/content/type'
-import tmdbApi from './services/TheMovieDatabaseJS'
+import tmdbApi from './services/TheMovieDatabaseJS/base'
 import movies from './types/movies'
 
 
