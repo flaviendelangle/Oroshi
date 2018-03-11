@@ -1,11 +1,7 @@
 server/api/migrations/
-
 server/db.sqlite3
-
-
 __pycache__/
 bin/
 node_modules/
 .idea/
-
 yarn.lock
