@@ -15,7 +15,7 @@ export const switchSeenOnElement = (element) => {
 }
 
 export const prepareElement = (element, seenList) => {
-  const seen = !!(seenList.find(el => el.movie === element.getID()))
+  const seen = seenList.some(el => el.movie === element.getID())
   element.setSeen(seen)
 }
 

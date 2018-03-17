@@ -13,6 +13,8 @@ import tM from '../../../../services/content/type'
 import styles from './OrderMenu.scss'
 
 
+const STYLE = { horizontal: 'right', vertical: 'top' }
+
 const OrderMenu = ({
   type,
   layout,
@@ -25,8 +27,8 @@ const OrderMenu = ({
       !isAdding &&
       <IconMenu
         iconButtonElement={<IconButton><ContentSort /></IconButton>}
-        anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
-        targetOrigin={{ horizontal: 'right', vertical: 'top' }}
+        anchorOrigin={STYLE}
+        targetOrigin={STYLE}
         className={styles.Icon}
       >
         {

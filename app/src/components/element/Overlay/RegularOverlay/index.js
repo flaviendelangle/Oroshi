@@ -7,6 +7,9 @@ import Grade from '../../../generics/Grade/index'
 import styles from './RegularOverlay.scss'
 
 
+const ADD_STYLE = { background: 'rgba(76,175,80,0.8)' }
+const REMOVE_STYLE = { background: 'rgba(244,67,54,0.8)' }
+
 const RegularOverlay = ({
   topLeftAction,
   topRightAction,
@@ -71,7 +74,7 @@ const Footer = ({
         tabIndex={0}
         className={styles.Content}
         onClick={onSave}
-        style={{ background: 'rgba(76,175,80,0.8)' }}
+        style={ADD_STYLE}
       >
         ADD
       </div>
@@ -83,7 +86,7 @@ const Footer = ({
         tabIndex={0}
         className={styles.Content}
         onClick={onDestroy}
-        style={{ background: 'rgba(244,67,54,0.8)' }}
+        style={REMOVE_STYLE}
       >
         REMOVE
       </div>

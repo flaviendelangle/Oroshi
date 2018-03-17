@@ -111,10 +111,7 @@ class MainDrawer extends PureComponent {
             title={title}
             onLeftIconButtonClick={() => onOpen(false)}
             className={styles.TitleBar}
-          >
-            {this.searchBar}
-            {this.actionsButton}
-          </AppBar>
+          />
           <div className={styles.Content}>
             {
               lines.map((section, index) => (

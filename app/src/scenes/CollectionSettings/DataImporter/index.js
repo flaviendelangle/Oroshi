@@ -55,12 +55,12 @@ class DataImporter extends PureComponent {
         }))
         importContent(newProps.importFromFile.data)
       }
-      this.setState({ elements: newProps.importFromFile.data })
+      this.setState(() => ({ elements: newProps.importFromFile.data }))
     }
   }
 
   updateFile = (format, upload) => {
-    this.setState({ [format]: upload[0] })
+    this.setState(() => ({ [format]: upload[0] }))
   }
 
   /**
@@ -100,7 +100,7 @@ class DataImporter extends PureComponent {
             floatingLabelText="Source"
             value={this.state.source}
             className={styles.Source}
-            onChange={(proxy, index, newSource) => this.setState({ source: newSource })}
+            onChange={(proxy, index, newSource) => this.setState(() => ({ source: newSource }))}
           >
             <MenuItem value="csv" primaryText="CSV File" />
             <MenuItem value="json" primaryText="JSON File" />

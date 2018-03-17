@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react'
-import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
 import Paper from 'material-ui/Paper'
@@ -9,6 +8,7 @@ import cx from 'classnames'
 import Poster from '../Poster'
 import FakePoster from '../FakePoster'
 import Suggestions from './Suggestions'
+import Footer from './Footer'
 import Overlay from '../Overlay'
 
 import styles from './Element.scss'
@@ -37,39 +37,23 @@ class Element extends PureComponent {
     posterFound: true,
   }
 
-  componentWillMount() {
-    this.setState({
-      layout: this.props.layout,
-    })
-  }
-
-  componentWillReceiveProps(newProps) {
-    console.log(newProps)
+  componentWillReceiveProps(nextProps) {
     const { data } = this.props
-    if (data.isInCollection() !== newProps.data.isInCollection()) {
-      this.setState({ isAdding: false })
+    if (data.isInCollection() !== nextProps.data.isInCollection()) {
+      this.setState(() => ({ isAdding: false }))
     }
   }
 
-  componentDidUpdate() {
-    const { onRender } = this.props
-    if (onRender) {
-      onRender({
-        layout: this.state.layout,
-      })
-    }
-  }
+  onMouseEnter = () => this.onMouseHover(true)
 
-  /**
-   * Update state.mouseOver to decide if we want to generate the RegularOverlay
-   * @param {boolean} isMouseOver
-   */
+  onMouseLeave = () => this.onMouseHover(false)
+
   onMouseHover = (isMouseOver) => {
-    this.setState({ isMouseOver })
+    this.setState(() => ({ isMouseOver }))
   }
 
   onPosterLoad = (posterFound) => {
-    this.setState({ posterFound, isReady: true })
+    this.setState(() => ({ posterFound, isReady: true }))
   }
 
   onSave = () => {
@@ -143,8 +127,8 @@ class Element extends PureComponent {
           <Paper
             zDepth={3}
             className={styles.Content}
-            onMouseEnter={() => this.onMouseHover(true)}
-            onMouseLeave={() => this.onMouseHover(false)}
+            onMouseEnter={this.onMouseEnter}
+            onMouseLeave={this.onMouseLeave}
           >
             {
               posterFound ?
@@ -165,29 +149,7 @@ class Element extends PureComponent {
             />
           </Paper>
         </div>
-        <div className={styles.Title}>
-          {
-            footer &&
-            footer.map((line) => {
-              if (line.link) {
-                return (
-                  <Link
-                    key={line.key}
-                    to={line.link}
-                    target="_blank"
-                  >
-                    {line.value}
-                  </Link>
-                )
-              }
-              return (
-                <div key={line.key}>
-                  {line.value}
-                </div>
-              )
-            })
-          }
-        </div>
+        <Footer footer={footer} />
       </div>
     )
   }

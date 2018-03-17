@@ -69,16 +69,15 @@ class Section extends PureComponent {
 
 
   showFullVersion = () => {
-    this.setState({ isFull: !this.state.isFull })
+    this.setState(prevState => ({ isFull: !prevState.isFull }))
   }
 
   showMore = () => {
     const { data: { next }, loadMore } = this.props
-    const { pages } = this.state
     if (next) {
       loadMore(next)
     }
-    this.setState({ pages: pages + 1 })
+    this.setState(prevState => ({ pages: prevState.pages + 1 }))
   }
 
   renderLink = () => {

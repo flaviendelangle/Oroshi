@@ -24,7 +24,7 @@ class TextField extends PureComponent {
   switchMode = () => {
     const { onSave } = this.props
     const { editing } = this.state
-    this.setState({ editing: !editing })
+    this.setState(prevState => ({ editing: !prevState.editing }))
     if (editing) {
       onSave()
     }

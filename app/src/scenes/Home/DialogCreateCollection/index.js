@@ -31,7 +31,7 @@ class DialogCreateCollection extends PureComponent {
       isOpen &&
       !newProps.isOpen
     ) {
-      this.setState({ stepIndex: 0 })
+      this.setState(() => ({ stepIndex: 0 }))
     }
   }
 
@@ -56,14 +56,12 @@ class DialogCreateCollection extends PureComponent {
 
   close = () => {
     const { close } = this.props
-    this.setState({
-      stepIndex: 0,
-    })
+    this.setState(() => ({ stepIndex: 0 }))
     close()
   }
 
   pickCollectionType = (type) => {
-    this.setState({ type, stepIndex: 1 })
+    this.setState(() => ({ type, stepIndex: 1 }))
   }
 
   renderActions = () => {
@@ -95,7 +93,7 @@ class DialogCreateCollection extends PureComponent {
           stepIndex === 0 ?
             <CollectionType onClick={this.pickCollectionType} /> :
             <CollectionConfiguration
-              onTitleChange={(proxy, title) => this.setState({ title })}
+              onTitleChange={(proxy, title) => this.setState(() => ({ title }))}
             />
         }
       </Dialog>

@@ -71,11 +71,10 @@ class Grid extends PureComponent {
    */
   showMore = () => {
     const { loadMore, data: { next } } = this.props
-    const { pages } = this.state
     if (next) {
       loadMore(next)
     }
-    this.setState({ pages: pages + 1 })
+    this.setState(prevState => ({ pages: prevState.pages + 1 }))
   }
 
   render() {

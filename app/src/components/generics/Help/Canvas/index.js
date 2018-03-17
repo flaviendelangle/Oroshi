@@ -28,7 +28,7 @@ class Canvas extends PureComponent {
 
   onElementRender = ({ layout }) => {
     if (!this.canvas) {
-      this.setState({ layout: [] })
+      this.setState(() => ({ layout: [] }))
     } else {
       const newLayout = Object
         .keys(layout)
@@ -50,7 +50,7 @@ class Canvas extends PureComponent {
             name: config.name,
           }
         })
-      this.setState({ layout: newLayout })
+      this.setState(() => ({ layout: newLayout }))
     }
   }
 

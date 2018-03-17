@@ -31,12 +31,12 @@ class Overlay extends PureComponent {
 
   componentWillReceiveProps(newProps) {
     if (newProps.isMouseOver) {
-      this.setState({ show: true, waiting: false })
+      this.setState(() => ({ show: true, waiting: false }))
     } else {
-      this.setState({ waiting: true })
+      this.setState(() => ({ waiting: true }))
       this.timeout = setTimeout(() => {
         if (this.state.waiting) {
-          this.setState({ show: false, waiting: false })
+          this.setState(() => ({ show: false, waiting: false }))
         }
       }, 300)
     }

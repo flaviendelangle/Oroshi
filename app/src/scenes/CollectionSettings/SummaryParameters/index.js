@@ -40,12 +40,12 @@ class SummaryParameters extends PureComponent {
   componentWillMount() {
     const { collection: { title } } = this.props
     if (title) {
-      this.setState({ title })
+      this.setState(() => ({ title }))
     }
   }
 
   componentWillReceiveProps(newProps) {
-    this.setState({ title: newProps.collection.title })
+    this.setState(() => ({ title: newProps.collection.title }))
   }
 
   deleteCollection = () => {
@@ -78,7 +78,7 @@ class SummaryParameters extends PureComponent {
               <TextField
                 id="collection_title"
                 value={title}
-                onChange={(proxy, newTitle) => this.setState({ title: newTitle })}
+                onChange={(proxy, newTitle) => this.setState(() => ({ title: newTitle }))}
                 onSave={() => update('title', title)}
               />
             </Section.Item>
@@ -119,25 +119,25 @@ class SummaryParameters extends PureComponent {
             <Section.Item
               rightIcon={<SocialShare />}
               primaryText="Get your public link"
-              onClick={() => this.setState({ showGetPublicLinkAlert: true })}
+              onClick={() => this.setState(() => ({ showGetPublicLinkAlert: true }))}
             />
             <Section.Item
               rightIcon={<ActionDeleteForever />}
               primaryText="Destroy this collection"
-              onClick={() => this.setState({ showDeleteAlert: true })}
+              onClick={() => this.setState(() => ({ showDeleteAlert: true }))}
             />
           </Section.Content>
         </Section>
         <DeleteAlert
           open={showDeleteAlert}
-          onClose={() => this.setState({ showDeleteAlert: false })}
+          onClose={() => this.setState(() => ({ showDeleteAlert: false }))}
           onDelete={this.deleteCollection}
         />
         <ShowPublicLinkAlert
           open={showGetPublicLinkAlert}
           collection={collection}
           type={type}
-          onClose={() => this.setState({ showGetPublicLinkAlert: false })}
+          onClose={() => this.setState(() => ({ showGetPublicLinkAlert: false }))}
         />
         { hasBeenDeleted && <Redirect to="/" /> }
       </Fragment>

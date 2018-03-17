@@ -62,11 +62,11 @@ class Login extends PureComponent {
   }
 
   handleMouseHover = (mouseOver) => {
-    this.setState({ mouseOver })
+    this.setState(() => ({ mouseOver }))
   }
 
   switchMode = (mode) => {
-    this.setState({ mode })
+    this.setState(() => ({ mode }))
   }
 
   render() {

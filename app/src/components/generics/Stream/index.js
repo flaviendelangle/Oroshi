@@ -42,9 +42,7 @@ class Stream extends PureComponent {
   }
 
   showMore = () => {
-    this.setState({
-      pages: this.state.pages + 1,
-    })
+    this.setState(prevState => ({ pages: prevState.pages + 1 }))
   }
 
   render() {

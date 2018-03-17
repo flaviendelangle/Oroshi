@@ -32,6 +32,9 @@ const LAYOUT = {
   },
 }
 
+const SEEN_STYLE = { color: 'green' }
+const NOT_SEEN_STYLE = { color: 'red' }
+
 /** Class representing a movie frame, used mainly in the layouts (Grid + Stream) */
 class Movie extends PureComponent {
   static propTypes = {
@@ -45,29 +48,38 @@ class Movie extends PureComponent {
     switchSeen: PropTypes.func,
   }
 
-  getFooterData = () => {
-    const { data } = this.props
-    const releaseDate = date(data.getReleaseDate(), date.TMDB_FORMAT, date.YEAR_FORMAT)
-    return [
-      { key: 'year', value: releaseDate },
-      { key: 'title', value: data.getTitle(), link: publicRoot + data.getPublicId() },
-    ]
+  state = {
+    footer: [],
   }
 
-  /**
-   * Check if we are in test mode
-   */
+  componentWillMount() {
+    this.updateFooter(this.props)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.data !== this.props.data) {
+      this.updateFooter(nextProps)
+    }
+  }
+
   isTesting = () => this.props.mode === 'test'
 
-  /**
-   * Switch the seen paramter of the movie
-   */
   switchSeen = () => {
     const { data, switchSeen } = this.props
     if (this.isTesting()) {
       return null
     }
     return switchSeen(data)
+  }
+
+  updateFooter = ({ data }) => {
+    const releaseDate = date(data.getReleaseDate(), date.TMDB_FORMAT, date.YEAR_FORMAT)
+    const footer = [
+      { key: 'year', value: releaseDate },
+      { key: 'title', value: data.getTitle(), link: publicRoot + data.getPublicId() },
+    ]
+
+    this.setState(() => ({ footer }))
   }
 
   render() {
@@ -80,6 +92,7 @@ class Movie extends PureComponent {
       onRender,
       ...props
     } = this.props
+    const { footer } = this.state
     return (
       <Element
         data={data}
@@ -90,7 +103,7 @@ class Movie extends PureComponent {
         onSave={create}
         onDestroy={destroy}
         onRendery={onRender}
-        footer={this.getFooterData()}
+        footer={footer}
         topRightAction={
           <Seen
             creationMode={creationMode}
@@ -110,10 +123,9 @@ const Seen = ({ seen, onClick, creationMode }) => {
   if (creationMode) {
     return null
   }
-  const color = seen ? 'green' : 'red'
   return (
     <ImageEye
-      style={{ color }}
+      style={seen ? SEEN_STYLE : NOT_SEEN_STYLE}
       onClick={onClick}
     />
   )

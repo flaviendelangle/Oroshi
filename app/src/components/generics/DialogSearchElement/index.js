@@ -45,7 +45,7 @@ class DialogSearchElement extends PureComponent {
   }
 
   search = (query) => {
-    this.setState({ query })
+    this.setState(() => ({ query }))
     this.filter(query)
   }
 
