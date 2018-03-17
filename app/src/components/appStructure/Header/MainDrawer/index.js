@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
@@ -37,7 +37,7 @@ const ACCOUNT_LINES = [
   </Link>,
 ]
 
-class MainDrawer extends Component {
+class MainDrawer extends PureComponent {
   static propTypes = {
     scene: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,

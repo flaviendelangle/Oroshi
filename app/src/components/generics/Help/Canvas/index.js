@@ -1,11 +1,11 @@
-import React, { Component, Fragment } from 'react'
+import React, { PureComponent, Fragment } from 'react'
 import { Stage, Layer, Arrow, Text } from 'react-konva'
 import PropTypes from 'prop-types'
 
 import styles from './Canvas.scss'
 
 
-class Canvas extends Component {
+class Canvas extends PureComponent {
   static propTypes = {
     component: PropTypes.func.isRequired,
     element: PropTypes.object.isRequired,

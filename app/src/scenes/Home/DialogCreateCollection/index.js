@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
@@ -11,7 +11,7 @@ import { create as createCollection } from '../../../services/actions/collection
 import { showDialogCreateCollection } from '../../../services/actions/interface'
 
 
-class DialogCreateCollection extends Component {
+class DialogCreateCollection extends PureComponent {
   static propTypes = {
     profile: PropTypes.object.isRequired,
     create: PropTypes.func.isRequired,

@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
 
@@ -13,7 +13,7 @@ const OVERLAYS = {
   clickable: ClickableOverlay,
 }
 
-class Overlay extends Component {
+class Overlay extends PureComponent {
   static propTypes = {
     overlay: PropTypes.string,
     mode: PropTypes.string,

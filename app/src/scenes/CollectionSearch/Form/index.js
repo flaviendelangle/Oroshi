@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { reduxForm, Field, getFormValues } from 'redux-form'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
@@ -14,7 +14,7 @@ import styles from './Form.scss'
 
 export const FORM_ID = 'advancedSearchForm'
 
-class Form extends Component {
+class Form extends PureComponent {
   static propTypes = {
     type: PropTypes.string.isRequired,
     onSubmit: PropTypes.func.isRequired,

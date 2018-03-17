@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 
 import IconButton from 'material-ui/IconButton'
@@ -13,7 +13,7 @@ const CONFIG = {
   pageLength: 10,
 }
 
-class Stream extends Component {
+class Stream extends PureComponent {
   static propTypes = {
     data: PropTypes.object.isRequired,
     collection: PropTypes.object.isRequired,

@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 
 import Snackbar from 'material-ui/Snackbar'
@@ -9,7 +9,7 @@ import { connect } from '../../../services/redux'
 
 const DURATION = 2000
 
-class SnackbarList extends Component {
+class SnackbarList extends PureComponent {
   static propTypes = {
     messages: PropTypes.array.isRequired,
     remove: PropTypes.func.isRequired,

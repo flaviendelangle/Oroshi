@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 
 import NotFound from '../../../components/errors/NotFound/index'
@@ -12,7 +12,7 @@ import { get as getCollection } from '../../../services/actions/collections/inde
 import scrollable from '../../../helpers/scrollable'
 
 
-class CollectionContent extends Component {
+class CollectionContent extends PureComponent {
   static propTypes = {
     collection: PropTypes.object.isRequired,
     type: PropTypes.string.isRequired,

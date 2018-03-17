@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { SubmissionError } from 'redux-form'
 import PropTypes from 'prop-types'
@@ -12,7 +12,7 @@ import { create, login as _login } from '../../services/actions/users'
 import styles from './Login.scss'
 
 
-class Login extends Component {
+class Login extends PureComponent {
   static propTypes = {
     login: PropTypes.func.isRequired,
     register: PropTypes.func.isRequired,

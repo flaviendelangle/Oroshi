@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 
 import TextFieldOriginal from 'material-ui/TextField'
@@ -9,7 +9,7 @@ import IconButton from 'material-ui/IconButton'
 import styles from './TextField.scss'
 
 
-class TextField extends Component {
+class TextField extends PureComponent {
   static propTypes = {
     onSave: PropTypes.func.isRequired,
     onChange: PropTypes.func.isRequired,

@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
@@ -11,7 +11,7 @@ import { updateQuery } from '../../../../services/actions/content'
 import styles from './Search.scss'
 
 
-class Search extends Component {
+class Search extends PureComponent {
   static propTypes = {
     filter: PropTypes.func.isRequired,
     autoComplete: PropTypes.array,

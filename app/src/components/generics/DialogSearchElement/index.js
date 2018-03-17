@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { isEqual } from 'lodash'
 
@@ -11,7 +11,7 @@ import scrollable from '../../../helpers/scrollable'
 import styles from './DialogSearchElement.scss'
 
 
-class DialogSearchElement extends Component {
+class DialogSearchElement extends PureComponent {
   static propTypes = {
     type: PropTypes.string.isRequired,
     open: PropTypes.bool.isRequired,

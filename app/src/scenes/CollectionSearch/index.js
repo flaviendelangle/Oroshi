@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 
 import Form from './Form'
@@ -10,7 +10,7 @@ import { connect } from '../../services/redux'
 import scrollable from '../../helpers/scrollable'
 
 
-class CollectionSearch extends Component {
+class CollectionSearch extends PureComponent {
   static propTypes = {
     type: PropTypes.string.isRequired,
     collection: PropTypes.object.isRequired,

@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { PureComponent, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { Redirect } from 'react-router-dom'
 
@@ -22,7 +22,7 @@ const selectStyle = {
   right: 50,
 }
 
-class SummaryParameters extends Component {
+class SummaryParameters extends PureComponent {
   static propTypes = {
     collection: PropTypes.object.isRequired,
     type: PropTypes.string.isRequired,

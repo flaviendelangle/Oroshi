@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { PureComponent, Fragment } from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
@@ -18,7 +18,7 @@ import { connect } from '../../../services/redux'
 import styles from './Header.scss'
 
 
-class Header extends Component {
+class Header extends PureComponent {
   static propTypes = {
     scene: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,

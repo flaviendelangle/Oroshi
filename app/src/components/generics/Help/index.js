@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
@@ -10,7 +10,7 @@ import { getElement as _getElement } from '../../../services/actions/help'
 import styles from './Help.scss'
 
 
-class Help extends Component {
+class Help extends PureComponent {
   static propTypes = {
     getElement: PropTypes.func.isRequired,
     collection: PropTypes.object.isRequired,

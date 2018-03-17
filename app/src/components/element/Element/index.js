@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
@@ -14,7 +14,7 @@ import Overlay from '../Overlay'
 import styles from './Element.scss'
 
 
-class Element extends Component {
+class Element extends PureComponent {
   static propTypes = {
     data: PropTypes.object.isRequired,
     creationMode: PropTypes.bool, // RENAME
@@ -44,6 +44,7 @@ class Element extends Component {
   }
 
   componentWillReceiveProps(newProps) {
+    console.log(newProps)
     const { data } = this.props
     if (data.isInCollection() !== newProps.data.isInCollection()) {
       this.setState({ isAdding: false })
@@ -164,44 +165,32 @@ class Element extends Component {
             />
           </Paper>
         </div>
-        <Footer
-          footer={footer}
-        />
+        <div className={styles.Title}>
+          {
+            footer &&
+            footer.map((line) => {
+              if (line.link) {
+                return (
+                  <Link
+                    key={line.key}
+                    to={line.link}
+                    target="_blank"
+                  >
+                    {line.value}
+                  </Link>
+                )
+              }
+              return (
+                <div key={line.key}>
+                  {line.value}
+                </div>
+              )
+            })
+          }
+        </div>
       </div>
     )
   }
-}
-
-const Footer = ({
-  footer,
-}) => (
-  <div className={styles.Title}>
-    {
-      footer &&
-      footer.map((line) => {
-        if (line.link) {
-          return (
-            <Link
-              key={line.key}
-              to={line.link}
-              target="_blank"
-            >
-              {line.value}
-            </Link>
-          )
-        }
-        return (
-          <div key={line.key}>
-            {line.value}
-          </div>
-        )
-      })
-    }
-  </div>
-)
-
-Footer.propTypes = {
-  footer: PropTypes.array,
 }
 
 export default Element

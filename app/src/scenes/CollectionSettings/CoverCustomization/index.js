@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 
 import CollectionCover from '../../../components/generics/CollectionCover'
@@ -11,7 +11,7 @@ import { get as getCollection, updateCover } from '../../../services/actions/col
 import styles from './CoverCustomization.scss'
 
 
-class CoverCustomization extends Component {
+class CoverCustomization extends PureComponent {
   static propTypes = {
     collection: PropTypes.object.isRequired,
     type: PropTypes.string.isRequired,

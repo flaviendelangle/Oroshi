@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 
 import Toggle from 'material-ui/Toggle'
@@ -7,7 +7,7 @@ import Checkbox from 'material-ui/Checkbox'
 import styles from './OptionalToggle.scss'
 
 
-class OptionalToggle extends Component {
+class OptionalToggle extends PureComponent {
   static propTypes = {
     label: PropTypes.string.isRequired,
     input: PropTypes.shape({

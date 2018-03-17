@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
 import { isEmpty } from 'lodash'
@@ -13,7 +13,7 @@ import styles from './CollectionList.scss'
 
 const COVER_SIZE = 0.75
 
-class CollectionList extends Component {
+class CollectionList extends PureComponent {
   static propTypes = {
     collections: PropTypes.array.isRequired,
     lineDimensions: PropTypes.object.isRequired,

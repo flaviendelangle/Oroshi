@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import ScrollArea from 'react-scrollbar'
 import Dropzone from 'react-dropzone'
 import PropTypes from 'prop-types'
@@ -21,7 +21,7 @@ import { connect } from '../../../services/redux'
 import styles from './DataImporter.scss'
 
 
-class DataImporter extends Component {
+class DataImporter extends PureComponent {
   static propTypes = {
     progress: PropTypes.number.isRequired,
     importCSV: PropTypes.func.isRequired,

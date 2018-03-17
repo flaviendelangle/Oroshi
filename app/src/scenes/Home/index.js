@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { PureComponent, Fragment } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
@@ -11,7 +11,7 @@ import { getAll as getCollections } from '../../services/actions/collections'
 import scrollable from '../../helpers/scrollable'
 
 
-class Home extends Component {
+class Home extends PureComponent {
   static propTypes = {
     history: PropTypes.object.isRequired,
     loadCollections: PropTypes.func.isRequired,

@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 
 import Progress from '../../components/generics/Progress'
@@ -38,7 +38,7 @@ const SECTIONS = {
 
 const DEFAULT_SECTION = 'summary'
 
-class CollectionSettings extends Component {
+class CollectionSettings extends PureComponent {
   static propTypes = {
     synchronize: PropTypes.func.isRequired,
     type: PropTypes.string.isRequired,

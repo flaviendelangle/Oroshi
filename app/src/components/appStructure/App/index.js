@@ -9,9 +9,10 @@ import setup from '../../../setup'
 import store from '../../../reducers/store'
 import theme from '../../../services/theme'
 
+const status = setup.run(React)
 
 // eslint-disable-next-line no-console
-console.log(`Application setup status: ${setup.status}`)
+console.log(`Application setup status: ${status}`)
 
 const App = () => (
   <MuiThemeProvider muiTheme={getMuiTheme(theme)} >

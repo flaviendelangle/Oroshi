@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
@@ -19,7 +19,7 @@ const CONFIG = {
  * Class representing the Grid layout
  * This layout show the elements as a responsive grid with CONFIG.pageLength lines
  */
-class Grid extends Component {
+class Grid extends PureComponent {
   static propTypes = {
     data: PropTypes.object.isRequired,
     lineDimensions: PropTypes.object.isRequired,

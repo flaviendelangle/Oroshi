@@ -35,5 +35,10 @@ tmdbApi.setConfig({
 tM.register(movies)
 
 export default {
-  status: 'SUCCESS',
+  run: (React) => {
+    if (process.env.NODE_ENV !== 'production') {
+      const { whyDidYouUpdate } = require('why-did-you-update') // eslint-disable-line global-require
+      whyDidYouUpdate(React)
+    }
+  },
 }

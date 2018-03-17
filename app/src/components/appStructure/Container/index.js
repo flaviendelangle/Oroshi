@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 import { Switch, Route } from 'react-router-dom'
@@ -17,7 +17,7 @@ import { getProfile } from '../../../services/actions/users'
 import styles from './Container.scss'
 
 
-class Container extends Component {
+class Container extends PureComponent {
   static propTypes = {
     location: PropTypes.object.isRequired,
     loadProfile: PropTypes.func.isRequired,

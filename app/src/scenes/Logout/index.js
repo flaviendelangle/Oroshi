@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
@@ -6,7 +6,7 @@ import Progress from '../../components/generics/Progress'
 import { logout as _logout } from '../../services/actions/users'
 
 
-class Logout extends Component {
+class Logout extends PureComponent {
   static propTypes = {
     logout: PropTypes.func.isRequired,
     history: PropTypes.object.isRequired,

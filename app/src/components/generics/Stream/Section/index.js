@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
@@ -18,7 +18,7 @@ const CONFIG = {
   pageLength: 4,
 }
 
-class Section extends Component {
+class Section extends PureComponent {
   static propTypes = {
     data: PropTypes.object.isRequired,
     lineDimensions: PropTypes.object.isRequired,

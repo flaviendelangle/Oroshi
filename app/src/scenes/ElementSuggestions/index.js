@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 
 import Stream from '../../components/generics/Stream'
@@ -9,7 +9,7 @@ import { connect } from '../../services/redux'
 import scrollable from '../../helpers/scrollable'
 
 
-class ElementSuggestions extends Component {
+class ElementSuggestions extends PureComponent {
   static propTypes = {
     isLoaded: PropTypes.bool.isRequired,
     collection: PropTypes.object.isRequired,

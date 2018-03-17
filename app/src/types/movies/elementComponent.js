@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
@@ -33,7 +33,7 @@ const LAYOUT = {
 }
 
 /** Class representing a movie frame, used mainly in the layouts (Grid + Stream) */
-class Movie extends Component {
+class Movie extends PureComponent {
   static propTypes = {
     data: PropTypes.object.isRequired,
     collection: PropTypes.object.isRequired,
