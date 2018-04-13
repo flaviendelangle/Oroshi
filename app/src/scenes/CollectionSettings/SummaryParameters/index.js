@@ -30,22 +30,17 @@ class SummaryParameters extends PureComponent {
     update: PropTypes.func.isRequired,
   }
 
+  static getDerivedStateFromProps(nextProps) {
+    return {
+      title: nextProps.collection.title || '',
+    }
+  }
+
   state = {
     title: '',
     showDeleteAlert: false,
     showGetPublicLinkAlert: false,
     hasBeenDeleted: false,
-  }
-
-  componentWillMount() {
-    const { collection: { title } } = this.props
-    if (title) {
-      this.setState(() => ({ title }))
-    }
-  }
-
-  componentWillReceiveProps(newProps) {
-    this.setState(() => ({ title: newProps.collection.title }))
   }
 
   deleteCollection = () => {

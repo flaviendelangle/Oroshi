@@ -48,18 +48,31 @@ class Movie extends PureComponent {
     switchSeen: PropTypes.func,
   }
 
+  static getDerivedStateFromProps(nextProps, prevState) {
+    const { data } = nextProps
+    if (
+      !prevState.data ||
+      prevState.data !== nextProps.data
+    ) {
+      const releaseDate = date(data.getReleaseDate(), date.TMDB_FORMAT, date.YEAR_FORMAT)
+      const footer = [
+        { key: 'year', value: releaseDate },
+        { key: 'title', value: data.getTitle(), link: publicRoot + data.getPublicId() },
+      ]
+      return {
+        data,
+        footer,
+      }
+    }
+
+    return {
+      data,
+    }
+  }
+
   state = {
     footer: [],
-  }
-
-  componentWillMount() {
-    this.updateFooter(this.props)
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.data !== this.props.data) {
-      this.updateFooter(nextProps)
-    }
+    data: null, // eslint-disable-line react/no-unused-state
   }
 
   isTesting = () => this.props.mode === 'test'
@@ -70,16 +83,6 @@ class Movie extends PureComponent {
       return null
     }
     return switchSeen(data)
-  }
-
-  updateFooter = ({ data }) => {
-    const releaseDate = date(data.getReleaseDate(), date.TMDB_FORMAT, date.YEAR_FORMAT)
-    const footer = [
-      { key: 'year', value: releaseDate },
-      { key: 'title', value: data.getTitle(), link: publicRoot + data.getPublicId() },
-    ]
-
-    this.setState(() => ({ footer }))
   }
 
   render() {

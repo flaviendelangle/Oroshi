@@ -30,11 +30,29 @@ class Element extends PureComponent {
     onClick: PropTypes.func,
   }
 
+  static getDerivedStateFromProps(nextProps, prevState) {
+    const { data } = nextProps
+    if (
+      !prevState.data ||
+      data.isInCollection() !== prevState.data.isInCollection()
+    ) {
+      return {
+        data,
+        isAdding: false,
+      }
+    }
+
+    return {
+      data,
+    }
+  }
+
   state = {
     isMouseOver: false,
     isAdding: false,
     isReady: false,
     posterFound: true,
+    data: null, // eslint-disable-line react/no-unused-state
   }
 
   componentWillReceiveProps(nextProps) {

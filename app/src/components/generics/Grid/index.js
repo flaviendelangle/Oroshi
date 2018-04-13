@@ -7,6 +7,7 @@ import IconButton from 'material-ui/IconButton'
 import NavigationMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz'
 
 import ElementLine, { groupByLine } from '../ElementLine/index'
+import scrollable from '../../../helpers/scrollable'
 
 import styles from './Grid.scss'
 
@@ -43,10 +44,10 @@ class Grid extends PureComponent {
   }
 
   get elements() {
-    let elements = this.props.data.results
-    if (elements.length > this.amountToShow) {
-      elements = elements.slice(0, this.amountToShow)
-    }
+    const allElements = this.props.data.results
+    const elements = (allElements.length > this.amountToShow) ?
+      allElements.slice(0, this.amountToShow) :
+      allElements
     return groupByLine(elements, this.getElementPerLine())
   }
 
@@ -136,7 +137,12 @@ const mapDispatchToProps = dispatch => ({
   loadMore: loadFunction => dispatch(loadFunction()),
 })
 
-export default connect(
+const ConnectedGrid = connect(
   mapStateToProps,
   mapDispatchToProps,
 )(Grid)
+
+export default ConnectedGrid
+
+
+export const ScrollableGrid = scrollable(ConnectedGrid)

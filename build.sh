@@ -27,4 +27,8 @@ echo Installing python packages
 echo `pipenv install`
 
 
+# Install NPM packages
+echo Installing npm packages
+echo `npm install --prefix ./app`
+
 exit 1

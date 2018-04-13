@@ -167,12 +167,7 @@ Icon.propTypes = {
 }
 
 const mapStateToProps = ({ header, content, main }) => {
-  let count
-  if (content.layout === 'stream') {
-    count = content.stream.getElementCount()
-  } else {
-    count = content.grid.getElementCount()
-  }
+  const count = content[content.layout].getElementCount()
   return {
     isDrawerOpen: header.isDrawerOpen,
     layout: content.layout,

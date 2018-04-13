@@ -28,4 +28,6 @@ export const groupByLine = (elements, elementsPerLine) => {
   return lines
 }
 
+export const getIndex = data => data.map(el => el.getPublicId()).join('')
+
 export default ElementLine

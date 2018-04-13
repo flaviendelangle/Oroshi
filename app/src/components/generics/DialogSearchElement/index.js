@@ -5,8 +5,7 @@ import { isEqual } from 'lodash'
 import Dialog from 'material-ui/Dialog'
 import SearchBar from 'material-ui-search-bar'
 
-import Grid from '../Grid'
-import scrollable from '../../../helpers/scrollable'
+import { ScrollableGrid } from '../Grid'
 
 import styles from './DialogSearchElement.scss'
 
@@ -24,24 +23,20 @@ class DialogSearchElement extends PureComponent {
     content: PropTypes.array.isRequired,
   }
 
+  static getDerivedStateFromProps(nextProps, prevState) {
+    const { content } = nextProps
+    if (!isEqual(prevState.matches, content)) {
+      return {
+        matches: content,
+        query: '',
+      }
+    }
+    return null
+  }
+
   state = {
     query: '',
     matches: [],
-  }
-
-  componentWillMount() {
-    const { content } = this.props
-    this.setState(() => ({ matches: content }))
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const { content } = this.props
-    if (!isEqual(nextProps.content, content)) {
-      this.setState(() => ({
-        matches: nextProps.content,
-        query: '',
-      }))
-    }
   }
 
   search = (query) => {
@@ -69,12 +64,9 @@ class DialogSearchElement extends PureComponent {
 
     const { query, matches } = this.state
 
-    const ScrollableGrid = scrollable(Grid)
-
     return (
       <Dialog
         title={title}
-        // actions={actions}
         modal={false}
         open={open}
         onRequestClose={onClose}

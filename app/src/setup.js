@@ -36,7 +36,7 @@ tM.register(movies)
 
 export default {
   run: (React) => {
-    if (process.env.NODE_ENV !== 'production') {
+    if (process.env.NODE_ENV !== 'production' && false) {
       const { whyDidYouUpdate } = require('why-did-you-update') // eslint-disable-line global-require
       whyDidYouUpdate(React)
     }

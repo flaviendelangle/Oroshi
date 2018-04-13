@@ -31,9 +31,6 @@ const reducer = (_state, action) => {
   const { meta: { type } } = action
   const state = _state || generateDefaultState(type)
 
-  let newContent
-  let newOrder
-
   const getter = tM.read(type)
   const GridGenerator = getter.grid()
   const StreamGenerator = getter.stream()
@@ -47,7 +44,7 @@ const reducer = (_state, action) => {
       if (!action.payload) {
         return state
       }
-      newContent = Element.sortList(
+      const newContent = Element.sortList(
         action.payload.content,
         state.order.grid,
       )
@@ -65,7 +62,7 @@ const reducer = (_state, action) => {
      * An element has been added to the collection
      */
     case `${collections.add}_FULFILLED`: {
-      newContent = contentManager.add(state.content, action.payload, state.order.grid)
+      const newContent = contentManager.add(state.content, action.payload, state.order.grid)
 
       return {
         ...state,
@@ -80,7 +77,7 @@ const reducer = (_state, action) => {
      * An element has been removed from the collection
      */
     case `${collections.remove}_FULFILLED`: {
-      newContent = contentManager.remove(state.content, action.payload)
+      const newContent = contentManager.remove(state.content, action.payload)
 
       return {
         ...state,
@@ -95,7 +92,7 @@ const reducer = (_state, action) => {
      * An element has been updated in the collection (ex : Not (Seen) => Seen)
      */
     case `${collections.update}_FULFILLED`: {
-      newContent = contentManager.update(state.content, action.payload)
+      const newContent = contentManager.update(state.content, action.payload)
 
       return {
         ...state,
@@ -112,12 +109,10 @@ const reducer = (_state, action) => {
      */
     case sort.update: {
       setSortParameters(type, action.parameters, defaultOrder)
-      if (action.parameters.layout === 'grid') {
-        newContent = Element.sortList(state.content, action.parameters)
-      } else {
-        newContent = state.content
-      }
-      newOrder = {
+      const newContent = (action.parameters.layout === 'grid') ?
+        Element.sortList(state.content, action.parameters) :
+        state.content
+      const newOrder = {
         ...state.order,
         [action.parameters.layout]: action.parameters,
       }

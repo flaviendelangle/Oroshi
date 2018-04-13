@@ -37,12 +37,13 @@ class Home extends PureComponent {
     }
   }
 
-  componentWillReceiveProps(newProps) {
+  componentDidUpdate(prevProps) {
+    const { profile } = this.props
     if (
-      newProps.profile &&
-      !this.props.profile
+      profile &&
+      !prevProps.profile
     ) {
-      this.loadCollections(newProps.profile)
+      this.loadCollections(profile)
     }
   }
 
