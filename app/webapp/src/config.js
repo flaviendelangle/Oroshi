@@ -18,3 +18,11 @@ export const WELCOME = {
 export const urls = {
   frontend: 'http://localhost:3000/',
 }
+
+export const GRAPHQL = {
+  uri: 'http://localhost:8000/',
+}
+
+export const DEV = {
+  whyDidYouUpdate: process.env.NODE_ENV !== 'production' && false,
+}

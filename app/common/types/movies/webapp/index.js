@@ -1,6 +1,6 @@
 import AVMovie from 'material-ui/svg-icons/av/movie'
 
-import type from '../../services/content/type'
+import type from '../../../../webapp/src/services/content/type'
 
 import elementComponent from './elementComponent'
 import elementClass from './elementClass'
@@ -9,9 +9,9 @@ import sortOptions from './sortOptions'
 import * as searchOptions from './searchOptions'
 import * as actions from './actions'
 import * as publicActions from './publicActions'
-import MoviesTMDB from '../../services/TheMovieDatabaseJS/movies'
-import { MovieCollectionsAPI } from '../../services/api/movieCollections'
-import { MoviesAPI } from '../../services/api/movies'
+import MoviesTMDB from '../../../../webapp/src/services/TheMovieDatabaseJS/movies'
+import { MovieCollectionsAPI } from '../../../../webapp/src/services/api/movieCollections'
+import { MoviesAPI } from '../../../../webapp/src/services/api/movies'
 
 
 const legacy = {

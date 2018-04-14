@@ -1,7 +1,7 @@
 import { SelectField } from 'redux-form-material-ui'
 
-import OptionalToggle from '../../components/form/OptionalToggle'
-import { SelectLanguageField } from '../../components/form/SelectLanguage'
+import OptionalToggle from '../../../../webapp/src/components/form/OptionalToggle/index'
+import { SelectLanguageField } from '../../../../webapp/src/components/form/SelectLanguage/index'
 import Element from './elementClass'
 
 export const search = [

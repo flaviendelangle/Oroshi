@@ -1,15 +1,24 @@
 import injectTapEventPlugin from 'react-tap-event-plugin'
 import WebFont from 'webfontloader'
+import ApolloClient from 'apollo-boost'
+
 import { DEFAULT_LANGUAGE } from './services/languages'
 import tM from './services/content/type'
 import tmdbApi from './services/TheMovieDatabaseJS/base'
-import movies from './types/movies'
+import movies from '../../common/types/movies/webapp/index'
+import { DEV, GRAPHQL } from './config'
 
 
 /**
  * Remove touch detail issues
  */
 injectTapEventPlugin()
+
+/**
+ * Connect to the GraphQL server
+ */
+export const client = new ApolloClient(GRAPHQL)
+
 
 /**
  * Font settings
@@ -36,7 +45,7 @@ tM.register(movies)
 
 export default {
   run: (React) => {
-    if (process.env.NODE_ENV !== 'production' && false) {
+    if (DEV.whyDidYouUpdate) {
       const { whyDidYouUpdate } = require('why-did-you-update') // eslint-disable-line global-require
       whyDidYouUpdate(React)
     }

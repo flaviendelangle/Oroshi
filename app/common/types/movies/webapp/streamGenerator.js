@@ -1,4 +1,4 @@
-import StreamGeneratorOriginal from '../../services/content/streamGenerator'
+import StreamGeneratorOriginal from '../../../../webapp/src/services/content/streamGenerator'
 
 
 class StreamGenerator extends StreamGeneratorOriginal {

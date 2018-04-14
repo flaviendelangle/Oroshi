@@ -1,0 +1,12 @@
+type Director {
+    id: ID! @unique
+    api_id: Int! @unique
+    name: String!
+}
+
+type Genre {
+    id: ID! @unique
+    api_id: Int! @unique
+    name: String!
+}
+

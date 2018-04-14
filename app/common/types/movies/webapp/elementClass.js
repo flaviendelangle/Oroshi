@@ -1,9 +1,9 @@
 import { isBoolean } from 'lodash'
 
-import { path } from '../../services/TheMovieDatabaseJS/images'
+import { path } from '../../../../webapp/src/services/TheMovieDatabaseJS/images'
 
-import Element from '../../services/content/element'
-import date from '../../services/content/date'
+import Element from '../../../../webapp/src/services/content/element'
+import date from '../../../../webapp/src/services/content/date'
 
 
 class Movie extends Element {

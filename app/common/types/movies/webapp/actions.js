@@ -1,5 +1,5 @@
-import * as tmdb from '../../services/actions/collections/tmdb'
-import { updateElement } from '../../services/actions/collections'
+import * as tmdb from '../../../../webapp/src/services/actions/collections/tmdb'
+import { updateElement } from '../../../../webapp/src/services/actions/collections/index'
 
 
 export const {

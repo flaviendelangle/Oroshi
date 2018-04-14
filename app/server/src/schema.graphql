@@ -1,0 +1,17 @@
+# import Director, Genre, Movie from "./generated/prisma.graphql"
+# import MovieCreateInput, DirectorCreateInput from "./generated/prisma.graphql"
+
+
+type Query {
+    directors: [Director!]!
+    director(api_id: ID!): Director
+    genres: [Genre!]!
+    genre(api_id: ID!): Genre
+    description: String!
+}
+
+type Mutation {
+    createDirector(director: DirectorCreateInput): Director
+    createGenre(api_id: Int!, name: String!): Genre
+    createMovie(movie: MovieCreateInput): Movie
+}

@@ -4,11 +4,11 @@ import PropTypes from 'prop-types'
 
 import ImageEye from 'material-ui/svg-icons/image/remove-red-eye'
 
-import Element from '../../components/element/Element/index'
-import { addElement, removeElement } from '../../services/actions/collections/index'
+import Element from '../../../../webapp/src/components/element/Element/index'
+import { addElement, removeElement } from '../../../../webapp/src/services/actions/collections/index'
 import { switchSeenOnElement } from './actions'
-import { publicRoot } from '../../services/TheMovieDatabaseJS/movies'
-import date from '../../services/content/date'
+import { publicRoot } from '../../../../webapp/src/services/TheMovieDatabaseJS/movies'
+import date from '../../../../webapp/src/services/content/date'
 
 
 const LAYOUT = {

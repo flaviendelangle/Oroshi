@@ -55,13 +55,6 @@ class Element extends PureComponent {
     data: null, // eslint-disable-line react/no-unused-state
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { data } = this.props
-    if (data.isInCollection() !== nextProps.data.isInCollection()) {
-      this.setState(() => ({ isAdding: false }))
-    }
-  }
-
   onMouseEnter = () => this.onMouseHover(true)
 
   onMouseLeave = () => this.onMouseHover(false)

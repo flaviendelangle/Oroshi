@@ -1,0 +1,11 @@
+type Movie {
+    id: ID! @unique
+    api_id: Int! @unique
+    note: Float!
+    original_language: String!
+    directors: [Director!]!
+    titles: [Title!]!
+    posters: [Poster!]!
+    genres: [Genre!]!
+}
+

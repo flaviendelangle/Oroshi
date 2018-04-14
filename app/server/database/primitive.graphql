@@ -1,0 +1,11 @@
+type Title {
+    id: ID! @unique
+    title: String!
+    language: String!
+}
+
+type Poster {
+    id: ID! @unique
+    path: String!
+    language: String!
+}

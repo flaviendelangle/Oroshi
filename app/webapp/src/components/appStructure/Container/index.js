@@ -9,6 +9,7 @@ import Account from '../../../scenes/Account'
 import Login from '../../../scenes/Login'
 import Logout from '../../../scenes/Logout'
 import Collection from '../Collection'
+import Playground from '../../../scenes/Playground'
 import NotFound from '../../errors/NotFound'
 
 import { notifyRouteChange } from '../../../services/actions/router'
@@ -66,6 +67,7 @@ class Container extends PureComponent {
           <Route path="/logout/" component={Logout} />
           <Route path="/account" component={Account} />
           <Route path="/collections/" component={Collection} />
+          <Route path="/playground/" component={Playground} />
           <Route path="/" component={NotFound} />
         </Switch>
       </main>
