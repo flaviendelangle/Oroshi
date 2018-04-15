@@ -1,33 +1,18 @@
 import React, { PureComponent } from 'react'
-import { gql } from 'apollo-boost'
-import { Query } from 'react-apollo'
 
-const GET_MOVIES = gql`
-    query {
-        movies  {
-            api_id
-            titles {
-                id
-                language
-                title
-            }
-        }
-    }
-`
-
-console.log(GET_MOVIES)
+import Retrieve from '../../components/graphQL/Retrieve'
 
 
 // eslint-disable-next-line react/prefer-stateless-function
 class Playground extends PureComponent {
   render() {
     return (
-      <Query query={GET_MOVIES}>
-        {({ data }) => {
+      <Retrieve type="movies" api_id={2}>
+        {(data) => {
           console.log(data)
           return null
         }}
-      </Query>
+      </Retrieve>
     )
   }
 }

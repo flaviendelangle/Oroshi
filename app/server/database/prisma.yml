@@ -9,7 +9,7 @@ secret: mysecret123
 # the file path pointing to your data model
 datamodel:
 - primitive.graphql
-- movie.graphql
+- ../../common/plugins/movies/types.graphql
 - the_movie_database.graphql
 
 cluster: public-horselantern-290/prisma-eu1

@@ -26,6 +26,7 @@ class TypeCreator {
       search: null,
       sort: null,
     },
+    queries: {},
   }
 
   constructor(name) {
@@ -96,6 +97,10 @@ class TypeCreator {
     return this.updateObject('api', type, value)
   }
 
+  queries(value) {
+    return this.updateValue('queries', value)
+  }
+
   /**
    * GETTERS
    */
@@ -109,6 +114,7 @@ class TypeCreator {
       stream: () => this.access('content_managers').stream,
       search_options: () => this.access('options').search,
       sort_options: () => this.access('options').sort,
+      queries: () => this.access('queries'),
     }
   }
 

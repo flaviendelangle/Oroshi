@@ -22,10 +22,16 @@ type Movie implements Node {
   api_id: Int!
   note: Float!
   original_language: String!
-  directors(where: DirectorWhereInput, orderBy: DirectorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Director!]
   titles(where: TitleWhereInput, orderBy: TitleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Title!]
   posters(where: PosterWhereInput, orderBy: PosterOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Poster!]
+  directors(where: DirectorWhereInput, orderBy: DirectorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Director!]
   genres(where: GenreWhereInput, orderBy: GenreOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Genre!]
+}
+
+type MovieCollection implements Node {
+  id: ID!
+  title: String!
+  content(where: MovieWhereInput, orderBy: MovieOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Movie!]
 }
 
 type Poster implements Node {
@@ -54,6 +60,10 @@ type AggregateGenre {
 }
 
 type AggregateMovie {
+  count: Int!
+}
+
+type AggregateMovieCollection {
   count: Int!
 }
 
@@ -629,6 +639,220 @@ scalar Long
 """
 A connection to a list of items.
 """
+type MovieCollectionConnection {
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+  """
+  A list of edges.
+  """
+  edges: [MovieCollectionEdge]!
+  aggregate: AggregateMovieCollection!
+}
+
+input MovieCollectionCreateInput {
+  title: String!
+  content: MovieCreateManyInput
+}
+
+"""
+An edge in a connection.
+"""
+type MovieCollectionEdge {
+  """
+  The item at the end of the edge.
+  """
+  node: MovieCollection!
+  """
+  A cursor for use in pagination.
+  """
+  cursor: String!
+}
+
+enum MovieCollectionOrderByInput {
+  id_ASC
+  id_DESC
+  title_ASC
+  title_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type MovieCollectionPreviousValues {
+  id: ID!
+  title: String!
+}
+
+type MovieCollectionSubscriptionPayload {
+  mutation: MutationType!
+  node: MovieCollection
+  updatedFields: [String!]
+  previousValues: MovieCollectionPreviousValues
+}
+
+input MovieCollectionSubscriptionWhereInput {
+  """
+  Logical AND on all given filters.
+  """
+  AND: [MovieCollectionSubscriptionWhereInput!]
+  """
+  Logical OR on all given filters.
+  """
+  OR: [MovieCollectionSubscriptionWhereInput!]
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: MovieCollectionWhereInput
+}
+
+input MovieCollectionUpdateInput {
+  title: String
+  content: MovieUpdateManyInput
+}
+
+input MovieCollectionWhereInput {
+  """
+  Logical AND on all given filters.
+  """
+  AND: [MovieCollectionWhereInput!]
+  """
+  Logical OR on all given filters.
+  """
+  OR: [MovieCollectionWhereInput!]
+  id: ID
+  """
+  All values that are not equal to given value.
+  """
+  id_not: ID
+  """
+  All values that are contained in given list.
+  """
+  id_in: [ID!]
+  """
+  All values that are not contained in given list.
+  """
+  id_not_in: [ID!]
+  """
+  All values less than the given value.
+  """
+  id_lt: ID
+  """
+  All values less than or equal the given value.
+  """
+  id_lte: ID
+  """
+  All values greater than the given value.
+  """
+  id_gt: ID
+  """
+  All values greater than or equal the given value.
+  """
+  id_gte: ID
+  """
+  All values containing the given string.
+  """
+  id_contains: ID
+  """
+  All values not containing the given string.
+  """
+  id_not_contains: ID
+  """
+  All values starting with the given string.
+  """
+  id_starts_with: ID
+  """
+  All values not starting with the given string.
+  """
+  id_not_starts_with: ID
+  """
+  All values ending with the given string.
+  """
+  id_ends_with: ID
+  """
+  All values not ending with the given string.
+  """
+  id_not_ends_with: ID
+  title: String
+  """
+  All values that are not equal to given value.
+  """
+  title_not: String
+  """
+  All values that are contained in given list.
+  """
+  title_in: [String!]
+  """
+  All values that are not contained in given list.
+  """
+  title_not_in: [String!]
+  """
+  All values less than the given value.
+  """
+  title_lt: String
+  """
+  All values less than or equal the given value.
+  """
+  title_lte: String
+  """
+  All values greater than the given value.
+  """
+  title_gt: String
+  """
+  All values greater than or equal the given value.
+  """
+  title_gte: String
+  """
+  All values containing the given string.
+  """
+  title_contains: String
+  """
+  All values not containing the given string.
+  """
+  title_not_contains: String
+  """
+  All values starting with the given string.
+  """
+  title_starts_with: String
+  """
+  All values not starting with the given string.
+  """
+  title_not_starts_with: String
+  """
+  All values ending with the given string.
+  """
+  title_ends_with: String
+  """
+  All values not ending with the given string.
+  """
+  title_not_ends_with: String
+  content_every: MovieWhereInput
+  content_some: MovieWhereInput
+  content_none: MovieWhereInput
+}
+
+input MovieCollectionWhereUniqueInput {
+  id: ID
+}
+
+"""
+A connection to a list of items.
+"""
 type MovieConnection {
   """
   Information to aid in pagination.
@@ -645,10 +869,15 @@ input MovieCreateInput {
   api_id: Int!
   note: Float!
   original_language: String!
-  directors: DirectorCreateManyInput
   titles: TitleCreateManyInput
   posters: PosterCreateManyInput
+  directors: DirectorCreateManyInput
   genres: GenreCreateManyInput
+}
+
+input MovieCreateManyInput {
+  create: [MovieCreateInput!]
+  connect: [MovieWhereUniqueInput!]
 }
 
 """
@@ -722,14 +951,44 @@ input MovieSubscriptionWhereInput {
   node: MovieWhereInput
 }
 
+input MovieUpdateDataInput {
+  api_id: Int
+  note: Float
+  original_language: String
+  titles: TitleUpdateManyInput
+  posters: PosterUpdateManyInput
+  directors: DirectorUpdateManyInput
+  genres: GenreUpdateManyInput
+}
+
 input MovieUpdateInput {
   api_id: Int
   note: Float
   original_language: String
-  directors: DirectorUpdateManyInput
   titles: TitleUpdateManyInput
   posters: PosterUpdateManyInput
+  directors: DirectorUpdateManyInput
   genres: GenreUpdateManyInput
+}
+
+input MovieUpdateManyInput {
+  create: [MovieCreateInput!]
+  connect: [MovieWhereUniqueInput!]
+  disconnect: [MovieWhereUniqueInput!]
+  delete: [MovieWhereUniqueInput!]
+  update: [MovieUpdateWithWhereUniqueNestedInput!]
+  upsert: [MovieUpsertWithWhereUniqueNestedInput!]
+}
+
+input MovieUpdateWithWhereUniqueNestedInput {
+  where: MovieWhereUniqueInput!
+  data: MovieUpdateDataInput!
+}
+
+input MovieUpsertWithWhereUniqueNestedInput {
+  where: MovieWhereUniqueInput!
+  update: MovieUpdateDataInput!
+  create: MovieCreateInput!
 }
 
 input MovieWhereInput {
@@ -905,15 +1164,15 @@ input MovieWhereInput {
   All values not ending with the given string.
   """
   original_language_not_ends_with: String
-  directors_every: DirectorWhereInput
-  directors_some: DirectorWhereInput
-  directors_none: DirectorWhereInput
   titles_every: TitleWhereInput
   titles_some: TitleWhereInput
   titles_none: TitleWhereInput
   posters_every: PosterWhereInput
   posters_some: PosterWhereInput
   posters_none: PosterWhereInput
+  directors_every: DirectorWhereInput
+  directors_some: DirectorWhereInput
+  directors_none: DirectorWhereInput
   genres_every: GenreWhereInput
   genres_some: GenreWhereInput
   genres_none: GenreWhereInput
@@ -928,31 +1187,37 @@ type Mutation {
   createTitle(data: TitleCreateInput!): Title!
   createPoster(data: PosterCreateInput!): Poster!
   createMovie(data: MovieCreateInput!): Movie!
+  createMovieCollection(data: MovieCollectionCreateInput!): MovieCollection!
   createDirector(data: DirectorCreateInput!): Director!
   createGenre(data: GenreCreateInput!): Genre!
   updateTitle(data: TitleUpdateInput!, where: TitleWhereUniqueInput!): Title
   updatePoster(data: PosterUpdateInput!, where: PosterWhereUniqueInput!): Poster
   updateMovie(data: MovieUpdateInput!, where: MovieWhereUniqueInput!): Movie
+  updateMovieCollection(data: MovieCollectionUpdateInput!, where: MovieCollectionWhereUniqueInput!): MovieCollection
   updateDirector(data: DirectorUpdateInput!, where: DirectorWhereUniqueInput!): Director
   updateGenre(data: GenreUpdateInput!, where: GenreWhereUniqueInput!): Genre
   deleteTitle(where: TitleWhereUniqueInput!): Title
   deletePoster(where: PosterWhereUniqueInput!): Poster
   deleteMovie(where: MovieWhereUniqueInput!): Movie
+  deleteMovieCollection(where: MovieCollectionWhereUniqueInput!): MovieCollection
   deleteDirector(where: DirectorWhereUniqueInput!): Director
   deleteGenre(where: GenreWhereUniqueInput!): Genre
   upsertTitle(where: TitleWhereUniqueInput!, create: TitleCreateInput!, update: TitleUpdateInput!): Title!
   upsertPoster(where: PosterWhereUniqueInput!, create: PosterCreateInput!, update: PosterUpdateInput!): Poster!
   upsertMovie(where: MovieWhereUniqueInput!, create: MovieCreateInput!, update: MovieUpdateInput!): Movie!
+  upsertMovieCollection(where: MovieCollectionWhereUniqueInput!, create: MovieCollectionCreateInput!, update: MovieCollectionUpdateInput!): MovieCollection!
   upsertDirector(where: DirectorWhereUniqueInput!, create: DirectorCreateInput!, update: DirectorUpdateInput!): Director!
   upsertGenre(where: GenreWhereUniqueInput!, create: GenreCreateInput!, update: GenreUpdateInput!): Genre!
   updateManyTitles(data: TitleUpdateInput!, where: TitleWhereInput): BatchPayload!
   updateManyPosters(data: PosterUpdateInput!, where: PosterWhereInput): BatchPayload!
   updateManyMovies(data: MovieUpdateInput!, where: MovieWhereInput): BatchPayload!
+  updateManyMovieCollections(data: MovieCollectionUpdateInput!, where: MovieCollectionWhereInput): BatchPayload!
   updateManyDirectors(data: DirectorUpdateInput!, where: DirectorWhereInput): BatchPayload!
   updateManyGenres(data: GenreUpdateInput!, where: GenreWhereInput): BatchPayload!
   deleteManyTitles(where: TitleWhereInput): BatchPayload!
   deleteManyPosters(where: PosterWhereInput): BatchPayload!
   deleteManyMovies(where: MovieWhereInput): BatchPayload!
+  deleteManyMovieCollections(where: MovieCollectionWhereInput): BatchPayload!
   deleteManyDirectors(where: DirectorWhereInput): BatchPayload!
   deleteManyGenres(where: GenreWhereInput): BatchPayload!
 }
@@ -1296,16 +1561,19 @@ type Query {
   titles(where: TitleWhereInput, orderBy: TitleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Title]!
   posters(where: PosterWhereInput, orderBy: PosterOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Poster]!
   movies(where: MovieWhereInput, orderBy: MovieOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Movie]!
+  movieCollections(where: MovieCollectionWhereInput, orderBy: MovieCollectionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [MovieCollection]!
   directors(where: DirectorWhereInput, orderBy: DirectorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Director]!
   genres(where: GenreWhereInput, orderBy: GenreOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Genre]!
   title(where: TitleWhereUniqueInput!): Title
   poster(where: PosterWhereUniqueInput!): Poster
   movie(where: MovieWhereUniqueInput!): Movie
+  movieCollection(where: MovieCollectionWhereUniqueInput!): MovieCollection
   director(where: DirectorWhereUniqueInput!): Director
   genre(where: GenreWhereUniqueInput!): Genre
   titlesConnection(where: TitleWhereInput, orderBy: TitleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): TitleConnection!
   postersConnection(where: PosterWhereInput, orderBy: PosterOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PosterConnection!
   moviesConnection(where: MovieWhereInput, orderBy: MovieOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): MovieConnection!
+  movieCollectionsConnection(where: MovieCollectionWhereInput, orderBy: MovieCollectionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): MovieCollectionConnection!
   directorsConnection(where: DirectorWhereInput, orderBy: DirectorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): DirectorConnection!
   genresConnection(where: GenreWhereInput, orderBy: GenreOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): GenreConnection!
   """
@@ -1321,6 +1589,7 @@ type Subscription {
   title(where: TitleSubscriptionWhereInput): TitleSubscriptionPayload
   poster(where: PosterSubscriptionWhereInput): PosterSubscriptionPayload
   movie(where: MovieSubscriptionWhereInput): MovieSubscriptionPayload
+  movieCollection(where: MovieCollectionSubscriptionWhereInput): MovieCollectionSubscriptionPayload
   director(where: DirectorSubscriptionWhereInput): DirectorSubscriptionPayload
   genre(where: GenreSubscriptionWhereInput): GenreSubscriptionPayload
 }

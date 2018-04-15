@@ -13,6 +13,8 @@ import MoviesTMDB from '../../../../webapp/src/services/TheMovieDatabaseJS/movie
 import { MovieCollectionsAPI } from '../../../../webapp/src/services/api/movieCollections'
 import { MoviesAPI } from '../../../../webapp/src/services/api/movies'
 
+import * as queries from '../queries.graphql'
+
 
 const legacy = {
   name: 'movies',
@@ -45,3 +47,4 @@ export default type
   .api('collection', MovieCollectionsAPI)
   .api('public', MoviesTMDB)
   .legacy(legacy)
+  .queries(queries)

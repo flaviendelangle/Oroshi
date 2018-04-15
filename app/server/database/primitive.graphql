@@ -9,3 +9,4 @@ type Poster {
     path: String!
     language: String!
 }
+

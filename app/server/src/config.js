@@ -3,7 +3,7 @@ export const server = {
 }
 
 export const prisma = {
-  typeDefs: './server/src/generated/prisma.graphql',
+  typeDefs: './server/database/prisma.graphql',
   endpoint: 'https://eu1.prisma.sh/public-horselantern-290/blogr/dev',
   secret: 'mysecret123',
   debug: true,

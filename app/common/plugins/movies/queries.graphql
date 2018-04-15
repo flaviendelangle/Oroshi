@@ -1,0 +1,25 @@
+query Retrieve($api_id: Int!) {
+    movie(where : {
+        api_id: $api_id
+    }) {
+        id
+        api_id
+        titles {
+            id
+            language
+            title
+        }
+    }
+}
+
+query List {
+    movies {
+        id
+        api_id
+        titles {
+            id
+            language
+            title
+        }
+    }
+}

@@ -3,9 +3,15 @@ type Movie {
     api_id: Int! @unique
     note: Float!
     original_language: String!
-    directors: [Director!]!
     titles: [Title!]!
     posters: [Poster!]!
+    directors: [Director!]!
     genres: [Genre!]!
+}
+
+type MovieCollection {
+    id: ID! @unique
+    title: String!
+    content: [Movie!]!
 }
 
