@@ -1,0 +1,5 @@
+{
+  "type": "collection_type_interface",
+  "name": "the_movie_database",
+  "alias": "tmdb"
+}

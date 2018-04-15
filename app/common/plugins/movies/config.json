@@ -1,0 +1,13 @@
+{
+  "type": "collection_type",
+  "name": "movies",
+  "types": {
+    "element": "movie",
+    "collection": "movieCollection"
+  },
+  "dependencies": [
+    ["the_movie_database", {
+      "search_key": "movies"
+    }]
+  ]
+}

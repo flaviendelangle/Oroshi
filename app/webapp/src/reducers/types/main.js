@@ -1,6 +1,6 @@
 import { source, snacks } from '../../services/titles/interface'
 import { collections, collectionContent } from '../../services/titles/api'
-import TMDBAPI from '../../services/TheMovieDatabaseJS/base'
+import TMDBAPI from '../../../../common/TheMovieDatabaseJS/base'
 import { getElementClass } from '../../services/content/collectionTypes'
 
 

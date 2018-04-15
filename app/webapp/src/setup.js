@@ -4,7 +4,7 @@ import ApolloClient from 'apollo-boost'
 
 import { DEFAULT_LANGUAGE } from './services/languages'
 import tM from './services/content/type'
-import tmdbApi from './services/TheMovieDatabaseJS/base'
+import tmdbApi from '../../common/TheMovieDatabaseJS/base'
 import movies from '../../common/plugins/movies/webapp/index'
 import { DEV, GRAPHQL } from './config'
 

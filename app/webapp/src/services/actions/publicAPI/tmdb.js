@@ -4,7 +4,7 @@ import {
   search as searchOriginal,
 } from './index'
 
-import searchAPI from '../../TheMovieDatabaseJS/search'
+import searchAPI from '../../../../../common/TheMovieDatabaseJS/search'
 
 import {
   getCollectionAPI,

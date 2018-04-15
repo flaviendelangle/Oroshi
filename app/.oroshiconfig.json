@@ -1,3 +1,3 @@
 {
-  "plugins": ["movies"]
+  "plugins": ["the_movie_database", "movies"]
 }

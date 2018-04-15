@@ -1,5 +1,5 @@
 import * as tmdb from '../../../../webapp/src/services/actions/publicAPI/tmdb'
-import PersonAPI from '../../../../webapp/src/services/TheMovieDatabaseJS/person'
+import PersonAPI from '../../../TheMovieDatabaseJS/person'
 import Element from '../../../../webapp/src/services/content/element'
 
 export const {

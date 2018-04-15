@@ -7,7 +7,7 @@ import ImageEye from 'material-ui/svg-icons/image/remove-red-eye'
 import Element from '../../../../webapp/src/components/element/Element/index'
 import { addElement, removeElement } from '../../../../webapp/src/services/actions/collections/index'
 import { switchSeenOnElement } from './actions'
-import { publicRoot } from '../../../../webapp/src/services/TheMovieDatabaseJS/movies'
+import { publicRoot } from '../../../TheMovieDatabaseJS/movies'
 import date from '../../../../webapp/src/services/content/date'
 
 

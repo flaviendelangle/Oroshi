@@ -1,6 +1,6 @@
 import { isBoolean } from 'lodash'
 
-import { path } from '../../../../webapp/src/services/TheMovieDatabaseJS/images'
+import { path } from '../../../TheMovieDatabaseJS/images'
 
 import Element from '../../../../webapp/src/services/content/element'
 import date from '../../../../webapp/src/services/content/date'

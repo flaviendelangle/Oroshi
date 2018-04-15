@@ -49,6 +49,11 @@ module.exports = {
         use: ['babel-loader']
       },
       {
+        test: /\.(graphql|gql)$/,
+        exclude: /node_modules/,
+        loader: 'graphql-tag/loader',
+      },
+      {
         test: /\.scss$/,
         use: [{
           loader: 'style-loader'

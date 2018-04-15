@@ -2,14 +2,14 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Query } from 'react-apollo'
 
-import tM from '../../services/content/type'
+import { queries } from './index'
 
 
 // eslint-disable-next-line
 const Retrieve = ({ type, api_id: id, children }) => {
   return (
     <Query
-      query={tM.read(type).queries().Retrieve}
+      query={queries(type).Retrieve}
       variables={{ api_id: id }}
     >
       {({ loading, data }) => {

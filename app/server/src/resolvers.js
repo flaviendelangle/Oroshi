@@ -7,8 +7,8 @@ import { getTypePlugins } from '../../common/lib/pluginLoader'
 
 const forward = forwardTo('db')
 
-const typeResolvers = getTypePlugins().map(({ common }) => {
-  const types = get(common, 'graphQL.types')
+const typeResolvers = getTypePlugins().map((plugin) => {
+  const types = get(plugin, 'config.types')
   if (types) {
     const { element } = types
     const typeCapitalize = element.charAt(0).toUpperCase() + element.slice(1)

@@ -9,7 +9,7 @@ import sortOptions from './sortOptions'
 import * as searchOptions from './searchOptions'
 import * as actions from './actions'
 import * as publicActions from './publicActions'
-import MoviesTMDB from '../../../../webapp/src/services/TheMovieDatabaseJS/movies'
+import MoviesTMDB from '../../../TheMovieDatabaseJS/movies'
 import { MovieCollectionsAPI } from '../../../../webapp/src/services/api/movieCollections'
 import { MoviesAPI } from '../../../../webapp/src/services/api/movies'
 

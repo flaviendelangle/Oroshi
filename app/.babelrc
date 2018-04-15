@@ -1,4 +1,9 @@
 {
-    "presets": ["react", "env", "stage-0"],
-    "plugins": ["react-hot-loader/babel", "babel-plugin-root-import", "inline-import-graphql-ast", "inline-json-import"]
+  "presets": ["react", "env", "stage-0"],
+  "plugins": [
+    "react-hot-loader/babel",
+    "babel-plugin-root-import",
+    "inline-import-graphql-ast",
+    "inline-json-import"
+  ]
 }
