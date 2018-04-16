@@ -1,25 +1,53 @@
-query Retrieve($api_id: Int!) {
+query RetrieveElement($api_id: Int!) {
     movie(where : {
         api_id: $api_id
     }) {
-        id
-        api_id
-        titles {
-            id
-            language
-            title
+        ...movieFields
+    }
+}
+
+query ListElements {
+    movies {
+        ...movieFields
+    }
+}
+
+query RetrieveCollection($id: ID!) {
+    movieCollection(where: {
+        id: $id
+    }) {
+        ...collectionFields
+        content {
+            ...movieFields
         }
     }
 }
 
-query List {
-    movies {
+query ListCollections {
+    movieCollections {
+        ...collectionFields
+    }
+}
+
+
+fragment collectionFields on MovieCollection {
+    id
+    title
+    adult_content
+    public
+}
+
+fragment movieFields on Movie {
+    id
+    api_id
+    titles {
         id
-        api_id
-        titles {
-            id
-            language
-            title
-        }
+        language
+        title
+    }
+    posters {
+        id
+        language
+        path
     }
 }

@@ -6,7 +6,7 @@ import { queries } from './index'
 
 
 // eslint-disable-next-line
-const Retrieve = ({ type, api_id: id, children }) => {
+const RetrieveElement = ({ type, api_id: id, children }) => {
   return (
     <Query
       query={queries(type).Retrieve}
@@ -22,11 +22,11 @@ const Retrieve = ({ type, api_id: id, children }) => {
   )
 }
 
-Retrieve.propTypes = {
+RetrieveElement.propTypes = {
   type: PropTypes.string.isRequired,
   api_id: PropTypes.number.isRequired,
   children: PropTypes.func.isRequired,
 }
 
 
-export default Retrieve
+export default RetrieveElement

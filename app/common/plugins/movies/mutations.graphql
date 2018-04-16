@@ -1,0 +1,12 @@
+mutation CreateCollection($title: String!) {
+    createMovieCollection(data: {
+        title: $title
+        content: {
+            create: []
+        }
+    }){
+        id
+        title
+        content
+    }
+}

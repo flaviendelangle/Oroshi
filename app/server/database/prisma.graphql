@@ -32,6 +32,8 @@ type MovieCollection implements Node {
   id: ID!
   title: String!
   content(where: MovieWhereInput, orderBy: MovieOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Movie!]
+  adult_content: Boolean!
+  public: Boolean!
 }
 
 type Poster implements Node {
@@ -653,6 +655,8 @@ type MovieCollectionConnection {
 
 input MovieCollectionCreateInput {
   title: String!
+  adult_content: Boolean
+  public: Boolean
   content: MovieCreateManyInput
 }
 
@@ -675,6 +679,10 @@ enum MovieCollectionOrderByInput {
   id_DESC
   title_ASC
   title_DESC
+  adult_content_ASC
+  adult_content_DESC
+  public_ASC
+  public_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -684,6 +692,8 @@ enum MovieCollectionOrderByInput {
 type MovieCollectionPreviousValues {
   id: ID!
   title: String!
+  adult_content: Boolean!
+  public: Boolean!
 }
 
 type MovieCollectionSubscriptionPayload {
@@ -723,6 +733,8 @@ input MovieCollectionSubscriptionWhereInput {
 
 input MovieCollectionUpdateInput {
   title: String
+  adult_content: Boolean
+  public: Boolean
   content: MovieUpdateManyInput
 }
 
@@ -841,6 +853,16 @@ input MovieCollectionWhereInput {
   All values not ending with the given string.
   """
   title_not_ends_with: String
+  adult_content: Boolean
+  """
+  All values that are not equal to given value.
+  """
+  adult_content_not: Boolean
+  public: Boolean
+  """
+  All values that are not equal to given value.
+  """
+  public_not: Boolean
   content_every: MovieWhereInput
   content_some: MovieWhereInput
   content_none: MovieWhereInput

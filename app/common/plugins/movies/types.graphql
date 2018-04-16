@@ -13,5 +13,8 @@ type MovieCollection {
     id: ID! @unique
     title: String!
     content: [Movie!]!
+
+    adult_content: Boolean! @default(value: "false")
+    public: Boolean! @default(value: "false")
 }
 

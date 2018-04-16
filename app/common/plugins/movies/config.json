@@ -3,7 +3,8 @@
   "name": "movies",
   "types": {
     "element": "movie",
-    "collection": "movieCollection"
+    "collection": "movieCollection",
+    "sub_keys": ["title", "poster", "director", "genre"]
   },
   "dependencies": [
     ["the_movie_database", {

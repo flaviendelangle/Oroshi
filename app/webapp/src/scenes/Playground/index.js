@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 
-import Retrieve from '../../components/graphQL/Retrieve'
+import RetrieveElement from '../../components/graphQL/RetrieveElement'
 // import { get } from '../../../../common/lib/pluginLoader'
 
 
@@ -12,12 +12,12 @@ class Playground extends PureComponent {
 
   render() {
     return (
-      <Retrieve type="movies" api_id={2}>
+      <RetrieveElement type="movies" api_id={2}>
         {(data) => {
           console.log(data)
           return null
         }}
-      </Retrieve>
+      </RetrieveElement>
     )
   }
 }
