@@ -13,7 +13,7 @@ django-filter = "*"
 django-cors-headers = "*"
 django-oauth-toolkit = "*"
 drf-extensions = "*"
-django = "==1.11"
+django = "==1.11.29"
 
 
 [dev-packages]
