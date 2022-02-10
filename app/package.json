@@ -87,7 +87,7 @@
     "jest": "^21.1.0",
     "json-loader": "^0.5.7",
     "json-server": "^0.12.1",
-    "node-sass": "^4.7.2",
+    "node-sass": "^7.0.0",
     "postcss-loader": "^2.0.9",
     "react-addons-test-utils": "^15.6.2",
     "react-test-renderer": "^16.2.0",
